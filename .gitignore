@@ -1,0 +1,7 @@
+# Large original artifacts are retained in the complete GitHub Release snapshot.
+*.pt
+*.pkl
+
+# Download/restore into independent directories; do not commit duplicate archives.
+/snapshot-download/
+/restored-research/
