@@ -1,0 +1,84 @@
+{
+  "parameters": {
+    "transformer": {
+      "actor": 4738895,
+      "critic": 4804687
+    },
+    "bimatching": {
+      "actor": 790095,
+      "critic": 855887
+    }
+  },
+  "rows": [
+    {
+      "variant": "transformer",
+      "candidates": 1,
+      "mean_ms": 5.484810487056772,
+      "p50_ms": 5.441764835268259,
+      "p95_ms": 5.803132499568164
+    },
+    {
+      "variant": "bimatching",
+      "candidates": 1,
+      "mean_ms": 1.4509376604110003,
+      "p50_ms": 1.477464335039258,
+      "p95_ms": 1.5410215593874454
+    },
+    {
+      "variant": "transformer",
+      "candidates": 8,
+      "mean_ms": 8.042805548757315,
+      "p50_ms": 8.001248352229595,
+      "p95_ms": 8.330878731794655
+    },
+    {
+      "variant": "bimatching",
+      "candidates": 8,
+      "mean_ms": 1.8709519722809393,
+      "p50_ms": 1.8320339731872082,
+      "p95_ms": 2.1158908726647483
+    },
+    {
+      "variant": "transformer",
+      "candidates": 32,
+      "mean_ms": 15.134827326983213,
+      "p50_ms": 15.007776906713843,
+      "p95_ms": 16.089769662357867
+    },
+    {
+      "variant": "bimatching",
+      "candidates": 32,
+      "mean_ms": 2.4500757611046233,
+      "p50_ms": 2.455668291077018,
+      "p95_ms": 2.5051782373338938
+    },
+    {
+      "variant": "transformer",
+      "candidates": 128,
+      "mean_ms": 38.880079658702016,
+      "p50_ms": 38.42522040940821,
+      "p95_ms": 41.915764543227844
+    },
+    {
+      "variant": "bimatching",
+      "candidates": 128,
+      "mean_ms": 4.494225125138958,
+      "p50_ms": 4.398110322654247,
+      "p95_ms": 5.160598293878136
+    },
+    {
+      "variant": "transformer",
+      "candidates": 512,
+      "mean_ms": 215.67424287398657,
+      "p50_ms": 214.87829252146184,
+      "p95_ms": 218.21233239024878
+    },
+    {
+      "variant": "bimatching",
+      "candidates": 512,
+      "mean_ms": 12.493716382111112,
+      "p50_ms": 12.48912513256073,
+      "p95_ms": 12.9417514661327
+    }
+  ]
+}
