@@ -1,0 +1,492 @@
+{
+  "combined_training_seeds": [
+    {
+      "actor_callback_seconds": 0.0,
+      "instances": 65,
+      "mean_nodes": 3413.041025641025,
+      "mean_par2": 143.95379547179493,
+      "mean_pdi": 1951.5723567871073,
+      "mean_pdi_lower": 1947.3249872999274,
+      "mean_pdi_upper": 1955.8197262742863,
+      "method": "native",
+      "pdi_improvement_percent_vs_B0": 13.643637065992687,
+      "proof_count": 99,
+      "proof_rate": 0.5076923076923077,
+      "runs": 195,
+      "valid_worker_cpu_seconds": 17259.287452,
+      "valid_worker_wall_seconds_sum": 16667.320453033783
+    },
+    {
+      "actor_callback_seconds": 8737.878117510176,
+      "instances": 65,
+      "mean_nodes": 1736.5205128205134,
+      "mean_par2": 198.1708246948718,
+      "mean_pdi": 2259.9056867164263,
+      "mean_pdi_lower": 2252.885742357452,
+      "mean_pdi_upper": 2266.9256310754004,
+      "method": "B0",
+      "pdi_improvement_percent_vs_B0": 0.0,
+      "proof_count": 80,
+      "proof_rate": 0.20512820512820512,
+      "runs": 390,
+      "valid_worker_cpu_seconds": 41539.53432599995,
+      "valid_worker_wall_seconds_sum": 40381.31343879347
+    },
+    {
+      "actor_callback_seconds": 8713.537424127862,
+      "instances": 65,
+      "mean_nodes": 1752.405128205128,
+      "mean_par2": 198.4315246846154,
+      "mean_pdi": 2260.6166406639118,
+      "mean_pdi_lower": 2253.8809641254484,
+      "mean_pdi_upper": 2267.352317202371,
+      "method": "R0",
+      "pdi_improvement_percent_vs_B0": -0.03145945212068568,
+      "proof_count": 79,
+      "proof_rate": 0.20256410256410257,
+      "runs": 390,
+      "valid_worker_cpu_seconds": 41493.06196000001,
+      "valid_worker_wall_seconds_sum": 40361.68652673456
+    },
+    {
+      "actor_callback_seconds": 8756.9071381088,
+      "instances": 65,
+      "mean_nodes": 1730.728205128205,
+      "mean_par2": 198.78903574615384,
+      "mean_pdi": 2264.096358315221,
+      "mean_pdi_lower": 2257.4246032888923,
+      "mean_pdi_upper": 2270.7681133415485,
+      "method": "Rjoint",
+      "pdi_improvement_percent_vs_B0": -0.1854356853663086,
+      "proof_count": 78,
+      "proof_rate": 0.2,
+      "runs": 390,
+      "valid_worker_cpu_seconds": 41523.987620999986,
+      "valid_worker_wall_seconds_sum": 40377.9055161319
+    }
+  ],
+  "complete66": false,
+  "cost_scope": "Valid worker costs shown; original failures and retry attempts retained separately. GPU allocation, queue, and missing CPU measurements require Crater accounting.",
+  "frozen_selection_sha256": "a8489c97fa042f980fc6f2b770ad1e1597524b4b38d8b91f721f25df1c32bd1a",
+  "instance_names": [
+    "aflow40b",
+    "app1-2",
+    "atlanta-ip",
+    "bab5",
+    "bc1",
+    "bell3a",
+    "bell5",
+    "biella1",
+    "binkar10_1",
+    "blend2",
+    "dano3_5",
+    "fast0507",
+    "harp2",
+    "map10",
+    "map16715-04",
+    "map18",
+    "map20",
+    "mik-250-20-75-4",
+    "mine-166-5",
+    "misc07",
+    "msc98-ip",
+    "n2seq36q",
+    "n3seq24",
+    "neos-1200887",
+    "neos-1215259",
+    "neos-4722843-widden",
+    "neos-4738912-atrato",
+    "neos-480878",
+    "neos-504674",
+    "neos-504815",
+    "neos-512201",
+    "neos-584851",
+    "neos-603073",
+    "neos-612125",
+    "neos-612162",
+    "neos-662469",
+    "neos-686190",
+    "neos-801834",
+    "neos-803219",
+    "neos-807639",
+    "neos-820879",
+    "neos-829552",
+    "neos-839859",
+    "neos-892255",
+    "neos-950242",
+    "neos11",
+    "neos12",
+    "neos13",
+    "neos18",
+    "ns1208400",
+    "ns1830653",
+    "nu25-pr12",
+    "nw04",
+    "opm2-z7-s2",
+    "p0201",
+    "pg",
+    "pigeon-10",
+    "pp08a",
+    "rail507",
+    "roll3000",
+    "rout",
+    "satellites1-25",
+    "seymour1",
+    "sp98ir",
+    "unitcal_7"
+  ],
+  "instances": 65,
+  "interpretation": "Instance is the statistical unit; both training seeds are retained. B0 is the common 120s/Adam reference, not the paper-scale 3600s/AdamW reproduction. No Rprod attribution. Stage6 not started.",
+  "observed_at_utc": "2026-10-23T06:09:12.658539+00:00",
+  "original_failures": [
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "B0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/8b605db5be6bc4a7/attempt-000/test-mspp16-s0.json",
+        "sha256": "31c71301e903935af67557f40068c0dd59ded0230838c41907f4d00eebd05b0a"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 75.67774523800472
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "B0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/8b605db5be6bc4a7/attempt-000/test-mspp16-s1.json",
+        "sha256": "024059527844d1ad8a7ac4b9e36a9d60b6b079d1f1a10c701a947b8cd972a94c"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 85.60006854898529
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "B0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/8b605db5be6bc4a7/attempt-000/test-mspp16-s2.json",
+        "sha256": "4ab5d812cd9a3cd3636f3bd31cad9e25523f2a1b8f249f0317d97e3e749a042f"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 84.48294042696944
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "B0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/2606fac3faede627/attempt-000/test-mspp16-s0.json",
+        "sha256": "d4a5536a4fe64e0b3de367761b56b77ca727aab3f5dc1dda14e8254d9ba7534f"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 68.59873476304347
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "B0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/2606fac3faede627/attempt-000/test-mspp16-s1.json",
+        "sha256": "f05cbc6fc1682527b6e20d847dd874021bc875c7b21a37707f8f57429313f8db"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 74.56216209300328
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "B0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/2606fac3faede627/attempt-000/test-mspp16-s2.json",
+        "sha256": "8cfc3b99f2f8054bf200b7e1b9f2ecaaecf04fe9d992a06978b54d80a0164e90"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 84.67601158004254
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "R0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/83e34415f613f364/attempt-000/test-mspp16-s0.json",
+        "sha256": "7f328189394a1b3fcb91e2041bd1cf2e05543245c050e5895cb88700b62e7e8a"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 69.36735033703735
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "R0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/83e34415f613f364/attempt-000/test-mspp16-s1.json",
+        "sha256": "9a08c5698fff7ca76cd8c552294cdad03e6d7ef5d4c5a045f66ffa9558f1cf19"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 72.8873899320024
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "R0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/83e34415f613f364/attempt-000/test-mspp16-s2.json",
+        "sha256": "6845a81711d6e7f75492e7ba2132e574fc4ff2ca65c5cad45e3320fe75cca758"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 76.02718859195011
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "R0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/44de0e6311757ff1/attempt-000/test-mspp16-s0.json",
+        "sha256": "7ca79e8e0916b119a88f29f6a6ca81ee8a7a95a8aa32e08bb2630d0556c73c8b"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 74.97439450398088
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "R0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/44de0e6311757ff1/attempt-000/test-mspp16-s1.json",
+        "sha256": "de00fb5df9fcc09b0e62ad94b3948ae4d085aeed513c3f7e361f4812ccf3682b"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 87.63649379200069
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "R0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/44de0e6311757ff1/attempt-000/test-mspp16-s2.json",
+        "sha256": "cc922cefa8edbe963f78a07aaf9764261f5b22e9762a25e1e399f462ff53c64f"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 84.84235947602428
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "Rjoint-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/d3fd616871780b18/attempt-000/test-mspp16-s0.json",
+        "sha256": "970c9cc64df465473051c5949dfc291b6cbe6ebc4155e85cddefdd16762c93b5"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 70.7319218069897
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "Rjoint-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/d3fd616871780b18/attempt-000/test-mspp16-s1.json",
+        "sha256": "66d1a7aff27cf42729e9fa2bce9911bce93e9c53772b3f1a94eb6f5266ad7c68"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 82.34127395402174
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "Rjoint-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/d3fd616871780b18/attempt-000/test-mspp16-s2.json",
+        "sha256": "a7c6e40e9df2c7d8f5e4b5ebd6ef5afcb7b3c04f3f8d71a47c19f53f5cc53f5c"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 90.26688491803361
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "Rjoint-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/70eebc1b1d343666/attempt-000/test-mspp16-s0.json",
+        "sha256": "aa26b215a0b701a1bea70420d39d22ddb9d6bef9b1dc57a91ae8c4980e08dfe2"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 69.27037439798005
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "Rjoint-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/70eebc1b1d343666/attempt-000/test-mspp16-s1.json",
+        "sha256": "7f3378bd4c7269de3262a840d158e31f0beda6bf36f136555e889945e095633e"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 75.17392429197207
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "Rjoint-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/70eebc1b1d343666/attempt-000/test-mspp16-s2.json",
+        "sha256": "f808b09a55c165373ec383706caa35e4721b6a66d510320df3804620d8faa422"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 85.48684874101309
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "native",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/relpscost-native/attempt-000/test-mspp16-s0.json",
+        "sha256": "58162b6c829b783b0ae68b3aff20442e9b5918f434f2d6dd65509dfeaec55621"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 68.51382558001205
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "native",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/relpscost-native/attempt-000/test-mspp16-s1.json",
+        "sha256": "2cf34571ba5fee5a5f1e028213d5d43440e34f07827425be58d5ab8796c87887"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 85.97993159200996
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "native",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/relpscost-native/attempt-000/test-mspp16-s2.json",
+        "sha256": "6e15be53993403432e7603997ea811eff56e7f03fa1dae4bb665b68f214a2b15"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 74.31629750796128
+    }
+  ],
+  "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "per_training_seed": [
+    {
+      "actor_callback_seconds": 4396.29013523669,
+      "instances": 65,
+      "mean_nodes": 1728.6820512820505,
+      "mean_par2": 199.19439304102565,
+      "mean_pdi": 2294.721138354214,
+      "mean_pdi_lower": 2288.0980460465216,
+      "mean_pdi_upper": 2301.3442306619054,
+      "method": "B0",
+      "proof_count": 39,
+      "proof_rate": 0.2,
+      "runs": 195,
+      "training_seed": 11,
+      "valid_worker_cpu_seconds": 20847.691189999983,
+      "valid_worker_wall_seconds_sum": 20267.514364862
+    },
+    {
+      "actor_callback_seconds": 4341.587982273486,
+      "instances": 65,
+      "mean_nodes": 1744.358974358975,
+      "mean_par2": 197.14725634871797,
+      "mean_pdi": 2225.090235078639,
+      "mean_pdi_lower": 2217.6734386683834,
+      "mean_pdi_upper": 2232.507031488895,
+      "method": "B0",
+      "proof_count": 41,
+      "proof_rate": 0.21025641025641026,
+      "runs": 195,
+      "training_seed": 22,
+      "valid_worker_cpu_seconds": 20691.843135999992,
+      "valid_worker_wall_seconds_sum": 20113.79907393147
+    },
+    {
+      "actor_callback_seconds": 4369.284798018634,
+      "instances": 65,
+      "mean_nodes": 1755.287179487179,
+      "mean_par2": 199.1244046,
+      "mean_pdi": 2292.863497042366,
+      "mean_pdi_lower": 2286.557347298775,
+      "mean_pdi_upper": 2299.169646785955,
+      "method": "R0",
+      "proof_count": 39,
+      "proof_rate": 0.2,
+      "runs": 195,
+      "training_seed": 11,
+      "valid_worker_cpu_seconds": 20818.53684600001,
+      "valid_worker_wall_seconds_sum": 20255.094803338987
+    },
+    {
+      "actor_callback_seconds": 4344.252626109228,
+      "instances": 65,
+      "mean_nodes": 1749.523076923077,
+      "mean_par2": 197.73864476923075,
+      "mean_pdi": 2228.369784285457,
+      "mean_pdi_lower": 2221.2045809521237,
+      "mean_pdi_upper": 2235.53498761879,
+      "method": "R0",
+      "proof_count": 40,
+      "proof_rate": 0.20512820512820512,
+      "runs": 195,
+      "training_seed": 22,
+      "valid_worker_cpu_seconds": 20674.525113999996,
+      "valid_worker_wall_seconds_sum": 20106.59172339557
+    },
+    {
+      "actor_callback_seconds": 4358.219419403351,
+      "instances": 65,
+      "mean_nodes": 1760.389743589744,
+      "mean_par2": 199.13710705128207,
+      "mean_pdi": 2293.9878968637126,
+      "mean_pdi_lower": 2286.77608378679,
+      "mean_pdi_upper": 2301.199709940637,
+      "method": "Rjoint",
+      "proof_count": 39,
+      "proof_rate": 0.2,
+      "runs": 195,
+      "training_seed": 11,
+      "valid_worker_cpu_seconds": 20824.257949999992,
+      "valid_worker_wall_seconds_sum": 20258.190594171756
+    },
+    {
+      "actor_callback_seconds": 4398.687718705449,
+      "instances": 65,
+      "mean_nodes": 1701.0666666666668,
+      "mean_par2": 198.4409644410256,
+      "mean_pdi": 2234.204819766729,
+      "mean_pdi_lower": 2228.0731227909973,
+      "mean_pdi_upper": 2240.336516742462,
+      "method": "Rjoint",
+      "proof_count": 39,
+      "proof_rate": 0.2,
+      "runs": 195,
+      "training_seed": 22,
+      "valid_worker_cpu_seconds": 20699.729671,
+      "valid_worker_wall_seconds_sum": 20119.71492196014
+    },
+    {
+      "actor_callback_seconds": 0.0,
+      "instances": 65,
+      "mean_nodes": 3413.041025641025,
+      "mean_par2": 143.95379547179493,
+      "mean_pdi": 1951.5723567871073,
+      "mean_pdi_lower": 1947.3249872999274,
+      "mean_pdi_upper": 1955.8197262742863,
+      "method": "native",
+      "proof_count": 99,
+      "proof_rate": 0.5076923076923077,
+      "runs": 195,
+      "training_seed": null,
+      "valid_worker_cpu_seconds": 17259.287452,
+      "valid_worker_wall_seconds_sum": 16667.320453033783
+    }
+  ],
+  "recovered_models": [],
+  "recovery_policy_sha256": "aad85046036b1a4c3806d098183e5f9ba7812f4d25a37d56d11ca44dd9ee0c9e",
+  "scope": "partial65_mspp16_resource_failure_not_full66"
+}

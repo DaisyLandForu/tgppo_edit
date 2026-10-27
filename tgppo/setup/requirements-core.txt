@@ -1,0 +1,12 @@
+# Dependencies actually imported by the TGPPO train/test/tune code.
+# PyTorch 1.13.1+cu117 and the pinned custom PySCIPOpt are installed separately.
+numpy==1.24.4
+scipy==1.10.1
+pandas==2.0.3
+tensorboard==2.14.0
+optuna==4.4.0
+psutil==6.0.0
+PyYAML==6.0.2
+h5py==3.10.0
+Cython==0.29.37
+setuptools==68.2.2

@@ -1,0 +1,51 @@
+{
+  "address_space_limit_bytes": 8589934592,
+  "cpu_affinity": [
+    0
+  ],
+  "cuda_initialized": false,
+  "episode_ended": true,
+  "episode_id": "test-mspp16-s0",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/project/environment/environment.py\", line 82, in run_episode\n  File \"src/pyscipopt/scip.pyx\", line 2098, in pyscipopt.scip.Model.optimize\n  File \"src/pyscipopt/scip.pyx\", line 202, in pyscipopt.scip.PY_SCIP_CALL\nMemoryError: SCIP: insufficient memory error!\n",
+  "identity": {
+    "cutoff": 363.0,
+    "cutoff_provenance": {
+      "record_sha256": "88d518eb58cfa96e1f2bfa065fda564a822f3cb285c7160e4fc85a13ae3fd042",
+      "source": "miplib2010_all.solu",
+      "status": "optimal",
+      "verified": true
+    },
+    "instance_sha256": "6b855c3c53a1b0889aab1c60187f54e821fe880d021eeb4a587eb8f810afb3f7",
+    "integral_snapshot_protocol": "read-only-stat-v1",
+    "limits": {
+      "node_limit": -1,
+      "time_limit": 120.0
+    },
+    "params": {
+      "checksol": false,
+      "conflict_usesb": false,
+      "cutoff": true,
+      "heuristics": false,
+      "probing_bounds": false,
+      "reevalage": 0
+    },
+    "protocol_version": "stage3-measured-pdi-v1",
+    "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+    "solver_seed": 0,
+    "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+  },
+  "instance_name": "mspp16",
+  "job_id": "test-mspp16-s0",
+  "mode": "native",
+  "optimize_wall_seconds": 19.615362537966575,
+  "peak_rss_kib": 6324060,
+  "reward_version": "upstream_h3_t120",
+  "sampling_seed": 813049777,
+  "solver_seed": 0,
+  "status": "error",
+  "task_terminal": false,
+  "valid": false,
+  "worker_cpu_complete": true,
+  "worker_cpu_seconds": 60.616227,
+  "worker_wall_seconds": 55.67344481899636
+}

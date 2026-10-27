@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-21",
+  "scope": "implementation verification of accepted stage1 design; no new method selection",
+  "sources": [
+    {
+      "url": "https://www.scipopt.org/doc-6.0.1/html/group__PublicTreeMethods.php",
+      "local_primary_header": "/root/research/tgppo/solver/include/scip/scip_tree.h",
+      "checked": "all open leaves/children/siblings; NNodesLeft sum"
+    },
+    {
+      "url": "https://www.scipopt.org/doc-6.0.1/html/group__PublicNodeMethods.php",
+      "local_primary_header": "/root/research/tgppo/solver/include/scip/pub_tree.h",
+      "checked": "SCIPnodeGetLowerbound; real min/max-equivalence check in tests"
+    },
+    {
+      "url": "https://arxiv.org/html/2403.03950v1",
+      "checked": "truncated Gaussian probability mass integrated over fixed bins; scalar expectation decoding; source already motivated in accepted stage1 survey"
+    }
+  ],
+  "sha256": {
+    "/root/research/tgppo/solver/include/scip/scip_tree.h": "97fe2ef849682e943e065d724d9fe5c917b11d19dca567e9fcfcfb6aaf383f52",
+    "/root/research/tgppo/solver/include/scip/pub_tree.h": "1ba2593cab49467b927ae5ff355071567dd6b82ddedebee280a210febb633c62",
+    "/root/research/tgppo/solver/lib/libscip.so": "eb5a45ffd560dbc690fcc628a99a976d4115c7821f79f7848bd27d5de6a95f6f",
+    "/root/research/tgppo/experiments/stage4/metrics_binding/src/pyscipopt/scip.pyx": "7dc7cc0f9f4789cc71fcb3fa0c224fe930ad0bbeb79bcd6213eb9433b8207486",
+    "/root/research/tgppo/experiments/stage4/metrics_binding/src/pyscipopt/scip.pxd": "2ece616eecb889517c78130a3ed93131f51fe7766eeca7e759ca6d195b89bcd8"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "aggregate": {
+    "instances_with_complete_pairs": 5,
+    "expected_instances": 5,
+    "native_pdi_instance_equal_mean": 2344.6747159764777,
+    "b0_pdi_instance_equal_mean": 2420.0683360696426,
+    "paired_pdi_difference_mean": 75.39362009316498,
+    "native_par2_mean": 73.941559,
+    "b0_par2_mean": 117.537702,
+    "native_proofs": 12,
+    "b0_proofs": 9,
+    "robust_b0_better_instances": 1,
+    "robust_b0_worse_instances": 4,
+    "paired_difference_instance_bootstrap_95_percentile_ci": [
+      -19.791655771303475,
+      237.64899446005262
+    ],
+    "bootstrap_unit": "instance; 10000 resamples; 5-instance exploratory interval, no training-seed uncertainty",
+    "native_pdi_failure_worstcase_mean": 2344.6747159764777,
+    "b0_pdi_failure_worstcase_mean": 2420.0683360696426
+  },
+  "pilot": {
+    "checkpoint_episodes": 4,
+    "completed_updates": 1,
+    "cpu_cap_seconds": 1800.0,
+    "episodes_attempted": 8,
+    "learner_cpu_seconds": 435.598367,
+    "peak_learner_rss_kib": 3074904,
+    "policy_version": 1,
+    "prior_failed_run_cpu_seconds": 707.3416030000001,
+    "repair_cpu_seconds": 198.052479,
+    "stop_reason": "cpu_budget_partial_update_discarded_last_complete_checkpoint_retained",
+    "total_cpu_seconds": 905.394072,
+    "within_budget": true,
+    "worker_cpu_seconds": 469.79570800000005
+  }
+}

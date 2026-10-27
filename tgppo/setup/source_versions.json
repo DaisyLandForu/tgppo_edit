@@ -1,0 +1,34 @@
+{
+  "tgppo": {
+    "path": "repo",
+    "commit": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+    "remote": "https://github.com/benmhamed-a/tgppo-aaai-26.git"
+  },
+  "scip": {
+    "path": "setup/scip-6.0.1",
+    "commit": "a27ecc011bea7134ce13672b4c49f6a78dc0bb54",
+    "remote": "https://github.com/scipopt/scip.git"
+  },
+  "soplex": {
+    "path": "setup/soplex-4.0.1",
+    "commit": "e89d7d5ac5d059e85ea2961e3e1d40eed5d3792e",
+    "remote": "https://github.com/scipopt/soplex.git"
+  },
+  "pyscipopt": {
+    "path": "setup/PySCIPOpt",
+    "commit": "ce2764a5820433b5abe173ee9e4254ab3442a3e3",
+    "remote": "https://github.com/ds4dm/PySCIPOpt.git"
+  },
+  "tbrant_reference": {
+    "path": "setup/TBranT",
+    "commit": "37e4f240cea590fcf22f1024975f274779fd48d0",
+    "remote": "https://github.com/linjc16/TBranT.git"
+  },
+  "environment": {
+    "name": "tgppo",
+    "python": "3.8.20",
+    "torch": "1.13.1+cu117",
+    "cuda_runtime": "11.7",
+    "pyscipopt": "1.4.9"
+  }
+}

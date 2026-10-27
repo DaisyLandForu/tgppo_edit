@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "version": "stage1-draft-v1",
+  "client_date": "2026-10-21",
+  "status": "active_stage5",
+  "approved": true,
+  "training_started": true,
+  "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+  "target": "120-second controlled cutoff search; reduced-budget reproduction",
+  "data": {
+    "split_rule": "pre-outcome model-size coverage; known air and rmatr named variants remain in train",
+    "train": [
+      "30n20b8",
+      "air04",
+      "air05",
+      "cod105",
+      "comp21-2idx",
+      "istanbul-no-cutoff",
+      "l152lav",
+      "lseu",
+      "misc03",
+      "neos20",
+      "neos21",
+      "neos648910",
+      "pp08aCUTS",
+      "rmatr100-p10",
+      "rmatr100-p5",
+      "rmatr200-p5",
+      "sp150x300d",
+      "stein27",
+      "supportcase7",
+      "swath1"
+    ],
+    "development": [
+      "vpm2",
+      "dcmulti",
+      "eil33-2",
+      "neos-476283",
+      "roi5alpha10n8"
+    ],
+    "official_test_count": 66,
+    "official_test_usage": "reserved",
+    "inventory_file": "instance_inventory.json",
+    "hashes": {
+      "30n20b8": "61681c962ef830c2f958cb39bc03d6a1799f44158e5efeb97a1e6c3592f2ac40",
+      "air04": "54f5958f9d3395c45b7dfe70507117777ad914f42f4cd07d50d291bdb6a324a6",
+      "air05": "8e03d2b90834dc1fe15c908247fdd8baf76e208aa310508caa0734e5245692cc",
+      "cod105": "f0007f47d356d70d1843e371ac75c7dbfdef4a2947785d47059e61821097e15a",
+      "comp21-2idx": "aa4107222c0bd6f4f90c52f37764e92bf7128aef3503754700add483d8ae5296",
+      "dcmulti": "83627542fa87eb04e4eb22ce805d3bcde64e2a58f3caa3eafac7004816c470df",
+      "eil33-2": "2d349f8ba12aaf170c9f8bf85327d6592cc0f4d89d300dfb77197acd34a7ffb1",
+      "istanbul-no-cutoff": "2b9171a1b1e4236c33ea444b24a98892fb0228ac9309495b4fac280e2ad5653a",
+      "l152lav": "95d79d1ae2db203f0f2672e760a5f3322adc6552567328499b08b2056f67ba5f",
+      "lseu": "230eab07c9e1c7b6f4e827b0343b8aca3d3d1ad39da445b18562e22737a1e1b8",
+      "misc03": "541b96ab0d74601623f29c736ab527af01d91f2471a1409db91ebbcbc388c16d",
+      "neos-476283": "2f90490b487fc8c4df5ef002f27429ea765b6ce190321a355ad1574cbe1e9566",
+      "neos20": "1018bb7c4c89c2e1482a2dd1b2d6cf3bcdd11c1fa7a5344739d5813f5a4a92e2",
+      "neos21": "47f6fa1c6bfceca4ae2c264b26519526ef38b82736adc7ea2ee53f1119f3ea7f",
+      "neos648910": "1172c4fe86fab9ef53b4bf81dfd173ef9f65cdc4151886835ec06d917d9323e6",
+      "pp08aCUTS": "cde85a50a9b64df75b07c7fafeeeadc486728b317eccc5997d8d4e2280fd83d5",
+      "rmatr100-p10": "86e4b03e3db2298c29e3ce5863e76b319e95252da2a834d7441d9346dfa4a423",
+      "rmatr100-p5": "f26d3dd6fdecd9794d9574fc7516f010e03a9815b52da5a36303170caff60c32",
+      "rmatr200-p5": "7c5181d37d8dfe08b4817c0025d7500b71b0d64c530e804f6fe0e75bd1800e95",
+      "roi5alpha10n8": "243c8af3215de29e46fcbeb0c0eaa7f6c33f5ee1d23fd22d76afc3708748c633",
+      "sp150x300d": "47051527397e27d1a62d0462ded35042d5eb5f4c4a3b5e3257c82279b97f1e42",
+      "stein27": "559caf031adb6e3536d47b39325c82e52dc60507487e73ff046e6a43268c4abb",
+      "supportcase7": "99339282ba551bd77687b9c111bf28729a581be134dc323d00df60987ad424f8",
+      "swath1": "05b713125dfdea88f22c1d028a4a4ab081e1d03c31401b302b41025f8b0f844d",
+      "vpm2": "484ac31f97ef1c7b9b813aba29e441d84ef3b3b09eedab04df81159102d571ca"
+    }
+  },
+  "solver": {
+    "scip": "6.0.1",
+    "soplex": "4.0.1",
+    "pyscipopt": "1.4.9-custom",
+    "setting": "sandbox",
+    "time_limit_seconds": 120,
+    "watchdog_wall_seconds": 180,
+    "threads_per_worker": 1,
+    "initial_workers": 4,
+    "known_optimal_cutoff": true,
+    "normalization_baseline_index": [
+      "instance",
+      "solver_seed",
+      "protocol_hash"
+    ]
+  },
+  "model": {
+    "actor_architecture": "upstream Actor unchanged",
+    "hidden_dim": 256,
+    "num_layers": 5,
+    "num_heads": 8,
+    "nominal_actor_dropout": 0.05,
+    "effective_actor_dropout_proposed": 0,
+    "critic_training_dropout": 0.05,
+    "critic_only_common_context": "remaining_time_fraction, introduced in R0 at stage4; B0 retains original inputs"
+  },
+  "ppo": {
+    "actor_lr": 0.00024,
+    "critic_lr": 0.00012,
+    "clip": 0.16,
+    "entropy_weight": 0.003,
+    "gamma": 0.97,
+    "gae_lambda": 0.92,
+    "batch_size": 256,
+    "epochs_per_update": 3,
+    "reward_version": "upstream_h3_t120",
+    "complete_episodes_per_collection_batch": 4,
+    "minimum_transitions_per_update": 256,
+    "timeout_is_finite_task_terminal": true
+  },
+  "groups": {
+    "U": "raw upstream bridge",
+    "B0": "corrected upstream pilot, original input",
+    "R0": "corrected baseline + common critic time context",
+    "Rcap": "old state via identically shaped extra branch; offline capacity control",
+    "Rprod": "outer product of joint histogram marginals",
+    "Rjoint": "full joint histogram"
+  },
+  "frontier": {
+    "shape": [
+      8,
+      8
+    ],
+    "axes": [
+      "within-current-finite-set lower-bound minmax",
+      "depth divided by current frontier maximum depth"
+    ],
+    "node_set": [
+      "leaves",
+      "children",
+      "siblings"
+    ],
+    "time_of_collection": "before action",
+    "extra_scalars": [
+      "log1p_n_open",
+      "empty_set",
+      "finite_bound_fraction",
+      "positive_infinity_fraction",
+      "negative_infinity_fraction"
+    ],
+    "infinity_test": "SCIP infinity semantics, including 1e20 sentinel",
+    "extra_mlp": [
+      69,
+      64,
+      32
+    ],
+    "actor_receives_new_features": false
+  },
+  "offline": {
+    "fixed_policy_source": "one valid stage3 B0 checkpoint",
+    "solver_seeds": [
+      0,
+      1
+    ],
+    "max_episodes": 50,
+    "shared_encoder": "frozen B0 critic encoder, cached",
+    "groups": [
+      "R0",
+      "Rcap",
+      "Rprod",
+      "Rjoint"
+    ],
+    "losses": [
+      "mse",
+      "hl_gauss"
+    ],
+    "fit_seeds": [
+      11,
+      22,
+      33
+    ],
+    "minibatch_updates_max_per_fit": 500,
+    "batch_size": 256,
+    "instance_weighting": "equal",
+    "target": "common full finite-horizon empirical discounted return",
+    "hl_gauss": {
+      "bins": 64,
+      "support": [
+        -36,
+        52
+      ],
+      "sigma_to_bin_width": 0.75,
+      "decode": "probability-weighted raw-return bin centers"
+    },
+    "total_cpu_core_hours_cap": 4
+  },
+  "online": {
+    "groups": [
+      "R0",
+      "Rprod",
+      "Rjoint"
+    ],
+    "training_seeds": [
+      11,
+      22,
+      33
+    ],
+    "solver_seeds": [
+      0,
+      1,
+      2
+    ],
+    "runs": 9,
+    "loss": "mse",
+    "max_episodes_per_run": 50,
+    "cpu_core_hours_cap_per_run": 2,
+    "checkpoint_cpu_core_hours": [
+      0.5,
+      1,
+      2
+    ],
+    "checkpoint_granularity": "whole-batch boundary; record actual spend and overshoot",
+    "selection": "common-budget final checkpoint; no development best-of selection"
+  },
+  "evaluation": {
+    "instances": [
+      "vpm2",
+      "dcmulti",
+      "eil33-2",
+      "neos-476283",
+      "roi5alpha10n8"
+    ],
+    "solver_seeds": [
+      0,
+      1,
+      2
+    ],
+    "final_runs": 135,
+    "actor_only": true,
+    "action_mode": "stochastic, paired seeds",
+    "primary_metric": "native PDI over common 120s horizon, subject to stage3 validity acceptance before stage5 outcomes",
+    "secondary_metrics": [
+      "cutoff-proof completion fraction",
+      "PAR-2 proof time",
+      "full wall time",
+      "raw gap and bounds",
+      "nodes as diagnostic",
+      "callback cost",
+      "failures and fallback rate"
+    ],
+    "statistical_unit": "instance",
+    "invalid_runs": "retained with explicit coverage/failure accounting; no PDI=0 imputation",
+    "early_checkpoint_evaluation": {
+      "checkpoints": [
+        0.5,
+        1
+      ],
+      "solver_seeds": [
+        0
+      ],
+      "max_additional_runs": 90,
+      "solve_core_hours_upper_bound": 3
+    }
+  },
+  "budget_cpu_core_hours": {
+    "native_baselines_upper_bound": 2.5,
+    "B0_pilot_cap": 0.5,
+    "fixed_policy_collection_upper_bound": 1.6666666666666667,
+    "offline_cap": 4,
+    "main_training_cap": 18,
+    "final_eval_upper_bound": 4.5,
+    "validation_bridge_early_checkpoint_and_reserve": 10
+  },
+  "deferred": [
+    "paper-scale 500 episodes/3600s full reproduction",
+    "official 66-instance test sweep",
+    "memory actor/critic",
+    "counterfactual rollout probes",
+    "default-solver deployment claims",
+    "switching online groups to HL-Gauss without acceptance"
+  ],
+  "acceptance_date": "2026-10-21",
+  "authorization": "按照你的建议调整，阶段 1 验收通过，进入阶段 2",
+  "stage2_acceptance": {
+    "date": "2026-10-21",
+    "authorization": "通过，进入阶段3"
+  },
+  "active_stage": 5,
+  "training_scope": "stage5_cpu_online_paired_ppo",
+  "stage4_started": true,
+  "stage3_delivery": {
+    "status": "accepted_by_user",
+    "native_jobs": 75,
+    "development_jobs": 15,
+    "complete_training_episodes_in_delivered_model": 4,
+    "report": "阶段3_基线复现与验收报告_TGPPO_2026-10-21.md"
+  },
+  "online_main_matrix_started": true,
+  "stage3_acceptance": {
+    "date": "2026-10-21",
+    "authorization": "阶段3工作审核通过，接下来你建议做什么",
+    "scope": "engineering pipeline and reported reduced-budget results accepted; paper performance not reproduced; stage4 implementation not started"
+  },
+  "stage4_authorization": {
+    "date": "2026-10-21",
+    "authorization": "进入阶段4",
+    "stage5_started": false
+  },
+  "stage4_delivery": {
+    "status": "delivered_with_calibration_supplement_pending_acceptance",
+    "report": "阶段4_搜索信息Critic离线验证与验收报告_TGPPO_2026-10-21.md",
+    "valid_collection_episodes": 50,
+    "transitions": 46001,
+    "complete_fits": 24,
+    "updates_per_fit": 500,
+    "unit_checks_passed": 35,
+    "engineering_audit_passed": true,
+    "information_benefit_validated": false,
+    "finding": "common value-scale underfitting; all variants worse than train-mean constant predictor",
+    "recommendation": "review uniform value fitting calibration before online PPO",
+    "stage5_started": false
+  },
+  "stage4_calibration_authorization": {
+    "date": "2026-10-21",
+    "authorization": "先统一校准各组 Critic 的拟合，再开展在线 PPO 对照。",
+    "protocol": "stage4_calibration/protocol.json",
+    "stage5_started": false,
+    "gate": "deliver calibration before stage5 per existing per-stage acceptance requirement"
+  },
+  "stage4_calibration_delivery": {
+    "status": "accepted_by_user",
+    "date": "2026-10-21",
+    "report": "阶段4补充_统一Critic校准与验收报告_TGPPO_2026-10-21.md",
+    "valid_final_fits": 24,
+    "updates_per_fit": 5000,
+    "learning_rate": 0.00012,
+    "unit_checks_passed": 41,
+    "audit_checks_passed": 45,
+    "mse_training_quality_gate_passed": true,
+    "joint_information_benefit_established": false,
+    "online_benefit_validated": false,
+    "stage5_started": false
+  },
+  "stage4_calibration_acceptance": {
+    "date": "2026-10-21",
+    "user_instruction": "验收通过，进入下一个阶段",
+    "scope": "阶段4统一校准验收通过；进入已交付的阶段5在线PPO接续方案"
+  },
+  "stage5_authorization": {
+    "date": "2026-10-21",
+    "authorization": "验收通过，进入下一个阶段",
+    "scope": "已交付的校准后在线PPO接续方案；完成阶段5后停止等待验收"
+  },
+  "stage5_progress": "processes_not_alive_detected_during_migration_audit",
+  "stage5_process_health": {
+    "observed_client_date": "2026-10-22",
+    "processes_alive": false,
+    "main_matrix_completed": false,
+    "evidence": "migration/2026-10-22/observed_status.json",
+    "restart_performed": false
+  }
+}

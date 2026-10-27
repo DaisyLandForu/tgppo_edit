@@ -1,0 +1,113 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting numpy==1.24.4 (from -r /root/research/tgppo/setup/requirements-core.txt (line 3))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/98/5d/5738903efe0ecb73e51eb44feafba32bdba2081263d40c5043568ff60faf/numpy-1.24.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.3/17.3 MB 7.7 MB/s eta 0:00:00
+Collecting scipy==1.10.1 (from -r /root/research/tgppo/setup/requirements-core.txt (line 4))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/69/f0/fb07a9548e48b687b8bf2fa81d71aba9cfc548d365046ca1c791e24db99d/scipy-1.10.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (34.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 34.5/34.5 MB 4.0 MB/s eta 0:00:00
+Collecting pandas==2.0.3 (from -r /root/research/tgppo/setup/requirements-core.txt (line 5))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/f8/7f/5b047effafbdd34e52c9e2d7e44f729a0655efafb22198c45cf692cdc157/pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.4/12.4 MB 4.3 MB/s eta 0:00:00
+Collecting tensorboard==2.14.0 (from -r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/bc/a2/ff5f4c299eb37c95299a76015da3f30211468e29d8d6f1d011683279baee/tensorboard-2.14.0-py3-none-any.whl (5.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 5.1 MB/s eta 0:00:00
+Collecting optuna==4.4.0 (from -r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/5c/5e/068798a8c7087863e7772e9363a880ab13fe55a5a7ede8ec42fab8a1acbb/optuna-4.4.0-py3-none-any.whl (395 kB)
+Collecting psutil==6.0.0 (from -r /root/research/tgppo/setup/requirements-core.txt (line 8))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/19/74/f59e7e0d392bc1070e9a70e2f9190d652487ac115bb16e2eff6b22ad1d24/psutil-6.0.0-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (290 kB)
+Collecting PyYAML==6.0.2 (from -r /root/research/tgppo/setup/requirements-core.txt (line 9))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/fd/7f/2c3697bba5d4aa5cc2afe81826d73dfae5f049458e44732c7a0938baa673/PyYAML-6.0.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (746 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 746.5/746.5 kB 2.3 MB/s eta 0:00:00
+Collecting h5py==3.10.0 (from -r /root/research/tgppo/setup/requirements-core.txt (line 10))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/6b/31/b5965f76e0bb2b02f273d87ec9cb59c77b9864ac27a0078c4229baa45dfc/h5py-3.10.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 2.7 MB/s eta 0:00:00
+Collecting Cython==0.29.37 (from -r /root/research/tgppo/setup/requirements-core.txt (line 11))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/10/46/9a1b428442d09a6496d56e913ff4c3f4a1db119adc45d45ad2655bcb2a68/Cython-0.29.37-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (1.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 3.1 MB/s eta 0:00:00
+Collecting setuptools==68.2.2 (from -r /root/research/tgppo/setup/requirements-core.txt (line 12))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/bb/26/7945080113158354380a12ce26873dd6c1ebd88d47f5bc24e2c5bb38c16a/setuptools-68.2.2-py3-none-any.whl (807 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 4.0 MB/s eta 0:00:00
+Collecting python-dateutil>=2.8.2 (from pandas==2.0.3->-r /root/research/tgppo/setup/requirements-core.txt (line 5))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting pytz>=2020.1 (from pandas==2.0.3->-r /root/research/tgppo/setup/requirements-core.txt (line 5))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/4f/ef/c66110d46fb800dda0bf33164182dfadabe26a90e4476844d502a23dca8e/pytz-2026.5-py2.py3-none-any.whl (506 kB)
+Collecting tzdata>=2022.1 (from pandas==2.0.3->-r /root/research/tgppo/setup/requirements-core.txt (line 5))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl (347 kB)
+Collecting absl-py>=0.4 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/8f/aa/ba0014cc4659328dc818a28827be78e6d97312ab0cb98105a770924dc11e/absl_py-2.3.1-py3-none-any.whl (135 kB)
+Collecting grpcio>=1.48.2 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/2c/64/66a74c02b00e00b919c245ca9da8e5c44e8692bf3fe7f27efbc97572566c/grpcio-1.70.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (6.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.0/6.0 MB 2.6 MB/s eta 0:00:00
+Collecting google-auth<3,>=1.6.3 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/37/cf/4880c2137c14280b2f59975cdf12cc442bc0ae1f9ea473a26eaa0c146786/google_auth-2.50.0-py3-none-any.whl (246 kB)
+Collecting google-auth-oauthlib<1.1,>=0.5 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/4a/07/8d9a8186e6768b55dfffeb57c719bc03770cf8a970a074616ae6f9e26a57/google_auth_oauthlib-1.0.0-py2.py3-none-any.whl (18 kB)
+Collecting markdown>=2.6.8 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/3f/08/83871f3c50fc983b88547c196d11cf8c3340e37c32d2e9d6152abe2c61f7/Markdown-3.7-py3-none-any.whl (106 kB)
+Collecting protobuf>=3.19.6 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e3/dd/cadd6ec43069247d91f6345fa7a0d2858bef6af366dbd7ba8f05d2c77d3b/protobuf-5.29.6-cp38-abi3-manylinux2014_x86_64.whl (320 kB)
+Collecting requests<3,>=2.21.0 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl (64 kB)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/73/c6/825dab04195756cf8ff2e12698f22513b3db2f64925bdd41671bfb33aaa5/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (6.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 1.6 MB/s eta 0:00:00
+Collecting werkzeug>=1.0.1 (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/6c/69/05837f91dfe42109203ffa3e488214ff86a6d68b2ed6c167da6cdc42349b/werkzeug-3.0.6-py3-none-any.whl (227 kB)
+Requirement already satisfied: wheel>=0.26 in ./anaconda3/envs/tgppo/lib/python3.8/site-packages (from tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6)) (0.44.0)
+Collecting alembic>=1.5.0 (from optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/54/7e/ac0991d1745f7d755fc1cd381b3990a45b404b4d008fc75e2a983516fbfe/alembic-1.14.1-py3-none-any.whl (233 kB)
+Collecting colorlog (from optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/d4/19/0b6647bf5e331521e55d2b63bfbdc210bd9cd605189273f03614a05f702d/colorlog-6.12.0-py3-none-any.whl (12 kB)
+Collecting packaging>=20.0 (from optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl (100 kB)
+Collecting sqlalchemy>=1.4.2 (from optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/90/4d/c186f43ee3f419bc865b76695e75cfb3ee072b7c64a71c8801392ab7b444/sqlalchemy-2.0.55-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 1.4 MB/s eta 0:00:00
+Collecting tqdm (from optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/a7/03/921a3d3c75785aca9ebfbfcabfbc3a1be12e2ab5265deb026d55a5a3f83e/tqdm-4.70.1-py3-none-any.whl (80 kB)
+Collecting Mako (from alembic>=1.5.0->optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/bc/b1/a0ec7a5a9db730a08daef1fdfb8090435b82465abbf758a596f0ea88727e/mako-1.3.12-py3-none-any.whl (78 kB)
+Collecting importlib-metadata (from alembic>=1.5.0->optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/a0/d9/a1e041c5e7caa9a05c925f4bdbdfb7f006d1f74996af53467bc394c97be7/importlib_metadata-8.5.0-py3-none-any.whl (26 kB)
+Collecting importlib-resources (from alembic>=1.5.0->optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e1/6a/4604f9ae2fa62ef47b9de2fa5ad599589d28c9fd1d335f32759813dfa91e/importlib_resources-6.4.5-py3-none-any.whl (36 kB)
+Requirement already satisfied: typing-extensions>=4 in ./anaconda3/envs/tgppo/lib/python3.8/site-packages (from alembic>=1.5.0->optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7)) (4.13.2)
+Collecting pyasn1-modules>=0.2.1 (from google-auth<3,>=1.6.3->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/47/8d/d529b5d697919ba8c11ad626e835d4039be708a35b0d22de83a269a6682c/pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Collecting cryptography>=38.0.3 (from google-auth<3,>=1.6.3->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/94/87/f2b6c374a82cf076cfa1416992ac8e8ec94d79facc37aec87c1a5cb72352/cryptography-47.0.0-cp38-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 1.6 MB/s eta 0:00:00
+Collecting requests-oauthlib>=0.7.0 (from google-auth-oauthlib<1.1,>=0.5->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas==2.0.3->-r /root/research/tgppo/setup/requirements-core.txt (line 5))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting charset_normalizer<4,>=2 (from requests<3,>=2.21.0->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/7e/84/371eac6b30bdbcbf2d632a1a01809103459216fcaae61b8b8d922c1bfb8a/charset_normalizer-3.5.2-cp37-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (253 kB)
+Collecting idna<4,>=2.5 (from requests<3,>=2.21.0->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl (72 kB)
+Collecting urllib3<3,>=1.21.1 (from requests<3,>=2.21.0->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/ce/d9/5f4c13cecde62396b0d3fe530a50ccea91e7dfc1ccf0e09c228841bb5ba8/urllib3-2.2.3-py3-none-any.whl (126 kB)
+Collecting certifi>=2017.4.17 (from requests<3,>=2.21.0->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/c4/51/29046e48f693c54e5b7412216d447a1d8362c9653148d98c02cdf65fa733/certifi-2026.10.19-py3-none-any.whl (136 kB)
+Collecting greenlet>=1 (from sqlalchemy>=1.4.2->optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/d8/88/0ce16c0afb2d71d85562a7bcd9b092fec80a7767ab5b5f7e1bbbca8200f8/greenlet-3.1.1-cp38-cp38-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (605 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 606.0/606.0 kB 1.4 MB/s eta 0:00:00
+Collecting MarkupSafe>=2.1.1 (from werkzeug>=1.0.1->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/c7/bd/50319665ce81bb10e90d1cf76f9e1aa269ea6f7fa30ab4521f14d122a3df/MarkupSafe-2.1.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (26 kB)
+Collecting cffi>=1.14 (from cryptography>=38.0.3->google-auth<3,>=1.6.3->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/bb/19/b51af9f4a4faa4a8ac5a0e5d5c2522dcd9703d07fac69da34a36c4d960d3/cffi-1.17.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (446 kB)
+Collecting zipp>=3.20 (from importlib-metadata->alembic>=1.5.0->optuna==4.4.0->-r /root/research/tgppo/setup/requirements-core.txt (line 7))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/62/8b/5ba542fa83c90e09eac972fc9baca7a88e7e7ca4b221a89251954019308b/zipp-3.20.2-py3-none-any.whl (9.2 kB)
+Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/9a/3b/6163796d69c3977d1e4287bea4a6979161cbbdd170ebb430511e8e1999ce/pyasn1-0.6.4-py3-none-any.whl (84 kB)
+Collecting oauthlib>=3.0.0 (from requests-oauthlib>=0.7.0->google-auth-oauthlib<1.1,>=0.5->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/be/9c/92789c596b8df838baa98fa71844d84283302f7604ed565dafe5a6b5041a/oauthlib-3.3.1-py3-none-any.whl (160 kB)
+Collecting pycparser (from cffi>=1.14->cryptography>=38.0.3->google-auth<3,>=1.6.3->tensorboard==2.14.0->-r /root/research/tgppo/setup/requirements-core.txt (line 6))
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/a0/e3/59cd50310fc9b59512193629e1984c1f95e5c8ae6e5d8c69532ccc65a7fe/pycparser-2.23-py3-none-any.whl (118 kB)
+Installing collected packages: pytz, zipp, urllib3, tzdata, tqdm, tensorboard-data-server, six, setuptools, PyYAML, pycparser, pyasn1, psutil, protobuf, packaging, oauthlib, numpy, MarkupSafe, idna, grpcio, greenlet, Cython, colorlog, charset_normalizer, certifi, absl-py, werkzeug, sqlalchemy, scipy, requests, python-dateutil, pyasn1-modules, Mako, importlib-resources, importlib-metadata, h5py, cffi, requests-oauthlib, pandas, markdown, cryptography, alembic, optuna, google-auth, google-auth-oauthlib, tensorboard
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 75.1.0
+    Uninstalling setuptools-75.1.0:
+      Successfully uninstalled setuptools-75.1.0
+Successfully installed Cython-0.29.37 Mako-1.3.12 MarkupSafe-2.1.5 PyYAML-6.0.2 absl-py-2.3.1 alembic-1.14.1 certifi-2026.10.19 cffi-1.17.1 charset_normalizer-3.5.2 colorlog-6.12.0 cryptography-47.0.0 google-auth-2.50.0 google-auth-oauthlib-1.0.0 greenlet-3.1.1 grpcio-1.70.0 h5py-3.10.0 idna-3.15 importlib-metadata-8.5.0 importlib-resources-6.4.5 markdown-3.7 numpy-1.24.4 oauthlib-3.3.1 optuna-4.4.0 packaging-26.2 pandas-2.0.3 protobuf-5.29.6 psutil-6.0.0 pyasn1-0.6.4 pyasn1-modules-0.4.2 pycparser-2.23 python-dateutil-2.9.0.post0 pytz-2026.5 requests-2.32.4 requests-oauthlib-2.0.0 scipy-1.10.1 setuptools-68.2.2 six-1.17.0 sqlalchemy-2.0.55 tensorboard-2.14.0 tensorboard-data-server-0.7.2 tqdm-4.70.1 tzdata-2026.5 urllib3-2.2.3 werkzeug-3.0.6 zipp-3.20.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.

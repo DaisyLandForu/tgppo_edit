@@ -1,0 +1,753 @@
+--- /dev/null
++++ active/migration/2026-10-22/server-run/CRATER.md
+@@ -0,0 +1,70 @@
++# Crater Custom 作业操作单（2026-10-22）
++
++用户已确认：当前无 GPU 容器用于开发；正式训练另行申请 Crater Custom 作业。作业容器共享 `/home/duweiyue25`，可访问本项目与 Conda。当前镜像为 `scip (user-duweiyue25/envd:11260740-c4da)`，Custom 作业也选择此镜像。GPU 选择策略和作业最长时限仍需在创建作业时核对。这里没有 Slurm 客户端，不填写虚构的分区、账户或作业 ID。
++
++固定项目根：`/home/duweiyue25/tgppo-transfer/research`。
++Python：`/home/duweiyue25/conda/envs/tgppo/bin/python`。
++所有新输出：`tgppo/runs/server6-20261022/`。
++
++从空环境重建时先安装 `tgppo/setup/requirements-core.txt` 和 `torch==1.13.1+cu117`（使用 PyTorch cu117 索引），再以 `TGPPO_PYTHON` 指定上述 Python 执行 `bash migration/2026-10-22/server-run/build_local.sh`。构建脚本保存每次尝试，用用户目录中的 Ubuntu bliss 依赖，不需 sudo；Cython 在源码副本中生成 C，仅将新 `.so` 放到 stage4 绑定的 `src`。求解器已成功、只需重建绑定时可传 `--binding-only`。共享环境准备完成后，六个 GPU 作业直接使用它，不各自重复安装。
++
++本轮仍是 B0/R0/Rjoint × 11/22，各 500 个完整 episode，每 100 保存，4 个单线程 SCIP worker，CUDA FP32 PPO、Adam、120 秒任务。`protocol.json` 的旧授权文字记录的是打包时状态；当前用户已明确授权此前置检查通过后的六作业，不改冻结数值。阶段 5 未完成，阶段 6 未启动。
++
++界面统一填写：Shell 为 bash、工作目录为项目根、用户空间挂载点为 `/home/duweiyue25`，保留普通用户。镜像选择 `scip (user-duweiyue25/envd:11260740-c4da)`，已知该开发容器为 Ubuntu 22.04 x86_64。Conda、重建的 solver 和代码都在共享用户目录，无需先保存新镜像；若保存镜像，新作业仍使用这些共享路径。GPU 作业需使用平台支持 GPU 驱动注入的运行时。Torch 使用环境内 CUDA 11.7 运行库，不使用源机 `.so`；GPU 导入和实际 CUDA 运算尚待目标作业检查。截图中的 Python 3.11/3.10/3.9 公共镜像不作为此次启动首选，冻结入口使用绝对路径的 Python 3.8 环境。
++
++| 用途 | CPU | 内存 GiB | GPU | 数量 | 建议名称 |
++|---|---:|---:|---:|---:|---|
++| 目标基线、三组桥接、20 实例吞吐 | 8 | 32 | 1 V100 | 1 | tgppo-prepare |
++| 正式训练 | 8 | 32 | 1 V100 | 6 | tgppo-B0-s11 等 |
++| 完成后的开发集选模 | 4 | 16 | 0 | 6 | tgppo-dev-B0-s11 等 |
++
++每个训练作业按原模板申请最长可用时限（模板 24 小时），核对 Crater 的实际限制。不要因为资源可申请而扩大本轮 worker 数、样本数或模型。CPU 绑核可按平台资源策略开启，预检同时检查 cgroup 配额；基线、训练、评估须同类 CPU、同一求解器和绑定哈希，否则入口拒绝复用。截图仅显示 GPU 数量，需在资源选择处确认 V100；预检也会拒绝其他型号。
++
++先创建 **一个**准备作业，启动命令填：
++
++```bash
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh prepare
++```
++
++该作业在前台依次运行 CUDA/资源预检 → 小型工程检查（含目标 CUDA 检查）→ 25×3 原生 relpscost 基线 → B0/R0/Rjoint 完整模型 GPU 桥接 → 每组覆盖全部 20 个训练实例的独立成本试跑。试跑不计入正式六作业的 500 episode，不参加选模或测试。桥接包含真实中断后重做完整更新、Actor/Critic/两套优化器/CUDA RNG 与不中断参考结果的比对；采样记录必须证明 worker 未初始化 CUDA。任何一项失败都会停止，保留日志，不自动降低协议。
++
++观察 `custom-logs/prepare-*.log`，以及：
++
++- `normalization/baselines.json`：75 条有效原生任务和目标软硬件指纹。
++- `gpu-bridge/verification.json`：`passed=true`，完整 CUDA 更新与恢复证据。
++- `throughput/verification.json`：`passed=true`，三组 20 实例覆盖、更新耗时、显存分配峰值、worker RSS、100/500 episode 墙钟估算。估算不含未来排队，初始策略之后决策数可能变化；实际峰值还应结合 Crater GPU/容器监控。
++
++准备作业中断后，用同一命令创建新的 Custom 作业。原生任务按不可变身份复用有效结果；桥接每次保留独立目录；吞吐试跑通过 `latest.pt` 显式恢复。若 CPU 型号、二进制、协议发生变化，先检查错误和证据，不删除旧目录解锁。
++
++三项前置证据通过后，创建六个独立 Custom 作业，每个启动命令分别填以下一行。每个作业均为 8 CPU / 32 GiB / 1 V100：
++
++```bash
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train B0 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train B0 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train R0 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train R0 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train Rjoint 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train Rjoint 22
++```
++
++这六行应分别放入六个作业，不能全部放进一个启动命令框。记录 Crater 分配的六个作业 ID 与资源/实际节点类别；当前开发容器没有提交 API 或这些 ID。训练入口使用 `exec` 托管前台进程，日志在共享盘；Codex 对话退出不会充当进程管理器。
++
++中断/到时后，在平台确认旧作业已终止，再用对应相同命令创建续跑作业。命令显式传 `--resume`；不删 `latest.pt`、`attempts/`、`collection/` 或心跳。PPO 半轮中断后使用更新前完整轨迹和随机状态重做，保留失败成本。双启动由内核文件锁拒绝；不要手工删除锁文件。SIGKILL 可能使末段成本没有落盘，成本须再结合平台实际计费/资源记录。
++
++开发容器随时可查看已提交检查点进度：
++
++```bash
++/home/duweiyue25/conda/envs/tgppo/bin/python migration/2026-10-22/server-run/status.py
++```
++
++状态程序读取 `latest.pt` 和稳定里程碑。只有完整 500、五个里程碑和最终哈希匹配的 `summary.json` 才报告完成；是否正在运行仍应查 Crater。心跳与旧 running 标志不能证明完成。
++
++六作业完成后，创建 CPU Custom 作业逐种子选模，命令例如（其他五个仅替换组名/种子）：
++
++```bash
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh select B0 11
++```
++
++同一 5 开发实例×3 求解器种子，在 100/200/300/400/500 中按实例等权 120 秒 PDI 最低选择，相同分数取较早者。保留六份 `selection.json`、`actor_best.pt`、`actor_final.pt`；两个训练种子全部报告。锁定这六份选模结果后，按主 README 的 Actor-only 评测入口运行 66 个保留实例及有可信 cutoff 的独立兼容集，并同硬件/设置运行 relpscost。当前没有额外兼容集清单；不能凭空报告这部分结果。
++
++完整成本包含准备、失败/重试、六个训练、450 次开发求解、1188 次 best-Actor 测试求解和 198 次原生测试求解。若另评 final，另外记录其 1188 次，不能隐入训练成本。结果汇报注明 B0 为本轮 120 秒/Adam/四任务更新参照；缺少 Rprod，不能单独宣称联合关联收益。完成阶段 5 后等待明确验收。
+--- archive/migration/2026-10-22/server-run/README.md
++++ active/migration/2026-10-22/server-run/README.md
+@@ -1,4 +1,6 @@
+ # 六作业服务器训练与评估启动包
++
++2026-10-22 目标环境补充：当前是无 GPU 开发容器，正式作业由 **Crater Custom** 创建，共享用户目录和 Conda。可复制的界面配置与命令见 [CRATER.md](./CRATER.md)。本机核查证据放在 `tgppo/runs/server6-20261022/preparation/`；下面的源机历史检查记录保持原样。
+ 
+ 2026-10-22。用户本轮选择：**B0/R0/Rjoint × 种子 11/22，六个独立作业，各 500 个完整 episode，每 100 保存，按开发集选最好权重。** 不再把之前建议的四组×三种子当作本轮必跑范围。
+ 
+@@ -56,7 +58,7 @@
+ 
+ 目标成功证据：`tgppo/runs/server6-20261022/gpu-bridge/verification.json` 的 passed 为 true；同时正式 `normalization/baselines.json` 已产生。未满足时，正式训练会拒绝开始。
+ 
+-请根据目标试跑补做覆盖 20 个训练实例的吞吐估算；目前“一夜完成500”的时间窗口仍属估算。GPU 桥接首批小实例用于正确性，不是整场成本预测。
++目标桥接后运行覆盖 20 个训练实例、三个组的吞吐试跑：`submit.sh pilot --partition="$GPU_PARTITION" --account="$LAB_ACCOUNT"`（基线与桥接完成后）。也可使用 Crater 的 `custom_job.sh prepare` 连续完成三项准备。正式训练还要求 `throughput/verification.json` 通过并匹配当前配置/CPU/软件/GPU。目前“一夜完成500”的时间窗口仍属估算。GPU 桥接首批小实例用于正确性，不是整场成本预测。
+ 
+ ## 第三步：六个正式训练作业
+ 
+--- /dev/null
++++ active/migration/2026-10-22/server-run/audit_bundle.py
+@@ -0,0 +1,96 @@
++#!/usr/bin/env python3
++"""Read-only audit of the original archive and frozen dataset (stdlib only)."""
++import argparse
++import datetime
++import gzip
++import hashlib
++import json
++import math
++import os
++from pathlib import Path
++
++
++def sha(path):
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def audit(root):
++    manifest_path = root / 'migration/2026-10-22/ARCHIVE_CONTENT_MANIFEST.json'
++    manifest = json.loads(manifest_path.read_text())
++    errors, total = [], 0
++    for row in manifest['files']:
++        path = root / row['path']
++        if 'symlink' in row:
++            if not path.is_symlink() or os.readlink(path) != row['symlink']:
++                errors.append(dict(path=row['path'], error='symlink mismatch'))
++        elif not path.is_file():
++            errors.append(dict(path=row['path'], error='missing'))
++        else:
++            size, digest = path.stat().st_size, sha(path)
++            total += size
++            if size != row['bytes'] or digest != row['sha256']:
++                errors.append(dict(path=row['path'], error='size/hash mismatch',
++                                   actual_bytes=size, actual_sha256=digest,
++                                   expected_sha256=row['sha256']))
++    original = json.loads((root / 'docs/stage1/protocol_draft.json').read_text())['data']
++    cutoffs_path = root / 'tgppo/datasets/cutoffs.json'
++    cutoffs = json.loads(cutoffs_path.read_text())
++    downloads = json.loads((root / 'tgppo/datasets/download_manifest.json').read_text())
++    download_by_name = {row['name']: row for row in downloads}
++    test = json.loads((root / 'migration/2026-10-22/server-run/test66.json').read_text())
++    sets, data_errors = {}, []
++    for label, directory in [('train_dev', 'train_instances'), ('test', 'test_instances')]:
++        sets[label] = []
++        for path in sorted((root / 'tgppo/datasets' / directory).glob('*.mps.gz')):
++            name, digest = path.name[:-7], sha(path)
++            try:
++                with gzip.open(path) as stream:
++                    while stream.read(1024 * 1024):
++                        pass
++            except Exception as exc:
++                data_errors.append(dict(name=name, error='gzip: ' + str(exc)))
++            cutoff = cutoffs.get(name, {})
++            if (cutoff.get('status') != 'optimal' or not cutoff.get('source') or
++                    not math.isfinite(float(cutoff.get('cutoff', math.nan)))):
++                data_errors.append(dict(name=name, error='missing finite optimal cutoff/provenance'))
++            downloaded = download_by_name.get(name, {})
++            if downloaded.get('sha256') != digest or downloaded.get('bytes') != path.stat().st_size:
++                data_errors.append(dict(name=name, error='download manifest mismatch'))
++            sets[label].append(dict(name=name, sha256=digest, **cutoff))
++    train, dev = original['train'], original['development']
++    if {row['name'] for row in sets['train_dev']} != set(train + dev):
++        data_errors.append(dict(error='train/development coverage mismatch'))
++    for row in sets['train_dev']:
++        if row['sha256'] != original['hashes'][row['name']]:
++            data_errors.append(dict(name=row['name'], error='frozen instance hash mismatch'))
++    if {row['name'] for row in sets['test']} != set(test):
++        data_errors.append(dict(error='test coverage mismatch'))
++    if set(train) & set(dev) or set(train + dev) & set(test):
++        data_errors.append(dict(error='split name overlap'))
++    if {row['sha256'] for row in sets['train_dev']} & {row['sha256'] for row in sets['test']}:
++        data_errors.append(dict(error='split content overlap'))
++    if (len(manifest['files']) != manifest['file_count_excluding_manifest'] or
++            total != manifest['total_file_bytes_excluding_manifest']):
++        errors.append(dict(error='manifest count/total bytes mismatch'))
++    return dict(timestamp=datetime.datetime.now(datetime.timezone.utc).isoformat(),
++                manifest_sha256=sha(manifest_path), checked_count=len(manifest['files']),
++                total_bytes=total, archive_exact=not errors, manifest_errors=errors,
++                data_passed=not data_errors, data_errors=data_errors,
++                split_counts=dict(train=len(train), development=len(dev), test=len(test)),
++                counts={key: len(value) for key, value in sets.items()},
++                cutoffs_sha256=sha(cutoffs_path), instances=sets,
++                cutoff_scope='packaged optimality records and hashes; no independent re-proof')
++
++
++if __name__ == '__main__':
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[3])
++    parser.add_argument('--output', type=Path, required=True)
++    args = parser.parse_args()
++    if args.output.exists():
++        raise FileExistsError('Preserve earlier audits; choose a new output path')
++    report = audit(args.root.resolve())
++    args.output.parent.mkdir(parents=True, exist_ok=True)
++    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
++    print(json.dumps({key: value for key, value in report.items() if key != 'instances'}, indent=2))
++    raise SystemExit(0 if report['archive_exact'] and report['data_passed'] else 1)
+--- /dev/null
++++ active/migration/2026-10-22/server-run/build_local.sh
+@@ -0,0 +1,47 @@
++#!/usr/bin/env bash
++# Rebuild from packaged sources; keep original sources and all build attempts.
++set -euo pipefail
++launch_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++source "$launch_dir/env.sh"
++case "${1:-}" in ''|--binding-only) ;; *) echo 'Usage: build_local.sh [--binding-only]'; exit 2;; esac
++build_root="$SERVER_RUN_ROOT/preparation/build"
++attempt_dir="$SERVER_RUN_ROOT/preparation/build-attempt-$(date -u +%Y%m%dT%H%M%SZ)-$$"
++mkdir -p "$build_root" "$attempt_dir" "$SCIPOPTDIR/lib"
++exec > >(tee "$attempt_dir/driver.log") 2>&1
++"$TGPPO_PYTHON" -c 'import sys,numpy,Cython,scipy; assert sys.version_info[:2] == (3,8), "Python 3.8 required"; print("Build Python:",sys.version); print("NumPy/Cython/SciPy:",numpy.__version__,Cython.__version__,scipy.__version__)'
++build_jobs=${TGPPO_BUILD_JOBS:-8}
++if [[ ${1:-} != --binding-only ]]; then
++bliss_prefix="$build_root/bliss-root/usr"
++if [[ ! -f "$bliss_prefix/include/bliss/graph.hh" ]]; then
++    (cd "$build_root" && apt-get download libbliss-dev libbliss-dev-common libbliss2)
++    for package in "$build_root"/libbliss*.deb; do
++        dpkg-deb -x "$package" "$build_root/bliss-root"
++    done
++fi
++# libbliss is the Ubuntu dependency, not a source-machine solver binary.
++cp -a "$bliss_prefix/lib/x86_64-linux-gnu/"libbliss.so* "$SCIPOPTDIR/lib/"
++cmake -S "$RESEARCH_ROOT/tgppo/setup/soplex-4.0.1" -B "$build_root/soplex" \
++    -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$SCIPOPTDIR" \
++    -DCMAKE_POSITION_INDEPENDENT_CODE=ON > "$attempt_dir/soplex-configure.log" 2>&1
++cmake --build "$build_root/soplex" --parallel "$build_jobs" > "$attempt_dir/soplex-build.log" 2>&1
++cmake --install "$build_root/soplex" > "$attempt_dir/soplex-install.log" 2>&1
++cmake -S "$RESEARCH_ROOT/tgppo/setup/scip-6.0.1" -B "$build_root/scip" \
++    -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$SCIPOPTDIR" \
++    -DSOPLEX_DIR="$SCIPOPTDIR/lib/cmake/soplex" -DZIMPL=OFF -DIPOPT=OFF \
++    -DBLISS_INCLUDE_DIR="$bliss_prefix/include" \
++    -DBLISS_LIBRARY="$SCIPOPTDIR/lib/libbliss.so" \
++    -DCMAKE_INSTALL_RPATH="$SCIPOPTDIR/lib" > "$attempt_dir/scip-configure.log" 2>&1
++cmake --build "$build_root/scip" --target libscip scip --parallel "$build_jobs" > "$attempt_dir/scip-build.log" 2>&1
++cmake --install "$build_root/scip" > "$attempt_dir/scip-install.log" 2>&1
++fi
++[[ -f "$SCIPOPTDIR/lib/libscip.so" ]] || { echo 'SCIP build missing'; exit 1; }
++# Cython may regenerate scip.c. Compile a copy, leaving archived sources intact.
++binding_src="$RESEARCH_ROOT/tgppo/experiments/stage4/metrics_binding"
++binding_build="$attempt_dir/metrics_binding"
++mkdir -p "$binding_build"
++cp -a "$binding_src/setup.py" "$binding_src/setup.cfg" "$binding_src/README.rst" "$binding_src/src" "$binding_build/"
++(cd "$binding_build" && "$TGPPO_PYTHON" setup.py build_ext --inplace > "$attempt_dir/binding-build.log" 2>&1)
++cp "$binding_build/src/pyscipopt/"scip*.so "$binding_src/src/pyscipopt/"
++"$TGPPO_PYTHON" -c 'from pyscipopt import Model; m=Model(); print("SCIP",m.version()); print({n:hasattr(Model,n) for n in ("getCandsState","getMIPState","getNodeState","getIntegralSnapshot","getOpenNodeSnapshot")}); m.freeProb()'
++"$SCIPOPTDIR/bin/scip" --version
++printf 'Build evidence: %s\n' "$attempt_dir"
+--- /dev/null
++++ active/migration/2026-10-22/server-run/custom_job.sh
+@@ -0,0 +1,43 @@
++#!/usr/bin/env bash
++# Entry for Crater Custom jobs; one process in the foreground, persistent logs.
++set -euo pipefail
++launch_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++export TGPPO_PYTHON=${TGPPO_PYTHON:-/home/duweiyue25/conda/envs/tgppo/bin/python}
++source "$launch_dir/env.sh"
++mode=${1:-}
++case "$mode" in
++    prepare|baselines|bridge|pilot) [[ $# == 1 ]] || exit 2 ;;
++    train|select) [[ $# == 3 ]] || { echo 'Usage: custom_job.sh train|select B0|R0|Rjoint 11|22'; exit 2; }
++        case "$2/$3" in B0/11|B0/22|R0/11|R0/22|Rjoint/11|Rjoint/22) ;; *) echo 'Outside authorized six-job matrix'; exit 2;; esac ;;
++    *) echo 'Usage: custom_job.sh prepare|baselines|bridge|pilot OR train|select GROUP SEED'; exit 2 ;;
++esac
++[[ -x "$TGPPO_PYTHON" ]] || { echo "Missing Python: $TGPPO_PYTHON"; exit 1; }
++cd "$RESEARCH_ROOT"
++log_dir="$SERVER_RUN_ROOT/custom-logs"
++mkdir -p "$log_dir"
++log_file=$(mktemp "$log_dir/${mode}-${2:-all}-s${3:-none}-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX.log")
++exec > >(tee "$log_file") 2>&1
++printf 'Started %s host=%s pid=%s log=%s\n' "$(date -Iseconds)" "$(hostname)" "$$" "$log_file"
++# Fail before expensive native measurements if GPU/image/resources are unsuitable.
++if [[ "$mode" == prepare ]]; then "$launch_dir/run.sh" preflight --device cuda; fi
++pilot() {
++    "$TGPPO_PYTHON" "$RESEARCH_ROOT/tgppo/experiments/server-20261022/code/server_pilot.py" \
++        --root "$RESEARCH_ROOT" --config "$SERVER_CONFIG" --run-root "$SERVER_RUN_ROOT"
++}
++case "$mode" in
++    prepare)
++        # Kernel flock is released on exit; never delete old state to unlock a job.
++        exec 9>"$SERVER_RUN_ROOT/.prepare.lock"
++        flock -n 9 || { echo 'Another preparation job owns this run root'; exit 1; }
++        "$TGPPO_PYTHON" "$launch_dir/verify_environment.py" --root "$RESEARCH_ROOT" \
++            --output "$log_file.checks.json"
++        "$launch_dir/run.sh" baselines
++        "$launch_dir/gpu_bridge.sh"
++        pilot
++        ;;
++    baselines) exec "$launch_dir/run.sh" baselines ;;
++    bridge) exec "$launch_dir/gpu_bridge.sh" ;;
++    pilot) pilot ;;
++    train) exec "$launch_dir/run.sh" train --group "$2" --seed "$3" --device cuda --resume ;;
++    select) exec "$launch_dir/run.sh" select --group "$2" --seed "$3" ;;
++esac
+--- /dev/null
++++ active/migration/2026-10-22/server-run/pilot.sbatch
+@@ -0,0 +1,12 @@
++#!/usr/bin/env bash
++#SBATCH --job-name=tgppo-pilot
++#SBATCH --nodes=1
++#SBATCH --ntasks=1
++#SBATCH --cpus-per-task=8
++#SBATCH --mem=32G
++#SBATCH --gres=gpu:1
++#SBATCH --time=04:00:00
++#SBATCH --output=tgppo-pilot-%j.log
++set -euo pipefail
++: "${SERVER_LAUNCH_DIR:?Submit with submit.sh}"
++exec srun bash "$SERVER_LAUNCH_DIR/custom_job.sh" pilot
+--- /dev/null
++++ active/migration/2026-10-22/server-run/status.py
+@@ -0,0 +1,49 @@
++#!/usr/bin/env python3
++"""Report committed checkpoints, never infer completion from heartbeat/running flags."""
++import argparse
++import json
++from pathlib import Path
++import sys
++
++
++def status(root,run):
++    sys.path[:0]=[str(root/'tgppo/experiments/stage4/metrics_binding/src'),
++                  str(root/'tgppo/experiments/server-20261022/code')]
++    from project.runtime import read_checkpoint
++    from project.utils.protocol import sha256
++    result=[]
++    for group in ('B0','R0','Rjoint'):
++        for seed in (11,22):
++            directory=run/'training'/('{}-s{}'.format(group,seed))
++            row=dict(group=group,seed=seed,committed_episodes=0,trained_episodes=0,
++                     status='not_started',milestones=[],process_state='not inferred; check Crater job state')
++            checkpoint=directory/'latest.pt'
++            if checkpoint.exists():
++                payload=read_checkpoint(checkpoint);progress=payload['progress']
++                row.update(status='checkpoint_available',committed_episodes=progress['next_episode'],
++                    trained_episodes=progress['trained_episodes'],phase=progress['phase'],
++                    policy_version=payload['policy_version'],optimizer_steps=progress['optimizer_steps'],
++                    pending_transitions=payload['memory']['num_transitions'],checkpoint=str(checkpoint))
++                row['milestones']=[int(path.stem.split('-')[1]) for path in sorted(directory.glob('episode-*.pt'))]
++                if (directory/'preflight.json').exists():
++                    execution=json.loads((directory/'preflight.json').read_text())
++                    row.update(last_host=execution['host'],gpu=execution['gpu'],
++                               platform_job_metadata=execution.get('platform_job_metadata',{}))
++                summary_path=directory/'summary.json'
++                if summary_path.exists():
++                    summary=json.loads(summary_path.read_text())
++                    complete=(summary['episodes_seen']==500 and progress['next_episode']==500 and
++                              progress['phase']=='ready' and summary['complete_ppo_updates']>0 and
++                              row['milestones']==[100,200,300,400,500] and
++                              summary['final_checkpoint_sha256']==sha256(checkpoint))
++                    row['status']='complete_500' if complete else 'summary_needs_inspection'
++            result.append(row)
++    return result
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[3])
++    parser.add_argument('--run-root',type=Path)
++    args=parser.parse_args();root=args.root.resolve()
++    print(json.dumps(status(root,args.run_root or root/'tgppo/runs/server6-20261022'),indent=2))
+--- archive/migration/2026-10-22/server-run/submit.sh
++++ active/migration/2026-10-22/server-run/submit.sh
+@@ -9,6 +9,9 @@
+   bridge)
+     sbatch "${@:2}" "$SERVER_LAUNCH_DIR/bridge.sbatch"
+     ;;
++  pilot)
++    sbatch "${@:2}" "$SERVER_LAUNCH_DIR/pilot.sbatch"
++    ;;
+   evaluate)
+     sbatch "${@:2}" "$SERVER_LAUNCH_DIR/evaluate.sbatch"
+     ;;
+@@ -19,7 +22,7 @@
+     sbatch "${@:2}" "$SERVER_LAUNCH_DIR/select.sbatch"
+     ;;
+   *)
+-    echo 'Usage: submit.sh {baselines|bridge|train|select|evaluate} [sbatch options such as --partition, --account, --dependency]'
++    echo 'Usage: submit.sh {baselines|bridge|pilot|train|select|evaluate} [sbatch options such as --partition, --account, --dependency]'
+     exit 2
+     ;;
+ esac
+--- /dev/null
++++ active/migration/2026-10-22/server-run/verify_environment.py
+@@ -0,0 +1,42 @@
++#!/usr/bin/env python3
++"""Run engineering checks with resource accounting and a spawn-safe main file."""
++import argparse
++import datetime
++import json
++import os
++from pathlib import Path
++import resource
++import socket
++import sys
++import time
++import unittest
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[3])
++    parser.add_argument('--output',type=Path,required=True)
++    args=parser.parse_args()
++    if args.output.exists():raise FileExistsError('Keep previous verification attempts')
++    root=args.root.resolve()
++    sys.path[:0]=[str(root/'tgppo/experiments/stage4/metrics_binding/src'),
++                  str(root/'tgppo/experiments/server-20261022/code')]
++    start=time.monotonic()
++    suite=unittest.defaultTestLoader.discover(str(root/'tgppo/experiments/server-20261022/tests'))
++    result=unittest.TextTestRunner(verbosity=2).run(suite)
++    own=resource.getrusage(resource.RUSAGE_SELF);children=resource.getrusage(resource.RUSAGE_CHILDREN)
++    torch=sys.modules.get('torch')
++    report=dict(timestamp_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
++        scope='engineering checks on this node; not formal training or target throughput evidence',
++        host=socket.gethostname(),cuda_available=torch.cuda.is_available() if torch else None,
++        tests_run=result.testsRun,skipped=len(result.skipped),errors=len(result.errors),
++        failures=len(result.failures),passed=result.wasSuccessful(),wall_seconds=time.monotonic()-start,
++        self_cpu_seconds=own.ru_utime+own.ru_stime,children_cpu_seconds=children.ru_utime+children.ru_stime,
++        self_peak_rss_kib=own.ru_maxrss,children_max_process_rss_kib=children.ru_maxrss,
++        skip_reasons=[str(reason) for _,reason in result.skipped])
++    args.output.parent.mkdir(parents=True,exist_ok=True)
++    args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
++    return 0 if result.wasSuccessful() else 1
++
++
++if __name__=='__main__':sys.exit(main())
+--- archive/tgppo/experiments/server-20261022/code/project/runtime.py
++++ active/tgppo/experiments/server-20261022/code/project/runtime.py
+@@ -66,7 +66,8 @@
+         from project.policy.calibrated_critic import CalibratedCritic
+         # Preserve public model initialization and the subsequent PPO RNG stream.
+         # Search-only modules have a separate deterministic initialization stream.
+-        with torch.random.fork_rng(devices=[]):
++        cuda_devices = list(range(torch.cuda.device_count())) if torch.cuda.is_initialized() else []
++        with torch.random.fork_rng(devices=cuda_devices):
+             torch.manual_seed(config['extra_initialization_seed'])
+             critic = CalibratedCritic(critic, group=config['online_group'], loss='mse',
+                 mean=config['target_mean'], std=config['target_std'])
+--- archive/tgppo/experiments/server-20261022/code/server.py
++++ active/tgppo/experiments/server-20261022/code/server.py
+@@ -53,14 +53,14 @@
+     methods=('getCandsState','getMIPState','getNodeState','getIntegralSnapshot','getOpenNodeSnapshot')
+     if not all(hasattr(Model,m) for m in methods):raise RuntimeError('Custom SCIP interfaces missing')
+     m=Model();version=m.version();m.freeProb()
+-    if int(version)!=6:raise RuntimeError('Expected SCIP6 custom binding')
++    if abs(version-6.01)>1e-9:raise RuntimeError('Expected SCIP 6.0.1 custom binding')
+     model=next((s.split(':',1)[1].strip() for s in Path('/proc/cpuinfo').read_text().splitlines()
+                 if s.startswith('model name')),platform.machine())
+     lib=root/'tgppo/solver/lib/libscip.so'
+     so=Path(importlib.util.find_spec('pyscipopt.scip').origin)
+     return dict(cpu_model=model,machine=platform.machine(),scip_version=version,
+         libscip_sha256=sha256(lib),binding_sha256=sha256(so),torch_version=torch.__version__,
+-        python_abi='{}.{}'.format(*__import__('sys').version_info[:2]))
++        torch_cuda_runtime=torch.version.cuda,python_abi='{}.{}'.format(*__import__('sys').version_info[:2]))
+ 
+ 
+ def params(root,c,group,seed,device):
+@@ -167,18 +167,60 @@
+ def interrupted(signum,frame):raise Interrupted('Job signal {}; last atomic recovery checkpoint retained'.format(signum))
+ 
+ 
++def resource_limits():
++    """Affinity is not a container's CPU quota; inspect cgroups as well."""
++    allowed=sorted(os.sched_getaffinity(0));quotas=[];memories=[]
++    for base in [Path('/sys/fs/cgroup')]:
++        cpu=base/'cpu.max'
++        if cpu.exists():
++            quota,period=cpu.read_text().split()
++            if quota!='max':quotas.append(float(quota)/float(period))
++        memory=base/'memory.max'
++        if memory.exists() and memory.read_text().strip()!='max':memories.append(int(memory.read_text()))
++    for base in [Path('/sys/fs/cgroup/cpu'),Path('/sys/fs/cgroup/cpu,cpuacct')]:
++        quota=base/'cpu.cfs_quota_us';period=base/'cpu.cfs_period_us'
++        if quota.exists() and period.exists() and int(quota.read_text())>0:
++            quotas.append(int(quota.read_text())/int(period.read_text()))
++    memory=Path('/sys/fs/cgroup/memory/memory.limit_in_bytes')
++    if memory.exists():memories.append(int(memory.read_text()))
++    return dict(allowed_cpus=allowed,effective_cpu_count=min([len(allowed)]+quotas),
++                memory_limit_bytes=min(memories) if memories else None)
++
++
+ def preflight(root,c,device):
+     torch.set_num_threads(1);s=stack(root)
++    if not c.get('engineering_mode') and (s['python_abi']!='3.8' or s['torch_version']!='1.13.1+cu117'):
++        raise RuntimeError('Frozen server environment requires Python 3.8 / Torch 1.13.1+cu117: '+str(s))
+     if device.startswith('cuda'):
+         if not torch.cuda.is_available():raise RuntimeError('CUDA required; refusing silent CPU fallback')
+         gpu=torch.cuda.get_device_name(0)
+         if c.get('expected_gpu') and c['expected_gpu'] not in gpu and not c.get('engineering_mode'):
+             raise RuntimeError('Expected '+c['expected_gpu']+', got '+gpu)
+     else:gpu=None
+-    allowed=sorted(os.sched_getaffinity(0))
+-    if len(allowed)<c['workers'] and not c.get('engineering_mode'):raise RuntimeError('Allocated CPU quota too small')
+-    return dict(stack=s,gpu=gpu,device=device,allowed_cpus=allowed,host=socket.gethostname(),
++    limits=resource_limits()
++    required_cpu=c['cpu_allocation_per_training_job'] if device.startswith('cuda') else c['workers']
++    if not c.get('engineering_mode'):
++        if limits['effective_cpu_count']<required_cpu:raise RuntimeError('Allocated CPU quota too small: '+str(limits))
++        if device.startswith('cuda') and limits['memory_limit_bytes'] is not None and limits['memory_limit_bytes']<c['ram_gib_per_training_job']*1024**3:
++            raise RuntimeError('Allocated container memory below frozen training resource request')
++    gpu_properties=dict(total_memory_bytes=torch.cuda.get_device_properties(0).total_memory,
++                        compute_capability=list(torch.cuda.get_device_capability(0)),
++                        visible_device_count=torch.cuda.device_count()) if gpu else None
++    return dict(stack=s,gpu=gpu,gpu_properties=gpu_properties,device=device,**limits,host=socket.gethostname(),
++                platform_job_metadata={key:os.environ[key] for key in
++                    ('CRATER_JOB_ID','CRATER_JOB_NAME','JOB_ID','JOB_NAME','POD_NAME') if key in os.environ},
+                 slurm_job_id=os.environ.get('SLURM_JOB_ID'),slurm_array_task_id=os.environ.get('SLURM_ARRAY_TASK_ID'))
++
++
++def require_target_evidence(root,c,run,info,require_pilot=True):
++    checks=[('gpu-bridge/verification.json','Target V100 bridge')]
++    if require_pilot:checks.append(('throughput/verification.json','Representative target V100 cost pilot'))
++    for path,label in checks:
++        evidence=run/path
++        if not evidence.exists():raise RuntimeError(label+' required before formal training: '+str(evidence))
++        gate=read(evidence)
++        if not gate.get('passed') or gate['parent_protocol_sha256']!=fingerprint(c) or gate['stack']!=info['stack'] or gate.get('gpu')!=info['gpu']:
++            raise RuntimeError(label+' not passed under this protocol/CPU/software/GPU')
+ 
+ 
+ def milestone_save(directory,agent,configuration,state,c):
+@@ -194,11 +236,8 @@
+     if device=='cpu' and not c.get('engineering_mode'):raise ValueError('CPU training is engineering-only in this server protocol')
+     info=preflight(root,c,device);bases=baseline_bundle(root,c,run)
+     if not c.get('engineering_mode'):
+-        gate_path=run/'gpu-bridge/verification.json'
+-        if not gate_path.exists():raise RuntimeError('Run server-run/gpu_bridge.sh on the target GPU first')
+-        gate=read(gate_path)
+-        if not gate.get('passed') or gate['parent_protocol_sha256']!=fingerprint(c) or gate['stack']!=info['stack']:
+-            raise RuntimeError('Target GPU bridge not passed under this protocol/CPU/software')
++        require_target_evidence(root,c,run,info)
++    if device.startswith('cuda'):torch.cuda.reset_peak_memory_stats()
+     out=group_dir(run,group,seed);out.mkdir(parents=True,exist_ok=True)
+     lock=(out/'.train.lock').open('a');fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
+     configuration=params(root,c,group,seed,device);seed_all(seed)
+@@ -221,7 +260,9 @@
+     if not initial_fp.exists():
+         write_json(initial_fp,dict(actor_fingerprint=digest_actor(agent.actor_network),
+             common_critic_fingerprint=digest_actor(agent.critic_network,exclude_extra=True),
+-            public_torch_rng_sha256=__import__('hashlib').sha256(torch.get_rng_state().numpy().tobytes()).hexdigest()))
++            public_torch_rng_sha256=__import__('hashlib').sha256(torch.get_rng_state().numpy().tobytes()).hexdigest(),
++            public_cuda_rng_sha256=__import__('hashlib').sha256(torch.cuda.get_rng_state().cpu().numpy().tobytes()).hexdigest()
++                if device.startswith('cuda') else None))
+     write_json(out/'preflight.json',info)
+     attempt=out/'attempts'/(uuid.uuid4().hex+'.json');start=time.monotonic();batch_count=0
+     data=read(root/'tgppo/datasets/cutoffs.json');order=read(out/'task_schedule.json')
+@@ -263,7 +304,8 @@
+             metrics.update(episodes_seen=state['next_episode'],learning_cpu_seconds=cpu_seconds()-begin_cpu,
+                 learning_wall_seconds=time.monotonic()-begin_wall,
+                 gpu_event_seconds=event_start.elapsed_time(event_end)/1000. if event_start is not None else None,
+-                peak_cuda_allocated_bytes=torch.cuda.max_memory_allocated() if event_start is not None else 0)
++                peak_cuda_allocated_bytes=torch.cuda.max_memory_allocated() if event_start is not None else 0,
++                peak_cuda_reserved_bytes=torch.cuda.max_memory_reserved() if event_start is not None else 0)
+             if metrics['updated']:
+                 state['trained_episodes']=state['next_episode'];state['optimizer_steps']+=metrics['num_updates']
+             state['history'].append(metrics);state['phase']='ready'
+--- archive/tgppo/experiments/server-20261022/code/server_bridge.py
++++ active/tgppo/experiments/server-20261022/code/server_bridge.py
+@@ -7,8 +7,10 @@
+ import uuid
+ import numpy as np
+ import torch
++from unittest.mock import patch
+ import server
+ from project.runtime import load_agent,load_actor,read_checkpoint
++from project.agent.agent import Agent
+ from project.utils.protocol import write_json,fingerprint
+ 
+ 
+@@ -22,10 +24,38 @@
+     directory.mkdir(parents=True)
+     write_json(directory/'probe_protocol.json',probe)
+     server.baseline(root,probe,directory)
+-    rows=[];checks={}
++    rows=[];checks={};initializations=[]
+     for group in c['groups']:
+-        state=server.train(root,probe,directory,group,11,False,'cuda')
++        normal_learn=Agent.learn
++        def fail_after_first_step(agent,progress_callback=None,**kwargs):
++            def crash(progress):
++                if progress_callback:progress_callback(progress)
++                raise server.Interrupted('GPU bridge injected interruption after first optimizer step')
++            return normal_learn(agent,progress_callback=crash,**kwargs)
++        did_interrupt=False
++        with patch.object(Agent,'learn',fail_after_first_step):
++            try:server.train(root,probe,directory,group,11,False,'cuda')
++            except server.Interrupted:did_interrupt=True
++        if not did_interrupt:raise RuntimeError('GPU bridge needs enough real decisions for an interrupted update')
++        out=server.group_dir(directory,group,11)
++        reference,pending=load_agent(out/'latest.pt')
++        checks[group+'_interrupted_state_uncommitted']=(pending['progress']['phase']=='collected' and reference.policy_version==0)
++        reference.learn(microbatch_size=probe['microbatch_size'])
++        expected_actor=server.digest_actor(reference.actor_network)
++        expected_critic=server.digest_actor(reference.critic_network)
++        expected_optimizers=copy.deepcopy((reference.actor_optimizer.state_dict(),reference.critic_optimizer.state_dict()))
++        expected_rng=torch.cuda.get_rng_state().clone()
++        del reference
++        torch.cuda.empty_cache()
++        trajectories={str(p):p.stat().st_mtime_ns for p in out.glob('collection/**/*.pkl')}
++        state=server.train(root,probe,directory,group,11,True,'cuda')
+         out=server.group_dir(directory,group,11);agent,p=load_agent(out/'latest.pt')
++        checks[group+'_resume_actor_matches']=expected_actor==server.digest_actor(agent.actor_network)
++        checks[group+'_resume_critic_matches']=expected_critic==server.digest_actor(agent.critic_network)
++        checks[group+'_resume_cuda_rng_matches']=torch.equal(expected_rng,torch.cuda.get_rng_state())
++        checks[group+'_resume_optimizers_match']=same_state(expected_optimizers,
++            (agent.actor_optimizer.state_dict(),agent.critic_optimizer.state_dict()))
++        checks[group+'_resume_reuses_collection']=trajectories=={str(p):p.stat().st_mtime_ns for p in out.glob('collection/**/*.pkl')}
+         first_torch=torch.rand(4,device='cuda').cpu()
+         restored,_=load_agent(out/'latest.pt');next_torch=torch.rand(4,device='cuda').cpu()
+         checks[group+'_cuda_rng_recovery']=torch.equal(first_torch,next_torch)
+@@ -34,6 +64,7 @@
+         checks[group+'_real_update']=restored.update_counter==1 and state['trained_episodes']==4
+         checks[group+'_ratio_cpu_rollout_vs_cuda_update']=state['history'][0]['initial_ratio_max_error']<1e-4
+         init=server.read(out/'initialization.json')
++        initializations.append(init)
+         checks[group+'_actor_changed']=init['actor_fingerprint']!=server.digest_actor(restored.actor_network)
+         checks[group+'_critic_changed']=init['common_critic_fingerprint']!=server.digest_actor(restored.critic_network,exclude_extra=True)
+         policy,_=load_actor(out/'latest.pt')
+@@ -43,8 +74,11 @@
+         if group!='B0':
+             checks[group+'_raw_unit_decode']=float(restored.critic_network.target_mean)==torch.tensor(p['config']['target_mean'],dtype=torch.float32).item()
+         rows.append(dict(group=group,gpu=info['gpu'],metrics=state['history'],source=str(out)))
+-        del agent,restored,policy
++        del agent,restored,policy,expected_optimizers
+         torch.cuda.empty_cache()
++    checks['paired_initial_actor']=len({r['actor_fingerprint'] for r in initializations})==1
++    checks['paired_initial_cpu_rng']=len({r['public_torch_rng_sha256'] for r in initializations})==1
++    checks['paired_initial_cuda_rng']=len({r['public_cuda_rng_sha256'] for r in initializations})==1
+     evidence=dict(passed=all(checks.values()),parent_protocol_sha256=fingerprint(c),stack=info['stack'],
+         gpu=info['gpu'],checks=checks,rows=rows,scope='GPU bridge only, not full training or performance validation')
+     write_json(run/'gpu-bridge/verification.json',evidence)
+@@ -52,6 +86,13 @@
+     if not evidence['passed']:raise RuntimeError('Target GPU bridge failed; full training forbidden')
+ 
+ 
++def same_state(left,right):
++    if isinstance(left,torch.Tensor):return isinstance(right,torch.Tensor) and torch.equal(left,right)
++    if isinstance(left,dict):return left.keys()==right.keys() and all(same_state(left[k],right[k]) for k in left)
++    if isinstance(left,(tuple,list)):return len(left)==len(right) and all(same_state(a,b) for a,b in zip(left,right))
++    return left==right
++
++
+ if __name__=='__main__':
+     a=argparse.ArgumentParser(description=__doc__)
+     a.add_argument('--root',type=Path,default=Path(os.environ.get('RESEARCH_ROOT',server.DEFAULT_ROOT)))
+--- /dev/null
++++ active/tgppo/experiments/server-20261022/code/server_pilot.py
+@@ -0,0 +1,74 @@
++"""Twenty real training tasks per group on V100; engineering cost evidence only."""
++import argparse
++import copy
++import fcntl
++import json
++import os
++from pathlib import Path
++import time
++import torch
++import server
++from project.utils.protocol import fingerprint, write_json, sha256
++
++
++def pilot(root,c,run):
++    info=server.preflight(root,c,'cuda')
++    bases=server.baseline_bundle(root,c,run)
++    server.require_target_evidence(root,c,run,info,require_pilot=False)
++    directory=run/'throughput';directory.mkdir(parents=True,exist_ok=True)
++    lock=(directory/'.pilot.lock').open('a')
++    fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
++    probe=copy.deepcopy(c)
++    probe.update(engineering_mode=True,max_episodes=len(c['train']),
++                 milestones=[len(c['train'])],training_seeds=[11])
++    probe.pop('model_overrides',None)
++    identity=dict(parent_protocol_sha256=fingerprint(c),stack=info['stack'],gpu=info['gpu'])
++    if (directory/'identity.json').exists() and server.read(directory/'identity.json')!=identity:
++        raise ValueError('Pilot environment/protocol changed; retain existing evidence and use a new run root')
++    write_json(directory/'identity.json',identity)
++    write_json(directory/'probe_protocol.json',probe)
++    # Reuse measured native rows: task limits, solver seeds, cutoffs and SCIP settings are unchanged.
++    write_json(directory/'normalization/baselines.json',dict(protocol_sha256=fingerprint(probe),
++        stack=info['stack'],baselines=bases,source=str(run/'normalization/baselines.json'),
++        source_sha256=sha256(run/'normalization/baselines.json')))
++    rows=[]
++    for group in c['groups']:
++        state=server.train(root,probe,directory,group,11,True,'cuda')
++        out=server.group_dir(directory,group,11)
++        selected=[]
++        for path in sorted(out.glob('collection/e*/selected_results.json')):selected+=server.read(path)
++        attempts=[server.read(path) for path in out.glob('attempts/*.json')]
++        observed=sum(a['attempt_wall_seconds'] for a in attempts)
++        covered={row['instance_name'] for row in selected}
++        passed=(len(selected)==len(c['train']) and covered==set(c['train']) and
++                all(row.get('valid') and not row['cuda_initialized'] for row in selected) and
++                state['next_episode']==len(c['train']) and state['phase']=='ready' and
++                len(state['history'])==len(c['train'])//c['batch_episodes'] and
++                any(m['updated'] for m in state['history']))
++        rows.append(dict(group=group,passed=passed,episodes_seen=state['next_episode'],
++            trained_episodes=state['trained_episodes'],instances=sorted(covered),
++            complete_ppo_updates=sum(bool(m['updated']) for m in state['history']),
++            optimizer_steps=state['optimizer_steps'],
++            observed_attempt_wall_seconds=observed,
++            worker_cpu_seconds=sum(row['worker_cpu_seconds'] for row in selected),
++            learner_update_wall_seconds=sum(m['learning_wall_seconds'] for m in state['history']),
++            peak_cuda_allocated_bytes=max(m['peak_cuda_allocated_bytes'] for m in state['history']),
++            peak_cuda_reserved_bytes=max(m['peak_cuda_reserved_bytes'] for m in state['history']),
++            peak_worker_rss_kib=max(row['peak_rss_kib'] for row in selected),
++            estimated_100_episode_seconds=observed*100/len(c['train']),
++            estimated_500_episode_seconds=observed*500/len(c['train']),source=str(out)))
++        torch.cuda.empty_cache()
++    evidence=dict(identity,passed=all(row['passed'] for row in rows),rows=rows,
++        scope='separate engineering pilot, not any part of the six formal 500-episode budgets',
++        estimate_limit='initial-policy twenty-instance cycle, includes restart overhead; later decision counts and queue delays can differ')
++    write_json(directory/'verification.json',evidence)
++    print(json.dumps(evidence,indent=2),flush=True)
++    if not evidence['passed']:raise RuntimeError('Representative cost pilot failed')
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--root',type=Path,required=True)
++    parser.add_argument('--config',type=Path,required=True)
++    parser.add_argument('--run-root',type=Path,required=True)
++    args=parser.parse_args();pilot(args.root,server.plan(args.root,args.config),args.run_root)
+--- archive/tgppo/experiments/server-20261022/tests/test_server.py
++++ active/tgppo/experiments/server-20261022/tests/test_server.py
+@@ -31,6 +31,35 @@
+ 
+ 
+ class ServerTests(unittest.TestCase):
++    def test_container_quota_is_checked_even_with_large_affinity(self):
++        with patch.object(server,'stack',return_value=dict(python_abi='3.8',torch_version='1.13.1+cu117')),patch.object(server,'resource_limits',
++                return_value=dict(allowed_cpus=list(range(56)),effective_cpu_count=2.,memory_limit_bytes=64*1024**3)):
++            with self.assertRaisesRegex(RuntimeError,'quota too small'):
++                server.preflight(ROOT,dict(workers=4,engineering_mode=False),'cpu')
++
++    def test_formal_training_requires_matching_bridge_and_pilot(self):
++        with tempfile.TemporaryDirectory() as d:
++            run=Path(d);c={'groups':['B0','R0','Rjoint']};info=dict(stack={'cpu':'same'},gpu='Tesla V100')
++            proof=dict(passed=True,parent_protocol_sha256=fingerprint(c),**info)
++            write_json(run/'gpu-bridge/verification.json',proof)
++            server.require_target_evidence(ROOT,c,run,info,require_pilot=False)
++            with self.assertRaisesRegex(RuntimeError,'cost pilot'):
++                server.require_target_evidence(ROOT,c,run,info)
++            write_json(run/'throughput/verification.json',dict(proof,gpu='other'))
++            with self.assertRaises(RuntimeError):server.require_target_evidence(ROOT,c,run,info)
++            write_json(run/'throughput/verification.json',proof)
++            server.require_target_evidence(ROOT,c,run,info)
++
++    @unittest.skipUnless(torch.cuda.is_available(),'Target CUDA RNG pairing needs a GPU')
++    def test_extra_critic_initialization_preserves_cuda_rng_pairing(self):
++        states=[]
++        for group in ('B0','R0','Rjoint'):
++            seed_all(11);config=tiny(group);config['learner_device']='cuda'
++            agent=build_agent(config)
++            states.append(torch.cuda.get_rng_state().clone())
++            del agent
++        self.assertTrue(all(torch.equal(states[0],state) for state in states[1:]))
++
+     def test_three_groups_public_actor_pairing_and_cpu_worker(self):
+         actors=[]
+         for g in ('B0','R0','Rjoint'):

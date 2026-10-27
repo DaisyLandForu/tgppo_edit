@@ -1,0 +1,19 @@
+Started 2026-10-22T14:53:01+00:00 host=sg-duweiyue25-261022-0e64a-default0-0 pid=15 log=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/custom-logs/train-Rjoint-s11-20261022T145301Z-9lTC3V.log
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 444, in <module>
+    if __name__=='__main__':main()
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 437, in main
+    elif args.command=='train':train(root,c,run,args.group,args.seed,args.resume,args.device)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 237, in train
+    info=preflight(root,c,device);bases=baseline_bundle(root,c,run)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 142, in baseline_bundle
+    b=read(run/'normalization/baselines.json')
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 27, in read
+    def read(path):return json.loads(Path(path).read_text())
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/pathlib.py", line 1236, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/pathlib.py", line 1222, in open
+    return io.open(self, mode, buffering, encoding, errors, newline,
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/pathlib.py", line 1078, in _opener
+    return self._accessor.open(self, flags, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/normalization/baselines.json'

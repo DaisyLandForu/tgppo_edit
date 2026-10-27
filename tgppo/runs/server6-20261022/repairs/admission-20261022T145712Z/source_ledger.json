@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-10-22T15:13:24.408778+00:00",
+  "resolved_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "unchanged_frozen_protocol": true,
+  "files": {
+    "migration/2026-10-22/server-run/custom_job.sh": {
+      "sha256": "a0876dd2c00d527e7dde336a8c8c1c249a032c9c6e1fd368a3ab02f401b9b13c",
+      "before_sha256": "f2ba8678b4427fdf35a2910c5c82c196951fe5bbd008bc20688c76f554c64dce"
+    },
+    "migration/2026-10-22/server-run/CRATER.md": {
+      "sha256": "94133a85b218a99aba1469cd3ce76594c7e64054adb04b296e8eaacb4de6a020",
+      "before_sha256": "2e26a9bbb012c6cbc8b144c36d01e4a530dbb6b76b418f16368b8f0513a8496b"
+    },
+    "migration/2026-10-22/server-run/check_preparation.py": {
+      "sha256": "1e775bb2ab20633798c58d717896d2b28c09eec7f3982186608f11bf7f91a9f9",
+      "before_sha256": null
+    },
+    "migration/2026-10-22/server-run/tests/test_preparation_gate.py": {
+      "sha256": "28469665992bd1da4cc9d29e97b3476815ce3d45f63590206a486ecaf760ba1f",
+      "before_sha256": null
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp_utc": "2026-10-22T14:27:20.703025+00:00",
+  "scope": "engineering checks on this node; not formal training or target throughput evidence",
+  "host": "jpt-duweiyue25-261022-3bf44-default0-0",
+  "cuda_available": false,
+  "tests_run": 53,
+  "skipped": 2,
+  "errors": 0,
+  "failures": 0,
+  "passed": true,
+  "wall_seconds": 106.5315013640211,
+  "self_cpu_seconds": 28.861995,
+  "children_cpu_seconds": 106.894184,
+  "self_peak_rss_kib": 400528,
+  "children_max_process_rss_kib": 923284,
+  "skip_reasons": [
+    "Cached tensor fit GPU unavailable",
+    "Target CUDA RNG pairing needs a GPU"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "observed_at_utc": "2026-10-22T16:04:20.046563+00:00",
+  "resolved_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "unchanged_protocol": true,
+  "checkpoints": [
+    {
+      "group": "B0",
+      "checkpoint_sha256": "6f52cf872589f2eeb87da049b6cc2f077c1fdece1d99093ca83bb1623148bdba",
+      "progress": {
+        "phase": "ready",
+        "next_episode": 20,
+        "trained_episodes": 20,
+        "optimizer_steps": 150
+      },
+      "policy_version": 5
+    },
+    {
+      "group": "R0",
+      "checkpoint_sha256": "3e0171419c2388581514fcdd90f33977b3f04741a7f7691bc0e95bfd76fd170c",
+      "progress": {
+        "phase": "ready",
+        "next_episode": 20,
+        "trained_episodes": 20,
+        "optimizer_steps": 147
+      },
+      "policy_version": 5
+    },
+    {
+      "group": "Rjoint",
+      "checkpoint_sha256": "8444716b6b39ebe69fb4c999c794a540ef70650e07a0a346d852930bb10bf8a0",
+      "progress": {
+        "phase": "ready",
+        "next_episode": 20,
+        "trained_episodes": 20,
+        "optimizer_steps": 147
+      },
+      "policy_version": 5
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+usage: test.py [-h] --instances_dir INSTANCES_DIR --instances_info_dict
+               INSTANCES_INFO_DICT --model_path MODEL_PATH --logs_dir LOGS_DIR
+               [--time_limit TIME_LIMIT] [--per_job_timeout PER_JOB_TIMEOUT]
+               [--scip_setting SCIP_SETTING] [--seeds SEEDS [SEEDS ...]]
+               [--max_workers MAX_WORKERS] [--shift SHIFT]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --instances_dir INSTANCES_DIR
+  --instances_info_dict INSTANCES_INFO_DICT
+  --model_path MODEL_PATH
+  --logs_dir LOGS_DIR
+  --time_limit TIME_LIMIT
+  --per_job_timeout PER_JOB_TIMEOUT
+  --scip_setting SCIP_SETTING
+  --seeds SEEDS [SEEDS ...]
+  --max_workers MAX_WORKERS
+  --shift SHIFT

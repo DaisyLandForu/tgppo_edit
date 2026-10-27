@@ -1,0 +1,94 @@
+{
+  "aggregate": {
+    "b0_par2_mean": 117.537702,
+    "b0_pdi_failure_worstcase_mean": 2420.0683360696426,
+    "b0_pdi_instance_equal_mean": 2420.0683360696426,
+    "b0_proofs": 9,
+    "bootstrap_unit": "instance; 10000 resamples; 5-instance exploratory interval, no training-seed uncertainty",
+    "expected_instances": 5,
+    "instances_with_complete_pairs": 5,
+    "native_par2_mean": 73.941559,
+    "native_pdi_failure_worstcase_mean": 2344.6747159764777,
+    "native_pdi_instance_equal_mean": 2344.6747159764777,
+    "native_proofs": 12,
+    "paired_difference_instance_bootstrap_95_percentile_ci": [
+      -19.791655771303475,
+      237.64899446005262
+    ],
+    "paired_pdi_difference_mean": 75.39362009316498,
+    "robust_b0_better_instances": 1,
+    "robust_b0_worse_instances": 4
+  },
+  "instances": [
+    {
+      "b0_par2_mean": 5.406944,
+      "b0_pdi_mean": 23.143459701618593,
+      "b0_proofs": 3,
+      "expected_pairs": 3,
+      "instance": "vpm2",
+      "native_par2_mean": 1.9967203333333332,
+      "native_pdi_mean": 9.893249830010571,
+      "native_proofs": 3,
+      "paired_coverage": 3,
+      "pdi_difference_lower": 13.250209871608023,
+      "pdi_difference_mean": 13.250209871608023,
+      "pdi_difference_upper": 13.250209871608023
+    },
+    {
+      "b0_par2_mean": 4.349109,
+      "b0_pdi_mean": 5.5060510137461005,
+      "b0_proofs": 3,
+      "expected_pairs": 3,
+      "instance": "dcmulti",
+      "native_par2_mean": 1.7374676666666666,
+      "native_pdi_mean": 2.5003763682573297,
+      "native_proofs": 3,
+      "paired_coverage": 3,
+      "pdi_difference_lower": 3.0056746454887713,
+      "pdi_difference_mean": 3.0056746454887713,
+      "pdi_difference_upper": 3.0056746454887713
+    },
+    {
+      "b0_par2_mean": 97.932457,
+      "b0_pdi_mean": 830.2205447289003,
+      "b0_proofs": 3,
+      "expected_pairs": 3,
+      "instance": "eil33-2",
+      "native_par2_mean": 39.280537333333335,
+      "native_pdi_mean": 438.1760584838209,
+      "native_proofs": 3,
+      "paired_coverage": 3,
+      "pdi_difference_lower": 392.0444862450795,
+      "pdi_difference_mean": 392.0444862450795,
+      "pdi_difference_upper": 392.0444862450795
+    },
+    {
+      "b0_par2_mean": 240.0,
+      "b0_pdi_mean": 2159.5517110727315,
+      "b0_proofs": 0,
+      "expected_pairs": 3,
+      "instance": "neos-476283",
+      "native_par2_mean": 86.69306966666666,
+      "native_pdi_mean": 2199.9898202886184,
+      "native_proofs": 3,
+      "paired_coverage": 3,
+      "pdi_difference_lower": -40.77717588255374,
+      "pdi_difference_mean": -40.438109215887,
+      "pdi_difference_upper": -40.09904254922011
+    },
+    {
+      "b0_par2_mean": 240.0,
+      "b0_pdi_mean": 9081.919913831216,
+      "b0_proofs": 0,
+      "expected_pairs": 3,
+      "instance": "roi5alpha10n8",
+      "native_par2_mean": 240.0,
+      "native_pdi_mean": 9072.814074911681,
+      "native_proofs": 0,
+      "paired_coverage": 3,
+      "pdi_difference_lower": 6.790022252869069,
+      "pdi_difference_mean": 9.105838919535623,
+      "pdi_difference_upper": 11.421655586202784
+    }
+  ]
+}

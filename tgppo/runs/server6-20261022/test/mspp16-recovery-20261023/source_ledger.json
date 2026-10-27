@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-10-23T06:09:09.165242+00:00",
+  "original_runtime_unchanged": {
+    "migration/2026-10-22/server-run/post_training.py": "e0b434dbfd8f2fb64ffbfbed80a3c8bd8f3e9da1c62ea872bbacd164ce90ef4a",
+    "migration/2026-10-22/server-run/post_job.sh": "9d91152dc3d789632cd11b29f35c066000f369bc52d74d75dd89b6185df70831",
+    "tgppo/experiments/server-20261022/code/server.py": "23954d3db8c28704fd204858535c20c92c55b9564507369fda30b7a85a06bceb",
+    "tgppo/experiments/server-20261022/code/project/runtime.py": "d8c21123dadef8f09ff5abd65c3e25e34f1db2f76a70c3488748b6e2e8fecfe3"
+  },
+  "frozen_selection_sha256": "a8489c97fa042f980fc6f2b770ad1e1597524b4b38d8b91f721f25df1c32bd1a",
+  "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "resource_policy_sha256": "aad85046036b1a4c3806d098183e5f9ba7812f4d25a37d56d11ca44dd9ee0c9e",
+  "new_sources": {
+    "migration/2026-10-22/server-run/mspp16-recovery/README.md": "a48f06011c22933b7bf17d0862217a041e992022957d53075d29e7a1738914af",
+    "migration/2026-10-22/server-run/mspp16-recovery/run.sh": "c0a7848dda7b70992b3710c2ab8f68fb075c0179dad629e710ea859268cf1e22",
+    "migration/2026-10-22/server-run/mspp16-recovery/recover.py": "e708504116c8bc03bca2746263e970fd02158f8f8b3c1913a6bbaeb2690ebc43",
+    "migration/2026-10-22/server-run/mspp16-recovery/tests/test_recover.py": "ca17a4c178f1ae3c7577c56374aaa16e60be182af5e084a75041b233d7acb123"
+  },
+  "tests_passed": 10,
+  "tests_log_sha256": "8b26aef25a4a5dbe2764bff99a49b634d2a1aa0a1ff02cbef995cf354f97c74e",
+  "formal_recovery_solves_executed_by_codex": 0
+}

@@ -1,0 +1,692 @@
+{
+  "schema": 1,
+  "stage": "4 calibration supplement",
+  "files": {
+    "docs/stage4/artifact_hashes.json": {
+      "sha256": "e91a8db576e84d16e4fd3a24d7c201c1c256f2fb11c2dfa1f983407fcbaf1de0",
+      "bytes": 51148
+    },
+    "docs/stage4_calibration/audit.log": {
+      "sha256": "2137890871535fd2fe669a070faeb953fd6c42d7d0d9c0aac1fca97f9b77808d",
+      "bytes": 114
+    },
+    "docs/stage4_calibration/audit.py": {
+      "sha256": "c5fa4e9e454f04adf22baa4e01df8af023abb0b465f625da2d324016d8cb0ae6",
+      "bytes": 11119
+    },
+    "docs/stage4_calibration/before_after_calibration.png": {
+      "sha256": "16a9b8e8d22f705359e29df32158e0de9489c76c8443d1c6743a85b1fcd1a577",
+      "bytes": 78975
+    },
+    "docs/stage4_calibration/before_after_calibration.svg": {
+      "sha256": "c97e6fe5adcb19ee344fe1680d3eaba765eec04c615acb2d7eb6164f3c5718ab",
+      "bytes": 19271
+    },
+    "docs/stage4_calibration/calibrated_development.png": {
+      "sha256": "5ac933e7d2b6c6feb16a557ca751e360af3bf212679463eabbc20d52c21ae9b3",
+      "bytes": 92088
+    },
+    "docs/stage4_calibration/calibrated_development.svg": {
+      "sha256": "2d270ccb7bc7b25fee69f3d3454a3d2bfb9f72fe2ec1d3e8cd91c5e52390734b",
+      "bytes": 31994
+    },
+    "docs/stage4_calibration/calibrated_train.png": {
+      "sha256": "e119b7ab5ad1fc7a87e32d3aef903d9f34260195f43459b3b97db5162f5a2b64",
+      "bytes": 72836
+    },
+    "docs/stage4_calibration/calibrated_train.svg": {
+      "sha256": "e98123ee2a13e9651762623473f2d1e74ba5b4546bd7fdc37622e45e20e016ef",
+      "bytes": 25963
+    },
+    "docs/stage4_calibration/calibration.patch": {
+      "sha256": "648beb1ebef3a655365e7f9654ce2b5ed1974bf94bd6b084f4b8380579ee1b13",
+      "bytes": 257905
+    },
+    "docs/stage4_calibration/calibration_from_stage4.patch": {
+      "sha256": "1633190d686c82fbcd218b035a6fe29ad4317dc4b8fa606a1ff2288fab1c6cd4",
+      "bytes": 24711
+    },
+    "docs/stage4_calibration/fit.log": {
+      "sha256": "04f7b999fa66573cc438af9baae2ec8cc17c31f3edeb650a34d5951279ff5fe4",
+      "bytes": 7185
+    },
+    "docs/stage4_calibration/fit_runs.csv": {
+      "sha256": "02b35b9b3e6865d98506d6b00e0952abed1ebf17453acb4f5147bf35a33663c9",
+      "bytes": 3366
+    },
+    "docs/stage4_calibration/packaging_checks.json": {
+      "sha256": "6b94f928eeaf801caa9ae2a6a19ae98267d161d53286d7970c57f409ff9cf943",
+      "bytes": 238
+    },
+    "docs/stage4_calibration/paired_comparison.csv": {
+      "sha256": "36d018ffc70b1323dfafd6986da81940aee7ea7bbb26f3abae826a6c0464b603",
+      "bytes": 703
+    },
+    "docs/stage4_calibration/parameters.csv": {
+      "sha256": "7b8394aa6ad1da828414c7fbb782119ca3c351dcb5b68eef2801b65115e9eb6d",
+      "bytes": 771
+    },
+    "docs/stage4_calibration/per_instance_prediction.csv": {
+      "sha256": "586c5d49d753500fb5321e98eb770632f021ac4c49a035d005e8c490ae37863d",
+      "bytes": 72721
+    },
+    "docs/stage4_calibration/pilot_candidates.csv": {
+      "sha256": "008a35ac426c7e9c2effd05b04dd82465c2114076dd4852ce36390cca6b12ec1",
+      "bytes": 832
+    },
+    "docs/stage4_calibration/plot_results.py": {
+      "sha256": "25f24dbc9ca7b8062ee194ce3527b9ecea29d97817a4b24347683ffaa75de8cc",
+      "bytes": 3578
+    },
+    "docs/stage4_calibration/prediction_summary.csv": {
+      "sha256": "f8523c6d48c07db0638ebeffddecd692c2c3d1a587bb782cd8dec11446f84ec6",
+      "bytes": 2228
+    },
+    "docs/stage4_calibration/previous_artifact_preservation.json": {
+      "sha256": "276381ffca854b64d5b909185543b2e2825c6ed850f7f7a30bf7be464690429e",
+      "bytes": 77
+    },
+    "docs/stage4_calibration/protocol.json": {
+      "sha256": "15d89344c5aa328723534be0719bebcfed6e59f3bb2d1b4653adaf7ecdbfe617",
+      "bytes": 2210
+    },
+    "docs/stage4_calibration/reproduce.sh": {
+      "sha256": "6a4d9e5f97df7daa672aac64549979fac56f1ffd003826d0a51fe8e224b6eb28",
+      "bytes": 1162
+    },
+    "docs/stage4_calibration/restoration.csv": {
+      "sha256": "a68c47f77b8d802547fce4d2d52f0a85f16e1381136d53557871f02e5fc33800",
+      "bytes": 1272
+    },
+    "docs/stage4_calibration/selection.log": {
+      "sha256": "18d6d2050ec0b67beb95a8ca93445cad2ef0ecf03a8de3a5f51ace16270be0d8",
+      "bytes": 1967
+    },
+    "docs/stage4_calibration/source_verification.json": {
+      "sha256": "57274237ad5a406cb702167f4f32a9021dec9b656086eb712ee0abd25f788278",
+      "bytes": 979
+    },
+    "docs/stage4_calibration/summary.json": {
+      "sha256": "a4194878a26c07266b1966f192de1288cfb113acbbf24e82f58de267de80e5b4",
+      "bytes": 14967
+    },
+    "docs/stage4_calibration/tests-final.log": {
+      "sha256": "8873fb45ae342b56099f5d89c29ed96825e98415908c12bb84131f7411a46e57",
+      "bytes": 19805
+    },
+    "docs/stage4_calibration/tests-initial.log": {
+      "sha256": "c0ad099f8a76f80c74511e43cd45eed6a550feb7f690096c1003e9efbf05f59f",
+      "bytes": 655
+    },
+    "docs/stage4_calibration/verification.json": {
+      "sha256": "cf005f910dfefab4ae4fe63279c5ff429f24b6923a500792ba113f8ee21aca8e",
+      "bytes": 2164
+    },
+    "docs/阶段4补充_统一Critic校准与验收报告_TGPPO_2026-10-21.md": {
+      "sha256": "0602c176b8a909194ff082cefa9e3a016fa334c5688c399bf28d02eb36644bff",
+      "bytes": 9429
+    },
+    "docs/阶段4补充_统一Critic校准方案_TGPPO_2026-10-21.md": {
+      "sha256": "d0f809ae0aba9c0ab270700e1223db72bf613b53fa2572421fffdcdac814fd1c",
+      "bytes": 4044
+    },
+    "docs/阶段5_在线PPO对照接续方案_校准后_TGPPO_2026-10-21.md": {
+      "sha256": "65333adf4430eca75fc4eb6f9fe0afafe74416174069e81887ddff5cb0405897",
+      "bytes": 3026
+    },
+    "tgppo/experiments/stage4/metrics_binding/src/pyscipopt/scip.cpython-38-x86_64-linux-gnu.so": {
+      "sha256": "32b655f1ab42765d50ab1b3d706867a46d870622276e645b34308385f3968c26",
+      "bytes": 10678240
+    },
+    "tgppo/experiments/stage4-calibration/.gitignore": {
+      "sha256": "e9754db5b7f370fbf63a48928c8ec3c8a612868fb0fd69b5922a61bc67904e50",
+      "bytes": 125
+    },
+    "tgppo/experiments/stage4-calibration/README.md": {
+      "sha256": "6c5e1e4f9b52db77cd80f26882bc63b64e6f4b87afc1bb2dfc8970bd54feb7a0",
+      "bytes": 4527
+    },
+    "tgppo/experiments/stage4-calibration/STAGE2.md": {
+      "sha256": "a8442900f696a2995092e59972fbf309c22b20c86584138d8f58b2b05db03bdf",
+      "bytes": 3126
+    },
+    "tgppo/experiments/stage4-calibration/STAGE3.md": {
+      "sha256": "738cb164339ccb14b575e6121041a841a48afbae17de747fcb83bc21e6b3bda4",
+      "bytes": 2398
+    },
+    "tgppo/experiments/stage4-calibration/STAGE4.md": {
+      "sha256": "f9e8e4cb18031239f9a6333722132347b769c770b0ce79c42a539fc29327456e",
+      "bytes": 3183
+    },
+    "tgppo/experiments/stage4-calibration/STAGE4_CALIBRATION.md": {
+      "sha256": "7dcccca7ebe4420f246a5326022f615f179a1d839a5d02652ec5f99c3ca7d511",
+      "bytes": 2554
+    },
+    "tgppo/experiments/stage4-calibration/code/calibrate.py": {
+      "sha256": "7d4252b580081dff543635e26d201dafb201e806a2520f1f938d36224192caa2",
+      "bytes": 14685
+    },
+    "tgppo/experiments/stage4-calibration/code/experiment.py": {
+      "sha256": "8bd2cfa73509e3041e909c980fd23e012898c3adc48189c1f8dcf263a21a266f",
+      "bytes": 7432
+    },
+    "tgppo/experiments/stage4-calibration/code/prepare_baselines.py": {
+      "sha256": "ba647a34e8ba7220fec2c98b83122adb51e1d618bac8af8bc54a95d2e031c0a5",
+      "bytes": 160
+    },
+    "tgppo/experiments/stage4-calibration/code/project/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "tgppo/experiments/stage4-calibration/code/project/agent/__init__.py": {
+      "sha256": "3febf1777f68550ff6b9e3306e4a78055af83a88b9cf96b69e83dd97da688529",
+      "bytes": 24
+    },
+    "tgppo/experiments/stage4-calibration/code/project/agent/agent.py": {
+      "sha256": "f6aac8c023e05cdcd03da465e7cf74b87a4c5b2df35d267d9ce3e67f0d671019",
+      "bytes": 12240
+    },
+    "tgppo/experiments/stage4-calibration/code/project/brancher/__init__.py": {
+      "sha256": "e9388adf1405b97bdcee03e6268f70bd90ea7d01c066c1a69b1081759241044d",
+      "bytes": 30
+    },
+    "tgppo/experiments/stage4-calibration/code/project/brancher/brancher.py": {
+      "sha256": "34336737b756ce3e170858c6a1429d3e09066bee3c86cad314af1ff3c1a977e6",
+      "bytes": 4573
+    },
+    "tgppo/experiments/stage4-calibration/code/project/environment/__init__.py": {
+      "sha256": "7121c60504d8910f7d0407a4f1ac4eb8ac902f844d991c93341eb9f619eb033e",
+      "bytes": 36
+    },
+    "tgppo/experiments/stage4-calibration/code/project/environment/environment.py": {
+      "sha256": "2031eaacdefa6c300b4e452c7d1a5b0a2585fc1c6d419c4707266c5828d5dba0",
+      "bytes": 6260
+    },
+    "tgppo/experiments/stage4-calibration/code/project/measurement.py": {
+      "sha256": "71e4376828dd17a9539f95527a59cfda428fdc3093d5f44a05f595ba92cb92df",
+      "bytes": 5623
+    },
+    "tgppo/experiments/stage4-calibration/code/project/memory/__init__.py": {
+      "sha256": "cecf700498408b25ac6654c03777507849ce86f626a92df785e524ccd62e855f",
+      "bytes": 26
+    },
+    "tgppo/experiments/stage4-calibration/code/project/memory/memory.py": {
+      "sha256": "36ccd7ba5eb3a19d9fc95d33d17976d8504d0b86ab57cff299c9310912fada25",
+      "bytes": 7339
+    },
+    "tgppo/experiments/stage4-calibration/code/project/policy/__init__.py": {
+      "sha256": "607d957ba97939c5793df6b8b103eea6c4cbeb735a369d63c9d1c4b43fa5b6bd",
+      "bytes": 51
+    },
+    "tgppo/experiments/stage4-calibration/code/project/policy/actor.py": {
+      "sha256": "463759ed2fa321c7ed509a8f624bcee96f9ae2c2dc8ab757a80be59a733db5d6",
+      "bytes": 3296
+    },
+    "tgppo/experiments/stage4-calibration/code/project/policy/calibrated_critic.py": {
+      "sha256": "6c609eaa57bbd8743a77439f2d7f26d4c14d5a1551e465b9a2d21dc29a3f2cfc",
+      "bytes": 2955
+    },
+    "tgppo/experiments/stage4-calibration/code/project/policy/critic.py": {
+      "sha256": "d1d8ecd86392f2b0c3a171be759e26f835aeeeaf06dd3d18da6a61cbd694a874",
+      "bytes": 2959
+    },
+    "tgppo/experiments/stage4-calibration/code/project/policy/modules.py": {
+      "sha256": "959605658df62563d6d8145eda28838c61eb0c592188a85caa275450b55344aa",
+      "bytes": 5412
+    },
+    "tgppo/experiments/stage4-calibration/code/project/policy/search_critic.py": {
+      "sha256": "7b9d7eb4d77ede08439f22aedc3ead8efab1b42e52b136f5076c3dac659832b9",
+      "bytes": 4764
+    },
+    "tgppo/experiments/stage4-calibration/code/project/reward/__init__.py": {
+      "sha256": "027265b8c99858416a57d6866ea0037c293d3c922a0354dddd5f5f7877b3e6ad",
+      "bytes": 48
+    },
+    "tgppo/experiments/stage4-calibration/code/project/reward/reward.py": {
+      "sha256": "51091ae1683367c8d2fdfb2c8cc202f4b5901795674b2327d16587a5f9dc9cd6",
+      "bytes": 11370
+    },
+    "tgppo/experiments/stage4-calibration/code/project/runtime.py": {
+      "sha256": "c12048e3419a181fb62d85458a856a1be5ca0cc6ac68c3d8a10a3fe077da5ef4",
+      "bytes": 14397
+    },
+    "tgppo/experiments/stage4-calibration/code/project/search_features.py": {
+      "sha256": "62e6fa7f25ff7669921ea05941c77aca51cbe7eb36ad5d02699639d4d29da07b",
+      "bytes": 4176
+    },
+    "tgppo/experiments/stage4-calibration/code/project/utils/__init__.py": {
+      "sha256": "78c1d47b04755f9606bcdfbab65616ec194757cf3b5e3f944c31a5892d8cd61a",
+      "bytes": 259
+    },
+    "tgppo/experiments/stage4-calibration/code/project/utils/functions.py": {
+      "sha256": "e045c68b96d6e94ab7cd42ef5a21d583cb336f4e2cbb25ff41898993549bc9b5",
+      "bytes": 2834
+    },
+    "tgppo/experiments/stage4-calibration/code/project/utils/loggers.py": {
+      "sha256": "8a5970947ae351bb08c87269e84d5aa5d015e81020f8585fa61c7c8564a9689b",
+      "bytes": 4863
+    },
+    "tgppo/experiments/stage4-calibration/code/project/utils/protocol.py": {
+      "sha256": "9b0b2c9ff9112b8198557ccf8f761d56b1180b9fa0ebaaacbcccc062d2ddc07c",
+      "bytes": 3946
+    },
+    "tgppo/experiments/stage4-calibration/code/project/utils/settings.py": {
+      "sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+      "bytes": 5894
+    },
+    "tgppo/experiments/stage4-calibration/code/repair_pilot.py": {
+      "sha256": "76e207b62f8fd9019de2b9e0a3683fc89788a2fadb15bade587b0246ff3f2afe",
+      "bytes": 4225
+    },
+    "tgppo/experiments/stage4-calibration/code/requirements.txt": {
+      "sha256": "08217b6c4522747e1683b9de5e79f9319434502fc7020daf7d5231eeaa049b5c",
+      "bytes": 2555
+    },
+    "tgppo/experiments/stage4-calibration/code/scripts/test.sh": {
+      "sha256": "876ff1e65680d131c68d30d0b501438f4548e3a61c4cf095e37c7e45833f4402",
+      "bytes": 2551
+    },
+    "tgppo/experiments/stage4-calibration/code/scripts/train.sh": {
+      "sha256": "69309eb05ef8794e65caa3ec3e1f1354b9ee5ddd96fccfd896c9a9d482dc85d8",
+      "bytes": 3072
+    },
+    "tgppo/experiments/stage4-calibration/code/scripts/tune.sh": {
+      "sha256": "46bfb497180e0fe44003d163e1bbb1ec3393b0c7355c40a789d2430ed5cdf66f",
+      "bytes": 2767
+    },
+    "tgppo/experiments/stage4-calibration/code/stage3.py": {
+      "sha256": "81028be2bd38ad7a527851b066316ec1926e5148432cdc2c59f5745e4367ead9",
+      "bytes": 13977
+    },
+    "tgppo/experiments/stage4-calibration/code/stage4.py": {
+      "sha256": "1ed83b4d2e2d03842104bcd43fde0647fbc14c8da42b3bd245652026607d3b5f",
+      "bytes": 21120
+    },
+    "tgppo/experiments/stage4-calibration/code/test.py": {
+      "sha256": "b7f8f15a244ae2279b5d834a3b21b6e3ab05338004e046cc22a77bb6335e40df",
+      "bytes": 152
+    },
+    "tgppo/experiments/stage4-calibration/code/train.py": {
+      "sha256": "8734b6c5b61217d76cd200c8e657aec2533af94b919a02bb8d368725b440a735",
+      "bytes": 163
+    },
+    "tgppo/experiments/stage4-calibration/code/tune.py": {
+      "sha256": "4aa743f810c66310b3f92037ea06d6e355d37614d1e815b771b561d416de90d0",
+      "bytes": 29956
+    },
+    "tgppo/experiments/stage4-calibration/crc/AAAI_26_Camera_Ready_8_Pages.pdf": {
+      "sha256": "b37295519b1d26e001b5661ddc4cc9e74260848f4e42cefbe9df7e45d604799f",
+      "bytes": 682034
+    },
+    "tgppo/experiments/stage4-calibration/crc/AAAI_26_Camera_Ready_8_Pages.zip": {
+      "sha256": "a6afd5e5510fc26a22a44663d60c6b384123c9e1368a2639eadc3fb27bf93ab1",
+      "bytes": 301839
+    },
+    "tgppo/experiments/stage4-calibration/extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf": {
+      "sha256": "4db771c7646d69f3dbf9baeff7816376fc898fdc174bc39fbb658ea8a2bfd921",
+      "bytes": 731173
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/fig_combined_aaai.pdf": {
+      "sha256": "8b5527d172b56a40476709b3be96aeb1e2b3c2c2a489c095372727e0ed817779",
+      "bytes": 8901
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/fig_combined_patchwork.pdf": {
+      "sha256": "1c7f058b1022fc4ddc8f10abe75d0c2c71cb1604580085475f180f00b618a220",
+      "bytes": 8897
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/fig_combined_tight.pdf": {
+      "sha256": "1d6a4e500463b069d99635eafab2cc78ba511d7fa0ad6911a789a30135435cac",
+      "bytes": 8859
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/fig_easy_aaai.pdf": {
+      "sha256": "f1dfab34d0daa4641b8d67bdfd195a723c2c3a64e8f8221651086625c0dae709",
+      "bytes": 6621
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/fig_hard_aaai.pdf": {
+      "sha256": "f13b4319f2e6c5774f1549a38a05c4d3fc3aab80e5bc256401a38171d3e95c73",
+      "bytes": 6705
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/finished_instances.xlsx": {
+      "sha256": "2912c915b35b60a17ebefff96cbb54326f7defd07a8691e9e1842dc249da5b45",
+      "bytes": 51708
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/plots_crc.r": {
+      "sha256": "01c1e41e14b7541b8b402e6f9b2e158ad0dbac9d35fc20dd3e63157adab6f119",
+      "bytes": 11140
+    },
+    "tgppo/experiments/stage4-calibration/plots_crc/timelimit_instances.xlsx": {
+      "sha256": "6055363ce9f65ac46e71075bd82faff9f7950193c506efcdd42d1a9686d4c22b",
+      "bytes": 67885
+    },
+    "tgppo/experiments/stage4-calibration/tests/test_calibration.py": {
+      "sha256": "9828120c1b01980b6900571462403b92d4aaacf1e73e5fea18bf0ec2c6d3d5cd",
+      "bytes": 3818
+    },
+    "tgppo/experiments/stage4-calibration/tests/test_correctness.py": {
+      "sha256": "7fa82413488f5f33dfb82cabad52e1b66397ae57b446be03fe666717ab3b4907",
+      "bytes": 18516
+    },
+    "tgppo/experiments/stage4-calibration/tests/test_measurement.py": {
+      "sha256": "95724774a03c6871ccdf57a2a862ffa2c8d6746280a4c6b504cf0e6e69142651",
+      "bytes": 2885
+    },
+    "tgppo/experiments/stage4-calibration/tests/test_microbatch.py": {
+      "sha256": "9197979edaf7a4bb48f6e9b9d77dcdbc3a5f9524881f7b8f8a2b25c379ce3792",
+      "bytes": 1756
+    },
+    "tgppo/experiments/stage4-calibration/tests/test_search_features.py": {
+      "sha256": "eaa4d0a457ad2af4285ae3df97fde99f3668dda9a9e7d63f5fc2bebe45d32bb8",
+      "bytes": 9074
+    },
+    "tgppo/runs/stage3/pilot-repaired/latest.pt": {
+      "sha256": "1b912eec46bdf7ec3eaff04570c4aed0c3a57389b6d290bc14f3cc213442d4d1",
+      "bytes": 114801860
+    },
+    "tgppo/runs/stage4/offline/cache.pt": {
+      "sha256": "92dde780b604d625f0077e3028b4292dc4418d615afd3051edbcbd4fae156e65",
+      "bytes": 180865067
+    },
+    "tgppo/runs/stage4-calibration/curves.json": {
+      "sha256": "5fd59401713051731e4a8690e77a126404322527e566066f8f18c87f26c6b2ce",
+      "bytes": 59255
+    },
+    "tgppo/runs/stage4-calibration/final_train_only_statistics.json": {
+      "sha256": "6dd908c0de200f25837ee8c60e947bc2316a529f3c9bddd193d9ce06cb94295a",
+      "bytes": 1654
+    },
+    "tgppo/runs/stage4-calibration/fit_cost.json": {
+      "sha256": "34e0e78324ddd39e93d9b446b79f6f41de855dcf486da73708ba7294e9a946f4",
+      "bytes": 192
+    },
+    "tgppo/runs/stage4-calibration/fit_runs.json": {
+      "sha256": "22b2ebb500cdfb4922df8f454fbe50ac4a21154468def265fee040ff785bf0e7",
+      "bytes": 8412
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-hl_gauss-s11-predictions.npy": {
+      "sha256": "702831549fd3cb1eb3121bc6e015737fe07ba84ede039593c744e2550a1cce0d",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-hl_gauss-s11.pt": {
+      "sha256": "e86a23fb6bf24dd6d818b29dc2489c63f05b903465fc593f53ef0f6f4d26bce6",
+      "bytes": 2951217
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-hl_gauss-s22-predictions.npy": {
+      "sha256": "39166507ddc9d41067950bbe7a1c4e1f9db7f98a7a514b3c54d58142d5b11255",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-hl_gauss-s22.pt": {
+      "sha256": "8a4c9350e82fbbc1e869d6d17756e07b8468e94c5378682d942e42bba44a82a5",
+      "bytes": 2951217
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-hl_gauss-s33-predictions.npy": {
+      "sha256": "aac42282a29f73a3ab31b5e8f0b66b175e30c15bbf62b3f4371d5230da8a4c8e",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-hl_gauss-s33.pt": {
+      "sha256": "a3d25e66ac595d357216957d0580c517af25035ed564d58186c6ccb673fd595f",
+      "bytes": 2951217
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-mse-s11-predictions.npy": {
+      "sha256": "33690e16471d25374445477c68106b98b778c21a6faff2efa826ea717be8dca9",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-mse-s11.pt": {
+      "sha256": "ed102e134f4e517e12ad0a80f8192ea5e1582b5d500e674146b8405600d3e075",
+      "bytes": 2947991
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-mse-s22-predictions.npy": {
+      "sha256": "fe4331535d509cdf33410f3f9a3a55bb31ecae058e9f3a8a5ca59b6dac78677a",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-mse-s22.pt": {
+      "sha256": "bc1bbfbb882887e411ffd75c4d49d45dc97839423f2652961fb0f94431db129f",
+      "bytes": 2947991
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-mse-s33-predictions.npy": {
+      "sha256": "9e7cbed61bb4affe4fae0a100c34f92038fe3a20af78bf28833db7e066f44be0",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/R0-mse-s33.pt": {
+      "sha256": "bb31b13bcd6ce9001a9e38b198d64bbc400a3200293b5b100c0a26eafea2c6f5",
+      "bytes": 2947991
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-hl_gauss-s11-predictions.npy": {
+      "sha256": "9ca39b659ddad09320d2dd7dd14fcbd0878bad3fc9d074626588b564dbf401af",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-hl_gauss-s11.pt": {
+      "sha256": "fe05c2f9c65c01771581ab597e53dc6a399896de936694995329f71a691fab08",
+      "bytes": 3134645
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-hl_gauss-s22-predictions.npy": {
+      "sha256": "705c885d98af5c3f868040a66b8f656a2731dd250d99c7f66980c877cba363ee",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-hl_gauss-s22.pt": {
+      "sha256": "0956ad531b33934c0b42512fec573f6f96dd5ad829218f67ea719b3b991a3cb8",
+      "bytes": 3134645
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-hl_gauss-s33-predictions.npy": {
+      "sha256": "67e2e184d3c03cff0e8f557f37c8e74fdfb84fad312da455b84b1b4dcc07babe",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-hl_gauss-s33.pt": {
+      "sha256": "27216d2c96f9a8ec59b9324e4cace1db4c620e98677eb951645525d188e38151",
+      "bytes": 3134645
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-mse-s11-predictions.npy": {
+      "sha256": "ffe2b0fa3905e878c5fe97297513b195bd0fda5de9a53f4cd01945da29af9baf",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-mse-s11.pt": {
+      "sha256": "9433d65d796da1cf7cf898d0bcd41c51328f56564ddc6f664045f3ea293d93d0",
+      "bytes": 3131319
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-mse-s22-predictions.npy": {
+      "sha256": "4be8f3bd73d69ea066d3aa28e36425e3d504d60b3966507f0ee596f0a1051946",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-mse-s22.pt": {
+      "sha256": "8807993adc6446ad4951bda3f2b9b02473ff732bde1d24b6f5271cb607863348",
+      "bytes": 3131319
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-mse-s33-predictions.npy": {
+      "sha256": "dfe4911a5eaba69a13bf4e856881916163afc835863229c4f04b047ae7af2197",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rcap-mse-s33.pt": {
+      "sha256": "3d8937a4d14d9fa3556d7f483604be1c0cdad6278ad150089c078da3eff3c2df",
+      "bytes": 3131319
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-hl_gauss-s11-predictions.npy": {
+      "sha256": "76667f7c34bf320370617e9da5e06b0030e68a0e5b590c25382b30e7a5f0233d",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-hl_gauss-s11.pt": {
+      "sha256": "4d2d5ebfc1909bfa10682c060c4b1217ea14b9629c4b84862fe893b532cbccd2",
+      "bytes": 3134977
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-hl_gauss-s22-predictions.npy": {
+      "sha256": "a056c58f1792b82d686256cf50d72f62ebd1b6012a4c33a16e699814092fae2d",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-hl_gauss-s22.pt": {
+      "sha256": "1b78feee965c51df4cc6bc2a04a5647341e282cc0ee0e64ff8fd21bfcacf889d",
+      "bytes": 3134977
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-hl_gauss-s33-predictions.npy": {
+      "sha256": "082f83aabe1780842cb0a4e3c21d4ad6a763fa7dcc04e1505141c6c688e5d3f5",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-hl_gauss-s33.pt": {
+      "sha256": "3e7c0a29081e8d876af4fddb5cffac5e5d508e48526efa91de46981766d7cfd5",
+      "bytes": 3134977
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-mse-s11-predictions.npy": {
+      "sha256": "f5cf87d74d30e9cc79f606678da5a27017b04fb58da501757ea486fedbecedb5",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-mse-s11.pt": {
+      "sha256": "bd92a945578d5980374c4d75458c8102589ad610056fa631b5977dceddcfc10b",
+      "bytes": 3131779
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-mse-s22-predictions.npy": {
+      "sha256": "f8874380f8643f6789ec0388c5d221c950feeb91aabef5b5e9a9ca020f097244",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-mse-s22.pt": {
+      "sha256": "15374d3e4c676e90819206983e5ed957ed7ae60cb6fee0e6af54e39f8c6433a3",
+      "bytes": 3131779
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-mse-s33-predictions.npy": {
+      "sha256": "34b7059a8de3192f2c0d837fddc2821ba4b53e1a9283b30546167ead8d05725b",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rjoint-mse-s33.pt": {
+      "sha256": "c5c89f4db0bbe95cbdfd219e6e956e601877d906f2a865097399d6c24d68416c",
+      "bytes": 3131779
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-hl_gauss-s11-predictions.npy": {
+      "sha256": "c9fd5bc41152be6c49dc725203048b068f01e26fcc70118a122d521a185b9de6",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-hl_gauss-s11.pt": {
+      "sha256": "d57025ff22786fd6af50cc9b573cbbcf5702b0f3818e04b5e65df2dc46621677",
+      "bytes": 3134811
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-hl_gauss-s22-predictions.npy": {
+      "sha256": "238c682c31b7c15e10218b3bdae8cf5dacd85a0e8f41b6602282d3b8873359c2",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-hl_gauss-s22.pt": {
+      "sha256": "f145f5cbb59d00cd8cac7b91f3527aaf787bb54843be5f96ba01cdb4dc9b276f",
+      "bytes": 3134811
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-hl_gauss-s33-predictions.npy": {
+      "sha256": "3714e8217682b790b4fc3de4cde00a70f3c02293c97653bfffb0aaa042f46f96",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-hl_gauss-s33.pt": {
+      "sha256": "0fd36e61e35d1aa69e6c4e4c1fb8d5ac3559b63c0c3cc241221dcf07187a5215",
+      "bytes": 3134811
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-mse-s11-predictions.npy": {
+      "sha256": "81c0f4079ad8af795e907375589d41bd4862a79dc2994037aa2d433d84704750",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-mse-s11.pt": {
+      "sha256": "15dbb0bbc2bbd4354247629d437f859d1e4ec53626076ed6aed74c296254dc54",
+      "bytes": 3131485
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-mse-s22-predictions.npy": {
+      "sha256": "6c9b875a48bd74bbdbff13f0883fa7c00c281031b8be28ae1b7910e4e368f37d",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-mse-s22.pt": {
+      "sha256": "1d8514aa86a500c77f4a4d46488d5582e6b31e3eb041073c6160316b2e708baa",
+      "bytes": 3131485
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-mse-s33-predictions.npy": {
+      "sha256": "ab9716157720e6fed6bff399cefab5bf15ad6a001c30304f064506cd943034df",
+      "bytes": 184132
+    },
+    "tgppo/runs/stage4-calibration/fits/Rprod-mse-s33.pt": {
+      "sha256": "23af8bc813b155e0580b161f80fbdde450e2d094224f5ca59481b48401181748",
+      "bytes": 3131485
+    },
+    "tgppo/runs/stage4-calibration/parameters.json": {
+      "sha256": "aa46b2b8ae67c457610aa2d5b08317357c3c0c7e78731f5f88d9d282e438443e",
+      "bytes": 2733
+    },
+    "tgppo/runs/stage4-calibration/per_instance.json": {
+      "sha256": "146f3c0ca4364fa23bf1ec3acac71d74914b507e408c13895022bf7233562bb3",
+      "bytes": 179720
+    },
+    "tgppo/runs/stage4-calibration/pilot/candidates.json": {
+      "sha256": "a4c5cf047ff171c70fa1b692117bf20fbd3bffbd3c12f1e9a625f455144cc093",
+      "bytes": 2026
+    },
+    "tgppo/runs/stage4-calibration/pilot/curves.json": {
+      "sha256": "8f0a15dc4eccd50fbf32bbd16788d5204d382b78d864005950d962c3894c0d49",
+      "bytes": 8359
+    },
+    "tgppo/runs/stage4-calibration/pilot/hl_gauss-lr0.00012-u2000.pt": {
+      "sha256": "68faed90757c66190d7f3003b6e3ada1f7ef7e9690ef7b2fe9dac0989698818d",
+      "bytes": 2948051
+    },
+    "tgppo/runs/stage4-calibration/pilot/hl_gauss-lr0.00012-u5000.pt": {
+      "sha256": "c4cacbc10b0a71d5d322d850fc7490334a435b4990c2fda6e38e42fbb1b3babd",
+      "bytes": 2948051
+    },
+    "tgppo/runs/stage4-calibration/pilot/hl_gauss-lr0.001-u2000.pt": {
+      "sha256": "c0c923c29821e06d1dae91523eed7ebfa03f4a733f49927929034dc04c55fbbf",
+      "bytes": 2947759
+    },
+    "tgppo/runs/stage4-calibration/pilot/hl_gauss-lr0.001-u5000.pt": {
+      "sha256": "25897ca87ad0677d4b00f8a11128db14e7b95cd8e5cb5ecf7156f8bf4c80ee64",
+      "bytes": 2947759
+    },
+    "tgppo/runs/stage4-calibration/pilot/mse-lr0.00012-u2000.pt": {
+      "sha256": "d2b56be92532b9b9b874e1197d7e6f8681c71278f120f691748b8eeafe231c6d",
+      "bytes": 2944889
+    },
+    "tgppo/runs/stage4-calibration/pilot/mse-lr0.00012-u5000.pt": {
+      "sha256": "c5f707a1c71e46bb9af949d131d09e6e92b05a1a7ba88e13a7d861ca008c4555",
+      "bytes": 2944889
+    },
+    "tgppo/runs/stage4-calibration/pilot/mse-lr0.001-u2000.pt": {
+      "sha256": "87bf0f36b6c2edc78e735dc4d68173aad7bbbef2b1eeeb34571f5aa47e1feffe",
+      "bytes": 2944597
+    },
+    "tgppo/runs/stage4-calibration/pilot/mse-lr0.001-u5000.pt": {
+      "sha256": "5f621862a53b896367e8521c9a971a2b32a6b47c3f5c844538ee92a574dfa9b6",
+      "bytes": 2944597
+    },
+    "tgppo/runs/stage4-calibration/pilot/sampling-global-indices-s11.npy": {
+      "sha256": "7da91d9096095857815acee933a5c3d81de140c55e4f977de7b469cfafc931da",
+      "bytes": 10240128
+    },
+    "tgppo/runs/stage4-calibration/pilot/train_only_statistics.json": {
+      "sha256": "7fba864ccd5d12f299076db8e1861dd34837cb12d78984e09f86b6c82162dc55",
+      "bytes": 1650
+    },
+    "tgppo/runs/stage4-calibration/progress.json": {
+      "sha256": "6e1608ae894e8f809a58e2d54f188956f5bdfe84096f5afa111b755cdab4e484",
+      "bytes": 192
+    },
+    "tgppo/runs/stage4-calibration/protocol.json": {
+      "sha256": "15d89344c5aa328723534be0719bebcfed6e59f3bb2d1b4653adaf7ecdbfe617",
+      "bytes": 2210
+    },
+    "tgppo/runs/stage4-calibration/sampling-global-indices-s11.npy": {
+      "sha256": "d192a78f6acb5b810b89a6ca0f1e3bf0e4117d06390b4dd43bd1bc55ad09e08f",
+      "bytes": 10240128
+    },
+    "tgppo/runs/stage4-calibration/sampling-global-indices-s22.npy": {
+      "sha256": "6120010c3b489f07b92a672cf8521cd53aeab300793d52c1ef917ba3943e544e",
+      "bytes": 10240128
+    },
+    "tgppo/runs/stage4-calibration/sampling-global-indices-s33.npy": {
+      "sha256": "f12a34a2602289220e5d01eefe1f62736873865cade15d4c0ad8b484e8b39bd2",
+      "bytes": 10240128
+    },
+    "tgppo/runs/stage4-calibration/select_cost.json": {
+      "sha256": "e14b04bd204fe6c147ab357aeaef29ae7e81b58e86bcf748febff225f3cbc5e6",
+      "bytes": 192
+    },
+    "tgppo/runs/stage4-calibration/selection.json": {
+      "sha256": "f317ad08f1f06b0e1db07d6739ddf95ffadd33bc6067a0632ce696d3f1c01fa0",
+      "bytes": 360524
+    },
+    "tgppo/runs/stage4-calibration/summary.json": {
+      "sha256": "eca8f57c2db03d688a19821321f6184d5992a6570ace25e7f5c75b073e8f1b13",
+      "bytes": 432
+    },
+    "tgppo/solver/lib/libscip.so": {
+      "sha256": "eb5a45ffd560dbc690fcc628a99a976d4115c7821f79f7848bd27d5de6a95f6f",
+      "bytes": 10839264
+    }
+  },
+  "self_excluded": true,
+  "stage5_started": false
+}

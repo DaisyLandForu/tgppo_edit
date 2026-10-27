@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG -rdynamic CMakeFiles/lop.dir/src/cmain.c.o CMakeFiles/lop.dir/src/cons_lop.c.o CMakeFiles/lop.dir/src/reader_lop.c.o -o ../../bin/examples/lop  -Wl,-rpath,/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/lib ../../lib/libscip.so.6.0.1.0 

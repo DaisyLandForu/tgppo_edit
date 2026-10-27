@@ -1,0 +1,21 @@
+{
+  "bridge": true,
+  "checkpoint_episodes": 4,
+  "complete_optimizer_steps": 15,
+  "complete_ppo_iterations": 1,
+  "cpu_cap_seconds": 1200.0,
+  "episodes_attempted": 4,
+  "group": "Rprod",
+  "latest_checkpoint": "/root/research/tgppo/runs/stage5/bridge/Rprod-s11/latest.pt",
+  "latest_checkpoint_sha256": "6dad93586706d1885aea183aad7498c406be92d6b8700a5e84271d23a43310b2",
+  "learner_cpu_seconds": 33.776599000000004,
+  "peak_learner_rss_kib": 959648,
+  "stage": 5,
+  "stop_reason": "episode_limit",
+  "total_cpu_seconds": 57.825161,
+  "trained_transitions": 1034,
+  "training_seed": 11,
+  "valid_episodes": 4,
+  "within_budget": true,
+  "worker_cpu_seconds": 24.048586
+}

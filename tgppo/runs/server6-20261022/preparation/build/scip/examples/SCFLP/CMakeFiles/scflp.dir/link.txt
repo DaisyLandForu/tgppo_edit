@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG -rdynamic CMakeFiles/scflp.dir/src/cmain.c.o CMakeFiles/scflp.dir/src/probdata_scflp.c.o CMakeFiles/scflp.dir/src/reader_scflp.c.o -o ../../bin/examples/scflp  -Wl,-rpath,/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/lib ../../lib/libscip.so.6.0.1.0 -lm 

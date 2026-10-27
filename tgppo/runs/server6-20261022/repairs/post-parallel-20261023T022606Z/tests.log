@@ -1,0 +1,34 @@
+test_finalize_uses_the_same_dev_rule_and_runs_no_solver (test_parallel_post.ParallelPostTests) ... MODEL_SELECTED B0-s11 episode=400
+ok
+test_manifest_cannot_change_after_creation (test_parallel_post.ParallelPostTests) ... ok
+test_missing_seed_duplicate_cuda_and_critic_are_not_filtered_out (test_parallel_post.ParallelPostTests) ... ok
+test_partial_report_waits_for_all_models_and_a_fixed_prefix (test_parallel_post.ParallelPostTests) ... ok
+test_repetitions_are_averaged_before_instance_mean (test_parallel_post.ParallelPostTests) ... ok
+test_select_shard_preserves_original_job_identity_rng_and_budget (test_parallel_post.ParallelPostTests) ... DEVELOPMENT_SHARD_COMPLETE B0-s11 episode=100 runs=15
+SHARD_SUCCESS; selection/freeze still pending: siblings pending
+ok
+test_shards_are_disjoint_complete_and_independent_of_input_order (test_parallel_post.ParallelPostTests) ... ok
+test_test_shards_cannot_start_before_all_selections_freeze (test_parallel_post.ParallelPostTests) ... ok
+test_wrong_cpu_is_rejected_before_baseline_or_solver (test_parallel_post.ParallelPostTests) ... NODE_PREFLIGHT={"stack": {"cpu_model": "E5"}}
+ok
+test_changed_development_cutoff_is_rejected (test_post_training.PostTrainingTests) ... ok
+test_changed_frozen_actor_is_rejected (test_post_training.PostTrainingTests) ... ok
+test_cpu_mismatch_is_rejected_before_selection_runs (test_post_training.PostTrainingTests) ... ok
+test_dropped_or_duplicated_retained_samples_are_rejected (test_post_training.PostTrainingTests) ... ok
+test_held_out_jobs_never_start_before_six_models_are_selected (test_post_training.PostTrainingTests) ... ok
+test_small_batch_is_retained_until_the_next_update (test_post_training.PostTrainingTests) ... ok
+test_all_three_matching_passed_artifacts_are_ready (test_preparation_gate.PreparationGateTests) ... ok
+test_command_reports_pending_without_a_traceback (test_preparation_gate.PreparationGateTests) ... ok
+test_completed_baseline_does_not_allow_early_training (test_preparation_gate.PreparationGateTests) ... ok
+test_corrupt_json_and_null_baseline_result_are_rejected (test_preparation_gate.PreparationGateTests) ... ok
+test_failed_gpu_proof_and_incomplete_baseline_are_rejected (test_preparation_gate.PreparationGateTests) ... ok
+test_launcher_stops_before_creating_a_training_directory (test_preparation_gate.PreparationGateTests) ... ok
+test_mismatched_protocol_cpu_and_gpu_are_rejected (test_preparation_gate.PreparationGateTests) ... ok
+test_missing_artifacts_are_pending_and_no_state_is_created (test_preparation_gate.PreparationGateTests) ... ok
+test_prepare_finishes_without_rereading_an_edited_launcher (test_preparation_gate.PreparationGateTests) ... ok
+test_prepare_preserves_a_real_stage_failure_during_launcher_edit (test_preparation_gate.PreparationGateTests) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.805s
+
+OK

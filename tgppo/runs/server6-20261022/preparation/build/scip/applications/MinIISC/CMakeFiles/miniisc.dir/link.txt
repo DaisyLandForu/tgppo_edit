@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG -rdynamic CMakeFiles/miniisc.dir/src/benders.c.o CMakeFiles/miniisc.dir/src/miniisc.c.o CMakeFiles/miniisc.dir/src/readargs.c.o -o ../../bin/applications/miniisc  -Wl,-rpath,/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/lib ../../lib/libscip.so.6.0.1.0 -lm 

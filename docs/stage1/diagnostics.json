@@ -1,0 +1,112 @@
+{
+  "purpose": "stage1_diagnostics_only",
+  "training_performed": false,
+  "commit": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+  "architecture": {
+    "actor_parameters": 4738895,
+    "critic_parameters": 4804687,
+    "shared_parameter_objects": 0
+  },
+  "gae_terminal_case": {
+    "rewards": [
+      1,
+      2
+    ],
+    "values": [
+      10,
+      20
+    ],
+    "dones": [
+      false,
+      true
+    ],
+    "gamma": 1,
+    "lambda": 1,
+    "expected_returns": [
+      3,
+      2
+    ],
+    "upstream_returns": [
+      -17.0,
+      2.0
+    ],
+    "matches_reference": false
+  },
+  "validation_signature": {
+    "environment_signature": "(self)",
+    "training_call_uses_learn_false": true,
+    "bind_error": "got an unexpected keyword argument 'learn'"
+  },
+  "dropout_without_update": {
+    "eval_repeat_max_abs_diff": 0.0,
+    "eval_vs_train_max_abs_diff": 1.4901161193847656e-08,
+    "probability_ratio_min": 0.9999998807907104,
+    "probability_ratio_max": 1.0,
+    "note": "Synthetic fixed input; no optimizer step. This initialization has nearly uniform actions; the observed probability difference is only numerical scale and does not establish a material PPO bias."
+  },
+  "evaluation_critic_calls": 1,
+  "native_one_second_diagnostics": [
+    {
+      "instance": "lseu",
+      "time_limit": 1.0,
+      "cutoff": 1120.0,
+      "solver_status": "infeasible",
+      "nodes": 282,
+      "n_stored_solutions": 0,
+      "raw_gap": 0.0,
+      "gap_is_scip_infinite": false,
+      "primal_bound": 1120.0,
+      "dual_bound": 1120.0,
+      "pdi": 1.848613370073114,
+      "solver_seconds": 0.380733,
+      "optimize_wall_seconds": 0.3808034450012201
+    },
+    {
+      "instance": "stein27",
+      "time_limit": 1.0,
+      "cutoff": 18.0,
+      "solver_status": "infeasible",
+      "nodes": 691,
+      "n_stored_solutions": 0,
+      "raw_gap": 0.0,
+      "gap_is_scip_infinite": false,
+      "primal_bound": 18.0,
+      "dual_bound": 18.0,
+      "pdi": 8.953340639438801,
+      "solver_seconds": 0.44840199999999997,
+      "optimize_wall_seconds": 0.4484528370012413
+    },
+    {
+      "instance": "air04",
+      "time_limit": 1.0,
+      "cutoff": 56137.0,
+      "solver_status": "timelimit",
+      "nodes": 1,
+      "n_stored_solutions": 0,
+      "raw_gap": 1e+20,
+      "gap_is_scip_infinite": true,
+      "primal_bound": 56137.0,
+      "dual_bound": -80692.0,
+      "pdi": 100.2344,
+      "solver_seconds": 1.002348,
+      "optimize_wall_seconds": 1.0024124999999913
+    },
+    {
+      "instance": "neos20",
+      "time_limit": 1.0,
+      "cutoff": -434.0,
+      "solver_status": "timelimit",
+      "nodes": 1,
+      "n_stored_solutions": 0,
+      "raw_gap": 0.08064516129032258,
+      "gap_is_scip_infinite": false,
+      "primal_bound": -434.0,
+      "dual_bound": -469.0,
+      "pdi": 16.754552542947053,
+      "solver_seconds": 1.000174,
+      "optimize_wall_seconds": 1.0002237420012534
+    }
+  ],
+  "tracked_files_changed": [],
+  "upstream_status_porcelain": ""
+}

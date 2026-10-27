@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/x86_64-linux-gnu
+includedir=${prefix}/include
+
+Name: bliss C++ library
+Description: library to compute graph automorphisms and labelings
+Requires: gmp
+Version: 0.73
+URL: http://www.tcs.hut.fi/Software/bliss/
+Cflags: -D BLISS_USE_GMP -I${includedir}
+Libs: -L${libdir} -lbliss

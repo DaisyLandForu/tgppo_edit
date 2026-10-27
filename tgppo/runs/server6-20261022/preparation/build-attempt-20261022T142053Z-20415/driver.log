@@ -1,0 +1,46 @@
+Build Python: 3.8.20 | packaged by conda-forge | (default, Sep 30 2024, 17:52:49) 
+[GCC 13.3.0]
+NumPy/Cython/SciPy: 1.24.4 0.29.37 1.10.1
+SCIP 6.01
+{'getCandsState': True, 'getMIPState': True, 'getNodeState': True, 'getIntegralSnapshot': True, 'getOpenNodeSnapshot': True}
+SCIP version 6.0.1 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: SoPlex 4.0.1] [GitHash: a27ecc0]
+Copyright (C) 2002-2019 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+External codes: 
+  Readline 8.1         GNU library for command line editing (gnu.org/s/readline)
+  SoPlex 4.0.1         Linear Programming Solver developed at Zuse Institute Berlin (soplex.zib.de) [GitHash: e89d7d5]
+  CppAD 20180000.0     Algorithmic Differentiation of C++ algorithms developed by B. Bell (www.coin-or.org/CppAD)
+  ZLIB 1.2.11          General purpose compression library by J. Gailly and M. Adler (zlib.net)
+  GMP 6.2.1            GNU Multiple Precision Arithmetic Library developed by T. Granlund (gmplib.org)
+  bliss 0.73           Computing Graph Automorphism Groups by T. Junttila and P. Kaski (http://www.tcs.hut.fi/Software/bliss/)
+
+Compiler: gcc 11.4.0
+
+Build options:
+ ARCH=x86_64
+ OSTYPE=Linux-5.15.0-187-generic
+ COMP=GNU 11.4.0
+ BUILD=Release
+ DEBUGSOL=OFF
+ EXPRINT=cppad
+ SYM=bliss
+ GMP=ON
+ IPOPT=OFF
+ WORHP=OFF
+ LPS=spx
+ LPSCHECK=OFF
+ NOBLKBUFMEM=OFF
+ NOBLKMEM=OFF
+ NOBUFMEM=OFF
+ PARASCIP=OFF
+ READLINE=ON
+ SANITIZE_ADDRESS=OFF
+ SANITIZE_MEMORY=OFF
+ SANITIZE_UNDEFINED=ON
+ SANITIZE_THREAD=OFF
+ SHARED=ON
+ VERSION=6.0.1.0
+ API_VERSION=34
+ ZIMPL=OFF
+ ZLIB=ON
+Build evidence: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build-attempt-20261022T142053Z-20415

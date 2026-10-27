@@ -1,0 +1,114 @@
+{
+  "timestamp_beijing": "2026-10-22T22:33:33.953974+08:00",
+  "scope": "CPU development preparation, not target V100 or completed stage5",
+  "base_image": "user-duweiyue25/envd:11260740-c4da",
+  "archive_initial_exact": true,
+  "history_preserved_except_recorded_active_changes": true,
+  "data_passed": true,
+  "runtime": {
+    "python": "3.8.20 | packaged by conda-forge | (default, Sep 30 2024, 17:52:49) \n[GCC 13.3.0]",
+    "python_executable": "/home/duweiyue25/conda/envs/tgppo/bin/python",
+    "torch": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "cuda_available": false,
+    "numpy": "1.24.4",
+    "scipy": "1.10.1",
+    "pyscipopt": "1.4.9",
+    "binding_path": "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/stage4/metrics_binding/src/pyscipopt/scip.cpython-38-x86_64-linux-gnu.so",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "scip_version": 6.01,
+    "interfaces": {
+      "getCandsState": true,
+      "getMIPState": true,
+      "getNodeState": true,
+      "getIntegralSnapshot": true,
+      "getOpenNodeSnapshot": true
+    }
+  },
+  "checks": {
+    "timestamp_utc": "2026-10-22T14:27:20.703025+00:00",
+    "scope": "engineering checks on this node; not formal training or target throughput evidence",
+    "host": "jpt-duweiyue25-261022-3bf44-default0-0",
+    "cuda_available": false,
+    "tests_run": 53,
+    "skipped": 2,
+    "errors": 0,
+    "failures": 0,
+    "passed": true,
+    "wall_seconds": 106.5315013640211,
+    "self_cpu_seconds": 28.861995,
+    "children_cpu_seconds": 106.894184,
+    "self_peak_rss_kib": 400528,
+    "children_max_process_rss_kib": 923284,
+    "skip_reasons": [
+      "Cached tensor fit GPU unavailable",
+      "Target CUDA RNG pairing needs a GPU"
+    ]
+  },
+  "checks_log": "tgppo/runs/server6-20261022/preparation/tests-20261022T142534Z.log",
+  "protocol_file_sha256": "6e1b13e97c103496cbed1d502f4d8ecc7c6bdfe7ef7d5741aea2aef02aedf13a",
+  "resolved_parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "target_native_baselines_complete": false,
+  "target_gpu_bridge_passed": false,
+  "target_throughput_passed": false,
+  "formal_jobs": [
+    {
+      "group": "B0",
+      "seed": 11,
+      "committed_episodes": 0,
+      "trained_episodes": 0,
+      "status": "not_started",
+      "milestones": [],
+      "process_state": "not inferred; check Crater job state"
+    },
+    {
+      "group": "B0",
+      "seed": 22,
+      "committed_episodes": 0,
+      "trained_episodes": 0,
+      "status": "not_started",
+      "milestones": [],
+      "process_state": "not inferred; check Crater job state"
+    },
+    {
+      "group": "R0",
+      "seed": 11,
+      "committed_episodes": 0,
+      "trained_episodes": 0,
+      "status": "not_started",
+      "milestones": [],
+      "process_state": "not inferred; check Crater job state"
+    },
+    {
+      "group": "R0",
+      "seed": 22,
+      "committed_episodes": 0,
+      "trained_episodes": 0,
+      "status": "not_started",
+      "milestones": [],
+      "process_state": "not inferred; check Crater job state"
+    },
+    {
+      "group": "Rjoint",
+      "seed": 11,
+      "committed_episodes": 0,
+      "trained_episodes": 0,
+      "status": "not_started",
+      "milestones": [],
+      "process_state": "not inferred; check Crater job state"
+    },
+    {
+      "group": "Rjoint",
+      "seed": 22,
+      "committed_episodes": 0,
+      "trained_episodes": 0,
+      "status": "not_started",
+      "milestones": [],
+      "process_state": "not inferred; check Crater job state"
+    }
+  ],
+  "stage5_complete": false,
+  "stage6_started": false,
+  "next_action": "Create Crater Custom prepare job: 8 CPU / 32 GiB / 1 V100, shared /home mount; then six separate train jobs after target gates pass"
+}

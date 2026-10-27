@@ -1,0 +1,46 @@
+{
+  "schema": "server-six-jobs-v1",
+  "date": "2026-10-22",
+  "authorization": "用户明确选择 B0/R0/Rjoint 各两个种子、GPU作业并行、500 episode、每100保存、开发集选最佳；未授权此处启动正式训练",
+  "groups": [
+    "B0",
+    "R0",
+    "Rjoint"
+  ],
+  "training_seeds": [
+    11,
+    22
+  ],
+  "max_episodes": 500,
+  "milestones": [
+    100,
+    200,
+    300,
+    400,
+    500
+  ],
+  "batch_episodes": 4,
+  "workers": 4,
+  "solver_seeds": [
+    0,
+    1,
+    2
+  ],
+  "time_limit": 120.0,
+  "watchdog": 180.0,
+  "microbatch_size": 16,
+  "worker_address_space_bytes": 8589934592,
+  "learner_device": "cuda",
+  "expected_gpu": "V100",
+  "engineering_mode": false,
+  "run_directory": "tgppo/runs/server6-20261022",
+  "selection": "development instance-equal mean 120s PDI; same three solver seeds for all five checkpoints; exact ties earlier checkpoint",
+  "public_optimizer": "Adam (unchanged from accepted corrected mainline; not full AdamW paper reproduction)",
+  "baseline_label": "corrected original architecture under common 120s training protocol; not paper-scale performance reproduction",
+  "cpu_allocation_per_training_job": 8,
+  "ram_gib_per_training_job": 32,
+  "gpus_per_training_job": 1,
+  "slurm_walltime_template_hours": 24,
+  "validation_requirement": "target V100 bridge and representative cost pilot before six full jobs",
+  "stage6_started": false
+}

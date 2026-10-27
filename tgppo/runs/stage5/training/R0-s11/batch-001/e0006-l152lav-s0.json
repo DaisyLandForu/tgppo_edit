@@ -1,0 +1,885 @@
+{
+  "address_space_limit_bytes": 8589934592,
+  "bounds_trace": [
+    {
+      "dual": -1e+20,
+      "native_last_update_time": 0.0,
+      "native_previous_percent_gap": 100.0,
+      "native_raw": 0.0,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 0.006317
+    },
+    {
+      "dual": 4656.969696969697,
+      "native_last_update_time": 0.14292,
+      "native_previous_percent_gap": 1.3771771077997248,
+      "native_raw": 12.388102600978014,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 0.184669
+    },
+    {
+      "dual": 4673.334246968889,
+      "native_last_update_time": 0.9045719999999999,
+      "native_previous_percent_gap": 1.0306173873594093,
+      "native_raw": 13.241340972424588,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 0.905249
+    },
+    {
+      "dual": 4674.922712415422,
+      "native_last_update_time": 2.002535,
+      "native_previous_percent_gap": 0.9969777125069418,
+      "native_raw": 14.35139375632094,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 2.003218
+    },
+    {
+      "dual": 4674.932036019415,
+      "native_last_update_time": 2.288798,
+      "native_previous_percent_gap": 0.9967802621894296,
+      "native_raw": 14.636791587236315,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 2.29004
+    },
+    {
+      "dual": 4675.571252327904,
+      "native_last_update_time": 2.351176,
+      "native_previous_percent_gap": 0.9832432797987208,
+      "native_raw": 14.698968746431168,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 2.352539
+    },
+    {
+      "dual": 4675.689488708076,
+      "native_last_update_time": 2.561845,
+      "native_previous_percent_gap": 0.9807393327387511,
+      "native_raw": 14.906107624943084,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 2.5631180000000002
+    },
+    {
+      "dual": 4675.88885848645,
+      "native_last_update_time": 2.739364,
+      "native_previous_percent_gap": 0.9765171858015701,
+      "native_raw": 15.080207490551535,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 2.740728
+    },
+    {
+      "dual": 4675.9377639633985,
+      "native_last_update_time": 2.8506359999999997,
+      "native_previous_percent_gap": 0.9754814916688154,
+      "native_raw": 15.188866510850048,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 2.851734
+    },
+    {
+      "dual": 4675.974457200347,
+      "native_last_update_time": 3.558589,
+      "native_previous_percent_gap": 0.9747044218477894,
+      "native_raw": 15.879461559321461,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 3.558954
+    },
+    {
+      "dual": 4675.974854143025,
+      "native_last_update_time": 4.588207,
+      "native_previous_percent_gap": 0.974696015607256,
+      "native_raw": 16.88303477673554,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 4.588565
+    },
+    {
+      "dual": 4676.212020837692,
+      "native_last_update_time": 6.584862,
+      "native_previous_percent_gap": 0.9696734257159709,
+      "native_raw": 18.829166449777844,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 6.585689
+    },
+    {
+      "dual": 4676.491955189791,
+      "native_last_update_time": 6.834327,
+      "native_previous_percent_gap": 0.9637451251632562,
+      "native_raw": 19.07106603092408,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 6.835128
+    },
+    {
+      "dual": 4676.530862727098,
+      "native_last_update_time": 7.017601,
+      "native_previous_percent_gap": 0.9629211620690834,
+      "native_raw": 19.24769545499325,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 7.019005
+    },
+    {
+      "dual": 4676.676736617118,
+      "native_last_update_time": 7.814358,
+      "native_previous_percent_gap": 0.9598319225515043,
+      "native_raw": 20.014909631319927,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 7.932092
+    },
+    {
+      "dual": 4676.83262293513,
+      "native_last_update_time": 8.17558,
+      "native_previous_percent_gap": 0.9565306451687925,
+      "native_raw": 20.361622038047827,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 8.175604
+    },
+    {
+      "dual": 4677.208737897632,
+      "native_last_update_time": 9.311479,
+      "native_previous_percent_gap": 0.9485654828963979,
+      "native_raw": 21.448144241364414,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 9.312529
+    },
+    {
+      "dual": 4677.317767153274,
+      "native_last_update_time": 9.845576,
+      "native_previous_percent_gap": 0.9462565194139356,
+      "native_raw": 21.95477022008293,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 9.846557
+    },
+    {
+      "dual": 4677.349606279644,
+      "native_last_update_time": 11.085325,
+      "native_previous_percent_gap": 0.9455822473603575,
+      "native_raw": 23.12789079376984,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 11.086599
+    },
+    {
+      "dual": 4677.967762101891,
+      "native_last_update_time": 12.499307,
+      "native_previous_percent_gap": 0.9324912727257325,
+      "native_raw": 24.464927071056934,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 12.50056
+    },
+    {
+      "dual": 4679.721572719859,
+      "native_last_update_time": 13.137835,
+      "native_previous_percent_gap": 0.8953500059326753,
+      "native_raw": 25.060348858447952,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 13.139275
+    },
+    {
+      "dual": 4680.960543947769,
+      "native_last_update_time": 13.536447,
+      "native_previous_percent_gap": 0.8691117334229329,
+      "native_raw": 25.417246115012787,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 13.563184
+    },
+    {
+      "dual": 4681.226297957488,
+      "native_last_update_time": 13.72036,
+      "native_previous_percent_gap": 0.8634837366055065,
+      "native_raw": 25.577087061241798,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 13.746055
+    },
+    {
+      "dual": 4681.871496872085,
+      "native_last_update_time": 13.804955,
+      "native_previous_percent_gap": 0.8498200577703279,
+      "native_raw": 25.65013346793994,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 13.805887
+    },
+    {
+      "dual": 4684.395409704047,
+      "native_last_update_time": 13.8977,
+      "native_previous_percent_gap": 0.7963699766190837,
+      "native_raw": 25.72895002919785,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 13.897726
+    },
+    {
+      "dual": 4684.78355704698,
+      "native_last_update_time": 14.177308,
+      "native_previous_percent_gap": 0.7881499990050891,
+      "native_raw": 25.95140891079871,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 14.351616
+    },
+    {
+      "dual": 4685.054107356778,
+      "native_last_update_time": 15.329957,
+      "native_previous_percent_gap": 0.7824204287001624,
+      "native_raw": 26.859869219001926,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 15.330918
+    },
+    {
+      "dual": 4685.737051792828,
+      "native_last_update_time": 15.538079,
+      "native_previous_percent_gap": 0.7679573953234133,
+      "native_raw": 27.02270812346386,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 15.538798
+    },
+    {
+      "dual": 4685.82565625885,
+      "native_last_update_time": 16.214885,
+      "native_previous_percent_gap": 0.766080977152682,
+      "native_raw": 27.54246629636312,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 16.215589
+    },
+    {
+      "dual": 4687.815217391304,
+      "native_last_update_time": 16.501751,
+      "native_previous_percent_gap": 0.7239471115776359,
+      "native_raw": 27.762228881955,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 16.528173
+    },
+    {
+      "dual": 4687.821428571428,
+      "native_last_update_time": 16.592567,
+      "native_previous_percent_gap": 0.7238155745144337,
+      "native_raw": 27.827974862840033,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 16.593693000000002
+    },
+    {
+      "dual": 4688.089986468201,
+      "native_last_update_time": 16.932795,
+      "native_previous_percent_gap": 0.7181281984709752,
+      "native_raw": 28.07423718812593,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 16.93282
+    },
+    {
+      "dual": 4688.146353493758,
+      "native_last_update_time": 17.054577,
+      "native_previous_percent_gap": 0.7169344876374757,
+      "native_raw": 28.161692276392124,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 17.055582
+    },
+    {
+      "dual": 4688.328829273104,
+      "native_last_update_time": 17.260801,
+      "native_previous_percent_gap": 0.7130701128101647,
+      "native_raw": 28.309541374170678,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 17.260838
+    },
+    {
+      "dual": 4688.821428571428,
+      "native_last_update_time": 18.12497,
+      "native_previous_percent_gap": 0.7026381073395078,
+      "native_raw": 28.925754460487724,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 18.125904
+    },
+    {
+      "dual": 4690.481412803532,
+      "native_last_update_time": 18.392975,
+      "native_previous_percent_gap": 0.6674838457532339,
+      "native_raw": 29.114064986445246,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 18.393769
+    },
+    {
+      "dual": 4690.527777777777,
+      "native_last_update_time": 18.540496,
+      "native_previous_percent_gap": 0.6665019530330925,
+      "native_raw": 29.21253287085461,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 18.541482
+    },
+    {
+      "dual": 4691.291666666667,
+      "native_last_update_time": 18.630694,
+      "native_previous_percent_gap": 0.6503247211633424,
+      "native_raw": 29.272650014014285,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 18.631213
+    },
+    {
+      "dual": 4691.397242880465,
+      "native_last_update_time": 19.499155,
+      "native_previous_percent_gap": 0.6480888843611913,
+      "native_raw": 29.837431671680523,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 19.500092
+    },
+    {
+      "dual": 4691.920516836335,
+      "native_last_update_time": 20.557919,
+      "native_previous_percent_gap": 0.6370072673372494,
+      "native_raw": 30.523604851242315,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 20.55794
+    },
+    {
+      "dual": 4692.405021834062,
+      "native_last_update_time": 20.817431,
+      "native_previous_percent_gap": 0.6267466786518064,
+      "native_raw": 30.68891588120354,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 20.818235
+    },
+    {
+      "dual": 4692.425397139606,
+      "native_last_update_time": 21.427377,
+      "native_previous_percent_gap": 0.6263151812874715,
+      "native_raw": 31.071197510860493,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 21.427407
+    },
+    {
+      "dual": 4693.34688801168,
+      "native_last_update_time": 21.906946,
+      "native_previous_percent_gap": 0.6068003385921269,
+      "native_raw": 31.371558856035346,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 21.907716
+    },
+    {
+      "dual": 4694.905109783662,
+      "native_last_update_time": 22.401714,
+      "native_previous_percent_gap": 0.5738011481647219,
+      "native_raw": 31.671784245959895,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 22.402513
+    },
+    {
+      "dual": 4695.489264917619,
+      "native_last_update_time": 22.801414,
+      "native_previous_percent_gap": 0.5614302219902787,
+      "native_raw": 31.901132564881337,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 22.802275
+    },
+    {
+      "dual": 4695.513695449824,
+      "native_last_update_time": 23.452907,
+      "native_previous_percent_gap": 0.5609128451964444,
+      "native_raw": 32.26690042449645,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 23.453729
+    },
+    {
+      "dual": 4696.156864820834,
+      "native_last_update_time": 23.721551,
+      "native_previous_percent_gap": 0.5472921469539599,
+      "native_raw": 32.4175862948814,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 23.722441
+    },
+    {
+      "dual": 4696.504983388704,
+      "native_last_update_time": 23.86592,
+      "native_previous_percent_gap": 0.5399198774099068,
+      "native_raw": 32.496598314844995,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 23.865949
+    },
+    {
+      "dual": 4697.220796758947,
+      "native_last_update_time": 23.963545,
+      "native_previous_percent_gap": 0.5247607632582261,
+      "native_raw": 32.54930799287714,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 23.964383
+    },
+    {
+      "dual": 4699.482479784367,
+      "native_last_update_time": 24.309992,
+      "native_previous_percent_gap": 0.47686404522730497,
+      "native_raw": 32.731109785025666,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 24.310019
+    },
+    {
+      "dual": 4699.616053803044,
+      "native_last_update_time": 24.919508,
+      "native_previous_percent_gap": 0.4740352858313331,
+      "native_raw": 33.02176605041643,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 24.920205
+    },
+    {
+      "dual": 4700.4934968241405,
+      "native_last_update_time": 25.927936,
+      "native_previous_percent_gap": 0.45545326505420386,
+      "native_raw": 33.49979650563675,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 25.928631
+    },
+    {
+      "dual": 4700.906735751295,
+      "native_last_update_time": 26.203027,
+      "native_previous_percent_gap": 0.4467019112389889,
+      "native_raw": 33.62508759977378,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 26.204091
+    },
+    {
+      "dual": 4701.727727085434,
+      "native_last_update_time": 27.004134,
+      "native_previous_percent_gap": 0.4293153942093647,
+      "native_raw": 33.98294362778071,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 27.00416
+    },
+    {
+      "dual": 4701.870841252538,
+      "native_last_update_time": 27.096784,
+      "native_previous_percent_gap": 0.4262845986332399,
+      "native_raw": 34.022719699054214,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 27.096808
+    },
+    {
+      "dual": 4702.2787367696,
+      "native_last_update_time": 27.15492,
+      "native_previous_percent_gap": 0.41764640470986714,
+      "native_raw": 34.04750218048036,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 27.15584
+    },
+    {
+      "dual": 4703.722408026756,
+      "native_last_update_time": 27.273867,
+      "native_previous_percent_gap": 0.38707310405006234,
+      "native_raw": 34.09717996738138,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 27.274675
+    },
+    {
+      "dual": 4704.332713422502,
+      "native_last_update_time": 27.618059,
+      "native_previous_percent_gap": 0.3741483815649744,
+      "native_raw": 34.23040743321058,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 27.618769
+    },
+    {
+      "dual": 4704.4838814988,
+      "native_last_update_time": 27.957999,
+      "native_previous_percent_gap": 0.37094702459128026,
+      "native_raw": 34.35759543403978,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 27.958621
+    },
+    {
+      "dual": 4704.572727272727,
+      "native_last_update_time": 28.831663,
+      "native_previous_percent_gap": 0.3690654961303006,
+      "native_raw": 34.68167849533229,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 28.831694
+    },
+    {
+      "dual": 4704.732094175961,
+      "native_last_update_time": 28.901392,
+      "native_previous_percent_gap": 0.36569050876830134,
+      "native_raw": 34.70741306331196,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 28.902045
+    },
+    {
+      "dual": 4705.166666666667,
+      "native_last_update_time": 30.134353,
+      "native_previous_percent_gap": 0.3564873641112459,
+      "native_raw": 35.15829519869344,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 30.175757
+    },
+    {
+      "dual": 4705.318534758492,
+      "native_last_update_time": 30.205801,
+      "native_previous_percent_gap": 0.3532711825816983,
+      "native_raw": 35.18376550788446,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 30.206363
+    },
+    {
+      "dual": 4705.376724148011,
+      "native_last_update_time": 30.382978,
+      "native_previous_percent_gap": 0.35203887869523703,
+      "native_raw": 35.246357036200735,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 30.383669
+    },
+    {
+      "dual": 4705.5571758099995,
+      "native_last_update_time": 30.511241,
+      "native_previous_percent_gap": 0.34821736954681204,
+      "native_raw": 35.29151059889882,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 30.511267
+    },
+    {
+      "dual": 4705.668995838465,
+      "native_last_update_time": 30.525339,
+      "native_previous_percent_gap": 0.3458493045644858,
+      "native_raw": 35.29641976737469,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 30.525582
+    },
+    {
+      "dual": 4705.709116541353,
+      "native_last_update_time": 30.862541,
+      "native_previous_percent_gap": 0.34499964969603836,
+      "native_raw": 35.41304084457244,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 30.86316
+    },
+    {
+      "dual": 4706.57491786336,
+      "native_last_update_time": 31.383466,
+      "native_previous_percent_gap": 0.32666417061923786,
+      "native_raw": 35.59275978709035,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 31.409183
+    },
+    {
+      "dual": 4707.7952660937735,
+      "native_last_update_time": 31.439968,
+      "native_previous_percent_gap": 0.30082028602766764,
+      "native_raw": 35.61121696605868,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 31.439996
+    },
+    {
+      "dual": 4708.580606679629,
+      "native_last_update_time": 32.8815,
+      "native_previous_percent_gap": 0.28418876154956685,
+      "native_raw": 36.044859034616714,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 32.882137
+    },
+    {
+      "dual": 4708.832133039552,
+      "native_last_update_time": 33.555494,
+      "native_previous_percent_gap": 0.2788620703186787,
+      "native_raw": 36.23640055476855,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 33.556141
+    },
+    {
+      "dual": 4708.986611049009,
+      "native_last_update_time": 33.638652,
+      "native_previous_percent_gap": 0.2755906173441487,
+      "native_raw": 36.25959016681211,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 33.638684
+    },
+    {
+      "dual": 4709.687102428478,
+      "native_last_update_time": 33.965571,
+      "native_previous_percent_gap": 0.2607559841491257,
+      "native_raw": 36.34968597584364,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 33.96628
+    },
+    {
+      "dual": 4709.9299478544635,
+      "native_last_update_time": 34.371444,
+      "native_previous_percent_gap": 0.25561313311174216,
+      "native_raw": 36.4555197893982,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 34.372243
+    },
+    {
+      "dual": 4709.94186972996,
+      "native_last_update_time": 34.945216,
+      "native_previous_percent_gap": 0.25536065798475727,
+      "native_raw": 36.602183448009995,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 34.946042
+    },
+    {
+      "dual": 4709.993067086674,
+      "native_last_update_time": 35.796631,
+      "native_previous_percent_gap": 0.25427642764349273,
+      "native_raw": 36.81960134262809,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 35.796657
+    },
+    {
+      "dual": 4710.936134338321,
+      "native_last_update_time": 36.084647,
+      "native_previous_percent_gap": 0.234304651878003,
+      "native_raw": 36.892837022212255,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 36.084676
+    },
+    {
+      "dual": 4711.032620398875,
+      "native_last_update_time": 36.533063,
+      "native_previous_percent_gap": 0.23226132149777162,
+      "native_raw": 36.99790297698878,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 36.533832
+    },
+    {
+      "dual": 4711.192553022601,
+      "native_last_update_time": 36.564809,
+      "native_previous_percent_gap": 0.22887435360862335,
+      "native_raw": 37.00527634490105,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 36.565589
+    },
+    {
+      "dual": 4711.197127940312,
+      "native_last_update_time": 36.596721,
+      "native_previous_percent_gap": 0.2287774684389584,
+      "native_raw": 37.01258018327341,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 36.597035
+    },
+    {
+      "dual": 4711.198750603649,
+      "native_last_update_time": 36.629418,
+      "native_previous_percent_gap": 0.22874310453940308,
+      "native_raw": 37.02006052015896,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 36.629724
+    },
+    {
+      "dual": 4711.2206196585885,
+      "native_last_update_time": 36.750303,
+      "native_previous_percent_gap": 0.2282799733462839,
+      "native_raw": 37.0477121303512,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 36.751066
+    },
+    {
+      "dual": 4712.89998550527,
+      "native_last_update_time": 37.476304999999996,
+      "native_previous_percent_gap": 0.19271525825349858,
+      "native_raw": 37.21344384756055,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 37.476336
+    },
+    {
+      "dual": 4714.074074074074,
+      "native_last_update_time": 38.031723,
+      "native_previous_percent_gap": 0.16785103612719388,
+      "native_raw": 37.32048137086919,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 38.03175
+    },
+    {
+      "dual": 4717.170403587444,
+      "native_last_update_time": 38.969542,
+      "native_previous_percent_gap": 0.10227861949505261,
+      "native_raw": 37.477895261718956,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 38.96957
+    },
+    {
+      "dual": 4719.917355371901,
+      "native_last_update_time": 38.970641,
+      "native_previous_percent_gap": 0.04410513824860087,
+      "native_raw": 37.47800766592178,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 38.970666
+    },
+    {
+      "dual": 4722.0,
+      "native_last_update_time": 38.971943,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 37.47806509081178,
+      "primal": 4722.0,
+      "reason": "event",
+      "time": 38.971961
+    },
+    {
+      "dual": 4722.0,
+      "native_last_update_time": 38.971969,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 37.47806509081178,
+      "primal": 4722.0,
+      "reason": "stop",
+      "time": 38.972616
+    }
+  ],
+  "branch_count": 1099,
+  "callback_count": 1099,
+  "callback_seconds": {
+    "actor": 11.610124322003685,
+    "branch": 0.019831925877952017,
+    "callback": 26.03542411897797,
+    "critic": 10.710675966874987,
+    "features": 3.453906687798735
+  },
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cutoff_applied": true,
+  "cutoff_proof": true,
+  "cutoff_verified": true,
+  "didnotrun_count": 0,
+  "dual_bound": 4722.0,
+  "dual_bound_finite": true,
+  "environment_wall_seconds_before_free": 39.01700607499515,
+  "episode_ended": true,
+  "episode_id": "e0006-l152lav-s0",
+  "fallback_action_count": 0,
+  "finalize_wall_seconds": 0.03658431400253903,
+  "gap": 0.0,
+  "gap_finite": true,
+  "has_feasible_solution": false,
+  "instance_name": "l152lav",
+  "integral_snapshot": {
+    "integral": 37.47806509081178,
+    "last_dual_bound": 1e+20,
+    "last_primal_bound": 4722.0,
+    "last_update_time": 38.971969,
+    "previous_percent_gap": 0.0,
+    "solving_time": 38.972616
+  },
+  "job_id": "e0006-l152lav-s0",
+  "load_wall_seconds": 0.0072966590014402755,
+  "measurement_callback_seconds": 0.04587332300434355,
+  "measurement_event_calls": 5864,
+  "measurement_version": "native-pdi-snapshot-horizon-v2",
+  "mode": "collect",
+  "native_fallback_possible": false,
+  "nnodes": 2190,
+  "num_stored_solutions": 0,
+  "num_terminal_transitions": 1,
+  "num_transitions": 1099,
+  "objective": null,
+  "optimize_wall_seconds": 38.972774824993394,
+  "original_optimal": false,
+  "pdi_extension_basis": "verified_proof_certificate",
+  "pdi_horizon_exact": true,
+  "pdi_horizon_lower": 37.47806509081178,
+  "pdi_horizon_midpoint": 37.47806509081178,
+  "pdi_horizon_normalized_midpoint": 0.0031231720909009816,
+  "pdi_horizon_seconds": 120.0,
+  "pdi_horizon_uncertainty": 0.0,
+  "pdi_horizon_upper": 37.47806509081178,
+  "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+  "pdi_native_complete_at_stop": 37.47806509081178,
+  "pdi_native_final_percent_gap": 0.0,
+  "pdi_native_raw_before_flush": 37.47806509081178,
+  "pdi_semantics": "native_raw_until_actual_stop",
+  "pdi_tail_completed_readonly": 0.0,
+  "peak_rss_kib": 638468,
+  "policy_version": 1,
+  "primalDualIntegral": 37.47806509081178,
+  "primalDualIntegral_finite": true,
+  "primal_bound": 4722.0,
+  "primal_bound_finite": true,
+  "proof_completed": true,
+  "reward_count": 1099,
+  "reward_version": "upstream_h3_t120",
+  "sampling_seed": 1541150862,
+  "scip_infinity": 1e+20,
+  "scip_solve_time": 38.972616,
+  "scip_time_overshoot_seconds": 0.0,
+  "solver_seed": 0,
+  "status": "infeasible",
+  "task_terminal": true,
+  "time_limit_seconds": 120.0,
+  "total_reward": -851.2335859355346,
+  "valid": true,
+  "worker_cpu_complete": true,
+  "worker_cpu_seconds": 40.480843,
+  "worker_wall_seconds": 39.32367235000129
+}

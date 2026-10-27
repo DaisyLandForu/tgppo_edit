@@ -1,0 +1,78 @@
+{
+  "action_features": "unchanged upstream Actor inputs",
+  "affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "authorization": "\u8fdb\u5165\u9636\u6bb54",
+  "batch_size": 256,
+  "cache_device": "cpu",
+  "checkpoint": "/root/research/tgppo/runs/stage3/pilot-repaired/latest.pt",
+  "checkpoint_sha256": "1b912eec46bdf7ec3eaff04570c4aed0c3a57389b6d290bc14f3cc213442d4d1",
+  "critic_lr": 0.00012,
+  "development": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "roi5alpha10n8"
+  ],
+  "encoder_microbatch_size": 8,
+  "fit_device": "cuda if available, cached pure tensors only",
+  "fit_seeds": [
+    11,
+    22,
+    33
+  ],
+  "frontend": "frozen B0 Critic embeddings/transformer/refinement/aggregation",
+  "gamma": 0.97,
+  "groups": [
+    "R0",
+    "Rcap",
+    "Rprod",
+    "Rjoint"
+  ],
+  "initialization": "common B0 head + zero time projection; identical extra initialization by fit seed",
+  "losses": [
+    "mse",
+    "hl_gauss"
+  ],
+  "max_updates": 500,
+  "max_workers": 4,
+  "offline_cpu_cap_seconds": 14400.0,
+  "online_training_started": false,
+  "selection": "fixed final 500-update head, never choose by development outcomes",
+  "solver_seeds": [
+    0,
+    1
+  ],
+  "stage": 4,
+  "target": "full finite-horizon empirical discounted return, no bootstrap or GAE",
+  "time_limit": 120.0,
+  "train": [
+    "30n20b8",
+    "air04",
+    "air05",
+    "cod105",
+    "comp21-2idx",
+    "istanbul-no-cutoff",
+    "l152lav",
+    "lseu",
+    "misc03",
+    "neos20",
+    "neos21",
+    "neos648910",
+    "pp08aCUTS",
+    "rmatr100-p10",
+    "rmatr100-p5",
+    "rmatr200-p5",
+    "sp150x300d",
+    "stein27",
+    "supportcase7",
+    "swath1"
+  ],
+  "watchdog": 180.0,
+  "weighting": "uniform train instance, then uniform transition within instance"
+}

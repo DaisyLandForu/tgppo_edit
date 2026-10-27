@@ -1,0 +1,755 @@
+      Learning Branching Policies for MILPs with Proximal Policy Optimization
+           Abdelouahed Ben Mhamed1 , Assia Kamal-Idrissi1 , Amal El Fallah Seghrouchni1, 2
+                              1
+                                  Ai movement - International Artificial Intelligence Center of Morocco,
+                                       University Mohammed VI Polytechnic, Rabat, Morocco
+                                              2
+                                                Lip6, Sorbonne University, Paris, France
+
+
+
+
+                            Abstract                                   where each node represents a subproblem defined by a par-
+                                                                       tial assignment of integer variables. Central to B&B are two
+  Branch-and-Bound (B&B) is the dominant exact solution                operations: (1) branching, which partitions the feasible re-
+  method for Mixed Integer Linear Programs (MILP), yet its
+                                                                       gion of a subproblem into disjoint subsets, and (2) bound-
+  exponential time complexity poses significant challenges for
+  large-scale instances. The growing capabilities of machine           ing, which computes primal and dual bounds to evaluate the
+  learning have spurred efforts to improve B&B by learning             subproblem’s potential for improving the incumbent solu-
+  data-driven branching policies. However, most existing ap-           tion. Subproblems whose bounds exceed the current best
+  proaches rely on Imitation Learning (IL), which tends to over-       objective value are pruned, a critical mechanism for miti-
+  fit to expert demonstrations and struggles to generalize to          gating combinatorial explosion and ensuring computational
+  structurally diverse or unseen instances. In this work, we pro-      tractability (Land and Doig 1960).
+  pose Tree-Gate Proximal Policy Optimization (TGPPO), a
+  novel framework that employs Proximal Policy Optimization
+  (PPO), a Reinforcement Learning (RL) algorithm, to train a              Recent advances in Machine Learning (ML) have led
+  branching policy aimed at improving generalization across            to innovative methodologies to improve the efficiency of
+  heterogeneous MILP instances. Our approach builds on a pa-           B&B algorithms for MILP. In particular, Tree-aware branch-
+  rameterized state space representation that dynamically cap-         ing transformers (Lin et al. 2022) have emerged as a
+  tures the evolving context of the search tree. Empirical evalu-
+                                                                       paradigm for learning adaptive branching policies that gen-
+  ations show that TGPPO often outperforms existing learning-
+  based policies in terms of reducing the number of nodes ex-          eralize across MILP instances, building on earlier efforts
+  plored and improving p-Primal-Dual Integrals (PDI), partic-          to parameterize B&B search trees for improved general-
+  ularly in out-of-distribution instances. These results highlight     ization (Zarpellon et al. 2021). Reinforcement Learning
+  the potential of RL to develop robust and adaptable branching        (RL) frameworks, such as those that employ tree-structured
+  strategies for MILP solvers.                                         Markov Decision Processes (MDPs), have further demon-
+                                                                       strated the feasibility of learning branching rules from
+                                                                       scratch without expert supervision (Scavuzzo et al. 2022).
+                     1     Introduction                                Currently, advances in hierarchical representation learning
+Mixed Integer Linear Programming (MILP) is a founda-                   have introduced transformer architectures tailored to tree-
+tional mathematical optimization framework for addressing              structured data, enabling the capture of long-range depen-
+complex decision-making problems characterized by both                 dencies within B&B search trees through multi-head atten-
+continuous and discrete variables. The inclusion of integer            tion mechanisms (Lin et al. 2022). These architectures often
+constraints induces non-convexity in the feasible solution             integrate bi-directional propagation strategies to synthesize
+space, transforming the search for optimal solutions into a            local node features with global tree context, thereby improv-
+combinatorial NP-hard problem. MILP has been extensively               ing the fidelity of learned node representations (Lin et al.
+applied in various domains, including logistics and routing            2022), (Zhang et al. 2025). Collectively, these works under-
+optimization (Matai, Singh, and Mittal 2010) and energy                score the potential of data-driven approaches to address the
+systems planning (Ren and Gao 2010). This broad appli-                 combinatorial challenges inherent in B&B.
+cability has motivated sustained research efforts to improve
+solution methodologies, particularly in reducing computa-
+tional complexity and accelerating solving times for large-               To address the limitations of existing imitation-based
+scale real-world instances.                                            branching strategies and advance the development of gen-
+   Branch-and-Bound (B&B) is a canonical exact algorithm               eralizable policies, we propose an RL framework based on
+to solve discrete optimization problems, particularly inte-            Proximal Policy Optimization (PPO). Our approach enables
+gral to MILP. The method iteratively constructs a search tree          an agent to interact directly with the B&B solver dynami-
+                                                                       cally exploring the state-space and learning to select high
+Copyright © 2026, Association for the Advancement of Artificial        value branching decisions that minimize search tree com-
+Intelligence (www.aaai.org). All rights reserved.                      plexity.
+                    2   Related Work                               Q-learning augmented by Graph Neural Networks (GNN)
+2.1   Imitation Learning and Hybrid Frameworks                     to learn high-quality variable orderings for approximate
+                                                                   DD, which yield tighter bounds and reduce the size of the
+Traditional B&B algorithms for MILP rely on handcrafted            search tree in the maximum independent set problem com-
+heuristics for variable selection, which often exhibit subop-      pared to traditional heuristics. However, limitations arise
+timal performance and poor scalability. Early work by He,          from the computational overhead of GNN forward passes,
+Daumé, and Eisner (2014) demonstrated the feasibility of          which inflate solving times despite fewer nodes, requiring
+imitation learning to guide node selection in B&B trees,           hybrid approaches with greedy heuristics and caching that
+achieving faster solve times than commercial solvers like          can compromise bound tightness; moreover, the off-policy
+Gurobi. However, such methods inherit biases from expert           Q-learning framework may encounter overestimation biases,
+demonstrations and generalize poorly to unseen instances.          high variance in large state-action spaces, and challenges in
+Recent hybrid frameworks aim to mitigate these limitations;        exploration, leading to suboptimal policies or instability dur-
+for example Zhang, Banitalebi-Dehkordi, and Zhang (2022)           ing training.
+propose a hybrid framework that integrates imitation learn-
+ing, PPO, and Monte Carlo Tree Search (MCTS) to optimize
+variable selection in B&B algorithms for solving MILPs.            2.4    Open Challenges and Our Contribution
+Imitation learning bootstraps the PPO agent by mimicking
+strong branching heuristics, accelerating training, and reduc-     Despite notable progress in hybrid and autonomous RL for
+ing initial exploration inefficiencies. PPO refines the policy     branching, three obstacles persist. (i) Short-horizon bias.
+via stable actor-critic updates, while MCTS enhances global        Policies bootstrapped from strong branching can inherit
+optimality through modified upper confidence bounds and            short-horizon preferences for immediate bound improve-
+lookahead simulations, refined via cross-entropy loss. Eval-       ments, which need not correlate with global search effi-
+uated on benchmarks like set covering, combinatorial auc-          ciency (e.g. total tree size). Value-based agents trained off-
+tions, capacitated facility location, and maximum indepen-         policy are also prone to Q-overestimation under distribution
+dent set, the method outperforms traditional heuristics and        shift. (ii) Sample inefficiency under sparse, delayed rewards.
+prior ML approaches in node reduction and solving times.           MILP solving unfolds over 103 − 105 branching decisions,
+However, limitations include potential biases from expert          where suboptimal early actions compound and informative
+heuristics, high computational overhead from MCTS simu-            signals (gap closure or PDI) arrive primarily at fathoming or
+lations limiting scalability, restricted evaluation to synthetic   timeout. (iii) Runtime overhead. Look-ahead (e.g., MCTS)
+datasets questioning real-world generalization, and lingering      and heavy GNNs can tighten bounds but increase per-node
+sample inefficiency in sparse-reward settings, suggesting av-      latency, stressing fixed wall-clock budgets (e.g., 3600 s).
+enues for hybrid RL enhancements.
+                                                                   Contributions. We advance learning-to-branch with a
+2.2   Autonomous Reinforcement Learning for                        fully on-policy Tree-Gate Proximal Policy Optimization
+      Branching                                                    (TGPPO) architecture targeting B&B tree size reduction.
+To address imitation learning’s limitations, later studies         (i) Stability without expert imprinting. The PPO clipped-
+focused on fully autonomous RL frameworks. Qu et al.               surrogate objective mitigates off-policy estimation bias, en-
+(2022) introduces a Double Deep Q-Network (DDQN)                   abling stable training directly on solver-generated trajecto-
+based framework that leverages the demonstration data of           ries. This avoids imprinting from hand-crafted expert traces
+strong branching heuristics to accelerate initial offline train-   and retains stable gradients. (ii) Architecture for variable-
+ing, a prioritized storage mechanism to dynamically balance        arity decisions. We propose a permutation-equivariant Tree-
+demonstration and self-generated data for improved policy          Gate Transformer that conditions attention via multiplicative
+quality, and a superior Q-network to enhance training ro-          gates driven by local tree statistics. This improves credit as-
+bustness against large state-action spaces. However, limita-       signment for the variable-sized candidate sets. (iii) Through-
+tions include the reliance on value-based DDQN, which may          put at scale. A lightweight encoder and batched rollout en-
+still suffer from overestimation biases and high variance in       gine ensure competitive wall-clock times without resorting
+gradient estimation due to the expansive action spaces in          to heavy MCTS or GNN modules.
+MILP, potentially leading to suboptimal exploration and lo-        Evaluation protocol. We use nested cross-validation with a
+cal optima, as evidenced by the ablation studies showing in-       dual criterion: (a) explored nodes for runs completed within
+stability without the superior network; additionally, the off-     a 1-hour budget, and (b) the PDI otherwise, capturing both
+policy nature and discrete action focus could limit adaptabil-     rapid completion and anytime progress. Summary of find-
+ity to more dynamic or continuous branching scenarios.             ings. Across held-out benchmarks, TGPPO surpasses prior
+                                                                   learning-based branchers on 72% of test instances (fewer
+2.3   Hybrid RL with Classical Optimization                        nodes), while a clear, quantified gap to expert-designed
+Beyond pure RL, recent work integrates classical opti-             heuristics such as RELPSCOST in SCIP1 still remains.
+mization techniques to enhance the performance of B&B.
+Parjadis et al. (2021) integrates RL with Decision Dia-               1
+                                                                       SCIP (Solving Constraint Integer Programs) (Gleixner et al.
+grams (DD) to enhance bounding mechanisms in B&B al-               2018) is a leading non-commercial, extensible MILP solver frame-
+gorithms for combinatorial optimization, specifically using        work, which we use as the B&B environment for our agent.
+                                                                         πθ
+ 3     Optimization and Learning Frameworks                         • Aϕ old (s, a) is the advantage estimate, typically com-
+3.1    Branch-and-Bound                                               puted using Generalized Advantage Estimation (GAE)
+                                                                      (Schulman et al. 2015).
+We consider a general MILP problem, formulated as:
+                                                                    • R(s) is the empirical discounted return (the value target),
+                 min cT x                                             used as the target for training the critic Vϕ (s).
+                  s.t. Ax ≤ b,                                      • H(πθ (·|s)) is the policy entropy that encourages explo-
+                                                            (1)       ration.
+                       xi ∈ Z, ∀i ∈ I,
+                       xj ∈ R, ∀j ∈ J .                             • λ1 , λ2 are weighting coefficients for the critic loss and
+                                                                      entropy bonus, respectively.
+Here, x is the decision vector with integer variables xi (i ∈
+I) and continuous variables xj (j ∈ J ). The objective is                               4   Methodology
+defined by c ∈ Rn , and constraints by A ∈ Rm×n and b ∈
+                                                                   Our methodology builds upon the feature representations in-
+Rm .
+                                                                   troduced in prior works (Zarpellon et al. 2021; Lin et al.
+   The B&B algorithm solves this MILP by exploring a
+                                                                   2022), while proposing a novel RL framework based on
+search tree. At each node, it solves the Linear Programming
+                                                                   PPO to acquire a generalized branching policy. Following
+(LP) relaxation (Eq. (1) without integrality). If the solution
+                                                                   (Zarpellon et al. 2021), we adopt hand-crafted features. Let
+x∗ is not integer-feasible, the algorithm branches on a frac-
+                                                                   Ct be the set of candidate variables at step t. The state is
+tional variable x∗i ∈ I by creating two subproblems with
+                                                                   then represented by a matrix of candidate features, Ct ∈
+the added constraints xi ≤ ⌊x∗i ⌋ and xi ≥ ⌈x∗i ⌉. The LP
+solution of a subproblem provides a lower bound. A node is         R|Ct |×25 , and a vector of local tree state features, T reet ∈
+pruned if its lower bound exceeds the best-known integer-          R61 . Together, these features encapsulate the evolving con-
+feasible solution (the incumbent). This process repeats re-        text of the B&B process. In contrast to static deep neural net-
+cursively until the search space is exhausted, guaranteeing        work architectures or graph-based enhancements employed
+optimality.                                                        in T-BranT (Lin et al. 2022), we model branching as a se-
+                                                                   quential decision-making task and train an online PPO agent
+3.2    Proximal Policy Optimization                                to refine variable selection through direct interaction with
+                                                                   the B&B environment.
+PPO (Schulman et al. 2017) is a state-of-the-art RL algo-
+rithm that improves traditional policy gradient methods by         4.1    Policy Architecture
+optimizing a surrogate objective function while maintain-
+ing stable and efficient updates. PPO belongs to the class of      Our policy follows an actor-critic design tailored to branch-
+policy-based RL algorithms, where an agent learns a param-         ing in MILP search trees. Each decision state comprises (i)
+eterized policy πθ (a | s) that maps states s to a probability     a set of candidate branching variables with heterogeneous,
+distribution over actions a, with parameters θ optimized to        instance-dependent cardinality L, and (ii) a tree context cap-
+maximize the expected cumulative reward.                           turing both the current node state and local MIP features.
+   A key challenge in policy optimization is to ensure a bal-      The architecture in Figure 1 is built around three principles:
+ance between policy improvement and stability. Large up-           (1) permutation-equivariance over candidates; (2) contextu-
+dates to the policy can lead to performance collapse, while        alization of candidates by the current tree state; and (3) ca-
+overly conservative updates can slow learning. To address          pacity control via a gated multi-layer reduction that adapts
+this, PPO introduces a clipped surrogate objective that con-       the effective network width to the current state. Concretely,
+strains the policy update within a trust region.                   both actor and critic share the same front-end: linear em-
+   The PPO objective employs an Actor-Critic architecture,         beddings for variables and tree context, a Transformer en-
+where:                                                             coder that operates over the candidate set with key-padding
+                                                                   masks, and a light bi-directional matching module that fuses
+ • The actor network πθ (a|s) selects branching actions            local tree information into the candidate stream. The heads
+    (variables) based on the current state of the solver.          then diverge: the actor produces a categorical distribution
+ • The critic network Vϕ (s) estimates the expected cumula-        over candidates, while the critic aggregates masked candi-
+    tive reward (the value function).                              date features into a scalar state-value.
+                                                                      Let t index the current B&B node. The SCIP solver ex-
+                                    
+                                                   πθ
+                                                                   poses three feature blocks:
+      L(θ, ϕ) = E(s,a)∼πθold min rθ (s, a)Aϕ old (s, a),
+                                                                               Ct ∈ R|Ct |×dc , nt ∈ Rdn , mt ∈ Rdm ,
+                                                      
+                                          πθ
+         clip (rθ (s, a), 1 − ϵ, 1 + ϵ) Aϕ old (s, a)                 where each row ct,i of Ct (with dc = 25) summarises
+                                                                   candidate variable i, while nt and mt (with dn = 8, dm =
+                   h
+                                      2
+                                        i                          53) encode the current node and MIP search tree features,
+          −λ1 Es (Vϕ (s) − R(s)) + λ2 H(πθ (·|s))        (2)       respectively.
+  where:                                                           Linear embeddings: We project every feature block into
+ • rθ (s, a) = ππθθ (a|s)
+                      (a|s) is the probability ratio between the
+                                                                   a common dh -dimensional space:
+                  old
+   new and old policies.                                                 c̃t,i = Wc LN(ct,i ),    t̃t = Wt LN[nt ; mt ] ,     (3)
+                                                                                                                                                                                     Tree-Gate PPO
+
+
+                                                                                                                                    Actor             at ~ πθ(·|st)
+                                                                                                       Shared Front-end    Tree-Gate Transformer
+                                                                                                                              (defines πθ( · |st))                                       at, log πt                                                 PPO Update
+                                                                                                                                                                                                                                Trajectory Buffer
+                                                                                                                                                                                                                           rt                       clip & entropy
+
+
+
+
+                                                                                               SCIP Solver
+
+
+                        Extract Candidates and Tree
+     Current Node                 Features                                                                                                                            Branch on at   Propagate / Queue
+                             (provides Ct, nt, mt)
+
+
+
+
+                                                                                                                                       Environment Wrapper
+
+
+                                                                                          st
+                                                                 State Builder                                                                                                                           Reward Shaper
+                                                                (builds state st)                                                                                                                        gap, PDI, nodes
+                                                                 st = (Ct, nt, mt)
+                                                        (Ct = candidate features, nt+mt
+                                                                                                                                                                            st
+                                                                = tree context)
+
+
+
+
+Figure 1: The Tree–Gate PPO agent interacts with SCIP through an environment wrapper: candidate features and local tree
+features are encoded, the actor chooses a branching variable, SCIP executes the branch, and the environment returns rewards.
+Trajectories accumulate in a buffer and are periodically used for PPO optimisation, closing the learning loop.
+
+
+with Wc ∈ Rdh ×dc and Wt ∈ Rdh ×(dn +dm ) learned pa-                                                                                                Algorithm 1: Tree–Gate PPO (TGPPO)
+rameters and LN(·) denoting layer normalization.                                                                                                     Require: Instance set D, horizon H, epochs E
+Candidate–tree fusion: By concatenating each embed-                                                                                                   1: Initialise policy θ, value ϕ
+ded candidate with the embedded tree context and re-                                                                                                  2: B ← ∅                                     ▷ trajectory buffer
+projecting via Wg ∈ Rdh ×2dh ,                                                                                                                        3: for all episodes do
+                                                                                                                                                      4:     Sample MILP I ∼ D; reset solver
+                                            (0)                                                                                                       5:     for t ← 1 to H do
+                                        zt,i = Wg [c̃t,i ; t̃t ],
+                                                                                                                                                      6:          Extract features (Ct , nt , mt )
+                                                  (0)
+we obtain the matrix Zt ∈ R|Ct |×dh , which is permutation-                                                                                           7:          at ∼ πθ (· | st )
+equivariant in |Ct |.                                                                                                                                 8:          Execute at , obtain reward rt , next state st+1
+                                                                                                                                                      9:          B ← B ∪ (st , at , rt , st+1 )
+Self-attention encoder: A N -layer Transformer encoder                                                                                               10:          if st+1 is terminal or |B| = H then
+        (0)      (N )
+maps Zt to Zt while respecting padding masks Mpad ∈                                                                                                  11:               Compute advantages Â and returns via GAE
+      |Ct |                                                                                                                                                            for u ← 1 to E do
+{0, 1} :                                                                                                                                             12:
+                                                                                                                                                     13:                   Sample mini-batch M ⊂ B
+             (N )                  (0)
+            Zt = Transformer(N ) Zt , Mpad .
+                                           
+                                                                                                                                                     14:                   Update (θ, ϕ) with clipped loss Eq. (2)
+                                                                                                                                                     15:               end for
+Bi-directional tree–candidate matching: Following Lin                                                                                                16:               B←∅
+et al. (2022), a BiMatching network refines candidate repre-                                                                                         17:               break                     ▷ start next episode
+sentations via soft mutual attention:                                                                                                                18:          end if
+                                        (N ) 
+          αt,i = softmaxi (Wt1 t̃t )⊤ zt,i ,                                                                                                         19:     end for
+                                                                                                                                                     20: end for
+                                   (N )
+          βt,i = softmaxi (Wc1 zt,i )⊤ t̃t ,
+                                             
+                 P       (N )
+           et = i αt,i zt,i , dt,i = βt,i t̃t ,
+                                                                                                                                                     Value head (Critic). P A permutation-invariant state vector
+          rt,i = σ(W3 et + W4 dt,i )⊙et                                                                                                                         1
+                                                        (4)                                                                                         r̄t = P (1−M pad,i )
+                                                                                                                                                                        i
+                                                                                                                                                                           i (1 − Mpad,i ) rt,i is concatenated with
+                 + 1 − σ(W3 et + W4 dt,i ) ⊙dt,i                                                                                                     t̃t and projected through a two-layer MLP, followed by the
+                                                                                                                                                     same tree-gated reduction, producing the scalar value esti-
+yielding refined candidate tensor Rt = [rt,1 , . . . , rt,|Ct | ]⊤ .                                                                                 mate Vϕ (st ).
+Tree-gated branching head (Actor). A hierarchical
+multi-layer perceptron of depth K reduces each rt,i to a                                                                                             4.2              Reward Signal Design
+scalar logit ℓt,i under the multiplicative control of the tree
+vector:                                                                                                                                              All three rewards are instance-normalized by the node, gap
+                                                                                                                                                     and PDI statistics obtained with SCIP’s default branching
+                    g(k) = σ(Uk t̃t ), k = 1:K,                                                                                                      rule RELPSCOST; this guarantees scale-robust credit assign-
+                     (k)       (k−1)          (0)                                                                                                   ment across easy and hard MILPs. Briefly: H1 penalizes
+                    qt,i = fk qt,i     ⊙ g(k) , qt,i = rt,i ,                                                                                        node expansions relative to the baseline and adds a status-
+                                      (K)                                                                                                            dependent speed-up bonus; H2 log-scales the penalty and
+                     ℓt,i = qt,i ∈ R.                                                                                     (5)
+                                                                                                                                                     introduces a pace term plus gap/PDI shaping; H3 adapts the
+The branching policy is the categorical distribution πθ (i |                                                                                         weights of those components to the problem’s difficulty, fa-
+st ) = softmaxi (ℓt,i ).                                                                                                                             voring gap closure on very large instances. The mixing co-
+efficients were fixed a priori to prioritize node reduction            Table 1: Hyperparameter search space for Tree–Gate PPO.
+and deliberately not included in the hyper-parameter search,
+avoiding over-tuning while keeping the optimization space                         Parameter               Range / Set
+tractable.                                                                        Hidden size d           {64, 128, 256, 384}
+   Since H3 was selected as the optimal signal by our hyper-                      Transformer layers L    {2, 3, 4, 5, 6}
+parameter search (see Section 5.3), we present its core for-                      Attention heads h       {2, 4, 8}
+mulation here. It computes a difficulty index d ∈ [0, 1]                          Dropout δ               [0, 0.3]
+based on the baseline node count B and uses it to define                          Actor LR αact           [10−6 , 3×10−4 ]
+adaptive weights for node efficiency (wnodes ), gap closure                       Critic LR αcrt          [10−6 , 3×10−4 ]
+(wgap ), PDI (wpdi ), and pace (wpace ). The step reward is a                     PPO clip ϵ              [0.05, 0.3]
+clipped, weighted sum of these components, supplemented                           Entropy weight β        [10−5 , 10−2 ]
+by a progress term qt :                                                           GAE γ                   [0.92, 0.999]
+                                                                                GAE λ                   [0.8, 0.99]
+rtH3 = clip[−1,1] wnodes et +wpace pt −wgap gt′ +wpdi dt +wprog qt                Minibatch size b        {32, 64, 128, 256, 512}
+                                                           (6)                    Epochs E                {1, 2, 3, 4, 5, 6}
+                                                                                  Reward                  {H1, H2, H3}
+where et measures log-scaled node efficiency relative to the
+baseline, pt is a pace-keeping term, gt′ penalizes the current
+gap, and dt rewards PDI reduction. This is combined with
+a large terminal reward RTH3 based on the final solver status.         Selection criterion. The configuration achieving the lowest
+The precise definitions of all components and the H1/H2 for-           outer-fold composite score is selected for Phase 2.
+mulations are detailed in Appendix.                                    Phase 2: Final Policy Training. With hyper-parameters
+                                                                       fixed, the agent is retrained on the full 25 × 5 = 125 aug-
+4.3   Training Procedure
+                                                                       mented problems for 500 complete episodes. An episode
+The learning pipeline comprises two phases: (i) hy-                    corresponds to one B&B run up to optimality or the 3600-
+per–parameter selection via nested cross-validation using              second cutoff. Seeds are reshuffled each epoch to prevent
+O PTUNA (Akiba et al. 2019), and (ii) final policy training            over-fitting to a fixed permutation.
+with the configuration chosen in Phase 1. Because the pub-
+lic benchmark contains only 25 MILP instances, we run
+each instance under five independent SCIP seeds (seed ∈
+                                                                                              5    Experiments
+{0, . . . , 4}). The random permutations induced by these              5.1      Datasets
+seeds act as inexpensive, solver-level data augmentation that          Following Lin et al. (2022), we train and evaluate on the ex-
+leaves the underlying combinatorial structure unchanged,               act same curated benchmark drawn from the public MILP
+yet increases experiential diversity five-folds.                       libraries MIPLIB 3/2010/2017 and CORAL2 . Lin et al.
+Phase 1: Hyper-parameter Selection.                                    (2022) ran SCIP 6.0.1 with the default RELPSCOST rule
+                                                                       on every publicly available instance and kept only those
+Search space. The hyper-parameters and their ranges ap-
+                                                                       that (i) are feasible and bounded, (ii) achieve a finite pri-
+pear in Table 1. Exploration is performed with the TPE sam-
+                                                                       mal gap within a 7200 s limit, and (iii) contain no more
+pler provided by O PTUNA (Akiba et al. 2019).
+                                                                       than 200 000 variables, discarding the rest. The resulting
+Nested cross-validation. We         adopt    a     two-level           collection comprises 25 training instances and 66 testing
+(kouter , kinner ) = (5, 2) design. For every candidate                instances as shown in table 2; the test set is further split
+configuration θ ∈ H we minimise, on the inner folds, a                 into 33 easy and 33 hard problems according to whether
+composite score that balances the number of explored                   all policies (except random) solve them within 3600 s. Us-
+nodes N (measured on runs that finish within the time limit)           ing the same dataset ensures strict comparability with prior
+and the PDI (measured on all runs):                                    learning-based branching work while covering a heteroge-
+                  kin                                                  neous mix of set–covering, facility-location, auction, and
+             1 X                                     
+     min              0.6 SGMi (N ) + 0.4 SGMi (PDI) ,                 scheduling models.
+     θ∈H kin
+                  i=1
+where the shifted geometric mean (SGM) is defined as                   5.2      Settings
+                      h X                 i
+      SGM(x) = exp m    1
+                              ln(xj + 100) − 100,                      Our experimental framework utilizes SCIP 6.0.1 as the un-
+                              j
+                                                                       derlying MILP solver, interfaced via a customized version
+                                                                       of P Y S CIPOPT (Maher et al. 2016) to access the solver’s in-
+and the +100 shift prevents the logarithm from exploding               ternal state and decision points required for training the PPO
+on small counts. Stratification over the (instance, seed) pairs        policy. This customization builds on prior work by Zarpel-
+preserves the baseline difficulty distribution across all folds.       lon et al. (2021), which demonstrated the feasibility of inte-
+Pruning rule. We enable Optuna’s median pruner: a trial                grating ML with B&B solvers through parameterized search
+is stopped early whenever its running composite score fails            trees. To isolate the impact of branching variable selection
+to improve the best-so-far median across the inner folds for           (BVS) and align with our proof-of-concept study design,
+three consecutive iterations, thereby discarding unpromising
+                                                                          2
+settings quickly.                                                             All instances are distributed under the CC BY–SA 4.0 licence.
+Table 2: List of training and test instances selected from MI-    Table 3: Per–instance dominance of TGPPO. Entries are the
+PLIB and CORAL.                                                   % of test instances for which TGPPO improves over the base-
+                                                                  line (SGM over five seeds).
+ Train (25): 30n20b8, air04, air05, cod105, comp21-2idx,
+ dcmulti, eil33-2, istanbul-no-cutoff, l152lav, lseu, misc03,      Baseline                       % win (Nnodes)   % win (PDI)
+ neos20, neos21, neos-476283, neos648910, pp08aCUTS,
+                                                                   TBRANT (Lin et al. 2022)             78.8          90.62
+ rmatr100-p10, rmatr100-p5, rmatr200-p5, roi5alpha10n8,
+                                                                   BRANT (Lin et al. 2022)              72.7          71.87
+ sp150×300d, stein27, supportcase7, swath1, vpm2
+                                                                   LTBRANT (Lin et al. 2022)            72.7          71.87
+ Test (66): aflow40b, app1-2, atlanta-ip, bab5, bc1, bell3a,       TREE (Zarpellon et al. 2021)         72.7          68.75
+ bell5, biella1, binkar10 1, blend2, dano3 5, fast0507,
+ harp2, map10, map16715-04, map18, map20, mik-250-20-              RANDOM                               90.9          93.75
+ 75-4, mine-166-5, misc07, msc98-ip, mspp16, n2seq36q,             PSCOST                               66.7          78.12
+ n3seq24, neos11, neos12, neos-1200887, neos-1215259,              RELPSCOST                            18.2          46.87
+ neos13, neos18, neos-4722843-widden, neos-4738912-atrato,
+ neos-480878, neos-504674, neos-504815, neos-512201,
+ neos-584851, neos-603073, neos-612125, neos-612162,              165 runs for the easy subset and the same for the hard. We
+ neos-662469, neos-686190, neos-801834, neos-803219,              record (i) explored nodes (N NODES) and (ii) (PDI). On easy
+ neos-807639, neos-820879, neos-829552, neos-839859, neos-        instances we compare N NODES; on hard instances, we com-
+ 892255, neos-950242, ns1208400, ns1830653, nu25-pr12,            pare PDI (lower is better).
+ nw04, opm2-z7-s2, p0201, pg, pigeon-10, pp08a, rail507,
+ roll3000, rout, satellites1-25, seymour1, sp98ir, unitcal 7      Aggregates. We report two complementary views: (1) an
+                                                                  overall shifted geometric mean
+                                                                                             h X m            i
+                                                                                              1
+we adopt a streamlined solver configuration following estab-              SGM(x1:m ) = exp m       ln(S + xj ) − S,
+lished BVS benchmarking practices (Linderoth and Savels-                                          j=1
+bergh 1999). Specifically, we disable primal heuristics and       computed across all instance–seed pairs (with S=100 for
+provide the known optimal solution value as an initial cut-       N NODES and S=0 for PDI); and (2) a per-instance com-
+off, ensuring the solver focuses exclusively on tree-search       parison: first compute the SGM over the five seeds of an
+efficiency rather than primal bound discovery (Gamrath and        instance, then compare TGPPO head-to-head against each
+Schubert 2018). Although this represents a simplification of      baseline (a win is counted if TGPPO’s SGM is strictly
+a full solver run, this “expert” setting is a standard bench-     smaller).
+marking practice to isolate the performance of branching
+                                                                  Head-to-head dominance. Table 3 shows the fraction
+rules, as done in (Lin et al. 2022; Zarpellon et al. 2021).
+                                                                  of instances on which TGPPO dominates each baseline
+We analyze the impact of this choice in our limitations (6).
+                                                                  (SGM over seeds). TGPPO surpasses the prior state-of-the-
+A one-hour time limit per instance balances computational
+                                                                  art learner TBRANT on 78.8% of instances by N NODES and
+feasibility with solution quality assessment.
+                                                                  90.6% by PDI; see Fig. 2, where points below the dashed di-
+                                                                  agonal indicate TGPPO wins. It also dominates other learn-
+5.3   Training                                                    ing branchers (BRANT, LTBRANT, TREE) on roughly 73%
+After the nested cross-validation described in 4.3, the best      by N NODES and ≈ 69–72% by PDI. Among the classical
+hyper-parameter configuration was found to be: actor lr           rules, PSCOST is most competitive (wins 66.7% / 78.1%
+= 2.4 × 10−4 , critic lr = 1.2 × 10−4 , hidden size dmodel =      for N NODES/PDI), while RELPSCOST is harder to beat in
+256, L = 5 transformer layers, H = 8 attention heads,             nodes (18.2%) but is still outperformed in PDI nearly half
+dropout 0.05, PPO clip coefficient 0.16, entropy bonus 3.0×       the time (46.9%). These outcomes indicate consistent per-
+10−3 , γ = 0.97, λGAE = 0.92, mini-batch size 256, three          instance superiority of TGPPO, even though some instances
+optimization epochs per update, and the difficulty–adaptive       still favor hand-crafted rules.
+reward H3. We then retrained a fresh policy with these val-
+                                                                  Overall comparisons (easy: N NODES; hard: PDI). We
+ues on the full training dataset.
+                                                                  analyze within-instance ranks with a Friedman omnibus test
+   Training proceeds for 500 complete episodes. Each
+                                                                  (Friedman 1937) and Nemenyi post-hoc (Nemenyi 1963)
+episode consists of a full B&B run (initialized with a new
+                                                                  (single-step adjusted p). The easy subset shows significant
+seed) and is followed by three gradient-descent epochs over
+                                                                  differences across the five learning policies (χ2 =22.215,
+the collected trajectories. Both actor and critic are optimized
+                                                                  df =4, p=1.82×10−4 ), with TGPPO significantly better
+with AdamW (β1 = 0.9, β2 = 0.999); the PPO objective
+                                                                  ranked than BRANT, LTBRANT, and TREE, and statistically
+includes the above clip coefficient and an entropy regularizer
+                                                                  tied with TBRANT. On the hard subset, ranks by PDI also
+of 3.0×10−3 . All experiments are implemented in PyTorch
+                                                                  differ significantly (χ2 =18.05, df =4, p=0.00121); TGPPO
+(Paszke et al. 2019) and executed on 40-core CPU nodes.
+                                                                  is significantly better ranked than BRANT, LTBRANT, and
+                                                                  TBRANT , and marginal vs. TREE . For directionality on raw
+5.4   Results and Analysis                                        values, one-sided paired Wilcoxon tests favor TGPPO on
+Protocol and metrics. Each test instance (5.1) is evalu-          easy instances (wins on 24–26 of 33; median node reduc-
+ated under five independent seeds (0–4), yielding 33 × 5 =        tions 80–142; Holm-adjusted p ∈ [0.09, 0.11]) and on hard
+                                      (a) Easy (Nnodes)                                                                                    (b) Hard (PDI)
+
+                                                                                                                                    100K
+
+        TGPPO — SGM of Nnodes
+
+
+
+
+                                                                                                               TGPPO — SGM of PDI
+                                10K
+                                                                                                                                    10K
+
+
+
+
+                                1K                                                                                                   1K
+
+
+
+
+                                                                                                                                     100
+                                100
+                                        1         10        100         1K           10K                                                   100      1K        10K      100K
+                                                 Baseline (TBranT) — SGM of Nnodes                                                           Baseline (TBranT) — SGM of PDI
+
+
+
+Figure 2: Head-to-head scatter of TGPPO vs. TBRANT (log–log): points below the dashed diagonal (y < x) indicate TGPPO
+wins; (a) comparison of the easy instances using Nnodes, (b) comparison of the hard instances using PDI
+
+Table 4: Compact omnibus and post-hoc: Friedman test on within-instance ranks and Nemenyi p (single-step) for TGPPO vs.
+others. Bold p<.05.
+
+                                                       Subset                   χ2 (df)    p   BRANT   LTBRANT                        TBRANT             TREE
+
+                                                       Easy (N NODES) 22.215 (4) 0.0001816 0.0064        0.0027                            0.5000        0.0011
+                                                       Hard (PDI)      18.05 (4) 0.001207 0.0026         0.0105                            0.0046        0.0557
+
+
+instances (wins on 22–29 of 33; median PDI reductions 82–                                       solid CPU throughput, full system-level benchmarking on
+111; adjusted p ≤ 0.0314).                                                                      diverse hardware and wall-clock metrics (including memory
+                                                                                                footprint) is still required for operational deployment.
+Practical takeaway. TGPPO reduces search effort on easy
+instances and, critically, yields markedly better PDI on hard
+                                                                                                Perspectives. We see several promising directions to ex-
+instances where optimality is not reached within one hour, a
+                                                                                                tend this work:
+regime of substantial practical interest.
+                                                                                                1. End-to-end solver integration. Re-enable primal
+                                6       Conclusion and Perspectives                                heuristics, cuts, and default parameterizations to evaluate
+This paper introduced TGPPO, an on-policy RL frame-                                                the net impact on wall-clock time, optimality gaps, and
+work that learns branching policies for MILPs directly from                                        anytime behavior; formulate training as a multi-objective
+solver interactions. The approach combines (i) a permuta-                                          problem balancing nodes, PDI, and time.
+tion–equivariant transformer encoder over candidate vari-                                       2. Representation learning. Enrich the encoder with bipar-
+ables, (ii) multiplicative tree-gates that condition decisions                                     tite variable–constraint message passing or lightweight
+on local node and tree statistics, and (iii) a PPO training                                        decision-diagram features; add memory over partial sub-
+loop with instance-normalized rewards and a nested cross-                                          trees to better capture long-range dependencies without
+validation protocol for robust model selection. Empirically,                                       heavy graph stacks.
+TGPPO consistently improves search efficiency over prior
+learning-based branchers. On easy instances it reduces the                                      3. Data- and compute-efficiency. Explore offline pretrain-
+number of explored nodes, while on hard instances (where                                           ing on solver logs followed by on-policy fine-tuning (Be-
+runs may time out) it delivers markedly lower PDIs. To-                                            havior Cloning → PPO), and investigate advantage nor-
+gether, these results indicate that on-policy RL can be a com-                                     malization, return decomposition, or truncated credit as-
+petitive and stable alternative to imitation-driven methods                                        signment tailored to deep search trees.
+for learning-to-branch, narrowing, though not erasing, the                                      4. Reward design and objectives. Systematically study
+gap to strong, hand-crafted rules such as RELPSCOST.                                                difficulty-adaptive rewards and risk-sensitive objectives
+Limitations and threats to validity. Our experimental                                               (e.g., CVaR/quantile variants) to trade off mean perfor-
+protocol focuses on branching-variable selection under a                                            mance and tail robustness on hard instances.
+streamlined solver configuration to isolate branching effects;                                     In sum, TGPPO advances learning-to-branch by coupling
+this leaves end-to-end interactions with primal heuristics and                                  stable on-policy optimization with a tree-aware architecture
+other solver modules for future study. The training set is nec-                                 that respects the symmetries of candidate sets and the con-
+essarily small at the instance level and curated for compa-                                     text of the search. We expect that integrating richer represen-
+rability with prior work, which may limit coverage of in-                                       tations, end-to-end objectives, and deployment-conscious
+dustrial distributions. Although our instance-normalized re-                                    systems design will further tighten the gap to expert heuris-
+wards improve stability, reward shaping remains a sensitive                                     tics and make RL-based branching practical for large, het-
+design choice. Finally, while our rollout engine provides                                       erogeneous MILPs.
+                        References                                M.; Tejani, A.; Chilamkurthy, S.; Steiner, B.; Fang, L.; Bai,
+Akiba, T.; Sano, S.; Yanase, T.; Ohta, T.; and Koyama, M.         J.; and Chintala, S. 2019. PyTorch: An Imperative Style,
+2019. Optuna: A Next-generation Hyperparameter Opti-              High-Performance Deep Learning Library. In Wallach, H.;
+mization Framework. CoRR, abs/1907.10902.                         Larochelle, H.; Beygelzimer, A.; d'Alché-Buc, F.; Fox, E.;
+                                                                  and Garnett, R., eds., Advances in Neural Information Pro-
+Friedman, M. 1937. The use of ranks to avoid the assump-
+                                                                  cessing Systems, volume 32. Curran Associates, Inc.
+tion of normality implicit in the analysis of variance. Journal
+of the american statistical association, 32(200): 675–701.        Qu, Q.; Li, X.; Zhou, Y.; Zeng, J.; Yuan, M.; Wang, J.; Lv,
+Gamrath, G.; and Schubert, C. 2018. Measuring the Im-             J.; Liu, K.; and Mao, K. 2022. An Improved Reinforce-
+pact of Branching Rules for Mixed-Integer Programming. In         ment Learning Algorithm for Learning to Branch. CoRR,
+Kliewer, N.; Ehmke, J. F.; and Borndörfer, R., eds., Opera-      abs/2201.06213.
+tions Research Proceedings 2017, 165–170. Cham: Springer
+International Publishing. ISBN 978-3-319-89920-6.                 Ren, H.; and Gao, W. 2010. A MILP model for integrated
+Gleixner, A.; Bastubbe, M.; Eifler, L.; Gally, T.; Gottwald,      plan and evaluation of distributed energy systems. Applied
+R.; Hendel, G.; Hojny, C.; Koch, T.; Lübbecke, M.; Maher,        Energy, 87(3): 1001–1014.
+S.; Miltenberger, M.; Müller, B.; Pfetsch, M.; Puchert, C.;
+Rehfeldt, D.; Schlösser, F.; Schubert, C.; Serrano, F.; Shi-     Scavuzzo, L.; Chen, F.; Chetelat, D.; Gasse, M.; Lodi, A.;
+nano, Y.; Viernickel, J.; Walter, M.; Wegscheider, F.; Witt,      Yorke-Smith, N.; and Aardal, K. 2022. Learning to Branch
+J.; and Witzig, J. 2018. The SCIP Optimization Suite 6.0.         with Tree MDPs. In Koyejo, S.; Mohamed, S.; Agarwal, A.;
+ZIB Report. Zuse Institut Berlin.                                 Belgrave, D.; Cho, K.; and Oh, A., eds., Advances in Neural
+He, H.; Daumé, H.; and Eisner, J. 2014. Learning to Search       Information Processing Systems, volume 35, 18514–18526.
+in Branch and Bound Algorithms. In Ghahramani, Z.;                Curran Associates, Inc.
+Welling, M.; Cortes, C.; Lawrence, N.; and Weinberger, K.,
+                                                                  Schulman, J.; Moritz, P.; Levine, S.; Jordan, M.; and
+eds., Advances in Neural Information Processing Systems,
+                                                                  Abbeel, P. 2015. High-dimensional continuous control
+volume 27. Curran Associates, Inc.
+                                                                  using generalized advantage estimation. arXiv preprint
+Land, A. H.; and Doig, A. G. 1960. An Automatic Method            arXiv:1506.02438.
+of Solving Discrete Programming Problems. Econometrica,
+28(3): 497–520.                                                   Schulman, J.; Wolski, F.; Dhariwal, P.; Radford, A.; and
+Lin, J.; Zhu, J.; Wang, H.; and Zhang, T. 2022. Learn-            Klimov, O. 2017. Proximal policy optimization algorithms.
+ing to branch with Tree-aware Branching Transformers.             arXiv preprint arXiv:1707.06347.
+Knowledge-Based Systems, 252: 109455.
+Linderoth, J. T.; and Savelsbergh, M. W. P. 1999. A Com-          Zarpellon, G.; Jo, J.; Lodi, A.; and Bengio, Y. 2021. Param-
+putational Study of Search Strategies for Mixed Integer Pro-      eterizing Branch-and-Bound Search Trees to Learn Branch-
+gramming. INFORMS Journal on Computing, 11(2): 173–               ing Policies. Proceedings of the AAAI Conference on Artifi-
+187.                                                              cial Intelligence, 35(5): 3931–3939.
+Maher, S.; Miltenberger, M.; Pedroso, J. P.; Rehfeldt, D.;        Zhang, S.; Zeng, S.; Li, S.; Wu, F.; and Li, X. 2025. Learning
+Schwarz, R.; and Serrano, F. 2016. PySCIPOpt: Mathe-              to Select Nodes in Branch and Bound with Sufficient Tree
+matical Programming in Python with the SCIP Optimization          Representation. In The Thirteenth International Conference
+Suite. In Greuel, G.-M.; Koch, T.; Paule, P.; and Sommese,        on Learning Representations.
+A., eds., Mathematical Software – ICMS 2016, 301–307.
+Cham: Springer International Publishing. ISBN 978-3-319-          Zhang, T.; Banitalebi-Dehkordi, A.; and Zhang, Y. 2022.
+42432-3.                                                          Deep Reinforcement Learning for Exact Combinatorial Op-
+Matai, R.; Singh, S. P.; and Mittal, M. L. 2010. Traveling        timization: Learning to Branch. In 2022 26th International
+Salesman Problem: An Overview of Applications, Formula-           Conference on Pattern Recognition (ICPR), 3105–3111.
+tions, and Solution Approaches. In Davendra, D., ed., Trav-
+eling Salesman Problem, chapter 1. Rijeka: IntechOpen.
+Nemenyi, P. B. 1963. Distribution-free multiple compar-
+isons. Princeton University.                                                   A     Reward Formulations
+Parjadis, A.; Cappart, Q.; Rousseau, L.-M.; and Bergman, D.
+2021. Improving Branch-and-Bound Using Decision Dia-              Notation. Let B denote the baseline node count from SCIP’s
+grams and Reinforcement Learning. In Stuckey, P. J., ed., In-     RELPSCOST (per instance), nt the cumulative nodes explored
+tegration of Constraint Programming, Artificial Intelligence,     by our policy up to step t, and ∆nt = nt −nt−1 . Let
+and Operations Research, 446–455. Cham: Springer Inter-           ∆tgap be the relative optimality gap at t, PDIt the pri-
+national Publishing. ISBN 978-3-030-78230-6.                      mal–dual integral, and τt = t/Tmax ∈ [0, 1] the nor-
+                                                                  malized wall time. At termination (t=T ) the solver status
+Paszke, A.; Gross, S.; Massa, F.; Lerer, A.; Bradbury, J.;        statT ∈ {OPTIMAL, TIMELIMIT, INFEASIBLE, UNBOUNDED}. We
+Chanan, G.; Killeen, T.; Lin, Z.; Gimelshein, N.; Antiga,         use the numerically safe mappings tanhs (x) = tanh(sx) and
+L.; Desmaison, A.; Kopf, A.; Yang, E.; DeVito, Z.; Raison,        ratioc (a, b) = min(a/ max{b, 10−12 }, c).
+H1: Baseline-Normalised Node Efficiency. Step penalty
+and terminal bonus:                                                            
+                                                                             
+                                                                               1 + 3s,                        OPTIMAL ,
+                     ∆nt                                                       
+                                                                               0.8 + 2s,                      INFEASIBLE / UNBOUNDED ,
+ rtH1 = −tanhα                 , α=1,                  (7)              RTH3 =
+                 0.02 B + 1                                                   0.5s + 0.3 gT + 0.2 dT ,       TIMELIMIT ,
+                                                                               
+          1 + 2s,                 OPTIMAL ,
+                                                                               
+                                                                               0.3s,
+        
+        
+                                                                                                              otherwise.
+        0.5 + 1.5s,              INFEASIBLE / UNBOUNDED ,
+   H1
+RT =                                                                                                                                     (21)
+        0.2s + 0.6 gT + 0.2 dT , TIMELIMIT,
+        
+        
+        0.2s,                    otherwise,
+                                                                        Weight choice. The component weights in H2/H3 were fixed a
+                                                                        priori to prioritize shrinking the search tree (node efficiency) while
+                                                       (8)              preserving anytime progress (gap/PDI). We deliberately did not
+                                                                        tune these weights during hyper-parameter search to avoid expand-
+where s = ratioc (B, nT ; 3), gT = tanh1 (∆0gap −∆Tgap ), and dT =
+                                                                        ing the search space and to keep the evaluation reproducible.
+tanh1 (PDI0 − PDIT )/PDI0 .
+                              
+
+                                                                                          B     Additional Results
+H2: Log-Scaled Efficiency with Pace Shaping. With
+β=1.5, ρ=0.7:
+
+                                                   
+                                log(1 + nt )
+                et = tanhβ 1 −                          ,         (9)
+                                 log(1 + B)
+                              ρ       
+                             Bτt − nt
+                pt = tanhβ               .                       (10)
+                             Bτtρ + 1
+
+                                   t
+                            ∆t−1 −∆gap  
+                    tanh1 gap            , t > 0,
+                  
+                             t−1
+             gt =          |∆gap |+10−9                          (11)
+                  0,                       t = 0,
+
+                          PDIt−1 − PDIt
+                                          
+             dt = tanh1             0        .                   (12)
+                                PDI
+
+
+     rtH2 = clip[−1,1] (0.5et + 0.2pt + 0.2gt + 0.1dt ) .        (13)
+
+
+     
+     
+     1 + 2.5s,              OPTIMAL ,
+     
+     0.7 + 2s,
+ H2                          INFEASIBLE / UNBOUNDED ,
+RT =
+     0.4s + 0.4gT + 0.2dT , TIMELIMIT,
+     
+     
+     0.3s,                  otherwise.
+                                                 (14)
+
+H3: Difficulty-Adaptive Reward. Define a difficulty index
+                                             
+                       log(1 + B) − log 2
+            d=σ                                   ∈ [0, 1].
+                      log(1 + 106 ) − log 2
+
+
+                 wnodes = 0.55(1 − d) + 0.25d,                   (15)
+                  wgap = 0.10(1 − d) + 0.30d,                    (16)
+                  wpdi = 0.05(1 − d) + 0.20d,                    (17)
+                 wpace = 0.15(1 − d) + 0.10d,                    (18)
+                 wprog = 0.15.                                   (19)
+
+
+                                                         
+     rtH3 = clip[−1,1] wnodes et + wpace pt − wgap tanh0.5
+                        ∆tgap                             
+                                  + w pdi d t + w prog q t   .   (20)
+                   ∆0gap + 10−9
+Table 5: Number of nodes explored by each branching policy. Bold figures indicate that TGPPO outperforms TBRANT on the
+same instance.
+
+                       Instance           brant      lbrant     pscost   random    relpscost    tbrant    tgppo       tree
+
+                       ALL TEST          1602.91    1484.65   1822.01    4787.13     731.37    1318.33   1588.72   1671.27
+
+                       aflow40b         21357.41   18275.65   19828.14 274377.17   9331.03 21795.26 16971.64 21745.75
+                       bc1               4875.32    4391.09    4269.85   7420.14   2565.54 4771.82    4315.00 4988.66
+                       bell3a            2235.47    1964.98    1502.46   2033.78   2025.22 2050.18    1643.00 2029.09
+                       bell5              355.11     424.39     566.32    359.41    362.81   419.75    280.04   392.04
+                       binkar10 1        3375.36    3274.07    3242.54   5090.92   2489.30 3072.18    2879.40 4273.29
+                       blend2             515.78     525.50     621.53   1031.12    172.94   420.43    340.00   356.27
+                       dano3 5            219.21     229.95     239.48    435.13     54.47   138.81    119.92   248.46
+                       map20             2504.94     341.74     800.78   6389.80    227.48   337.59    313.00 4611.05
+                       misc07           26380.91   25763.24   17822.84 39116.32 29191.05 26930.40     8952.64 28352.56
+                       n2seq36q          1354.12     800.41    1444.75    729.64   1077.22 1126.69     647.00   740.33
+                       neos-1200887     56066.21   61136.40   53279.03 995155.72 250472.28 43785.80 111624.42 48046.76
+                       neos-1215259     28570.73   26758.50    7896.79 73239.39     893.60 2358.62    1968.15 2365.55
+                       neos-504674      15322.44   18949.81   11840.86 84011.86    7740.03 7295.20 54057.68 18558.15
+                       neos-504815       3817.37    4143.30    3751.79 16947.46    2527.60 3523.58    3028.15 3683.93
+                       neos-512201       6406.57    4388.47    2816.04 13815.58    1508.07 2084.19 11264.13 3102.75
+                       neos-584851       1488.80    1669.34    2011.74   2718.10    231.42   583.53    418.62 2327.39
+                       neos-612125        122.74     122.70     178.99    547.69     69.25   110.57    103.00   115.91
+                       neos-612162        241.40     247.21     290.31    911.83    138.31   221.57    205.00   197.78
+                       neos-801834        605.95     716.27    1339.37   1282.85    230.62   553.97    517.00   670.64
+                       neos-803219      33220.80   26894.64   30731.61 112534.17 12394.67 29982.03 16575.41 26737.87
+                       neos-807639      12315.86   10683.13    5190.83 20090.11    3880.27 11128.42   9945.08 14668.51
+                       neos-820879        352.41     398.22     927.56   3838.14    125.90   339.23   1690.00   408.96
+                       neos-892255        878.62     746.42     736.23   1048.06    636.76   611.80   2835.74 1085.85
+                       neos-950242       3392.59    3602.97    4728.49 29949.69    2618.27 2854.37    2422.81 2541.50
+                       ns1208400          204.94     281.61    1187.38   1640.88     58.75   174.73    906.98   267.86
+                       nu25-pr12          217.14     264.12     342.47   1658.41     21.39   189.39    819.00   204.81
+                       nw04                 1.00       1.00      71.08    135.64      1.00     1.00   1315.00     1.00
+                       p0201              161.82     186.23     200.86    219.77     18.51   213.65    203.00   232.61
+                       pg                 553.12     575.58     565.24    652.29    134.59   561.26    523.99   570.56
+                       pp08a              208.94     214.49     254.26    304.71     45.04   239.32    222.51   221.77
+                       satellites1-25     917.57     700.71    3050.29   5051.30    530.28 1583.85     659.70 1625.83
+                       sp98ir            3096.86    4080.53    5663.54 39208.94    1225.49 4016.84    3776.87 4425.60
+                       unitcal 7          621.67     590.95     656.11   2429.35    197.43   542.50    480.00 1433.84
+Table 6: PDI of each policy. Bold figures indicate that TGPPO outperforms TBRANT on the same instance.
+
+        Instance               brant    lbrant     pscost   random     relpscost    tbrant    tgppo       tree
+
+        ALL TEST             3347.67   2776.06   3879.65    10404.71    1981.85    2922.72   2945.33   2939.30
+
+        app1-2               48065.58 64566.58 17571.65 74204.23 48510.64 50486.20 10662.62 68145.71
+        atlanta-ip           27341.37 25261.71 33241.90 16611.90 16161.90 23019.96 25162.92 25152.92
+        bab5                  2950.77   3300.29   3649.85   3515.74   2857.45   3104.14   3017.28   3161.85
+        bell4                  389.60    359.27    415.42    751.32    338.24    373.05    336.38    386.70
+        fast0507               759.61    759.04   1008.48   4282.23    853.35    756.44    682.07    750.39
+        harp2                 1068.41      0.00     75.20    253.58     26.20    165.24    155.52    106.20
+        map10                33678.51   8603.33 13714.21 33711.26     6860.22   8202.81   8026.37 29696.21
+        map16715-04         153711.00 68731.63 139907.50 194165.73 109656.59 61628.88 59857.30 183932.06
+        map18                  249.33   1207.50   2670.84 14625.19    1734.81   1153.24   1126.14   3213.67
+        mik-250-20-75-4        342.36    374.06    102.46   3788.17    107.03    644.41   5522.93    256.99
+        mine-166-5             589.38    621.70   1418.08   9936.65    592.82    628.77    608.52    604.81
+        msc98-ip              3063.46   2561.40   3048.09 30005.12    2759.71   2982.23   2971.23   2171.01
+        mspp16               31422.96 92314.93 34335.58 38343.58 27227.17 32715.92        1662.65 35488.06
+        n2seq24               7441.40   7705.33   7222.47   6500.93   7383.59   7321.92   5070.49   7881.80
+        neos-4722843-widden 82183.73 87286.31 73739.80 120234.25 75606.13 78598.83 64733.27 71320.47
+        neos-4738912-atrato   6130.94   4726.75   3786.63   3270.19   1875.18   2531.34    999.91   1975.43
+        neos-480878            144.58    144.85    144.75   3461.05     68.94    231.52   3516.70    111.06
+        neos-603073          15230.76   6017.58 10356.21 19456.74 34982.95      4302.37   3911.20 18902.46
+        neos-662469            544.29    516.65    485.98    706.49    483.42    508.64    498.46    514.40
+        neos-686190            643.02    777.75    603.07   6630.59    770.69    683.12    619.00    670.46
+        neos-829552          10265.45   2906.35   6747.03   9010.09   3760.47   2687.66   1685.03   4602.34
+        neos-839859            337.65    384.93    277.96   7120.80    173.49    439.95    428.35    295.92
+        neos-892255         220186.70 187674.12 267356.75 257304.52 213861.48 187294.79 164249.46 173672.63
+        neos12               44087.85 53639.77 87728.51 92286.19 11128.05 42895.16 19790.43 15487.38
+        neos13                1368.44   1443.07 85810.06 84649.32     1444.75   1526.50 38838.92    1604.58
+        neos18                2089.19   1899.67 12441.87 18554.88      546.53   2162.18   2107.20   1359.88
+        ns1830653             5540.18   3964.29 10834.00 37564.13     3931.31   4706.58   3938.23   4473.86
+        pigeon-10            36002.07 36002.36 36002.12 36003.96 36002.22 36003.55 36001.56 36002.18
+        rail507                952.20    912.05   1174.57   4718.87    989.64    899.03    821.88   1043.87
+        roll3000               321.50    536.84    341.09    929.54    147.57    261.69     69.01    311.69
+        rout                  1135.77    821.40    817.41   4624.89    132.84   3203.34   3029.28    846.96
+        seymour1                95.41     95.40    131.77   2120.43     95.94    100.11     92.13     96.09
+

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/root/research/tgppo/experiments/stage3/code/stage3.py", line 86, in <module>
+    params = config_with_protocol(json.loads((ROOT / 'tgppo/configs/paper_hparams.json').read_text()))
+  File "/root/research/tgppo/experiments/stage3/code/stage3.py", line 80, in main
+    out = RUN / 'pilot'
+  File "/root/research/tgppo/experiments/stage3/code/stage3.py", line 49, in prepare
+    ROOT / 'tgppo/datasets/train_instances', name, 120., seed, 11, cutoffs, 'native')
+  File "/root/research/tgppo/experiments/stage3/code/project/runtime.py", line 262, in run_jobs
+    return _run_jobs(jobs, output_dir, max_workers, watchdog_seconds, active)
+  File "/root/research/tgppo/experiments/stage3/code/project/runtime.py", line 253, in _run_jobs
+    time.sleep(.02)
+KeyboardInterrupt

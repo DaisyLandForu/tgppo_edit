@@ -1,0 +1,31 @@
+{
+  "actor_lr": 0.00024,
+  "batch_size": 256,
+  "critic_lr": 0.00012,
+  "critic_training_dropout": 0.05,
+  "dropout": 0.05,
+  "effective_actor_dropout": 0.0,
+  "entropy_weight": 0.003,
+  "extra_initialization_seed": 1011,
+  "gae_lambda": 0.92,
+  "gamma": 0.97,
+  "hidden_dim": 256,
+  "n_epochs": 3,
+  "num_heads": 8,
+  "num_layers": 5,
+  "online_group": "Rjoint",
+  "online_protocol": "stage5-calibrated-full-critic-v1",
+  "online_protocol_sha256": "f24c2e29c3b361d30e9dffdfc5588efd9c2a8ed9bf410fbcd39e65da114d50cb",
+  "policy_clip": 0.16,
+  "protocol_version": "stage3-measured-pdi-v1",
+  "reward_function": "reward_h3",
+  "state_dims": {
+    "mip_dim": 53,
+    "node_dim": 8,
+    "var_dim": 25
+  },
+  "target_mean": -13.166822661165169,
+  "target_statistics_sha256": "6dd908c0de200f25837ee8c60e947bc2316a529f3c9bddd193d9ce06cb94295a",
+  "target_std": 8.840326545776836,
+  "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523"
+}

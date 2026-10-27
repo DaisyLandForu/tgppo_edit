@@ -1,0 +1,39 @@
+test_actor_only_actions_match_collection_and_old_eval_mode (test_correctness.CorrectnessTests) ... ok
+test_actual_upstream_choose_action_matches_actor_only (test_correctness.CorrectnessTests) ... ok
+test_buffer_roundtrip_empty_duplicate_and_stale_policy (test_correctness.CorrectnessTests) ... ok
+test_checkpoint_architecture_rng_optimizer_buffer_and_exact_next_update (test_correctness.CorrectnessTests) ... ok
+test_finalize_then_free_is_idempotent_and_zero_actions_not_invented (test_correctness.CorrectnessTests) ... ok
+test_gae_terminal_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_gae_truncation_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_independent_parameters_and_gradients (test_correctness.CorrectnessTests) ... ok
+test_invalid_transition_and_incomplete_episode_rejected (test_correctness.CorrectnessTests) ... ok
+test_original_branchfree_already_idempotent (test_correctness.CorrectnessTests) ... ok
+test_padding_ratio_and_real_actor_update (test_correctness.CorrectnessTests) ... ok
+test_reward_and_solver_receive_120_and_3600_and_baseline_mismatch_rejected (test_correctness.CorrectnessTests) ... ok
+test_scip_sentinel_timeout_and_cutoff_semantics (test_correctness.CorrectnessTests) ... SIMULATED_SENTINEL_EVIDENCE={"cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -5.0, "dual_bound_finite": true, "episode_ended": true, "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "nnodes": 10, "num_stored_solutions": 0, "objective": null, "original_optimal": false, "pdi_semantics": "native_raw_until_actual_stop", "primalDualIntegral": 4.0, "primalDualIntegral_finite": true, "primal_bound": 1e+20, "primal_bound_finite": false, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 120.0, "status": "timelimit", "task_terminal": true, "valid": true}
+ok
+test_truncation_needs_actual_tail_and_uses_critic (test_correctness.CorrectnessTests) ... ok
+test_two_episodes_do_not_contaminate_each_other (test_correctness.CorrectnessTests) ... ok
+test_unchanged_networks_reward_settings_and_original_repository (test_correctness.CorrectnessTests) ... ok
+test_worker_failure_watchdog_and_order_are_explicit (test_correctness.CorrectnessTests) ... ok
+test_real_air04_timeout_retains_nonzero_raw_gap (test_correctness.RealSolverTests) ... REAL_AIR04_TIMEOUT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_raw": 0.0, "primal": 56137.0, "reason": "event", "time": 0.032101}, {"dual": -80692.0, "native_raw": 100.26330000000002, "primal": 56137.0, "reason": "stop", "time": 1.002637}], "cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -80692.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 1.0363147089992708, "episode_ended": true, "episode_id": "/root/research/tgppo/datasets/train_instances/air04.mps.gz:0", "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "load_wall_seconds": 0.03247808699961752, "measurement_callback_seconds": 0.0002868870087695541, "measurement_event_calls": 34, "measurement_version": "native-pdi-horizon-bounds-v1", "mode": "native", "nnodes": 1, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 1.0028198079999129, "original_optimal": false, "pdi_flush_tail": 0.0003999999999848569, "pdi_horizon_exact": true, "pdi_horizon_lower": 100.0, "pdi_horizon_midpoint": 100.0, "pdi_horizon_normalized_midpoint": 1.0, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 100.0, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 100.2637, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 100.26330000000002, "pdi_semantics": "native_raw_until_actual_stop", "primalDualIntegral": 100.26330000000002, "primalDualIntegral_finite": true, "primal_bound": 56137.0, "primal_bound_finite": true, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 1.002637, "scip_time_overshoot_seconds": 0.0026370000000000005, "status": "timelimit", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+ok
+test_real_eval_never_calls_critic_reward_or_memory_and_preserves_weights (test_correctness.RealSolverTests) ... ok
+test_real_policy_exception_interrupts_and_is_invalid (test_correctness.RealSolverTests) ... ok
+test_early_proof_zero_extension_and_timeout_hold_extension (test_measurement.MeasurementTests) ... ok
+test_overshoot_is_an_interval_not_fabricated_exact_integral (test_measurement.MeasurementTests) ... ok
+test_percent_gap_is_not_scip_relative_gap (test_measurement.MeasurementTests) ... ok
+test_real_solved_presolve_and_timeout_flush (test_measurement.MeasurementTests) ... FAIL
+
+======================================================================
+FAIL: test_real_solved_presolve_and_timeout_flush (test_measurement.MeasurementTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/root/research/tgppo/experiments/stage3/tests/test_measurement.py", line 37, in test_real_solved_presolve_and_timeout_flush
+    self.assertTrue(valid, info)
+AssertionError: False is not true : {'gap': 0.0, 'primal_bound': 2.0, 'dual_bound': -1e+20, 'primalDualIntegral': 0.0, 'gap_finite': True, 'primal_bound_finite': True, 'dual_bound_finite': False, 'primalDualIntegral_finite': True, 'status': 'error', 'episode_ended': True, 'task_terminal': False, 'proof_completed': True, 'original_optimal': False, 'cutoff_proof': True, 'cutoff_applied': True, 'cutoff_verified': True, 'has_feasible_solution': False, 'num_stored_solutions': 0, 'valid': False, 'objective': None, 'nnodes': 0, 'scip_solve_time': 0.0011979999999999998, 'pdi_semantics': 'native_raw_until_actual_stop', 'scip_infinity': 1e+20, 'optimize_wall_seconds': 0.001890591000119457, 'load_wall_seconds': 0.003667389000838739, 'episode_id': '/root/research/tgppo/datasets/train_instances/misc03.mps.gz:0', 'time_limit_seconds': 1.0, 'mode': 'native', 'scip_time_overshoot_seconds': 0.0, 'error': 'Traceback (most recent call last):\n  File "/root/research/tgppo/experiments/stage3/code/project/environment/environment.py", line 96, in run_episode\n    info.update(finish_measurement(self.model, info, self.scip_limits[\'time_limit\'], trace))\n  File "/root/research/tgppo/experiments/stage3/code/project/measurement.py", line 104, in finish_measurement\n    raise ValueError(\'Proof status but final bounds did not close\')\nValueError: Proof status but final bounds did not close\n'}
+
+----------------------------------------------------------------------
+Ran 24 tests in 7.612s
+
+FAILED (failures=1)

@@ -1,0 +1,123 @@
+{
+  "identity": {
+    "actor_sha256": "8b605db5be6bc4a70d8f8ab7c7fa84552f8542b0676a4365a19041a101875397",
+    "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+    "recovery_policy_sha256": "aad85046036b1a4c3806d098183e5f9ba7812f4d25a37d56d11ca44dd9ee0c9e",
+    "resource_exception": {
+      "actor_device": "cpu",
+      "address_space_limit_bytes": 25769803776,
+      "container_memory_min_bytes": 34359738368,
+      "cpu_quota_min": 8,
+      "cuda_required": false,
+      "instance": "mspp16",
+      "solver_time_limit_seconds": 120.0,
+      "watchdog_seconds": 300.0,
+      "workers": 1
+    },
+    "stack": {
+      "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+      "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+      "machine": "x86_64",
+      "python_abi": "3.8",
+      "scip_version": 6.01,
+      "torch_cuda_runtime": "11.7",
+      "torch_version": "1.13.1+cu117"
+    }
+  },
+  "jobs": [
+    {
+      "address_space_limit_bytes": 25769803776,
+      "baseline": null,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt",
+      "cutoff": 363.0,
+      "cutoff_provenance": {
+        "record_sha256": "88d518eb58cfa96e1f2bfa065fda564a822f3cb285c7160e4fc85a13ae3fd042",
+        "source": "miplib2010_all.solu",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/mspp16.mps.gz",
+      "instance_name": "mspp16",
+      "job_id": "test-mspp16-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "eval",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 813049777,
+      "solver_seed": 0,
+      "training_seed": 11
+    },
+    {
+      "address_space_limit_bytes": 25769803776,
+      "baseline": null,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt",
+      "cutoff": 363.0,
+      "cutoff_provenance": {
+        "record_sha256": "88d518eb58cfa96e1f2bfa065fda564a822f3cb285c7160e4fc85a13ae3fd042",
+        "source": "miplib2010_all.solu",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/mspp16.mps.gz",
+      "instance_name": "mspp16",
+      "job_id": "test-mspp16-s1",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "eval",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 2506604758,
+      "solver_seed": 1,
+      "training_seed": 11
+    },
+    {
+      "address_space_limit_bytes": 25769803776,
+      "baseline": null,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt",
+      "cutoff": 363.0,
+      "cutoff_provenance": {
+        "record_sha256": "88d518eb58cfa96e1f2bfa065fda564a822f3cb285c7160e4fc85a13ae3fd042",
+        "source": "miplib2010_all.solu",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/mspp16.mps.gz",
+      "instance_name": "mspp16",
+      "job_id": "test-mspp16-s2",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "eval",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 1521721420,
+      "solver_seed": 2,
+      "training_seed": 11
+    }
+  ]
+}

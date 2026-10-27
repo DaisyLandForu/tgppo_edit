@@ -1,0 +1,722 @@
+{
+  "timestamp": "2026-10-22T14:30:39.815968+00:00",
+  "manifest_sha256": "3fc625bbb9f8f9cccdf843617d0e0a6f2e05a5f064425cd52df5b49ce3b33e9b",
+  "checked_count": 4997,
+  "total_bytes": 364544143,
+  "archive_exact": false,
+  "manifest_errors": [
+    {
+      "path": "migration/2026-10-22/server-run/README.md",
+      "error": "size/hash mismatch",
+      "actual_bytes": 11447,
+      "actual_sha256": "7c391f930109891aee86bc0366d3e8ee6a52e6e01b7355e01884d2ea1fbb4a98",
+      "expected_sha256": "7aa9b9412967db6efcc4df999d6a5a683d5df35ddb70327fe9c6ba4eff5d0555"
+    },
+    {
+      "path": "migration/2026-10-22/server-run/submit.sh",
+      "error": "size/hash mismatch",
+      "actual_bytes": 768,
+      "actual_sha256": "463d4a825ccd544b3d37efe32d7f5176f0654826ab2319b7d8e5a7e2d5fd2ca5",
+      "expected_sha256": "35eb517c9424d0bf1090cb3a6d2877a3287f2bf0dbe7adbcadafd4dca09bcf44"
+    },
+    {
+      "path": "tgppo/experiments/server-20261022/code/project/runtime.py",
+      "error": "size/hash mismatch",
+      "actual_bytes": 16908,
+      "actual_sha256": "d8c21123dadef8f09ff5abd65c3e25e34f1db2f76a70c3488748b6e2e8fecfe3",
+      "expected_sha256": "f58a9b7dab0a7a3def6d5cb3a543f6d5af0970d3142844d84e525484500f6dbc"
+    },
+    {
+      "path": "tgppo/experiments/server-20261022/code/server.py",
+      "error": "size/hash mismatch",
+      "actual_bytes": 26748,
+      "actual_sha256": "23954d3db8c28704fd204858535c20c92c55b9564507369fda30b7a85a06bceb",
+      "expected_sha256": "cb70decb98d04b9d5c27fd578213a2fbb867ecc62b08d1b92cdd253900cf32e5"
+    },
+    {
+      "path": "tgppo/experiments/server-20261022/code/server_bridge.py",
+      "error": "size/hash mismatch",
+      "actual_bytes": 6574,
+      "actual_sha256": "71b90c8c561df999b5be08c8dbb5110cb23fd909bd0d40abebe53b857681416a",
+      "expected_sha256": "4ece640ad270069e70d76572418901b19c6bf11bbd8f5a34c407da18af9e4fe9"
+    },
+    {
+      "path": "tgppo/experiments/server-20261022/tests/test_server.py",
+      "error": "size/hash mismatch",
+      "actual_bytes": 9485,
+      "actual_sha256": "fbe0335bccbcc2c050ee1f8aee443d42b59f29d3187e95ca43d271528f4413ee",
+      "expected_sha256": "48c4b0c09e26fa295ccfe8c28c814e0daae3040d14ad78e2b1348e6ee7841e87"
+    },
+    {
+      "error": "manifest count/total bytes mismatch"
+    }
+  ],
+  "data_passed": true,
+  "data_errors": [],
+  "split_counts": {
+    "train": 20,
+    "development": 5,
+    "test": 66
+  },
+  "counts": {
+    "train_dev": 25,
+    "test": 66
+  },
+  "cutoffs_sha256": "74de41414a15c7563c5a5332786385fccd0ba7207a016ace2706fe6a66f8d455",
+  "instances": {
+    "train_dev": [
+      {
+        "name": "30n20b8",
+        "sha256": "61681c962ef830c2f958cb39bc03d6a1799f44158e5efeb97a1e6c3592f2ac40",
+        "cutoff": 302.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "air04",
+        "sha256": "54f5958f9d3395c45b7dfe70507117777ad914f42f4cd07d50d291bdb6a324a6",
+        "cutoff": 56137.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "air05",
+        "sha256": "8e03d2b90834dc1fe15c908247fdd8baf76e208aa310508caa0734e5245692cc",
+        "cutoff": 26374.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "cod105",
+        "sha256": "f0007f47d356d70d1843e371ac75c7dbfdef4a2947785d47059e61821097e15a",
+        "cutoff": -12.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "comp21-2idx",
+        "sha256": "aa4107222c0bd6f4f90c52f37764e92bf7128aef3503754700add483d8ae5296",
+        "cutoff": 74.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "dcmulti",
+        "sha256": "83627542fa87eb04e4eb22ce805d3bcde64e2a58f3caa3eafac7004816c470df",
+        "cutoff": 188182.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "eil33-2",
+        "sha256": "2d349f8ba12aaf170c9f8bf85327d6592cc0f4d89d300dfb77197acd34a7ffb1",
+        "cutoff": 934.007915999999,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "istanbul-no-cutoff",
+        "sha256": "2b9171a1b1e4236c33ea444b24a98892fb0228ac9309495b4fac280e2ad5653a",
+        "cutoff": 204.08170701,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "l152lav",
+        "sha256": "95d79d1ae2db203f0f2672e760a5f3322adc6552567328499b08b2056f67ba5f",
+        "cutoff": 4722.0,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "lseu",
+        "sha256": "230eab07c9e1c7b6f4e827b0343b8aca3d3d1ad39da445b18562e22737a1e1b8",
+        "cutoff": 1120.0,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "misc03",
+        "sha256": "541b96ab0d74601623f29c736ab527af01d91f2471a1409db91ebbcbc388c16d",
+        "cutoff": 2.0,
+        "source": "miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-476283",
+        "sha256": "2f90490b487fc8c4df5ef002f27429ea765b6ce190321a355ad1574cbe1e9566",
+        "cutoff": 406.363206984,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos20",
+        "sha256": "1018bb7c4c89c2e1482a2dd1b2d6cf3bcdd11c1fa7a5344739d5813f5a4a92e2",
+        "cutoff": -434.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos21",
+        "sha256": "47f6fa1c6bfceca4ae2c264b26519526ef38b82736adc7ea2ee53f1119f3ea7f",
+        "cutoff": 7.0,
+        "source": "Locally solved to optimality with SCIP 6.0.1 (30 second limit)",
+        "status": "optimal"
+      },
+      {
+        "name": "neos648910",
+        "sha256": "1172c4fe86fab9ef53b4bf81dfd173ef9f65cdc4151886835ec06d917d9323e6",
+        "cutoff": 32.0,
+        "source": "Locally solved to optimality with SCIP 6.0.1 (30 second limit)",
+        "status": "optimal"
+      },
+      {
+        "name": "pp08aCUTS",
+        "sha256": "cde85a50a9b64df75b07c7fafeeeadc486728b317eccc5997d8d4e2280fd83d5",
+        "cutoff": 7350.0,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "rmatr100-p10",
+        "sha256": "86e4b03e3db2298c29e3ce5863e76b319e95252da2a834d7441d9346dfa4a423",
+        "cutoff": 423.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "rmatr100-p5",
+        "sha256": "f26d3dd6fdecd9794d9574fc7516f010e03a9815b52da5a36303170caff60c32",
+        "cutoff": 976.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "rmatr200-p5",
+        "sha256": "7c5181d37d8dfe08b4817c0025d7500b71b0d64c530e804f6fe0e75bd1800e95",
+        "cutoff": 4521.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "roi5alpha10n8",
+        "sha256": "243c8af3215de29e46fcbeb0c0eaa7f6c33f5ee1d23fd22d76afc3708748c633",
+        "cutoff": -52.322274351,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "sp150x300d",
+        "sha256": "47051527397e27d1a62d0462ded35042d5eb5f4c4a3b5e3257c82279b97f1e42",
+        "cutoff": 69.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "stein27",
+        "sha256": "559caf031adb6e3536d47b39325c82e52dc60507487e73ff046e6a43268c4abb",
+        "cutoff": 18.0,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "supportcase7",
+        "sha256": "99339282ba551bd77687b9c111bf28729a581be134dc323d00df60987ad424f8",
+        "cutoff": -1132.223177,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "swath1",
+        "sha256": "05b713125dfdea88f22c1d028a4a4ab081e1d03c31401b302b41025f8b0f844d",
+        "cutoff": 379.07129575,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "vpm2",
+        "sha256": "484ac31f97ef1c7b9b813aba29e441d84ef3b3b09eedab04df81159102d571ca",
+        "cutoff": 13.75,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      }
+    ],
+    "test": [
+      {
+        "name": "aflow40b",
+        "sha256": "a02d2c9222b3de7c7c7b3416694b1cfea6646363a61fbd61b39c8ab64dbb48c3",
+        "cutoff": 1168.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "app1-2",
+        "sha256": "54f5d2a1a42443d17d52282dc4d361a2c61d0e101d43bc4b0174b63b192ee088",
+        "cutoff": -41.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "atlanta-ip",
+        "sha256": "99f599b2ed90a8d3af18f2d08ae0de9813cdb010f03cf03be9558bc27197fa19",
+        "cutoff": 90.009878614,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "bab5",
+        "sha256": "aa7e93f394d03e112fb0d36ff27d8af776d64e5721059131ffef9e7a5bf5f816",
+        "cutoff": -106411.8401,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "bc1",
+        "sha256": "1067575fae3c46c558ffcb0dd54af67b67710cd22ac6413229c4e95f9a218877",
+        "cutoff": 3.3383625476,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "bell3a",
+        "sha256": "46db23e722a94011bc07f39da5471148579f55be4127ee9b0f060375ce9eeb23",
+        "cutoff": 878430.32,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "bell5",
+        "sha256": "2aab3da01019fdd5acbdeba604e01758a1fcd8fae666464322860cabe322e6a0",
+        "cutoff": 8966406.49,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "biella1",
+        "sha256": "64d58f389e3963b2ecd334c01e91b72637cf8591bf548f069b389e0bb7b6db6c",
+        "cutoff": 3065005.78,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "binkar10_1",
+        "sha256": "94282c38edd6c83bb6c2d788d823fd82f218218e8e07c98d1d1ab42c1e91039e",
+        "cutoff": 6742.1998835,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "blend2",
+        "sha256": "f184964447dce4b84ee4ebd8a0144df767319801e99923da53d1b548472cf820",
+        "cutoff": 7.598985,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "dano3_5",
+        "sha256": "2fec50200eba94d628bd6ca269d8df81483f10cc01887ee783c7d4d5cea47786",
+        "cutoff": 576.924915956562,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "fast0507",
+        "sha256": "91c7390d814a24bc0c6b5edbc0b1b748d89f4ea75e655bc37b0406a86b8aee11",
+        "cutoff": 174.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "harp2",
+        "sha256": "dbe0a7d0868b6985f25b1f132b8a57af6296bffe0180edd90469874bfbe9c2d7",
+        "cutoff": -73899798.0,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "map10",
+        "sha256": "26f236f4f78d7929be611a7e7106199fd52819a1d0389214937967faca989981",
+        "cutoff": -495.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "map16715-04",
+        "sha256": "3bb8fa8aa10d5be68f5aa272570a118a4c97a6d75bc1426dd0fec3eafaaec2e8",
+        "cutoff": -111.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "map18",
+        "sha256": "19e4445f65dbd55dea27ca925209d9ee9e5c768893bc5aa2242be9a7b4d62d7f",
+        "cutoff": -847.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "map20",
+        "sha256": "c7c028d1137ff51f312753b6ca3dd35f9c5ef75079ee129159367b1774ff4d80",
+        "cutoff": -922.0,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "mik-250-20-75-4",
+        "sha256": "1fa6126895fa59d1c613787ad19bb10e6080a39207224b018a43b95440dca4ef",
+        "cutoff": -52301.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "mine-166-5",
+        "sha256": "5c02fc60f58acb8b5d5242c7aadd276bd2d5eb42b9b9341c304aaa43b0f78a6e",
+        "cutoff": -566395707.9,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "misc07",
+        "sha256": "7991b258632d4ea293e125bf067647eb3fe5705fd4e74973e812ea201163a12d",
+        "cutoff": 2810.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "msc98-ip",
+        "sha256": "5ee303ab53c1162f6ffab46ef922f51a32836e6da15b7110287681e81edc9d08",
+        "cutoff": 19839497.0058743,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "mspp16",
+        "sha256": "6b855c3c53a1b0889aab1c60187f54e821fe880d021eeb4a587eb8f810afb3f7",
+        "cutoff": 363.0,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "n2seq36q",
+        "sha256": "7c2be13e461ecfbd03ceb20e3745ba4f24ad007fe1b34df8c2a5e02e89ead3d5",
+        "cutoff": 52200.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "n3seq24",
+        "sha256": "a5ad2a7c192efceb11e65cfde9e0a2baffb53f1e1d3f530bd3b43169c56f4b27",
+        "cutoff": 52200.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-1200887",
+        "sha256": "94c0a4fd2d661a7fb1b389d6beea44fed47033e15784c78a5c12d70cdc7fc611",
+        "cutoff": -74.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-1215259",
+        "sha256": "b9c5d72e3f4fa61060e8a1c1ee49a6f9177c7080d64045285ce77300985fef17",
+        "cutoff": 68.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-4722843-widden",
+        "sha256": "48159f61eef6da6ca53121d2f3e4694f9fd5e8b99bf199c0e179e0d1ebc4d607",
+        "cutoff": 25009.662227,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-4738912-atrato",
+        "sha256": "bd85cacd7a28e99106d75d411d09e73005c818cf36b9a53e3ed01f00c09ff422",
+        "cutoff": 283627956.595,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-480878",
+        "sha256": "f1d4290e5b9fa1981ef11b8b883e1b5b68e716fa05b1fd7dd50306f2af5c90cb",
+        "cutoff": 492.5144492879,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-504674",
+        "sha256": "b99528e87dc5c66ba1c197910771ee1d3411b7c31361d88a38e117bfed5f40c9",
+        "cutoff": 3635.87,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-504815",
+        "sha256": "8e6800ccb1585ee3e8ba5fdb527f82aedd6063fabbe9a3bd95efbec05bd4a930",
+        "cutoff": 2296.22,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-512201",
+        "sha256": "331558a1cebe42713cb759fe6280bbf66c0b8700494db9c83f2498dcf442b2a1",
+        "cutoff": 513.57,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-584851",
+        "sha256": "6c3bf1ebbc7929b22e36b2254c016f3e62b62191c892b9e671dd902da5888e1b",
+        "cutoff": -11.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-603073",
+        "sha256": "153f8e2aca208cc42db819d7dba76bc47098073f298f80000d544606e42503b5",
+        "cutoff": 16790.24,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-612125",
+        "sha256": "fe48dcb6146464d9626c4439e9d9eea160632772b7861ff75c16f441edb633a7",
+        "cutoff": 1844367.88,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-612162",
+        "sha256": "fdac0f6e2b9c785a33806c56d469b952344601755f4687cbe5b9e99395a5e4af",
+        "cutoff": 1772948.96,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-662469",
+        "sha256": "65cf8ea6d45f54cfcd8413dc7949c65f11890a2bad768ec559ca29f2270b4530",
+        "cutoff": 184380.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-686190",
+        "sha256": "aaa1e6c4781e1a683b58190e498cd5d1887b1194d69c8b94d4adf8dc1384f26d",
+        "cutoff": 6730.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-801834",
+        "sha256": "8dc5e52764f130360ededc32f882209c6d892642f85139ede750142fc8599139",
+        "cutoff": 50386.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-803219",
+        "sha256": "8a177ac335c74047ccf099d490d35c334d0d34f3a65b3cf9eaed58eab66a7baa",
+        "cutoff": 210.3,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-807639",
+        "sha256": "e5527f1e0e9a30946dae57c7fb1855b133493a17c8de4e830dd969025abca314",
+        "cutoff": 454.2,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-820879",
+        "sha256": "f4af2dd30c150c15aade4992415389fcc4c95d34a7a5c77f2555177590a35225",
+        "cutoff": 25468.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-829552",
+        "sha256": "9684ea84dc7d168614609483b5044c625b29247c9daaed4558eafd21a2f4052d",
+        "cutoff": 2.31958979,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-839859",
+        "sha256": "2f7230391507fa1e67c9629c8b806ec0ff5102945ca5573a5b8fe2bcfbd92c4f",
+        "cutoff": 9809653.22,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-892255",
+        "sha256": "92dc4e7e3822ef7fa88e01612a6cd7ecd7b0f73b406a614b173e1ee3902a5d1f",
+        "cutoff": 14.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos-950242",
+        "sha256": "9bd6761fb5f4948a1dbfd22daad64108f76441493a4c731c2325c2d813b41368",
+        "cutoff": 4.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos11",
+        "sha256": "38026d00badc3cc3516ff5d277e8f4fbaf368182f295df76f66b11db79496101",
+        "cutoff": 9.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos12",
+        "sha256": "ac4c456de3ddacacbfc73d85960697bbeaac284ef5c3881df0d255f010c1e0f6",
+        "cutoff": 13.0,
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal"
+      },
+      {
+        "name": "neos13",
+        "sha256": "3e5b328fa98f88d41479a21c996945187a97faef2c284ea3b1b32d09a5e4e1ae",
+        "cutoff": -95.474806559,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "neos18",
+        "sha256": "15d4d9421edddf5211906eb040f00892962991a3d01739b95e10bccd7102fac6",
+        "cutoff": 16.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "ns1208400",
+        "sha256": "993b8f2dce018d3d339334345eb22db979089318e708c45cfbed28b988e4d145",
+        "cutoff": 2.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "ns1830653",
+        "sha256": "a4e3c130f7ff6ebab4d6781a7e95fadc6c4c043e3e65d95b90f3e2e5e46f1017",
+        "cutoff": 20622.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "nu25-pr12",
+        "sha256": "161c4c89b351d8671ae4e4d7af0fc222e1910e14564419053f22600460ef3236",
+        "cutoff": 53905.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "nw04",
+        "sha256": "c5ffad5996c481756028013399e052793e3ff3ec70e9f5f15c6bc471abe5389a",
+        "cutoff": 16862.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "opm2-z7-s2",
+        "sha256": "be309ae39b5ad49b78504a0c64a3cfdb225637d85c83cf6fd05c8d638e440b2e",
+        "cutoff": -10280.0,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "p0201",
+        "sha256": "2ecd7f035c546453ffd5e4fe12cf41c111be192411c4cb7e268b3c8ba81e5335",
+        "cutoff": 7615.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "pg",
+        "sha256": "b4344d7361aca3d0ff039e5de05d2ad38cfe7c9b9b8300fab4573b35821457b2",
+        "cutoff": -8674.34260712,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "pigeon-10",
+        "sha256": "86cd344472e29a8821c204700914f717e6acc618314818a9d6f7b8c404ebf85d",
+        "cutoff": -9000.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "pp08a",
+        "sha256": "70a14b67b7e52559ee64da8159eac93f9100bdc9218d2cd35a359b87bf33cffb",
+        "cutoff": 7350.0,
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal"
+      },
+      {
+        "name": "rail507",
+        "sha256": "ecd62d6f0a76a9db236758a0d4ab9d4c0fa5b00ba59220c6b6073feff41ff39d",
+        "cutoff": 174.0,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "roll3000",
+        "sha256": "47a0a827ac2d697b717fb55401afa5de9e042f026d6a462fb97d968a869d282d",
+        "cutoff": 12889.999992,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "rout",
+        "sha256": "85e9cbff3baf54aec897ba0d57679929482c8ab039164aa22639261ee4fac0a9",
+        "cutoff": 1077.56,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "satellites1-25",
+        "sha256": "911caefa2a6aad342df8f0498cb721917ee0ce3500d5e5d8068b65f48b95e2fd",
+        "cutoff": -5.0,
+        "source": "miplib2010_all.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "seymour1",
+        "sha256": "fbcef8581c27234abf5816cbd1ddd5b6b6fdc3764b57d36d85c517d9fd3e9bac",
+        "cutoff": 410.76370139,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "sp98ir",
+        "sha256": "2d25ae3ab7f1ad269741d94f95f90b3a8f457001d234bae340a9ba9db2e36f4a",
+        "cutoff": 219676790.4,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      },
+      {
+        "name": "unitcal_7",
+        "sha256": "e9c83822eacf7b929134baf74c75be489304c545d390858666869e5755fec9a0",
+        "cutoff": 19635558.244,
+        "source": "miplib2017.solu",
+        "status": "optimal"
+      }
+    ]
+  },
+  "cutoff_scope": "packaged optimality records and hashes; no independent re-proof",
+  "intended_modified_originals": [
+    "migration/2026-10-22/server-run/README.md",
+    "migration/2026-10-22/server-run/submit.sh",
+    "tgppo/experiments/server-20261022/code/project/runtime.py",
+    "tgppo/experiments/server-20261022/code/server.py",
+    "tgppo/experiments/server-20261022/code/server_bridge.py",
+    "tgppo/experiments/server-20261022/tests/test_server.py"
+  ],
+  "unexpected_modified_originals": [
+    null
+  ],
+  "preservation_passed": false
+}

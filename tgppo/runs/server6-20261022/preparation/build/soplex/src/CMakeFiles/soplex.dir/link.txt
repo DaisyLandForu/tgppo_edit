@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wno-strict-overflow -O3 -DNDEBUG -rdynamic CMakeFiles/soplex.dir/soplexmain.cpp.o -o ../bin/soplex  -Wl,-rpath,::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ../lib/libsoplex.a -lz -lgmp -lgmpxx 

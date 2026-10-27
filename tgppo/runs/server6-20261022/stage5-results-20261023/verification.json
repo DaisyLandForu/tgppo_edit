@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "unique_valid_tasks": 1386,
+  "method_counts": {
+    "B0": 396,
+    "R0": 396,
+    "Rjoint": 396,
+    "native": 198
+  },
+  "independent_flat_csv_mean_and_proof_counts_match": true,
+  "all_local_report_links_exist": true,
+  "plots_rendered_and_visually_checked": true,
+  "protected_runtime_files_unchanged": [
+    {
+      "path": "migration/2026-10-22/server-run/post_job.sh",
+      "sha256": "9d91152dc3d789632cd11b29f35c066000f369bc52d74d75dd89b6185df70831"
+    },
+    {
+      "path": "migration/2026-10-22/server-run/post_training.py",
+      "sha256": "e0b434dbfd8f2fb64ffbfbed80a3c8bd8f3e9da1c62ea872bbacd164ce90ef4a"
+    },
+    {
+      "path": "migration/2026-10-22/server-run/env.sh",
+      "sha256": "491498849c03258e4e7697306e41b86682b35b01bf89b656f23d08a067d658af"
+    },
+    {
+      "path": "migration/2026-10-22/server-run/protocol.json",
+      "sha256": "6e1b13e97c103496cbed1d502f4d8ecc7c6bdfe7ef7d5741aea2aef02aedf13a"
+    },
+    {
+      "path": "migration/2026-10-22/server-run/mspp16-recovery/recover.py",
+      "sha256": "e708504116c8bc03bca2746263e970fd02158f8f8b3c1913a6bbaeb2690ebc43"
+    },
+    {
+      "path": "migration/2026-10-22/server-run/mspp16-recovery/run.sh",
+      "sha256": "c0a7848dda7b70992b3710c2ab8f68fb075c0179dad629e710ea859268cf1e22"
+    }
+  ],
+  "original_failures_retained": 21,
+  "stage6_started": false
+}

@@ -1,0 +1,9 @@
+Auxiliary training host=jpt-duweiyue25-261022-3bf44-default0-0 log=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/aux-gpu-training/launch-20261023T042156Z-8XQ3FQ.log
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/aux-gpu-training/train.py", line 180, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/aux-gpu-training/train.py", line 176, in main
+    train(parser.parse_args())
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/aux-gpu-training/train.py", line 42, in train
+    raise RuntimeError('No CUDA device allocated. Request one GPU; CPU fallback is disabled.')
+RuntimeError: No CUDA device allocated. Request one GPU; CPU fallback is disabled.

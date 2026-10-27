@@ -1,0 +1,12 @@
+test_complete_update_restore_and_actor_export_all_groups (test_server.ServerTests) ... ok
+test_dev_selection_coverage_ties_and_failure (test_server.ServerTests) ... ok
+test_real_collection_interrupted_update_resumes_without_lost_or_duplicate_tasks (test_server.ServerTests) ... {"actor_loss": -0.008380824047240562, "critic_loss": 4.37029744485127, "entropy": 2.5435421835808527, "clip_fraction": 0.0, "updated": true, "num_updates": 24, "num_samples": 375, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.09000301361084, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 1.7625860000000007, "learning_wall_seconds": 1.7627208760004578, "gpu_event_seconds": null, "peak_cuda_allocated_bytes": 0}
+{"actor_loss": -0.0095009970109813, "critic_loss": 0.37847886963856303, "entropy": 2.563032229031835, "clip_fraction": 0.0, "updated": true, "num_updates": 22, "num_samples": 350, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.199209690093994, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 1.676661000000001, "learning_wall_seconds": 1.6773155439996117, "gpu_event_seconds": null, "peak_cuda_allocated_bytes": 0}
+{"actor_loss": -0.00974349383582044, "critic_loss": 0.3919408920292671, "entropy": 2.5571373684720675, "clip_fraction": 0.0, "updated": true, "num_updates": 21, "num_samples": 333, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.1680071353912354, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 1.675176999999998, "learning_wall_seconds": 1.675423222000063, "gpu_event_seconds": null, "peak_cuda_allocated_bytes": 0}
+ok
+test_three_groups_public_actor_pairing_and_cpu_worker (test_server.ServerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 86.707s
+
+OK

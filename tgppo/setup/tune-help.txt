@@ -1,0 +1,33 @@
+usage: tune.py [-h] --instances_dir INSTANCES_DIR --instances_info_dict
+               INSTANCES_INFO_DICT --logs_dir LOGS_DIR
+               [--time_limit TIME_LIMIT] [--per_job_timeout PER_JOB_TIMEOUT]
+               [--scip_setting SCIP_SETTING]
+               [--outer_seeds OUTER_SEEDS [OUTER_SEEDS ...]]
+               [--inner_seeds INNER_SEEDS [INNER_SEEDS ...]]
+               [--inner_folds {2,3,4,5}]
+               [--train_iterations_inner TRAIN_ITERATIONS_INNER]
+               [--train_iterations_refit TRAIN_ITERATIONS_REFIT]
+               [--max_workers MAX_WORKERS] [--sampler {tpe,cmaes}]
+               [--pruner {median,sha}] [--n_trials_inner N_TRIALS_INNER]
+               [--storage_inner STORAGE_INNER]
+
+Nested 5-fold CV with inner Optuna for Tree-Gate PPO
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --instances_dir INSTANCES_DIR
+  --instances_info_dict INSTANCES_INFO_DICT
+  --logs_dir LOGS_DIR
+  --time_limit TIME_LIMIT
+  --per_job_timeout PER_JOB_TIMEOUT
+  --scip_setting SCIP_SETTING
+  --outer_seeds OUTER_SEEDS [OUTER_SEEDS ...]
+  --inner_seeds INNER_SEEDS [INNER_SEEDS ...]
+  --inner_folds {2,3,4,5}
+  --train_iterations_inner TRAIN_ITERATIONS_INNER
+  --train_iterations_refit TRAIN_ITERATIONS_REFIT
+  --max_workers MAX_WORKERS
+  --sampler {tpe,cmaes}
+  --pruner {median,sha}
+  --n_trials_inner N_TRIALS_INNER
+  --storage_inner STORAGE_INNER

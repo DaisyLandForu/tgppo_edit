@@ -1,0 +1,21 @@
+{
+  "reason": "measured_large_batch_cost_cannot_finish_current_3_epoch_update_within_remaining_budget",
+  "pid": 59316,
+  "progress": {
+    "epoch": 1,
+    "epochs": 3,
+    "expected_minibatches": 183,
+    "learning_cpu_seconds": 183.52699399999997,
+    "minibatches_completed": 15,
+    "samples": 15563,
+    "total_cpu_seconds": 893.1997880000001
+  },
+  "actual_learner_cpu_seconds_at_decision": 194.43,
+  "projected_remaining_learning_cpu_seconds": 2055.5023327999997,
+  "remaining_authorized_cpu_seconds": 898.2283969999999,
+  "authorized_total_cpu_maximum": 1800.0,
+  "previous_process_soft_cpu_limit": 1087,
+  "revised_process_soft_cpu_limit": 197,
+  "action": "tighten soft CPU limit; existing handler retains last complete checkpoint",
+  "decision_unix_time": 1792572450.278403
+}

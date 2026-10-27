@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 444, in <module>
+    if __name__=='__main__':main()
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 435, in main
+    if args.command=='preflight':print(json.dumps(preflight(root,c,args.device),indent=2))
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 195, in preflight
+    if not torch.cuda.is_available():raise RuntimeError('CUDA required; refusing silent CPU fallback')
+RuntimeError: CUDA required; refusing silent CPU fallback

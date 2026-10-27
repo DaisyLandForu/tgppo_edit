@@ -1,0 +1,28 @@
+--- a/src/pyscipopt/scip.pxd
++++ b/src/pyscipopt/scip.pxd
+@@ -1514,6 +1514,7 @@
+         SCIP_Real firstsolgap
+         SCIP_Real lastsolgap
+         SCIP_Real previousgap
++        SCIP_Real previntegralevaltime
+         SCIP_Real lastprimalbound
+         SCIP_Real lastdualbound
+         SCIP_Real lastlowerbound
+--- a/src/pyscipopt/scip.pyx
++++ b/src/pyscipopt/scip.pyx
+@@ -3048,6 +3048,15 @@
+         """Return number of nodes created in current run."""
+         return self._scip.stat.ncreatednodesrun
+         
++    def getIntegralSnapshot(self):
++        """Read-only native integration state, with no update or flush."""
++        return dict(integral=self._scip.stat.primaldualintegral,
++                    last_update_time=self._scip.stat.previntegralevaltime,
++                    previous_percent_gap=self._scip.stat.previousgap,
++                    last_primal_bound=self._scip.stat.lastprimalbound,
++                    last_dual_bound=self._scip.stat.lastdualbound,
++                    solving_time=SCIPgetSolvingTime(self._scip))
++
+     def getPrimalDualIntegral(self):
+         """Return the primal dual integral."""
+         return self._scip.stat.primaldualintegral

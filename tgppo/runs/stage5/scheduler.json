@@ -1,0 +1,49 @@
+{
+  "stage": 5,
+  "state": "training",
+  "pending": [
+    [
+      "Rjoint",
+      11
+    ],
+    [
+      "R0",
+      22
+    ],
+    [
+      "Rprod",
+      22
+    ],
+    [
+      "Rjoint",
+      22
+    ],
+    [
+      "R0",
+      33
+    ],
+    [
+      "Rprod",
+      33
+    ],
+    [
+      "Rjoint",
+      33
+    ]
+  ],
+  "active": [
+    {
+      "group": "R0",
+      "seed": 11,
+      "pid": 103405
+    },
+    {
+      "group": "Rprod",
+      "seed": 11,
+      "pid": 103406
+    }
+  ],
+  "finished": [],
+  "wall_seconds": 1136.3291375637054,
+  "stop_before_stage6": true
+}

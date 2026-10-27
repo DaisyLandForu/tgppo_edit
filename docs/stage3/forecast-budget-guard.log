@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/root/research/docs/stage3/monitor_pilot_budget.py", line 53, in <module>
+    main()
+  File "/root/research/docs/stage3/monitor_pilot_budget.py", line 29, in main
+    raise RuntimeError('Expected exactly one live pilot process')
+RuntimeError: Expected exactly one live pilot process

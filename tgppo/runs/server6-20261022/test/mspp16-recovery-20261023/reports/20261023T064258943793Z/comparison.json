@@ -1,0 +1,501 @@
+{
+  "combined_training_seeds": [
+    {
+      "actor_callback_seconds": 0.0,
+      "instances": 66,
+      "mean_nodes": 3361.328282828282,
+      "mean_par2": 145.40904099494952,
+      "mean_pdi": 2103.821260472151,
+      "mean_pdi_lower": 2099.6382450681103,
+      "mean_pdi_upper": 2108.004275876191,
+      "method": "native",
+      "pdi_improvement_percent_vs_B0": 12.613240832542072,
+      "proof_count": 99,
+      "proof_rate": 0.5,
+      "runs": 198,
+      "valid_worker_cpu_seconds": 17759.930332,
+      "valid_worker_wall_seconds_sum": 17159.468430796813
+    },
+    {
+      "actor_callback_seconds": 8737.878117510176,
+      "instances": 66,
+      "mean_nodes": 1710.2095959595965,
+      "mean_par2": 198.80460007828285,
+      "mean_pdi": 2407.482873281329,
+      "mean_pdi_lower": 2400.5692917156725,
+      "mean_pdi_upper": 2414.396454846986,
+      "method": "B0",
+      "pdi_improvement_percent_vs_B0": 0.0,
+      "proof_count": 80,
+      "proof_rate": 0.20202020202020202,
+      "runs": 396,
+      "valid_worker_cpu_seconds": 42544.27826399996,
+      "valid_worker_wall_seconds_sum": 41368.690947679395
+    },
+    {
+      "actor_callback_seconds": 8713.537424127862,
+      "instances": 66,
+      "mean_nodes": 1725.853535353535,
+      "mean_par2": 199.06135006818184,
+      "mean_pdi": 2408.1830551993066,
+      "mean_pdi_lower": 2401.549434365972,
+      "mean_pdi_upper": 2414.816676032639,
+      "method": "R0",
+      "pdi_improvement_percent_vs_B0": -0.02908356797668432,
+      "proof_count": 79,
+      "proof_rate": 0.1994949494949495,
+      "runs": 396,
+      "valid_worker_cpu_seconds": 42501.16213600001,
+      "valid_worker_wall_seconds_sum": 41352.72709705762
+    },
+    {
+      "actor_callback_seconds": 8756.9071381088,
+      "instances": 66,
+      "mean_nodes": 1704.5050505050503,
+      "mean_par2": 199.41344429545455,
+      "mean_pdi": 2411.6100498559,
+      "mean_pdi_lower": 2405.0393820269396,
+      "mean_pdi_upper": 2418.1807176848583,
+      "method": "Rjoint",
+      "pdi_improvement_percent_vs_B0": -0.1714311914894573,
+      "proof_count": 78,
+      "proof_rate": 0.19696969696969696,
+      "runs": 396,
+      "valid_worker_cpu_seconds": 42532.974530999985,
+      "valid_worker_wall_seconds_sum": 41366.91981997993
+    }
+  ],
+  "complete66": true,
+  "cost_scope": "Valid worker costs shown; original failures and retry attempts retained separately. GPU allocation, queue, and missing CPU measurements require Crater accounting.",
+  "frozen_selection_sha256": "a8489c97fa042f980fc6f2b770ad1e1597524b4b38d8b91f721f25df1c32bd1a",
+  "instance_names": [
+    "aflow40b",
+    "app1-2",
+    "atlanta-ip",
+    "bab5",
+    "bc1",
+    "bell3a",
+    "bell5",
+    "biella1",
+    "binkar10_1",
+    "blend2",
+    "dano3_5",
+    "fast0507",
+    "harp2",
+    "map10",
+    "map16715-04",
+    "map18",
+    "map20",
+    "mik-250-20-75-4",
+    "mine-166-5",
+    "misc07",
+    "msc98-ip",
+    "mspp16",
+    "n2seq36q",
+    "n3seq24",
+    "neos-1200887",
+    "neos-1215259",
+    "neos-4722843-widden",
+    "neos-4738912-atrato",
+    "neos-480878",
+    "neos-504674",
+    "neos-504815",
+    "neos-512201",
+    "neos-584851",
+    "neos-603073",
+    "neos-612125",
+    "neos-612162",
+    "neos-662469",
+    "neos-686190",
+    "neos-801834",
+    "neos-803219",
+    "neos-807639",
+    "neos-820879",
+    "neos-829552",
+    "neos-839859",
+    "neos-892255",
+    "neos-950242",
+    "neos11",
+    "neos12",
+    "neos13",
+    "neos18",
+    "ns1208400",
+    "ns1830653",
+    "nu25-pr12",
+    "nw04",
+    "opm2-z7-s2",
+    "p0201",
+    "pg",
+    "pigeon-10",
+    "pp08a",
+    "rail507",
+    "roll3000",
+    "rout",
+    "satellites1-25",
+    "seymour1",
+    "sp98ir",
+    "unitcal_7"
+  ],
+  "instances": 66,
+  "interpretation": "Instance is the statistical unit; both training seeds are retained. B0 is the common 120s/Adam reference, not the paper-scale 3600s/AdamW reproduction. No Rprod attribution. Stage6 not started.",
+  "observed_at_utc": "2026-10-23T06:42:58.942128+00:00",
+  "original_failures": [
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "B0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/8b605db5be6bc4a7/attempt-000/test-mspp16-s0.json",
+        "sha256": "31c71301e903935af67557f40068c0dd59ded0230838c41907f4d00eebd05b0a"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 75.67774523800472
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "B0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/8b605db5be6bc4a7/attempt-000/test-mspp16-s1.json",
+        "sha256": "024059527844d1ad8a7ac4b9e36a9d60b6b079d1f1a10c701a947b8cd972a94c"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 85.60006854898529
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "B0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/8b605db5be6bc4a7/attempt-000/test-mspp16-s2.json",
+        "sha256": "4ab5d812cd9a3cd3636f3bd31cad9e25523f2a1b8f249f0317d97e3e749a042f"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 84.48294042696944
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "B0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/2606fac3faede627/attempt-000/test-mspp16-s0.json",
+        "sha256": "d4a5536a4fe64e0b3de367761b56b77ca727aab3f5dc1dda14e8254d9ba7534f"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 68.59873476304347
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "B0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/2606fac3faede627/attempt-000/test-mspp16-s1.json",
+        "sha256": "f05cbc6fc1682527b6e20d847dd874021bc875c7b21a37707f8f57429313f8db"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 74.56216209300328
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "B0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/2606fac3faede627/attempt-000/test-mspp16-s2.json",
+        "sha256": "8cfc3b99f2f8054bf200b7e1b9f2ecaaecf04fe9d992a06978b54d80a0164e90"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 84.67601158004254
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "R0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/83e34415f613f364/attempt-000/test-mspp16-s0.json",
+        "sha256": "7f328189394a1b3fcb91e2041bd1cf2e05543245c050e5895cb88700b62e7e8a"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 69.36735033703735
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "R0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/83e34415f613f364/attempt-000/test-mspp16-s1.json",
+        "sha256": "9a08c5698fff7ca76cd8c552294cdad03e6d7ef5d4c5a045f66ffa9558f1cf19"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 72.8873899320024
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "R0-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/83e34415f613f364/attempt-000/test-mspp16-s2.json",
+        "sha256": "6845a81711d6e7f75492e7ba2132e574fc4ff2ca65c5cad45e3320fe75cca758"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 76.02718859195011
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "R0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/44de0e6311757ff1/attempt-000/test-mspp16-s0.json",
+        "sha256": "7ca79e8e0916b119a88f29f6a6ca81ee8a7a95a8aa32e08bb2630d0556c73c8b"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 74.97439450398088
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "R0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/44de0e6311757ff1/attempt-000/test-mspp16-s1.json",
+        "sha256": "de00fb5df9fcc09b0e62ad94b3948ae4d085aeed513c3f7e361f4812ccf3682b"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 87.63649379200069
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "R0-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/44de0e6311757ff1/attempt-000/test-mspp16-s2.json",
+        "sha256": "cc922cefa8edbe963f78a07aaf9764261f5b22e9762a25e1e399f462ff53c64f"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 84.84235947602428
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "Rjoint-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/d3fd616871780b18/attempt-000/test-mspp16-s0.json",
+        "sha256": "970c9cc64df465473051c5949dfc291b6cbe6ebc4155e85cddefdd16762c93b5"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 70.7319218069897
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "Rjoint-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/d3fd616871780b18/attempt-000/test-mspp16-s1.json",
+        "sha256": "66d1a7aff27cf42729e9fa2bce9911bce93e9c53772b3f1a94eb6f5266ad7c68"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 82.34127395402174
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "Rjoint-s11",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/d3fd616871780b18/attempt-000/test-mspp16-s2.json",
+        "sha256": "a7c6e40e9df2c7d8f5e4b5ebd6ef5afcb7b3c04f3f8d71a47c19f53f5cc53f5c"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 90.26688491803361
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "Rjoint-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/70eebc1b1d343666/attempt-000/test-mspp16-s0.json",
+        "sha256": "aa26b215a0b701a1bea70420d39d22ddb9d6bef9b1dc57a91ae8c4980e08dfe2"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 69.27037439798005
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "Rjoint-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/70eebc1b1d343666/attempt-000/test-mspp16-s1.json",
+        "sha256": "7f3378bd4c7269de3262a840d158e31f0beda6bf36f136555e889945e095633e"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 75.17392429197207
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "Rjoint-s22",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/70eebc1b1d343666/attempt-000/test-mspp16-s2.json",
+        "sha256": "f808b09a55c165373ec383706caa35e4721b6a66d510320df3804620d8faa422"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 85.48684874101309
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s0",
+      "model": "native",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/relpscost-native/attempt-000/test-mspp16-s0.json",
+        "sha256": "58162b6c829b783b0ae68b3aff20442e9b5918f434f2d6dd65509dfeaec55621"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 68.51382558001205
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s1",
+      "model": "native",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/relpscost-native/attempt-000/test-mspp16-s1.json",
+        "sha256": "2cf34571ba5fee5a5f1e028213d5d43440e34f07827425be58d5ab8796c87887"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 85.97993159200996
+    },
+    {
+      "exitcode": -11,
+      "job_id": "test-mspp16-s2",
+      "model": "native",
+      "source": {
+        "path": "tgppo/runs/server6-20261022/test/official66-best/relpscost-native/attempt-000/test-mspp16-s2.json",
+        "sha256": "6e15be53993403432e7603997ea811eff56e7f03fa1dae4bb665b68f214a2b15"
+      },
+      "status": "worker_exit_error",
+      "wall_seconds": 74.31629750796128
+    }
+  ],
+  "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "per_training_seed": [
+    {
+      "actor_callback_seconds": 4396.29013523669,
+      "instances": 66,
+      "mean_nodes": 1702.4898989898982,
+      "mean_par2": 199.81265981313132,
+      "mean_pdi": 2441.770818076119,
+      "mean_pdi_lower": 2435.2480756518767,
+      "mean_pdi_upper": 2448.2935605003613,
+      "method": "B0",
+      "proof_count": 39,
+      "proof_rate": 0.19696969696969696,
+      "runs": 198,
+      "training_seed": 11,
+      "valid_worker_cpu_seconds": 21351.129428999982,
+      "valid_worker_wall_seconds_sum": 20762.112370768038
+    },
+    {
+      "actor_callback_seconds": 4341.587982273486,
+      "instances": 66,
+      "mean_nodes": 1717.9292929292935,
+      "mean_par2": 197.79654034343437,
+      "mean_pdi": 2373.1949284865386,
+      "mean_pdi_lower": 2365.890507779468,
+      "mean_pdi_upper": 2380.4993491936098,
+      "method": "B0",
+      "proof_count": 41,
+      "proof_rate": 0.20707070707070707,
+      "runs": 198,
+      "training_seed": 22,
+      "valid_worker_cpu_seconds": 21193.148834999993,
+      "valid_worker_wall_seconds_sum": 20606.578576911357
+    },
+    {
+      "actor_callback_seconds": 4369.284798018634,
+      "instances": 66,
+      "mean_nodes": 1728.6919191919187,
+      "mean_par2": 199.74373180303027,
+      "mean_pdi": 2439.9413228447543,
+      "mean_pdi_lower": 2433.730720824551,
+      "mean_pdi_upper": 2446.151924864955,
+      "method": "R0",
+      "proof_count": 39,
+      "proof_rate": 0.19696969696969696,
+      "runs": 198,
+      "training_seed": 11,
+      "valid_worker_cpu_seconds": 21322.95090000001,
+      "valid_worker_wall_seconds_sum": 20750.66673192801
+    },
+    {
+      "actor_callback_seconds": 4344.252626109228,
+      "instances": 66,
+      "mean_nodes": 1723.0151515151517,
+      "mean_par2": 198.37896833333332,
+      "mean_pdi": 2376.4247875538586,
+      "mean_pdi_lower": 2369.3681479073953,
+      "mean_pdi_upper": 2383.481427200324,
+      "method": "R0",
+      "proof_count": 40,
+      "proof_rate": 0.20202020202020202,
+      "runs": 198,
+      "training_seed": 22,
+      "valid_worker_cpu_seconds": 21178.211236,
+      "valid_worker_wall_seconds_sum": 20602.06036512961
+    },
+    {
+      "actor_callback_seconds": 4358.219419403351,
+      "instances": 66,
+      "mean_nodes": 1733.717171717172,
+      "mean_par2": 199.7562417929293,
+      "mean_pdi": 2441.0486863051715,
+      "mean_pdi_lower": 2433.946143123354,
+      "mean_pdi_upper": 2448.15122948699,
+      "method": "Rjoint",
+      "proof_count": 39,
+      "proof_rate": 0.19696969696969696,
+      "runs": 198,
+      "training_seed": 11,
+      "valid_worker_cpu_seconds": 21325.93839599999,
+      "valid_worker_wall_seconds_sum": 20750.747534043796
+    },
+    {
+      "actor_callback_seconds": 4398.687718705449,
+      "instances": 66,
+      "mean_nodes": 1675.2929292929293,
+      "mean_par2": 199.07064679797978,
+      "mean_pdi": 2382.1714134066274,
+      "mean_pdi_lower": 2376.132620930528,
+      "mean_pdi_upper": 2388.2102058827286,
+      "method": "Rjoint",
+      "proof_count": 39,
+      "proof_rate": 0.19696969696969696,
+      "runs": 198,
+      "training_seed": 22,
+      "valid_worker_cpu_seconds": 21207.036135000002,
+      "valid_worker_wall_seconds_sum": 20616.172285936133
+    },
+    {
+      "actor_callback_seconds": 0.0,
+      "instances": 66,
+      "mean_nodes": 3361.328282828282,
+      "mean_par2": 145.40904099494952,
+      "mean_pdi": 2103.821260472151,
+      "mean_pdi_lower": 2099.6382450681103,
+      "mean_pdi_upper": 2108.004275876191,
+      "method": "native",
+      "proof_count": 99,
+      "proof_rate": 0.5,
+      "runs": 198,
+      "training_seed": null,
+      "valid_worker_cpu_seconds": 17759.930332,
+      "valid_worker_wall_seconds_sum": 17159.468430796813
+    }
+  ],
+  "recovered_models": [
+    "B0-s11",
+    "B0-s22",
+    "R0-s11",
+    "R0-s22",
+    "Rjoint-s11",
+    "Rjoint-s22",
+    "native"
+  ],
+  "recovery_policy_sha256": "aad85046036b1a4c3806d098183e5f9ba7812f4d25a37d56d11ca44dd9ee0c9e",
+  "scope": "full66_with_mspp16_resource_exception"
+}

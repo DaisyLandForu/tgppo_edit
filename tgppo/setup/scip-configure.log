@@ -1,0 +1,61 @@
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Build shared libraries: ON
+-- Build type: Release
+-- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11") 
+-- Found Readline: /usr/include  
+-- Found GMP: /usr/include/x86_64-linux-gnu  
+-- Found BLISS: /usr/include  
+-- Looking for FE_DOWNWARD
+-- Looking for FE_DOWNWARD - found
+CMake Warning (dev) at /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438 (message):
+  The package name passed to `find_package_handle_standard_args` (CRITERION)
+  does not match the name of the calling package (Criterion).  This can lead
+  to problems in calling code that expects `find_package` result variables
+  (e.g., `_FOUND`) to follow a certain pattern.
+Call Stack (most recent call first):
+  cmake/Modules/FindCriterion.cmake:27 (find_package_handle_standard_args)
+  CMakeLists.txt:441 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Could NOT find CRITERION (missing: CRITERION_LIBRARY CRITERION_INCLUDE_DIR) 
+CMake Warning (dev) at /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438 (message):
+  The package name passed to `find_package_handle_standard_args` (CRITERION)
+  does not match the name of the calling package (Criterion).  This can lead
+  to problems in calling code that expects `find_package` result variables
+  (e.g., `_FOUND`) to follow a certain pattern.
+Call Stack (most recent call first):
+  cmake/Modules/FindCriterion.cmake:27 (find_package_handle_standard_args)
+  applications/Ringpacking/tests/CMakeLists.txt:32 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Could NOT find CRITERION (missing: CRITERION_LIBRARY CRITERION_INCLUDE_DIR) 
+-- The following OPTIONAL packages have been found:
+
+ * ZLIB
+ * Readline
+ * GMP
+ * BLISS
+
+-- The following REQUIRED packages have been found:
+
+ * SOPLEX
+ * SCIP
+
+-- The following OPTIONAL packages have not been found:
+
+ * Criterion
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/research/tgppo/setup/scip-6.0.1/build

@@ -1,0 +1,3245 @@
+diff --git a/STAGE2.md b/STAGE2.md
+new file mode 100644
+index 0000000..bf0ea23
+--- /dev/null
++++ b/STAGE2.md
+@@ -0,0 +1,30 @@
++# Stage 2 corrected original-input TGPPO
++
++Base: `4f90ccddd7999779c93ff2425ca8dd056113a523`. The upstream checkout is preserved at `/root/research/tgppo/repo`.
++
++This worktree fixes episode GAE, reward time configuration, result semantics and Actor-only evaluation. Network, reward formula and SCIP settings sources are unchanged. No additional search features or new Critic are included. Rollout and differentiable PPO probability recomputation both use Actor eval mode (effective dropout zero). Critic uses eval for collection and train for optimization.
++
++Activate the existing environment, then **override** its upstream PYTHONPATH:
++
++```bash
++source /root/research/tgppo/activate.sh
++export PYTHONPATH=/root/research/tgppo/experiments/stage2/code
++python /root/research/tgppo/experiments/stage2/code/experiment.py --help
++python -m unittest discover -s /root/research/tgppo/experiments/stage2/tests -v
++```
++
++`prepare_baselines.py`, `train.py` and `test.py` wrap the prepare/train/eval commands. They use explicit instance lists, cutoff sources, seeds, time limits and separate output directories. Baselines must match instance hash, solver seed, limits, settings and cutoff provenance. Task failures remain in job results; a failed collection batch is refused. Job processes have an enforceable wall watchdog, and successful trajectories are merged by job ID. Hard-killed workers do not produce invented terminal rewards.
++
++`latest.pt` contains architecture, protocol, separate networks and optimizers, RNG states, policy version, pending complete episodes and batch progress. Training resumes with `--checkpoint` plus the same explicit config/data/seed/time settings and a **new** output directory; `--batches` is the number of additional batches. Actor-only evaluation reads the stored architecture without constructing a Critic or optimizer. Legacy checkpoint helpers and `tune.py` are outside this protocol; the legacy tuning CLI is disabled.
++
++SCIP time limits are finite task terminals, not proof completion. A verified optimal cutoff can produce `infeasible` with no stored feasible solution; this is a cutoff proof, not infeasibility of the original MILP. Raw gap/bounds and SCIP infinity validity flags are retained. PDI is currently the native integral until actual stop, with no asserted fixed-horizon correction. `fallback_action_count` counts explicit action substitution (disabled); any DIDNOTRUN also sets `native_fallback_possible`, since SCIP may then invoke another branch rule before noticing an interrupt.
++
++Checkpoints restore at whole-episode/batch boundaries, not inside a SCIP search. The generic memory API requires an actual next state for a nonterminal fragment; the current collector only exports complete finite tasks.
++
++Stage-2 short-loop reproduction and Chinese acceptance report:
++
++```bash
++bash /root/research/docs/stage2/reproduce.sh /root/research/tgppo/runs/stage2-review-new
++```
++
++See `/root/research/docs/阶段2_正确性修复与验收报告_TGPPO_2026-10-21.md`. These are correctness checks, not paper-scale results or method improvements. Stage 3 requires separate user acceptance of stage 2.
+diff --git a/code/experiment.py b/code/experiment.py
+new file mode 100644
+index 0000000..426cab7
+--- /dev/null
++++ b/code/experiment.py
+@@ -0,0 +1,126 @@
++"""Explicit prepare/train/eval entry points. No experiment runs on import."""
++import argparse
++import json
++from pathlib import Path
++from project.runtime import (config_with_protocol, seed_all, build_agent, save_checkpoint,
++    load_agent, make_job, job_identity, run_jobs, import_trajectories, cpu_seconds)
++from project.utils.protocol import validate_baseline, fingerprint, write_json
++
++
++def main(command=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    if command is None:
++        parser.add_argument('command', choices=['prepare', 'train', 'eval'])
++    parser.add_argument('--instance-dir', required=True, type=Path)
++    parser.add_argument('--instances', nargs='+', required=True)
++    parser.add_argument('--cutoffs', required=True, type=Path)
++    parser.add_argument('--output', required=True, type=Path)
++    parser.add_argument('--time-limit', type=float, required=True)
++    parser.add_argument('--solver-seeds', nargs='+', type=int, default=[0])
++    parser.add_argument('--training-seed', type=int, default=11)
++    parser.add_argument('--workers', type=int, default=1)
++    parser.add_argument('--watchdog', type=float, default=180.)
++    parser.add_argument('--config', type=Path)
++    parser.add_argument('--baseline', type=Path)
++    parser.add_argument('--checkpoint', type=Path)
++    parser.add_argument('--batches', type=int, default=1)
++    parser.add_argument('--jobs-per-batch', type=int, default=4)
++    args = parser.parse_args()
++    command = command or args.command
++    if args.time_limit < 1 or args.watchdog <= args.time_limit or args.batches < 1:
++        parser.error('Use time >= 1, watchdog > time, batches >= 1')
++    if args.jobs_per_batch < 1 or len(set(args.instances)) != len(args.instances):
++        parser.error('Positive batch jobs and unique instances required')
++    if command == 'train' and args.baseline is None:
++        parser.error('Training requires measured matching --baseline')
++    if command == 'eval' and args.checkpoint is None:
++        parser.error('Evaluation requires --checkpoint')
++    if args.output.exists():
++        parser.error('Use a new --output directory (prevents stale results)')
++    args.output.mkdir(parents=True)
++    cutoffs = json.loads(args.cutoffs.read_text())
++    pairs = [(name, seed) for name in args.instances for seed in args.solver_seeds]
++    def job(job_id, pair, mode, checkpoint=None, baseline=None):
++        return make_job(job_id, args.instance_dir, pair[0], args.time_limit, pair[1],
++                        args.training_seed, cutoffs, mode, checkpoint, baseline)
++    write_json(args.output / 'invocation.json', {k: str(v) if isinstance(v, Path) else v
++                                                for k, v in vars(args).items()})
++    if command in ('prepare', 'eval'):
++        mode = 'native' if command == 'prepare' else 'eval'
++        jobs = [job('{}-{:03d}-s{}'.format(mode, i, pair[1]), pair, mode, args.checkpoint)
++                for i, pair in enumerate(pairs)]
++        rows = run_jobs(jobs, args.output / 'jobs', args.workers, args.watchdog)
++        if command == 'prepare':
++            baselines = {}
++            for j, row in zip(sorted(jobs, key=lambda j: j['job_id']), rows):
++                identity = job_identity(j)
++                baseline = dict(identity=identity, result=row)
++                if row.get('valid'):
++                    validate_baseline(baseline, identity)
++                baselines[fingerprint(identity)] = baseline
++            write_json(args.output / 'baselines.json', baselines)
++        write_json(args.output / 'summary.json', dict(command=command, jobs=len(rows),
++            valid=sum(bool(r.get('valid')) for r in rows), failures=sum(not r.get('valid') for r in rows)))
++        if any(not r.get('valid') for r in rows):
++            raise SystemExit('Failed jobs retained in results.json')
++        return
++    config = config_with_protocol(json.loads(args.config.read_text()) if args.config else {})
++    seed_all(args.training_seed)
++    resume_identity = dict(instances=args.instances, solver_seeds=args.solver_seeds,
++                           training_seed=args.training_seed, time_limit=args.time_limit,
++                           jobs_per_batch=args.jobs_per_batch, cutoffs_sha256=fingerprint(cutoffs))
++    next_batch, accumulated_worker_cpu = 0, 0.
++    if args.checkpoint:
++        agent, payload = load_agent(args.checkpoint)
++        if payload['config'] != config or payload['progress']['run_identity'] != resume_identity:
++            raise ValueError('Resume configuration or data protocol mismatch')
++        next_batch = payload['progress']['next_batch']
++        accumulated_worker_cpu = payload['progress']['worker_cpu_seconds']
++    else:
++        agent = build_agent(config)
++    baselines = json.loads(args.baseline.read_text())
++    # Validate all required pairs before launching any training worker.
++    for i, pair in enumerate(pairs):
++        identity = job_identity(job('preflight-' + str(i), pair, 'collect'))
++        validate_baseline(baselines.get(fingerprint(identity)), identity)
++    write_json(args.output / 'config.json', config)
++    history = []
++    learner_start_cpu = cpu_seconds()
++    start_batch = next_batch
++    for batch in range(start_batch, start_batch + args.batches):
++        progress = dict(next_batch=batch, run_identity=resume_identity,
++                        worker_cpu_seconds=accumulated_worker_cpu)
++        checkpoint = args.output / ('before-batch-{:03d}.pt'.format(batch))
++        save_checkpoint(checkpoint, agent, config, progress)
++        jobs = []
++        for i in range(args.jobs_per_batch):
++            pair = pairs[(batch * args.jobs_per_batch + i) % len(pairs)]
++            j = job('collect-b{:03d}-j{:03d}'.format(batch, i), pair, 'collect', checkpoint)
++            j['baseline'] = baselines[fingerprint(job_identity(j))]
++            jobs.append(j)
++        batchdir = args.output / ('batch-{:03d}'.format(batch))
++        rows = run_jobs(jobs, batchdir, args.workers, args.watchdog)
++        accumulated_worker_cpu += sum(r.get('worker_cpu_seconds') or 0. for r in rows)
++        import_trajectories(agent, rows, batchdir)
++        before = {k: v.detach().clone() for k, v in agent.actor_network.state_dict().items()}
++        metrics = agent.learn()
++        metrics['actor_parameter_l2_change'] = sum((v.detach() - before[k]).double().square().sum().item()
++            for k, v in agent.actor_network.state_dict().items()) ** .5
++        metrics.update(batch=batch, worker_cpu_seconds_cumulative=accumulated_worker_cpu,
++                       learner_cpu_seconds_this_invocation=cpu_seconds() - learner_start_cpu)
++        history.append(metrics)
++        write_json(args.output / 'updates.json', history)
++        save_checkpoint(args.output / 'latest.pt', agent, config,
++            dict(next_batch=batch + 1, run_identity=resume_identity,
++                 worker_cpu_seconds=accumulated_worker_cpu))
++        print(json.dumps(metrics, sort_keys=True), flush=True)
++    write_json(args.output / 'summary.json', dict(command='train',
++        batches_this_invocation=len(history), final_policy_version=agent.policy_version,
++        worker_cpu_seconds_cumulative=accumulated_worker_cpu,
++        learner_process_cpu_seconds_this_invocation=cpu_seconds(),
++        cpu_accounting='worker RUSAGE_SELF + learner RUSAGE_SELF; no RUSAGE_CHILDREN',
++        updated_batches_this_invocation=sum(bool(m['updated']) for m in history)))
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/code/prepare_baselines.py b/code/prepare_baselines.py
+new file mode 100644
+index 0000000..3fc73d0
+--- /dev/null
++++ b/code/prepare_baselines.py
+@@ -0,0 +1,5 @@
++"""Measured native baselines with exact protocol identity and retained failures."""
++from experiment import main
++
++if __name__ == '__main__':
++    main('prepare')
+diff --git a/code/project/agent/agent.py b/code/project/agent/agent.py
+index 9545871..49a7101 100644
+--- a/code/project/agent/agent.py
++++ b/code/project/agent/agent.py
+@@ -1,307 +1,201 @@
++"""Original networks and PPO-Clip, with explicit episode boundaries and modes."""
++import time
++import logging
++import numpy as np
+ import torch
+-from project.memory import Memory
+-import torch.nn.functional as F
+ from torch.distributions import Categorical
+-import traceback
+-import logging
+-import pandas as pd
+-import os
+-
+-def save_metrics_to_csv(metrics: dict, filepath: str):
+-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+-    df = pd.DataFrame([metrics])
+-    if os.path.exists(filepath):
+-        df.to_csv(filepath, mode='a', header=False, index=False)
+-    else:
+-        df.to_csv(filepath, index=False)
++from project.memory import Memory
++from project.memory.memory import state_arrays
+ 
+ 
+-class Agent:
+-    """
+-    Policy Gradient Branching Agent (PPO).
+-    """
++class ActorPolicy:
++    """Deployment path: no Critic, optimizer, reward function or training buffer."""
++    def __init__(self, actor_network, device='cpu'):
++        self.actor_network = actor_network.to(device)
++        self.device = device
++        self.last_actor_seconds = self.last_critic_seconds = 0.0
++
++    def _inputs(self, cands_state, mip_state, node_state, padding_mask=None):
++        cands, mip, node = [torch.as_tensor(x, dtype=torch.float32, device=self.device)
++                            for x in (cands_state, mip_state, node_state)]
++        if cands.ndim == 2:
++            cands = cands.unsqueeze(0)
++        if mip.ndim == 1:
++            mip = mip.unsqueeze(0)
++        if node.ndim == 1:
++            node = node.unsqueeze(0)
++        mask = None if padding_mask is None else torch.as_tensor(
++            padding_mask, dtype=torch.bool, device=self.device)
++        if mask is not None and mask.ndim == 1:
++            mask = mask.unsqueeze(0)
++        if not all(torch.isfinite(x).all() for x in (cands, mip, node)):
++            raise ValueError('Nonfinite policy input')
++        if cands.shape[1] == 0 or (mask is not None and mask.all(dim=1).any()):
++            raise ValueError('Empty candidate set')
++        return cands, mip, node, mask
+ 
++    @torch.no_grad()
++    def _act(self, inputs, deterministic):
++        cands, mip, node, mask = inputs
++        self.actor_network.eval()  # Also used during differentiable PPO recomputation.
++        probs = self.actor_network(cands, node, mip, mask)
++        if not torch.isfinite(probs).all():
++            raise ValueError('Nonfinite action distribution')
++        dist = Categorical(probs)
++        action = probs.argmax(-1) if deterministic else dist.sample()
++        if mask is not None and mask.gather(1, action[:, None]).any():
++            raise ValueError('Selected padded candidate')
++        return action, dist.log_prob(action)
++
++    def act(self, cands_state, mip_state, node_state, padding_mask=None, deterministic=False):
++        start = time.perf_counter()
++        inputs = self._inputs(cands_state, mip_state, node_state, padding_mask)
++        action, log_prob = self._act(inputs, deterministic)
++        self.last_actor_seconds = time.perf_counter() - start
++        self.last_critic_seconds = 0.0
++        return int(action.item()), float(log_prob.item())
++
++
++class Agent(ActorPolicy):
+     def __init__(self, actor_network, actor_optimizer, critic_network, critic_optimizer,
+                  policy_clip, entropy_weight, gamma, gae_lambda, batch_size, n_epochs,
+-                 device, state_dims, logger=None):
+-        self.actor_network = actor_network
+-        self.actor_optimizer = actor_optimizer
+-        self.critic_network = critic_network
+-        self.critic_optimizer = critic_optimizer
+-        self.policy_clip = policy_clip
+-        self.entropy_weight = entropy_weight
+-        self.gamma = gamma
+-        self.gae_lambda = gae_lambda
+-        self.batch_size = batch_size
+-        self.n_epochs = n_epochs
+-        self.device = device
++                 device, state_dims, logger=None, policy_version=0):
++        super().__init__(actor_network, device)
++        self.actor_optimizer, self.critic_optimizer = actor_optimizer, critic_optimizer
++        self.critic_network = critic_network.to(device)
++        self.policy_clip, self.entropy_weight = policy_clip, entropy_weight
++        self.gamma, self.gae_lambda = gamma, gae_lambda
++        self.batch_size, self.n_epochs = batch_size, n_epochs
+         self.state_dims = state_dims
+         self.logger = logger or logging.getLogger(__name__)
+-
+-        self.memory = Memory(self.batch_size, self.state_dims, self.device, self.logger)
+-
+-        # Move networks to device
+-        self.actor_network.to(self.device)
+-        self.critic_network.to(self.device)
+-
+-        # Training statistics
+-        self.training_step = 0
++        self.memory = Memory(batch_size, state_dims, device, self.logger)
++        self.policy_version = policy_version
+         self.update_counter = 0
+-
+-    def remember(self, cands_state, mip_state, node_state, action, reward, done, value, log_prob):
+-        try:
+-            self.memory.store(
+-                cands_state=cands_state,
+-                mip_state=mip_state,
+-                node_state=node_state,
+-                action=action,
+-                reward=reward,
+-                done=done,
+-                value=value,
+-                log_prob=log_prob,
+-            )
+-        except Exception:
+-            self.logger.error("Error in storing transition in memory")
+-            self.logger.error(traceback.format_exc())
++        if {id(p) for p in self.actor_network.parameters()} & {
++                id(p) for p in self.critic_network.parameters()}:
++            raise ValueError('Stage2 baseline requires disjoint Actor/Critic parameters')
+ 
+     def choose_action(self, cands_state, mip_state, node_state, padding_mask=None, deterministic=False):
+-        try:
+-            # Ensure inputs are tensors on correct device
+-            cands_state = torch.as_tensor(cands_state, dtype=torch.float32, device=self.device)
+-            mip_state = torch.as_tensor(mip_state, dtype=torch.float32, device=self.device)
+-            node_state = torch.as_tensor(node_state, dtype=torch.float32, device=self.device)
+-
+-            if cands_state.dim() == 2:
+-                cands_state = cands_state.unsqueeze(0)
+-            if mip_state.dim() == 1:
+-                mip_state = mip_state.unsqueeze(0)
+-            if node_state.dim() == 1:
+-                node_state = node_state.unsqueeze(0)
+-
+-            if padding_mask is not None:
+-                padding_mask = torch.as_tensor(padding_mask, dtype=torch.bool, device=self.device)
+-                if padding_mask.dim() == 1:
+-                    padding_mask = padding_mask.unsqueeze(0)
+-
+-            self.actor_network.eval()
++        start = time.perf_counter()
++        inputs = self._inputs(cands_state, mip_state, node_state, padding_mask)
++        action, log_prob = self._act(inputs, deterministic)
++        self.last_actor_seconds = time.perf_counter() - start
++        start = time.perf_counter()
++        with torch.no_grad():
+             self.critic_network.eval()
+-
++            cands, mip, node, mask = inputs
++            value = self.critic_network(cands, node, mip, mask).reshape(-1)
++        self.last_critic_seconds = time.perf_counter() - start
++        if not torch.isfinite(value).all():
++            raise ValueError('Nonfinite value prediction')
++        return int(action.item()), float(value.item()), float(log_prob.item())
++
++    def remember(self, **kwargs):
++        self.memory.store(**kwargs)  # Fail closed, never log-and-drop a transition.
++
++    def seal_episode(self, task_terminal, collector_truncated=False,
++                     bootstrap_state=None, end_reason=None):
++        value = 0.0
++        if collector_truncated:
++            if bootstrap_state is None:
++                raise ValueError('Missing actual next decision state')
++            bootstrap_state = state_arrays(**bootstrap_state, state_dims=self.state_dims)
++            inputs = self._inputs(**bootstrap_state)
+             with torch.no_grad():
+-                action_probs = self.actor_network(cands_state, node_state, mip_state, padding_mask)
+-                value = self.critic_network(cands_state, node_state, mip_state, padding_mask)
+-                value = value.squeeze(-1)  # [batch]
+-
+-                if deterministic:
+-                    action = action_probs.argmax(dim=-1)
+-                    # max prob log
+-                    max_prob = action_probs.gather(1, action.unsqueeze(-1)).squeeze(-1)
+-                    log_prob = torch.log(max_prob.clamp_min(1e-12))
+-                else:
+-                    dist = Categorical(action_probs)
+-                    action = dist.sample()
+-                    log_prob = dist.log_prob(action)
+-
+-            action_np = action.cpu().numpy()
+-            value_np = value.cpu().numpy()
+-            log_prob_np = log_prob.cpu().numpy()
+-
+-            if action_np.shape[0] == 1:
+-                return action_np[0], value_np[0], log_prob_np[0]
+-            return action_np, value_np, log_prob_np
+-        except Exception as e:
+-            self.logger.error(f"Error in choose_action: {e}")
+-            self.logger.error(traceback.format_exc())
+-            raise
++                self.critic_network.eval()
++                c, m, n, mask = inputs
++                value = self.critic_network(c, n, m, mask).item()
++        self.memory.seal_episode(task_terminal, collector_truncated, value,
++                                 bootstrap_state, end_reason)
+ 
+     @torch.no_grad()
+     def _compute_gae(self, rewards, values, dones, bootstrap_value):
+-        """Compute GAE with scalar bootstrap value for the state after the last step.
+-        Args:
+-            rewards: [T]
+-            values:  [T]
+-            dones:   [T] float tensor (0.0 or 1.0)
+-            bootstrap_value: scalar tensor for V(s_{T}) if episode not done, else 0
+-        Returns:
+-            advantages [T], returns [T]
+-        """
+-        T_ = rewards.shape[0]
+         advantages = torch.zeros_like(rewards)
+-        returns = torch.zeros_like(rewards)
+-
+-        next_value = bootstrap_value
+         gae = torch.zeros((), device=rewards.device)
+-        for t in reversed(range(T_)):
++        for t in reversed(range(len(rewards))):
++            next_value = bootstrap_value if t == len(rewards) - 1 else values[t + 1]
+             nonterminal = 1.0 - dones[t]
+-            nv = next_value if t == T_ - 1 else values[t + 1]
+-            nv = nv * (1.0 - dones[t + 1]) if t < T_ - 1 else nv
+-            delta = rewards[t] + self.gamma * nv * nonterminal - values[t]
++            delta = rewards[t] + self.gamma * nonterminal * next_value - values[t]
+             gae = delta + self.gamma * self.gae_lambda * nonterminal * gae
+             advantages[t] = gae
+-            returns[t] = advantages[t] + values[t]
+-            next_value = values[t]
+-        return advantages, returns
++        return advantages, advantages + values
++
++    def compute_targets(self):
++        advantages, returns = [], []
++        for episode in self.memory.episodes:
++            if episode['policy_version'] != self.policy_version:
++                raise ValueError('Stale policy trajectory')
++            rows = episode['transitions']
++            args = [torch.tensor([r[k] for r in rows], dtype=torch.float32, device=self.device)
++                    for k in ['reward', 'value', 'done']]
++            a, ret = self._compute_gae(*args, torch.tensor(
++                episode['bootstrap_value'], dtype=torch.float32, device=self.device))
++            advantages.append(a)
++            returns.append(ret)
++        if not advantages:
++            return torch.empty(0, device=self.device), torch.empty(0, device=self.device)
++        return torch.cat(advantages), torch.cat(returns)
+ 
+     def learn(self):
+-        try:
+-            self.logger.debug("Started Learning...")
+-            if self.memory.is_empty():
+-                self.logger.debug("Memory is empty, cannot train")
+-                return {}
+-            if len(self.memory) < self.batch_size:
+-                self.logger.debug(f"Not enough samples in memory for training. Have {len(self.memory)}, need {self.batch_size}")
+-                return {}
+-
+-            (cands_states_list, mip_states_list, node_states_list,
+-             actions_list, rewards_list, dones_list, log_probs_list, values_list) = self.memory.get_all_data()
+-
+-            actions = torch.tensor(actions_list, dtype=torch.long, device=self.device)
+-            rewards = torch.tensor(rewards_list, dtype=torch.float32, device=self.device)
+-            dones = torch.tensor(dones_list, dtype=torch.float32, device=self.device)
+-            old_values = torch.tensor(values_list, dtype=torch.float32, device=self.device)
+-            old_log_probs = torch.tensor(log_probs_list, dtype=torch.float32, device=self.device)
+-
+-            mip_states = torch.stack(mip_states_list)
+-            node_states = torch.stack(node_states_list)
+-
+-            # Build padded last state to compute bootstrap
+-            max_candidates = max(cs.size(0) for cs in cands_states_list)
+-            last_cs = cands_states_list[-1]
+-            if last_cs.size(0) < max_candidates:
+-                pad = torch.zeros(max_candidates - last_cs.size(0), last_cs.size(1), device=self.device)
+-                last_cs_padded = torch.cat([last_cs, pad], dim=0).unsqueeze(0)
+-                last_mask = torch.cat([
+-                    torch.zeros(last_cs.size(0), dtype=torch.bool, device=self.device),
+-                    torch.ones(max_candidates - last_cs.size(0), dtype=torch.bool, device=self.device),
+-                ], dim=0).unsqueeze(0)
+-            else:
+-                last_cs_padded = last_cs.unsqueeze(0)
+-                last_mask = torch.zeros(last_cs.size(0), dtype=torch.bool, device=self.device).unsqueeze(0)
+-
+-            if dones[-1] > 0.5:
+-                bootstrap_value = torch.tensor(0.0, device=self.device)
+-            else:
+-                bootstrap_value = self.critic_network(
+-                    last_cs_padded, node_states[-1:].unsqueeze(0).squeeze(0), mip_states[-1:].unsqueeze(0).squeeze(0), last_mask
+-                ).squeeze(-1)[0]
+-
+-            advantages, returns = self._compute_gae(rewards, old_values, dones, bootstrap_value)
+-            advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+-
+-            total_actor_loss = 0.0
+-            total_critic_loss = 0.0
+-            total_entropy = 0.0
+-            num_updates = 0
+-
+-            self.actor_network.train()
+-            self.critic_network.train()
+-
+-            for epoch in range(self.n_epochs):
+-                self.logger.debug(f"Epoch {epoch+1}/{self.n_epochs}")
+-                for batch in self.memory.get_batch_generator(self.batch_size):
+-                    (mb_cands_states, mb_cands_masks, mb_mip_states, mb_node_states,
+-                     mb_actions, _mb_rewards, _mb_dones, mb_old_log_probs, mb_old_values, batch_indices) = batch
+-
+-                    mb_advantages = advantages[batch_indices]
+-                    mb_returns = returns[batch_indices]
+-                    mb_padding_masks = mb_cands_masks
+-
+-                    action_probs = self.actor_network(mb_cands_states, mb_node_states, mb_mip_states, mb_padding_masks)
+-                    dist = Categorical(action_probs)
+-                    new_log_probs = dist.log_prob(mb_actions)
+-                    entropy = dist.entropy()
+-
+-                    ratio = torch.exp(new_log_probs - mb_old_log_probs)
+-                    surr1 = ratio * mb_advantages
+-                    surr2 = torch.clamp(ratio, 1 - self.policy_clip, 1 + self.policy_clip) * mb_advantages
+-                    actor_loss = -torch.min(surr1, surr2).mean()
+-                    actor_loss -= self.entropy_weight * entropy.mean()
+-
+-                    self.actor_optimizer.zero_grad()
+-                    actor_loss.backward()
+-                    torch.nn.utils.clip_grad_norm_(self.actor_network.parameters(), 0.5)
+-                    self.actor_optimizer.step()
+-
+-                    values = self.critic_network(mb_cands_states, mb_node_states, mb_mip_states, mb_padding_masks)
+-                    values = values.view(-1)
+-                    mb_returns = mb_returns.view(-1)
+-                    critic_loss = F.mse_loss(values, mb_returns)
+-
+-                    self.critic_optimizer.zero_grad()
+-                    critic_loss.backward()
+-                    torch.nn.utils.clip_grad_norm_(self.critic_network.parameters(), 0.5)
+-                    self.critic_optimizer.step()
+-
+-                    total_actor_loss += actor_loss.item()
+-                    total_critic_loss += critic_loss.item()
+-                    total_entropy += entropy.mean().item()
+-                    num_updates += 1
+-
+-            # Clear memory after updates
+-            self.memory.clear()
+-            self.update_counter += 1
+-
+-            advantage_std = advantages.std().item()
+-
+-            approx_kl = 0.0
+-            if num_updates > 0:
+-                with torch.no_grad():
+-                    last_action_probs = self.actor_network(mb_cands_states, mb_node_states, mb_mip_states, mb_padding_masks)
+-                    last_dist = Categorical(last_action_probs)
+-                    last_log_probs = last_dist.log_prob(mb_actions)
+-                    approx_kl = (mb_old_log_probs - last_log_probs).mean().item()
+-
+-            episode_return = rewards.sum().item()
+-
+-            metrics = {
+-                'update_step': self.update_counter,
+-                'actor_loss': total_actor_loss / max(num_updates, 1),
+-                'critic_loss': total_critic_loss / max(num_updates, 1),
+-                'entropy': total_entropy / max(num_updates, 1),
+-                'advantage_std': advantage_std,
+-                'approx_kl_divergence': approx_kl,
+-                'episode_return': episode_return,
+-                'num_updates': num_updates,
+-            }
+-
+-            self.logger.info(
+-                f"PPO Update {self.update_counter} | "
+-                f"Actor Loss: {metrics['actor_loss']:.4f} | "
+-                f"Critic Loss: {metrics['critic_loss']:.4f} | "
+-                f"Entropy: {metrics['entropy']:.4f} | "
+-                f"KL Div: {metrics['approx_kl_divergence']:.6f} | "
+-                f"Return: {metrics['episode_return']:.2f}"
+-            )
+-
+-            save_metrics_to_csv(metrics, filepath="output/training_metrics.csv")
+-            return metrics
+-        except Exception as e:
+-            self.logger.error(f"Error in learn: {e}")
+-            self.logger.error(traceback.format_exc())
+-            raise
+-
+-    def save_models(self, path):
+-        try:
+-            torch.save({
+-                'actor_state_dict': self.actor_network.state_dict(),
+-                'critic_state_dict': self.critic_network.state_dict(),
+-                'actor_optimizer_state_dict': self.actor_optimizer.state_dict(),
+-                'critic_optimizer_state_dict': self.critic_optimizer.state_dict(),
+-                'update_counter': self.update_counter,
+-            }, f"{path}_checkpoint.pth")
+-            self.logger.info(f"Models saved to {path}_checkpoint.pth")
+-        except Exception as e:
+-            self.logger.error(f"Error saving models: {e}")
+-            self.logger.error(traceback.format_exc())
+-
+-    def load_models(self, path):
+-        try:
+-            checkpoint = torch.load(path, map_location=self.device)
+-            self.actor_network.load_state_dict(checkpoint['actor_state_dict'])
+-            self.critic_network.load_state_dict(checkpoint['critic_state_dict'])
+-            self.actor_optimizer.load_state_dict(checkpoint['actor_optimizer_state_dict'])
+-            self.critic_optimizer.load_state_dict(checkpoint['critic_optimizer_state_dict'])
+-            self.update_counter = checkpoint.get('update_counter', 0)
+-            self.logger.info(f"Models loaded from {path}")
+-        except Exception as e:
+-            self.logger.error(f"Error loading models: {e}")
+-            self.logger.error(traceback.format_exc())
+\ No newline at end of file
++        if self.memory.active is not None:
++            raise RuntimeError('Unfinished episode')
++        # Check stale data even when the buffer is too small for an update.
++        raw_advantages, returns = self.compute_targets()
++        n = len(raw_advantages)
++        if n < self.batch_size:
++            return dict(updated=False, num_samples=n, policy_version=self.policy_version)
++        if self.actor_optimizer is None or self.critic_optimizer is None:
++            raise RuntimeError('This collector has no training optimizers')
++        advantages = (raw_advantages - raw_advantages.mean()) / raw_advantages.std(
++            unbiased=False).clamp_min(1e-8)
++        self.actor_network.eval()  # eval does NOT disable autograd.
++        self.critic_network.train()
++        totals = dict(actor_loss=0., critic_loss=0., entropy=0., clip_fraction=0.)
++        updates = 0
++        initial_ratio_error = None
++        for epoch in range(self.n_epochs):
++            for batch in self.memory.get_batch_generator():
++                ids = batch['indices']
++                probs = self.actor_network(batch['cands'], batch['node_state'],
++                                           batch['mip_state'], batch['mask'])
++                dist = Categorical(probs)
++                new_log_probs = dist.log_prob(batch['action'])
++                ratios = torch.exp(new_log_probs - batch['log_prob'])
++                if updates == 0:
++                    initial_ratio_error = (ratios.detach() - 1).abs().max().item()
++                    if initial_ratio_error > 1e-4:
++                        raise ValueError('Old/new probabilities disagree before update')
++                loss = -torch.min(ratios * advantages[ids], torch.clamp(
++                    ratios, 1 - self.policy_clip, 1 + self.policy_clip) * advantages[ids]).mean()
++                entropy = dist.entropy().mean()
++                actor_loss = loss - self.entropy_weight * entropy
++                values = self.critic_network(batch['cands'], batch['node_state'],
++                                             batch['mip_state'], batch['mask']).reshape(-1)
++                critic_loss = torch.nn.functional.mse_loss(values, returns[ids])
++                if not torch.isfinite(actor_loss + critic_loss):
++                    raise ValueError('Nonfinite PPO loss')
++                self.actor_optimizer.zero_grad(set_to_none=True)
++                actor_loss.backward()
++                torch.nn.utils.clip_grad_norm_(self.actor_network.parameters(), .5,
++                                               error_if_nonfinite=True)
++                self.actor_optimizer.step()
++                self.critic_optimizer.zero_grad(set_to_none=True)
++                critic_loss.backward()
++                torch.nn.utils.clip_grad_norm_(self.critic_network.parameters(), .5,
++                                               error_if_nonfinite=True)
++                self.critic_optimizer.step()
++                for key, val in dict(actor_loss=actor_loss, critic_loss=critic_loss,
++                                     entropy=entropy, clip_fraction=(
++                                         (ratios - 1).abs() > self.policy_clip).float().mean()).items():
++                    totals[key] += float(val.detach())
++                updates += 1
++        self.memory.clear()
++        self.update_counter += 1
++        self.policy_version += 1
++        result = {k: v / updates for k, v in totals.items()}
++        result.update(updated=True, num_updates=updates, num_samples=n,
++                      initial_ratio_max_error=initial_ratio_error,
++                      advantage_std_before_normalization=raw_advantages.std(unbiased=False).item(),
++                      update_step=self.update_counter, policy_version=self.policy_version)
++        self.logger.info('PPO update: %s', result)
++        return result
+diff --git a/code/project/brancher/brancher.py b/code/project/brancher/brancher.py
+index c326292..aa1b26b 100644
+--- a/code/project/brancher/brancher.py
++++ b/code/project/brancher/brancher.py
+@@ -1,178 +1,93 @@
++"""Explicit collection/evaluation lifecycle around the unmodified feature getters."""
++import time
++import traceback
+ import pyscipopt as scip
+-import torch as T
+ import numpy as np
+-import traceback
++from project.memory.memory import state_arrays
+ 
+ 
+ class Brancher(scip.Branchrule):
+-    def __init__(self, model, state_dims, device, agent, reward_func, cutoff, logger):
++    def __init__(self, model, state_dims, agent, mode, reward_func=None,
++                 deterministic=False):
+         super().__init__()
+-        self.model = model
+-        self.var_dim = state_dims["var_dim"]
+-        self.node_dim = state_dims["node_dim"]
+-        self.mip_dim = state_dims["mip_dim"]
+-        self.device = device
+-        self.agent = agent
+-        self.reward_func = reward_func
+-        self.logger = logger
+-        self.cutoff = abs(cutoff) if cutoff not in (None, 0) else 1e-6
++        self.model, self.state_dims, self.agent = model, state_dims, agent
++        self.mode, self.reward_func = mode, reward_func
++        self.deterministic = deterministic
++        self.prev = None
++        self.finalized = False
++        self.error = None
++        self.branch_count = self.callback_count = self.didnotrun_count = 0
+         self.episode_rewards = []
+-
+-        self.branch_count = 0
+-        self.branchexec_count = 0
+-
+-        self.prev_state = None
+-        self.prev_action = None
+-        self.prev_value = None
+-        self.prev_log_prob = None
+-
+-    def _is_solved(self):
+-        status = self.model.getStatus()
+-        return status in ("optimal", "infeasible", "unbounded", "timelimit")
++        self.times = {k: 0. for k in ('features', 'actor', 'critic', 'branch', 'callback')}
++
++    def _store_previous(self, terminal):
++        if self.prev is None:
++            return
++        reward = float(self.reward_func.compute(self.model, terminal))
++        state, action, value, log_prob = self.prev
++        self.agent.remember(**state, action=action, value=value, log_prob=log_prob,
++                            reward=reward, done=terminal)
++        self.episode_rewards.append(reward)
++        self.prev = None
+ 
+     def branchexeclp(self, allowaddcons):
++        start = time.perf_counter()
++        self.callback_count += 1
+         try:
+-            self.branchexec_count += 1
+-
+-            cands, cands_pos, cands_state_mat = self.model.getCandsState(self.var_dim, self.branch_count)
+-            if not cands or cands_state_mat is None:
+-                self.logger.error("No candidates available for branching.")
+-                return {"result": scip.SCIP_RESULT.DIDNOTRUN}
+-
+-            node_state = self.model.getNodeState(self.node_dim).astype('float32')
+-            mip_state = self.model.getMIPState(self.mip_dim).astype('float32')
+-
+-            if isinstance(cands_state_mat, np.ndarray):
+-                cands_state_tensor = T.from_numpy(cands_state_mat.astype(np.float32))
+-            else:
+-                cands_state_tensor = T.tensor(cands_state_mat, dtype=T.float32)
+-
+-            if cands_state_tensor.dim() == 1:
+-                n_candidates = len(cands)
+-                if cands_state_tensor.shape[0] == n_candidates * self.var_dim:
+-                    cands_state_tensor = cands_state_tensor.view(n_candidates, self.var_dim)
+-                else:
+-                    cands_state_tensor = cands_state_tensor.unsqueeze(0)
+-
+-            cands_state_tensor = cands_state_tensor.to(self.device)
+-            node_state_tensor = T.from_numpy(node_state).to(self.device)
+-            mip_state_tensor = T.from_numpy(mip_state).to(self.device)
+-
+-            if self.prev_state is not None:
+-                done = self._is_solved()
+-                step_reward = self.reward_func.compute(self.model, done)
+-                try:
+-                    self.agent.remember(
+-                        cands_state=self.prev_state['cands_state'],
+-                        mip_state=self.prev_state['mip_state'],
+-                        node_state=self.prev_state['node_state'],
+-                        action=self.prev_action,
+-                        reward=float(step_reward),
+-                        done=bool(done),
+-                        value=float(self.prev_value),
+-                        log_prob=float(self.prev_log_prob),
+-                    )
+-                except Exception:
+-                    self.logger.error("Failed to store transition")
+-                    self.logger.error(traceback.format_exc())
+-                self.episode_rewards.append(float(step_reward))
+-                self.logger.info(
+-                    f"Stored transition for branch {self.branch_count - 1} - "
+-                    f"Action: {self.prev_action}, Reward: {step_reward:.4f}, Done: {done}"
+-                )
+-
+-                if done:
+-                    self.logger.info(f"Episode completed with total reward: {sum(self.episode_rewards):.4f}")
+-                    return {"result": scip.SCIP_RESULT.DIDNOTRUN}
+-
+-            padding_mask = None  # no padding at selection time (exact candidate set)
+-
+-            action, value, log_prob = self.agent.choose_action(
+-                cands_state_tensor.cpu().numpy(),
+-                mip_state_tensor.cpu().numpy(),
+-                node_state_tensor.cpu().numpy(),
+-                padding_mask=padding_mask,
+-                deterministic=False,
+-            )
+-
+-            if isinstance(action, np.ndarray):
+-                action = int(action.item() if action.size == 1 else action[0])
++            begin = time.perf_counter()
++            cands, _, states = self.model.getCandsState(
++                self.state_dims['var_dim'], self.branch_count)
++            if not cands:
++                self.didnotrun_count += 1
++                return {'result': scip.SCIP_RESULT.DIDNOTRUN}
++            if states is None:
++                raise ValueError('Candidate features missing')
++            states = np.asarray(states, dtype=np.float32).reshape(
++                len(cands), self.state_dims['var_dim'])
++            state = state_arrays(states, self.model.getMIPState(self.state_dims['mip_dim']),
++                                 self.model.getNodeState(self.state_dims['node_dim']),
++                                 self.state_dims)
++            self.times['features'] += time.perf_counter() - begin
++            if self.mode == 'collect':
++                self._store_previous(False)
++                action, value, log_prob = self.agent.choose_action(**state,
++                    deterministic=self.deterministic)
+             else:
+-                action = int(action)
+-
+-            if not (0 <= action < len(cands)):
+-                self.logger.error(f"Invalid action selected: {action} for {len(cands)} candidates")
+-                action = 0
+-                self.logger.warning("Using fallback action: 0")
+-
+-            selected_var = cands[action]
+-            self.model.branchVar(selected_var)
++                action, log_prob = self.agent.act(**state, deterministic=self.deterministic)
++            self.times['actor'] += self.agent.last_actor_seconds
++            self.times['critic'] += self.agent.last_critic_seconds
++            if not 0 <= action < len(cands):
++                raise ValueError('Policy action out of range; no action-0 fallback')
++            begin = time.perf_counter()
++            self.model.branchVar(cands[action])
++            self.times['branch'] += time.perf_counter() - begin
+             self.branch_count += 1
+-
+-            self.prev_state = {
+-                'cands_state': cands_state_tensor.clone(),
+-                'mip_state': mip_state_tensor.clone(),
+-                'node_state': node_state_tensor.clone(),
+-            }
+-            self.prev_action = action
+-            self.prev_value = float(value.item() if isinstance(value, np.ndarray) else value)
+-            self.prev_log_prob = float(log_prob.item() if isinstance(log_prob, np.ndarray) else log_prob)
+-
+-            result = scip.SCIP_RESULT.BRANCHED
+-
+-            # Optional validation
+-            try:
+-                if result == scip.SCIP_RESULT.BRANCHED:
+-                    children = self.model.getChildren()
+-                    if children:
+-                        branch_infos = children[0].getBranchInfos()
+-                        if len(branch_infos) > 1:
+-                            chosen_variable = branch_infos[1]
+-                            assert chosen_variable is not None, "Chosen variable is None"
+-                            assert chosen_variable.isInLP(), "Chosen variable is not in LP"
+-            except Exception:
+-                # Do not break on validation failure — logging only
+-                self.logger.debug("Validation check failed or unavailable.")
+-
+-            return {"result": result}
+-        except Exception as e:
+-            self.logger.error(f"Exception in branching rule: {e}")
+-            self.logger.error(f"Traceback: {traceback.format_exc()}")
+-            return {"result": scip.SCIP_RESULT.DIDNOTRUN}
++            if self.mode == 'collect':
++                self.prev = (state, action, value, log_prob)
++            return {'result': scip.SCIP_RESULT.BRANCHED}
++        except Exception:
++            self.error = traceback.format_exc()
++            self.didnotrun_count += 1
++            self.model.interrupt()  # Available in the installed custom 1.4.9 binding.
++            return {'result': scip.SCIP_RESULT.DIDNOTRUN}
++        finally:
++            self.times['callback'] += time.perf_counter() - start
++
++    def finalize_episode(self, end_reason):
++        if self.finalized:
++            return
++        if self.mode == 'collect':
++            self._store_previous(True)
++            self.agent.seal_episode(task_terminal=True, end_reason=end_reason)
++        self.finalized = True
+ 
+     def branchfree(self):
+-        # Called when branchrule is freed; ensure we store final transition once
+-        if self.prev_state is not None:
+-            done = True
+-            terminal_reward = self.reward_func.compute(self.model, done)
+-            try:
+-                self.agent.remember(
+-                    cands_state=self.prev_state['cands_state'],
+-                    mip_state=self.prev_state['mip_state'],
+-                    node_state=self.prev_state['node_state'],
+-                    action=self.prev_action,
+-                    reward=float(terminal_reward),
+-                    done=True,
+-                    value=float(self.prev_value),
+-                    log_prob=float(self.prev_log_prob),
+-                )
+-            except Exception:
+-                self.logger.error("Failed to store final transition")
+-                self.logger.error(traceback.format_exc())
+-            self.episode_rewards.append(float(terminal_reward))
+-            self.logger.info(
+-                f"Final transition stored - Reward: {terminal_reward:.4f}, Total episode reward: {sum(self.episode_rewards):.4f}"
+-            )
+-
+-        self.prev_state = None
+-        self.prev_action = None
+-        self.prev_value = None
+-        self.prev_log_prob = None
+-
+-    def get_episode_stats(self):
+-        return {
+-            'branch_count': self.branch_count,
+-            'branchexec_count': self.branchexec_count,
+-            'episode_rewards': self.episode_rewards.copy(),
+-            'total_reward': sum(self.episode_rewards) if self.episode_rewards else 0.0,
+-        }
+\ No newline at end of file
++        # SCIP may invoke this after optimize/freeProb. Never inspect a freed model.
++        self.prev = None
++
++    def stats(self):
++        return dict(branch_count=self.branch_count, callback_count=self.callback_count,
++                    didnotrun_count=self.didnotrun_count, fallback_action_count=0,
++                    native_fallback_possible=self.didnotrun_count > 0,
++                    reward_count=len(self.episode_rewards),
++                    total_reward=sum(self.episode_rewards), callback_seconds=self.times.copy())
+diff --git a/code/project/environment/environment.py b/code/project/environment/environment.py
+index d3dfcc6..b764d64 100644
+--- a/code/project/environment/environment.py
++++ b/code/project/environment/environment.py
+@@ -1,191 +1,105 @@
++"""One finite-horizon SCIP task. Collection and Actor-only evaluation are separate."""
++import logging
++import time
++import traceback
+ import pyscipopt as scip
+-from project.utils import init_params
++from project.utils.settings import init_params
++from project.utils.protocol import baseline_identity, validate_baseline, solver_stats
+ from project.brancher import Brancher
+-import numpy as np
+-import torch as T
+-import traceback
+ 
+-class Environment:
+-    def __init__(self, device, agent, state_dims, scip_limits, scip_params, scip_seed, reward_func, logger):
+-        self.device = device
+-        self.agent = agent
+-        self.var_dim = state_dims["var_dim"]
+-        self.node_dim = state_dims["node_dim"]
+-        self.mip_dim = state_dims["mip_dim"]
+-        self.state_dims = state_dims
+-        self.scip_limits = scip_limits
+-        self.scip_params = scip_params
+-        self.scip_seed = scip_seed
+-        self.reward_func = reward_func
+-        self.logger = logger
+-
+-        self.model = None
+-        self.brancher = None
+ 
++class Environment:
++    def __init__(self, device, agent, state_dims, scip_limits, scip_params, scip_seed,
++                 reward_func=None, logger=None, mode='collect', deterministic=False):
++        if mode not in ('collect', 'eval', 'native'):
++            raise ValueError('Unknown environment mode')
++        if mode == 'collect' and (agent is None or reward_func is None):
++            raise ValueError('Collection requires an Agent and reward')
++        if mode == 'eval' and agent is None:
++            raise ValueError('Evaluation requires an Actor policy')
++        if scip_limits['time_limit'] < 1:
++            raise ValueError('H3 clamps subsecond limits; use time_limit >= 1 consistently')
++        self.device, self.agent, self.state_dims = device, agent, state_dims
++        self.scip_limits, self.scip_params, self.scip_seed = scip_limits, scip_params, scip_seed
++        self.reward_func, self.mode = reward_func, mode
++        self.logger = logger or logging.getLogger(__name__)
++        self.deterministic = deterministic
++        self.model = self.brancher = None
+         self.episode_count = 0
+-        self.total_branches = 0
+-        self.total_nodes = 0
+-        self.cutoff = None
+ 
+-        self.baseline_nodes = None
+-        self.baseline_gap = None
+-        self.baseline_integral = None
+-        self.baseline_status = None
+-
+-    def _is_solved(self):
+-        status = self.model.getStatus()
+-        return status in ["optimal", "infeasible", "unbounded", "timelimit"]
+-
+-    def reset(self, instance, cutoff=None, baseline_nodes=None, baseline_gap=None,
+-              baseline_integral=None, baseline_status=None):
++    def reset(self, instance, cutoff=None, baseline=None, cutoff_provenance=None,
++              episode_id=None):
++        if self.model is not None:
++            raise RuntimeError('Previous task not finalized')
++        start = time.perf_counter()
++        self.identity = baseline_identity(instance, self.scip_seed, self.scip_limits,
++                                          self.scip_params, cutoff, cutoff_provenance)
++        self.cutoff_verified = bool(cutoff_provenance and cutoff_provenance.get('verified'))
++        self.cutoff_applied = bool(self.scip_params['cutoff'] and cutoff is not None)
++        self.episode_id = episode_id or str(instance) + ':' + str(self.episode_count)
++        if self.mode == 'collect':
++            base = validate_baseline(baseline, self.identity)
++            self.reward_func.reset(baseline_nodes=base['nnodes'], baseline_gap=base['gap'],
++                baseline_pdi=base['primalDualIntegral'], solver_status=base['status'],
++                time_limit=self.scip_limits['time_limit'], logger=self.logger)
+         try:
+-            if self.model is not None:
+-                try:
+-                    self.model.freeProb()
+-                    self.logger.info("Previous SCIP model freed successfully")
+-                except Exception as e:
+-                    self.logger.error(f"Failed to free previous SCIP model: {e}")
+-                self.model = None
+-                gc.collect()
+-
+             self.model = scip.Model()
+             init_params(self.model, self.scip_limits, self.scip_params)
+-
+             self.model.setBoolParam('randomization/permutevars', True)
+             self.model.setIntParam('randomization/permutationseed', int(self.scip_seed))
+-
+-            self.model.readProblem(instance)
+-            self.cutoff = cutoff
+-            self.baseline_nodes = baseline_nodes
+-            self.baseline_gap = baseline_gap
+-            self.baseline_integral = baseline_integral
+-            self.baseline_status = baseline_status
+-
+-            # ensure reward function reset is robust (handles None)
+-            bn = float(baseline_nodes) if baseline_nodes is not None else 1.0
+-            bg = float(baseline_gap) if baseline_gap is not None else 0.0
+-            bp = float(baseline_integral) if baseline_integral is not None else 1.0
+-            bs = baseline_status if baseline_status is not None else 'timelimit'
+-            self.reward_func.reset(baseline_nodes=bn, baseline_gap=bg, baseline_pdi=bp,
+-                                   solver_status=bs, time_limit=3600, logger=self.logger)
+-
+-            if self.scip_params.get('cutoff', False) and self.cutoff is not None:
+-                self.model.setObjlimit(float(self.cutoff))
+-
+-            self.logger.info(f"Environment reset for instance: {instance}")
+-            return True
+-        except Exception as e:
+-            self.logger.error(f"Error in environment reset: {e}")
+-            self.logger.error(traceback.format_exc())
++            self.model.readProblem(str(instance))
++            if self.cutoff_applied:
++                self.model.setObjlimit(float(cutoff))
++            self.load_wall_seconds = time.perf_counter() - start
++        except Exception:
++            if self.model is not None:
++                self.model.freeProb()
++                self.model = None
+             raise
++        return True
+ 
+     def run_episode(self):
++        if self.model is None:
++            raise RuntimeError('reset must precede run_episode')
++        self.episode_count += 1
++        info = {}
++        start = time.perf_counter()
+         try:
+-            self.episode_count += 1
+-
+-            self.brancher = Brancher(
+-                model=self.model,
+-                state_dims=self.state_dims,
+-                device=self.device,
+-                agent=self.agent,
+-                reward_func=self.reward_func,
+-                cutoff=self.cutoff,
+-                logger=self.logger,
+-            )
+-
+-            self.model.includeBranchrule(
+-                branchrule=self.brancher,
+-                name="TreeGatePPO_Brancher",
+-                desc="Tree-Gate PPO Training Branching Rule",
+-                priority=999999,
+-                maxdepth=-1,
+-                maxbounddist=1,
+-            )
+-
+-            self.logger.info(f"Starting episode {self.episode_count}")
++            if self.mode == 'collect':
++                self.agent.memory.begin_episode(self.episode_id, self.agent.policy_version)
++            if self.mode != 'native':
++                self.brancher = Brancher(self.model, self.state_dims, self.agent, self.mode,
++                                         self.reward_func, self.deterministic)
++                self.model.includeBranchrule(self.brancher, 'TreeGatePPO_Brancher',
++                    'Stage2 original features', priority=999999, maxdepth=-1, maxbounddist=1)
+             self.model.optimize()
+-
+-            # Ensure final transition stored
+-            self.logger.info("Calling branchfree")
+-            self.brancher.branchfree()
+-
+-            status = self.model.getStatus()
+-            done = self._is_solved()
+-
+-            episode_stats = self.brancher.get_episode_stats()
+-            episode_reward = episode_stats['total_reward']
+-            reward_list = episode_stats['episode_rewards']
+-
+-            gap_val = 0.0 if done else self.model.getGap()
+-
+-            self.logger.info(
+-                f"Episode {self.episode_count} completed - "
+-                f"Status: {status}, "
+-                f"Branches: {self.brancher.branch_count}, "
+-                f"Nodes: {self.model.getNNodes()}, "
+-                f"Total Reward: {episode_reward:.4f}, "
+-                f"Reward Count: {len(reward_list)}, "
+-                f"Gap: {gap_val:.4%}"
+-            )
+-
+-            self.brancher.episode_rewards = []
+-
+-            info = {
+-                "status": status,
+-                "objective": self.model.getObjVal() if done and status == "optimal" else None,
+-                "branch_count": self.brancher.branch_count,
+-                "gap": gap_val,
+-                "primal_bound": self.model.getPrimalbound(),
+-                "dual_bound": self.model.getDualbound(),
+-                "primalDualIntegral": self.model.getPrimalDualIntegral(),
+-                "scip_solve_time": self.model.getSolvingTime(),
+-                "max_depth": self.model.getMaxDepth(),
+-                "nnodes": self.model.getNNodes(),
+-                "episode": self.episode_count,
+-                "total_reward": episode_reward,
+-            }
+-
+-            self.total_branches += self.brancher.branch_count
+-            self.total_nodes += info['nnodes']
+-
+-            self.model.freeProb()
+-            self.model = None
+-            self.brancher = None
+-
+-            return done, info, episode_reward
+-        except Exception as e:
+-            self.logger.error(f"Error in run_episode: {e}")
+-            self.logger.error(traceback.format_exc())
+-            if self.model is not None:
+-                try:
+-                    self.model.freeProb()
+-                except Exception:
+-                    pass
+-                self.model = None
+-            self.brancher = None
+-            raise
+-
+-    def get_memory_size(self):
+-        return len(self.agent.memory) if self.agent is not None else 0
+-
+-    def should_update(self, min_memory_size=None):
+-        if self.agent is None:
+-            return False
+-        min_size = min_memory_size or self.agent.batch_size
+-        return len(self.agent.memory) >= min_size
+-
+-    def update_agent(self):
+-        if self.should_update():
+-            return self.agent.learn()
+-        return None
+-
+-    def get_stats(self):
+-        return {
+-            'episode_count': self.episode_count,
+-            'total_branches': self.total_branches,
+-            'total_nodes': self.total_nodes,
+-            'avg_branches_per_episode': self.total_branches / max(self.episode_count, 1),
+-            'avg_nodes_per_episode': self.total_nodes / max(self.episode_count, 1),
+-            'memory_size': self.get_memory_size(),
+-        }
+-
++            info = solver_stats(self.model, self.cutoff_applied, self.cutoff_verified)
++            info.update(optimize_wall_seconds=time.perf_counter() - start,
++                        load_wall_seconds=self.load_wall_seconds, episode_id=self.episode_id,
++                        time_limit_seconds=self.scip_limits['time_limit'], mode=self.mode)
++            info['scip_time_overshoot_seconds'] = max(
++                0., info['scip_solve_time'] - self.scip_limits['time_limit'])
++            if self.brancher and self.brancher.error:
++                info.update(valid=False, task_terminal=False, error=self.brancher.error)
++            if info['valid'] and self.brancher:
++                finalize_start = time.perf_counter()
++                self.brancher.finalize_episode(info['status'])
++                info['finalize_wall_seconds'] = time.perf_counter() - finalize_start
++            elif self.mode == 'collect':
++                self.agent.memory.abort_episode()
++            if self.brancher:
++                info.update(self.brancher.stats())
++            info['environment_wall_seconds_before_free'] = (
++                time.perf_counter() - start + self.load_wall_seconds)
++        except Exception:
++            if self.mode == 'collect':
++                self.agent.memory.abort_episode()
++            info.update(valid=False, task_terminal=False, episode_ended=True,
++                        status='error', error=traceback.format_exc(), episode_id=self.episode_id,
++                        mode=self.mode, optimize_wall_seconds=time.perf_counter() - start)
++        finally:
++            try:
++                self.model.freeProb()
++            finally:
++                self.model = self.brancher = None
++        return info['valid'], info, info.get('total_reward', 0.)
+diff --git a/code/project/memory/memory.py b/code/project/memory/memory.py
+index 9ff4f54..a9d0355 100644
+--- a/code/project/memory/memory.py
++++ b/code/project/memory/memory.py
+@@ -1,323 +1,151 @@
+-import torch as T
+-import logging
+-from typing import List, Tuple, Iterator, Optional, Dict, Any
++"""Episode-preserving on-policy storage (stage 2; no new state features)."""
++import copy
+ import numpy as np
++import torch
++
++
++def state_arrays(cands_state, mip_state, node_state, state_dims):
++    result = {}
++    for key, value, shape in [
++        ('cands_state', cands_state, (None, state_dims['var_dim'])),
++        ('mip_state', mip_state, (state_dims['mip_dim'],)),
++        ('node_state', node_state, (state_dims['node_dim'],)),
++    ]:
++        if isinstance(value, torch.Tensor):
++            value = value.detach().cpu().numpy()
++        value = np.array(value, dtype=np.float32, copy=True)
++        if value.ndim != len(shape) or any(
++                n is not None and value.shape[i] != n for i, n in enumerate(shape)):
++            raise ValueError('Invalid shape for ' + key)
++        if not np.isfinite(value).all():
++            raise ValueError('Nonfinite state: ' + key)
++        result[key] = value
++    if result['cands_state'].shape[0] < 1:
++        raise ValueError('A transition needs at least one candidate')
++    return result
+ 
+ 
+ class Memory:
+-    """Tree-Gate Policy Gradient Branching Memory with import/export APIs.
+-
+-    Notes
+-    -----
+-    - Supports variable-length candidate sets per transition.
+-    - `export_dict()` outputs plain Python/NumPy objects (CPU) safe for pickling.
+-    - `import_dict()` reconstructs tensors on this Memory's device.
+-    - Advantages/returns are optional. If not filled, they are omitted in exports.
+-    """
++    schema_version = 2
+ 
+     def __init__(self, batch_size, state_dims, device, logger=None):
+-        if batch_size <= 0:
+-            raise ValueError("Batch size must be positive")
+-
+-        self.batch_size = batch_size
+-        self.device = device
+-        self.logger = logger or logging.getLogger(__name__)
+-
+-        self.cands_states: List[T.Tensor] = []   # (n_cands, var_dim)
+-        self.mip_states: List[T.Tensor] = []     # (mip_dim,)
+-        self.node_states: List[T.Tensor] = []    # (node_dim,)
+-        self.actions: List[int] = []
+-        self.rewards: List[float] = []
+-        self.dones: List[bool] = []
+-        self.log_probs: List[float] = []
+-        self.values: List[float] = []
+-        # Optional – filled when GAE is computed
+-        self.advantages: List[float] = []
+-        self.returns: List[float] = []
++        if batch_size < 1:
++            raise ValueError('batch_size must be positive')
++        self.batch_size, self.state_dims, self.device = batch_size, state_dims, device
++        self.episodes = []
++        self.active = None
+ 
+-        self.var_dim = state_dims["var_dim"]
+-        self.mip_dim = state_dims["mip_dim"]
+-        self.node_dim = state_dims["node_dim"]
+-
+-    # ------------------------------------------------------------------
+-    # Core buffer ops
+-    # ------------------------------------------------------------------
+     def clear(self):
+-        self.cands_states.clear()
+-        self.mip_states.clear()
+-        self.node_states.clear()
+-        self.actions.clear()
+-        self.rewards.clear()
+-        self.dones.clear()
+-        self.log_probs.clear()
+-        self.values.clear()
+-        self.advantages.clear()
+-        self.returns.clear()
+-        self.logger.info("Memory cleared successfully.")
+-
+-    def _validate_inputs(self, cands_state, mip_state, node_state, action, reward, done, log_prob, value):
+-        if not isinstance(cands_state, T.Tensor):
+-            raise TypeError("cands_state must be a torch.Tensor")
+-        if cands_state.dim() != 2:
+-            raise ValueError("cands_state must be a 2D tensor (num_candidates x var_dim)")
+-        if cands_state.size(1) != self.var_dim:
+-            raise ValueError(f"cands_state must have {self.var_dim} columns, got {cands_state.size(1)}")
+-
+-        if not isinstance(mip_state, T.Tensor) or mip_state.dim() != 1 or mip_state.size(0) != self.mip_dim:
+-            raise ValueError("mip_state must be a 1D tensor of correct length")
+-        if not isinstance(node_state, T.Tensor) or node_state.dim() != 1 or node_state.size(0) != self.node_dim:
+-            raise ValueError("node_state must be a 1D tensor of correct length")
+-
+-        if not isinstance(action, int) or action < 0 or action >= cands_state.size(0):
+-            raise ValueError("Invalid action index")
+-
+-        if not isinstance(reward, (int, float)) or np.isnan(reward) or np.isinf(reward):
+-            raise ValueError("reward must be finite number")
+-        if not isinstance(done, (bool, np.bool_, np.bool8)):
+-            raise TypeError("done must be a boolean")
+-        if not isinstance(log_prob, (int, float)) or np.isnan(log_prob) or np.isinf(log_prob):
+-            raise ValueError("log_prob must be finite number")
+-        if not isinstance(value, (int, float)) or np.isnan(value) or np.isinf(value):
+-            raise ValueError("value must be finite number")
+-
+-    def store(self, cands_state: T.Tensor, mip_state: T.Tensor, node_state: T.Tensor,
+-              action: int, reward: float, done: bool, log_prob: float, value: float):
+-        self._validate_inputs(cands_state, mip_state, node_state, action, reward, done, log_prob, value)
+-
+-        cands_state = cands_state.detach().to(self.device)
+-        mip_state = mip_state.detach().to(self.device)
+-        node_state = node_state.detach().to(self.device)
+-
+-        self.cands_states.append(cands_state)
+-        self.mip_states.append(mip_state)
+-        self.node_states.append(node_state)
+-        self.actions.append(int(action))
+-        self.rewards.append(float(reward))
+-        self.dones.append(bool(done))
+-        self.log_probs.append(float(log_prob))
+-        self.values.append(float(value))
+-        self.logger.debug(f"Stored transition #{len(self.cands_states)}")
+-
+-    def set_advantages_returns(self, advantages: List[float], returns: List[float]):
+-        if len(advantages) != len(self.cands_states) or len(returns) != len(self.cands_states):
+-            raise ValueError("advantages/returns must match the number of transitions")
+-        if np.any(np.isnan(advantages)) or np.any(np.isinf(advantages)):
+-            raise ValueError("advantages contain NaNs/Infs")
+-        if np.any(np.isnan(returns)) or np.any(np.isinf(returns)):
+-            raise ValueError("returns contain NaNs/Infs")
+-        self.advantages = [float(a) for a in advantages]
+-        self.returns = [float(r) for r in returns]
+-
+-    def __len__(self) -> int:
+-        return len(self.cands_states)
+-
+-    def is_empty(self) -> bool:
+-        return len(self.cands_states) == 0
+-
+-    # ------------------------------------------------------------------
+-    # Batching (kept as in your version)
+-    # ------------------------------------------------------------------
+-    def get_batch_generator(self, batch_size: Optional[int] = None) -> Iterator[Tuple[T.Tensor, ...]]:
+-        if self.is_empty():
+-            raise RuntimeError("Memory is empty. Cannot generate batches.")
+-
+-        batch_size = batch_size or self.batch_size
+-        n_states = len(self.cands_states)
+-        indices = np.arange(n_states)
+-        np.random.shuffle(indices)
+-
+-        for start_idx in range(0, n_states, batch_size):
+-            end_idx = min(start_idx + batch_size, n_states)
+-            batch_indices = indices[start_idx:end_idx]
+-            if len(batch_indices) == 0:
+-                continue
+-
+-            batch_cands_states = [self.cands_states[i] for i in batch_indices]
+-            batch_mip_states = [self.mip_states[i] for i in batch_indices]
+-            batch_node_states = [self.node_states[i] for i in batch_indices]
+-            batch_actions = [self.actions[i] for i in batch_indices]
+-            batch_rewards = [self.rewards[i] for i in batch_indices]
+-            batch_dones = [self.dones[i] for i in batch_indices]
+-            batch_log_probs = [self.log_probs[i] for i in batch_indices]
+-            batch_values = [self.values[i] for i in batch_indices]
+-
+-            max_candidates = max(cs.size(0) for cs in batch_cands_states)
+-            padded_cands_states = []
+-            cands_masks = []
+-            for cs in batch_cands_states:
+-                n_cands = cs.size(0)
+-                if n_cands < max_candidates:
+-                    padding = T.zeros(max_candidates - n_cands, self.var_dim, device=self.device)
+-                    padded_cs = T.cat([cs, padding], dim=0)
+-                    mask = T.cat([
+-                        T.zeros(n_cands, dtype=T.bool, device=self.device),
+-                        T.ones(max_candidates - n_cands, dtype=T.bool, device=self.device),
+-                    ], dim=0)
+-                else:
+-                    padded_cs = cs
+-                    mask = T.zeros(n_cands, dtype=T.bool, device=self.device)
+-                padded_cands_states.append(padded_cs)
+-                cands_masks.append(mask)
+-
+-            batch_cands_states_tensor = T.stack(padded_cands_states)
+-            batch_cands_masks_tensor = T.stack(cands_masks)
+-            batch_mip_states_tensor = T.stack(batch_mip_states)
+-            batch_node_states_tensor = T.stack(batch_node_states)
+-            batch_actions_tensor = T.tensor(batch_actions, dtype=T.long, device=self.device)
+-            batch_rewards_tensor = T.tensor(batch_rewards, dtype=T.float32, device=self.device)
+-            batch_dones_tensor = T.tensor(batch_dones, dtype=T.bool, device=self.device)
+-            batch_log_probs_tensor = T.tensor(batch_log_probs, dtype=T.float32, device=self.device)
+-            batch_values_tensor = T.tensor(batch_values, dtype=T.float32, device=self.device)
+-
+-            yield (
+-                batch_cands_states_tensor,
+-                batch_cands_masks_tensor,
+-                batch_mip_states_tensor,
+-                batch_node_states_tensor,
+-                batch_actions_tensor,
+-                batch_rewards_tensor,
+-                batch_dones_tensor,
+-                batch_log_probs_tensor,
+-                batch_values_tensor,
+-                batch_indices,
+-            )
+-
+-    def batch(self, batch_size: Optional[int] = None) -> List[Tuple[T.Tensor, ...]]:
+-        return list(self.get_batch_generator(batch_size))
+-
+-    # ------------------------------------------------------------------
+-    # Export / Import APIs
+-    # ------------------------------------------------------------------
+-    def export_dict(self) -> Dict[str, Any]:
+-        """Export the whole buffer to a CPU/NumPy friendly dict for pickling.
+-        Variable-length candidate tensors are stored as a list of 2D float32 arrays.
+-        """
+-        n = len(self.cands_states)
+-        if n == 0:
+-            return {"num_transitions": 0}
+-
+-        cands_list = [cs.detach().cpu().to(T.float32).numpy() for cs in self.cands_states]
+-        mip_mat = np.stack([ms.detach().cpu().to(T.float32).numpy() for ms in self.mip_states], axis=0)
+-        node_mat = np.stack([ns.detach().cpu().to(T.float32).numpy() for ns in self.node_states], axis=0)
+-
+-        data = {
+-            "num_transitions": n,
+-            "var_dim": self.var_dim,
+-            "mip_dim": self.mip_dim,
+-            "node_dim": self.node_dim,
+-            "cands_states": cands_list,              # list of (n_cands_i, var_dim)
+-            "mip_states": mip_mat,                   # (n, mip_dim)
+-            "node_states": node_mat,                 # (n, node_dim)
+-            "actions": np.asarray(self.actions, dtype=np.int64),
+-            "rewards": np.asarray(self.rewards, dtype=np.float32),
+-            "dones": np.asarray(self.dones, dtype=np.bool_),
+-            "log_probs": np.asarray(self.log_probs, dtype=np.float32),
+-            "values": np.asarray(self.values, dtype=np.float32),
+-        }
+-        # Optional
+-        if len(self.advantages) == n and len(self.returns) == n:
+-            data["advantages"] = np.asarray(self.advantages, dtype=np.float32)
+-            data["returns"] = np.asarray(self.returns, dtype=np.float32)
+-        return data
+-
+-    def import_dict(self, payload: Dict[str, Any]):
+-        """Append transitions from an exported dict into this memory (to `self.device`)."""
+-        if not payload or payload.get("num_transitions", 0) == 0:
+-            return
+-        n = int(payload["num_transitions"])  # type: ignore[index]
+-        cands_list = payload["cands_states"]
+-        mip_mat = payload["mip_states"]
+-        node_mat = payload["node_states"]
+-        actions = payload["actions"]
+-        rewards = payload["rewards"]
+-        dones = payload["dones"]
+-        log_probs = payload["log_probs"]
+-        values = payload["values"]
+-        advantages = payload.get("advantages", None)
+-        returns = payload.get("returns", None)
+-
+-        # Basic sanity checks
+-        if len(cands_list) != n:
+-            raise ValueError("cands_states length mismatch")
+-        if mip_mat.shape[0] != n or node_mat.shape[0] != n:
+-            raise ValueError("state matrices length mismatch")
+-        if actions.shape[0] != n:
+-            raise ValueError("actions length mismatch")
+-
+-        for i in range(n):
+-            cs_np = np.asarray(cands_list[i], dtype=np.float32)
+-            ms_np = np.asarray(mip_mat[i], dtype=np.float32)
+-            ns_np = np.asarray(node_mat[i], dtype=np.float32)
+-
+-            cs = T.from_numpy(cs_np).to(self.device)
+-            ms = T.from_numpy(ms_np).to(self.device)
+-            ns = T.from_numpy(ns_np).to(self.device)
+-
+-            act = int(actions[i])
+-            rew = float(rewards[i])
+-            dn = bool(dones[i])
+-            lp = float(log_probs[i])
+-            val = float(values[i])
+-
+-            # Minimal validation
+-            if cs.dim() != 2 or cs.size(1) != self.var_dim:
+-                raise ValueError("Imported cands_state has wrong shape")
+-            if ms.dim() != 1 or ms.size(0) != self.mip_dim:
+-                raise ValueError("Imported mip_state has wrong shape")
+-            if ns.dim() != 1 or ns.size(0) != self.node_dim:
+-                raise ValueError("Imported node_state has wrong shape")
+-            if act < 0 or act >= cs.size(0):
+-                # Clamp or raise; raising helps catch bugs early
+-                raise ValueError("Imported action out of range for its candidate set")
+-
+-            self.cands_states.append(cs)
+-            self.mip_states.append(ms)
+-            self.node_states.append(ns)
+-            self.actions.append(act)
+-            self.rewards.append(rew)
+-            self.dones.append(dn)
+-            self.log_probs.append(lp)
+-            self.values.append(val)
+-
+-            if advantages is not None and returns is not None:
+-                # Append lazily; convert to float
+-                self.advantages.append(float(advantages[i]))
+-                self.returns.append(float(returns[i]))
+-
+-    # ------------------------------------------------------------------
+-    # Diagnostics
+-    # ------------------------------------------------------------------
+-    def get_all_data(self) -> Tuple[List[T.Tensor], List[T.Tensor], List[T.Tensor], List[int], List[float], List[bool], List[float], List[float]]:
+-        if self.is_empty():
+-            raise RuntimeError("Memory is empty.")
+-        return (
+-            self.cands_states.copy(), self.mip_states.copy(), self.node_states.copy(),
+-            self.actions.copy(), self.rewards.copy(), self.dones.copy(),
+-            self.log_probs.copy(), self.values.copy(),
+-        )
+-
+-    def get_memory_info(self) -> dict:
+-        if self.is_empty():
+-            return {
+-                "num_transitions": 0,
+-                "memory_empty": True,
+-                "batch_size": self.batch_size,
+-                "device": str(self.device),
+-            }
+-        cands_sizes = [cs.size(0) for cs in self.cands_states]
+-        has_adv = len(self.advantages) == len(self.cands_states)
+-        has_ret = len(self.returns) == len(self.cands_states)
+-        return {
+-            "num_transitions": len(self.cands_states),
+-            "memory_empty": False,
+-            "batch_size": self.batch_size,
+-            "device": str(self.device),
+-            "min_candidates": min(cands_sizes),
+-            "max_candidates": max(cands_sizes),
+-            "avg_candidates": float(sum(cands_sizes) / len(cands_sizes)),
+-            "var_dim": self.var_dim,
+-            "mip_dim": self.mip_dim,
+-            "node_dim": self.node_dim,
+-            "has_advantages": has_adv,
+-            "has_returns": has_ret,
+-        }
++        self.episodes = []
++        self.active = None
++
++    def begin_episode(self, episode_id, policy_version):
++        if self.active is not None:
++            raise RuntimeError('Previous episode has not been sealed')
++        if any(e['episode_id'] == str(episode_id) for e in self.episodes):
++            raise ValueError('Duplicate episode ID')
++        self.active = dict(episode_id=str(episode_id), policy_version=int(policy_version),
++                           transitions=[])
++
++    def store(self, cands_state, mip_state, node_state, action, reward, done,
++              value, log_prob):
++        if self.active is None:
++            raise RuntimeError('begin_episode must precede store')
++        row = state_arrays(cands_state, mip_state, node_state, self.state_dims)
++        if not 0 <= int(action) < len(row['cands_state']):
++            raise ValueError('Invalid action')
++        if not all(np.isfinite(float(v)) for v in (reward, value, log_prob)):
++            raise ValueError('Nonfinite reward/value/log probability')
++        if self.active['transitions'] and self.active['transitions'][-1]['done']:
++            raise ValueError('Transition after terminal')
++        row.update(action=int(action), reward=float(reward), done=bool(done),
++                   value=float(value), log_prob=float(log_prob))
++        self.active['transitions'].append(row)
++
++    def seal_episode(self, task_terminal, collector_truncated=False,
++                     bootstrap_value=0.0, bootstrap_state=None, end_reason=None):
++        if self.active is None:
++            raise RuntimeError('No active episode')
++        episode = copy.deepcopy(self.active)
++        episode.update(task_terminal=bool(task_terminal),
++                       collector_truncated=bool(collector_truncated),
++                       bootstrap_value=float(bootstrap_value),
++                       bootstrap_state=bootstrap_state, end_reason=end_reason)
++        self._validate_episode(episode)
++        self.episodes.append(episode)
++        self.active = None
++
++    def abort_episode(self):
++        self.active = None
++
++    def _validate_episode(self, episode):
++        terminal, truncated = episode['task_terminal'], episode['collector_truncated']
++        if terminal == truncated:
++            raise ValueError('Must be either a task terminal or a collector truncation')
++        if not np.isfinite(episode['bootstrap_value']):
++            raise ValueError('Nonfinite bootstrap')
++        if terminal and episode['bootstrap_value'] != 0:
++            raise ValueError('Terminal tasks cannot bootstrap')
++        if truncated:
++            if episode['bootstrap_state'] is None:
++                raise ValueError('Truncation requires the actual next decision state')
++            state_arrays(**episode['bootstrap_state'], state_dims=self.state_dims)
++        rows = episode['transitions']
++        for i, row in enumerate(rows):
++            state_arrays(row['cands_state'], row['mip_state'], row['node_state'], self.state_dims)
++            if not 0 <= row['action'] < len(row['cands_state']):
++                raise ValueError('Imported action out of range')
++            if not all(np.isfinite(row[k]) for k in ['reward', 'value', 'log_prob']):
++                raise ValueError('Imported nonfinite transition')
++            if row['done'] != (terminal and i == len(rows) - 1):
++                raise ValueError('Terminal flags do not match episode boundary')
++
++    def __len__(self):
++        return sum(len(e['transitions']) for e in self.episodes)
++
++    def is_empty(self):
++        return len(self) == 0
++
++    def export_dict(self):
++        if self.active is not None:
++            raise RuntimeError('Cannot export an unsealed episode')
++        return dict(schema_version=self.schema_version, state_dims=self.state_dims.copy(),
++                    episodes=copy.deepcopy(self.episodes), num_transitions=len(self))
++
++    def import_dict(self, payload):
++        if payload.get('schema_version') != self.schema_version:
++            raise ValueError('Unsupported trajectory schema; episode boundaries required')
++        if payload['state_dims'] != self.state_dims:
++            raise ValueError('Trajectory state dimensions mismatch')
++        incoming = copy.deepcopy(payload['episodes'])
++        ids = {e['episode_id'] for e in self.episodes}
++        for episode in incoming:
++            if episode['episode_id'] in ids:
++                raise ValueError('Duplicate imported episode')
++            ids.add(episode['episode_id'])
++            self._validate_episode(episode)
++        if sum(len(e['transitions']) for e in incoming) != payload['num_transitions']:
++            raise ValueError('Trajectory count mismatch')
++        self.episodes.extend(incoming)
++
++    def rows(self):
++        if self.active is not None:
++            raise RuntimeError('Cannot train on unfinished episode')
++        return [r for e in self.episodes for r in e['transitions']]
++
++    def get_batch_generator(self, batch_size=None):
++        rows = self.rows()
++        indices = np.random.permutation(len(rows))
++        for start in range(0, len(rows), batch_size or self.batch_size):
++            ids = indices[start:start + (batch_size or self.batch_size)]
++            selected = [rows[i] for i in ids]
++            states = [torch.as_tensor(r['cands_state'], device=self.device) for r in selected]
++            cands = torch.nn.utils.rnn.pad_sequence(states, batch_first=True)
++            lengths = torch.tensor([len(s) for s in states], device=self.device)
++            mask = torch.arange(cands.shape[1], device=self.device)[None, :] >= lengths[:, None]
++            batch = dict(indices=ids, cands=cands, mask=mask)
++            for name in ['mip_state', 'node_state', 'action', 'value', 'log_prob']:
++                array = np.asarray([r[name] for r in selected])
++                dtype = torch.long if name == 'action' else torch.float32
++                batch[name] = torch.as_tensor(array, dtype=dtype, device=self.device)
++            yield batch
+diff --git a/code/project/runtime.py b/code/project/runtime.py
+new file mode 100644
+index 0000000..a6e17d8
+--- /dev/null
++++ b/code/project/runtime.py
+@@ -0,0 +1,283 @@
++"""Stage-2 experiment plumbing; original networks/reward and explicit finite tasks."""
++import copy
++import hashlib
++import json
++import multiprocessing as mp
++import os
++from pathlib import Path
++import pickle
++import random
++import resource
++import time
++import traceback
++import numpy as np
++import torch
++from project.agent.agent import Agent, ActorPolicy
++from project.policy import Actor, Critic
++from project.environment import Environment
++from project.reward import RewardH3
++from project.utils.settings import state_dims, settings
++from project.utils.protocol import (PROTOCOL_VERSION, baseline_identity, fingerprint,
++                                    validate_baseline, write_json)
++
++DEFAULT_CONFIG = dict(hidden_dim=256, num_layers=5, num_heads=8, dropout=.05,
++    actor_lr=.00024, critic_lr=.00012, policy_clip=.16, entropy_weight=.003,
++    gamma=.97, gae_lambda=.92, batch_size=256, n_epochs=3,
++    reward_function='reward_h3')
++ARCH_KEYS = ('hidden_dim', 'num_layers', 'num_heads', 'dropout')
++PPO_KEYS = ('policy_clip', 'entropy_weight', 'gamma', 'gae_lambda', 'batch_size', 'n_epochs')
++
++
++def cpu_seconds():
++    usage = resource.getrusage(resource.RUSAGE_SELF)
++    return usage.ru_utime + usage.ru_stime
++
++
++def seed_all(seed):
++    random.seed(seed)
++    np.random.seed(seed)
++    torch.manual_seed(seed)
++    torch.set_num_threads(1)
++
++
++def action_seed(training_seed, job_id):
++    return int(hashlib.sha256((str(training_seed) + ':' + job_id).encode()).hexdigest()[:8], 16)
++
++
++def config_with_protocol(config):
++    result = dict(DEFAULT_CONFIG, **config)
++    if result['reward_function'] != 'reward_h3':
++        raise ValueError('Stage2 freezes upstream H3')
++    result.update(state_dims=state_dims.copy(), protocol_version=PROTOCOL_VERSION,
++                  effective_actor_dropout=0., critic_training_dropout=result['dropout'],
++                  upstream_commit='4f90ccddd7999779c93ff2425ca8dd056113a523')
++    return result
++
++
++def build_agent(config, training=True):
++    arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
++    actor, critic = Actor(**arch), Critic(**arch)
++    actor_opt = torch.optim.Adam(actor.parameters(), lr=config['actor_lr']) if training else None
++    critic_opt = torch.optim.Adam(critic.parameters(), lr=config['critic_lr']) if training else None
++    return Agent(actor, actor_opt, critic, critic_opt, device='cpu',
++                 state_dims=config['state_dims'], **{k: config[k] for k in PPO_KEYS})
++
++
++def rng_state():
++    return dict(python=random.getstate(), numpy=np.random.get_state(), torch=torch.get_rng_state())
++
++
++def restore_rng(state):
++    random.setstate(state['python'])
++    np.random.set_state(state['numpy'])
++    torch.set_rng_state(state['torch'])
++
++
++def save_checkpoint(path, agent, config, progress=None):
++    if agent.actor_optimizer is None or agent.critic_optimizer is None:
++        raise ValueError('A resumable checkpoint requires both optimizers')
++    payload = dict(schema_version=2, protocol_version=PROTOCOL_VERSION, config=copy.deepcopy(config),
++        config_sha256=fingerprint(config), actor=agent.actor_network.state_dict(),
++        critic=agent.critic_network.state_dict(), actor_optimizer=agent.actor_optimizer.state_dict(),
++        critic_optimizer=agent.critic_optimizer.state_dict(), policy_version=agent.policy_version,
++        update_counter=agent.update_counter, memory=agent.memory.export_dict(), rng=rng_state(),
++        progress=progress or {})
++    path = Path(path)
++    path.parent.mkdir(parents=True, exist_ok=True)
++    temp = path.with_suffix('.tmp')
++    torch.save(payload, temp)
++    temp.replace(path)
++
++
++def read_checkpoint(path):
++    payload = torch.load(path, map_location='cpu')  # Trusted, locally produced checkpoints only.
++    if payload.get('schema_version') != 2 or payload.get('protocol_version') != PROTOCOL_VERSION:
++        raise ValueError('Checkpoint requires explicit architecture/protocol; no default guessing')
++    if fingerprint(payload['config']) != payload['config_sha256']:
++        raise ValueError('Checkpoint configuration hash mismatch')
++    return payload
++
++
++def load_agent(path, training=True, restore_random_state=True):
++    payload = read_checkpoint(path)
++    agent = build_agent(payload['config'], training)
++    agent.actor_network.load_state_dict(payload['actor'])
++    agent.critic_network.load_state_dict(payload['critic'])
++    agent.policy_version, agent.update_counter = payload['policy_version'], payload['update_counter']
++    if training:
++        agent.actor_optimizer.load_state_dict(payload['actor_optimizer'])
++        agent.critic_optimizer.load_state_dict(payload['critic_optimizer'])
++        agent.memory.import_dict(payload['memory'])
++    if restore_random_state:
++        restore_rng(payload['rng'])
++    return agent, payload
++
++
++def load_actor(path):
++    payload = read_checkpoint(path)
++    config = payload['config']
++    arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
++    actor = Actor(**arch)  # This path never constructs a Critic or optimizer.
++    actor.load_state_dict(payload['actor'])
++    return ActorPolicy(actor), payload
++
++
++def make_job(job_id, instance_dir, name, time_limit, solver_seed, training_seed,
++             cutoffs, mode, checkpoint=None, baseline=None, setting='sandbox'):
++    record = cutoffs[name]
++    if record.get('status') != 'optimal' or not record.get('source'):
++        raise ValueError('Cutoff lacks verified optimal source: ' + name)
++    provenance = dict(verified=True, source=record['source'], status=record['status'],
++                      record_sha256=fingerprint(record))
++    return dict(job_id=job_id, instance=str(Path(instance_dir) / (name + '.mps.gz')),
++        instance_name=name, limits=dict(time_limit=float(time_limit), node_limit=-1),
++        params=settings[setting].copy(), solver_seed=int(solver_seed), training_seed=int(training_seed),
++        sampling_seed=action_seed(training_seed, job_id), cutoff=record['cutoff'],
++        cutoff_provenance=provenance, mode=mode, checkpoint=str(checkpoint) if checkpoint else None,
++        baseline=baseline)
++
++
++def job_identity(job):
++    return baseline_identity(job['instance'], job['solver_seed'], job['limits'], job['params'],
++                             job['cutoff'], job['cutoff_provenance'])
++
++
++def _worker(job, result_path, trajectory_path):
++    start = time.perf_counter()
++    result = dict(job_id=job['job_id'], mode=job['mode'], instance_name=job.get('instance_name'),
++                  solver_seed=job.get('solver_seed'), sampling_seed=job.get('sampling_seed'))
++    try:
++        # Fault injection is only used by scheduler tests, never by experiment jobs.
++        if job.get('_test_failure'):
++            raise RuntimeError('Injected worker failure')
++        if job.get('_test_sleep'):
++            time.sleep(job['_test_sleep'])
++        seed_all(job['training_seed'])
++        policy = None
++        reward = None
++        if job['mode'] == 'collect':
++            policy, payload = load_agent(job['checkpoint'], training=False, restore_random_state=False)
++            reward = RewardH3()
++        elif job['mode'] == 'eval':
++            policy, payload = load_actor(job['checkpoint'])
++        # Initialization must not consume the action RNG stream.
++        seed_all(job['sampling_seed'])
++        env = Environment('cpu', policy, state_dims, job['limits'], job['params'],
++                          job['solver_seed'], reward, mode=job['mode'])
++        env.reset(job['instance'], job['cutoff'], job.get('baseline'),
++                  job['cutoff_provenance'], episode_id=job['job_id'])
++        _, info, _ = env.run_episode()
++        result.update(info)
++        if job['mode'] == 'native':
++            result['identity'] = env.identity
++        if job['mode'] == 'collect' and info['valid']:
++            result['policy_version'] = policy.policy_version
++            trajectory = policy.memory.export_dict()
++            result['num_transitions'] = trajectory['num_transitions']
++            result['num_terminal_transitions'] = sum(r['done'] for e in trajectory['episodes']
++                                                    for r in e['transitions'])
++            with open(trajectory_path, 'wb') as stream:
++                pickle.dump(trajectory, stream, protocol=pickle.HIGHEST_PROTOCOL)
++    except Exception:
++        result.update(valid=False, task_terminal=False, status='worker_error', error=traceback.format_exc())
++    result.update(worker_wall_seconds=time.perf_counter() - start, worker_cpu_seconds=cpu_seconds(),
++                  worker_cpu_complete=True)
++    write_json(result_path, result)
++
++
++def _live_cpu(pid):
++    try:
++        fields = Path('/proc/{}/stat'.format(pid)).read_text().rsplit(')', 1)[1].split()
++        return (float(fields[11]) + float(fields[12])) / os.sysconf('SC_CLK_TCK')
++    except (OSError, ValueError, IndexError):
++        return None
++
++
++def _run_jobs(jobs, output_dir, max_workers=1, watchdog_seconds=180., _active=None):
++    """Each task owns one killable process. Returned order depends only on job IDs."""
++    if max_workers < 1 or watchdog_seconds <= 0:
++        raise ValueError('Positive workers and watchdog required')
++    jobs = sorted(jobs, key=lambda j: j['job_id'])
++    if len({j['job_id'] for j in jobs}) != len(jobs):
++        raise ValueError('Duplicate job IDs')
++    output_dir = Path(output_dir)
++    output_dir.mkdir(parents=True, exist_ok=True)
++    for job in jobs:
++        job_id = job['job_id']
++        if not job_id.replace('-', '').replace('_', '').isalnum():
++            raise ValueError('Unsafe job ID')
++        if any((output_dir / (job_id + suffix)).exists() for suffix in ('.json', '.pkl')):
++            raise FileExistsError('Refuse stale worker output: ' + job_id)
++    context = mp.get_context('spawn')
++    pending, rows = list(jobs), []
++    active = _active if _active is not None else {}
++    while pending or active:
++        while pending and len(active) < max_workers:
++            job = pending.pop(0)
++            if not job['job_id'].replace('-', '').replace('_', '').isalnum():
++                raise ValueError('Unsafe job ID')
++            result_path = output_dir / (job['job_id'] + '.json')
++            trajectory_path = output_dir / (job['job_id'] + '.pkl')
++            if result_path.exists() or trajectory_path.exists():
++                raise FileExistsError('Refuse stale worker output: ' + str(result_path))
++            process = context.Process(target=_worker, args=(job, result_path, trajectory_path))
++            process.start()
++            active[job['job_id']] = (job, process, time.monotonic(), result_path, trajectory_path)
++        for job_id, (job, process, start, result_path, trajectory_path) in list(active.items()):
++            timed_out = process.is_alive() and time.monotonic() - start > watchdog_seconds
++            live_cpu = _live_cpu(process.pid) if timed_out else None
++            if timed_out:
++                process.terminate()
++                process.join(timeout=1.)
++                if process.is_alive():
++                    process.kill()
++                    process.join(timeout=1.)
++            if timed_out or not process.is_alive():
++                process.join(timeout=1.)
++                if timed_out or process.exitcode != 0 or not result_path.exists():
++                    row = dict(job_id=job_id, instance_name=job.get('instance_name'),
++                        mode=job['mode'], valid=False, task_terminal=False,
++                        status='watchdog_timeout' if timed_out else 'worker_exit_error',
++                        exitcode=process.exitcode, worker_cpu_seconds=live_cpu,
++                        worker_cpu_complete=False, wall_seconds=time.monotonic() - start)
++                    write_json(result_path, row)
++                    if trajectory_path.exists():
++                        trajectory_path.unlink()  # Never import a killed worker's partial output.
++                else:
++                    row = json.loads(result_path.read_text())
++                rows.append(row)
++                process.close()
++                del active[job_id]
++        if active:
++            time.sleep(.02)
++    rows.sort(key=lambda r: r['job_id'])
++    write_json(output_dir / 'results.json', rows)
++    return rows
++
++
++def run_jobs(jobs, output_dir, max_workers=1, watchdog_seconds=180.):
++    active = {}
++    try:
++        return _run_jobs(jobs, output_dir, max_workers, watchdog_seconds, active)
++    finally:
++        # Parent exceptions/interruptions must not leave expensive solves running.
++        for _, process, _, _, _ in active.values():
++            if process.is_alive():
++                process.terminate()
++                process.join(timeout=1.)
++                if process.is_alive():
++                    process.kill()
++                    process.join(timeout=1.)
++            process.close()
++
++
++def import_trajectories(agent, rows, directory):
++    # Fail closed on any incomplete job; don't filter failed tasks out of a batch.
++    if any(not row.get('valid') for row in rows):
++        raise RuntimeError('Invalid collection jobs retained; refusing this PPO batch')
++    for row in sorted(rows, key=lambda r: r['job_id']):
++        if row['policy_version'] != agent.policy_version:
++            raise ValueError('Stale worker policy version')
++        with open(Path(directory) / (row['job_id'] + '.pkl'), 'rb') as stream:
++            payload = pickle.load(stream)
++        agent.memory.import_dict(payload)
+diff --git a/code/project/utils/protocol.py b/code/project/utils/protocol.py
+new file mode 100644
+index 0000000..fb97b72
+--- /dev/null
++++ b/code/project/utils/protocol.py
+@@ -0,0 +1,79 @@
++"""Fail-closed baseline identity and truthful solver result semantics."""
++import hashlib
++import json
++import math
++from pathlib import Path
++
++PROTOCOL_VERSION = 'stage2-correctness-v1'
++
++
++def sha256(path):
++    h = hashlib.sha256()
++    with open(path, 'rb') as stream:
++        for block in iter(lambda: stream.read(1024 * 1024), b''):
++            h.update(block)
++    return h.hexdigest()
++
++
++def fingerprint(value):
++    return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
++
++
++def write_json(path, value):
++    path = Path(path)
++    path.parent.mkdir(parents=True, exist_ok=True)
++    temp = path.with_suffix(path.suffix + '.tmp')
++    temp.write_text(json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + '\n')
++    temp.replace(path)
++
++
++def baseline_identity(instance, solver_seed, limits, params, cutoff, cutoff_provenance):
++    # Include implementation hashes: normalization must use exactly the same settings.
++    return dict(instance_sha256=sha256(instance), solver_seed=int(solver_seed),
++                limits=limits, params=params, cutoff=cutoff,
++                cutoff_provenance=cutoff_provenance,
++                settings_sha256=sha256(Path(__file__).with_name('settings.py')),
++                solver_stack='SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9',
++                protocol_version=PROTOCOL_VERSION)
++
++
++def validate_baseline(baseline, identity):
++    if baseline is None or baseline.get('identity') != identity:
++        raise ValueError('Missing/mismatched baseline identity (instance/seed/time/settings/cutoff)')
++    result = baseline['result']
++    if not result.get('valid') or not result.get('task_terminal'):
++        raise ValueError('Normalization baseline did not finish a valid finite task')
++    for key in ('nnodes', 'gap', 'primalDualIntegral'):
++        if not isinstance(result[key], (int, float)) or not math.isfinite(result[key]):
++            raise ValueError('Missing/nonfinite baseline metric: ' + key)
++    return result
++
++
++def solver_stats(model, cutoff_applied, cutoff_verified):
++    status = str(model.getStatus())
++    nsols = len(model.getSols())  # Old binding has no getNSols().
++    original_optimal = status == 'optimal' and nsols > 0
++    cutoff_proof = (status in ('optimal', 'infeasible') and cutoff_applied
++                    and cutoff_verified)
++    proof_completed = original_optimal or cutoff_proof or (
++        status in ('infeasible', 'unbounded') and not cutoff_applied)
++    terminal = proof_completed or status == 'timelimit'
++    infinity = float(model.infinity())
++    def finite(value):
++        return math.isfinite(value) and abs(value) < infinity
++    raw = dict(gap=float(model.getGap()), primal_bound=float(model.getPrimalbound()),
++               dual_bound=float(model.getDualbound()),
++               primalDualIntegral=float(model.getPrimalDualIntegral()))
++    # Preserve finite SCIP infinity sentinels such as 1e20 verbatim. JSON has no IEEE inf.
++    values = {k: v if math.isfinite(v) else None for k, v in raw.items()}
++    values.update({k + '_finite': finite(v) for k, v in raw.items()})
++    values.update({k + '_ieee_nonfinite': str(v) for k, v in raw.items() if not math.isfinite(v)})
++    return dict(values, status=status, episode_ended=True, task_terminal=terminal,
++                proof_completed=proof_completed, original_optimal=original_optimal,
++                cutoff_proof=cutoff_proof, cutoff_applied=cutoff_applied,
++                cutoff_verified=cutoff_verified, has_feasible_solution=nsols > 0,
++                num_stored_solutions=nsols,
++                valid=terminal and all(math.isfinite(v) for v in raw.values()),
++                objective=float(model.getObjVal()) if nsols > 0 else None,
++                nnodes=int(model.getNNodes()), scip_solve_time=float(model.getSolvingTime()),
++                pdi_semantics='native_raw_until_actual_stop', scip_infinity=infinity)
+diff --git a/code/test.py b/code/test.py
+index 1e3e1f4..bbd32a1 100644
+--- a/code/test.py
++++ b/code/test.py
+@@ -1,267 +1,5 @@
+-from __future__ import annotations
+-import os, sys, gc, io, re, json, math, time, argparse, logging, random, pickle
+-from dataclasses import dataclass
+-from typing import List, Dict, Any, Tuple, NamedTuple, Iterable, Optional
+-from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError
++"""Actor-only deployment evaluation; no Critic or optimizer is constructed."""
++from experiment import main
+ 
+-import numpy as np
+-import pandas as pd
+-import torch
+-
+-# ---------------- Project imports ----------------
+-from project.utils import (
+-    setup_logging, strip_extension, get_device, settings, state_dims,
+-    scip_limits, get_reward
+-)
+-from project.policy import Actor, Critic
+-from project.agent import Agent
+-from project.environment import Environment
+-
+-# ---------------- Thread hygiene ----------------
+-for var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS",
+-            "OPENBLAS_NUM_THREADS", "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+-    os.environ.setdefault(var, "1")
+-torch.set_num_threads(1)
+-
+-# ---------------------------------------------------------------------------
+-@dataclass
+-class TestArgs:
+-    logs_dir: str
+-    scip_setting: str
+-    time_limit: float
+-    per_job_timeout: int
+-    max_workers: int
+-    seeds: List[int]
+-    shift: float
+-
+-class EpisodeMetrics(NamedTuple):
+-    instance: str; seed: int; status: str
+-    nnodes: int; solve_time: float; gap: float; pdi: float; episode_return: float
+-# ---------------------------------------------------------------------------
+-
+-# ---------- model utilities ------------------------------------------------
+-def build_models_from_ckpt(ckpt_path: str) -> Tuple[Actor, Critic, Dict[str, Any]]:
+-    """Load checkpoint -> return instantiated Actor, Critic and hparam dict."""
+-    ckpt = torch.load(ckpt_path, map_location="cpu")
+-    h = ckpt.get("hparams", {})            # may be empty
+-
+-    hidden_dim = int(h.get("hidden_dim", 256))
+-    num_layers = int(h.get("num_layers", 5))
+-    num_heads  = int(h.get("num_heads", 8))
+-    dropout    = float(h.get("dropout", 0.05))
+-
+-    actor = Actor(
+-        var_dim  = state_dims["var_dim"],
+-        node_dim = state_dims["node_dim"],
+-        mip_dim  = state_dims["mip_dim"],
+-        hidden_dim = hidden_dim,
+-        num_layers = num_layers,
+-        num_heads  = num_heads,
+-        dropout    = dropout,
+-    )
+-    critic = Critic(
+-        var_dim  = state_dims["var_dim"],
+-        node_dim = state_dims["node_dim"],
+-        mip_dim  = state_dims["mip_dim"],
+-        hidden_dim = hidden_dim,
+-        num_layers = num_layers,
+-        num_heads  = num_heads,
+-        dropout    = dropout,
+-    )
+-
+-    # load weights (works for both final_model.pt and training checkpoints)
+-    if "actor" in ckpt and "critic" in ckpt:
+-        actor.load_state_dict(ckpt["actor"])
+-        critic.load_state_dict(ckpt["critic"])
+-    else:
+-        raise ValueError("Checkpoint lacks 'actor'/'critic' state_dicts")
+-
+-    return actor, critic, h
+-
+-# ---------- environment builder -------------------------------------------
+-def build_eval_env(actor: Actor, critic: Critic, cfg: TestArgs, seed: int,
+-                   logger: logging.Logger) -> Tuple[Agent, Environment]:
+-
+-    device = get_device(device="cpu")
+-    # dummy optimizers (never stepped)
+-    actor_opt  = torch.optim.AdamW(actor.parameters(), lr=1e-4)
+-    critic_opt = torch.optim.AdamW(critic.parameters(), lr=1e-4)
+-
+-    agent = Agent(
+-        actor_network   = actor,   actor_optimizer  = actor_opt,
+-        critic_network  = critic,  critic_optimizer = critic_opt,
+-        policy_clip     = 0.18,    entropy_weight   = 3e-4,
+-        gamma           = 0.99,    gae_lambda       = 0.95,
+-        batch_size      = 1024,    n_epochs         = 1,
+-        device=device,  state_dims=state_dims,      logger=logger,
+-    )
+-
+-    scip_params = settings.get(cfg.scip_setting, {}).copy()
+-    limits      = scip_limits.copy(); limits["time_limit"] = cfg.time_limit
+-
+-    env = Environment(
+-        device=device, agent=agent, state_dims=state_dims,
+-        scip_limits=limits, scip_params=scip_params,
+-        scip_seed=seed, reward_func=get_reward("reward_h1"), logger=logger,
+-    )
+-    return agent, env
+-# ---------------------------------------------------------------------------
+-
+-def _batched(seq, n):
+-    for i in range(0, len(seq), n): yield seq[i:i+n]
+-
+-def run_parallel_in_batches(jobs, fn, max_workers, per_job_timeout,
+-                            tasks_per_child=2, time_limit_pad=120):
+-    batch_size = max(1, max_workers * tasks_per_child)
+-    outputs = []
+-    for batch in _batched(jobs, batch_size):
+-        with ProcessPoolExecutor(max_workers=max_workers) as ex:
+-            futs = [ex.submit(fn, job) for job in batch]
+-            deadline = per_job_timeout * len(batch) + time_limit_pad
+-            for fut in as_completed(futs, timeout=deadline):
+-                try: outputs.append(fut.result(timeout=per_job_timeout))
+-                except Exception: outputs.append(None)
+-    return [o for o in outputs if o]
+-
+-# ---------------- Worker ---------------------------------------------------
+-def _make_worker_logger() -> logging.Logger:
+-    lg = logging.getLogger(f"worker-{os.getpid()}"); lg.setLevel(logging.INFO)
+-    if not lg.handlers:
+-        h = logging.StreamHandler(sys.stdout)
+-        h.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+-        lg.addHandler(h)
+-    return lg
+-
+-def eval_job(job: Tuple[str,int,TestArgs,Dict[str,Any],str]) -> EpisodeMetrics:
+-    instance_path, seed, cfg, info_dict, ckpt_path = job
+-    logger = _make_worker_logger()
+-
+-    random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
+-
+-    actor, critic, _ = build_models_from_ckpt(ckpt_path)
+-    actor.eval(); critic.eval()
+-    agent, env = build_eval_env(actor, critic, cfg, seed, logger)
+-
+-    name = strip_extension(os.path.basename(instance_path)).split(".")[0]
+-    cutoff_value = info_dict.get(name, {})
+-    try:
+-        env.reset( instance_path, cutoff_value)
+-        _, info, ep_ret = env.run_episode()
+-        return EpisodeMetrics(
+-            name, seed, str(info.get("status")),
+-            int(info.get("nnodes", 0)),
+-            float(info.get("scip_solve_time", 0.0)),
+-            float(info.get("gap", 1.0)),
+-            float(info.get("primalDualIntegral", info.get("pdi", 0.0))),
+-            float(ep_ret),
+-        )
+-    except Exception:
+-        logger.exception("eval_job failed")
+-        return EpisodeMetrics(name, seed, "error", 10**9, cfg.time_limit, 1.0, 10**9, -1.0)
+-    finally:
+-        del env, agent; gc.collect(); torch.cuda.empty_cache() if torch.cuda.is_available() else None
+-# ---------------------------------------------------------------------------
+-
+-def shifted_geometric_mean(vals: Iterable[float], shift: float) -> Optional[float]:
+-    good = [v for v in vals if np.isfinite(v)]
+-    if not good: return None
+-    arr = np.asarray(good, float); return float(math.exp(np.mean(np.log(arr+shift))) - shift)
+-
+-def par10(times, statuses, cutoff):  # helper for PAR-10
+-    return float(np.mean([t if s=="optimal" else 10*cutoff for t,s in zip(times,statuses)]))
+-
+-# ---------- aggregation helpers (unchanged) --------------------------------
+-def aggregate_overall(res: List[EpisodeMetrics], cutoff, shift):
+-    solved   = [r for r in res if r.status=="optimal"]
+-    unsolved = [r for r in res if r.status!="optimal"]
+-    by_inst  = {}
+-    for r in res: by_inst.setdefault(r.instance, []).append(r)
+-
+-    return {
+-        "num_runs": len(res),
+-        "num_instances": len(by_inst),
+-        "success_rate_runs": len(solved)/len(res) if res else 0,
+-        "coverage_instances_solved_at_least_once":
+-            sum( any(r.status=="optimal" for r in vs) for vs in by_inst.values() ) / len(by_inst) if by_inst else 0,
+-        "sgm_time_solved": shifted_geometric_mean([r.solve_time for r in solved], shift),
+-        "sgm_pdi_all":     shifted_geometric_mean([r.pdi       for r in res   ], shift),
+-        "sgm_nodes_all":   shifted_geometric_mean([r.nnodes    for r in res   ], shift),
+-        "median_time_solved":
+-            float(np.median([r.solve_time for r in solved])) if solved else None,
+-        "median_pdi_unsolved":
+-            float(np.median([r.pdi for r in unsolved])) if unsolved else None,
+-        "par10_time": par10([r.solve_time for r in res],[r.status for r in res], cutoff),
+-        "primary_metric": "sgm_time_solved" if solved else "sgm_pdi_all",
+-        "primary_value":
+-            shifted_geometric_mean([r.solve_time for r in solved], shift)
+-            if solved else shifted_geometric_mean([r.pdi for r in res], shift),
+-    }
+-
+-def aggregate_per_instance(res: List[EpisodeMetrics], cutoff, shift):
+-    by = {}
+-    for r in res: by.setdefault(r.instance, []).append(r)
+-    rows=[]
+-    for inst,lst in by.items():
+-        solved=[r for r in lst if r.status=="optimal"]; unsolved=[r for r in lst if r.status!="optimal"]
+-        rows.append({
+-            "instance":inst,
+-            "runs":len(lst),
+-            "success_rate":len(solved)/len(lst),
+-            "sgm_time_solved":shifted_geometric_mean([r.solve_time for r in solved],shift),
+-            "sgm_pdi_all":shifted_geometric_mean([r.pdi for r in lst],shift),
+-            "median_time_solved":float(np.median([r.solve_time for r in solved])) if solved else None,
+-            "median_pdi_unsolved":float(np.median([r.pdi for r in unsolved])) if unsolved else None,
+-            "best_gap":float(min(r.gap for r in lst)),
+-            "par10_time":par10([r.solve_time for r in lst],[r.status for r in lst],cutoff),
+-            "mean_nodes":float(np.mean([r.nnodes for r in lst])),
+-        })
+-    df=pd.DataFrame(rows); order=[c for c in ("instance","runs","success_rate","sgm_time_solved",
+-        "sgm_pdi_all","median_time_solved","median_pdi_unsolved","best_gap","par10_time","mean_nodes") if c in df]
+-    return df[order].sort_values("instance") if not df.empty else df
+-# ---------------------------------------------------------------------------
+-
+-def list_instances(d): return [os.path.join(d,f) for f in os.listdir(d)
+-                               if f.endswith((".mps",".mps.gz",".lp"))]
+-
+-# ---------------- main -----------------------------------------------------
+-def main():
+-    ap=argparse.ArgumentParser()
+-    ap.add_argument("--instances_dir",required=True)
+-    ap.add_argument("--instances_info_dict",required=True)
+-    ap.add_argument("--model_path",required=True)
+-    ap.add_argument("--logs_dir",required=True)
+-    ap.add_argument("--time_limit",type=float,default=3600)
+-    ap.add_argument("--per_job_timeout",type=int,default=3900)
+-    ap.add_argument("--scip_setting",default="sandbox")
+-    ap.add_argument("--seeds",type=int,nargs="+",default=[0,1,2,3,4])
+-    ap.add_argument("--max_workers",type=int,default=40)
+-    ap.add_argument("--shift",type=float,default=100.0)
+-    args=ap.parse_args()
+-
+-    os.makedirs(args.logs_dir, exist_ok=True)
+-    logger=setup_logging(os.path.join(args.logs_dir,"testing.log"))
+-    logger.info("Starting evaluation of final model…")
+-
+-    with open(args.instances_info_dict,"rb") as f: info=pickle.load(f)
+-    insts=list_instances(args.instances_dir)
+-    if not insts:
+-        logger.error("No instances found."); sys.exit(1)
+-    logger.info(f"Testing on {len(insts)} instances, seeds={args.seeds}")
+-
+-    cfg=TestArgs(args.logs_dir,args.scip_setting,args.time_limit,
+-                 args.per_job_timeout,args.max_workers,args.seeds,args.shift)
+-
+-    jobs=[(p,s,cfg,info,args.model_path) for p in insts for s in args.seeds]
+-    res=run_parallel_in_batches(jobs,eval_job,args.max_workers,args.per_job_timeout)
+-    raw=pd.DataFrame([r._asdict() for r in res])
+-    raw.to_csv(os.path.join(args.logs_dir,"test_runs_raw.csv"),index=False)
+-
+-    overall=aggregate_overall(res,args.time_limit,args.shift)
+-    with open(os.path.join(args.logs_dir,"overall_summary.json"),"w") as f: json.dump(overall,f,indent=2)
+-    perinst=aggregate_per_instance(res,args.time_limit,args.shift)
+-    perinst.to_csv(os.path.join(args.logs_dir,"per_instance_summary.csv"),index=False)
+-
+-    logger.info("=== Overall summary ===\n"+json.dumps(overall,indent=2))
+-
+-if __name__=="__main__":
+-    main()
+\ No newline at end of file
++if __name__ == '__main__':
++    main('eval')
+diff --git a/code/train.py b/code/train.py
+index ba39258..264bc74 100644
+--- a/code/train.py
++++ b/code/train.py
+@@ -1,503 +1,5 @@
+-from __future__ import annotations
++"""Corrected original-input PPO. See experiment.py --help for explicit protocol args."""
++from experiment import main
+ 
+-import os
+-import io
+-import gc
+-import sys
+-import json
+-import math
+-import time
+-import argparse
+-import logging
+-import random
+-import pickle
+-from dataclasses import dataclass
+-from typing import List, Dict, Any, Tuple, NamedTuple, Optional
+-from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError
+-
+-import numpy as np
+-import pandas as pd
+-import torch
+-
+-# ---------------- Project imports ----------------
+-from project.utils import (
+-    setup_logging, strip_extension, get_device, settings, state_dims, scip_limits, get_reward
+-)
+-from project.policy import Actor, Critic
+-from project.agent import Agent
+-from project.environment import Environment
+-
+-# ---------------- Thread hygiene ----------------
+-os.environ.setdefault("OMP_NUM_THREADS", "1")
+-os.environ.setdefault("MKL_NUM_THREADS", "1")
+-os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+-os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
+-os.environ.setdefault("VECLIB_MAXIMUM_THREADS", "1")
+-
+-def _fix_torch_threads():
+-    try:
+-        torch.set_num_threads(1)
+-    except Exception:
+-        pass
+-_fix_torch_threads()
+-
+-# ---------------- Data structures ----------------
+-@dataclass
+-class TrainArgs:
+-    logs_dir: str
+-    scip_setting: str
+-    time_limit: float
+-    seeds: List[int]
+-    per_job_timeout: int
+-    max_workers: int
+-    train_iterations: int
+-    checkpoint_every: int
+-    # Hyperparameters
+-    actor_lr: float
+-    critic_lr: float
+-    hidden_dim: int
+-    num_layers: int
+-    num_heads: int
+-    dropout: float
+-    policy_clip: float
+-    entropy_weight: float
+-    gamma: float
+-    gae_lambda: float
+-    batch_size: int
+-    n_epochs: int
+-    reward_function: str
+-
+-class EpisodeMetrics(NamedTuple):
+-    instance: str
+-    seed: int
+-    status: str
+-    nnodes: int
+-    solve_time: float
+-    gap: float
+-    pdi: float
+-    episode_return: float
+-
+-# ---------------- Builders ----------------
+-
+-def build_models(cfg: TrainArgs) -> Tuple[Actor, Critic]:
+-    actor = Actor(
+-        var_dim=state_dims["var_dim"],
+-        node_dim=state_dims["node_dim"],
+-        mip_dim=state_dims["mip_dim"],
+-        hidden_dim=cfg.hidden_dim,
+-        num_heads=cfg.num_heads,
+-        num_layers=cfg.num_layers,
+-        dropout=cfg.dropout,
+-    )
+-    critic = Critic(
+-        var_dim=state_dims["var_dim"],
+-        node_dim=state_dims["node_dim"],
+-        mip_dim=state_dims["mip_dim"],
+-        hidden_dim=cfg.hidden_dim,
+-        num_heads=cfg.num_heads,
+-        num_layers=cfg.num_layers,
+-        dropout=cfg.dropout,
+-    )
+-    return actor, critic
+-
+-
+-def build_agent_env_with_models(actor: Actor, critic: Critic, cfg: TrainArgs, seed: int, logger: logging.Logger) -> Tuple[Agent, Environment]:
+-    device = get_device(device="cpu")
+-
+-    actor_opt = torch.optim.AdamW(actor.parameters(), lr=cfg.actor_lr, weight_decay=1e-2)
+-    critic_opt = torch.optim.AdamW(critic.parameters(), lr=cfg.critic_lr, weight_decay=1e-2)
+-
+-    reward_func = get_reward(cfg.reward_function)
+-
+-    agent = Agent(
+-        actor_network=actor,
+-        actor_optimizer=actor_opt,
+-        critic_network=critic,
+-        critic_optimizer=critic_opt,
+-        policy_clip=cfg.policy_clip,
+-        entropy_weight=cfg.entropy_weight,
+-        gamma=cfg.gamma,
+-        gae_lambda=cfg.gae_lambda,
+-        batch_size=cfg.batch_size,
+-        n_epochs=cfg.n_epochs,
+-        device=device,
+-        state_dims=state_dims,
+-        logger=logger,
+-    )
+-
+-    scip_params = settings.get(cfg.scip_setting, {}).copy()
+-    limits = scip_limits.copy()
+-    limits["time_limit"] = float(cfg.time_limit)
+-
+-    env = Environment(
+-        device=device,
+-        agent=agent,
+-        state_dims=state_dims,
+-        scip_limits=limits,
+-        scip_params=scip_params,
+-        scip_seed=seed,
+-        reward_func=reward_func,
+-        logger=logger,
+-    )
+-    return agent, env
+-
+-# ---------------- Serialization ----------------
+-
+-def serialize_weights(actor: Actor, critic: Critic) -> bytes:
+-    buf = io.BytesIO()
+-    torch.save({"actor": actor.state_dict(), "critic": critic.state_dict()}, buf)
+-    return buf.getvalue()
+-
+-def load_weights_bytes(actor: Actor, critic: Critic, payload: bytes) -> None:
+-    buf = io.BytesIO(payload)
+-    state = torch.load(buf, map_location="cpu")
+-    actor.load_state_dict(state["actor"])
+-    critic.load_state_dict(state["critic"])
+-
+-# ---------------- Helpers: parallel batches ----------------
+-
+-def _batched(seq, n):
+-    for i in range(0, len(seq), n):
+-        yield seq[i:i+n]
+-
+-from concurrent.futures import ProcessPoolExecutor, as_completed, TimeoutError
+-
+-def run_parallel_in_batches(jobs, fn, max_workers, per_job_timeout, tasks_per_child=1,
+-                            returns_path=False, time_limit_pad=60):
+-    batch_size = max(1, max_workers * max(1, tasks_per_child))
+-    outputs = []
+-    for batch in _batched(jobs, batch_size):
+-        with ProcessPoolExecutor(max_workers=max_workers) as ex:
+-            futs = [ex.submit(fn, job) for job in batch]
+-            deadline = per_job_timeout * len(batch) + time_limit_pad
+-            for fut in as_completed(futs, timeout=deadline):
+-                try:
+-                    res = fut.result(timeout=per_job_timeout)
+-                    outputs.append(res)
+-                except TimeoutError:
+-                    outputs.append(None)
+-                except Exception:
+-                    outputs.append(None)
+-    if returns_path:
+-        metrics, paths = [], []
+-        for item in outputs:
+-            if item is None:
+-                metrics.append(None); paths.append(None)
+-            else:
+-                m, p = item
+-                metrics.append(m); paths.append(p)
+-        return metrics, paths
+-    else:
+-        return outputs
+-
+-# ---------------- Workers ----------------
+-
+-def _make_worker_logger() -> logging.Logger:
+-    logger = logging.getLogger(f"worker-{os.getpid()}")
+-    logger.setLevel(logging.INFO)
+-    if not logger.handlers:
+-        h = logging.StreamHandler(sys.stdout)
+-        h.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+-        logger.addHandler(h)
+-    return logger
+-
+-
+-def collect_rollout_job(job: Tuple[str, int, bytes, TrainArgs, Dict[str, Any]]) -> Tuple[EpisodeMetrics, str]:
+-    instance_path, seed, weights_bytes, cfg, info_dict = job
+-    logger = _make_worker_logger()
+-
+-    random.seed(seed)
+-    np.random.seed(seed)
+-    torch.manual_seed(seed)
+-
+-    actor, critic = build_models(cfg)
+-    load_weights_bytes(actor, critic, weights_bytes)
+-
+-    agent, env = build_agent_env_with_models(actor, critic, cfg, seed, logger)
+-
+-    name = strip_extension(os.path.basename(instance_path)).split(".")[0]
+-    meta = info_dict.get(name, {})
+-    cutoff = meta.get("cutoff")
+-    baseline_nodes = meta.get("baseline_nodes")
+-    baseline_gap = meta.get("baseline_gap")
+-    baseline_integral = meta.get("baseline_integral")
+-    baseline_status = meta.get("baseline_status")
+-
+-    try:
+-        env.reset(instance_path, cutoff, baseline_nodes, baseline_gap, baseline_integral, baseline_status)
+-        done, info, ep_reward = env.run_episode()
+-        if hasattr(agent, "finalize_advantages"):
+-            agent.finalize_advantages()
+-        if not hasattr(agent, "memory") or not hasattr(agent.memory, "export_dict"):
+-            raise RuntimeError("Agent.memory.export_dict() required")
+-        traj = agent.memory.export_dict()
+-
+-        tmp_dir = os.path.join(cfg.logs_dir, "tmp_traj")
+-        os.makedirs(tmp_dir, exist_ok=True)
+-        traj_path = os.path.join(tmp_dir, f"traj_{os.getpid()}_{seed}_{time.time_ns()}.pkl")
+-        with open(traj_path, "wb") as f:
+-            pickle.dump(traj, f, protocol=pickle.HIGHEST_PROTOCOL)
+-
+-        status = str(info.get("status"))
+-        nnodes = int(info.get("nnodes", 0))
+-        solve_time = float(info.get("scip_solve_time", 0.0))
+-        gap = float(info.get("gap", 1.0))
+-        pdi = float(info.get("primalDualIntegral", info.get("pdi", 0.0)))
+-        metrics = EpisodeMetrics(name, seed, status, nnodes, solve_time, gap, pdi, float(ep_reward))
+-        return metrics, traj_path
+-    except Exception:
+-        logger.exception("collect_rollout_job failed")
+-        tmp_dir = os.path.join(cfg.logs_dir, "tmp_traj")
+-        os.makedirs(tmp_dir, exist_ok=True)
+-        traj_path = os.path.join(tmp_dir, f"traj_error_{os.getpid()}_{seed}_{time.time_ns()}.pkl")
+-        with open(traj_path, "wb") as f:
+-            pickle.dump({}, f)
+-        return EpisodeMetrics(name, seed, "error", int(1e9), cfg.time_limit, 1.0, 1e9, -1.0), traj_path
+-    finally:
+-        try:
+-            del env, agent
+-        except Exception:
+-            pass
+-        gc.collect()
+-        if torch.cuda.is_available():
+-            torch.cuda.empty_cache()
+-
+-
+-def validation_job(job: Tuple[str, int, bytes, TrainArgs, Dict[str, Any]]) -> EpisodeMetrics:
+-    instance_path, seed, weights_bytes, cfg, info_dict = job
+-    logger = _make_worker_logger()
+-
+-    random.seed(seed)
+-    np.random.seed(seed)
+-    torch.manual_seed(seed)
+-
+-    actor, critic = build_models(cfg)
+-    load_weights_bytes(actor, critic, weights_bytes)
+-    actor.eval(); critic.eval()
+-    agent, env = build_agent_env_with_models(actor, critic, cfg, seed, logger)
+-
+-    name = strip_extension(os.path.basename(instance_path)).split(".")[0]
+-    meta = info_dict.get(name, {})
+-    cutoff = meta.get("cutoff")
+-    baseline_nodes = meta.get("baseline_nodes")
+-    baseline_gap = meta.get("baseline_gap")
+-    baseline_integral = meta.get("baseline_integral")
+-    baseline_status = meta.get("baseline_status")
+-
+-    try:
+-        env.reset(instance_path, cutoff, baseline_nodes, baseline_gap, baseline_integral, baseline_status)
+-        done, info, ep_reward = env.run_episode(learn=False)
+-        status = str(info.get("status"))
+-        nnodes = int(info.get("nnodes", 0))
+-        solve_time = float(info.get("scip_solve_time", 0.0))
+-        gap = float(info.get("gap", 1.0))
+-        pdi = float(info.get("primalDualIntegral", info.get("pdi", 0.0)))
+-        return EpisodeMetrics(name, seed, status, nnodes, solve_time, gap, pdi, float(ep_reward))
+-    except Exception:
+-        logger.exception("validation_job failed")
+-        return EpisodeMetrics(name, seed, "error", int(1e9), cfg.time_limit, 1.0, 1e9, -1.0)
+-    finally:
+-        try:
+-            del env, agent
+-        except Exception:
+-            pass
+-        gc.collect()
+-        if torch.cuda.is_available():
+-            torch.cuda.empty_cache()
+-
+-# ---------------- Scoring ----------------
+-
+-def score_from_metrics(results: List[EpisodeMetrics], time_limit: float) -> float:
+-    if not results:
+-        return float("inf")
+-    times, nodes = [], []
+-    penalties = 0.0
+-    for r in results:
+-        par10 = r.solve_time if r.status == "optimal" else 10.0 * time_limit
+-        times.append(par10)
+-        nodes.append(r.nnodes)
+-        if r.status == "error":
+-            penalties += 1e6
+-    arr_t = np.asarray(times, dtype=float)
+-    arr_n = np.asarray(nodes, dtype=float)
+-    shift = 100.0
+-    sgm_time = math.exp(np.mean(np.log(arr_t + shift))) - shift
+-    sgm_nodes = math.exp(np.mean(np.log(arr_n + shift))) - shift
+-    return float(0.6 * sgm_time + 0.4 * sgm_nodes + penalties)
+-
+-# ---------------- IO utils ----------------
+-
+-def list_instances(dirpath: str) -> List[str]:
+-    return [os.path.join(dirpath, f) for f in os.listdir(dirpath)
+-            if f.endswith('.mps') or f.endswith('.mps.gz') or f.endswith('.lp')]
+-
+-
+-def save_checkpoint(path: str, actor: Actor, critic: Critic, agent: Agent, it: int, score: float):
+-    os.makedirs(os.path.dirname(path), exist_ok=True)
+-    payload = {
+-        "iter": it,
+-        "score": score,
+-        "actor": actor.state_dict(),
+-        "critic": critic.state_dict(),
+-        "actor_opt": agent.actor_optimizer.state_dict() if hasattr(agent, "actor_optimizer") else None,
+-        "critic_opt": agent.critic_optimizer.state_dict() if hasattr(agent, "critic_optimizer") else None,
+-        "hparams": {k: v for k, v in agent.__dict__.items() if k in []},  # placeholder if you wish
+-    }
+-    torch.save(payload, path)
+-
+-# ---------------- Main ----------------
+-
+-def main():
+-    parser = argparse.ArgumentParser(description="Final training of Tree‑Gate PPO with parallel rollouts")
+-    parser.add_argument('--instances_dir', type=str, required=True)
+-    parser.add_argument('--instances_info_dict', type=str, required=True)
+-    parser.add_argument('--logs_dir', type=str, required=True)
+-    parser.add_argument('--best_params_json', type=str, required=True, help='JSON with best hyperparameters')
+-    parser.add_argument('--output_model', type=str, default='output/models/final_model.pt')
+-    parser.add_argument('--checkpoint_dir', type=str, default='output/checkpoints')
+-
+-    parser.add_argument('--time_limit', type=float, default=900.0)
+-    parser.add_argument('--per_job_timeout', type=int, default=900)
+-    parser.add_argument('--scip_setting', type=str, default='sandbox')
+-    parser.add_argument('--seeds', type=int, nargs='+', default=[0,1,2])
+-    parser.add_argument('--train_iterations', type=int, default=12)
+-    parser.add_argument('--checkpoint_every', type=int, default=2)
+-    parser.add_argument('--max_workers', type=int, default=20)
+-
+-    parser.add_argument('--val_instances_dir', type=str, default=None)
+-    parser.add_argument('--val_seeds', type=int, nargs='+', default=[0])
+-
+-    args = parser.parse_args()
+-
+-    os.makedirs(args.logs_dir, exist_ok=True)
+-    logger = setup_logging(log_file=os.path.join(args.logs_dir, "training.log"))
+-    logger.info("Starting final training…")
+-
+-    with open(args.instances_info_dict, 'rb') as f:
+-        info_dict = pickle.load(f)
+-
+-    with open(args.best_params_json, 'r') as f:
+-        bp = json.load(f)
+-
+-    # Resolve train/val instances
+-    train_instances = list_instances(args.instances_dir)
+-    if not train_instances:
+-        logger.error("No instances found in --instances_dir")
+-        sys.exit(1)
+-
+-    if args.val_instances_dir:
+-        val_instances = list_instances(args.val_instances_dir)
+-    else:
+-        val_instances = []  # optional validation
+-
+-    # Build TrainArgs from best params
+-    targs = TrainArgs(
+-        logs_dir=args.logs_dir,
+-        scip_setting=args.scip_setting,
+-        time_limit=args.time_limit,
+-        seeds=args.seeds,
+-        per_job_timeout=args.per_job_timeout,
+-        max_workers=args.max_workers,
+-        train_iterations=args.train_iterations,
+-        checkpoint_every=args.checkpoint_every,
+-        actor_lr=float(bp["actor_lr"]),
+-        critic_lr=float(bp["critic_lr"]),
+-        hidden_dim=int(bp["hidden_dim"]),
+-        num_layers=int(bp["num_layers"]),
+-        num_heads=int(bp["num_heads"]),
+-        dropout=float(bp["dropout"]),
+-        policy_clip=float(bp["policy_clip"]),
+-        entropy_weight=float(bp["entropy_weight"]),
+-        gamma=float(bp["gamma"]),
+-        gae_lambda=float(bp["gae_lambda"]),
+-        batch_size=int(bp["batch_size"]),
+-        n_epochs=int(bp["n_epochs"]),
+-        reward_function=str(bp["reward_function"]),
+-    )
+-
+-    # Central learner
+-    actor, critic = build_models(targs)
+-    agent, _ = build_agent_env_with_models(actor, critic, targs, seed=0, logger=logger)
+-
+-    # Logs
+-    train_rows: List[Dict[str, Any]] = []
+-    best_score = float("inf")
+-
+-    for it in range(1, targs.train_iterations + 1):
+-        t0 = time.time()
+-        weights = serialize_weights(actor, critic)
+-        jobs = [(inst, s, weights, targs, info_dict) for inst in train_instances for s in targs.seeds]
+-
+-        metrics_list, traj_paths = run_parallel_in_batches(
+-            jobs,
+-            fn=collect_rollout_job,
+-            max_workers=targs.max_workers,
+-            per_job_timeout=targs.per_job_timeout,
+-            tasks_per_child=1,
+-            returns_path=True,
+-        )
+-
+-        # Import trajectories
+-        if hasattr(agent, "memory") and hasattr(agent.memory, "clear"):
+-            agent.memory.clear()
+-        num_traj = 0
+-        for path in traj_paths:
+-            if not path:
+-                continue
+-            try:
+-                with open(path, "rb") as f:
+-                    traj = pickle.load(f)
+-                if traj and hasattr(agent.memory, "import_dict"):
+-                    agent.memory.import_dict(traj)
+-                    num_traj += 1
+-            finally:
+-                try: os.remove(path)
+-                except OSError: pass
+-
+-        learn_metrics = agent.learn() or {}
+-        elapsed = time.time() - t0
+-
+-        # Optional interim validation
+-        val_score = None
+-        if val_instances:
+-            final_w = serialize_weights(actor, critic)
+-            vjobs = [(inst, s, final_w, targs, info_dict) for inst in val_instances for s in (args.val_seeds or [0])]
+-            vmetrics = run_parallel_in_batches(
+-                vjobs,
+-                fn=validation_job,
+-                max_workers=targs.max_workers,
+-                per_job_timeout=targs.per_job_timeout,
+-                tasks_per_child=2,
+-                returns_path=False,
+-            )
+-            vmetrics = [m for m in vmetrics if m is not None]
+-            val_score = score_from_metrics(vmetrics, targs.time_limit)
+-
+-        row = {
+-            "iter": it,
+-            "elapsed_sec": elapsed,
+-            "num_traj": num_traj,
+-            "learn_metrics": learn_metrics,
+-            "val_score": val_score,
+-        }
+-        train_rows.append(row)
+-        pd.DataFrame(train_rows).to_json(os.path.join(args.logs_dir, "train_progress.json"), orient="records", indent=2)
+-
+-        # Checkpoint
+-        if (it % targs.checkpoint_every == 0) or (val_score is not None and val_score < best_score):
+-            score_for_ckpt = val_score if val_score is not None else float(it)
+-            ckpt_path = os.path.join(args.checkpoint_dir, f"ckpt_iter_{it}.pt")
+-            save_checkpoint(ckpt_path, actor, critic, agent, it, score_for_ckpt)
+-            if val_score is not None and val_score < best_score:
+-                best_score = val_score
+-
+-        logger.info(f"Iter {it}/{targs.train_iterations}  traj={num_traj}  time={elapsed:.1f}s  val_score={val_score}")
+-
+-    # Save final model
+-    os.makedirs(os.path.dirname(args.output_model), exist_ok=True)
+-    torch.save({"actor": actor.state_dict(), "critic": critic.state_dict()}, args.output_model)
+-    logger.info(f"Saved final model to {args.output_model}")
+-
+-
+-if __name__ == "__main__":
+-    main()
++if __name__ == '__main__':
++    main('train')
+diff --git a/code/tune.py b/code/tune.py
+index 6e99727..a4dc128 100644
+--- a/code/tune.py
++++ b/code/tune.py
+@@ -1,5 +1,8 @@
+ from __future__ import annotations
+ 
++if __name__ == '__main__':
++    raise SystemExit('Legacy tuner is not supported by stage2 episode storage. Use train.py with explicit config.')
++
+ import os
+ import io
+ import gc
+diff --git a/tests/test_correctness.py b/tests/test_correctness.py
+new file mode 100644
+index 0000000..2a67e0a
+--- /dev/null
++++ b/tests/test_correctness.py
+@@ -0,0 +1,375 @@
++"""Hand calculations, protocol failures, real binding and resumable PPO checks."""
++import copy
++import json
++import logging
++import multiprocessing as mp
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import Mock, patch
++import numpy as np
++import torch
++from pyscipopt import Model
++from project.agent.agent import ActorPolicy
++from project.brancher import Brancher
++from project.environment import Environment
++from project.runtime import (config_with_protocol, seed_all, build_agent, load_agent, load_actor,
++    save_checkpoint, run_jobs, make_job, job_identity, import_trajectories)
++from project.utils.protocol import validate_baseline, solver_stats, sha256
++from project.utils.settings import state_dims, settings
++
++ROOT = Path('/root/research')
++CONFIG = config_with_protocol(dict(hidden_dim=32, num_layers=1, num_heads=4,
++                                 batch_size=2, n_epochs=1, dropout=.2))
++
++
++def agent():
++    seed_all(17)
++    return build_agent(CONFIG)
++
++
++def state(n=3):
++    rng = np.random.RandomState(n)
++    return dict(cands_state=rng.randn(n, 25).astype('float32'),
++                mip_state=rng.randn(53).astype('float32'),
++                node_state=rng.randn(8).astype('float32'))
++
++
++def populate(a, episode='first', rewards=(1., 2.)):
++    a.memory.begin_episode(episode, a.policy_version)
++    for i, reward in enumerate(rewards):
++        s = state(i + 2)
++        action, value, log_prob = a.choose_action(**s)
++        a.remember(**s, action=action, reward=reward, done=i == len(rewards) - 1,
++                   value=value, log_prob=log_prob)
++    a.seal_episode(True)
++
++
++class CorrectnessTests(unittest.TestCase):
++    def test_gae_terminal_hand_calculation(self):
++        a = agent()
++        a.gamma = a.gae_lambda = 1.
++        _, returns = a._compute_gae(torch.tensor([1., 2.]), torch.tensor([10., 20.]),
++                                    torch.tensor([0., 1.]), torch.tensor(0.))
++        torch.testing.assert_close(returns, torch.tensor([3., 2.]))
++
++    def test_gae_truncation_hand_calculation(self):
++        a = agent()
++        a.gamma, a.gae_lambda = .9, 1.
++        _, returns = a._compute_gae(torch.tensor([1., 2.]), torch.tensor([10., 20.]),
++                                    torch.tensor([0., 0.]), torch.tensor(30.))
++        torch.testing.assert_close(returns, torch.tensor([27.1, 29.]))
++
++    def test_two_episodes_do_not_contaminate_each_other(self):
++        a = agent()
++        a.gamma = a.gae_lambda = 1.
++        populate(a)
++        populate(a, 'second', (3., 4.))
++        torch.testing.assert_close(a.compute_targets()[1], torch.tensor([3., 2., 7., 4.]))
++        a.memory.episodes[1]['transitions'][0]['reward'] = 900.
++        torch.testing.assert_close(a.compute_targets()[1][:2], torch.tensor([3., 2.]))
++
++    def test_truncation_needs_actual_tail_and_uses_critic(self):
++        a = agent()
++        a.memory.begin_episode('tail', 0)
++        with self.assertRaisesRegex(ValueError, 'Missing actual'):
++            a.seal_episode(False, collector_truncated=True)
++        s = state()
++        with torch.no_grad():
++            a.critic_network.eval()
++            c, m, n, mask = a._inputs(**s)
++            expected = a.critic_network(c, n, m, mask).item()
++        a.seal_episode(False, collector_truncated=True, bootstrap_state=s)
++        self.assertEqual(a.memory.episodes[0]['bootstrap_value'], expected)
++
++    def test_buffer_roundtrip_empty_duplicate_and_stale_policy(self):
++        a = agent()
++        populate(a)
++        payload = a.memory.export_dict()
++        b = agent()
++        b.memory.import_dict(payload)
++        torch.testing.assert_close(a.compute_targets()[1], b.compute_targets()[1])
++        with self.assertRaises(ValueError):
++            b.memory.import_dict(payload)
++        b.policy_version += 1
++        with self.assertRaisesRegex(ValueError, 'Stale'):
++            b.learn()
++        a.memory.clear()
++        a.memory.begin_episode('zero-actions', 0)
++        a.seal_episode(True)
++        self.assertEqual(a.compute_targets()[1].numel(), 0)
++        self.assertFalse(a.learn()['updated'])
++
++    def test_independent_parameters_and_gradients(self):
++        a = agent()
++        self.assertFalse({id(p) for p in a.actor_network.parameters()} &
++                         {id(p) for p in a.critic_network.parameters()})
++        c, m, n, mask = a._inputs(**state())
++        a.critic_network(c, n, m, mask).sum().backward()
++        self.assertTrue(all(p.grad is None for p in a.actor_network.parameters()))
++        self.assertTrue(any(p.grad is not None for p in a.critic_network.parameters()))
++
++    def test_padding_ratio_and_real_actor_update(self):
++        a = agent()
++        populate(a)
++        before = [p.detach().clone() for p in a.actor_network.parameters()]
++        metrics = a.learn()
++        self.assertTrue(metrics['updated'])
++        self.assertLess(metrics['initial_ratio_max_error'], 1e-4)
++        self.assertTrue(any(not torch.equal(p, q) for p, q in zip(before, a.actor_network.parameters())))
++        self.assertEqual(len(a.memory), 0)
++        self.assertEqual(a.policy_version, 1)
++
++    def test_actor_only_actions_match_collection_and_old_eval_mode(self):
++        a = agent()
++        policy = ActorPolicy(a.actor_network)
++        for seed in range(10):
++            seed_all(seed)
++            collected = a.choose_action(**state())
++            seed_all(seed)
++            deployed = policy.act(**state())
++            self.assertEqual((collected[0], collected[2]), deployed)
++        # Same unmodified Actor forward + Categorical as the original selection path.
++        seed_all(39)
++        c, m, n, mask = a._inputs(**state())
++        a.actor_network.eval()
++        dist = torch.distributions.Categorical(a.actor_network(c, n, m, mask))
++        expected = dist.sample().item()
++        seed_all(39)
++        self.assertEqual(policy.act(**state())[0], expected)
++        with self.assertRaises(ValueError):
++            policy.act(**state(), padding_mask=np.ones(3, dtype=bool))
++
++    def test_actual_upstream_choose_action_matches_actor_only(self):
++        import importlib.util
++        spec = importlib.util.spec_from_file_location('upstream_agent',
++            ROOT / 'tgppo/repo/code/project/agent/agent.py')
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        a = agent()
++        original = module.Agent(a.actor_network, None, a.critic_network, None,
++            device='cpu', state_dims=state_dims, **{k: CONFIG[k] for k in
++            ('policy_clip', 'entropy_weight', 'gamma', 'gae_lambda', 'batch_size', 'n_epochs')})
++        deployed = ActorPolicy(a.actor_network)
++        for seed in range(10):
++            seed_all(seed)
++            expected = original.choose_action(**state())
++            seed_all(seed)
++            actual = deployed.act(**state())
++            self.assertEqual(int(expected[0]), actual[0])
++            self.assertAlmostEqual(float(expected[2]), actual[1], places=7)
++
++    def test_invalid_transition_and_incomplete_episode_rejected(self):
++        a = agent()
++        a.memory.begin_episode('bad', 0)
++        with self.assertRaises(ValueError):
++            a.remember(**state(), action=900, value=0., log_prob=0., reward=1., done=False)
++        with self.assertRaises(ValueError):
++            a.remember(**state(), action=0, value=0., log_prob=0., reward=float('nan'), done=False)
++        with self.assertRaises(RuntimeError):
++            a.learn()
++        with self.assertRaises(RuntimeError):
++            a.memory.export_dict()
++        a.memory.abort_episode()
++        self.assertEqual(len(a.memory), 0)
++
++    def test_checkpoint_architecture_rng_optimizer_buffer_and_exact_next_update(self):
++        a = agent()
++        populate(a)
++        with tempfile.TemporaryDirectory() as directory:
++            path = Path(directory) / 'model.pt'
++            save_checkpoint(path, a, CONFIG, dict(next_batch=2))
++            expected_rng = (np.random.rand(), torch.rand(1), __import__('random').random())
++            b, payload = load_agent(path)
++            actual_rng = (np.random.rand(), torch.rand(1), __import__('random').random())
++            self.assertEqual(expected_rng[0], actual_rng[0])
++            torch.testing.assert_close(expected_rng[1], actual_rng[1])
++            self.assertEqual(expected_rng[2], actual_rng[2])
++            self.assertEqual(payload['config']['hidden_dim'], 32)
++            self.assertEqual(payload['progress']['next_batch'], 2)
++            a, _ = load_agent(path)
++            a.learn()
++            b, _ = load_agent(path)
++            b.learn()
++            for k, v in a.actor_network.state_dict().items():
++                torch.testing.assert_close(v, b.actor_network.state_dict()[k], rtol=0, atol=0)
++            for k, v in a.critic_network.state_dict().items():
++                torch.testing.assert_close(v, b.critic_network.state_dict()[k], rtol=0, atol=0)
++            # Optimizer state must also be nonempty and recoverable after an update.
++            save_checkpoint(path, a, CONFIG)
++            recovered, _ = load_agent(path)
++            self.assertTrue(recovered.actor_optimizer.state_dict()['state'])
++            with patch('project.runtime.Critic', side_effect=AssertionError('Critic constructed')):
++                policy, _ = load_actor(path)
++                policy.act(**state())
++
++    def test_finalize_then_free_is_idempotent_and_zero_actions_not_invented(self):
++        a = agent()
++        a.memory.begin_episode('one', 0)
++        reward = Mock()
++        reward.compute.return_value = 5.
++        brancher = Brancher(Model(), state_dims, a, 'collect', reward)
++        s = state()
++        action, value, lp = a.choose_action(**s)
++        brancher.prev = (s, action, value, lp)
++        brancher.finalize_episode('timelimit')
++        brancher.finalize_episode('timelimit')
++        brancher.branchfree()
++        brancher.branchfree()
++        self.assertEqual(len(a.memory), 1)
++        self.assertEqual(reward.compute.call_count, 1)
++        self.assertTrue(a.memory.episodes[0]['transitions'][0]['done'])
++        a.memory.begin_episode('empty', 0)
++        brancher = Brancher(Model(), state_dims, a, 'collect', reward)
++        brancher.finalize_episode('optimal')
++        self.assertEqual(len(a.memory.episodes[1]['transitions']), 0)
++
++    def test_original_branchfree_already_idempotent(self):
++        # Load only the original Brancher source under another module name.
++        import importlib.util
++        spec = importlib.util.spec_from_file_location('upstream_brancher',
++            ROOT / 'tgppo/repo/code/project/brancher/brancher.py')
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        reward, collector = Mock(), Mock()
++        reward.compute.return_value = 1.
++        b = module.Brancher(Model(), state_dims, 'cpu', collector, reward, 1., logging.getLogger('quiet'))
++        b.prev_state = state()
++        b.prev_action, b.prev_value, b.prev_log_prob = 0, 0., 0.
++        b.branchfree()
++        b.branchfree()
++        self.assertEqual(collector.remember.call_count, 1)
++
++    def test_reward_and_solver_receive_120_and_3600_and_baseline_mismatch_rejected(self):
++        import project.environment.environment as env_module
++        cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++        for limit in (120, 3600):
++            j = make_job('clock', ROOT / 'tgppo/datasets/train_instances', 'lseu', limit,
++                         0, 11, cutoffs, 'collect')
++            identity = job_identity(j)
++            base = dict(identity=identity, result=dict(valid=True, task_terminal=True,
++                nnodes=8, gap=0., primalDualIntegral=2., status='infeasible'))
++            reward = Mock()
++            model = Mock()
++            with patch.object(env_module.scip, 'Model', return_value=model):
++                env = Environment('cpu', agent(), state_dims, j['limits'], j['params'], 0, reward)
++                env.reset(j['instance'], j['cutoff'], base, j['cutoff_provenance'])
++                model.setRealParam.assert_any_call('limits/time', limit)
++                self.assertEqual(reward.reset.call_args.kwargs['time_limit'], limit)
++            for field, value in [('solver_seed', 9), ('instance_sha256', 'bad'),
++                                 ('limits', dict(time_limit=999, node_limit=-1)),
++                                 ('params', settings['default'])]:
++                wrong = copy.deepcopy(identity)
++                wrong[field] = value
++                with self.assertRaisesRegex(ValueError, 'mismatched'):
++                    validate_baseline(base, wrong)
++            with self.assertRaises(ValueError):
++                validate_baseline(None, identity)
++
++    def test_scip_sentinel_timeout_and_cutoff_semantics(self):
++        model = Mock()
++        model.getStatus.return_value = 'timelimit'
++        model.getSols.return_value = []
++        model.infinity.return_value = 1e20
++        for name in ('getGap', 'getPrimalbound'):
++            getattr(model, name).return_value = 1e20
++        model.getDualbound.return_value = -5.
++        model.getPrimalDualIntegral.return_value = 4.
++        model.getNNodes.return_value = 10
++        model.getSolvingTime.return_value = 120.
++        info = solver_stats(model, True, True)
++        self.assertEqual(info['gap'], 1e20)
++        self.assertFalse(info['gap_finite'])
++        self.assertTrue(info['task_terminal'])
++        self.assertFalse(info['proof_completed'])
++        print('SIMULATED_SENTINEL_EVIDENCE=' + json.dumps(info, sort_keys=True))
++        model.getStatus.return_value = 'infeasible'
++        model.getGap.return_value = 0.
++        info = solver_stats(model, True, True)
++        self.assertTrue(info['cutoff_proof'])
++        self.assertFalse(info['original_optimal'])
++        self.assertFalse(info['has_feasible_solution'])
++        self.assertFalse(solver_stats(model, True, False)['valid'])
++        model.getGap.return_value = float('nan')
++        malformed = solver_stats(model, True, True)
++        self.assertFalse(malformed['valid'])
++        self.assertIsNone(malformed['gap'])
++        self.assertEqual(malformed['gap_ieee_nonfinite'], 'nan')
++
++    def test_worker_failure_watchdog_and_order_are_explicit(self):
++        with tempfile.TemporaryDirectory() as directory:
++            jobs = [dict(job_id='z-failure', mode='eval', _test_failure=True),
++                    dict(job_id='a-timeout', mode='eval', _test_sleep=10)]
++            # Startup is inside the watchdog, allow imports but not the injected sleep.
++            rows = run_jobs(jobs, directory, max_workers=2, watchdog_seconds=5.)
++            self.assertEqual([r['job_id'] for r in rows], ['a-timeout', 'z-failure'])
++            self.assertEqual(rows[0]['status'], 'watchdog_timeout')
++            self.assertEqual(rows[1]['status'], 'worker_error')
++            self.assertTrue(all(not r['valid'] for r in rows))
++            self.assertFalse(mp.active_children())
++            with self.assertRaises(RuntimeError):
++                import_trajectories(agent(), rows, directory)
++
++    def test_unchanged_networks_reward_settings_and_original_repository(self):
++        hashes = json.loads((ROOT / 'docs/stage1/upstream_file_hashes.json').read_text())
++        for relative, expected in hashes.items():
++            self.assertEqual(sha256(ROOT / 'tgppo/repo' / relative), expected, relative)
++        for relative in ('policy/actor.py', 'policy/critic.py', 'policy/modules.py',
++                         'reward/reward.py', 'utils/settings.py'):
++            self.assertEqual(sha256(ROOT / 'tgppo/repo/code/project' / relative),
++                             sha256(ROOT / 'tgppo/experiments/stage2/code/project' / relative))
++
++
++class RealSolverTests(unittest.TestCase):
++    def job(self, name, mode):
++        cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++        return make_job('real-' + name, ROOT / 'tgppo/datasets/train_instances', name, 1,
++                        0, 11, cutoffs, mode)
++
++    def test_real_air04_timeout_retains_nonzero_raw_gap(self):
++        j = self.job('air04', 'native')
++        env = Environment('cpu', None, state_dims, j['limits'], j['params'], 0, mode='native')
++        env.reset(j['instance'], j['cutoff'], cutoff_provenance=j['cutoff_provenance'])
++        _, info, _ = env.run_episode()
++        self.assertEqual(info['status'], 'timelimit')
++        self.assertGreater(info['gap'], 0.)
++        self.assertTrue(info['valid'])
++        self.assertFalse(info['proof_completed'])
++        print('REAL_AIR04_TIMEOUT_EVIDENCE=' + json.dumps(info, sort_keys=True))
++
++    def test_real_eval_never_calls_critic_reward_or_memory_and_preserves_weights(self):
++        a = agent()
++        populate(a)
++        old = copy.deepcopy(a.actor_network.state_dict())
++        old_size = len(a.memory)
++        j = self.job('lseu', 'eval')
++        with patch.object(a.critic_network, 'forward', side_effect=AssertionError('Critic called')), \
++             patch.object(a, 'remember', side_effect=AssertionError('remember called')), \
++             patch.object(a, 'learn', side_effect=AssertionError('learn called')):
++            reward = Mock()
++            reward.compute.side_effect = AssertionError('reward called')
++            env = Environment('cpu', a, state_dims, j['limits'], j['params'], 0, reward, mode='eval')
++            env.reset(j['instance'], j['cutoff'], cutoff_provenance=j['cutoff_provenance'])
++            valid, info, _ = env.run_episode()
++        self.assertTrue(valid, info)
++        self.assertGreater(info['branch_count'], 0)
++        self.assertEqual(info['callback_seconds']['critic'], 0.)
++        self.assertEqual(info['reward_count'], 0)
++        self.assertEqual(len(a.memory), old_size)
++        for key, value in old.items():
++            torch.testing.assert_close(value, a.actor_network.state_dict()[key], rtol=0, atol=0)
++
++    def test_real_policy_exception_interrupts_and_is_invalid(self):
++        a = agent()
++        j = self.job('lseu', 'eval')
++        with patch.object(a, 'act', side_effect=ValueError('injected illegal policy')):
++            env = Environment('cpu', a, state_dims, j['limits'], j['params'], 0, mode='eval')
++            env.reset(j['instance'], j['cutoff'], cutoff_provenance=j['cutoff_provenance'])
++            valid, info, _ = env.run_episode()
++        self.assertFalse(valid)
++        self.assertIn('injected illegal policy', info['error'])
++        self.assertEqual(info['fallback_action_count'], 0)
++
++
++if __name__ == '__main__':
++    unittest.main(verbosity=2)

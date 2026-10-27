@@ -1,0 +1,9 @@
+name: tgppo-reporting
+channels:
+  - defaults
+dependencies:
+  - python=3.11.7
+  - pip
+  - pip:
+    - numpy==1.26.4
+    - matplotlib==3.8.0

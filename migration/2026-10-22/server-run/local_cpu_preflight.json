@@ -1,0 +1,34 @@
+{
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Gold 6133 CPU @ 2.50GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "eb5a45ffd560dbc690fcc628a99a976d4115c7821f79f7848bd27d5de6a95f6f",
+    "binding_sha256": "32b655f1ab42765d50ab1b3d706867a46d870622276e645b34308385f3968c26",
+    "torch_version": "1.13.1+cu117",
+    "python_abi": "3.8"
+  },
+  "gpu": null,
+  "device": "cpu",
+  "allowed_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "host": "ubuntu22",
+  "slurm_job_id": null,
+  "slurm_array_task_id": null
+}

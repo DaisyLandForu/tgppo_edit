@@ -1,0 +1,13 @@
+{
+  "ready": false,
+  "stages": {
+    "native_baselines": "passed",
+    "gpu_bridge": "passed",
+    "throughput": "pending"
+  },
+  "pending_files": [
+    "throughput/verification.json"
+  ],
+  "errors": [],
+  "scope": "Preparation files only; training additionally checks the current protocol, CPU/software and V100"
+}

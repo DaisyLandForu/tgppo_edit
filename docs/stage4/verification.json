@@ -1,0 +1,25 @@
+{
+  "any_model_beats_train_mean_on_development_mse": false,
+  "checks": {
+    "all_24_adapters_restore_and_raw_chain_matches": true,
+    "all_24_fits_complete": true,
+    "all_50_collections_valid": true,
+    "all_heads_updated": true,
+    "all_saved_fitting_indices_are_train_only": true,
+    "finite_returns_in_support": true,
+    "fixed_checkpoint_unchanged": true,
+    "matched_extra_parameters_hl_gauss": true,
+    "matched_extra_parameters_mse": true,
+    "no_instance_split_overlap": true,
+    "offline_cpu_within_cap": true,
+    "original_git_clean": true,
+    "pristine_upstream_files": true,
+    "trajectory_counts_and_terminal_flags": true,
+    "upstream_network_reward_settings_unchanged": true
+  },
+  "information_benefit_validated": false,
+  "passed": true,
+  "passed_scope": "engineering correctness, provenance, comparability and recovery only",
+  "scientific_conclusion": "inconclusive due to common value-scale underfitting",
+  "stage5_started": false
+}

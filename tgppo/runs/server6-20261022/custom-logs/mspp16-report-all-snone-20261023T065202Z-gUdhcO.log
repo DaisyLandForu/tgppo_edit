@@ -1,0 +1,81 @@
+MSPP16 recovery started 2026-10-23T06:52:02+00:00 host=jpt-duweiyue25-261022-3bf44-default0-0 log=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/custom-logs/mspp16-report-all-snone-20261023T065202Z-gUdhcO.log; CPU execution, no CUDA
+COMPARISON_REPORT=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/test/mspp16-recovery-20261023/reports/20261023T065206075850Z
+{
+  "complete66": true,
+  "instances": 66,
+  "recovered_models": [
+    "B0-s11",
+    "B0-s22",
+    "R0-s11",
+    "R0-s22",
+    "Rjoint-s11",
+    "Rjoint-s22",
+    "native"
+  ],
+  "combined_training_seeds": [
+    {
+      "method": "native",
+      "instances": 66,
+      "runs": 198,
+      "mean_pdi": 2103.821260472151,
+      "mean_pdi_lower": 2099.6382450681103,
+      "mean_pdi_upper": 2108.004275876191,
+      "mean_par2": 145.40904099494952,
+      "mean_nodes": 3361.328282828282,
+      "proof_count": 99,
+      "proof_rate": 0.5,
+      "valid_worker_cpu_seconds": 17759.930332,
+      "valid_worker_wall_seconds_sum": 17159.468430796813,
+      "actor_callback_seconds": 0.0,
+      "pdi_improvement_percent_vs_B0": 12.613240832542072
+    },
+    {
+      "method": "B0",
+      "instances": 66,
+      "runs": 396,
+      "mean_pdi": 2407.482873281329,
+      "mean_pdi_lower": 2400.5692917156725,
+      "mean_pdi_upper": 2414.396454846986,
+      "mean_par2": 198.80460007828285,
+      "mean_nodes": 1710.2095959595965,
+      "proof_count": 80,
+      "proof_rate": 0.20202020202020202,
+      "valid_worker_cpu_seconds": 42544.27826399996,
+      "valid_worker_wall_seconds_sum": 41368.690947679395,
+      "actor_callback_seconds": 8737.878117510176,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "R0",
+      "instances": 66,
+      "runs": 396,
+      "mean_pdi": 2408.1830551993066,
+      "mean_pdi_lower": 2401.549434365972,
+      "mean_pdi_upper": 2414.816676032639,
+      "mean_par2": 199.06135006818184,
+      "mean_nodes": 1725.853535353535,
+      "proof_count": 79,
+      "proof_rate": 0.1994949494949495,
+      "valid_worker_cpu_seconds": 42501.16213600001,
+      "valid_worker_wall_seconds_sum": 41352.72709705762,
+      "actor_callback_seconds": 8713.537424127862,
+      "pdi_improvement_percent_vs_B0": -0.02908356797668432
+    },
+    {
+      "method": "Rjoint",
+      "instances": 66,
+      "runs": 396,
+      "mean_pdi": 2411.6100498559,
+      "mean_pdi_lower": 2405.0393820269396,
+      "mean_pdi_upper": 2418.1807176848583,
+      "mean_par2": 199.41344429545455,
+      "mean_nodes": 1704.5050505050503,
+      "proof_count": 78,
+      "proof_rate": 0.19696969696969696,
+      "valid_worker_cpu_seconds": 42532.974530999985,
+      "valid_worker_wall_seconds_sum": 41366.91981997993,
+      "actor_callback_seconds": 8756.9071381088,
+      "pdi_improvement_percent_vs_B0": -0.1714311914894573
+    }
+  ]
+}

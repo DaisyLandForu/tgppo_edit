@@ -1,0 +1,630 @@
+                                                     ReviBranch: Deep Reinforcement Learning for Branch-and-Bound
+                                                                       with Revived Trajectories
+                                                                         Jiabao Dou† , Jiayi Nie† , Yihang Cheng‡ , Jinwei Liu† ,
+                                                                        Yingrui Ji| , Canran Xiao¶ , Feixiang Du§ , Jiaping Xiao*
+                                                                                               †
+                                                                                                 Hong Kong Baptist University
+                                                                                             ‡
+                                                                                              Central China Normal University
+                                                                                                  ¶
+                                                                                                    Central South University
+                                                                                       |
+                                                                                         University of Chinese Academy of Sciences
+                                                                                                     §
+                                                                                                       Tongling University
+arXiv:2508.17452v1 [cs.LG] 24 Aug 2025
+
+
+
+
+                                                                                            *
+                                                                                              Nanyang Technological University
+
+                                                                     Abstract                                  of this search tree, a critical decision must be made: se-
+                                                                                                               lect which fractional integer variable to branch (Wolsey
+                                           The Branch-and-bound (B&B) algorithm is the main solver             and Nemhauser 1999). Crucially, the choice of branching
+                                           for Mixed Integer Linear Programs (MILPs), where the se-            strategy profoundly impacts the algorithm’s performance
+                                           lection of branching variable is essential to computational ef-
+                                                                                                               (Achterberg et al. 2008). Different strategies can lead to
+                                           ficiency. However, traditional heuristics for branching often
+                                           fail to generalize across heterogeneous problem instances,          vastly different search tree sizes, computational complexity,
+                                           while existing learning-based methods such as imitation             and ultimately, solution quality and solving time (Patel and
+                                           learning (IL) suffers from dependence on expert demonstra-          Chinneck 2007; Morrison et al. 2016). Consequently, devel-
+                                           tion quality, and reinforcement learning (RL) struggles with        oping effective branching strategies is essential for solving
+                                           limitations in sparse rewards and dynamic state representa-         complex real-world problems. However, traditional branch-
+                                           tion challenges. To address these issues, we propose Revi-          ing heuristics often prove inefficient due to their reliance on
+                                           Branch, a novel deep RL framework that constructs revived           simple local criteria without considering global optimization
+                                           trajectories by reviving explicit historical correspondences        context (Achterberg, Koch, and Martin 2005).
+                                           between branching decisions and their corresponding graph
+                                           states along search-tree paths. During training, ReviBranch            Recent advances in machine learning have introduced
+                                           enables agents to learn from complete structural evolution          sophisticated approaches to branching. Imitation learning
+                                           and temporal dependencies within the branching process. Ad-         (IL) methods train neural networks to mimic expert deci-
+                                           ditionally, we introduce an importance-weighted reward re-          sions (Khalil et al. 2016; Gasse et al. 2019), but rely on
+                                           distribution mechanism that transforms sparse terminal re-          expensive expert demonstrations (He, Daumé, and Eisner
+                                           wards into dense stepwise feedback, addressing the sparse           2014). Reinforcement learning (RL) approaches overcome
+                                           reward challenge. Extensive experiments on different MILP           this through autonomous exploration (Etheve et al. 2020;
+                                           benchmarks demonstrate that ReviBranch outperforms state-
+                                                                                                               Parsonson, Laterre, and Barrett 2023), but face three fun-
+                                           of-the-art RL methods, reducing B&B nodes by 4.0% and LP
+                                           iterations by 2.2% on large-scale instances. The results high-      damental challenges: (1) Long-term dependency modeling:
+                                           light the robustness and generalizability of ReviBranch across      Early branching choices may only reveal their quality af-
+                                           heterogeneous MILP problem classes.                                 ter hundreds of subsequent decisions, creating significant
+                                                                                                               credit assignment difficulties. (2) Dynamic state represen-
+                                                                                                               tation challenges: Each branching decision fundamentally
+                                                                 Introduction                                  alters the entire search tree structure, with variables get-
+                                                                                                               ting fixed, constraints becoming active/inactive, and graph
+                                         Mixed Integer Linear Programming (MILP) provides a fun-
+                                                                                                               topology changing dynamically (Khalil et al. 2017). This
+                                         damental framework for modeling combinatorial optimiza-
+                                                                                                               creates difficulties in defining stable state representations
+                                         tion problems across production planning, scheduling, fa-
+                                                                                                               that can capture evolving structural information through-
+                                         cility location, and network design (Wolsey and Nemhauser
+                                                                                                               out the branching process, as traditional methods struggle to
+                                         1999). The NP-hard nature of these problems requires so-
+                                                                                                               model these complex state transitions effectively (Bengio,
+                                         phisticated solution methods, with the branch-and-bound
+                                                                                                               Lodi, and Prouvost 2021). (3) Sparse reward signals: RL
+                                         (B&B) algorithm serving as the core algorithmic framework
+                                                                                                               agents typically receive rewards only upon complete prob-
+                                         in modern MILP solvers (Kianfar 2010).
+                                                                                                               lem resolution, as the first integer feasible solution is often
+                                            The B&B algorithm employs a systematic divide-and-                 found very deep in the search tree. This sparse feedback
+                                         conquer strategy, recursively partitioning the solution space         severely hinders learning efficiency and credit assignment
+                                         through tree search (Land and Doig 2009). At each node                during training (Parsonson, Laterre, and Barrett 2023; Sut-
+                                         Copyright © 2026, Association for the Advancement of Artificial
+                                                                                                               ton, Barto et al. 1998).
+                                         Intelligence (www.aaai.org). All rights reserved.                        To address these limitations, we consider leveraging his-
+Figure 1: Branch-and-Bound Algorithm and Trajectory Construction. Left: B&B search tree showing branching decisions and
+state transitions, where each node displays the selected branching variable with constraints xi ≤ (left) and xi ≥ (right). The
+action represents the choice of branching variable xi . Right: Comparison between Original Trajectory (action sequences only)
+and Revived Trajectory (complete state-action correspondences with graph structures).
+
+
+torical trajectory information to enable agents to learn from     tional costs often orders of magnitude higher than PB.
+past branching decisions. However, during reinforcement
+learning training, agents inevitably generate suboptimal tra-     Learning to Branch To bypass SB’s prohibitive online
+jectories through ϵ-greedy exploration strategies (Sutton,        cost, IL methods learn from SB demonstrations. Khalil et
+Barto et al. 1998). Relying solely on historical action se-       al. (Khalil et al. 2016) pioneered this direction using support
+quences may cause agents to learn erroneous patterns by           vector machines to replicate SB rankings, but required costly
+mistaking local optima for global ones (Schaul et al. 2015).      per-instance training. Gasse et al. (Gasse et al. 2019) in-
+Therefore, we propose ReviBranch, a deep reinforcement            troduced bipartite Graph Convolutional Networks that cap-
+learning framework that addresses these challenges through        ture variable-constraint relationships through message pass-
+novel architectural and algorithmic innovations.                  ing, learning SB policies offline. Zarpellon et al. (Zarpellon
+   Specifically, our ReviBranch has three key innovations:        et al. 2021) explicitly parameterized search tree states to im-
+(1) It employs an Encoder-Revival-Decoder architecture            prove cross-instance generalization. However, these imita-
+that combines BipartiteGCN (Gasse et al. 2019) for struc-         tion learning approaches remain fundamentally constrained
+tural graph representation with Graph-Sequence Decoder            by their expert teachers’ performance ceiling. RL offers po-
+featuring multidirectional cross-attention mechanisms, en-        tential for discovering superior branching strategies through
+abling agents to capture both spatial problem structure and       autonomous exploration. Etheve et al. (Etheve et al. 2020)
+temporal decision dependencies, addressing Challenge 1.           proposed Fixed-depth Monte Carlo Tree Search (FMSTS)
+(2) It constructs revived trajectories by reviving histori-       to reduce episode length through depth-first trajectory con-
+cal graph states from stored data through distributed stor-       struction. Parsonson et al. (Parsonson, Laterre, and Barrett
+age and reconstructing complete graph state-action corre-         2023) developed retro branching by decomposing search
+spondences (Figure 1), resolving dynamic state representa-        trees into subtree trajectories, reducing partial observability
+tion challenges and enabling agents to learn from precise         but maintaining sparse reward challenges. However, current
+temporal context, addressing Challenge 2. (3) It develops         approaches lack explicit temporal dependency modeling for
+Importance-Weighted Reward Redistribution (IWRR) that             sequential branching decisions and fail to establish accurate
+transforms sparse terminal rewards into dense stepwise feed-      mappings between decisions and evolving states.
+back through temporal importance weighting, enabling ef-
+fective credit assignment for individual branching decisions                             Background
+and addressing the sparse reward problem, addressing Chal-        Mixed Integer Linear Programming MILP is an opti-
+lenge 3.                                                          mization problem in which values are assigned to decision
+                                                                  variables, subject to linear constraints, so as to minimize a
+                     Related Work                                 linear objective function. MILPs can be formulated in the
+Classical Branching Heuristics Early approaches in-               following standard form (Wolsey and Nemhauser 1999):
+clude Most Fractional Branching, which selects variables
+closest to 0.5, and Random Branching for baseline compari-        min cT x s.t.    Ax ≤ b,     l ≤ x ≤ u,    xj ∈ Z for j ∈ I
+                                                                    x
+son. Pseudocost branching (PB) (Bénichou et al. 1971) uses                                                                 (1)
+historical pseudocosts, enabling rapid decisions but suffer-      where c ∈ Rn0 is the objective coefficient vector, A ∈
+ing from cold starts and poor cross-instance adaptability.        Rm×n0 is the constraint coefficient matrix, b ∈ Rm is the
+Strong branching (SB) (Linderoth and Savelsbergh 1999)            constraint right-hand side vector, l, u ∈ Rn0 are the lower
+overcomes the myopia of PB via costly one-step looka-             and upper variable bound vectors, and I ⊆ {1, 2, . . . , n0 }
+head, achieving superior solution quality, but at computa-        denotes the set of indices for integer-constrained variables.
+To solve MILPs exactly, the B&B algorithm is widely used             States. At each branching step i, the state si is repre-
+(Land and Doig 2009).                                             sented as a bipartite graph G = (C ∪ V, E), where C and
+                                                                  V represent constraint and variable nodes with 5- and 19-
+Branch-and-Bound Algorithm B&B algorithm system-                  dimensional features respectively, and E captures relation-
+atically explores the solution space through recursive parti-     ships when Aij ̸= 0. The complete features are provided in
+tioning (Land and Doig 2009). At each node, the algorithm         Appendix B. The state includes the current action set A(si )
+solves the LP relaxation, selects a fractional integer variable   of fractional integer variables eligible for branching.
+xj from F(x∗ ) = {i ∈ I : x∗i ∈       / Z}, and creates two
+                                                                     Actions. The action space A(si ) = {j ∈ I : x∗j ∈       / Z}
+child nodes with constraints xj ≤ ⌊x∗j ⌋ and xj ≥ ⌈x∗j ⌉,
+                                                                  consists of fractional integer variables eligible for branching,
+where x∗j is the fractional value in the current LP solution.
+                                                                  where x∗j is the LP relaxation solution value. Our DQN agent
+SB (Alvarez, Louveaux, and Wehenkel 2017) evaluates each
+candidate by solving LP relaxations for both potential child      employs a policy π(ai |si ) to select a variable index ai ∈
+nodes, while PB (Bénichou et al. 1971) uses historical statis-   A(si ) for branching.
+tics to estimate branching effects efficiently, avoiding SB’s        Transitions. The transition function P(si+1 |si , ai ) is
+computational overhead. This motivates machine learning           deterministic and follows the standard branch-and-bound
+approaches for intelligent variable selection.                    mechanism. When variable j is selected for branching at
+                                                                  state si , the environment creates two child nodes with ad-
+Graph Representation for MILP Following Gasse et al.              ditional constraints xj ≤ ⌊x∗j ⌋ and xj ≥ ⌈x∗j ⌉, where x∗j is
+(Gasse et al. 2019), MILP instances are represented as bipar-     the fractional LP solution value.
+tite graphs with constraint and variable vertices, connected         Revived Trajectories. As illustrated in Fig-
+when Aij ̸= 0. Constraint nodes encode right-hand side            ure 1, we construct revived trajectories τ revived =
+values and slack information, while variable nodes capture        {(shist         hist                hist
+                                                                      0 , a0 ), (s1 , a1 ), . . . , (sL−1 , aL−1 )} (where L de-
+bounds, objective coefficients, and LP solution values. Bi-       notes the trajectory length) by reviving historical graph
+partiteGCN processes such graphs through message passing          states shist
+                                                                           i   from stored data and pairing them with corre-
+to learn structural representations.                              sponding actions ai (where a0 denotes the first branching
+RL Framework Sequential decision-making problems                  decision, a1 the second, and so forth). This enables the re-
+can be formulated as Markov Decision Processes (MDPs)             construction of complete state-action correspondences that
+defined by the tuple (S, A, P, R, γ), where S represents the      capture both structural evolution and temporal dependencies
+state space, A the action space, P the transition probabil-       within the search tree.
+ities, R the reward function, and γ the discount factor. Q-          Reward. We introduce an importance-weighted reward
+learning (Watkins and Dayan 1992) aims to learn the opti-         redistribution mechanism. The base reward assigns r = −1
+mal action-value function Q∗ (s, a) that represents the ex-       at each branching step and r = 0 when the action leads
+pected cumulative reward for taking action a in state s and       to subtree pruning, which is then redistributed using tem-
+following the optimal policy thereafter. Deep Q-Networks          poral importance weights to provide dense learning signals
+(DQN) (Mnih et al. 2015) address this limitation by approx-       throughout the episode.
+imating the optimal action-value function using neural net-
+works Q(s, a; θ) ≈ Q∗ (s, a), where θ represents the net-         ReviBranch Architecture
+work parameters. DQN utilizes experience replay and target        Our ReviBranch framework employs a novel Encoder-
+networks for training stability.                                  Revival-Decoder architecture that processes current MILP
+                                                                  state and historical context through three main components
+                          Method                                  (Figure 2):
+We present ReviBranch, a deep reinforcement learning              Dual-Feature Encoder The encoder consists of two par-
+framework that employs an Encoder-Revival-Decoder neu-            allel streams processing different input modalities. The first
+ral network architecture trained via DQN. Our framework           stream employs BipartiteGCN to extract structural features
+introduces three key innovations: (1) Revived Trajectories        from the bipartite graph, transforming the discrete optimiza-
+Construction, which revives historical graph states to con-       tion structure into continuous variable embeddings V ∈
+struct enhanced trajectories with complete state-action cor-      Rni ×d that serve as memory context for the Transformer
+respondences; (2) Graph-Sequence Decoder, which com-              decoder. The second stream processes historical action se-
+bines structural graph features with temporal decision se-        quences a0:L−1 = [a0 , a1 , . . . , aL−1 ] of variable lengths
+quences through multi-directional attention mechanisms;           through a learned embedding mechanism. Each action index
+and (3) IWRR, which transforms sparse terminal rewards            ai representing a selected branching variable is mapped to a
+into dense stepwise feedback through temporal importance          d-dimensional embedding vector through learned action em-
+weighting.                                                        beddings. Positional encodings are added to preserve tem-
+                                                                  poral order information in the sequence representations. The
+Problem Formulation                                               encoded sequence undergoes layer normalization to produce
+We formulate the branching variable selection problem as an       preliminary trajectory representations Raction ∈ RL×d (ac-
+episodic MDP, where each episode corresponds to solving           tion representation matrix) containing action embeddings
+one MILP instance through a sequence of branching deci-           with positional information, which will be used in the revival
+sions until optimality is reached.                                process to construct complete step-level representations.
+                                                                                                                       Revived Trajectory Construction
+                                                              Dual-Feature Encoder
+
+
+
+
+                                            Input                                           Decomp   Recompute                                       Compose
+  X1_L    X2_L        X3_R         XT_L                             Linear      Dropout
+                                          Embedding                                           ose    graph state
+
+
+         Action Input 2 (T, 1)                                                                          past
+                                                       Positional
+                                                       Embedding
+
+
+                                                                             current                      Graph-Sentence Decoder
+
+
+
+                                          Loyer
+                                                          Linear
+                                          Norm                                            Decoder                             Cross                      Loyer
+                                                                                                         Aggregation        attention                    Norm
+
+
+             Current Graph State                                                                                                                                         Enhanced Feature
+              Input 1 (CUV, E)                                                                                                                                            Output (n, 64)
+
+
+
+
+                                                      Figure 2: Architecture of ReviBranch framework.
+
+
+Algorithm 1 Revived Trajectories Construction                                              module reconstructs complete graph state-action correspon-
+Input: Sampled trajectory τ =(s0 , a0 , s1 , a1 , . . . , sL−1 )                           dences. For each historical step i, the module retrieves the
+from replay buffer                                                                         stored graph state data Gi and reconstructs the original graph
+Output: Complete revived trajectory                                                        embeddings Vi = BipartiteGCN(Gi ). Simultaneously, ac-
+Rtraj =[R0 , R1 , . . . , RL−1 ]∈RL×d                                                      tion embeddings are generated: aembi    = ActionEmb(ai ) +
+                                                                                           PE(i), where ActionEmb() is a learned embedding lookup
+ 1: for i=0 to L−1 do
+                                                                                           and PE() denotes positional encoding. Step-level represen-
+ 2:   Gi ←RetrieveStoredState(si )                     {Get stored graph}                  tations are then constructed by fusing graph and action in-
+ 3:   Vi ←BipartiteGCN(Gi )                            {Reconstruct graph                  formation through StepBuilder, which aggregates variable
+      embeddings}                                                                          embeddings from the graph state and combines them with
+      aemb                                                                                 the corresponding action embedding to create a unified step
+ 4:     i ←ActionEmb(ai )+PE(i)                {Generate action
+      embeddings}                                                                          representation (detailed fusion mechanism in Algorithm 1):
+ 5:   // Step-Level
+                  PnRepresentation      Construction                                                               Ri = StepBuilder(Vi , aemb
+                                                                                                                                          i   )                                         (2)
+ 6:   vmean ← n1i j=1 i
+                         Vi [j]                {Mean pooling}
+                                                                                               This revival process is essential because MILP graph
+ 7:   vmax ← maxnj=1i
+                        Vi [j]                   {Max pooling}
+                                                                                           structures evolve dynamically during branch-and-bound
+ 8:   w←softmax(MLP(V
+             Pni               i ))         {Attention weights}                            traversal, where variables get fixed, constraints become ac-
+ 9:   vatt ← j=1   w[j]·Vi [j]              {Attention pooling}                            tive/inactive, and the graph topology changes with each
+10:   vcombined ←MLP([vmean ; vmax ; vatt ])      {Fuse pooled                             branching decision. The completed revived trajectories
+      features}                                                                            τ revived = {(shist         hist                hist
+                                                                                                           0 , a0 ), (s1 , a1 ), . . . , (sL−1 , aL−1 )} capture
+11:   Ri ←MLP([vcombined ; aemb   i ])       {Fuse with action}                            complete graph state-action correspondences while preserv-
+12: end for                                                                                ing the full structural evolution of the optimization process.
+13: return Rtraj =[R0 , R1 , . . . , RL−1 ]
+                                                                                           Graph-Sequence Decoder The decoder employs a Trans-
+                                                                                           former decoder architecture with revived trajectory se-
+                                                                                           quence Rtraj ∈ RL×d as target input and variable embed-
+Revived Trajectories Construction In DQN training, the                                     dings V ∈ Rni ×d as memory context. The decoder pro-
+agent stores historical experiences in a replay buffer, where                              cesses the revived trajectory sequence and performs cross-
+each transition contains (si , ai , ri , si+1 ). A general ap-                             attention with the variable memory to capture trajectory-
+proach would store complete historical context within each                                 variable interactions.
+transition, requiring each of the L transitions to store up to                                The decoder output undergoes aggregation to extract a
+L historical states, leading to O(L2 ) storage complexity for                              unified trajectory representation Runif ied ∈ Rd through
+a trajectory of length L, which is prohibitive for large-scale                             weighted averaging of the sequence. Multi-directional cross-
+MILPs. Our revived trajectories construction reduces stor-                                 attention consolidates information through three comple-
+age complexity from O(L2 ) to O(L) through distributed                                     mentary pathways:
+storage. Each transition stores its own complete graph state                               E1 = Attn(Runif ied , V, V) ∈ Rd                          (traj-to-var)                      (3)
+data Gi = (Ci , Vi , Ei ) and action ai , enabling distributed
+                                                                                                                                                                 ni ×d
+reconstruction of complete trajectories during training.                                   E2 = Attn(V, Runif ied , Runif ied ) ∈ R                                        (var-to-traj)
+                                                                                                                                                                                    (4)
+   During training, given a sampled trajectory τ =
+(s0 , a0 , s1 , a1 , . . . , sL−1 ) from the replay buffer, the revival                    E3 = Attn(V, Rtraj , Rtraj ) ∈ Rni ×d                                 (var-to-seq)           (5)
+The first pathway enables trajectory-to-variable attention for         Experimental Setup
+global context understanding. The second pathway allows                Environment Configuration. We employ SCIP 7.0.0
+variable-to-trajectory attention for trajectory-aware variable         (Achterberg 2009) as the backend mixed-integer program-
+characterization. The third pathway captures fine-grained              ming solver, interfaced through the Ecole framework (Prou-
+variable-to-sequence interactions for temporal pattern mod-            vost et al. 2020). We set a time limit of one hour per instance,
+eling. Enhanced variable embeddings are computed through               disable solver restarts, and restrict cutting plane generation
+multi-directional cross-attention fusion:                              to the root node only. The complete environment configura-
+         Venhanced = V + α · Fusion(E1 , E2 , E3 )              (6)    tion is provided in Appendix A.
+                                                                          Benchmark. We evaluate on three NP-hard combina-
+where α is a learned scaling parameter. The fusion function            torial optimization benchmarks with three difficulty levels
+is defined as Fusion(E1 , E2 , E3 ) = MLP([E1 ; E2 ; E3 ]),            each: Set Covering instances: Easy (200×400), Medium
+which concatenates and transforms the multi-directional at-            (500×1000), Hard (1000×1500). Combinatorial Auc-
+tention outputs, producing enhanced variable embeddings                tion instances: Easy (20×60), Medium (30×80), Hard
+Venhanced ∈ Rni ×d for Q-value computation.                            (50×100). Capacitated Facility Location instances: Easy
+                                                                       (10×15), Medium (25×25), Hard (40×30).
+IWRR We address sparse rewards by redistributing termi-                   Training. We train ReviBranch using Deep Q-Network
+nal rewards across all steps.At episode termination, we com-           with prioritized experience replay on each benchmark sepa-
+pute temporal importance weights wi = (L − i)/L to prior-              rately, using the medium difficulty level for training. Train-
+itize early decisions, then redistribute terminal rewards as:          ing instances are dynamically generated during reinforce-
+                                                                       ment learning using Ecole’s instance generators with ran-
+                      ridense = Rterminal × wi               (7)       dom seeds. Testing uses pre-generated instances with dis-
+                    PL−1                                               tinct seeds to ensure no data leakage and proper generaliza-
+where Rterminal = j=0 rj is the cumulative episode reward              tion assessment. Training is set to a maximum of 600,000
+(sum of base step rewards), L is the episode length, and i ∈           epochs with early stopping based on validation performance.
+{0, 1, . . . , L−1} is the step index. The redistributed rewards       Detailed training configurations, hyperparameters, hardware
+are normalized and mapped to [−0.9, −0.1]:                             specifications and training curve are provided in Appendix
+                                                                       A.
+                                          wi − L1                         Testing. Each method is evaluated on every testing in-
+                rifinal = −0.9 + 0.8 ×                          (8)
+                                          1 − L1                       stance using 5 different random seeds. For each benchmark,
+                                                                       50 testing instances per difficulty level (easy/medium/hard)
+This temporal weighting mechanism provides dense learn-                are randomly generated with fixed seeds, totaling 150 in-
+ing signals while maintaining training stability.                      stances per problem class, which were unseen during train-
+                                                                       ing. We report the geometric mean of LP iterations and
+Training Procedure Our ReviBranch framework employs                    branch-and-bound nodes as primary metrics, following stan-
+standard DQN training with experience replay. During each              dard practice in MILP literature. LP iterations serve as a
+episode, the agent collects transitions (si , ai , ri , si+1 ) while   proxy for computational efficiency, as fewer LP iterations
+maintaining action histories and storing graph state data. At          typically correlate with reduced inference time per branch-
+episode termination, sparse environmental rewards are trans-           ing decision. All metrics include average per-instance stan-
+formed into dense signals through Importance-Weighted Re-              dard deviation (in percentage).
+ward Redistribution and stored in the replay buffer. For net-             Baseline Methods. We compare ReviBranch against rep-
+work training, mini-batches are sampled from the buffer, re-           resentative branching strategies spanning traditional heuris-
+vived trajectories are constructed via the revival module, and         tics and machine learning approaches. Machine learning
+the network is updated using standard DQN loss with dense              baselines: Imitation learning (IL) (Gasse et al. 2019) and
+rewards:                                                               Retro Branching (Parsonson, Laterre, and Barrett 2023).
+                                                                       Traditional baselines: Strong Branching (SB) (Alvarez,
+                                                                       Louveaux, and Wehenkel 2017), Pseudocost Branching (PB)
+ L = E[(ridense + γ max Qtarget (si+1 , a′ ) − Q(si , ai ))2 ] (9)
+                     ′  a                                              (Bénichou et al. 1971), and SCIP’s default reliability pseu-
+                                                                       docost branching.
+Complete training algorithm is provided in Appendix A.
+                                                                       Results & Analysis
+                 Experiments & Results                                 Performance Comparison with RL Baselines Table 1
+We conduct comparative experiments evaluating Revi-                    reveals several critical insights about ReviBranch’s perfor-
+Branch against the IL approach of Gasse et al. (2019), RL              mance characteristics across different problem and difficulty
+methods (the state-of-the-art Retro Branching), and tradi-             levels. A key finding is that ReviBranch exhibits a distinctive
+tional heuristic baselines. We also conduct ablation studies           performance pattern that varies with problem complexity,
+to validate each component. The source code is included in             fundamentally differing from the retro branching method.
+the supplementary material and will be released on GitHub              On Set Covering problems, the performance gap between
+upon paper acceptance.                                                 ReviBranch and Retro increases substantially as complexity
+                                                          Set Covering
+                                Easy                              Medium                                 Hard
+ Method
+                        LP↓             Nodes↓              LP↓            Nodes↓               LP↓               Nodes↓
+ SB                847.3±15.2%         19.6±17.9%       5835±16.9%       119.1±19.4%      17259.5±18.1%         532.4±19.9%
+ SCIP Default      1046.9±8.7%          24.8±8.1%       7051±11.2%       186.4±13.2%      21675.6±14.4%         746.4±16.3%
+ PB               1494.6±20.8%        43.1±26.0%       11807±18.2%        315.3±22.8%     28406.8±21.8%          889.1±23.1%
+ IL                973.5±13.9%        23.2±16.4%        6334±15.1%         161±20.9%      18796.1±18.6%          638.6±19.4%
+ Retro            895.7±15.7%↓       22.4±13.1%↓       6307.4±19.6%       159.6±21.8%     19102.5±16.2%          657.2±23.1%
+ Revi              962.9±17.3%        25.9±19.8%       6095±12.7%↓       151.7±17.3%↓    18031.7±19.4%↓         583.7±20.8%↓
+                                                 Capacitated Facility Location
+                                Easy                              Medium                                 Hard
+ Method
+                        LP↓             Nodes↓              LP↓            Nodes↓               LP↓               Nodes↓
+ SB                 46.4±11.7%         16.6±12.1%       168.1±14.1%       62.5±13.9%       515.2±13.1%          153.8±10.7%
+ SCIP Default       53.6±13.6%         19.1±11.3%       185.7±10.0%       64.3±11.8%       624.9±9.6%           184.5±11.0%
+ PB                 50.5±13.6%        17.9±16.1%        177.4±12.7%       67.2±15.8%        577.9±15.9%          180.1±16.8%
+ IL                  45.7±9.3%         16.8±9.9%       159.8±10.5%↓      57.7±12.4%↓        542.6±12.4%          165.9±10.5%
+ Retro             46.3±12.9%↓       16.2±11.0%↓         162.2±9.3%       58.6±10.1%        533.8±11.7%          161.2±10.9%
+ Revi               49.6±10.3%        17.3±12.7%        171.7±12.7%       61.2±11.3%       529.7±12.6%↓         159.9±11.4%↓
+                                                     Combinatorial Auction
+                                Easy                              Medium                                 Hard
+ Method
+                        LP↓             Nodes↓              LP↓            Nodes↓               LP↓               Nodes↓
+ SB                 34.7±13.1%         11.9±10.3%       115.8±15.6%       32.0±12.1%       526.8±18.9%          197.3±15.7%
+ SCIP Default       47.8±15.3%         18.7±12.9%       136.5±19.4%       45.1±15.2%       637.9±15.5%          231.0±17.3%
+ PB                 74.1±21.4%        28.1±23.7%       226.5±23.2%        88.9±25.3%      1210.6±20.8%           562.3±24.9%
+ IL                40.9±16.1%↓       12.1±13.5%↓       131.9±17.6%        36.8±16.3%       569.8±18.2%           205.3±16.9%
+ Retro              41.6±18.3%        12.5±15.7%       126.4±15.0%        36.3±14.7%       552.1±13.6%           203.6±13.8%
+ Revi              45.3± 17.4%        13.8±14.2%      125.9± 19.7%↓      35.7±17.6%↓      547.8± 16.5%↓         200.9±15.7%↓
+
+Table 1: Performance comparison of branching methods on three MILP benchmarks across difficulty levels. Results show
+geometric mean ± standard deviation of LP iterations and B&B nodes over 50 test instances per difficulty level. Lower values
+indicate better performance. Bold indicates best performance among learning-based methods.
+
+
+grows: from ReviBranch performing marginally worse on             where early branching choices significantly influence the ef-
+Easy instances (962.9 vs 895.7 LP iterations, representing a      fectiveness of later decisions through constraint propagation
+7.5% increase, worse performance) to achieving substantial        and search space reduction. This characteristic intensifies
+advantages on Hard instances (18031.7 vs 19102.5, achiev-         with problem complexity as larger instances create deeper
+ing a 5.6% improvement, better performance). This progres-        interdependencies between variables. In contrast, simpler in-
+sive performance improvement is even more pronounced in           stances often allow for more independent branching deci-
+the number of tree nodes, where ReviBranch achieves 11.2%         sions, where each choice has limited impact on subsequent
+fewer nodes on Hard instances (583.7 vs 657.2). These re-         decisions. In such cases, ReviBranch’s temporal modeling
+sults indicate that simple instances can be effectively solved    becomes less advantageous compared to direct heuristics fo-
+through the local optimization strategies employed by retro       cusing on immediate local variable properties rather than
+branching, whereas complex instances require the global           historical patterns.
+temporal reasoning capabilities that ReviBranch provides.            Overall, across medium and hard difficulty levels (large-
+   This pattern is validated by trajectory length sensitivity     scale instances) on all three benchmarks, ReviBranch
+analysis, which shows that longer trajectories improve per-       achieves an average reduction of 4.0% in branch-and-bound
+formance. The model with trajectory length 25 generates           nodes and 2.2% in LP iterations compared to state-of-the-art
+fewer nodes and shorter inference time than trajectory length     reinforcement learning methods.
+10, and as trajectory length gradually increases, both nodes
+                                                                  Comparison with other methods ReviBranch consis-
+and inference time further decrease.
+                                                                  tently outperforms both traditional heuristics and learning-
+  Therefore, ReviBranch’s benefits become apparent when           based methods across most benchmarks. While SB achieves
+branching decisions exhibit strong sequential dependencies,       the best performance with 4.5% fewer LP iterations than
+ReviBranch on Hard Set Covering instances, ReviBranch                                                                                                      Average Time                      Average Nodes
+significantly outperforms PB by 36.5% and IL baselines                                                                                    T=10               0.562s                            42.0
+by 4.1% on the same instances, with similar advantages
+observed across other benchmarks. Notably, ReviBranch
+demonstrates superior performance over IL methods on                                                                                      T=25             0.475s                            33.8
+large-scale instances, where the benefits of temporal reason-
+ing become more pronounced.
+                                                                                                                                          T=50    0.246s                              15.6
+Generalization analysis Despite training only on                                                                                                                                                Trajectory Length
+                                                                                                                                                                                                        T=10
+medium-scale instances, ReviBranch demonstrates rea-                                                                                                                                                    T=25
+                                                                                                                                         T=100      0.337s                            15.0              T=50
+sonable generalization capabilities across two dimensions.                                                                                                                                              T=100
+Our method exhibits effective adaptability when problem
+                                                                                                                                             0.0s 0.1s 0.2s 0.3s 0.4s 0.5s 0.6s   0     10      20    30      40    50
+complexity increases. For Set Covering, ReviBranch
+shows progressively expanding performance advantages
+from medium instances (LP: 6095 vs 6307 Retro) to hard                                                                                 Figure 4: Trajectory length sensitivity analysis on Combi-
+instances (LP: 18031.7 vs 19102.5 Retro). For Capacitated                                                                              natorial Auction instances (20×60 scale). Results show the
+Facility Location, it maintains competitive performance                                                                                trade-off between model performance (nodes) and computa-
+across difficulty levels, demonstrating robustness to problem                                                                          tional efficiency (inference time) across different trajectory
+scale variations. Additionally, ReviBranch achieves strong                                                                             lengths (T=10, 25, 50, 100).
+performance across three structurally distinct benchmarks,
+indicating that ReviBranch learns generalizable branch-
+ing strategies that transfer across different optimization                                                                             ing by 125% (time) and 79% (nodes) relative to no dense
+landscapes.                                                                                                                            rewards, and 69% (time) and 34% (nodes) relative to no
+                                                                                                                                       decoder. In contrast, the no dense rewards and no decoder
+                             80                    ReviBranch (Complete)
+                                                                                         600                 ReviBranch (Complete)
+                                                                                                                                       variants show moderate performance decline, indicating that
+                                                   No Revived Trajectories
+                                                   No Dense Rewards
+                                                                                                             No Revived Trajectories
+                                                                                                             No Dense Rewards
+                                                                                                                                       dense rewards and decoder components, while valuable, are
+                             70                    No Decoder                                                No Decoder                non-decisive and primarily provide technical support for ef-
+                                            62.2                                         500
+Average Solving Time (seconds)
+
+
+
+
+                                                                                                       465
+                             60                                                                                                        fective utilization of revived trajectories.
+                                                                                         400
+                                                                             Average Nodes
+
+
+
+
+                             50                                                                                                        Trajectory length sensitivity analysis We conduct trajec-
+                                                                                                                           296         tory length sensitivity analysis to understand its impact on
+                             40                                  34.1                    300                   278
+                                                                                                                                       ReviBranch performance. As shown in Figure 4, we test four
+                                                    29.6
+                             30                                                                                                        different trajectory length configurations (T=10, 25, 50, 100)
+                                                                                         200
+                                     19.1                                                        152                                   on 20×60 scale Combinatorial Auction instances. The exper-
+                             20
+                                                                                         100
+                                                                                                                                       imental results show that the model with trajectory length 10
+                             10                                                                                                        performs worst, with an average inference time of 0.562 sec-
+                                 0                                                           0
+                                                                                                                                       onds and requiring 42.0 nodes. Model performance further
+                                      0      1         2           3                              0     1        2           3         improves as trajectory length increases from 25 to 100.
+                                                                                                                                          However, we find that although the trajectory length 100
+Figure 3: Ablation study results on Set Covering instances.
+                                                                                                                                       model has 0.6 fewer nodes than trajectory length 50, the
+Performance comparison of three ablation variants: (1) No
+                                                                                                                                       inference time of trajectory length 100 is 0.357 seconds,
+Revived Trajectories, (2) No Dense Rewards, and (3) No
+                                                                                                                                       which is 45% longer than that of trajectory length 50 (0.246
+Decoder. Results show average solving time and nodes with
+                                                                                                                                       seconds). As the problem complexity increases, this perfor-
+standard deviation over 50 medium-scale instances across
+                                                                                                                                       mance pattern requires increasing computational costs. This
+three random seeds.
+                                                                                                                                       overhead affects inference time, as each action selection re-
+                                                                                                                                       quires recomputing the entire historical trajectory.
+Ablation Experiments We design three ablation variants:
+no revived trajectories, no dense rewards, and no de-                                                                                                                     Conclusion
+coder. To ensure statistical reliability of our results, we train                                                                      We propose ReviBranch, a deep reinforcement learning
+each variant with three different random seeds and report av-                                                                          framework that advances MILP branching through revived
+erage performance on 50 medium Set Covering instances.                                                                                 trajectory construction. By establishing explicit mappings
+As shown in Figure 3, the no revived trajectories variant                                                                              between branching decisions and evolving graph states, Re-
+exhibits significant performance degradation: solving time                                                                             viBranch addresses fundamental challenges: sparse rewards,
+increases by 110.1% compared to no dense rewards and                                                                                   long-term dependencies, and dynamic state representation.
+82.5% compared to no decoder; nodes increase by 67.3%                                                                                  Our experiments demonstrate that ReviBranch outperforms
+compared to no dense rewards and 57.1% compared to no                                                                                  state-of-the-art RL methods on large-scale instances, reduc-
+decoder. This occurs because removing revived trajectories                                                                             ing branch-and-bound nodes by 4.0% and LP iterations by
+prevents tracking graph evolution, leading to poor variable                                                                            2.2%. The framework exhibits strong generalization across
+selection and prolonged solving time. Meanwhile, explo-                                                                                diverse problem classes, with advantages most pronounced
+ration stability deteriorates, with standard deviation increas-                                                                        on complex instances.
+   ReviBranch establishes temporal reasoning as an effec-       Linderoth, J. T.; and Savelsbergh, M. W. 1999. A computa-
+tive paradigm for sequential optimization decisions. Future     tional study of search strategies for mixed integer program-
+work may explore adaptive trajectory selection mechanisms       ming. INFORMS Journal on Computing, 11(2): 173–187.
+and cross-trajectory reward attribution, while extending the    Mnih, V.; Kavukcuoglu, K.; Silver, D.; Rusu, A. A.; Veness,
+approach to other solver components and sequential decision     J.; Bellemare, M. G.; Graves, A.; Riedmiller, M.; Fidje-
+problems in combinatorial optimization.                         land, A. K.; Ostrovski, G.; et al. 2015. Human-level control
+                                                                through deep reinforcement learning. nature, 518(7540):
+                       References                               529–533.
+Achterberg, T. 2009. SCIP: solving constraint integer pro-      Morrison, D. R.; Jacobson, S. H.; Sauppe, J. J.; and Sewell,
+grams. Mathematical Programming Computation, 1(1): 1–           E. C. 2016. Branch-and-bound algorithms: A survey of re-
+41.                                                             cent advances in searching, branching, and pruning. Dis-
+Achterberg, T.; Berthold, T.; Koch, T.; and Wolter, K. 2008.    crete Optimization, 19: 79–102.
+Constraint integer programming: A new approach to inte-         Parsonson, C. W.; Laterre, A.; and Barrett, T. D. 2023. Re-
+grate CP and MIP. In International Conference on Inte-          inforcement learning for branch-and-bound optimisation us-
+gration of Artificial Intelligence (AI) and Operations Re-      ing retrospective trajectories. In Proceedings of the AAAI
+search (OR) Techniques in Constraint Programming, 6–20.         Conference on Artificial Intelligence, volume 37, 4061–
+Springer.                                                       4069.
+Achterberg, T.; Koch, T.; and Martin, A. 2005. Branching        Patel, J.; and Chinneck, J. W. 2007. Active-constraint vari-
+rules revisited. Operations Research Letters, 33(1): 42–54.     able ordering for faster feasibility of mixed integer linear
+Alvarez, A. M.; Louveaux, Q.; and Wehenkel, L. 2017. A          programs. Mathematical Programming, 110(3): 445–474.
+machine learning-based approximation of strong branching.       Prouvost, A.; Dumouchelle, J.; Scavuzzo, L.; Gasse, M.;
+INFORMS Journal on Computing, 29(1): 185–195.                   Chételat, D.; and Lodi, A. 2020. Ecole: A gym-like library
+Bengio, Y.; Lodi, A.; and Prouvost, A. 2021. Machine            for machine learning in combinatorial optimization solvers.
+learning for combinatorial optimization: a methodological       arXiv preprint arXiv:2011.06069.
+tour d’horizon. European Journal of Operational Research,       Schaul, T.; Quan, J.; Antonoglou, I.; and Silver, D.
+290(2): 405–421.                                                2015.      Prioritized experience replay.       arXiv preprint
+Bénichou, M.; Gauthier, J.-M.; Girodet, P.; Hentges, G.;       arXiv:1511.05952.
+Ribière, G.; and Vincent, O. 1971. Experiments in mixed-
+                                                                Sutton, R. S.; Barto, A. G.; et al. 1998. Reinforcement learn-
+integer linear programming. Mathematical programming,
+                                                                ing: An introduction, volume 1. MIT press Cambridge.
+1(1): 76–94.
+Etheve, M.; Alès, Z.; Bissuel, C.; Juan, O.; and Kedad-        Watkins, C. J.; and Dayan, P. 1992. Q-learning. Machine
+Sidhoum, S. 2020. Reinforcement learning for variable           learning, 8(3): 279–292.
+selection in a branch and bound algorithm. In Interna-          Wolsey, L. A.; and Nemhauser, G. L. 1999. Integer and com-
+tional conference on integration of constraint programming,     binatorial optimization. John Wiley & Sons.
+artificial intelligence, and operations research, 176–185.      Zarpellon, G.; Jo, J.; Lodi, A.; and Bengio, Y. 2021. Param-
+Springer.                                                       eterizing branch-and-bound search trees to learn branching
+Gasse, M.; Chételat, D.; Ferroni, N.; Charlin, L.; and Lodi,   policies. In Proceedings of the aaai conference on artificial
+A. 2019. Exact combinatorial optimization with graph con-       intelligence, volume 35, 3931–3939.
+volutional neural networks. Advances in neural information
+processing systems, 32.                                                      Reproducibility Checklist
+He, H.; Daumé, H.; and Eisner, J. 2014. Learning to search
+in branch and bound algorithms. Advances in neural infor-
+mation processing systems, 27.                                  Instructions for Authors:
+Khalil, E.; Le Bodic, P.; Song, L.; Nemhauser, G.; and Dilk-       This document outlines key aspects for assessing repro-
+ina, B. 2016. Learning to branch in mixed integer program-      ducibility. Please provide your input by editing this .tex
+ming. In Proceedings of the AAAI conference on artificial       file directly.
+intelligence, volume 30.                                           For each question (that applies), replace the “Type your
+Khalil, E. B.; Dilkina, B.; Nemhauser, G. L.; Ahmed, S.; and    response here” text with your answer.
+Shao, Y. 2017. Learning to Run Heuristics in Tree Search.
+In Ijcai, volume 2017, 659–666.                                 Example: If a question appears as
+Kianfar, K. 2010. Branch-and-bound algorithms. Wiley En-          \question{Proofs of all novel claims
+cyclopedia of Operations Research and Management Sci-             are included} {(yes/partial/no)}
+ence. John Wiley & Sons, Inc.                                     Type your response here
+Land, A. H.; and Doig, A. G. 2009. An automatic method          you would change it to:
+for solving discrete programming problems. In 50 Years of         \question{Proofs of all novel claims
+Integer Programming 1958-2008: From the Early Years to            are included} {(yes/partial/no)}
+the State-of-the-Art, 105–132. Springer.                          yes
+Please make sure to:                                              3. Dataset Usage
+  • Replace ONLY the “Type your response here” text and           3.1. Does this paper rely on one or more datasets? (yes/no)
+    nothing else.                                                      yes
+  • Use one of the options listed for that question (e.g., yes,    If yes, please address the following points:
+    no, partial, or NA).
+                                                                    3.2. A motivation is given for why the experi-
+  • Not modify any other part of the \question com-                      ments are conducted on the selected datasets
+    mand or any other lines in this document.                            (yes/partial/no/NA) yes
+                                                                    3.3. All novel datasets introduced in this paper are in-
+   You can \input this .tex file right before
+                                                                         cluded in a data appendix (yes/partial/no/NA) yes
+\end{document} of your main file or compile it as
+a stand-alone document. Check the instructions on your              3.4. All novel datasets introduced in this paper will be
+conference’s website to see if you will be asked to provide              made publicly available upon publication of the pa-
+this checklist with your paper or separately.                            per with a license that allows free usage for research
+                                                                         purposes (yes/partial/no/NA) yes
+                                                                    3.5. All datasets drawn from the existing literature (po-
+1. General Paper Structure                                               tentially including authors’ own previously pub-
+1.1. Includes a conceptual outline and/or pseudocode de-                 lished work) are accompanied by appropriate cita-
+     scription of AI methods introduced (yes/partial/no/NA)              tions (yes/no/NA) yes
+     yes
+                                                                    3.6. All datasets drawn from the existing litera-
+1.2. Clearly delineates statements that are opinions, hypoth-            ture (potentially including authors’ own pre-
+     esis, and speculation from objective facts and results              viously published work) are publicly available
+     (yes/no) yes                                                        (yes/partial/no/NA) yes
+
+1.3. Provides well-marked pedagogical references for less-          3.7. All datasets that are not publicly available are de-
+     familiar readers to gain background necessary to repli-             scribed in detail, with explanation why publicly
+     cate the paper (yes/no) yes                                         available alternatives are not scientifically satisficing
+                                                                         (yes/partial/no/NA) yes
+2. Theoretical Contributions
+2.1. Does this paper make theoretical contributions?              4. Computational Experiments
+     (yes/no) no                                                  4.1. Does this paper include computational experiments?
+ If yes, please address the following points:                          (yes/no) yes
+                                                                   If yes, please address the following points:
+  2.2. All assumptions and restrictions are stated clearly
+       and formally (yes/partial/no) Type your response             4.2. This paper states the number and range of values
+       here                                                              tried per (hyper-) parameter during development of
+  2.3. All novel claims are stated formally (e.g., in theorem            the paper, along with the criterion used for selecting
+       statements) (yes/partial/no) Type your response here              the final parameter setting (yes/partial/no/NA) yes
+
+  2.4. Proofs of all novel claims are                included       4.3. Any code required for pre-processing data is in-
+       (yes/partial/no) Type your response here                          cluded in the appendix (yes/partial/no) yes
+
+  2.5. Proof sketches or intuitions are given for complex           4.4. All source code required for conducting and analyz-
+       and/or novel results (yes/partial/no) Type your re-               ing the experiments is included in a code appendix
+       sponse here                                                       (yes/partial/no) yes
+
+  2.6. Appropriate citations to theoretical tools used are          4.5. All source code required for conducting and an-
+       given (yes/partial/no) Type your response here                    alyzing the experiments will be made publicly
+                                                                         available upon publication of the paper with a li-
+  2.7. All theoretical claims are demonstrated empirically               cense that allows free usage for research purposes
+       to hold (yes/partial/no/NA) Type your response here               (yes/partial/no) yes
+
+  2.8. All experimental code used to eliminate or disprove          4.6. All source code implementing new methods have
+       claims is included (yes/no/NA) Type your response                 comments detailing the implementation, with ref-
+       here                                                              erences to the paper where each step comes from
+                                                                         (yes/partial/no) yes
+ 4.7. If an algorithm depends on randomness, then the
+      method used for setting seeds is described in
+      a way sufficient to allow replication of results
+      (yes/partial/no/NA) yes
+ 4.8. This paper specifies the computing infrastruc-
+      ture used for running experiments (hardware and
+      software), including GPU/CPU models; amount
+      of memory; operating system; names and ver-
+      sions of relevant software libraries and frameworks
+      (yes/partial/no) yes
+ 4.9. This paper formally describes evaluation metrics
+      used and explains the motivation for choosing these
+      metrics (yes/partial/no) yes
+4.10. This paper states the number of algorithm runs used
+      to compute each reported result (yes/no) yes
+4.11. Analysis of experiments goes beyond single-
+      dimensional summaries of performance (e.g., aver-
+      age; median) to include measures of variation, con-
+      fidence, or other distributional information (yes/no)
+      yes
+4.12. The significance of any improvement or decrease in
+      performance is judged using appropriate statistical
+      tests (e.g., Wilcoxon signed-rank) (yes/partial/no)
+      yes
+4.13. This paper lists all final (hyper-)parameters used
+      for each model/algorithm in the paper’s experiments
+      (yes/partial/no/NA) yes
+

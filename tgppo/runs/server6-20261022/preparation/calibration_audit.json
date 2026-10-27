@@ -1,0 +1,15 @@
+{
+  "sha256": "6dd908c0de200f25837ee8c60e947bc2316a529f3c9bddd193d9ce06cb94295a",
+  "mean": -13.166822661165169,
+  "std": 8.840326545776836,
+  "num_instances": 19,
+  "checks": {
+    "mean": true,
+    "std": true,
+    "variance": true,
+    "train_only": true,
+    "no_development": true
+  },
+  "passed": true,
+  "scope": "verify packaged train-only statistic, do not recompute from development or test"
+}

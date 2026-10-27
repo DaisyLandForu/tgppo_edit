@@ -1,0 +1,11 @@
+test_hl_prior_initialization_is_common_and_train_only (test_calibration.CalibrationChecks) ... ok
+test_mse_all_groups_start_at_same_raw_train_mean (test_calibration.CalibrationChecks) ... ok
+test_parameter_matching_and_gradient_reaches_encoder_boundary (test_calibration.CalibrationChecks) ... ok
+test_raw_decoder_roundtrip_and_negative_values (test_calibration.CalibrationChecks) ... ok
+test_state_restore_retains_raw_value_units (test_calibration.CalibrationChecks) ... ok
+test_statistics_are_instance_balanced (test_calibration.CalibrationChecks) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.136s
+
+OK

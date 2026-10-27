@@ -1,0 +1,515 @@
+2026-10-21 12:12:07,984 - INFO - Starting evaluation of final model…
+2026-10-21 12:12:07,984 - INFO - Testing on 1 instances, seeds=[0]
+2026-10-21 12:12:08,088 - INFO - Environment reset for instance: /root/research/tgppo/runs/smoke-20261021-121153-1VZR/instances/lseu.mps.gz
+2026-10-21 12:12:08,089 - INFO - Starting episode 1
+2026-10-21 12:12:08,254 - INFO - H1 step: nodes=1, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,254 - INFO - Stored transition for branch 0 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,346 - INFO - H1 step: nodes=1, dn=0, penalty=-0.0000
+2026-10-21 12:12:08,346 - INFO - Stored transition for branch 1 - Action: 21, Reward: -0.0000, Done: False
+2026-10-21 12:12:08,368 - INFO - H1 step: nodes=2, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,368 - INFO - Stored transition for branch 2 - Action: 19, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,385 - INFO - H1 step: nodes=3, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,385 - INFO - Stored transition for branch 3 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,400 - INFO - H1 step: nodes=4, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,400 - INFO - Stored transition for branch 4 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,415 - INFO - H1 step: nodes=5, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,415 - INFO - Stored transition for branch 5 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,430 - INFO - H1 step: nodes=6, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,430 - INFO - Stored transition for branch 6 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,444 - INFO - H1 step: nodes=7, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,444 - INFO - Stored transition for branch 7 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,459 - INFO - H1 step: nodes=8, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,459 - INFO - Stored transition for branch 8 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,475 - INFO - H1 step: nodes=9, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,475 - INFO - Stored transition for branch 9 - Action: 13, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,492 - INFO - H1 step: nodes=10, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,492 - INFO - Stored transition for branch 10 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,506 - INFO - H1 step: nodes=11, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,506 - INFO - Stored transition for branch 11 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,521 - INFO - H1 step: nodes=12, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,521 - INFO - Stored transition for branch 12 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,533 - INFO - H1 step: nodes=13, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,533 - INFO - Stored transition for branch 13 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,544 - INFO - H1 step: nodes=14, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,545 - INFO - Stored transition for branch 14 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,557 - INFO - H1 step: nodes=15, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,557 - INFO - Stored transition for branch 15 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,568 - INFO - H1 step: nodes=16, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,569 - INFO - Stored transition for branch 16 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,582 - INFO - H1 step: nodes=17, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,582 - INFO - Stored transition for branch 17 - Action: 10, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,591 - INFO - H1 step: nodes=18, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,592 - INFO - Stored transition for branch 18 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,603 - INFO - H1 step: nodes=19, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,603 - INFO - Stored transition for branch 19 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,617 - INFO - H1 step: nodes=20, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,618 - INFO - Stored transition for branch 20 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,634 - INFO - H1 step: nodes=21, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,634 - INFO - Stored transition for branch 21 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,651 - INFO - H1 step: nodes=23, dn=2, penalty=-0.9611
+2026-10-21 12:12:08,651 - INFO - Stored transition for branch 22 - Action: 9, Reward: -0.9611, Done: False
+2026-10-21 12:12:08,667 - INFO - H1 step: nodes=24, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,668 - INFO - Stored transition for branch 23 - Action: 10, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,684 - INFO - H1 step: nodes=25, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,684 - INFO - Stored transition for branch 24 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,697 - INFO - H1 step: nodes=26, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,697 - INFO - Stored transition for branch 25 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,711 - INFO - H1 step: nodes=27, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,711 - INFO - Stored transition for branch 26 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,726 - INFO - H1 step: nodes=28, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,727 - INFO - Stored transition for branch 27 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,742 - INFO - H1 step: nodes=29, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,742 - INFO - Stored transition for branch 28 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,757 - INFO - H1 step: nodes=31, dn=2, penalty=-0.9611
+2026-10-21 12:12:08,757 - INFO - Stored transition for branch 29 - Action: 7, Reward: -0.9611, Done: False
+2026-10-21 12:12:08,773 - INFO - H1 step: nodes=32, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,774 - INFO - Stored transition for branch 30 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,788 - INFO - H1 step: nodes=33, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,788 - INFO - Stored transition for branch 31 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,803 - INFO - H1 step: nodes=34, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,803 - INFO - Stored transition for branch 32 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,817 - INFO - H1 step: nodes=35, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,817 - INFO - Stored transition for branch 33 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,830 - INFO - H1 step: nodes=36, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,830 - INFO - Stored transition for branch 34 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,843 - INFO - H1 step: nodes=39, dn=3, penalty=-0.9944
+2026-10-21 12:12:08,843 - INFO - Stored transition for branch 35 - Action: 2, Reward: -0.9944, Done: False
+2026-10-21 12:12:08,858 - INFO - H1 step: nodes=40, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,858 - INFO - Stored transition for branch 36 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,875 - INFO - H1 step: nodes=41, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,875 - INFO - Stored transition for branch 37 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,897 - INFO - H1 step: nodes=47, dn=6, penalty=-1.0000
+2026-10-21 12:12:08,897 - INFO - Stored transition for branch 38 - Action: 8, Reward: -1.0000, Done: False
+2026-10-21 12:12:08,914 - INFO - H1 step: nodes=48, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,914 - INFO - Stored transition for branch 39 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,928 - INFO - H1 step: nodes=50, dn=2, penalty=-0.9611
+2026-10-21 12:12:08,928 - INFO - Stored transition for branch 40 - Action: 11, Reward: -0.9611, Done: False
+2026-10-21 12:12:08,941 - INFO - H1 step: nodes=53, dn=3, penalty=-0.9944
+2026-10-21 12:12:08,942 - INFO - Stored transition for branch 41 - Action: 0, Reward: -0.9944, Done: False
+2026-10-21 12:12:08,956 - INFO - H1 step: nodes=54, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,957 - INFO - Stored transition for branch 42 - Action: 8, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,976 - INFO - H1 step: nodes=55, dn=1, penalty=-0.7532
+2026-10-21 12:12:08,976 - INFO - Stored transition for branch 43 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:08,995 - INFO - H1 step: nodes=59, dn=4, penalty=-0.9992
+2026-10-21 12:12:08,995 - INFO - Stored transition for branch 44 - Action: 4, Reward: -0.9992, Done: False
+2026-10-21 12:12:09,014 - INFO - H1 step: nodes=60, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,014 - INFO - Stored transition for branch 45 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,029 - INFO - H1 step: nodes=61, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,030 - INFO - Stored transition for branch 46 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,044 - INFO - H1 step: nodes=62, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,044 - INFO - Stored transition for branch 47 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,056 - INFO - H1 step: nodes=63, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,056 - INFO - Stored transition for branch 48 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,069 - INFO - H1 step: nodes=64, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,070 - INFO - Stored transition for branch 49 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,083 - INFO - H1 step: nodes=65, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,083 - INFO - Stored transition for branch 50 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,094 - INFO - H1 step: nodes=67, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,095 - INFO - Stored transition for branch 51 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,107 - INFO - H1 step: nodes=69, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,107 - INFO - Stored transition for branch 52 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,119 - INFO - H1 step: nodes=71, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,119 - INFO - Stored transition for branch 53 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,135 - INFO - H1 step: nodes=72, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,135 - INFO - Stored transition for branch 54 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,152 - INFO - H1 step: nodes=74, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,152 - INFO - Stored transition for branch 55 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,166 - INFO - H1 step: nodes=76, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,166 - INFO - Stored transition for branch 56 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,181 - INFO - H1 step: nodes=77, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,181 - INFO - Stored transition for branch 57 - Action: 8, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,195 - INFO - H1 step: nodes=79, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,196 - INFO - Stored transition for branch 58 - Action: 10, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,210 - INFO - H1 step: nodes=80, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,210 - INFO - Stored transition for branch 59 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,226 - INFO - H1 step: nodes=82, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,226 - INFO - Stored transition for branch 60 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,242 - INFO - H1 step: nodes=83, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,242 - INFO - Stored transition for branch 61 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,257 - INFO - H1 step: nodes=85, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,257 - INFO - Stored transition for branch 62 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,269 - INFO - H1 step: nodes=86, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,269 - INFO - Stored transition for branch 63 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,286 - INFO - H1 step: nodes=88, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,287 - INFO - Stored transition for branch 64 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,302 - INFO - H1 step: nodes=90, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,302 - INFO - Stored transition for branch 65 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,317 - INFO - H1 step: nodes=91, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,317 - INFO - Stored transition for branch 66 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,332 - INFO - H1 step: nodes=92, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,332 - INFO - Stored transition for branch 67 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,347 - INFO - H1 step: nodes=94, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,347 - INFO - Stored transition for branch 68 - Action: 4, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,363 - INFO - H1 step: nodes=95, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,363 - INFO - Stored transition for branch 69 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,379 - INFO - H1 step: nodes=96, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,379 - INFO - Stored transition for branch 70 - Action: 8, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,399 - INFO - H1 step: nodes=98, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,399 - INFO - Stored transition for branch 71 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,418 - INFO - H1 step: nodes=99, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,419 - INFO - Stored transition for branch 72 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,436 - INFO - H1 step: nodes=100, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,436 - INFO - Stored transition for branch 73 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,452 - INFO - H1 step: nodes=101, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,453 - INFO - Stored transition for branch 74 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,469 - INFO - H1 step: nodes=102, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,469 - INFO - Stored transition for branch 75 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,484 - INFO - H1 step: nodes=103, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,484 - INFO - Stored transition for branch 76 - Action: 11, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,496 - INFO - H1 step: nodes=104, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,496 - INFO - Stored transition for branch 77 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,507 - INFO - H1 step: nodes=106, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,508 - INFO - Stored transition for branch 78 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,520 - INFO - H1 step: nodes=108, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,521 - INFO - Stored transition for branch 79 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,533 - INFO - H1 step: nodes=109, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,533 - INFO - Stored transition for branch 80 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,548 - INFO - H1 step: nodes=111, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,548 - INFO - Stored transition for branch 81 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,562 - INFO - H1 step: nodes=112, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,562 - INFO - Stored transition for branch 82 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,578 - INFO - H1 step: nodes=114, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,578 - INFO - Stored transition for branch 83 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,593 - INFO - H1 step: nodes=116, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,593 - INFO - Stored transition for branch 84 - Action: 9, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,605 - INFO - H1 step: nodes=118, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,605 - INFO - Stored transition for branch 85 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,622 - INFO - H1 step: nodes=120, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,622 - INFO - Stored transition for branch 86 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,637 - INFO - H1 step: nodes=121, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,637 - INFO - Stored transition for branch 87 - Action: 12, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,652 - INFO - H1 step: nodes=123, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,652 - INFO - Stored transition for branch 88 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,664 - INFO - H1 step: nodes=124, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,664 - INFO - Stored transition for branch 89 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,674 - INFO - H1 step: nodes=126, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,675 - INFO - Stored transition for branch 90 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,686 - INFO - H1 step: nodes=128, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,686 - INFO - Stored transition for branch 91 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,697 - INFO - H1 step: nodes=129, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,697 - INFO - Stored transition for branch 92 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,707 - INFO - H1 step: nodes=130, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,707 - INFO - Stored transition for branch 93 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,717 - INFO - H1 step: nodes=131, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,718 - INFO - Stored transition for branch 94 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,726 - INFO - H1 step: nodes=133, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,727 - INFO - Stored transition for branch 95 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,736 - INFO - H1 step: nodes=135, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,736 - INFO - Stored transition for branch 96 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,747 - INFO - H1 step: nodes=139, dn=4, penalty=-0.9992
+2026-10-21 12:12:09,747 - INFO - Stored transition for branch 97 - Action: 2, Reward: -0.9992, Done: False
+2026-10-21 12:12:09,760 - INFO - H1 step: nodes=140, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,760 - INFO - Stored transition for branch 98 - Action: 10, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,772 - INFO - H1 step: nodes=141, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,773 - INFO - Stored transition for branch 99 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,786 - INFO - H1 step: nodes=142, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,786 - INFO - Stored transition for branch 100 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,798 - INFO - H1 step: nodes=143, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,798 - INFO - Stored transition for branch 101 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,810 - INFO - H1 step: nodes=147, dn=4, penalty=-0.9992
+2026-10-21 12:12:09,810 - INFO - Stored transition for branch 102 - Action: 0, Reward: -0.9992, Done: False
+2026-10-21 12:12:09,824 - INFO - H1 step: nodes=150, dn=3, penalty=-0.9944
+2026-10-21 12:12:09,824 - INFO - Stored transition for branch 103 - Action: 4, Reward: -0.9944, Done: False
+2026-10-21 12:12:09,839 - INFO - H1 step: nodes=152, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,839 - INFO - Stored transition for branch 104 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,855 - INFO - H1 step: nodes=153, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,856 - INFO - Stored transition for branch 105 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,871 - INFO - H1 step: nodes=154, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,871 - INFO - Stored transition for branch 106 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,887 - INFO - H1 step: nodes=155, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,887 - INFO - Stored transition for branch 107 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,902 - INFO - H1 step: nodes=156, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,903 - INFO - Stored transition for branch 108 - Action: 11, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,917 - INFO - H1 step: nodes=157, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,917 - INFO - Stored transition for branch 109 - Action: 8, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,931 - INFO - H1 step: nodes=158, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,931 - INFO - Stored transition for branch 110 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,946 - INFO - H1 step: nodes=159, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,946 - INFO - Stored transition for branch 111 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:09,962 - INFO - H1 step: nodes=161, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,962 - INFO - Stored transition for branch 112 - Action: 8, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,974 - INFO - H1 step: nodes=163, dn=2, penalty=-0.9611
+2026-10-21 12:12:09,974 - INFO - Stored transition for branch 113 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:09,988 - INFO - H1 step: nodes=164, dn=1, penalty=-0.7532
+2026-10-21 12:12:09,988 - INFO - Stored transition for branch 114 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,001 - INFO - H1 step: nodes=165, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,001 - INFO - Stored transition for branch 115 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,016 - INFO - H1 step: nodes=168, dn=3, penalty=-0.9944
+2026-10-21 12:12:10,016 - INFO - Stored transition for branch 116 - Action: 2, Reward: -0.9944, Done: False
+2026-10-21 12:12:10,032 - INFO - H1 step: nodes=170, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,032 - INFO - Stored transition for branch 117 - Action: 9, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,042 - INFO - H1 step: nodes=171, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,042 - INFO - Stored transition for branch 118 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,056 - INFO - H1 step: nodes=175, dn=4, penalty=-0.9992
+2026-10-21 12:12:10,056 - INFO - Stored transition for branch 119 - Action: 4, Reward: -0.9992, Done: False
+2026-10-21 12:12:10,069 - INFO - H1 step: nodes=177, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,069 - INFO - Stored transition for branch 120 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,084 - INFO - H1 step: nodes=178, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,084 - INFO - Stored transition for branch 121 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,098 - INFO - H1 step: nodes=179, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,098 - INFO - Stored transition for branch 122 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,114 - INFO - H1 step: nodes=181, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,115 - INFO - Stored transition for branch 123 - Action: 12, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,128 - INFO - H1 step: nodes=182, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,128 - INFO - Stored transition for branch 124 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,140 - INFO - H1 step: nodes=183, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,141 - INFO - Stored transition for branch 125 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,159 - INFO - H1 step: nodes=187, dn=4, penalty=-0.9992
+2026-10-21 12:12:10,159 - INFO - Stored transition for branch 126 - Action: 0, Reward: -0.9992, Done: False
+2026-10-21 12:12:10,170 - INFO - H1 step: nodes=189, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,170 - INFO - Stored transition for branch 127 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,183 - INFO - H1 step: nodes=191, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,183 - INFO - Stored transition for branch 128 - Action: 6, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,198 - INFO - H1 step: nodes=192, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,198 - INFO - Stored transition for branch 129 - Action: 15, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,213 - INFO - H1 step: nodes=193, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,213 - INFO - Stored transition for branch 130 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,225 - INFO - H1 step: nodes=194, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,225 - INFO - Stored transition for branch 131 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,240 - INFO - H1 step: nodes=196, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,240 - INFO - Stored transition for branch 132 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,255 - INFO - H1 step: nodes=199, dn=3, penalty=-0.9944
+2026-10-21 12:12:10,255 - INFO - Stored transition for branch 133 - Action: 10, Reward: -0.9944, Done: False
+2026-10-21 12:12:10,267 - INFO - H1 step: nodes=200, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,268 - INFO - Stored transition for branch 134 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,279 - INFO - H1 step: nodes=201, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,279 - INFO - Stored transition for branch 135 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,296 - INFO - H1 step: nodes=205, dn=4, penalty=-0.9992
+2026-10-21 12:12:10,296 - INFO - Stored transition for branch 136 - Action: 2, Reward: -0.9992, Done: False
+2026-10-21 12:12:10,316 - INFO - H1 step: nodes=207, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,317 - INFO - Stored transition for branch 137 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,331 - INFO - H1 step: nodes=209, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,331 - INFO - Stored transition for branch 138 - Action: 4, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,346 - INFO - H1 step: nodes=211, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,346 - INFO - Stored transition for branch 139 - Action: 7, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,359 - INFO - H1 step: nodes=213, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,360 - INFO - Stored transition for branch 140 - Action: 11, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,381 - INFO - H1 step: nodes=216, dn=3, penalty=-0.9944
+2026-10-21 12:12:10,381 - INFO - Stored transition for branch 141 - Action: 0, Reward: -0.9944, Done: False
+2026-10-21 12:12:10,395 - INFO - H1 step: nodes=218, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,395 - INFO - Stored transition for branch 142 - Action: 12, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,407 - INFO - H1 step: nodes=219, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,407 - INFO - Stored transition for branch 143 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,421 - INFO - H1 step: nodes=221, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,421 - INFO - Stored transition for branch 144 - Action: 6, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,436 - INFO - H1 step: nodes=222, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,436 - INFO - Stored transition for branch 145 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,451 - INFO - H1 step: nodes=223, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,452 - INFO - Stored transition for branch 146 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,466 - INFO - H1 step: nodes=225, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,466 - INFO - Stored transition for branch 147 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,482 - INFO - H1 step: nodes=226, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,482 - INFO - Stored transition for branch 148 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,498 - INFO - H1 step: nodes=228, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,498 - INFO - Stored transition for branch 149 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,512 - INFO - H1 step: nodes=229, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,512 - INFO - Stored transition for branch 150 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,525 - INFO - H1 step: nodes=230, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,525 - INFO - Stored transition for branch 151 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,537 - INFO - H1 step: nodes=232, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,537 - INFO - Stored transition for branch 152 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,549 - INFO - H1 step: nodes=235, dn=3, penalty=-0.9944
+2026-10-21 12:12:10,549 - INFO - Stored transition for branch 153 - Action: 2, Reward: -0.9944, Done: False
+2026-10-21 12:12:10,562 - INFO - H1 step: nodes=236, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,562 - INFO - Stored transition for branch 154 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,574 - INFO - H1 step: nodes=237, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,574 - INFO - Stored transition for branch 155 - Action: 5, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,592 - INFO - H1 step: nodes=241, dn=4, penalty=-0.9992
+2026-10-21 12:12:10,592 - INFO - Stored transition for branch 156 - Action: 3, Reward: -0.9992, Done: False
+2026-10-21 12:12:10,608 - INFO - H1 step: nodes=242, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,608 - INFO - Stored transition for branch 157 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,622 - INFO - H1 step: nodes=244, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,622 - INFO - Stored transition for branch 158 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,652 - INFO - H1 step: nodes=254, dn=10, penalty=-1.0000
+2026-10-21 12:12:10,653 - INFO - Stored transition for branch 159 - Action: 10, Reward: -1.0000, Done: False
+2026-10-21 12:12:10,668 - INFO - H1 step: nodes=256, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,668 - INFO - Stored transition for branch 160 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,681 - INFO - H1 step: nodes=260, dn=4, penalty=-0.9992
+2026-10-21 12:12:10,681 - INFO - Stored transition for branch 161 - Action: 4, Reward: -0.9992, Done: False
+2026-10-21 12:12:10,694 - INFO - H1 step: nodes=261, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,695 - INFO - Stored transition for branch 162 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,708 - INFO - H1 step: nodes=263, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,708 - INFO - Stored transition for branch 163 - Action: 6, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,722 - INFO - H1 step: nodes=264, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,722 - INFO - Stored transition for branch 164 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,737 - INFO - H1 step: nodes=265, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,737 - INFO - Stored transition for branch 165 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,752 - INFO - H1 step: nodes=268, dn=3, penalty=-0.9944
+2026-10-21 12:12:10,752 - INFO - Stored transition for branch 166 - Action: 6, Reward: -0.9944, Done: False
+2026-10-21 12:12:10,766 - INFO - H1 step: nodes=269, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,766 - INFO - Stored transition for branch 167 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,781 - INFO - H1 step: nodes=271, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,782 - INFO - Stored transition for branch 168 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,796 - INFO - H1 step: nodes=272, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,796 - INFO - Stored transition for branch 169 - Action: 10, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,810 - INFO - H1 step: nodes=273, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,810 - INFO - Stored transition for branch 170 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,822 - INFO - H1 step: nodes=274, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,822 - INFO - Stored transition for branch 171 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,834 - INFO - H1 step: nodes=276, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,834 - INFO - Stored transition for branch 172 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,847 - INFO - H1 step: nodes=281, dn=5, penalty=-0.9999
+2026-10-21 12:12:10,847 - INFO - Stored transition for branch 173 - Action: 2, Reward: -0.9999, Done: False
+2026-10-21 12:12:10,859 - INFO - H1 step: nodes=282, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,860 - INFO - Stored transition for branch 174 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,870 - INFO - H1 step: nodes=284, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,870 - INFO - Stored transition for branch 175 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,881 - INFO - H1 step: nodes=285, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,881 - INFO - Stored transition for branch 176 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,892 - INFO - H1 step: nodes=289, dn=4, penalty=-0.9992
+2026-10-21 12:12:10,892 - INFO - Stored transition for branch 177 - Action: 0, Reward: -0.9992, Done: False
+2026-10-21 12:12:10,904 - INFO - H1 step: nodes=291, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,905 - INFO - Stored transition for branch 178 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,919 - INFO - H1 step: nodes=292, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,919 - INFO - Stored transition for branch 179 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,944 - INFO - H1 step: nodes=293, dn=1, penalty=-0.7532
+2026-10-21 12:12:10,944 - INFO - Stored transition for branch 180 - Action: 7, Reward: -0.7532, Done: False
+2026-10-21 12:12:10,958 - INFO - H1 step: nodes=295, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,958 - INFO - Stored transition for branch 181 - Action: 12, Reward: -0.9611, Done: False
+2026-10-21 12:12:10,971 - INFO - H1 step: nodes=298, dn=3, penalty=-0.9944
+2026-10-21 12:12:10,971 - INFO - Stored transition for branch 182 - Action: 6, Reward: -0.9944, Done: False
+2026-10-21 12:12:10,985 - INFO - H1 step: nodes=300, dn=2, penalty=-0.9611
+2026-10-21 12:12:10,985 - INFO - Stored transition for branch 183 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,003 - INFO - H1 step: nodes=304, dn=4, penalty=-0.9992
+2026-10-21 12:12:11,003 - INFO - Stored transition for branch 184 - Action: 3, Reward: -0.9992, Done: False
+2026-10-21 12:12:11,016 - INFO - H1 step: nodes=305, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,016 - INFO - Stored transition for branch 185 - Action: 0, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,029 - INFO - H1 step: nodes=306, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,029 - INFO - Stored transition for branch 186 - Action: 2, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,043 - INFO - H1 step: nodes=309, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,043 - INFO - Stored transition for branch 187 - Action: 2, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,058 - INFO - H1 step: nodes=311, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,059 - INFO - Stored transition for branch 188 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,076 - INFO - H1 step: nodes=312, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,076 - INFO - Stored transition for branch 189 - Action: 13, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,091 - INFO - H1 step: nodes=313, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,092 - INFO - Stored transition for branch 190 - Action: 4, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,106 - INFO - H1 step: nodes=314, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,106 - INFO - Stored transition for branch 191 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,120 - INFO - H1 step: nodes=315, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,120 - INFO - Stored transition for branch 192 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,134 - INFO - H1 step: nodes=316, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,135 - INFO - Stored transition for branch 193 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,149 - INFO - H1 step: nodes=317, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,149 - INFO - Stored transition for branch 194 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,164 - INFO - H1 step: nodes=318, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,164 - INFO - Stored transition for branch 195 - Action: 6, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,178 - INFO - H1 step: nodes=320, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,179 - INFO - Stored transition for branch 196 - Action: 3, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,196 - INFO - H1 step: nodes=324, dn=4, penalty=-0.9992
+2026-10-21 12:12:11,197 - INFO - Stored transition for branch 197 - Action: 1, Reward: -0.9992, Done: False
+2026-10-21 12:12:11,214 - INFO - H1 step: nodes=327, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,214 - INFO - Stored transition for branch 198 - Action: 6, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,231 - INFO - H1 step: nodes=329, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,231 - INFO - Stored transition for branch 199 - Action: 6, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,246 - INFO - H1 step: nodes=330, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,246 - INFO - Stored transition for branch 200 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,261 - INFO - H1 step: nodes=331, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,261 - INFO - Stored transition for branch 201 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,291 - INFO - H1 step: nodes=335, dn=4, penalty=-0.9992
+2026-10-21 12:12:11,291 - INFO - Stored transition for branch 202 - Action: 13, Reward: -0.9992, Done: False
+2026-10-21 12:12:11,305 - INFO - H1 step: nodes=337, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,305 - INFO - Stored transition for branch 203 - Action: 1, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,318 - INFO - H1 step: nodes=338, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,318 - INFO - Stored transition for branch 204 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,333 - INFO - H1 step: nodes=341, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,333 - INFO - Stored transition for branch 205 - Action: 2, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,346 - INFO - H1 step: nodes=344, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,346 - INFO - Stored transition for branch 206 - Action: 1, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,363 - INFO - H1 step: nodes=350, dn=6, penalty=-1.0000
+2026-10-21 12:12:11,363 - INFO - Stored transition for branch 207 - Action: 2, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,378 - INFO - H1 step: nodes=351, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,379 - INFO - Stored transition for branch 208 - Action: 11, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,393 - INFO - H1 step: nodes=353, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,393 - INFO - Stored transition for branch 209 - Action: 8, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,407 - INFO - H1 step: nodes=355, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,408 - INFO - Stored transition for branch 210 - Action: 9, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,426 - INFO - H1 step: nodes=357, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,426 - INFO - Stored transition for branch 211 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,444 - INFO - H1 step: nodes=359, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,444 - INFO - Stored transition for branch 212 - Action: 12, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,457 - INFO - H1 step: nodes=361, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,457 - INFO - Stored transition for branch 213 - Action: 4, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,479 - INFO - H1 step: nodes=368, dn=7, penalty=-1.0000
+2026-10-21 12:12:11,479 - INFO - Stored transition for branch 214 - Action: 5, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,500 - INFO - H1 step: nodes=371, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,500 - INFO - Stored transition for branch 215 - Action: 12, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,513 - INFO - H1 step: nodes=372, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,513 - INFO - Stored transition for branch 216 - Action: 10, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,526 - INFO - H1 step: nodes=374, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,526 - INFO - Stored transition for branch 217 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,540 - INFO - H1 step: nodes=375, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,540 - INFO - Stored transition for branch 218 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,552 - INFO - H1 step: nodes=378, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,552 - INFO - Stored transition for branch 219 - Action: 1, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,570 - INFO - H1 step: nodes=386, dn=8, penalty=-1.0000
+2026-10-21 12:12:11,570 - INFO - Stored transition for branch 220 - Action: 7, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,581 - INFO - H1 step: nodes=388, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,581 - INFO - Stored transition for branch 221 - Action: 0, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,593 - INFO - H1 step: nodes=391, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,594 - INFO - Stored transition for branch 222 - Action: 6, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,608 - INFO - H1 step: nodes=397, dn=6, penalty=-1.0000
+2026-10-21 12:12:11,608 - INFO - Stored transition for branch 223 - Action: 6, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,626 - INFO - H1 step: nodes=400, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,626 - INFO - Stored transition for branch 224 - Action: 11, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,640 - INFO - H1 step: nodes=402, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,641 - INFO - Stored transition for branch 225 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,660 - INFO - H1 step: nodes=405, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,660 - INFO - Stored transition for branch 226 - Action: 4, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,695 - INFO - H1 step: nodes=414, dn=9, penalty=-1.0000
+2026-10-21 12:12:11,695 - INFO - Stored transition for branch 227 - Action: 2, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,711 - INFO - H1 step: nodes=418, dn=4, penalty=-0.9992
+2026-10-21 12:12:11,711 - INFO - Stored transition for branch 228 - Action: 0, Reward: -0.9992, Done: False
+2026-10-21 12:12:11,731 - INFO - H1 step: nodes=427, dn=9, penalty=-1.0000
+2026-10-21 12:12:11,731 - INFO - Stored transition for branch 229 - Action: 1, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,747 - INFO - H1 step: nodes=428, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,747 - INFO - Stored transition for branch 230 - Action: 14, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,762 - INFO - H1 step: nodes=429, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,763 - INFO - Stored transition for branch 231 - Action: 3, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,788 - INFO - H1 step: nodes=435, dn=6, penalty=-1.0000
+2026-10-21 12:12:11,788 - INFO - Stored transition for branch 232 - Action: 0, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,802 - INFO - H1 step: nodes=437, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,803 - INFO - Stored transition for branch 233 - Action: 5, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,821 - INFO - H1 step: nodes=442, dn=5, penalty=-0.9999
+2026-10-21 12:12:11,821 - INFO - Stored transition for branch 234 - Action: 8, Reward: -0.9999, Done: False
+2026-10-21 12:12:11,836 - INFO - H1 step: nodes=444, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,836 - INFO - Stored transition for branch 235 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,851 - INFO - H1 step: nodes=449, dn=5, penalty=-0.9999
+2026-10-21 12:12:11,851 - INFO - Stored transition for branch 236 - Action: 1, Reward: -0.9999, Done: False
+2026-10-21 12:12:11,865 - INFO - H1 step: nodes=451, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,865 - INFO - Stored transition for branch 237 - Action: 6, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,880 - INFO - H1 step: nodes=452, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,880 - INFO - Stored transition for branch 238 - Action: 9, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,894 - INFO - H1 step: nodes=454, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,895 - INFO - Stored transition for branch 239 - Action: 6, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,911 - INFO - H1 step: nodes=457, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,911 - INFO - Stored transition for branch 240 - Action: 7, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,923 - INFO - H1 step: nodes=458, dn=1, penalty=-0.7532
+2026-10-21 12:12:11,923 - INFO - Stored transition for branch 241 - Action: 1, Reward: -0.7532, Done: False
+2026-10-21 12:12:11,936 - INFO - H1 step: nodes=467, dn=9, penalty=-1.0000
+2026-10-21 12:12:11,937 - INFO - Stored transition for branch 242 - Action: 0, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,951 - INFO - H1 step: nodes=469, dn=2, penalty=-0.9611
+2026-10-21 12:12:11,951 - INFO - Stored transition for branch 243 - Action: 2, Reward: -0.9611, Done: False
+2026-10-21 12:12:11,965 - INFO - H1 step: nodes=472, dn=3, penalty=-0.9944
+2026-10-21 12:12:11,965 - INFO - Stored transition for branch 244 - Action: 8, Reward: -0.9944, Done: False
+2026-10-21 12:12:11,983 - INFO - H1 step: nodes=479, dn=7, penalty=-1.0000
+2026-10-21 12:12:11,984 - INFO - Stored transition for branch 245 - Action: 8, Reward: -1.0000, Done: False
+2026-10-21 12:12:11,997 - INFO - Calling branchfree
+2026-10-21 12:12:11,998 - INFO - H1 terminal: status=infeasible, nodes=483, speedup=0.002, bonus=0.5031
+2026-10-21 12:12:11,998 - INFO - Final transition stored - Reward: 0.5031, Total episode reward: -210.2776
+2026-10-21 12:12:11,998 - INFO - Episode 1 completed - Status: infeasible, Branches: 247, Nodes: 483, Total Reward: -210.2776, Reward Count: 247, Gap: 0.0000%
+2026-10-21 12:12:12,114 - INFO - === Overall summary ===
+{
+  "num_runs": 1,
+  "num_instances": 1,
+  "success_rate_runs": 0.0,
+  "coverage_instances_solved_at_least_once": 0.0,
+  "sgm_time_solved": null,
+  "sgm_pdi_all": 14.517506386628725,
+  "sgm_nodes_all": 482.9999999999999,
+  "median_time_solved": null,
+  "median_pdi_unsolved": 14.51750638662873,
+  "par10_time": 50.0,
+  "primary_metric": "sgm_pdi_all",
+  "primary_value": 14.517506386628725
+}

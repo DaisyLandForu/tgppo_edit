@@ -1,0 +1,89 @@
+{
+  "stage": 5,
+  "scheduler_state": "training",
+  "training": [
+    {
+      "group": "R0",
+      "seed": 11,
+      "checkpoint_episodes": 4,
+      "complete_ppo_iterations": 1,
+      "complete_optimizer_steps": 15,
+      "recorded_cpu_core_hours": 0.3514529227777778,
+      "status": "更新批 1：39/57 逻辑步（本轮完成后才计入模型）"
+    },
+    {
+      "group": "Rprod",
+      "seed": 11,
+      "checkpoint_episodes": 4,
+      "complete_ppo_iterations": 1,
+      "complete_optimizer_steps": 15,
+      "recorded_cpu_core_hours": 0.35198869083333334,
+      "status": "更新批 1：40/51 逻辑步（本轮完成后才计入模型）"
+    },
+    {
+      "group": "Rjoint",
+      "seed": 11,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    },
+    {
+      "group": "R0",
+      "seed": 22,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    },
+    {
+      "group": "Rprod",
+      "seed": 22,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    },
+    {
+      "group": "Rjoint",
+      "seed": 22,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    },
+    {
+      "group": "R0",
+      "seed": 33,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    },
+    {
+      "group": "Rprod",
+      "seed": 33,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    },
+    {
+      "group": "Rjoint",
+      "seed": 33,
+      "checkpoint_episodes": 0,
+      "complete_ppo_iterations": 0,
+      "complete_optimizer_steps": 0,
+      "recorded_cpu_core_hours": 0.0,
+      "status": "等待队列"
+    }
+  ],
+  "evaluation_rows_on_disk": 0,
+  "stage6_started": false
+}

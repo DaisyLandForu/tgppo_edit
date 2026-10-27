@@ -1,0 +1,22 @@
+{
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "error": "Traceback (most recent call last):\n  File \"/root/research/tgppo/experiments/stage4/code/project/runtime.py\", line 178, in _worker\n    env.reset(job['instance'], job['cutoff'], job.get('baseline'),\n  File \"/root/research/tgppo/experiments/stage4/code/project/environment/environment.py\", line 46, in reset\n    base = validate_baseline(baseline, self.identity)\n  File \"/root/research/tgppo/experiments/stage4/code/project/utils/protocol.py\", line 46, in validate_baseline\n    raise ValueError('Normalization baseline did not finish a valid finite task')\nValueError: Normalization baseline did not finish a valid finite task\n",
+  "instance_name": "lseu",
+  "job_id": "bridge-actor-lseu",
+  "mode": "collect",
+  "peak_rss_kib": 489888,
+  "reward_version": "upstream_h3_t120",
+  "sampling_seed": 716302859,
+  "solver_seed": 0,
+  "status": "worker_error",
+  "task_terminal": false,
+  "valid": false,
+  "worker_cpu_complete": true,
+  "worker_cpu_seconds": 1.4736589999999998,
+  "worker_wall_seconds": 0.17631674600124825
+}

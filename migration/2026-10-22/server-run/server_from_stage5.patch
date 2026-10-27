@@ -1,0 +1,771 @@
+--- /dev/null
++++ b/SERVER_TRAINING.md
+@@ -0,0 +1,9 @@
++# Six independent server training jobs
++
++User-selected scope on 2026-10-22: B0/R0/Rjoint × train seeds11/22, 500 finite-time episodes each, milestones every100, choose best on the frozen development split. Production entry is `code/server.py`; Slurm/portable wrappers and full instructions are in `migration/2026-10-22/server-run/` at the project root.
++
++This is an isolated extension of stage5; historical sources/results are preserved. CUDA learner uses CPU SCIP workers and CPU Actor-only evaluation. The loader saves/restores CUDA RNG and CUDA optimizer state; a target V100 bridge is required before production training. Latest recovery checkpoints precede learning and retain complete raw-unit trajectories; incomplete PPO updates are discarded. Cached jobs are reused only under matching immutable policy/configuration manifests. All attempts/errors remain recorded.
++
++Original Actor/Critic/reward/settings remain byte-identical to upstream. Device/checkpoint changes are in runtime.py; PPO uses the accepted microbatch accumulation, with a wall-clock progress heartbeat. The original optimizer remains Adam across these short-horizon comparisons. B0 is not claimed as an exact AdamW/3600s reproduction.
++
++Local CPU regression checks, real interrupted updates/resume, development selection and Actor-only exports were tested. Target V100 execution and Slurm are pending, not claimed successful. No full500-episode job has been submitted by this delivery. Held-out tests and stage6 are not automatically queued.
+--- a/code/project/agent/agent.py
++++ b/code/project/agent/agent.py
+@@ -160,6 +160,7 @@
+         updates = 0
+         initial_ratio_error = None
+         last_progress_cpu = time.process_time()
++        last_progress_wall = time.monotonic()
+         for epoch in range(self.n_epochs):
+             for batch in self.memory.get_batch_generator():
+                 size = len(batch['indices'])
+@@ -213,11 +214,13 @@
+                 self.critic_optimizer.step()
+                 updates += 1
+                 if progress_callback is not None and (
+-                        updates == 1 or time.process_time() - last_progress_cpu >= 15.):
++                        updates == 1 or time.process_time() - last_progress_cpu >= 15. or
++                        time.monotonic() - last_progress_wall >= 15.):
+                     progress_callback(dict(epoch=epoch + 1, epochs=self.n_epochs,
+                         minibatches_completed=updates, samples=n,
+                         expected_minibatches=self.n_epochs * ((n + self.batch_size - 1) // self.batch_size)))
+                     last_progress_cpu = time.process_time()
++                    last_progress_wall = time.monotonic()
+         self.memory.clear()
+         self.update_counter += 1
+         self.policy_version += 1
+--- a/code/project/runtime.py
++++ b/code/project/runtime.py
+@@ -54,7 +54,10 @@
+     return result
+ 
+ 
+-def build_agent(config, training=True):
++def build_agent(config, training=True, device=None):
++    device = device or (config.get("learner_device", "cpu") if training else "cpu")
++    if str(device).startswith("cuda") and not torch.cuda.is_available():
++        raise RuntimeError("CUDA learner requested but no CUDA device is available")
+     arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
+     actor, critic = Actor(**arch), Critic(**arch)
+     agent_type = Agent
+@@ -68,20 +71,33 @@
+             critic = CalibratedCritic(critic, group=config['online_group'], loss='mse',
+                 mean=config['target_mean'], std=config['target_std'])
+         agent_type = OnlineAgent
++    actor, critic = actor.to(device), critic.to(device)
+     actor_opt = torch.optim.Adam(actor.parameters(), lr=config['actor_lr']) if training else None
+     critic_opt = torch.optim.Adam(critic.parameters(), lr=config['critic_lr']) if training else None
+-    return agent_type(actor, actor_opt, critic, critic_opt, device='cpu',
++    result = agent_type(actor, actor_opt, critic, critic_opt, device=device,
+                  state_dims=config['state_dims'], **{k: config[k] for k in PPO_KEYS})
++    if getattr(result, 'online_context', False):
++        result.task_time_limit = config.get('task_time_limit', 120.)
++    return result
+ 
+ 
+ def rng_state():
+-    return dict(python=random.getstate(), numpy=np.random.get_state(), torch=torch.get_rng_state())
+-
+-
+-def restore_rng(state):
++    result = dict(python=random.getstate(), numpy=np.random.get_state(), torch=torch.get_rng_state())
++    if torch.cuda.is_initialized():
++        result['cuda'] = torch.cuda.get_rng_state_all()
++    return result
++
++
++def restore_rng(state, include_cuda=True):
+     random.setstate(state['python'])
+     np.random.set_state(state['numpy'])
+     torch.set_rng_state(state['torch'])
++    if include_cuda and 'cuda' in state:
++        if not torch.cuda.is_available():
++            raise RuntimeError('CUDA RNG restoration requested without CUDA')
++        if len(state['cuda']) != torch.cuda.device_count():
++            raise ValueError('CUDA visible-device count changed during resume')
++        torch.cuda.set_rng_state_all(state['cuda'])
+ 
+ 
+ def save_checkpoint(path, agent, config, progress=None):
+@@ -100,8 +116,12 @@
+     temp.replace(path)
+ 
+ 
+-def read_checkpoint(path):
++def read_checkpoint(path, allow_actor_only=False):
+     payload = torch.load(path, map_location='cpu')  # Trusted, locally produced checkpoints only.
++    if allow_actor_only and payload.get('schema_version') == 'actor-only-v1':
++        if fingerprint(payload['config']) != payload['config_sha256']:
++            raise ValueError('Actor configuration hash mismatch')
++        return payload
+     if payload.get('schema_version') not in (2, 3) or payload.get('protocol_version') != PROTOCOL_VERSION:
+         raise ValueError('Checkpoint requires explicit architecture/protocol; no default guessing')
+     if (payload['schema_version'] == 3) != ('online_group' in payload['config']):
+@@ -111,9 +131,9 @@
+     return payload
+ 
+ 
+-def load_agent(path, training=True, restore_random_state=True):
++def load_agent(path, training=True, restore_random_state=True, device=None):
+     payload = read_checkpoint(path)
+-    agent = build_agent(payload['config'], training)
++    agent = build_agent(payload['config'], training, device=device)
+     agent.actor_network.load_state_dict(payload['actor'])
+     agent.critic_network.load_state_dict(payload['critic'])
+     agent.policy_version, agent.update_counter = payload['policy_version'], payload['update_counter']
+@@ -122,12 +142,12 @@
+         agent.critic_optimizer.load_state_dict(payload['critic_optimizer'])
+         agent.memory.import_dict(payload['memory'])
+     if restore_random_state:
+-        restore_rng(payload['rng'])
++        restore_rng(payload['rng'], include_cuda=training and str(agent.device).startswith('cuda'))
+     return agent, payload
+ 
+ 
+ def load_actor(path):
+-    payload = read_checkpoint(path)
++    payload = read_checkpoint(path, allow_actor_only=True)
+     config = payload['config']
+     arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
+     actor = Actor(**arch)  # This path never constructs a Critic or optimizer.
+@@ -210,7 +230,7 @@
+     except Exception:
+         result.update(valid=False, task_terminal=False, status='worker_error', error=traceback.format_exc())
+     result.update(worker_wall_seconds=time.perf_counter() - start, worker_cpu_seconds=cpu_seconds(),
+-                  worker_cpu_complete=True, peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
++                  worker_cpu_complete=True, cuda_initialized=torch.cuda.is_initialized(), peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                   cpu_affinity=sorted(os.sched_getaffinity(0)), reward_version='upstream_h3_t{:g}'.format(job.get('limits', {}).get('time_limit', 0)))
+     write_json(result_path, result)
+ 
+--- /dev/null
++++ b/code/server.py
+@@ -0,0 +1,402 @@
++"""Portable six-job server experiment; CPU SCIP collection, optional CUDA PPO.
++
++No stage6/report or held-out test sweep is launched automatically.
++"""
++import argparse
++import copy
++import fcntl
++import importlib.util
++import json
++import os
++from pathlib import Path
++import pickle
++import platform
++import signal
++import socket
++import time
++import uuid
++import numpy as np
++import torch
++from project.runtime import (build_agent,config_with_protocol,seed_all,save_checkpoint,load_agent,
++    load_actor,read_checkpoint,make_job,job_identity,run_jobs,action_seed,cpu_seconds,ARCH_KEYS)
++from project.utils.protocol import fingerprint,sha256,write_json,validate_baseline
++
++DEFAULT_ROOT=Path(__file__).resolve().parents[4]
++
++
++def read(path):return json.loads(Path(path).read_text())
++
++
++def plan(root,path):
++    c=read(path)
++    if c['schema']!='server-six-jobs-v1':raise ValueError('Explicit server protocol required')
++    if set(c['groups'])-{'B0','R0','Rjoint'} or len(set(c['training_seeds']))!=len(c['training_seeds']):
++        raise ValueError('Invalid groups or duplicate training seeds')
++    if c['max_episodes']%c['batch_episodes'] or any(n%c['batch_episodes'] for n in c['milestones']):
++        raise ValueError('Milestones must be complete collection-batch boundaries')
++    if c['milestones'][-1]!=c['max_episodes'] or sorted(set(c['milestones']))!=c['milestones']:
++        raise ValueError('Sorted milestones must end at final episode budget')
++    original=read(root/'docs/stage1/protocol_draft.json')
++    code=Path(__file__).resolve().parent
++    source_files=sorted(code.rglob('*.py'))
++    c.update(train=original['data']['train'],development=original['data']['development'],
++             instance_hashes=original['data']['hashes'],
++             public_hparams_sha256=sha256(root/'tgppo/configs/paper_hparams.json'),
++             calibration_statistics_sha256=sha256(root/'tgppo/runs/stage4-calibration/final_train_only_statistics.json'),
++             runtime_sources_sha256=fingerprint({str(p.relative_to(code)):sha256(p) for p in source_files}))
++    if set(c['train'])&set(c['development']):raise ValueError('Train/development overlap')
++    return c
++
++
++def stack(root):
++    from pyscipopt import Model
++    methods=('getCandsState','getMIPState','getNodeState','getIntegralSnapshot','getOpenNodeSnapshot')
++    if not all(hasattr(Model,m) for m in methods):raise RuntimeError('Custom SCIP interfaces missing')
++    m=Model();version=m.version();m.freeProb()
++    if int(version)!=6:raise RuntimeError('Expected SCIP6 custom binding')
++    model=next((s.split(':',1)[1].strip() for s in Path('/proc/cpuinfo').read_text().splitlines()
++                if s.startswith('model name')),platform.machine())
++    lib=root/'tgppo/solver/lib/libscip.so'
++    so=Path(importlib.util.find_spec('pyscipopt.scip').origin)
++    return dict(cpu_model=model,machine=platform.machine(),scip_version=version,
++        libscip_sha256=sha256(lib),binding_sha256=sha256(so),torch_version=torch.__version__,
++        python_abi='{}.{}'.format(*__import__('sys').version_info[:2]))
++
++
++def params(root,c,group,seed,device):
++    p=read(root/'tgppo/configs/paper_hparams.json')
++    if c.get('engineering_mode'):p.update(c.get('model_overrides',{}))
++    stats_path=root/'tgppo/runs/stage4-calibration/final_train_only_statistics.json'
++    stats=read(stats_path)
++    p.update(learner_device=device,server_group=group,server_training_seed=seed,
++             server_protocol_sha256=fingerprint(c),task_time_limit=c['time_limit'],
++             initialization='paired fresh public weights; no offline adapter warm start')
++    if group!='B0':p.update(online_group=group,target_mean=stats['mean'],target_std=stats['std'],
++        target_statistics_sha256=sha256(stats_path),extra_initialization_seed=1000+seed)
++    return config_with_protocol(p)
++
++
++def schedule(seed,c):
++    # Every 20-task cycle covers the complete training split, including zero-decision cases.
++    rng=np.random.RandomState(seed);result=[]
++    while len(result)<c['max_episodes']:
++        order=list(c['train']);rng.shuffle(order);result+=order
++    return result[:c['max_episodes']]
++
++
++def digest_agent(agent,configuration):
++    import hashlib
++    h=hashlib.sha256(fingerprint(configuration).encode())
++    for prefix,net in [('actor',agent.actor_network),('critic',agent.critic_network)]:
++        for k,v in sorted(net.state_dict().items()):
++            h.update((prefix+k).encode());h.update(v.detach().cpu().numpy().tobytes())
++    h.update(str(agent.policy_version).encode())
++    return h.hexdigest()
++
++
++def group_dir(run,group,seed):return run/'training'/('{}-s{}'.format(group,seed))
++
++
++def bound_job(root,c,cutoffs,name,seed,training_seed,mode,checkpoint=None,job_id=None,instances=None):
++    j=make_job(job_id or '{}-{}-s{}'.format(mode,name,seed),instances or root/'tgppo/datasets/train_instances',
++        name,c['time_limit'],seed,training_seed,cutoffs,mode,checkpoint)
++    j['address_space_limit_bytes']=c['worker_address_space_bytes']
++    return j
++
++
++def cached_jobs(jobs,base,identity,workers,watchdog):
++    """Reuse only valid outputs from a matching immutable attempt manifest.
++
++    Invalid attempts remain on disk; explicit restart retries missing/failed jobs
++    in a new attempt, retaining every prior cost/error record.
++    """
++    base.mkdir(parents=True,exist_ok=True)
++    lock=base/'identity.json'
++    if lock.exists() and read(lock)!=identity:raise ValueError('Cached job identity changed')
++    if not lock.exists():write_json(lock,identity)
++    found={}
++    for directory in sorted(base.glob('attempt-*')):
++        manifest=directory/'manifest.json'
++        if not manifest.exists() or read(manifest)['identity']!=identity:continue
++        for job in jobs:
++            f=directory/(job['job_id']+'.json');trajectory=directory/(job['job_id']+'.pkl')
++            if not f.exists():continue
++            row=read(f)
++            if row.get('valid') and (job['mode']!='collect' or trajectory.exists()):
++                found[job['job_id']]=(row,trajectory)
++    missing=[j for j in jobs if j['job_id'] not in found]
++    if missing:
++        directory=base/('attempt-{:03d}'.format(len(list(base.glob('attempt-*')))))
++        directory.mkdir()
++        write_json(directory/'manifest.json',dict(identity=identity,jobs=missing))
++        rows=run_jobs(missing,directory,workers,watchdog)
++        for row in rows:
++            if not row.get('valid'):raise RuntimeError('Invalid jobs retained at '+str(directory))
++            found[row['job_id']]=(row,directory/(row['job_id']+'.pkl'))
++    ordered=[found[j['job_id']] for j in sorted(jobs,key=lambda j:j['job_id'])]
++    write_json(base/'selected_results.json',[r for r,_ in ordered])
++    return ordered
++
++
++def baseline_bundle(root,c,run):
++    b=read(run/'normalization/baselines.json')
++    if b['protocol_sha256']!=fingerprint(c) or b['stack']!=stack(root):
++        raise ValueError('Baseline provenance differs from this CPU/software/protocol; remeasure on target')
++    return b['baselines']
++
++
++def baseline(root,c,run):
++    signature=stack(root);cutoffs=read(root/'tgppo/datasets/cutoffs.json');jobs=[]
++    for name in c['train']+c['development']:
++        if sha256(root/'tgppo/datasets/train_instances'/(name+'.mps.gz'))!=c['instance_hashes'][name]:
++            raise ValueError('Frozen dataset changed: '+name)
++        for s in c['solver_seeds']:jobs.append(bound_job(root,c,cutoffs,name,s,11,'native'))
++    pairs=cached_jobs(jobs,run/'normalization/jobs',dict(protocol=fingerprint(c),stack=signature),
++                      c['workers'],c['watchdog'])
++    byid={r['job_id']:r for r,_ in pairs};values={}
++    for job in jobs:
++        ident=job_identity(job);record=dict(identity=ident,result=byid[job['job_id']])
++        validate_baseline(record,ident);values[fingerprint(ident)]=record
++    write_json(run/'normalization/baselines.json',dict(protocol_sha256=fingerprint(c),
++        stack=signature,host=socket.gethostname(),baselines=values))
++
++
++class Interrupted(RuntimeError):pass
++
++
++def interrupted(signum,frame):raise Interrupted('Job signal {}; last atomic recovery checkpoint retained'.format(signum))
++
++
++def preflight(root,c,device):
++    torch.set_num_threads(1);s=stack(root)
++    if device.startswith('cuda'):
++        if not torch.cuda.is_available():raise RuntimeError('CUDA required; refusing silent CPU fallback')
++        gpu=torch.cuda.get_device_name(0)
++        if c.get('expected_gpu') and c['expected_gpu'] not in gpu and not c.get('engineering_mode'):
++            raise RuntimeError('Expected '+c['expected_gpu']+', got '+gpu)
++    else:gpu=None
++    allowed=sorted(os.sched_getaffinity(0))
++    if len(allowed)<c['workers'] and not c.get('engineering_mode'):raise RuntimeError('Allocated CPU quota too small')
++    return dict(stack=s,gpu=gpu,device=device,allowed_cpus=allowed,host=socket.gethostname(),
++                slurm_job_id=os.environ.get('SLURM_JOB_ID'),slurm_array_task_id=os.environ.get('SLURM_ARRAY_TASK_ID'))
++
++
++def milestone_save(directory,agent,configuration,state,c):
++    """Save only stable pre/post-update states, never interrupted half-updates."""
++    save_checkpoint(directory/'latest.pt',agent,configuration,state)
++    cursor=state['next_episode']
++    if state['phase']=='ready' and cursor in c['milestones']:
++        save_checkpoint(directory/('episode-{:04d}.pt'.format(cursor)),agent,configuration,state)
++
++
++def train(root,c,run,group,seed,resume,device,stop_after_batches=None):
++    if group not in c['groups'] or seed not in c['training_seeds']:raise ValueError('Job outside chosen matrix')
++    if device=='cpu' and not c.get('engineering_mode'):raise ValueError('CPU training is engineering-only in this server protocol')
++    info=preflight(root,c,device);bases=baseline_bundle(root,c,run)
++    if not c.get('engineering_mode'):
++        gate_path=run/'gpu-bridge/verification.json'
++        if not gate_path.exists():raise RuntimeError('Run server-run/gpu_bridge.sh on the target GPU first')
++        gate=read(gate_path)
++        if not gate.get('passed') or gate['parent_protocol_sha256']!=fingerprint(c) or gate['stack']!=info['stack']:
++            raise RuntimeError('Target GPU bridge not passed under this protocol/CPU/software')
++    out=group_dir(run,group,seed);out.mkdir(parents=True,exist_ok=True)
++    lock=(out/'.train.lock').open('a');fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
++    configuration=params(root,c,group,seed,device);seed_all(seed)
++    if (out/'latest.pt').exists():
++        if not resume:raise FileExistsError('Use explicit --resume for existing run')
++        agent,payload=load_agent(out/'latest.pt',device=device)
++        if payload['config']!=configuration:raise ValueError('Resume configuration changed')
++        state=payload['progress']
++    else:
++        if (out/'config.json').exists():raise RuntimeError('Uncommitted existing run; inspect instead of resetting')
++        agent=build_agent(configuration,device=device)
++        agent.task_time_limit=c['time_limit']
++        state=dict(next_episode=0,trained_episodes=0,phase='ready',optimizer_steps=0,history=[],
++                   protocol_sha256=fingerprint(c),group=group,seed=seed)
++        write_json(out/'config.json',configuration)
++        write_json(out/'task_schedule.json',schedule(seed,c))
++        milestone_save(out,agent,configuration,state,c)
++    agent.task_time_limit=c['time_limit']
++    initial_fp=out/'initialization.json'
++    if not initial_fp.exists():
++        write_json(initial_fp,dict(actor_fingerprint=digest_actor(agent.actor_network),
++            common_critic_fingerprint=digest_actor(agent.critic_network,exclude_extra=True),
++            public_torch_rng_sha256=__import__('hashlib').sha256(torch.get_rng_state().numpy().tobytes()).hexdigest()))
++    write_json(out/'preflight.json',info)
++    attempt=out/'attempts'/(uuid.uuid4().hex+'.json');start=time.monotonic();batch_count=0
++    data=read(root/'tgppo/datasets/cutoffs.json');order=read(out/'task_schedule.json')
++    def heartbeat(**extra):
++        write_json(attempt,dict(pid=os.getpid(),job=info['slurm_job_id'],host=info['host'],
++            learner_cpu_seconds=cpu_seconds(),attempt_wall_seconds=time.monotonic()-start,
++            phase=state['phase'],next_episode=state['next_episode'],complete=False,**extra))
++    oldhandlers={s:signal.getsignal(s) for s in (signal.SIGTERM,signal.SIGINT,signal.SIGUSR1)}
++    for s in oldhandlers:signal.signal(s,interrupted)
++    try:
++        heartbeat()
++        while state['next_episode']<c['max_episodes'] or state['phase']=='collected':
++            if state['phase']=='ready':
++                begin=state['next_episode'];end=min(begin+c['batch_episodes'],c['max_episodes'])
++                collection_fp=digest_agent(agent,configuration);jobs=[]
++                for idx in range(begin,end):
++                    name=order[idx];ss=c['solver_seeds'][(idx//len(c['train']))%len(c['solver_seeds'])]
++                    job=bound_job(root,c,data,name,ss,seed,'collect',out/'latest.pt',
++                                  job_id='e{:05d}-{}-s{}'.format(idx,name,ss))
++                    ident=job_identity(job);job['baseline']=bases[fingerprint(ident)]
++                    validate_baseline(job['baseline'],ident);jobs.append(job)
++                pairs=cached_jobs(jobs,out/'collection'/('e{:05d}'.format(begin)),
++                    dict(policy_fingerprint=collection_fp,protocol=fingerprint(c)),c['workers'],c['watchdog'])
++                for row,path in pairs:
++                    if row['policy_version']!=agent.policy_version:raise ValueError('Stale cached trajectory')
++                    with path.open('rb') as f:agent.memory.import_dict(pickle.load(f))
++                state.update(next_episode=end,phase='collected')
++                # Recovery contains complete trajectories, raw values, both optimizers and RNG.
++                save_checkpoint(out/'latest.pt',agent,configuration,state)
++                heartbeat()
++            begin_cpu=cpu_seconds();begin_wall=time.monotonic()
++            event_start=event_end=None
++            if device.startswith('cuda'):
++                event_start=torch.cuda.Event(enable_timing=True);event_end=torch.cuda.Event(enable_timing=True)
++                event_start.record()
++            metrics=agent.learn(microbatch_size=c['microbatch_size'],
++                progress_callback=lambda p:heartbeat(learning_progress=p))
++            if event_end is not None:event_end.record();torch.cuda.synchronize()
++            metrics.update(episodes_seen=state['next_episode'],learning_cpu_seconds=cpu_seconds()-begin_cpu,
++                learning_wall_seconds=time.monotonic()-begin_wall,
++                gpu_event_seconds=event_start.elapsed_time(event_end)/1000. if event_start is not None else None,
++                peak_cuda_allocated_bytes=torch.cuda.max_memory_allocated() if event_start is not None else 0)
++            if metrics['updated']:
++                state['trained_episodes']=state['next_episode'];state['optimizer_steps']+=metrics['num_updates']
++            state['history'].append(metrics);state['phase']='ready'
++            milestone_save(out,agent,configuration,state,c)
++            write_json(out/'updates.json',state['history']);heartbeat();batch_count+=1
++            print(json.dumps(metrics),flush=True)
++            if stop_after_batches and batch_count>=stop_after_batches:break
++        finished=state['next_episode']==c['max_episodes'] and state['phase']=='ready'
++        if finished:
++            write_json(out/'summary.json',dict(status='training_complete',group=group,seed=seed,
++                episodes_seen=state['next_episode'],trained_episodes=state['trained_episodes'],
++                complete_ppo_updates=agent.update_counter,optimizer_steps=state['optimizer_steps'],
++                pending_transitions=len(agent.memory),final_checkpoint_sha256=sha256(out/'latest.pt'),
++                protocol_sha256=fingerprint(c),gpu=info['gpu']))
++        heartbeat(attempt_finished=True,training_finished=finished)
++        return state
++    except BaseException as exc:
++        heartbeat(error=repr(exc),attempt_interrupted=True)
++        raise
++    finally:
++        for s,h in oldhandlers.items():signal.signal(s,h)
++        fcntl.flock(lock.fileno(),fcntl.LOCK_UN);lock.close()
++
++
++def digest_actor(network,exclude_extra=False):
++    import hashlib
++    h=hashlib.sha256()
++    for k,v in sorted(network.state_dict().items()):
++        if exclude_extra and k.startswith(('extra.','extra_projection.','time_projection.','target_mean','target_std','return_')):continue
++        h.update(k.encode());h.update(v.detach().cpu().numpy().tobytes())
++    return h.hexdigest()
++
++
++def export_actor(checkpoint,path):
++    p=read_checkpoint(checkpoint)
++    payload=dict(schema_version='actor-only-v1',config=p['config'],config_sha256=p['config_sha256'],
++        actor={k:v.detach().cpu() for k,v in p['actor'].items()},
++        provenance=dict(checkpoint_sha256=sha256(checkpoint),progress=p['progress']))
++    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
++    tmp=path.with_suffix('.tmp');torch.save(payload,tmp);tmp.replace(path)
++
++
++def selection(rows_by_episode,names,seeds):
++    """Same development coverage for each checkpoint; no test-based selection."""
++    scores=[];expected={(n,s) for n in names for s in seeds}
++    for episode,rows in sorted(rows_by_episode.items()):
++        if len(rows)!=len(expected) or {(r['instance_name'],r['solver_seed']) for r in rows}!=expected:
++            raise ValueError('Development coverage incomplete or duplicated')
++        if any(not r.get('valid') for r in rows):raise ValueError('Invalid dev runs cannot be filtered')
++        per_instance=[float(np.mean([r['pdi_horizon_midpoint'] for r in rows if r['instance_name']==n])) for n in names]
++        scores.append(dict(episode=episode,mean_pdi=float(np.mean(per_instance)),
++            mean_pdi_lower=float(np.mean([r['pdi_horizon_lower'] for r in rows])),
++            mean_pdi_upper=float(np.mean([r['pdi_horizon_upper'] for r in rows]))))
++    return min(scores,key=lambda r:(r['mean_pdi'],r['episode'])),scores
++
++
++def select(root,c,run,group,seed):
++    torch.set_num_threads(1);out=group_dir(run,group,seed)
++    summary=read(out/'summary.json')
++    if summary['protocol_sha256']!=fingerprint(c) or summary['episodes_seen']!=c['max_episodes'] or summary['complete_ppo_updates']<1:
++        raise ValueError('Training not complete under selected protocol')
++    stack_signature=stack(root);cutoffs=read(root/'tgppo/datasets/cutoffs.json');allrows={}
++    for episode in c['milestones']:
++        cp=out/('episode-{:04d}.pt'.format(episode));cp_hash=sha256(cp);jobs=[]
++        for name in c['development']:
++            for ss in c['solver_seeds']:
++                j=bound_job(root,c,cutoffs,name,ss,seed,'eval',cp,job_id='dev-{}-s{}'.format(name,ss))
++                j['sampling_seed']=action_seed(seed,'dev-{}-s{}'.format(name,ss));jobs.append(j)
++        pairs=cached_jobs(jobs,out/'development'/('episode-{:04d}'.format(episode)),
++             dict(checkpoint_sha256=cp_hash,stack=stack_signature,protocol=fingerprint(c)),c['workers'],c['watchdog'])
++        if sha256(cp)!=cp_hash:raise RuntimeError('Evaluation mutated checkpoint')
++        allrows[episode]=[r for r,_ in pairs]
++    best,scores=selection(allrows,c['development'],c['solver_seeds'])
++    chosen=out/('episode-{:04d}.pt'.format(best['episode']))
++    write_json(out/'selection.json',dict(rule='minimum instance-equal dev mean 120s PDI; exact ties favor earlier episode',
++        best=best,all_checkpoints=scores,selection_set='frozen development only',
++        selection_instances=c['development'],solver_seeds=c['solver_seeds'],training_seed=seed,
++        checkpoint_sha256=sha256(chosen),protocol_sha256=fingerprint(c),stack=stack_signature))
++    export_actor(chosen,out/'actor_best.pt')
++    export_actor(out/('episode-{:04d}.pt'.format(c['max_episodes'])),out/'actor_final.pt')
++
++
++def evaluate(root,c,run,actor,instances,names,label,training_seed,native=False):
++    torch.set_num_threads(1)
++    if set(names)&set(c['train']+c['development']):
++        raise ValueError('Held-out evaluation manifest overlaps training or selection instances')
++    if not names or len(set(names))!=len(names):raise ValueError('Unique nonempty held-out manifest required')
++    if not label.replace('-','').replace('_','').isalnum():raise ValueError('Unsafe dataset label')
++    payload=None
++    if not native:
++        policy,payload=load_actor(actor)
++        if hasattr(policy,'critic_network'):raise RuntimeError('Actor-only export required')
++        if payload['config'].get('server_training_seed',training_seed)!=training_seed:
++            raise ValueError('Evaluation seed must match the exported model training seed')
++    contaminated={c['instance_hashes'][n] for n in c['train']+c['development']}
++    hashes={n:sha256(instances/(n+'.mps.gz')) for n in names}
++    if set(hashes.values())&contaminated:raise ValueError('Held-out dataset duplicates training/development content')
++    cutoffs=read(root/'tgppo/datasets/cutoffs.json');jobs=[]
++    for name in names:
++        for ss in c['solver_seeds']:
++            j=bound_job(root,c,cutoffs,name,ss,training_seed,'native' if native else 'eval',actor,
++                job_id='test-{}-s{}'.format(name,ss),instances=instances)
++            j['sampling_seed']=action_seed(training_seed,'test-{}-s{}'.format(name,ss));jobs.append(j)
++    identity=dict(actor_sha256='relpscost-native' if native else sha256(actor),stack=stack(root),protocol=fingerprint(c),
++                  names=names,instance_hashes=hashes)
++    pairs=cached_jobs(jobs,run/'test'/label/identity['actor_sha256'][:16],identity,c['workers'],c['watchdog'])
++    write_json(run/'test'/label/(identity['actor_sha256'][:16]+'-summary.json'),dict(runs=len(pairs),
++        mean_pdi=float(np.mean([r['pdi_horizon_midpoint'] for r,_ in pairs])),
++        valid=sum(r['valid'] for r,_ in pairs),actor_sha256=identity['actor_sha256'],stack=identity['stack'],
++        method='relpscost' if native else payload['config']['server_group'],training_seed=None if native else training_seed,
++        proof_count=sum(r['proof_completed'] and r['scip_solve_time']<=c['time_limit'] for r,_ in pairs),
++        mean_nodes=float(np.mean([r['nnodes'] for r,_ in pairs])),
++        critic_seconds=sum(r.get('callback_seconds',{}).get('critic',0.) for r,_ in pairs)))
++
++
++def main():
++    a=argparse.ArgumentParser(description=__doc__)
++    a.add_argument('command',choices=['preflight','baselines','train','select','evaluate','export'])
++    a.add_argument('--root',type=Path,default=Path(os.environ.get('RESEARCH_ROOT',DEFAULT_ROOT)))
++    a.add_argument('--config',type=Path,required=True);a.add_argument('--run-root',type=Path)
++    a.add_argument('--group',choices=['B0','R0','Rjoint']);a.add_argument('--seed',type=int,default=11)
++    a.add_argument('--resume',action='store_true');a.add_argument('--device',default='cuda')
++    a.add_argument('--checkpoint',type=Path);a.add_argument('--output',type=Path)
++    a.add_argument('--native',action='store_true');a.add_argument('--instances-dir',type=Path);a.add_argument('--names-json',type=Path);a.add_argument('--label')
++    args=a.parse_args();root=args.root.resolve();c=plan(root,args.config)
++    run=(args.run_root or root/c['run_directory']).resolve()
++    if args.command=='preflight':print(json.dumps(preflight(root,c,args.device),indent=2))
++    elif args.command=='baselines':baseline(root,c,run)
++    elif args.command=='train':train(root,c,run,args.group,args.seed,args.resume,args.device)
++    elif args.command=='select':select(root,c,run,args.group,args.seed)
++    elif args.command=='export':export_actor(args.checkpoint,args.output)
++    elif args.command=='evaluate':
++        if bool(args.checkpoint)==args.native:raise ValueError('Choose either --checkpoint or --native')
++        evaluate(root,c,run,args.checkpoint,args.instances_dir,read(args.names_json),args.label,args.seed,args.native)
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/code/server_bridge.py
+@@ -0,0 +1,59 @@
++"""Target-machine GPU bridge. Does not start the six full training jobs."""
++import argparse
++import copy
++import json
++import os
++from pathlib import Path
++import uuid
++import numpy as np
++import torch
++import server
++from project.runtime import load_agent,load_actor,read_checkpoint
++from project.utils.protocol import write_json,fingerprint
++
++
++def bridge(root,c,run):
++    info=server.preflight(root,c,'cuda')  # Enforces expected V100 before engineering changes.
++    probe=copy.deepcopy(c)
++    probe.update(engineering_mode=True,max_episodes=4,milestones=[4],training_seeds=[11],
++        train=['lseu','stein27','misc03','pp08aCUTS'],development=['vpm2'])
++    probe.pop('model_overrides',None)  # Full production 256/5/8 model, FP32.
++    directory=run/'gpu-bridge'/uuid.uuid4().hex
++    directory.mkdir(parents=True)
++    write_json(directory/'probe_protocol.json',probe)
++    server.baseline(root,probe,directory)
++    rows=[];checks={}
++    for group in c['groups']:
++        state=server.train(root,probe,directory,group,11,False,'cuda')
++        out=server.group_dir(directory,group,11);agent,p=load_agent(out/'latest.pt')
++        first_torch=torch.rand(4,device='cuda').cpu()
++        restored,_=load_agent(out/'latest.pt');next_torch=torch.rand(4,device='cuda').cpu()
++        checks[group+'_cuda_rng_recovery']=torch.equal(first_torch,next_torch)
++        checks[group+'_full_cuda_critic']=all(t.requires_grad and t.device.type=='cuda' for t in restored.critic_network.parameters())
++        checks[group+'_optimizers_recovered']=bool(restored.actor_optimizer.state) and bool(restored.critic_optimizer.state)
++        checks[group+'_real_update']=restored.update_counter==1 and state['trained_episodes']==4
++        checks[group+'_ratio_cpu_rollout_vs_cuda_update']=state['history'][0]['initial_ratio_max_error']<1e-4
++        init=server.read(out/'initialization.json')
++        checks[group+'_actor_changed']=init['actor_fingerprint']!=server.digest_actor(restored.actor_network)
++        checks[group+'_critic_changed']=init['common_critic_fingerprint']!=server.digest_actor(restored.critic_network,exclude_extra=True)
++        policy,_=load_actor(out/'latest.pt')
++        checks[group+'_actor_only_cpu']=not hasattr(policy,'critic_network') and all(p.device.type=='cpu' for p in policy.actor_network.parameters())
++        worker_rows=[server.read(p) for p in out.glob('collection/**/e*.json')]
++        checks[group+'_workers_cpu_only']=len(worker_rows)==4 and all(not r['cuda_initialized'] for r in worker_rows)
++        if group!='B0':
++            checks[group+'_raw_unit_decode']=float(restored.critic_network.target_mean)==torch.tensor(p['config']['target_mean'],dtype=torch.float32).item()
++        rows.append(dict(group=group,gpu=info['gpu'],metrics=state['history'],source=str(out)))
++        del agent,restored,policy
++        torch.cuda.empty_cache()
++    evidence=dict(passed=all(checks.values()),parent_protocol_sha256=fingerprint(c),stack=info['stack'],
++        gpu=info['gpu'],checks=checks,rows=rows,scope='GPU bridge only, not full training or performance validation')
++    write_json(run/'gpu-bridge/verification.json',evidence)
++    print(json.dumps(evidence,indent=2))
++    if not evidence['passed']:raise RuntimeError('Target GPU bridge failed; full training forbidden')
++
++
++if __name__=='__main__':
++    a=argparse.ArgumentParser(description=__doc__)
++    a.add_argument('--root',type=Path,default=Path(os.environ.get('RESEARCH_ROOT',server.DEFAULT_ROOT)))
++    a.add_argument('--config',type=Path,required=True);a.add_argument('--run-root',type=Path,required=True)
++    args=a.parse_args();bridge(args.root,server.plan(args.root,args.config),args.run_root)
+--- a/tests/test_correctness.py
++++ b/tests/test_correctness.py
+@@ -18,7 +18,7 @@
+ from project.utils.protocol import validate_baseline, solver_stats, sha256
+ from project.utils.settings import state_dims, settings
+ 
+-ROOT = Path('/root/research')
++ROOT = Path(__file__).resolve().parents[4]
+ CONFIG = config_with_protocol(dict(hidden_dim=32, num_layers=1, num_heads=4,
+                                  batch_size=2, n_epochs=1, dropout=.2))
+ 
+--- a/tests/test_measurement.py
++++ b/tests/test_measurement.py
+@@ -26,7 +26,7 @@
+         self.assertFalse(r['pdi_horizon_exact'])
+ 
+     def test_real_solved_presolve_and_timeout_flush(self):
+-        root = Path('/root/research')
++        root = Path(__file__).resolve().parents[4]
+         cutoffs = json.loads((root / 'tgppo/datasets/cutoffs.json').read_text())
+         for name in ('misc03', 'lseu', 'air04'):
+             job = make_job('metric-' + name, root / 'tgppo/datasets/train_instances',
+--- a/tests/test_search_features.py
++++ b/tests/test_search_features.py
+@@ -1,4 +1,5 @@
+ import unittest
++from pathlib import Path
+ from unittest.mock import Mock
+ import copy
+ import numpy as np
+@@ -144,7 +145,7 @@
+         def run(probe_enabled, maximize=False):
+             m = Model()
+             init_params(m, dict(node_limit=150, time_limit=120), settings['sandbox'])
+-            m.readProblem('/root/research/tgppo/datasets/train_instances/lseu.mps.gz')
++            m.readProblem(str(Path(__file__).resolve().parents[4] / 'tgppo/datasets/train_instances/lseu.mps.gz'))
+             if maximize:
+                 m.setObjective(-m.getObjective(), 'maximize')
+                 m.setObjlimit(-1120.)
+--- /dev/null
++++ b/tests/test_server.py
+@@ -0,0 +1,122 @@
++import copy
++import json
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++import numpy as np
++import torch
++import server
++from project.runtime import config_with_protocol,build_agent,seed_all,save_checkpoint,load_agent,load_actor
++from project.agent.agent import Agent
++from project.utils.protocol import write_json,fingerprint
++
++ROOT=Path(__file__).resolve().parents[4]
++
++
++def tiny(group):
++    p=config_with_protocol(dict(hidden_dim=32,num_layers=1,num_heads=4,dropout=0.,batch_size=4,n_epochs=1,learner_device='cpu'))
++    if group!='B0':p.update(online_group=group,target_mean=-13.,target_std=8.,extra_initialization_seed=1011)
++    return p
++
++
++def populate(a):
++    a.memory.begin_episode('synthetic',0)
++    for i in range(8):
++        s=dict(cands_state=np.full((2+i%3,25),.1*(i+1),np.float32),mip_state=np.full(53,.2,np.float32),node_state=np.zeros(8,np.float32))
++        if getattr(a,'online_context',False):s.update(remaining_time=np.float32(.8),frontier=np.r_[np.full(64,1/64),np.ones(5)].astype(np.float32))
++        action,value,lp=a.choose_action(**s)
++        a.remember(**s,action=action,value=value,log_prob=lp,reward=-float(i+1),done=i==7)
++    a.seal_episode(True)
++
++
++class ServerTests(unittest.TestCase):
++    def test_three_groups_public_actor_pairing_and_cpu_worker(self):
++        actors=[]
++        for g in ('B0','R0','Rjoint'):
++            seed_all(11);a=build_agent(tiny(g));actors.append(server.digest_actor(a.actor_network))
++            with tempfile.TemporaryDirectory() as d:
++                p=Path(d)/'initial.pt';save_checkpoint(p,a,tiny(g))
++                worker,_=load_agent(p,training=False,restore_random_state=False)
++                self.assertEqual(worker.device,'cpu');self.assertIsNone(worker.actor_optimizer)
++                self.assertEqual(getattr(worker,'online_context',False),g!='B0')
++        self.assertEqual(len(set(actors)),1)
++
++    def test_complete_update_restore_and_actor_export_all_groups(self):
++        for g in ('B0','R0','Rjoint'):
++            seed_all(11);a=build_agent(tiny(g));populate(a)
++            self.assertTrue(a.learn(microbatch_size=2)['updated'])
++            with tempfile.TemporaryDirectory() as d:
++                p=Path(d)/'full.pt';export=Path(d)/'actor.pt'
++                save_checkpoint(p,a,tiny(g),dict(next_episode=100,phase='ready'))
++                b,payload=load_agent(p);self.assertEqual(b.policy_version,1)
++                self.assertTrue(b.actor_optimizer.state);self.assertTrue(b.critic_optimizer.state)
++                server.export_actor(p,export)
++                with patch('project.runtime.build_agent',side_effect=AssertionError('No Critic construction')):
++                    deployed,_=load_actor(export)
++                self.assertFalse(hasattr(deployed,'critic_network'))
++                self.assertEqual(server.digest_actor(a.actor_network),server.digest_actor(deployed.actor_network))
++                with self.assertRaises(ValueError):load_agent(export)
++
++    def test_dev_selection_coverage_ties_and_failure(self):
++        def row(name,seed,pdi):return dict(instance_name=name,solver_seed=seed,valid=True,
++            pdi_horizon_midpoint=pdi,pdi_horizon_lower=pdi,pdi_horizon_upper=pdi)
++        values={100:[row('a',0,3),row('a',1,5),row('b',0,10),row('b',1,2)],
++                200:[row('a',0,6),row('a',1,2),row('b',0,2),row('b',1,10)]}
++        best,scores=server.selection(values,['a','b'],[0,1]);self.assertEqual(best['episode'],100)
++        self.assertEqual(best['mean_pdi'],5.)
++        broken=copy.deepcopy(values);broken[200][0]['valid']=False
++        with self.assertRaises(ValueError):server.selection(broken,['a','b'],[0,1])
++        broken=copy.deepcopy(values);broken[200].pop()
++        with self.assertRaises(ValueError):server.selection(broken,['a','b'],[0,1])
++
++    def test_real_collection_interrupted_update_resumes_without_lost_or_duplicate_tasks(self):
++        c=server.plan(ROOT,ROOT/'migration/2026-10-22/server-run/protocol.json')
++        c.update(engineering_mode=True,groups=['B0','R0','Rjoint'],training_seeds=[11],
++            train=['lseu','stein27','misc03','pp08aCUTS'],development=['vpm2'],solver_seeds=[0],
++            max_episodes=4,milestones=[4],workers=2,time_limit=2.,watchdog=30.,microbatch_size=4,
++            model_overrides=dict(hidden_dim=32,num_layers=1,num_heads=4,dropout=0.,batch_size=16,n_epochs=1))
++        with tempfile.TemporaryDirectory() as d:
++            run=Path(d);server.baseline(ROOT,c,run)
++            normal=Agent.learn
++            def fail_after_first_step(agent,progress_callback=None,**kwargs):
++                def crash(p):
++                    if progress_callback:progress_callback(p)
++                    raise server.Interrupted('Injected post-optimizer interruption')
++                return normal(agent,progress_callback=crash,**kwargs)
++            for g in c['groups']:
++                with patch.object(Agent,'learn',fail_after_first_step):
++                    with self.assertRaises(server.Interrupted):server.train(ROOT,c,run,g,11,False,'cpu')
++                out=server.group_dir(run,g,11);a,p=load_agent(out/'latest.pt')
++                self.assertEqual(p['progress']['phase'],'collected');self.assertEqual(a.policy_version,0)
++                self.assertEqual(p['progress']['next_episode'],4)
++                self.assertGreater(len(a.memory),16)
++                collected={f: f.stat().st_mtime_ns for f in out.glob('collection/**/*.pkl')}
++                a.learn(microbatch_size=4);expected_actor=server.digest_actor(a.actor_network);expected_critic=server.digest_actor(a.critic_network)
++                state=server.train(ROOT,c,run,g,11,True,'cpu')
++                b,p=load_agent(out/'latest.pt')
++                self.assertEqual(expected_actor,server.digest_actor(b.actor_network))
++                self.assertEqual(expected_critic,server.digest_actor(b.critic_network))
++                self.assertEqual(collected,{f: f.stat().st_mtime_ns for f in out.glob('collection/**/*.pkl')})
++                self.assertEqual(state['trained_episodes'],4);self.assertEqual(b.policy_version,1)
++                self.assertTrue((out/'episode-0004.pt').exists())
++                self.assertEqual(json.loads((out/'summary.json').read_text())['episodes_seen'],4)
++                server.select(ROOT,c,run,g,11)
++                self.assertEqual(server.read(out/'selection.json')['best']['episode'],4)
++                self.assertTrue((out/'actor_best.pt').exists());self.assertTrue((out/'actor_final.pt').exists())
++                for p in out.glob('development/**/dev*.json'):
++                    r=server.read(p);self.assertEqual(r['callback_seconds']['critic'],0.)
++                    self.assertNotIn('search_extraction_wall_seconds',r)
++                if g=='Rjoint':
++                    server.evaluate(ROOT,c,run,out/'actor_best.pt',ROOT/'tgppo/datasets/train_instances',
++                        ['neos-476283'],'heldout-test',11)
++                    server.evaluate(ROOT,c,run,None,ROOT/'tgppo/datasets/train_instances',
++                        ['neos-476283'],'heldout-native',11,native=True)
++                    self.assertEqual(len(list((run/'test/heldout-test').glob('*-summary.json'))),1)
++                    with self.assertRaises(ValueError):
++                        server.evaluate(ROOT,c,run,out/'actor_best.pt',ROOT/'tgppo/datasets/train_instances',
++                            ['vpm2'],'leak-forbidden',11)
++                for p in out.glob('collection/**/e*.json'):
++                    self.assertFalse(json.loads(p.read_text())['cuda_initialized'])
++
++if __name__=='__main__':unittest.main(verbosity=2)

@@ -1,0 +1,61 @@
+{
+  "observed_at_utc": "2026-10-23T00:20:45.174083+00:00",
+  "scope": "Existing training rollouts, CPU Actor timing; includes tensor conversion and action sampling, not an Actor-only held-out benchmark",
+  "gpu_actor_inference_measured": false,
+  "rows": [
+    {
+      "run": "B0-s11",
+      "episodes": 500,
+      "actor_calls": 308769,
+      "actor_wall_seconds": 6002.438108168601,
+      "mean_actor_wall_ms": 19.43989878572201,
+      "scip_solve_seconds": 43620.164055,
+      "actor_wall_divided_by_scip_time": 0.13760695857540145
+    },
+    {
+      "run": "B0-s22",
+      "episodes": 500,
+      "actor_calls": 307153,
+      "actor_wall_seconds": 5993.364228945051,
+      "mean_actor_wall_ms": 19.512634514216206,
+      "scip_solve_seconds": 43642.608484,
+      "actor_wall_divided_by_scip_time": 0.13732827704701253
+    },
+    {
+      "run": "R0-s11",
+      "episodes": 500,
+      "actor_calls": 305469,
+      "actor_wall_seconds": 5972.07657609653,
+      "mean_actor_wall_ms": 19.550516013397527,
+      "scip_solve_seconds": 43664.62746,
+      "actor_wall_divided_by_scip_time": 0.13677149957519708
+    },
+    {
+      "run": "R0-s22",
+      "episodes": 500,
+      "actor_calls": 301797,
+      "actor_wall_seconds": 6018.929716535378,
+      "mean_actor_wall_ms": 19.943636671455906,
+      "scip_solve_seconds": 43740.01837,
+      "actor_wall_divided_by_scip_time": 0.13760693161170656
+    },
+    {
+      "run": "Rjoint-s11",
+      "episodes": 500,
+      "actor_calls": 303793,
+      "actor_wall_seconds": 5930.535968142853,
+      "mean_actor_wall_ms": 19.521634692513825,
+      "scip_solve_seconds": 43718.733939,
+      "actor_wall_divided_by_scip_time": 0.13565205196512845
+    },
+    {
+      "run": "Rjoint-s22",
+      "episodes": 500,
+      "actor_calls": 301900,
+      "actor_wall_seconds": 5930.096969460254,
+      "mean_actor_wall_ms": 19.642586848162484,
+      "scip_solve_seconds": 43731.506827,
+      "actor_wall_divided_by_scip_time": 0.1356023928679034
+    }
+  ]
+}

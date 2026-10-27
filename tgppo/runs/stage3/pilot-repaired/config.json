@@ -1,0 +1,26 @@
+{
+  "actor_lr": 0.00024,
+  "batch_size": 256,
+  "critic_lr": 0.00012,
+  "critic_training_dropout": 0.05,
+  "dropout": 0.05,
+  "effective_actor_dropout": 0.0,
+  "entropy_weight": 0.003,
+  "gae_lambda": 0.92,
+  "gamma": 0.97,
+  "hidden_dim": 256,
+  "learner_microbatch_size": 16,
+  "microbatch_semantics": "sort inside fixed logical batch; sample-weighted gradient accumulation; one optimizer step",
+  "n_epochs": 3,
+  "num_heads": 8,
+  "num_layers": 5,
+  "policy_clip": 0.16,
+  "protocol_version": "stage3-measured-pdi-v1",
+  "reward_function": "reward_h3",
+  "state_dims": {
+    "mip_dim": 53,
+    "node_dim": 8,
+    "var_dim": 25
+  },
+  "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523"
+}

@@ -1,0 +1,176 @@
+--- a/migration/2026-10-22/server-run/custom_job.sh
++++ b/migration/2026-10-22/server-run/custom_job.sh
+@@ -38,6 +38,9 @@
+     baselines) exec "$launch_dir/run.sh" baselines ;;
+     bridge) exec "$launch_dir/gpu_bridge.sh" ;;
+     pilot) pilot ;;
+-    train) exec "$launch_dir/run.sh" train --group "$2" --seed "$3" --device cuda --resume ;;
++    train)
++        "$TGPPO_PYTHON" "$launch_dir/check_preparation.py" --run-root "$SERVER_RUN_ROOT"
++        exec "$launch_dir/run.sh" train --group "$2" --seed "$3" --device cuda --resume
++        ;;
+     select) exec "$launch_dir/run.sh" select --group "$2" --seed "$3" ;;
+ esac
+--- a/migration/2026-10-22/server-run/CRATER.md
++++ b/migration/2026-10-22/server-run/CRATER.md
+@@ -38,6 +38,8 @@
+ 
+ 三项前置证据通过后，创建六个独立 Custom 作业，每个启动命令分别填以下一行。每个作业均为 8 CPU / 32 GiB / 1 V100：
+ 
++可先在开发容器执行 `/home/duweiyue25/conda/envs/tgppo/bin/python migration/2026-10-22/server-run/check_preparation.py` 查看三个阶段：只有 `ready=true` 才提交训练。当前采用先完成准备、再申请训练的顺序，不让训练作业占着 GPU 等待。提前启动时入口会明确列出 `pending_files` 并以 75 退出，不再抛出缺少 baselines.json 的文件堆栈；失败或指纹不一致仍会拒绝。该检查只读共享证据，真正训练入口仍会核对当前协议、目标 CPU/软件和 V100，不能靠占位文件绕过验证。更换 CPU 型号或软件栈会触发基线不匹配，不能直接复用旧机器的结果。
++
+ ```bash
+ bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train B0 11
+ bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh train B0 22
+--- /dev/null
++++ b/migration/2026-10-22/server-run/check_preparation.py
+@@ -0,0 +1,59 @@
++#!/usr/bin/env python3
++"""Read-only preparation status; training still enforces target provenance itself."""
++import argparse
++import json
++from pathlib import Path
++import sys
++
++
++ARTIFACTS=(('native_baselines','normalization/baselines.json'),
++           ('gpu_bridge','gpu-bridge/verification.json'),
++           ('throughput','throughput/verification.json'))
++
++
++def inspect(run):
++    states={};loaded={};errors=[]
++    for name,relative in ARTIFACTS:
++        path=run/relative
++        if not path.exists():
++            states[name]='pending';continue
++        try:
++            payload=json.loads(path.read_text())
++            if not isinstance(payload,dict):raise ValueError('expected an object')
++        except (OSError,ValueError) as exc:
++            states[name]='invalid';errors.append(relative+': '+str(exc));continue
++        loaded[name]=payload
++        if name=='native_baselines':
++            rows=payload.get('baselines',{})
++            valid=(isinstance(rows,dict) and len(rows)==75 and
++                   all(isinstance(row,dict) and isinstance(row.get('result'),dict) and
++                       row['result'].get('valid') is True for row in rows.values()))
++        else:valid=payload.get('passed') is True
++        states[name]='passed' if valid else 'failed'
++        if not valid:errors.append(relative+': preparation did not pass')
++    if len(loaded)==len(ARTIFACTS) and all(state=='passed' for state in states.values()):
++        base=loaded['native_baselines'];bridge=loaded['gpu_bridge'];pilot=loaded['throughput']
++        protocol=base.get('protocol_sha256');stack=base.get('stack')
++        if not protocol or not stack or any(p.get('parent_protocol_sha256')!=protocol or p.get('stack')!=stack for p in (bridge,pilot)):
++            errors.append('Preparation artifacts use different protocol/CPU/software fingerprints')
++        if not bridge.get('gpu') or bridge.get('gpu')!=pilot.get('gpu'):
++            errors.append('Bridge and throughput GPU signatures differ')
++    pending=[relative for name,relative in ARTIFACTS if states[name]=='pending']
++    return dict(ready=not pending and not errors,stages=states,pending_files=pending,errors=errors,
++                scope='Preparation files only; training additionally checks the current protocol, CPU/software and V100')
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--run-root',type=Path,default=Path(__file__).resolve().parents[3]/'tgppo/runs/server6-20261022')
++    args=parser.parse_args();result=inspect(args.run_root)
++    print(json.dumps(result,ensure_ascii=False,indent=2),flush=True)
++    if result['ready']:return 0
++    if result['errors']:
++        print('Preparation failed or artifacts disagree. Inspect the existing prepare log; do not delete results.',file=sys.stderr)
++        return 1
++    print('Preparation is still running/incomplete. Keep the existing prepare job; submit training only after all three stages pass. No training episode has started.',file=sys.stderr)
++    return 75
++
++
++if __name__=='__main__':sys.exit(main())
+--- /dev/null
++++ b/migration/2026-10-22/server-run/tests/test_preparation_gate.py
+@@ -0,0 +1,87 @@
++import copy
++import importlib.util
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++
++LAUNCH=Path(__file__).resolve().parents[1]
++ROOT=LAUNCH.parents[2]
++spec=importlib.util.spec_from_file_location('preparation_gate',LAUNCH/'check_preparation.py')
++gate=importlib.util.module_from_spec(spec);spec.loader.exec_module(gate)
++
++
++class PreparationGateTests(unittest.TestCase):
++    def setUp(self):
++        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
++        self.run=Path(self.temp.name)
++        self.base=dict(protocol_sha256='frozen-protocol',stack={'cpu_model':'Gold 6148','binding':'same'},
++                       baselines={str(i):{'result':{'valid':True}} for i in range(75)})
++        self.proof=dict(parent_protocol_sha256='frozen-protocol',stack=self.base['stack'],
++                        gpu='Tesla V100-SXM2-32GB',passed=True)
++
++    def put(self,name,payload):
++        relative=dict(gate.ARTIFACTS)[name];p=self.run/relative
++        p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(payload))
++        return p
++
++    def complete(self):
++        self.put('native_baselines',self.base)
++        self.put('gpu_bridge',self.proof);self.put('throughput',self.proof)
++
++    def test_missing_artifacts_are_pending_and_no_state_is_created(self):
++        result=gate.inspect(self.run)
++        self.assertFalse(result['ready']);self.assertEqual(len(result['pending_files']),3)
++        self.assertEqual(list(self.run.iterdir()),[])
++
++    def test_completed_baseline_does_not_allow_early_training(self):
++        path=self.put('native_baselines',self.base);before=path.read_bytes()
++        result=gate.inspect(self.run)
++        self.assertEqual(result['stages']['native_baselines'],'passed')
++        self.assertFalse(result['ready']);self.assertEqual(len(result['pending_files']),2)
++        self.assertEqual(path.read_bytes(),before)
++
++    def test_all_three_matching_passed_artifacts_are_ready(self):
++        self.complete();self.assertTrue(gate.inspect(self.run)['ready'])
++
++    def test_failed_gpu_proof_and_incomplete_baseline_are_rejected(self):
++        self.complete();self.put('gpu_bridge',dict(self.proof,passed=False))
++        self.assertEqual(gate.inspect(self.run)['stages']['gpu_bridge'],'failed')
++        self.put('gpu_bridge',self.proof)
++        broken=copy.deepcopy(self.base);broken['baselines'].pop('0')
++        self.put('native_baselines',broken)
++        self.assertEqual(gate.inspect(self.run)['stages']['native_baselines'],'failed')
++
++    def test_mismatched_protocol_cpu_and_gpu_are_rejected(self):
++        for key,value in [('parent_protocol_sha256','other-protocol'),('stack',{'cpu_model':'different'}),('gpu','other-GPU')]:
++            with self.subTest(key=key):
++                self.complete();self.put('throughput',dict(self.proof,**{key:value}))
++                result=gate.inspect(self.run)
++                self.assertFalse(result['ready']);self.assertTrue(result['errors'])
++
++    def test_corrupt_json_and_null_baseline_result_are_rejected(self):
++        path=self.put('gpu_bridge',self.proof);path.write_text('{broken')
++        self.assertEqual(gate.inspect(self.run)['stages']['gpu_bridge'],'invalid')
++        self.complete();broken=copy.deepcopy(self.base);broken['baselines']['0']['result']=None
++        self.put('native_baselines',broken)
++        self.assertEqual(gate.inspect(self.run)['stages']['native_baselines'],'failed')
++
++    def test_command_reports_pending_without_a_traceback(self):
++        result=subprocess.run([sys.executable,str(LAUNCH/'check_preparation.py'),'--run-root',str(self.run)],capture_output=True,text=True)
++        self.assertEqual(result.returncode,75)
++        self.assertFalse(json.loads(result.stdout)['ready'])
++        self.assertNotIn('Traceback',result.stdout+result.stderr)
++
++    def test_launcher_stops_before_creating_a_training_directory(self):
++        env=dict(os.environ,RESEARCH_ROOT=str(ROOT),SERVER_RUN_ROOT=str(self.run),TGPPO_PYTHON=sys.executable)
++        result=subprocess.run(['bash',str(LAUNCH/'custom_job.sh'),'train','B0','11'],env=env,capture_output=True,text=True)
++        self.assertEqual(result.returncode,75,result.stdout+result.stderr)
++        self.assertIn('Preparation is still running/incomplete',result.stdout+result.stderr)
++        self.assertNotIn('Traceback',result.stdout+result.stderr)
++        self.assertFalse((self.run/'training').exists())
++
++
++if __name__=='__main__':unittest.main(verbosity=2)

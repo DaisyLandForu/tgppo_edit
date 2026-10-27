@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-23T04:22:05.042374+00:00",
+  "checks": [
+    {
+      "check": "real CPU training, finite parameters changed, optimizer checkpoint",
+      "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/aux-gpu-training/validation-20261023T042015Z/cpu-runs/20261023T042016Z-jpt-duweiyue25-261022-3bf44-default0-0-56d516f2c4",
+      "passed": true
+    },
+    {
+      "check": "real CPU training, finite parameters changed, optimizer checkpoint",
+      "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/aux-gpu-training/validation-20261023T042015Z/cpu-runs/20261023T042020Z-jpt-duweiyue25-261022-3bf44-default0-0-afbbf06854",
+      "passed": true
+    },
+    {
+      "check": "CUDA absent is a real failure, not silent CPU fallback",
+      "passed": true
+    },
+    {
+      "check": "invalid duration rejected before output creation",
+      "passed": true
+    },
+    {
+      "check": "training stops and saves at its time limit",
+      "passed": true
+    },
+    {
+      "check": "SIGTERM saves a checkpoint and records interruption, not full duration completion",
+      "passed": true
+    },
+    {
+      "check": "formal launchers, runtime protocol, frozen selections and all 12 exported models unchanged",
+      "passed": true
+    }
+  ],
+  "actual_cuda_training_verified": false,
+  "formal_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "formal_files_unchanged": {
+    "migration/2026-10-22/server-run/post_training.py": "e0b434dbfd8f2fb64ffbfbed80a3c8bd8f3e9da1c62ea872bbacd164ce90ef4a",
+    "migration/2026-10-22/server-run/post_job.sh": "9d91152dc3d789632cd11b29f35c066000f369bc52d74d75dd89b6185df70831",
+    "tgppo/experiments/server-20261022/code/server.py": "23954d3db8c28704fd204858535c20c92c55b9564507369fda30b7a85a06bceb",
+    "tgppo/experiments/server-20261022/code/project/runtime.py": "d8c21123dadef8f09ff5abd65c3e25e34f1db2f76a70c3488748b6e2e8fecfe3",
+    "migration/2026-10-22/server-run/env.sh": "491498849c03258e4e7697306e41b86682b35b01bf89b656f23d08a067d658af",
+    "migration/2026-10-22/server-run/protocol.json": "6e1b13e97c103496cbed1d502f4d8ecc7c6bdfe7ef7d5741aea2aef02aedf13a"
+  },
+  "new_source_files": {
+    "migration/2026-10-22/server-run/aux-gpu-training/README.md": "fa4d5e6f7460bae22676a0993c5bbefd68f58109948b09b94e0f1d3ecc4c1d50",
+    "migration/2026-10-22/server-run/aux-gpu-training/run.sh": "05eff5a4bb2fd3b924a13b86137dc5203846d47a02a39703c5465d40400625b1",
+    "migration/2026-10-22/server-run/aux-gpu-training/train.py": "e4eca00d1f7b7ec7db1cc669cb054ca9f097a4cb9700e30dd4fb891f06edae47"
+  },
+  "validation_harness_note": "Initial no-CUDA assertion incorrectly expected stderr while the launcher intentionally merges output; combined-output recheck passed. Runtime code was not changed."
+}

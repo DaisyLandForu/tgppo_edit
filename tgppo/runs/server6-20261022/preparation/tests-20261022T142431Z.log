@@ -1,0 +1,206 @@
+test_hl_prior_initialization_is_common_and_train_only (test_calibration.CalibrationChecks) ... ok
+test_mse_all_groups_start_at_same_raw_train_mean (test_calibration.CalibrationChecks) ... ok
+test_parameter_matching_and_gradient_reaches_encoder_boundary (test_calibration.CalibrationChecks) ... ok
+test_raw_decoder_roundtrip_and_negative_values (test_calibration.CalibrationChecks) ... ok
+test_state_restore_retains_raw_value_units (test_calibration.CalibrationChecks) ... ok
+test_statistics_are_instance_balanced (test_calibration.CalibrationChecks) ... ok
+test_actor_only_actions_match_collection_and_old_eval_mode (test_correctness.CorrectnessTests) ... ok
+test_actual_upstream_choose_action_matches_actor_only (test_correctness.CorrectnessTests) ... ok
+test_buffer_roundtrip_empty_duplicate_and_stale_policy (test_correctness.CorrectnessTests) ... ok
+test_checkpoint_architecture_rng_optimizer_buffer_and_exact_next_update (test_correctness.CorrectnessTests) ... ok
+test_finalize_then_free_is_idempotent_and_zero_actions_not_invented (test_correctness.CorrectnessTests) ... ok
+test_gae_terminal_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_gae_truncation_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_independent_parameters_and_gradients (test_correctness.CorrectnessTests) ... ok
+test_invalid_transition_and_incomplete_episode_rejected (test_correctness.CorrectnessTests) ... ok
+test_original_branchfree_already_idempotent (test_correctness.CorrectnessTests) ... ok
+test_padding_ratio_and_real_actor_update (test_correctness.CorrectnessTests) ... ok
+test_reward_and_solver_receive_120_and_3600_and_baseline_mismatch_rejected (test_correctness.CorrectnessTests) ... ok
+test_scip_sentinel_timeout_and_cutoff_semantics (test_correctness.CorrectnessTests) ... SIMULATED_SENTINEL_EVIDENCE={"cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -5.0, "dual_bound_finite": true, "episode_ended": true, "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "nnodes": 10, "num_stored_solutions": 0, "objective": null, "original_optimal": false, "pdi_semantics": "native_raw_until_actual_stop", "primalDualIntegral": 4.0, "primalDualIntegral_finite": true, "primal_bound": 1e+20, "primal_bound_finite": false, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 120.0, "status": "timelimit", "task_terminal": true, "valid": true}
+ok
+test_truncation_needs_actual_tail_and_uses_critic (test_correctness.CorrectnessTests) ... ok
+test_two_episodes_do_not_contaminate_each_other (test_correctness.CorrectnessTests) ... ok
+test_unchanged_networks_reward_settings_and_original_repository (test_correctness.CorrectnessTests) ... ok
+test_worker_failure_watchdog_and_order_are_explicit (test_correctness.CorrectnessTests) ... Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)    exitcode = _main(fd, parent_sentinel)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+    prepare(preparation_data)    prepare(preparation_data)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])    _fixup_main_from_path(data['init_main_from_path'])
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+    main_content = runpy.run_path(main_path,    main_content = runpy.run_path(main_path,
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+    code, fname = _get_code_from_file(run_name, path_name)    code, fname = _get_code_from_file(run_name, path_name)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+    with io.open_code(decoded_path) as f:    with io.open_code(decoded_path) as f:
+FileNotFoundError
+: FileNotFoundError: [Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'
+[Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'
+FAIL
+test_real_air04_timeout_retains_nonzero_raw_gap (test_correctness.RealSolverTests) ... WARNING: LP solver reached time limit, but SCIP time limit is not exceeded yet; you might consider switching the clock type of SCIP
+REAL_AIR04_TIMEOUT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 56137.0, "reason": "event", "time": 0.047631}, {"dual": -80692.0, "native_last_update_time": 1.069268, "native_previous_percent_gap": 100.0, "native_raw": 106.92680000000001, "primal": 56137.0, "reason": "stop", "time": 1.069273}], "cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -80692.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 1.1236191460047849, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/air04.mps.gz:0", "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "integral_snapshot": {"integral": 106.92680000000001, "last_dual_bound": -80692.0, "last_primal_bound": 56137.0, "last_update_time": 1.069268, "previous_percent_gap": 100.0, "solving_time": 1.069273}, "load_wall_seconds": 0.05398795800283551, "measurement_callback_seconds": 0.0003072879044339061, "measurement_event_calls": 34, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 1, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 1.0695426489692181, "original_optimal": false, "pdi_extension_basis": "hold_final_native_bound_gap", "pdi_horizon_exact": true, "pdi_horizon_lower": 100.00000000000001, "pdi_horizon_midpoint": 100.0, "pdi_horizon_normalized_midpoint": 1.0, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": -1.4210854715202004e-14, "pdi_horizon_upper": 100.0, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 106.9273, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 106.92680000000001, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 0.0004999999999881766, "primalDualIntegral": 106.92680000000001, "primalDualIntegral_finite": true, "primal_bound": 56137.0, "primal_bound_finite": true, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 1.069273, "scip_time_overshoot_seconds": 0.06927299999999992, "status": "timelimit", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+ok
+test_real_eval_never_calls_critic_reward_or_memory_and_preserves_weights (test_correctness.RealSolverTests) ... ok
+test_real_policy_exception_interrupts_and_is_invalid (test_correctness.RealSolverTests) ... ok
+test_early_proof_zero_extension_and_timeout_hold_extension (test_measurement.MeasurementTests) ... ok
+test_overshoot_is_an_interval_not_fabricated_exact_integral (test_measurement.MeasurementTests) ... ok
+test_percent_gap_is_not_scip_relative_gap (test_measurement.MeasurementTests) ... ok
+test_real_solved_presolve_and_timeout_flush (test_measurement.MeasurementTests) ... MEASUREMENT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 2.0, "reason": "event", "time": 0.00277}, {"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 2.0, "reason": "stop", "time": 0.004114}], "cutoff_applied": true, "cutoff_proof": true, "cutoff_verified": true, "dual_bound": -1e+20, "dual_bound_finite": false, "environment_wall_seconds_before_free": 0.016083063033875078, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/misc03.mps.gz:0", "gap": 0.0, "gap_finite": true, "has_feasible_solution": false, "integral_snapshot": {"integral": 0.0, "last_dual_bound": 1e+98, "last_primal_bound": 1e+98, "last_update_time": 0.0, "previous_percent_gap": 100.0, "solving_time": 0.004114}, "load_wall_seconds": 0.011809060990344733, "measurement_callback_seconds": 8.404505206272006e-05, "measurement_event_calls": 3, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 0, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.004211609018966556, "original_optimal": false, "pdi_extension_basis": "verified_proof_certificate", "pdi_horizon_exact": true, "pdi_horizon_lower": 0.4114, "pdi_horizon_midpoint": 0.4114, "pdi_horizon_normalized_midpoint": 0.004114, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 0.4114, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 0.4114, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 0.0, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 0.4114, "primalDualIntegral": 0.0, "primalDualIntegral_finite": true, "primal_bound": 2.0, "primal_bound_finite": true, "proof_completed": true, "scip_infinity": 1e+20, "scip_solve_time": 0.004114, "scip_time_overshoot_seconds": 0.0, "status": "infeasible", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+MEASUREMENT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 1120.0, "reason": "event", "time": 0.001166}, {"dual": 1054.81931523013, "native_last_update_time": 0.103072, "native_previous_percent_gap": 5.819703997309814, "native_raw": 1.5492367717167812, "primal": 1120.0, "reason": "event", "time": 0.10439799999999999}, {"dual": 1065.0899926292109, "native_last_update_time": 0.11892, "native_previous_percent_gap": 4.902679229534742, "native_raw": 1.6414674406661471, "primal": 1120.0, "reason": "event", "time": 0.11990899999999999}, {"dual": 1075.8189677147245, "native_last_update_time": 0.198321, "native_previous_percent_gap": 3.944735025471025, "native_raw": 1.985638432024756, "primal": 1120.0, "reason": "event", "time": 0.20044199999999998}, {"dual": 1077.5230419931106, "native_last_update_time": 0.216328, "native_previous_percent_gap": 3.7925855363294096, "native_raw": 2.0566712756284127, "primal": 1120.0, "reason": "event", "time": 0.21742599999999998}, {"dual": 1078.4810217539016, "native_last_update_time": 0.304121, "native_previous_percent_gap": 3.70705162911593, "native_raw": 2.3875609910805555, "primal": 1120.0, "reason": "event", "time": 0.30752599999999997}, {"dual": 1078.6498068588558, "native_last_update_time": 0.32800599999999996, "native_previous_percent_gap": 3.6919815304593078, "native_raw": 2.4761039192419894, "primal": 1120.0, "reason": "event", "time": 0.331963}, {"dual": 1078.90704700975, "native_last_update_time": 0.337738, "native_previous_percent_gap": 3.669013659843756, "native_raw": 2.5120342834964196, "primal": 1120.0, "reason": "event", "time": 0.337763}, {"dual": 1079.1652549062103, "native_last_update_time": 0.346116, "native_previous_percent_gap": 3.645959383374081, "native_raw": 2.5427732799385905, "primal": 1120.0, "reason": "event", "time": 0.346141}, {"dual": 1079.3213286366863, "native_last_update_time": 0.377474, "native_previous_percent_gap": 3.6320242288672944, "native_raw": 2.6571032742824348, "primal": 1120.0, "reason": "event", "time": 0.37749499999999997}, {"dual": 1079.9464455627408, "native_last_update_time": 0.39960999999999997, "native_previous_percent_gap": 3.5762102176124295, "native_raw": 2.737501762612641, "primal": 1120.0, "reason": "event", "time": 0.39962899999999996}, {"dual": 1081.465038506235, "native_last_update_time": 0.428378, "native_previous_percent_gap": 3.4406215619433005, "native_raw": 2.8403821781529155, "primal": 1120.0, "reason": "event", "time": 0.428475}, {"dual": 1082.1572671196914, "native_last_update_time": 0.450437, "native_previous_percent_gap": 3.378815435741842, "native_raw": 2.916278849187823, "primal": 1120.0, "reason": "event", "time": 0.45055599999999996}, {"dual": 1083.0601155303975, "native_last_update_time": 0.46532399999999996, "native_previous_percent_gap": 3.298203970500221, "native_raw": 2.9665792745797117, "primal": 1120.0, "reason": "event", "time": 0.46542999999999995}, {"dual": 1083.0731191183222, "native_last_update_time": 0.46603799999999995, "native_previous_percent_gap": 3.2970429358640883, "native_raw": 2.968934192214649, "primal": 1120.0, "reason": "event", "time": 0.46605599999999997}, {"dual": 1084.3752079699439, "native_last_update_time": 0.475497, "native_previous_percent_gap": 3.180785002683584, "native_raw": 3.0001209213449878, "primal": 1120.0, "reason": "event", "time": 0.475607}, {"dual": 1085.914297207938, "native_last_update_time": 0.583027, "native_previous_percent_gap": 3.0433663207198185, "native_raw": 3.3421507326835536, "primal": 1120.0, "reason": "event", "time": 0.583048}, {"dual": 1091.6241662519756, "native_last_update_time": 0.59294, "native_previous_percent_gap": 2.5335565846450385, "native_raw": 3.372319623020849, "primal": 1120.0, "reason": "event", "time": 0.593044}, {"dual": 1092.427865950001, "native_last_update_time": 0.5940179999999999, "native_previous_percent_gap": 2.461797683035627, "native_raw": 3.3750507970190964, "primal": 1120.0, "reason": "event", "time": 0.59412}, {"dual": 1092.494339845088, "native_last_update_time": 0.594629, "native_previous_percent_gap": 2.455862513831428, "native_raw": 3.376554955403431, "primal": 1120.0, "reason": "event", "time": 0.594666}, {"dual": 1094.6513355658542, "native_last_update_time": 0.595514, "native_previous_percent_gap": 2.2632736101915896, "native_raw": 3.378728393728172, "primal": 1120.0, "reason": "event", "time": 0.5956119999999999}, {"dual": 1094.8805253922433, "native_last_update_time": 0.596089, "native_previous_percent_gap": 2.242810232835422, "native_raw": 3.380029776054032, "primal": 1120.0, "reason": "event", "time": 0.596117}, {"dual": 1099.6908331706925, "native_last_update_time": 0.5992999999999999, "native_previous_percent_gap": 1.8133184669024567, "native_raw": 3.3872314397116665, "primal": 1120.0, "reason": "event", "time": 0.603252}, {"dual": 1103.441523982367, "native_last_update_time": 0.604147, "native_previous_percent_gap": 1.4784353587172308, "native_raw": 3.396020594320743, "primal": 1120.0, "reason": "event", "time": 0.604163}, {"dual": 1104.0422958907407, "native_last_update_time": 0.604287, "native_previous_percent_gap": 1.4247950097552982, "native_raw": 3.3962275752709634, "primal": 1120.0, "reason": "event", "time": 0.604294}, {"dual": 1106.7258720903055, "native_last_update_time": 0.604521, "native_previous_percent_gap": 1.1851899919370064, "native_raw": 3.396560977303246, "primal": 1120.0, "reason": "event", "time": 0.604537}, {"dual": 1107.7136368534134, "native_last_update_time": 0.604951, "native_previous_percent_gap": 1.0969967095166615, "native_raw": 3.397070608999779, "primal": 1120.0, "reason": "event", "time": 0.604966}, {"dual": 1110.6610066707094, "native_last_update_time": 0.6068629999999999, "native_previous_percent_gap": 0.833838690115231, "native_raw": 3.399168066708375, "primal": 1120.0, "reason": "event", "time": 0.606879}, {"dual": 1111.1181953480673, "native_last_update_time": 0.6068629999999999, "native_previous_percent_gap": 0.833838690115231, "native_raw": 3.399168066708375, "primal": 1120.0, "reason": "event", "time": 0.607162}, {"dual": 1111.5172881355934, "native_last_update_time": 0.6068629999999999, "native_previous_percent_gap": 0.833838690115231, "native_raw": 3.399168066708375, "primal": 1120.0, "reason": "event", "time": 0.607277}, {"dual": 1120.0, "native_last_update_time": 0.6068629999999999, "native_previous_percent_gap": 0.833838690115231, "native_raw": 3.399168066708375, "primal": 1120.0, "reason": "event", "time": 0.607556}, {"dual": 1120.0, "native_last_update_time": 0.6075619999999999, "native_previous_percent_gap": 0.833838690115231, "native_raw": 3.399750919952765, "primal": 1120.0, "reason": "stop", "time": 0.6076199999999999}], "cutoff_applied": true, "cutoff_proof": true, "cutoff_verified": true, "dual_bound": 1120.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 0.617928184045013, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/lseu.mps.gz:0", "gap": 0.0, "gap_finite": true, "has_feasible_solution": false, "integral_snapshot": {"integral": 3.399750919952765, "last_dual_bound": 1110.6610066707094, "last_primal_bound": 1120.0, "last_update_time": 0.6075619999999999, "previous_percent_gap": 0.833838690115231, "solving_time": 0.6076199999999999}, "load_wall_seconds": 0.010207712999545038, "measurement_callback_seconds": 0.00463216140633449, "measurement_event_calls": 919, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 282, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.6076925829984248, "original_optimal": false, "pdi_extension_basis": "verified_proof_certificate", "pdi_horizon_exact": true, "pdi_horizon_lower": 3.399799282596792, "pdi_horizon_midpoint": 3.399799282596792, "pdi_horizon_normalized_midpoint": 0.03399799282596792, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 3.399799282596792, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 3.399799282596792, "pdi_native_final_percent_gap": 0.833838690115231, "pdi_native_raw_before_flush": 3.399750919952765, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 4.836264402685586e-05, "primalDualIntegral": 3.399750919952765, "primalDualIntegral_finite": true, "primal_bound": 1120.0, "primal_bound_finite": true, "proof_completed": true, "scip_infinity": 1e+20, "scip_solve_time": 0.6076199999999999, "scip_time_overshoot_seconds": 0.0, "status": "infeasible", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+WARNING: LP solver reached time limit, but SCIP time limit is not exceeded yet; you might consider switching the clock type of SCIP
+MEASUREMENT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 56137.0, "reason": "event", "time": 0.036017}, {"dual": -80692.0, "native_last_update_time": 1.02118, "native_previous_percent_gap": 100.0, "native_raw": 102.118, "primal": 56137.0, "reason": "stop", "time": 1.021185}], "cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -80692.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 1.0662231770111248, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/air04.mps.gz:0", "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "integral_snapshot": {"integral": 102.118, "last_dual_bound": -80692.0, "last_primal_bound": 56137.0, "last_update_time": 1.02118, "previous_percent_gap": 100.0, "solving_time": 1.021185}, "load_wall_seconds": 0.0448930140119046, "measurement_callback_seconds": 0.00022744707530364394, "measurement_event_calls": 34, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 1, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 1.0212889310205355, "original_optimal": false, "pdi_extension_basis": "hold_final_native_bound_gap", "pdi_horizon_exact": true, "pdi_horizon_lower": 100.0, "pdi_horizon_midpoint": 100.0, "pdi_horizon_normalized_midpoint": 1.0, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 100.0, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 102.1185, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 102.118, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 0.0005000000000023874, "primalDualIntegral": 102.118, "primalDualIntegral_finite": true, "primal_bound": 56137.0, "primal_bound_finite": true, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 1.021185, "scip_time_overshoot_seconds": 0.02118500000000001, "status": "timelimit", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+ok
+test_same_logical_batch_gradient_without_dropout (test_microbatch.MicrobatchTests) ... ok
+test_context_roundtrip_minibatch_and_reject_corruption (test_online.OnlineTests) ... ok
+test_full_update_restore_rng_optimizer_and_actor_only (test_online.OnlineTests) ... ok
+test_online_microbatch_equivalence (test_online.OnlineTests) ... ok
+test_pairing_public_weights_rng_and_extra_shapes (test_online.OnlineTests) ... ok
+test_raw_value_gae_and_only_loss_standardized (test_online.OnlineTests) ... ok
+test_native_search_read_only_and_internal_objective_direction (test_search_features.RealFrontierChecks) ... ok
+test_cached_and_full_forward_preserve_base_value_and_gradients (test_search_features.SearchChecks) ... ok
+test_count_nan_and_negative_depth_rejected (test_search_features.SearchChecks) ... ok
+test_empty_degenerate_and_infinities (test_search_features.SearchChecks) ... ok
+test_gpu_cached_fit_and_trainable_adapter_restore (test_search_features.SearchChecks) ... skipped 'Cached tensor fit GPU unavailable'
+test_hl_gauss_normalization_and_expectation (test_search_features.SearchChecks) ... ok
+test_identical_marginals_different_association (test_search_features.SearchChecks) ... ok
+test_parameter_matching_and_common_initialization (test_search_features.SearchChecks) ... ok
+test_return_labels_have_terminal_boundary (test_search_features.SearchChecks) ... ok
+test_sidecar_alignment_and_action_before_branch (test_search_features.SearchChecks) ... ok
+test_complete_update_restore_and_actor_export_all_groups (test_server.ServerTests) ... ok
+test_container_quota_is_checked_even_with_large_affinity (test_server.ServerTests) ... ok
+test_dev_selection_coverage_ties_and_failure (test_server.ServerTests) ... ok
+test_extra_critic_initialization_preserves_cuda_rng_pairing (test_server.ServerTests) ... skipped 'Target CUDA RNG pairing needs a GPU'
+test_formal_training_requires_matching_bridge_and_pilot (test_server.ServerTests) ... ok
+test_real_collection_interrupted_update_resumes_without_lost_or_duplicate_tasks (test_server.ServerTests) ... Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)    exitcode = _main(fd, parent_sentinel)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+    prepare(preparation_data)    prepare(preparation_data)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])    _fixup_main_from_path(data['init_main_from_path'])
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+        main_content = runpy.run_path(main_path,main_content = runpy.run_path(main_path,
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+    code, fname = _get_code_from_file(run_name, path_name)    code, fname = _get_code_from_file(run_name, path_name)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+    with io.open_code(decoded_path) as f:    with io.open_code(decoded_path) as f:
+
+FileNotFoundErrorFileNotFoundError: : [Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'[Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    prepare(preparation_data)  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+
+    exitcode = _main(fd, parent_sentinel)  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+    _fixup_main_from_path(data['init_main_from_path'])    prepare(preparation_data)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+    main_content = runpy.run_path(main_path,    _fixup_main_from_path(data['init_main_from_path'])
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+    code, fname = _get_code_from_file(run_name, path_name)    main_content = runpy.run_path(main_path,
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+        code, fname = _get_code_from_file(run_name, path_name)with io.open_code(decoded_path) as f:
+
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+FileNotFoundError    with io.open_code(decoded_path) as f:: [Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'
+
+FileNotFoundError: [Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 125, in _main
+    prepare(preparation_data)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 236, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/multiprocessing/spawn.py", line 287, in _fixup_main_from_path
+    main_content = runpy.run_path(main_path,
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 264, in run_path
+    code, fname = _get_code_from_file(run_name, path_name)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/runpy.py", line 234, in _get_code_from_file
+    with io.open_code(decoded_path) as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/duweiyue25/tgppo-transfer/research/<stdin>'
+ERROR
+test_three_groups_public_actor_pairing_and_cpu_worker (test_server.ServerTests) ... ok
+
+======================================================================
+ERROR: test_real_collection_interrupted_update_resumes_without_lost_or_duplicate_tasks (test_server.ServerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/tests/test_server.py", line 109, in test_real_collection_interrupted_update_resumes_without_lost_or_duplicate_tasks
+    run=Path(d);server.baseline(ROOT,c,run)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 154, in baseline
+    pairs=cached_jobs(jobs,run/'normalization/jobs',dict(protocol=fingerprint(c),stack=signature),
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/code/server.py", line 134, in cached_jobs
+    if not row.get('valid'):raise RuntimeError('Invalid jobs retained at '+str(directory))
+RuntimeError: Invalid jobs retained at /tmp/tmprnw06o6l/normalization/jobs/attempt-000
+
+======================================================================
+FAIL: test_worker_failure_watchdog_and_order_are_explicit (test_correctness.CorrectnessTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/server-20261022/tests/test_correctness.py", line 308, in test_worker_failure_watchdog_and_order_are_explicit
+    self.assertEqual(rows[0]['status'], 'watchdog_timeout')
+AssertionError: 'worker_exit_error' != 'watchdog_timeout'
+- worker_exit_error
++ watchdog_timeout
+
+
+----------------------------------------------------------------------
+Ran 53 tests in 16.515s
+
+FAILED (failures=1, errors=1, skipped=2)
+{
+  "scope": "CPU development engineering checks; GPU tests skipped if unavailable",
+  "tests_run": 53,
+  "skipped": 2,
+  "errors": 1,
+  "failures": 1,
+  "passed": false,
+  "wall_seconds": 19.375041450955905,
+  "self_cpu_seconds": 12.194502,
+  "children_cpu_seconds": 0.49195,
+  "self_peak_rss_kib": 401348,
+  "children_max_process_rss_kib": 271488
+}

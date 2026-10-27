@@ -1,0 +1,54 @@
+lseu infeasible gap= 0.0 pdi= 1.848613370073114
+stein27 infeasible gap= 0.0 pdi= 8.953340639438801
+air04 timelimit gap= 1e+20 pdi= 100.2344
+neos20 timelimit gap= 0.08064516129032258 pdi= 16.754552542947053
+{
+  "purpose": "stage1_diagnostics_only",
+  "training_performed": false,
+  "commit": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+  "architecture": {
+    "actor_parameters": 4738895,
+    "critic_parameters": 4804687,
+    "shared_parameter_objects": 0
+  },
+  "gae_terminal_case": {
+    "rewards": [
+      1,
+      2
+    ],
+    "values": [
+      10,
+      20
+    ],
+    "dones": [
+      false,
+      true
+    ],
+    "gamma": 1,
+    "lambda": 1,
+    "expected_returns": [
+      3,
+      2
+    ],
+    "upstream_returns": [
+      -17.0,
+      2.0
+    ],
+    "matches_reference": false
+  },
+  "validation_signature": {
+    "environment_signature": "(self)",
+    "training_call_uses_learn_false": true,
+    "bind_error": "got an unexpected keyword argument 'learn'"
+  },
+  "dropout_without_update": {
+    "eval_repeat_max_abs_diff": 0.0,
+    "eval_vs_train_max_abs_diff": 1.4901161193847656e-08,
+    "probability_ratio_min": 0.9999998807907104,
+    "probability_ratio_max": 1.0,
+    "note": "Synthetic fixed input; no optimizer step. This initialization has nearly uniform actions; the observed probability difference is only numerical scale and does not establish a material PPO bias."
+  },
+  "evaluation_critic_calls": 1,
+  "tracked_files_changed": [],
+  "upstream_status_porcelain": ""
+}

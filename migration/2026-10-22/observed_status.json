@@ -1,0 +1,125 @@
+{
+  "observed_client_date": "2026-10-22",
+  "scope": "Migration preparation; no training restarted or stopped by this audit",
+  "processes": {
+    "scheduler": {
+      "pid": 103404,
+      "alive": false
+    },
+    "finalizer": {
+      "pid": 106602,
+      "alive": false
+    },
+    "R0-s11": {
+      "pid": 103405,
+      "alive": false
+    },
+    "Rprod-s11": {
+      "pid": 103406,
+      "alive": false
+    }
+  },
+  "all_checked_processes_not_alive": true,
+  "scheduler_file_stale": true,
+  "previous_scheduler": {
+    "stage": 5,
+    "state": "training",
+    "pending": [
+      [
+        "Rjoint",
+        11
+      ],
+      [
+        "R0",
+        22
+      ],
+      [
+        "Rprod",
+        22
+      ],
+      [
+        "Rjoint",
+        22
+      ],
+      [
+        "R0",
+        33
+      ],
+      [
+        "Rprod",
+        33
+      ],
+      [
+        "Rjoint",
+        33
+      ]
+    ],
+    "active": [
+      {
+        "group": "R0",
+        "seed": 11,
+        "pid": 103405
+      },
+      {
+        "group": "Rprod",
+        "seed": 11,
+        "pid": 103406
+      }
+    ],
+    "finished": [],
+    "wall_seconds": 1136.3291375637054,
+    "stop_before_stage6": true
+  },
+  "verified_checkpoint_metadata": [
+    {
+      "name": "R0-s11",
+      "path": "/root/research/tgppo/runs/stage5/training/R0-s11/latest.pt",
+      "sha256": "6b3231a5d282fb7df1cce94f89a7477e023ee9b9051b09864a0f884f75a9005f",
+      "bytes": 114815864,
+      "schema": 3,
+      "complete_ppo_iterations": 4,
+      "policy_version": 4,
+      "complete_update_episodes": 16,
+      "memory_transitions": 0,
+      "checkpoint_progress": {
+        "stage": 5,
+        "group": "R0",
+        "training_seed": 11,
+        "next_episode": 16,
+        "worker_cpu_seconds": 1175.807595,
+        "learner_cpu_seconds": 3265.695721,
+        "total_cpu_seconds": 4441.503322
+      },
+      "has_run_completion_summary": false
+    },
+    {
+      "name": "Rprod-s11",
+      "path": "/root/research/tgppo/runs/stage5/training/Rprod-s11/latest.pt",
+      "sha256": "bd6bc11a0bcb42ba40ffeeb3cc1cb9c315bfa2cf8427310f501aee2121859c72",
+      "bytes": 114998540,
+      "schema": 3,
+      "complete_ppo_iterations": 4,
+      "policy_version": 4,
+      "complete_update_episodes": 16,
+      "memory_transitions": 0,
+      "checkpoint_progress": {
+        "stage": 5,
+        "group": "Rprod",
+        "training_seed": 11,
+        "next_episode": 16,
+        "worker_cpu_seconds": 1177.838342,
+        "learner_cpu_seconds": 3005.221779,
+        "total_cpu_seconds": 4183.060128
+      },
+      "has_run_completion_summary": false
+    }
+  ],
+  "main_runs_planned": 9,
+  "main_runs_started": 2,
+  "main_runs_with_completion_summary": 0,
+  "final_evaluation_rows": 0,
+  "stage5_complete": false,
+  "termination_cause": "not established",
+  "automatic_matrix_resume_implemented": false,
+  "stage6_started": false
+}

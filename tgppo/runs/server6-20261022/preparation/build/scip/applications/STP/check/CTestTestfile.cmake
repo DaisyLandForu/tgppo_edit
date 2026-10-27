@@ -1,0 +1,14 @@
+# CMake generated Testfile for 
+# Source directory: /home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check
+# Build directory: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/applications/STP/check
+# 
+# This file includes the relevant testing commands required for 
+# testing this directory and lists subdirectories to be tested as well.
+add_test(applications-scipstp-build "/usr/bin/cmake" "--build" "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip" "--target" "scipstp")
+set_tests_properties(applications-scipstp-build PROPERTIES  RESOURCE_LOCK "libscip" _BACKTRACE_TRIPLES "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;19;add_test;/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;0;")
+add_test(applications-scipstp-cc3-4u "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/bin/applications/scipstp" "-f" "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/../data/short/cc3-4u.stp" "-o" "23" "23")
+set_tests_properties(applications-scipstp-cc3-4u PROPERTIES  DEPENDS "applications-scipstp-build" PASS_REGULAR_EXPRESSION "Validation         : Success" _BACKTRACE_TRIPLES "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;40;add_test;/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;0;")
+add_test(applications-scipstp-d18 "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/bin/applications/scipstp" "-f" "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/../data/short/d18.stp" "-o" "223" "223")
+set_tests_properties(applications-scipstp-d18 PROPERTIES  DEPENDS "applications-scipstp-build" PASS_REGULAR_EXPRESSION "Validation         : Success" _BACKTRACE_TRIPLES "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;40;add_test;/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;0;")
+add_test(applications-scipstp-hc6u "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/bin/applications/scipstp" "-f" "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/../data/short/hc6u.stp" "-o" "39" "39")
+set_tests_properties(applications-scipstp-hc6u PROPERTIES  DEPENDS "applications-scipstp-build" PASS_REGULAR_EXPRESSION "Validation         : Success" _BACKTRACE_TRIPLES "/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;40;add_test;/home/duweiyue25/tgppo-transfer/research/tgppo/setup/scip-6.0.1/applications/STP/check/CMakeLists.txt;0;")

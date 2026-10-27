@@ -1,0 +1,9 @@
+{
+  "dropout_note": "Critic training dropout stays .05; gradient equivalence tested with dropout off; stochastic masks need not be bitwise identical",
+  "logical_batch_size": 256,
+  "microbatch_size": 16,
+  "prior_total_cpu_seconds": 707.3416030000001,
+  "source_checkpoint": "/root/research/tgppo/runs/stage3/pilot/collected-batch-01.pt",
+  "source_failure": "/root/research/tgppo/runs/stage3/pilot/learning_error.json",
+  "trajectories_reused_without_resampling": true
+}

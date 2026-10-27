@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG -rdynamic CMakeFiles/eventhdlr.dir/src/cmain.c.o CMakeFiles/eventhdlr.dir/src/event_bestsol.c.o CMakeFiles/eventhdlr.dir/src/event_boundwriting.c.o -o ../../bin/examples/eventhdlr  -Wl,-rpath,/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/preparation/build/scip/lib ../../lib/libscip.so.6.0.1.0 

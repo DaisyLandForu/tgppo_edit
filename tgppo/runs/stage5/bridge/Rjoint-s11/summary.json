@@ -1,0 +1,21 @@
+{
+  "bridge": true,
+  "checkpoint_episodes": 4,
+  "complete_optimizer_steps": 15,
+  "complete_ppo_iterations": 1,
+  "cpu_cap_seconds": 1200.0,
+  "episodes_attempted": 4,
+  "group": "Rjoint",
+  "latest_checkpoint": "/root/research/tgppo/runs/stage5/bridge/Rjoint-s11/latest.pt",
+  "latest_checkpoint_sha256": "81f603c7e11d62f54dfd5f69af88c048cd7ffe45e4eca7b6e8f7fb4c15169233",
+  "learner_cpu_seconds": 35.253328999999994,
+  "peak_learner_rss_kib": 952636,
+  "stage": 5,
+  "stop_reason": "episode_limit",
+  "total_cpu_seconds": 58.493244,
+  "trained_transitions": 1034,
+  "training_seed": 11,
+  "valid_episodes": 4,
+  "within_budget": true,
+  "worker_cpu_seconds": 23.239931
+}

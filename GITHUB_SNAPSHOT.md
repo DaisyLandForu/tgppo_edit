@@ -1,8 +1,12 @@
 # 2026-10-27 完整项目快照
 
+本次原始快照包含 **20,323 个常规文件、27 个符号链接**，文件内容共 **18.494 GiB**（19,857,532,992 字节）。完整归档压缩后为 **7.354 GiB**，共 **15 个分片**。已实际解压到独立临时目录，并逐文件核对全部内容的 SHA-256。
+
 本次上传来自 `/home/duweiyue25/tgppo-transfer/research`，保留当前项目文件和历史实验记录。根目录原有 `README.md` 是 10 月 22 日迁移时的说明，按原样保留；本次 GitHub 收录范围以此文档及 `snapshot/PROJECT_MANIFEST.json` 为准。
 
-Git 中收录源码、冻结配置、全部实例数据、文档图表、CSV/JSON 结果、原始日志和构建材料。模型权重 `*.pt` 和原始轨迹 `*.pkl` 放在完整项目归档中，避免超过普通 Git 的单文件限制。归档同时保存 Git 中的原始项目文件，便于直接还原整个研究目录；它不包含研究目录之外的 Conda 环境。
+Git 中收录源码、冻结配置、全部实例数据、文档图表、CSV/JSON 结果、原始日志和构建材料。模型权重 `*.pt` 和原始轨迹 `*.pkl` 放在完整项目归档中，避免超过 [普通 Git 的单文件限制](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)。归档同时保存 Git 中的原始项目文件，便于直接还原整个研究目录；它不包含研究目录之外的 Conda 环境。
+
+原研究目录未携带上游仓库的 `.git` 元数据，本次建立的是当前文件快照的提交记录。原版源码目录、各阶段代码、历史日志和哈希台账均按现有文件保留。
 
 完整归档位于 [full-project-20261027 Release](https://github.com/DaisyLandForu/tgppo_edit/releases/tag/full-project-20261027)。归档在全部上传、核对后发布；发布前的草稿不代表交付完成。`snapshot/PROJECT_MANIFEST.json` 记录每个原始文件的 SHA-256、大小、权限和每个符号链接的目标；`snapshot/SHA256SUMS` 记录归档分片及清单的哈希。
 
