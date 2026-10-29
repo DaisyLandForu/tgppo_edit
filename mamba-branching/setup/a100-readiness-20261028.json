@@ -1,0 +1,14 @@
+{
+  "timestamp_utc": "20261028T023412.606221Z",
+  "sampled_cl_updates": 300,
+  "median_update_body_ms": 14.256941503845155,
+  "median_complete_step_ms": 94.3865,
+  "update_body_fraction_of_elapsed": 0.13818244180196565,
+  "latest_update": 2200,
+  "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027/training/logs/20261028T023006.710627Z.jsonl",
+  "interpretation": "Update body includes CPU collation/copies/gradient checks as well as GPU work; this is not a CUDA profiler measurement",
+  "a100_kernel_execution": "pending: no local GPU",
+  "preflight_device_selection_checks": 6,
+  "preflight_sha256": "72ff5b05edd16f13dc3f7476c9269c763eb4a274bf4327bd5a9849fe5753e068",
+  "formal_source_fingerprints": "unchanged"
+}

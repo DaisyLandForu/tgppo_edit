@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "task": {
+    "id": "lseu-s0",
+    "instance": "lseu",
+    "solver_seed": 0
+  },
+  "hardware": {
+    "host": "jpt-duweiyue25-261027-d3082-default0-0",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "cgroup": {
+      "cpu.max": "801000 100000",
+      "memory.max": "34360786944"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+    "gpu": "Tesla V100-PCIE-32GB"
+  },
+  "started_utc": "20261027T161628.064970Z",
+  "selection_sha256": "21ea6828dd3ad359e7a6fe9e9ab8042070ea9ce185db49b0270c05f886303ba2",
+  "cutoff": null,
+  "policies": {
+    "relpscost": {
+      "solver_status": "optimal",
+      "nodes": 267,
+      "fair_nodes": 423,
+      "nodes_left": 0,
+      "gap": 0.0,
+      "primal_bound": 1120.0,
+      "dual_bound": 1120.0,
+      "solutions": 6,
+      "primal_dual_integral": 8.270905816554146,
+      "scip_seconds": 0.344702,
+      "wall_seconds": 0.34492457809392363,
+      "cutoff_proof_without_incumbent": false
+    },
+    "mamba": {
+      "solver_status": "optimal",
+      "nodes": 301,
+      "fair_nodes": 301,
+      "nodes_left": 0,
+      "gap": 0.0,
+      "primal_bound": 1120.0,
+      "dual_bound": 1120.0,
+      "solutions": 5,
+      "primal_dual_integral": 27.055113416559667,
+      "scip_seconds": 1.9341409999999999,
+      "wall_seconds": 1.9344880289863795,
+      "cutoff_proof_without_incumbent": false,
+      "branch_calls": 172,
+      "branch_count": 172
+    }
+  }
+}

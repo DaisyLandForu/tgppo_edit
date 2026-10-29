@@ -1,0 +1,56 @@
+absl-py==2.5.1
+causal-conv1d @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/causal_conv1d-1.4.0%2Bcu118torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl#sha256=62494f75b474e961dcd8e9f58b9f3c3e18c2a4f66ba83733914a1eb60d34f940
+certifi==2026.10.23
+charset-normalizer==3.5.2
+Cython==0.29.37
+einops==0.8.0
+filelock==4.1.0
+fsspec==2026.9.0
+grpcio==1.85.0
+h5py==3.11.0
+hf-xet==1.7.0
+huggingface_hub==0.36.2
+idna==3.20
+Jinja2==3.1.4
+mamba-ssm @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/mamba_ssm-2.2.2%2Bcu118torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl#sha256=272b08042a210aff62e8ce73dc5ad9ce0393613f135ef59be8e478e81a319e9e
+Markdown==3.10.3
+MarkupSafe==3.0.4
+mpmath==1.4.1
+networkx==3.2.1
+ninja==1.11.1.3
+numpy==1.26.4
+nvidia-cublas-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cublas_cu11-11.11.3.6-py3-none-manylinux2014_x86_64.whl#sha256=60252822adea5d0b10cd990a7dc7bedf7435f30ae40083c7a624a85a43225abc
+nvidia-cuda-cupti-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cuda_cupti_cu11-11.8.87-py3-none-manylinux2014_x86_64.whl#sha256=4191a17913a706b5098681280cd089cd7d8d3df209a6f5cb79384974a96d24f2
+nvidia-cuda-nvrtc-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cuda_nvrtc_cu11-11.8.89-py3-none-manylinux2014_x86_64.whl#sha256=a8d02f3cba345be56b1ffc3e74d8f61f02bb758dd31b0f20e12277a5a244f756
+nvidia-cuda-runtime-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cuda_runtime_cu11-11.8.89-py3-none-manylinux2014_x86_64.whl#sha256=92d04069a987e1fbc9213f8376d265df0f7bb42617d44f5eda1f496acea7f2d1
+nvidia-cudnn-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cudnn_cu11-8.7.0.84-py3-none-manylinux1_x86_64.whl#sha256=b3e062498fbbb1c1930435a6a454c1b41c903e1e65b7063bd2b4021e8285408e
+nvidia-cufft-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cufft_cu11-10.9.0.58-py3-none-manylinux2014_x86_64.whl#sha256=e21037259995243cc370dd63c430d77ae9280bedb68d5b5a18226bfc92e5d748
+nvidia-curand-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_curand_cu11-10.3.0.86-py3-none-manylinux2014_x86_64.whl#sha256=cd4cffbf78bb06580206b4814d5dc696d1161c902aae37b2bba00056832379e6
+nvidia-cusolver-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cusolver_cu11-11.4.1.48-py3-none-manylinux2014_x86_64.whl#sha256=ea9fb1ad8c644ca9ed55af13cc39af3b7ba4c3eb5aef18471fe1fe77d94383cb
+nvidia-cusparse-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_cusparse_cu11-11.7.5.86-py3-none-manylinux2014_x86_64.whl#sha256=8d7cf1628fd8d462b5d2ba6678fae34733a48ecb80495b9c68672ec6a6dde5ef
+nvidia-ml-py==12.560.30
+nvidia-nccl-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_nccl_cu11-2.19.3-py3-none-manylinux1_x86_64.whl#sha256=7c58afbeddf7f7c6b7dd7d84a7f4e85462610ee0c656287388b96d89dcf046d5
+nvidia-nvtx-cu11 @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/nvidia_nvtx_cu11-11.8.86-py3-none-manylinux2014_x86_64.whl#sha256=979f5b2aef5da164c5c53c64c85c3dfa61b8b4704f4f963bb568bf98fa8472e8
+packaging==24.2
+pip @ file:///home/conda/feedstock_root/build_artifacts/pip_1777924007781/work
+protobuf==7.36.2
+PySCIPOpt @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/PySCIPOpt-4.3.0-features
+PyYAML==6.0.3
+regex==2026.9.29
+requests==2.34.2
+safetensors==0.8.0
+scipy==1.13.1
+setuptools==69.5.1
+six==1.17.0
+sympy==1.12
+tensorboard==2.17.1
+tensorboard-data-server==0.7.2
+tokenizers==0.19.1
+torch @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/torch-2.2.2%2Bcu118-cp310-cp310-linux_x86_64.whl#sha256=676b99efd763abd76cc4b3f70711ee2a0b85bdeafb656d4365740c807abbba69
+tqdm==4.70.1
+transformers==4.44.2
+triton @ file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/wheels/triton-2.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=a2294514340cfe4e8f4f9e5c66c702744c4a117d25e618bd08469d0bfed1e2e5
+typing_extensions==4.16.0
+urllib3==2.8.0
+Werkzeug==3.1.9
+wheel==0.43.0

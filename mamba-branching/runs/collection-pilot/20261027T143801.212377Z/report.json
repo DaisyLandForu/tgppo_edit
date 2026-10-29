@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "scope": "10-second / 30-node CPU diagnostic, not formal collection",
+  "instance": "misc03",
+  "solver_seed": 0,
+  "random_prefix_steps": 0,
+  "training_started": false,
+  "timestamp_utc": "20261027T143801.212377Z",
+  "samples": 15,
+  "solver_stats": {
+    "name": "misc03",
+    "explorer": "random",
+    "expert": "relpscost",
+    "k": 0,
+    "seed": 0,
+    "nnodes": 25,
+    "fair_nnodes": 159,
+    "nnodes_left": 0,
+    "nLP_iterations": 1319,
+    "max_depth": 7,
+    "status": "optimal",
+    "gap": 0.0,
+    "primal_bound": 3360.0,
+    "dual_bound": 3360.0,
+    "primaldualintegral": 34.914873164400454,
+    "scip_solve_time": 0.773613,
+    "scip_presolve_time": 0.046280999999999996,
+    "opt_time_process": 0.7736390360000001,
+    "opt_time_wallclock": 0.7736706733703613
+  },
+  "trajectory_sha256": "de0bb4eb97f990535a610ac196c5df9bdb85407c95e7fa14e76ab5578a54749b"
+}

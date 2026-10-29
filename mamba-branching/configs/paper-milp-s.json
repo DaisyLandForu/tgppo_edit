@@ -1,0 +1,105 @@
+{
+  "protocol_id": "mamba-branching-milp-s-paper-20261027",
+  "status": "GPU diagnostics passed; formal MILP-S collection and training pending",
+  "source": "https://proceedings.iclr.cc/paper_files/paper/2026/file/b2f56a345fe0ce337df3bdfb31e2b350-Paper-Conference.pdf",
+  "scope": "MILP-S first: main method plus relpscost reference; broader baselines follow the working loop",
+  "scip_version": "8.0.4",
+  "feature_dimensions": {
+    "candidate": 25,
+    "node": 8,
+    "mip": 53
+  },
+  "collection": {
+    "expert": "relpscost",
+    "explorer": "random",
+    "random_prefix_steps": [
+      0,
+      1,
+      5,
+      10,
+      15
+    ],
+    "training_solver_seeds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "validation_solver_seeds": [
+      4
+    ],
+    "time_limit_seconds": 3600,
+    "primal_heuristics": false,
+    "provide_optimal_cutoff": false,
+    "expected_episodes": {
+      "train": 380,
+      "validation": 95
+    }
+  },
+  "model": {
+    "embedding_dim": 8,
+    "candidate_hidden_dim": 64,
+    "tree_depth": 3,
+    "mamba_class": "Mamba",
+    "d_state": 64,
+    "d_conv": 4,
+    "expand": 2
+  },
+  "contrastive_pretraining": {
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "loss": "paper Eq. (2), real candidates only; omit upstream additive constant 2"
+  },
+  "imitation_training": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "history_steps": 99,
+    "states_per_sequence": 100,
+    "loss_reduction": "sum over real states per trajectory, mean over trajectories as in paper; upstream state-mean differs"
+  },
+  "evaluation": {
+    "time_limit_seconds": 3600,
+    "history_steps": 24,
+    "states_per_sequence": 25,
+    "upstream_max_seq_len_groups": 49,
+    "solver_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "primal_heuristics": false,
+    "provide_optimal_cutoff": true,
+    "root_relpscost": true,
+    "pure_neural_variant_root_relpscost": false,
+    "neural_inference_device": "cuda",
+    "metrics": [
+      "nodes",
+      "fair_nodes",
+      "wall_time",
+      "status",
+      "primal_dual_integral"
+    ],
+    "aggregation": "per-instance results and paper geometric means; failures retained"
+  },
+  "hardware": {
+    "target_gpu": "NVIDIA V100",
+    "paper_gpu": "NVIDIA A100-PCIE-40GB",
+    "paper_cpu": "Intel Xeon Gold 5218",
+    "debug_cpus": 8,
+    "debug_ram_gib": 64,
+    "collection_cpus_total": 16,
+    "collection_ram_gib_total": 64
+  },
+  "open_items": [
+    "V100 real-data diagnostics pass for sampled small candidate windows; capacity across the full collection remains unmeasured",
+    "Official evaluation max_seq_len counts alternating candidate/action groups: 49 groups is 24 history steps plus current state; epoch defaults still require an explicit choice",
+    "Paper does not specify all dependency versions or training-epoch/selection details; record implementation choices with their provenance",
+    "Known-optimum cutoff is a solver objective limit; it must not be represented as an observed incumbent",
+    "Keep validation trajectories (solver seed 4) separate from training; never select checkpoints using the 8 test instances",
+    "Formal multi-epoch resume and validation-only epoch selection are not yet implemented; pilot replay is a bounded fixed-data check"
+  ]
+}

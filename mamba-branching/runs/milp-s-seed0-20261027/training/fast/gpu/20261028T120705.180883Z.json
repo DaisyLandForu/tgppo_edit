@@ -1,0 +1,15 @@
+{
+  "selected_il_microbatch": 8,
+  "gpu": "NVIDIA A100-SXM4-40GB",
+  "attempts": [
+    {
+      "microbatch": 8,
+      "status": "passed",
+      "max_tensor_scaled_error": 5.960464477539063e-08,
+      "capacity_peak_mib": 917.3564453125,
+      "capacity_probe_is_synthetic": true,
+      "real_windows_used_for_equivalence": 8
+    }
+  ],
+  "fast_execution_sha256": "eca9bc60f9dae545837a254238a10d79dfd8dfa6279d4fafc0ff1a3dd84fd9e3"
+}

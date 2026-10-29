@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "timestamp_utc": "20261027T153051.812661Z",
+  "host": "jpt-duweiyue25-261027-d3082-default0-0",
+  "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+  "scope": "CPU imports and constructors; CUDA execution not tested",
+  "training_started": false,
+  "versions": {
+    "numpy": "1.26.4",
+    "torch": "2.2.2+cu118",
+    "pyscipopt": "4.3.0",
+    "mamba-ssm": "2.2.2",
+    "causal-conv1d": "1.4.0",
+    "triton": "2.2.0",
+    "transformers": "4.44.2",
+    "h5py": "3.11.0"
+  },
+  "cuda_available": true,
+  "cuda_runtime": "11.8",
+  "cxx11_abi": false,
+  "embedding_parameters": 19816,
+  "sequence_parameters": 4400,
+  "extension_paths": {
+    "causal_conv1d_cuda": "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/causal_conv1d_cuda.cpython-310-x86_64-linux-gnu.so",
+    "selective_scan_cuda": "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/selective_scan_cuda.cpython-310-x86_64-linux-gnu.so"
+  }
+}

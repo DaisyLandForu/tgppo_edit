@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "scope": "bounded CPU diagnostic, not formal collection",
+  "limits": {
+    "nodes": 500,
+    "seconds": 30.0
+  },
+  "instance": "lseu",
+  "solver_seed": 0,
+  "random_prefix_steps": 0,
+  "training_started": false,
+  "timestamp_utc": "20261027T153211.404250Z",
+  "samples": 145,
+  "solver_stats": {
+    "name": "lseu",
+    "explorer": "random",
+    "expert": "relpscost",
+    "k": 0,
+    "seed": 0,
+    "nnodes": 267,
+    "fair_nnodes": 423,
+    "nnodes_left": 0,
+    "nLP_iterations": 1426,
+    "max_depth": 10,
+    "status": "optimal",
+    "gap": 0.0,
+    "primal_bound": 1120.0,
+    "dual_bound": 1120.0,
+    "primaldualintegral": 9.336593322848643,
+    "scip_solve_time": 0.601548,
+    "scip_presolve_time": 0.002702,
+    "opt_time_process": 0.6014996420000001,
+    "opt_time_wallclock": 0.601578950881958
+  },
+  "trajectory_sha256": "968233b111aea3d709c4d5b779f7eddde3d08e3eccd5e214370548a5b9385cd2"
+}

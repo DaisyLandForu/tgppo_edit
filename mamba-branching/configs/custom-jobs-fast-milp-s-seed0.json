@@ -1,0 +1,23 @@
+{
+  "description": "Manual Custom resource/command manifest; not a platform API payload",
+  "shared_mount": "/home/duweiyue25",
+  "working_directory": "/home/duweiyue25/tgppo-transfer",
+  "run_directory": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027",
+  "jobs": [
+    {
+      "name": "mamba-train-fast-seed0",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 8,
+      "memory_gib": 64,
+      "gpus": 1,
+      "gpu_choices": ["A100 40GB", "V100 32GB"],
+      "node_local_scratch_minimum_gib": 5,
+      "walltime_hours": 24,
+      "requires": "475 committed trajectories, built dataset, previous trainer released training/.lock",
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/train_fast.sh --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --cache-root /tmp/mamba-branching-$UID",
+      "resume": "Repeat the exact same command; automatic checkpoint recovery preserves total epoch targets",
+      "validation": "Automatic Mamba CUDA numerical/capacity gate before formal updates; no separate GPU precheck job required"
+    }
+  ]
+}

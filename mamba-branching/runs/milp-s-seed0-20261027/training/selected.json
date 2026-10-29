@@ -1,0 +1,17 @@
+{
+  "frozen": true,
+  "profile": "formal",
+  "seed": 0,
+  "config_sha256": "462271511033b74bb0505dccfaf202f779e4ff9c7cb566d7717365a1b76518cc",
+  "dataset_sha256": "5d7d55a8878ee2e8dd232214741f47341f6e403adbf6dc16606179f6f7aa836c",
+  "cl_epoch_1based": 44,
+  "il_epoch_1based": 50,
+  "validation_solver_seed": 4,
+  "checkpoint": "training/il/epochs/epoch-0050-200ea864153b409e983bf211ed29559f.pt",
+  "checkpoint_sha256": "c1d1761e1085f8e7c92947a40d765d0d05e5a471bca618aa3fdc38e725ac2a74",
+  "validation_loss": 84.73056959453382,
+  "tie_break": "earliest epoch",
+  "test_used_for_selection": false,
+  "fast_execution_sha256": "eca9bc60f9dae545837a254238a10d79dfd8dfa6279d4fafc0ff1a3dd84fd9e3",
+  "effective_il_microbatch": 8
+}

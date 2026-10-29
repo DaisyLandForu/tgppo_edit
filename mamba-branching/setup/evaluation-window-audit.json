@@ -1,0 +1,38 @@
+{
+  "upstream_max_seq_len": 49,
+  "meaning": "alternating candidate/action embedding groups, NOT branching steps",
+  "history_steps": 24,
+  "current_state": 1,
+  "examples": [
+    {
+      "current_step": 0,
+      "groups": 1,
+      "oldest_state_step": 0,
+      "history_steps": 0
+    },
+    {
+      "current_step": 1,
+      "groups": 3,
+      "oldest_state_step": 0,
+      "history_steps": 1
+    },
+    {
+      "current_step": 24,
+      "groups": 49,
+      "oldest_state_step": 0,
+      "history_steps": 24
+    },
+    {
+      "current_step": 25,
+      "groups": 49,
+      "oldest_state_step": 1,
+      "history_steps": 24
+    },
+    {
+      "current_step": 99,
+      "groups": 49,
+      "oldest_state_step": 75,
+      "history_steps": 24
+    }
+  ]
+}

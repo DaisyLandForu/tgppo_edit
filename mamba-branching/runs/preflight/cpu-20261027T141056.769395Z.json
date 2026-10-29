@@ -1,0 +1,62 @@
+{
+  "mode": "cpu",
+  "timestamp_utc": "20261027T141056.769395Z",
+  "host": "jpt-duweiyue25-261026-d5979-default0-0",
+  "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+  "status": "passed",
+  "training_started": false,
+  "fingerprints": {
+    "configs/paper-milp-s.json": "42b4678bd4959735c96da4731798a6521e73fc65b8030891748ec6130cebac3d",
+    "setup/source-lock.json": "87d77765318e971c0462f3a0850290390acd90a5892298b546fff072d0ee288e",
+    "data/milp-s/manifest.json": "008f082e1426416c64b796b5130ae20f0b51d59608b99af4dc98c1753fa66cbb"
+  },
+  "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+  "cgroup_limits": {
+    "cpu.max": "401000 100000",
+    "memory.max": "34360786944"
+  },
+  "versions": {
+    "numpy": "1.26.4",
+    "torch": null,
+    "pyscipopt": "4.3.0",
+    "mamba-ssm": null,
+    "causal-conv1d": null
+  },
+  "checks": {
+    "data_hashes_verified": 27,
+    "scip_version": 8.04,
+    "pyscipopt_path": "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/pyscipopt/__init__.py",
+    "callback_count": 41,
+    "callback_examples": [
+      {
+        "depth": 0,
+        "candidates": 44
+      },
+      {
+        "depth": 1,
+        "candidates": 12
+      },
+      {
+        "depth": 1,
+        "candidates": 38
+      },
+      {
+        "depth": 2,
+        "candidates": 39
+      },
+      {
+        "depth": 2,
+        "candidates": 29
+      },
+      {
+        "depth": 2,
+        "candidates": 18
+      }
+    ],
+    "solver_status": "optimal",
+    "nodes": 26,
+    "fair_nodes_relpscost": 26,
+    "primal_dual_integral": 43.91944874614255,
+    "scope": "short native binding diagnostic; no learning or formal baseline"
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "description": "Resource and command manifest for manual Custom submission; not a platform-specific CRD/API payload",
+  "shared_mount": "/home/duweiyue25",
+  "working_directory": "/home/duweiyue25/tgppo-transfer",
+  "run_directory": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027",
+  "prepare_command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh prepare --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --config /home/duweiyue25/tgppo-transfer/research/mamba-branching/configs/formal-milp-s.json",
+  "dependencies": "Submit each next phase only after ALL jobs in depends_on exit 0; the manifest does not submit or enforce platform scheduling",
+  "resume": "Reuse the same command/run directory; never run two training jobs against the same run directory",
+  "jobs": [
+    {
+      "name": "mamba-collect-0",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 0 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-1",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 1 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-2",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 2 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-3",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 3 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-4",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 4 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-5",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 5 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-6",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 6 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-collect-7",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 2,
+      "memory_gib": 8,
+      "gpus": 0,
+      "walltime_hours": 48,
+      "workers": 2,
+      "depends_on": [],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh collect --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 7 --num-shards 8 --workers 2"
+    },
+    {
+      "name": "mamba-build-data",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 4,
+      "memory_gib": 32,
+      "gpus": 0,
+      "walltime_hours": 24,
+      "depends_on": [
+        "mamba-collect-0",
+        "mamba-collect-1",
+        "mamba-collect-2",
+        "mamba-collect-3",
+        "mamba-collect-4",
+        "mamba-collect-5",
+        "mamba-collect-6",
+        "mamba-collect-7"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh build-data --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027"
+    },
+    {
+      "name": "mamba-train-seed0",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 8,
+      "memory_gib": 64,
+      "gpus": 1,
+      "gpu_model": "V100 32GB",
+      "walltime_hours": 72,
+      "depends_on": [
+        "mamba-build-data"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh train --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --resume auto"
+    },
+    {
+      "name": "mamba-evaluate-0",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 4,
+      "memory_gib": 16,
+      "gpus": 1,
+      "gpu_model": "V100 32GB",
+      "walltime_hours": 48,
+      "workers": 1,
+      "depends_on": [
+        "mamba-train-seed0"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh evaluate --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 0 --num-shards 4 --workers 1"
+    },
+    {
+      "name": "mamba-evaluate-1",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 4,
+      "memory_gib": 16,
+      "gpus": 1,
+      "gpu_model": "V100 32GB",
+      "walltime_hours": 48,
+      "workers": 1,
+      "depends_on": [
+        "mamba-train-seed0"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh evaluate --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 1 --num-shards 4 --workers 1"
+    },
+    {
+      "name": "mamba-evaluate-2",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 4,
+      "memory_gib": 16,
+      "gpus": 1,
+      "gpu_model": "V100 32GB",
+      "walltime_hours": 48,
+      "workers": 1,
+      "depends_on": [
+        "mamba-train-seed0"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh evaluate --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 2 --num-shards 4 --workers 1"
+    },
+    {
+      "name": "mamba-evaluate-3",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 4,
+      "memory_gib": 16,
+      "gpus": 1,
+      "gpu_model": "V100 32GB",
+      "walltime_hours": 48,
+      "workers": 1,
+      "depends_on": [
+        "mamba-train-seed0"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh evaluate --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027 --shard-index 3 --num-shards 4 --workers 1"
+    },
+    {
+      "name": "mamba-summarize",
+      "image": "current scip image",
+      "shell": "bash",
+      "cpu": 1,
+      "memory_gib": 4,
+      "gpus": 0,
+      "walltime_hours": 1,
+      "depends_on": [
+        "mamba-evaluate-0",
+        "mamba-evaluate-1",
+        "mamba-evaluate-2",
+        "mamba-evaluate-3"
+      ],
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh summarize --run-dir /home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027"
+    }
+  ]
+}

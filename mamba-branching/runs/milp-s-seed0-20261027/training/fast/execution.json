@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "engine": "ram-prefetch-v1",
+  "settings": {
+    "il_microbatch": "auto",
+    "prefetch": 2,
+    "checkpoint_every_updates": 250,
+    "checkpoint_max_seconds": 60.0,
+    "console_every": 100
+  },
+  "sources": {
+    "train_fast.sh": "16f251b4858705228e71614c180225d7528e2920b7946791fa23aaafa2024761",
+    "scripts/fast_launch.py": "75745a434bc7f2c790da9a6c919567f6d44ab2308a7a4216e974281a1e634ee8",
+    "scripts/local_training.py": "463e17a2d9803b2a2364dc7e366bc65cdc07f0e8a7ce0a1c52a1f86978a49ad5",
+    "scripts/fast_train.py": "b737da9ea3551005140fea862304a37872ad08bc4e6c6bbbc95e4782869cb3f1",
+    "scripts/fast_data.py": "7988b256bdc0d1a4e64156fe180ec1288f67626def6bad23f5148505326df04d",
+    "scripts/fast_ops.py": "5591dbf18222cce954df560bd3efc5c5af4950d5cc6528e6b0e2142946e8f5d1"
+  },
+  "protocol": "FP32, same logical batch32, objectives, ordering, optimizer, epochs and seed4 selection",
+  "migration": "preserve baseline config/run/data hashes and checkpoint RNG/optimizer/cursor; record execution overrides"
+}

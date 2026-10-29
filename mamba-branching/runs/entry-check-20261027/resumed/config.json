@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "profile": "diagnostic",
+  "description": "Entry-point verification only; not formal paper reproduction",
+  "instances": [
+    "lseu"
+  ],
+  "solver_seeds": [
+    0,
+    4
+  ],
+  "prefixes": [
+    0,
+    5
+  ],
+  "collection": {
+    "time_limit_seconds": 10,
+    "node_limit": 500
+  },
+  "training": {
+    "seed": 0,
+    "cl_epochs": 2,
+    "il_epochs": 2,
+    "batch_size": 32,
+    "sequence_states": 100,
+    "cl_microbatch": 32,
+    "il_microbatch": 1,
+    "gradient_clip": 1.0,
+    "checkpoint_every_updates": 1,
+    "epoch_provenance": "CL50/IL50 are official main.py defaults, not fully specified by the paper",
+    "selection": "minimum seed-4 validation CL loss; then minimum seed-4 trajectory-sum IL NLL; ties keep earliest epoch",
+    "cl_sample_cap": null,
+    "cl_sample_cap_provenance": "All collected eligible training states; upstream default max_clip_samples=200000 was not specified in the paper",
+    "phase_initialization": "seed 0 for CL; seed 100000 for IL; sampler has a separate saved NumPy generator",
+    "gradient_clip_provenance": "global norm 1.0 in upstream main.py; applied after logical-batch gradient accumulation"
+  },
+  "evaluation": {
+    "instances": [
+      "misc03",
+      "lseu"
+    ],
+    "solver_seeds": [
+      0
+    ],
+    "time_limit_seconds": 10,
+    "node_limit": 1000,
+    "cutoff": false
+  }
+}

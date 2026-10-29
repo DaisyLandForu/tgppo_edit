@@ -1,0 +1,320 @@
+{
+  "status": "passed",
+  "kind": "collection",
+  "shard_index": 1,
+  "num_shards": 8,
+  "workers": 2,
+  "started_utc": "20261027T163126.430051Z",
+  "hardware": {
+    "host": "sg-duweiyue25-261028-d0b20-default0-0",
+    "cpu": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "cgroup": {
+      "cpu.max": "201000 100000",
+      "memory.max": "8590983168"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "results": [
+    {
+      "id": "neos21-s0-r0",
+      "status": "committed",
+      "attempt": "collection/neos21-s0-r0/attempt-20261027T163126.566363Z"
+    },
+    {
+      "id": "air05-s0-r0",
+      "status": "committed",
+      "attempt": "collection/air05-s0-r0/attempt-20261027T163126.566255Z"
+    },
+    {
+      "id": "lseu-s0-r1",
+      "status": "committed",
+      "attempt": "collection/lseu-s0-r1/attempt-20261027T163233.029687Z"
+    },
+    {
+      "id": "swath1-s0-r0",
+      "status": "committed",
+      "attempt": "collection/swath1-s0-r0/attempt-20261027T163224.745340Z"
+    },
+    {
+      "id": "eil33-2-s0-r5",
+      "status": "committed",
+      "attempt": "collection/eil33-2-s0-r5/attempt-20261027T163301.234994Z"
+    },
+    {
+      "id": "neos648910-s0-r5",
+      "status": "committed",
+      "attempt": "collection/neos648910-s0-r5/attempt-20261027T163426.554016Z"
+    },
+    {
+      "id": "air04-s0-r10",
+      "status": "committed",
+      "attempt": "collection/air04-s0-r10/attempt-20261027T163435.255918Z"
+    },
+    {
+      "id": "neos20-s0-r10",
+      "status": "committed",
+      "attempt": "collection/neos20-s0-r10/attempt-20261027T163549.778068Z"
+    },
+    {
+      "id": "stein27-s0-r10",
+      "status": "committed",
+      "attempt": "collection/stein27-s0-r10/attempt-20261027T163620.067052Z"
+    },
+    {
+      "id": "l152lav-s0-r15",
+      "status": "committed",
+      "attempt": "collection/l152lav-s0-r15/attempt-20261027T163626.304801Z"
+    },
+    {
+      "id": "rmatr100-p10-s0-r15",
+      "status": "committed",
+      "attempt": "collection/rmatr100-p10-s0-r15/attempt-20261027T163634.742133Z"
+    },
+    {
+      "id": "dcmulti-s1-r0",
+      "status": "committed",
+      "attempt": "collection/dcmulti-s1-r0/attempt-20261027T164138.105898Z"
+    },
+    {
+      "id": "neos-476283-s1-r0",
+      "status": "committed",
+      "attempt": "collection/neos-476283-s1-r0/attempt-20261027T164143.534633Z"
+    },
+    {
+      "id": "vpm2-s1-r0",
+      "status": "committed",
+      "attempt": "collection/vpm2-s1-r0/attempt-20261027T164521.545381Z"
+    },
+    {
+      "id": "misc03-s1-r1",
+      "status": "committed",
+      "attempt": "collection/misc03-s1-r1/attempt-20261027T164531.438867Z"
+    },
+    {
+      "id": "sp150x300d-s1-r1",
+      "status": "committed",
+      "attempt": "collection/sp150x300d-s1-r1/attempt-20261027T164535.014533Z"
+    },
+    {
+      "id": "rmatr100-p5-s0-r1",
+      "status": "committed",
+      "attempt": "collection/rmatr100-p5-s0-r1/attempt-20261027T163235.602246Z"
+    },
+    {
+      "id": "pp08aCUTS-s1-r5",
+      "status": "committed",
+      "attempt": "collection/pp08aCUTS-s1-r5/attempt-20261027T164726.881331Z"
+    },
+    {
+      "id": "istanbul-no-cutoff-s1-r5",
+      "status": "committed",
+      "attempt": "collection/istanbul-no-cutoff-s1-r5/attempt-20261027T164552.036985Z"
+    },
+    {
+      "id": "air05-s1-r10",
+      "status": "committed",
+      "attempt": "collection/air05-s1-r10/attempt-20261027T164733.266738Z"
+    },
+    {
+      "id": "neos21-s1-r10",
+      "status": "committed",
+      "attempt": "collection/neos21-s1-r10/attempt-20261027T164825.980900Z"
+    },
+    {
+      "id": "lseu-s1-r15",
+      "status": "committed",
+      "attempt": "collection/lseu-s1-r15/attempt-20261027T164921.483144Z"
+    },
+    {
+      "id": "swath1-s1-r10",
+      "status": "committed",
+      "attempt": "collection/swath1-s1-r10/attempt-20261027T164839.935851Z"
+    },
+    {
+      "id": "eil33-2-s2-r0",
+      "status": "committed",
+      "attempt": "collection/eil33-2-s2-r0/attempt-20261027T164929.555974Z"
+    },
+    {
+      "id": "neos648910-s2-r0",
+      "status": "committed",
+      "attempt": "collection/neos648910-s2-r0/attempt-20261027T165124.552923Z"
+    },
+    {
+      "id": "air04-s2-r1",
+      "status": "committed",
+      "attempt": "collection/air04-s2-r1/attempt-20261027T165240.641190Z"
+    },
+    {
+      "id": "neos20-s2-r1",
+      "status": "committed",
+      "attempt": "collection/neos20-s2-r1/attempt-20261027T165456.261869Z"
+    },
+    {
+      "id": "stein27-s2-r1",
+      "status": "committed",
+      "attempt": "collection/stein27-s2-r1/attempt-20261027T165528.574803Z"
+    },
+    {
+      "id": "l152lav-s2-r5",
+      "status": "committed",
+      "attempt": "collection/l152lav-s2-r5/attempt-20261027T165535.315213Z"
+    },
+    {
+      "id": "rmatr100-p10-s2-r5",
+      "status": "committed",
+      "attempt": "collection/rmatr100-p10-s2-r5/attempt-20261027T165543.900852Z"
+    },
+    {
+      "id": "dcmulti-s2-r10",
+      "status": "committed",
+      "attempt": "collection/dcmulti-s2-r10/attempt-20261027T170035.294567Z"
+    },
+    {
+      "id": "neos-476283-s2-r10",
+      "status": "committed",
+      "attempt": "collection/neos-476283-s2-r10/attempt-20261027T170040.574279Z"
+    },
+    {
+      "id": "vpm2-s2-r10",
+      "status": "committed",
+      "attempt": "collection/vpm2-s2-r10/attempt-20261027T170412.441829Z"
+    },
+    {
+      "id": "misc03-s2-r15",
+      "status": "committed",
+      "attempt": "collection/misc03-s2-r15/attempt-20261027T170421.383401Z"
+    },
+    {
+      "id": "rmatr100-p5-s1-r15",
+      "status": "committed",
+      "attempt": "collection/rmatr100-p5-s1-r15/attempt-20261027T164924.708867Z"
+    },
+    {
+      "id": "sp150x300d-s2-r15",
+      "status": "committed",
+      "attempt": "collection/sp150x300d-s2-r15/attempt-20261027T170424.608857Z"
+    },
+    {
+      "id": "pp08aCUTS-s3-r0",
+      "status": "committed",
+      "attempt": "collection/pp08aCUTS-s3-r0/attempt-20261027T170618.545271Z"
+    },
+    {
+      "id": "air05-s3-r1",
+      "status": "committed",
+      "attempt": "collection/air05-s3-r1/attempt-20261027T170623.980417Z"
+    },
+    {
+      "id": "istanbul-no-cutoff-s3-r0",
+      "status": "committed",
+      "attempt": "collection/istanbul-no-cutoff-s3-r0/attempt-20261027T170602.569881Z"
+    },
+    {
+      "id": "neos21-s3-r1",
+      "status": "committed",
+      "attempt": "collection/neos21-s3-r1/attempt-20261027T170717.783691Z"
+    },
+    {
+      "id": "lseu-s3-r5",
+      "status": "committed",
+      "attempt": "collection/lseu-s3-r5/attempt-20261027T170800.897591Z"
+    },
+    {
+      "id": "swath1-s3-r1",
+      "status": "committed",
+      "attempt": "collection/swath1-s3-r1/attempt-20261027T170757.366440Z"
+    },
+    {
+      "id": "eil33-2-s3-r10",
+      "status": "committed",
+      "attempt": "collection/eil33-2-s3-r10/attempt-20261027T170820.229416Z"
+    },
+    {
+      "id": "neos648910-s3-r10",
+      "status": "committed",
+      "attempt": "collection/neos648910-s3-r10/attempt-20261027T170951.880897Z"
+    },
+    {
+      "id": "air04-s3-r15",
+      "status": "committed",
+      "attempt": "collection/air04-s3-r15/attempt-20261027T170956.767506Z"
+    },
+    {
+      "id": "neos20-s3-r15",
+      "status": "committed",
+      "attempt": "collection/neos20-s3-r15/attempt-20261027T171133.459853Z"
+    },
+    {
+      "id": "stein27-s3-r15",
+      "status": "committed",
+      "attempt": "collection/stein27-s3-r15/attempt-20261027T171212.991542Z"
+    },
+    {
+      "id": "l152lav-s4-r0",
+      "status": "committed",
+      "attempt": "collection/l152lav-s4-r0/attempt-20261027T171217.121695Z"
+    },
+    {
+      "id": "rmatr100-p10-s4-r0",
+      "status": "committed",
+      "attempt": "collection/rmatr100-p10-s4-r0/attempt-20261027T171225.658384Z"
+    },
+    {
+      "id": "dcmulti-s4-r1",
+      "status": "committed",
+      "attempt": "collection/dcmulti-s4-r1/attempt-20261027T171543.905756Z"
+    },
+    {
+      "id": "neos-476283-s4-r1",
+      "status": "committed",
+      "attempt": "collection/neos-476283-s4-r1/attempt-20261027T171548.785620Z"
+    },
+    {
+      "id": "vpm2-s4-r1",
+      "status": "committed",
+      "attempt": "collection/vpm2-s4-r1/attempt-20261027T171939.188199Z"
+    },
+    {
+      "id": "misc03-s4-r5",
+      "status": "committed",
+      "attempt": "collection/misc03-s4-r5/attempt-20261027T171946.176754Z"
+    },
+    {
+      "id": "sp150x300d-s4-r5",
+      "status": "committed",
+      "attempt": "collection/sp150x300d-s4-r5/attempt-20261027T171949.802358Z"
+    },
+    {
+      "id": "istanbul-no-cutoff-s4-r10",
+      "status": "committed",
+      "attempt": "collection/istanbul-no-cutoff-s4-r10/attempt-20261027T171953.530739Z"
+    },
+    {
+      "id": "pp08aCUTS-s4-r10",
+      "status": "committed",
+      "attempt": "collection/pp08aCUTS-s4-r10/attempt-20261027T172206.599335Z"
+    },
+    {
+      "id": "air05-s4-r15",
+      "status": "committed",
+      "attempt": "collection/air05-s4-r15/attempt-20261027T172213.032832Z"
+    },
+    {
+      "id": "neos21-s4-r15",
+      "status": "committed",
+      "attempt": "collection/neos21-s4-r15/attempt-20261027T172332.006795Z"
+    },
+    {
+      "id": "swath1-s4-r15",
+      "status": "committed",
+      "attempt": "collection/swath1-s4-r15/attempt-20261027T172435.612897Z"
+    },
+    {
+      "id": "rmatr100-p5-s3-r5",
+      "status": "committed",
+      "attempt": "collection/rmatr100-p5-s3-r5/attempt-20261027T170804.323943Z"
+    }
+  ],
+  "finished_utc": "20261027T173801.548405Z"
+}

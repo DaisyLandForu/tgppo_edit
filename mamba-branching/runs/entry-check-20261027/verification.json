@@ -1,0 +1,177 @@
+{
+  "status": "passed",
+  "started_utc": "20261027T161238.666656Z",
+  "scope": "diagnostic integration only; no test instances",
+  "script_sha256": "8a09ea094ba8f19c97b227c238919dec51647e4c17fbbeae99a5a0daa64378c2",
+  "checks": {
+    "continuous-train": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/continuous-train.log"
+    },
+    "cl-stop": {
+      "passed": true,
+      "exit_code": 75,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/cl-stop.log"
+    },
+    "cl-resume": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/cl-resume.log"
+    },
+    "il-stop": {
+      "passed": true,
+      "exit_code": 75,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/il-stop.log"
+    },
+    "il-resume": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/il-resume.log"
+    },
+    "cl-restart-embedding": {
+      "max_absolute_difference": 0.0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "cl-restart-optimizer": {
+      "max_absolute_difference": 0.0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "cl-restart-rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "cl-restart-sampler_rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0
+    },
+    "cl-restart-progress": {
+      "passed": true,
+      "progress": {
+        "epoch": 2,
+        "cursor": 0,
+        "updates": 16,
+        "order": null,
+        "order_sha256": null,
+        "loss_numerator": 0.0,
+        "examples": 0,
+        "best_loss": -0.03395003381100568,
+        "best_epoch": 2,
+        "best_checkpoint": "training/cl/epochs/epoch-0002-373410b48b23412d8ae4ea4d450c33f5.pt",
+        "completed": true
+      }
+    },
+    "il-restart-embedding": {
+      "max_absolute_difference": 4.470348358154297e-08,
+      "max_tensor_scaled_error": 4.470348358154297e-08
+    },
+    "il-restart-optimizer": {
+      "max_absolute_difference": 1.0477378964424133e-09,
+      "max_tensor_scaled_error": 1.0477378964424133e-09
+    },
+    "il-restart-rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "il-restart-sampler_rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0
+    },
+    "il-restart-sequence": {
+      "max_absolute_difference": 5.960464477539063e-08,
+      "max_tensor_scaled_error": 3.725290298461914e-08
+    },
+    "il-restart-progress": {
+      "passed": true,
+      "progress": {
+        "epoch": 2,
+        "cursor": 0,
+        "updates": 2,
+        "order": null,
+        "order_sha256": null,
+        "loss_numerator": 0.0,
+        "examples": 0,
+        "best_loss": 157.36292362213135,
+        "best_epoch": 2,
+        "best_checkpoint": "training/il/epochs/epoch-0002-06342c19b8154017aabdd41d0d9d69ba.pt",
+        "completed": true
+      }
+    },
+    "completed-resume-idempotent": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/completed-resume-idempotent.log"
+    },
+    "duplicate-trainer-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/duplicate-trainer-rejected.log"
+    },
+    "evaluate-0": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/evaluate-0.log"
+    },
+    "evaluate-1": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/evaluate-1.log"
+    },
+    "summarize": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/summarize.log"
+    },
+    "collection-resume-idempotent": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/collection-resume-idempotent.log"
+    },
+    "incomplete-data-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/incomplete-data-rejected.log"
+    },
+    "source-change-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/source-change-rejected.log"
+    },
+    "corrupt-data-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027/corrupt-data-rejected.log"
+    },
+    "microbatch-embedding": {
+      "max_absolute_difference": 5.140900611877441e-07,
+      "max_tensor_scaled_error": 5.140900611877441e-07
+    },
+    "microbatch-sequence": {
+      "max_absolute_difference": 8.940696716308594e-08,
+      "max_tensor_scaled_error": 8.940696716308594e-08
+    }
+  },
+  "summary": {
+    "relpscost": {
+      "nodes": 81.70067319184093,
+      "fair_nodes": 259.3395457696338,
+      "wall_seconds": 0.3954943816093522,
+      "scip_seconds": 0.395294365940118,
+      "primal_dual_integral": 14.259735587728521,
+      "statuses": {
+        "optimal": 2
+      }
+    },
+    "mamba": {
+      "nodes": 150.39946808416582,
+      "fair_nodes": 167.89282295559863,
+      "wall_seconds": 1.174667398850176,
+      "scip_seconds": 1.1744967147838261,
+      "primal_dual_integral": 26.696335831866328,
+      "statuses": {
+        "optimal": 2
+      }
+    }
+  },
+  "finished_utc": "20261027T161413.879941Z"
+}

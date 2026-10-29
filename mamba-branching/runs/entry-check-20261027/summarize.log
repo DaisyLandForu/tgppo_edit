@@ -1,0 +1,30 @@
+{
+  "status": "complete",
+  "profile": "diagnostic",
+  "expected_pairs": 2,
+  "completed_pairs": 2,
+  "missing": [],
+  "selection_sha256": "8cf87a0f2ce1b70b64ddeaa5d1c49f96d5b4cddeb60bffbc269c6e4014078631",
+  "geometric_means": {
+    "relpscost": {
+      "nodes": 81.70067319184093,
+      "fair_nodes": 259.3395457696338,
+      "wall_seconds": 0.3954943816093522,
+      "scip_seconds": 0.395294365940118,
+      "primal_dual_integral": 14.259735587728521,
+      "statuses": {
+        "optimal": 2
+      }
+    },
+    "mamba": {
+      "nodes": 150.39946808416582,
+      "fair_nodes": 167.89282295559863,
+      "wall_seconds": 1.174667398850176,
+      "scip_seconds": 1.1744967147838261,
+      "primal_dual_integral": 26.696335831866328,
+      "statuses": {
+        "optimal": 2
+      }
+    }
+  }
+}

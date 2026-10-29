@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "test_cutoffs": {
+    "map18": {
+      "status": "passed",
+      "value": -847.0,
+      "paper_era_value": -847.0,
+      "current_value": -847.0
+    },
+    "mine-166-5": {
+      "status": "passed",
+      "value": -566395707.9,
+      "paper_era_value": -566395707.9,
+      "current_value": -566395707.9
+    },
+    "neos18": {
+      "status": "passed",
+      "value": 16.0,
+      "paper_era_value": 16.0,
+      "current_value": 16.0
+    },
+    "ns1830653": {
+      "status": "passed",
+      "value": 20622.0,
+      "paper_era_value": 20622.0,
+      "current_value": 20622.0
+    },
+    "nu25-pr12": {
+      "status": "passed",
+      "value": 53905.0,
+      "paper_era_value": 53904.99999999999,
+      "current_value": 53904.99999999999
+    },
+    "rail507": {
+      "status": "passed",
+      "value": 174.0,
+      "paper_era_value": 174.0,
+      "current_value": 174.0
+    },
+    "seymour1": {
+      "status": "passed",
+      "value": 410.76370139,
+      "paper_era_value": 410.76370139,
+      "current_value": 410.76370139
+    },
+    "neos11": {
+      "status": "passed",
+      "value": 9,
+      "lower_bound": 9.0,
+      "upper_bound": 9.0,
+      "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html"
+    }
+  },
+  "source_files": {
+    "35": {
+      "url": "https://miplib.zib.de/downloads/miplib2017-v35.solu",
+      "sha256": "1781240ed8d82ed39d1d2581ee023ddd726645fb3dace733f9df667c7b129d13"
+    },
+    "37": {
+      "url": "https://miplib.zib.de/downloads/miplib2017-v37.solu",
+      "sha256": "04250ce7597bdc14f6341b323c8b4be42416102e370f93102fab1ff1f85aa977"
+    }
+  },
+  "legacy_reference_issue": {
+    "instance": "misc03",
+    "legacy_reference_file": "research/tgppo/datasets/cutoffs.json",
+    "legacy_value": 2.0,
+    "locally_proven_optimum": 3360,
+    "scope": "Training instance; Mamba collection has no cutoff. Legacy files were not modified. Effective TGPPO runs require a separate audit before assessing impact."
+  }
+}

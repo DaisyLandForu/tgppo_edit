@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/formal_jobs.py", line 388, in <module>
+    raise SystemExit(main())
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/formal_jobs.py", line 375, in main
+    return build_data(args)
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/formal_jobs.py", line 272, in build_data
+    assert not missing, f'{len(missing)} collection tasks missing; no partial formal dataset is allowed'
+AssertionError: 1 collection tasks missing; no partial formal dataset is allowed

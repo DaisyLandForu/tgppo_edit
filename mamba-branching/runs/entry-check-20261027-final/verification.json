@@ -1,0 +1,197 @@
+{
+  "status": "passed",
+  "started_utc": "20261027T161515.668164Z",
+  "scope": "diagnostic integration only; no test instances",
+  "script_sha256": "8a09ea094ba8f19c97b227c238919dec51647e4c17fbbeae99a5a0daa64378c2",
+  "checks": {
+    "prepare": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/prepare.log"
+    },
+    "collect-0": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/collect-0.log"
+    },
+    "collect-1": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/collect-1.log"
+    },
+    "build": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/build.log"
+    },
+    "continuous-train": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/continuous-train.log"
+    },
+    "cl-stop": {
+      "passed": true,
+      "exit_code": 75,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/cl-stop.log"
+    },
+    "cl-resume": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/cl-resume.log"
+    },
+    "il-stop": {
+      "passed": true,
+      "exit_code": 75,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/il-stop.log"
+    },
+    "il-resume": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/il-resume.log"
+    },
+    "cl-restart-embedding": {
+      "max_absolute_difference": 0.0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "cl-restart-optimizer": {
+      "max_absolute_difference": 0.0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "cl-restart-rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "cl-restart-sampler_rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0
+    },
+    "cl-restart-progress": {
+      "passed": true,
+      "progress": {
+        "epoch": 2,
+        "cursor": 0,
+        "updates": 16,
+        "order": null,
+        "order_sha256": null,
+        "loss_numerator": 0.0,
+        "examples": 0,
+        "best_loss": -0.03355606698177078,
+        "best_epoch": 2,
+        "best_checkpoint": "training/cl/epochs/epoch-0002-46e0968d26e64aa3bb8e3f682475adcd.pt",
+        "completed": true
+      }
+    },
+    "il-restart-embedding": {
+      "max_absolute_difference": 1.4901161193847656e-07,
+      "max_tensor_scaled_error": 1.4901161193847656e-07
+    },
+    "il-restart-optimizer": {
+      "max_absolute_difference": 1.862645149230957e-09,
+      "max_tensor_scaled_error": 1.862645149230957e-09
+    },
+    "il-restart-rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0.0
+    },
+    "il-restart-sampler_rng": {
+      "max_absolute_difference": 0,
+      "max_tensor_scaled_error": 0
+    },
+    "il-restart-sequence": {
+      "max_absolute_difference": 6.705522537231445e-08,
+      "max_tensor_scaled_error": 6.705522537231445e-08
+    },
+    "il-restart-progress": {
+      "passed": true,
+      "progress": {
+        "epoch": 2,
+        "cursor": 0,
+        "updates": 2,
+        "order": null,
+        "order_sha256": null,
+        "loss_numerator": 0.0,
+        "examples": 0,
+        "best_loss": 157.36266708374023,
+        "best_epoch": 2,
+        "best_checkpoint": "training/il/epochs/epoch-0002-d06d53e3db7f4ad8bc3726c18369365f.pt",
+        "completed": true
+      }
+    },
+    "completed-resume-idempotent": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/completed-resume-idempotent.log"
+    },
+    "duplicate-trainer-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/duplicate-trainer-rejected.log"
+    },
+    "evaluate-0": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/evaluate-0.log"
+    },
+    "evaluate-1": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/evaluate-1.log"
+    },
+    "summarize": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/summarize.log"
+    },
+    "collection-resume-idempotent": {
+      "passed": true,
+      "exit_code": 0,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/collection-resume-idempotent.log"
+    },
+    "incomplete-data-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/incomplete-data-rejected.log"
+    },
+    "source-change-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/source-change-rejected.log"
+    },
+    "corrupt-data-rejected": {
+      "passed": true,
+      "exit_code": 2,
+      "log": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/corrupt-data-rejected.log"
+    },
+    "microbatch-embedding": {
+      "max_absolute_difference": 2.682209014892578e-07,
+      "max_tensor_scaled_error": 2.682209014892578e-07
+    },
+    "microbatch-sequence": {
+      "max_absolute_difference": 4.4405460357666016e-06,
+      "max_tensor_scaled_error": 1.0320667145656448e-06
+    }
+  },
+  "summary": {
+    "relpscost": {
+      "nodes": 81.70067319184093,
+      "fair_nodes": 259.3395457696338,
+      "wall_seconds": 0.5060602976295666,
+      "scip_seconds": 0.5058330990257557,
+      "primal_dual_integral": 17.28852965266882,
+      "statuses": {
+        "optimal": 2
+      }
+    },
+    "mamba": {
+      "nodes": 139.8749441465483,
+      "fair_nodes": 156.14416415607718,
+      "wall_seconds": 1.463510902262957,
+      "scip_seconds": 1.4633099112129324,
+      "primal_dual_integral": 34.511519906604555,
+      "statuses": {
+        "optimal": 2
+      }
+    }
+  },
+  "finished_utc": "20261027T161712.384501Z"
+}

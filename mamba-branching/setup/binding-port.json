@@ -1,0 +1,50 @@
+{
+  "legacy_pyx_sha256": "169574f36ca8a3f577edb09bcac76c70ec29bdcf84dc02d063b16763c1fe5bad",
+  "legacy_pxd_sha256": "38d247ae53f81ce445e26c4ee74ddf12cedda523125ccdc9356177f498d375c1",
+  "added_model_methods": [
+    "getNDiscreteVars",
+    "getChildren",
+    "getMaxDepth",
+    "getNNodesLeft",
+    "getNObjlimLeaves",
+    "getNCreatedNodes",
+    "getNCreatedNodesRun",
+    "getPrimalDualIntegral",
+    "getNumLPBranchCands",
+    "relPosition",
+    "relDistance",
+    "gNormMax",
+    "getVarScore",
+    "getFairNNodes",
+    "getNodeState",
+    "getMIPState",
+    "getCandsState",
+    "executeBranchRule"
+  ],
+  "added_node_methods": [
+    "getBranchInfos"
+  ],
+  "missing_public_declarations": 39,
+  "scip_stat_fields": [
+    "firstsolgap",
+    "lastsolgap",
+    "nactivatednodes",
+    "ncreatednodes",
+    "ncreatednodesrun",
+    "ndeactivatednodes",
+    "ninternalnodes",
+    "nnodesbeforefirst",
+    "primaldualintegral"
+  ],
+  "status": "compiled and verified with real root/non-root callbacks; source patch retained",
+  "source_hashes": {
+    "scip.pyx": {
+      "upstream_sha256": "e1ffa62ff98f312634133289f47fd7bdb4992177dae24d5f3791abbd840621ca",
+      "ported_sha256": "acedfc4ecfeef6cbb2abc4b483712f50df3a31508758cd2712d3891c11a76c77"
+    },
+    "scip.pxd": {
+      "upstream_sha256": "04ca9cefc5f223f1f2ba321fb6f44cc828de7adfe612a7b9cd39430b3b8f862a",
+      "ported_sha256": "bfd0409b7baa856422fcc255b263df8061c28c4db1e146913d6bed41c895db6c"
+    }
+  }
+}
