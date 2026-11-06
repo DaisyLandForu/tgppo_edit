@@ -1,0 +1,801 @@
+{
+  "models": {
+    "bc_only-s11": {
+      "condition": "bc_only",
+      "seed": 11,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s11/pretrain/actor.pt",
+      "source_sha256": "78f4c61c6aed01b4890a61d5aad263d4255003886f0aafe26b90b0fa119420d5",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/bc-only-ablation-20/frozen/bc_only-s11.pt",
+      "actor_sha256": "75055f60f9602e6755e7b91fa6c99c466fb1de50144ecc0ee9ab74b9898de8f4",
+      "cached_actor": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s11.pt",
+      "selected_bc_step": 100,
+      "ppo_episodes": 0,
+      "initialization_sha256": "2c23d234ded2aafdc5b52d47fd491241e003c448b4a6c28a4bd942bbd3b30218"
+    },
+    "bc_ppo-s11": {
+      "condition": "bc_ppo",
+      "seed": 11,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s11/actor-0100.pt",
+      "source_sha256": "44523049a2a4eeb9710a84bdece8ae298d41fcc01a5266e4f265c0b8b24c23c5",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/bc-only-ablation-20/frozen/bc_ppo-s11.pt",
+      "actor_sha256": "44523049a2a4eeb9710a84bdece8ae298d41fcc01a5266e4f265c0b8b24c23c5",
+      "cached_actor": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s11.pt",
+      "selected_bc_step": 100,
+      "ppo_episodes": 100,
+      "initialization_sha256": "2c23d234ded2aafdc5b52d47fd491241e003c448b4a6c28a4bd942bbd3b30218"
+    },
+    "bc_only-s22": {
+      "condition": "bc_only",
+      "seed": 22,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s22/pretrain/actor.pt",
+      "source_sha256": "67e149f73fc9f9bcedb7f131930fc0bf298bb43a7d1f987ded08b9f44dec4287",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/bc-only-ablation-20/frozen/bc_only-s22.pt",
+      "actor_sha256": "40b5d1fdfea4ea90c3984c82970bc094832d5bf7324a1fa7241934aae32e9144",
+      "cached_actor": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s22.pt",
+      "selected_bc_step": 100,
+      "ppo_episodes": 0,
+      "initialization_sha256": "7f08c765b731b230dd2d6ca040931d48db557f174a124ee39fa122fe22c6d2df"
+    },
+    "bc_ppo-s22": {
+      "condition": "bc_ppo",
+      "seed": 22,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s22/actor-0100.pt",
+      "source_sha256": "dbe6bd8867034cb8c88cf894af2cbbaa3a6e4d7a3da1773184efeb45fb0a38ad",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/bc-only-ablation-20/frozen/bc_ppo-s22.pt",
+      "actor_sha256": "dbe6bd8867034cb8c88cf894af2cbbaa3a6e4d7a3da1773184efeb45fb0a38ad",
+      "cached_actor": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s22.pt",
+      "selected_bc_step": 100,
+      "ppo_episodes": 100,
+      "initialization_sha256": "7f08c765b731b230dd2d6ca040931d48db557f174a124ee39fa122fe22c6d2df"
+    }
+  },
+  "tasks": [
+    {
+      "condition": "native",
+      "training_seed": null,
+      "job": {
+        "job_id": "t000-native-neos-1215259-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2369565779,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t001-bc_only-s11-neos-1215259-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2369565779,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t002-bc_ppo-s11-neos-1215259-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2369565779,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t003-bc_only-s22-neos-1215259-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 422591186,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t004-bc_ppo-s22-neos-1215259-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 422591186,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t005-bc_only-s11-neos-1215259-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3561235582,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t006-bc_ppo-s11-neos-1215259-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3561235582,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t007-bc_only-s22-neos-1215259-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 4272047720,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t008-bc_ppo-s22-neos-1215259-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 4272047720,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "native",
+      "training_seed": null,
+      "job": {
+        "job_id": "t009-native-neos-1215259-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-1215259.mps.gz",
+        "instance_name": "neos-1215259",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3561235582,
+        "cutoff": 68.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "5e8f9908180d80f8f68255fa6994af800c3fb206b38aa454aeaf4838aac6733b"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t010-bc_ppo-s11-neos-512201-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 1204248901,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t011-bc_only-s22-neos-512201-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 1783758519,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t012-bc_ppo-s22-neos-512201-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 1783758519,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "native",
+      "training_seed": null,
+      "job": {
+        "job_id": "t013-native-neos-512201-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 1204248901,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t014-bc_only-s11-neos-512201-s0",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 1204248901,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t015-bc_only-s22-neos-512201-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 1817225441,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 22,
+      "job": {
+        "job_id": "t016-bc_ppo-s22-neos-512201-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 1817225441,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "native",
+      "training_seed": null,
+      "job": {
+        "job_id": "t017-native-neos-512201-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 480063448,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_only",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t018-bc_only-s11-neos-512201-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 480063448,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_only-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "condition": "bc_ppo",
+      "training_seed": 11,
+      "job": {
+        "job_id": "t019-bc_ppo-s11-neos-512201-s1",
+        "instance": "/tmp/tgppo-bc-ablation-ft_ygmq6/instances/neos-512201.mps.gz",
+        "instance_name": "neos-512201",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 480063448,
+        "cutoff": 513.57,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+          "status": "optimal",
+          "record_sha256": "6f3faef121352f1ca90d318346b824a4d2c65a1d16ed25a5193aed342ac04805"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-bc-ablation-ft_ygmq6/actors/bc_ppo-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    }
+  ],
+  "selected": [
+    {
+      "instance": "neos-1215259",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 58.13222433333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "2563ce95342ba953dc3ad607755496e9a5cca5cae6da5c6de91011378c36bc90",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-1215259.mps.gz",
+      "sha256": "b9c5d72e3f4fa61060e8a1c1ee49a6f9177c7080d64045285ce77300985fef17"
+    },
+    {
+      "instance": "neos-512201",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 64.34511266666667,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "12ec7ac2c5f1ab2d371c2457ddbf8ccc23a038a1cbf11469852e04b85bb8a720",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-512201.mps.gz",
+      "sha256": "331558a1cebe42713cb759fe6280bbf66c0b8700494db9c83f2498dcf442b2a1"
+    }
+  ],
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "host": "jpt-duweiyue25-261105-c54ef-default0-0",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "workers": 4,
+  "threads_per_worker": 1,
+  "worker_start_method": "fork",
+  "scope": "selected previously inspected positive/negative cases; not a new test set",
+  "runner_sha256": "65b2239e9860c77fd067541c8e54827bd8953e9ad219ea48e3c5d2c4562173db",
+  "plan_sha256": "68a94919b1d6161e1e138575a489ad126624cbf670fed91040383d28bb01e3b8"
+}

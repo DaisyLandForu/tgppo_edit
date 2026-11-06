@@ -1,0 +1,44 @@
+{
+  "actor_digest": "ab025973f502de09dafa7b290b774e635eed5c199eef6a9e95ec82b8a9f0165c",
+  "actual_optimizer_steps": 4,
+  "checks": {
+    "actor_only_cpu": true,
+    "actor_only_export_exact": true,
+    "cpu_collection_ratio": true,
+    "recovery_models_optimizers_exact": true,
+    "recovery_rng_exact": true,
+    "replay_ratio": true,
+    "update_completed": true
+  },
+  "committed_training_episodes": 0,
+  "device": "cuda",
+  "gpu": "Tesla V100-SXM2-32GB",
+  "metrics": {
+    "actor_loss": -0.003645479679107666,
+    "advantage_std_before_normalization": 0.6083958745002747,
+    "clip_fraction": 0.0,
+    "critic_loss": 0.5130095481872559,
+    "entropy": 1.2151223123073578,
+    "initial_ratio_max_error": 2.384185791015625e-07,
+    "num_samples": 4,
+    "num_updates": 1,
+    "policy_version": 1,
+    "update_step": 1,
+    "updated": true
+  },
+  "parent_protocol_sha256": "1a1ee835fd6f0190d7eeffefb3deb7eb7b64696e0e0e58b2a5a233e4982f6058",
+  "passed": true,
+  "scip_solves": 0,
+  "scope": "synthetic full-model update/recovery; not method performance",
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  },
+  "synthetic_transitions": 4
+}

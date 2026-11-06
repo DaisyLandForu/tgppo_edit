@@ -1,0 +1,2924 @@
+{
+  "models": {
+    "ep0-s11": {
+      "episode": 0,
+      "seed": 11,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s11/pretrain/actor.pt",
+      "source_sha256": "78f4c61c6aed01b4890a61d5aad263d4255003886f0aafe26b90b0fa119420d5",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/frozen/ep0-s11.pt",
+      "actor_sha256": "683bcf8785bd90365fc250ac914a6d1eccd209a7e10aa289f3254aa0a4e50e90",
+      "cached_actor": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+      "selected_bc_step": 100,
+      "initialization_sha256": "2c23d234ded2aafdc5b52d47fd491241e003c448b4a6c28a4bd942bbd3b30218"
+    },
+    "ep20-s11": {
+      "episode": 20,
+      "seed": 11,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s11/actor-0020.pt",
+      "source_sha256": "1932356413aa41762152ba7344c2f7d673aef7fbb67efa10fae55eb32b6c895e",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/frozen/ep20-s11.pt",
+      "actor_sha256": "1932356413aa41762152ba7344c2f7d673aef7fbb67efa10fae55eb32b6c895e",
+      "cached_actor": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+      "selected_bc_step": 100,
+      "initialization_sha256": "2c23d234ded2aafdc5b52d47fd491241e003c448b4a6c28a4bd942bbd3b30218"
+    },
+    "ep100-s11": {
+      "episode": 100,
+      "seed": 11,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s11/actor-0100.pt",
+      "source_sha256": "44523049a2a4eeb9710a84bdece8ae298d41fcc01a5266e4f265c0b8b24c23c5",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/frozen/ep100-s11.pt",
+      "actor_sha256": "44523049a2a4eeb9710a84bdece8ae298d41fcc01a5266e4f265c0b8b24c23c5",
+      "cached_actor": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+      "selected_bc_step": 100,
+      "initialization_sha256": "2c23d234ded2aafdc5b52d47fd491241e003c448b4a6c28a4bd942bbd3b30218"
+    },
+    "ep0-s22": {
+      "episode": 0,
+      "seed": 22,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s22/pretrain/actor.pt",
+      "source_sha256": "67e149f73fc9f9bcedb7f131930fc0bf298bb43a7d1f987ded08b9f44dec4287",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/frozen/ep0-s22.pt",
+      "actor_sha256": "c672c65d228ce3a65aed0ab76c7f21dfb66535dc90f943963742a0e18095c635",
+      "cached_actor": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+      "selected_bc_step": 100,
+      "initialization_sha256": "7f08c765b731b230dd2d6ca040931d48db557f174a124ee39fa122fe22c6d2df"
+    },
+    "ep20-s22": {
+      "episode": 20,
+      "seed": 22,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s22/actor-0020.pt",
+      "source_sha256": "e8ecb94b849e718b615b09c8a1bde98661d5a3b8663f955d317784ddee496b18",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/frozen/ep20-s22.pt",
+      "actor_sha256": "e8ecb94b849e718b615b09c8a1bde98661d5a3b8663f955d317784ddee496b18",
+      "cached_actor": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+      "selected_bc_step": 100,
+      "initialization_sha256": "7f08c765b731b230dd2d6ca040931d48db557f174a124ee39fa122fe22c6d2df"
+    },
+    "ep100-s22": {
+      "episode": 100,
+      "seed": 22,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/mlp_bc/training/B0-s22/actor-0100.pt",
+      "source_sha256": "dbe6bd8867034cb8c88cf894af2cbbaa3a6e4d7a3da1773184efeb45fb0a38ad",
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/frozen/ep100-s22.pt",
+      "actor_sha256": "dbe6bd8867034cb8c88cf894af2cbbaa3a6e4d7a3da1773184efeb45fb0a38ad",
+      "cached_actor": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+      "selected_bc_step": 100,
+      "initialization_sha256": "7f08c765b731b230dd2d6ca040931d48db557f174a124ee39fa122fe22c6d2df"
+    }
+  },
+  "tasks": [
+    {
+      "job_id": "t000-native-vpm2-s0",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "native-vpm2-s0",
+      "job": {
+        "job_id": "t000-native-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2708270171,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t001-ep0-s11-vpm2-s0",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-vpm2-s0",
+      "job": {
+        "job_id": "t001-ep0-s11-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2945153360,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t002-ep20-s11-vpm2-s0",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-vpm2-s0",
+      "job": {
+        "job_id": "t002-ep20-s11-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2945153360,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t003-ep100-s11-vpm2-s0",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-vpm2-s0",
+      "job": {
+        "job_id": "t003-ep100-s11-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2945153360,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t004-ep0-s22-vpm2-s0",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-vpm2-s0",
+      "job": {
+        "job_id": "t004-ep0-s22-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 3863671862,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t005-ep20-s22-vpm2-s0",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-vpm2-s0",
+      "job": {
+        "job_id": "t005-ep20-s22-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 3863671862,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t006-ep100-s22-vpm2-s0",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "vpm2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-vpm2-s0",
+      "job": {
+        "job_id": "t006-ep100-s22-vpm2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 3863671862,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t007-ep0-s11-vpm2-s1",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-vpm2-s1",
+      "job": {
+        "job_id": "t007-ep0-s11-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 1157008234,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t008-ep20-s11-vpm2-s1",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-vpm2-s1",
+      "job": {
+        "job_id": "t008-ep20-s11-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 1157008234,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t009-ep100-s11-vpm2-s1",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-vpm2-s1",
+      "job": {
+        "job_id": "t009-ep100-s11-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 1157008234,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t010-ep0-s22-vpm2-s1",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-vpm2-s1",
+      "job": {
+        "job_id": "t010-ep0-s22-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 2692795062,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t011-ep20-s22-vpm2-s1",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-vpm2-s1",
+      "job": {
+        "job_id": "t011-ep20-s22-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 2692795062,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t012-ep100-s22-vpm2-s1",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-vpm2-s1",
+      "job": {
+        "job_id": "t012-ep100-s22-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 2692795062,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t013-native-vpm2-s1",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "vpm2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "native-vpm2-s1",
+      "job": {
+        "job_id": "t013-native-vpm2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3014062952,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t014-ep20-s11-dcmulti-s0",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-dcmulti-s0",
+      "job": {
+        "job_id": "t014-ep20-s11-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2129070055,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t015-ep100-s11-dcmulti-s0",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-dcmulti-s0",
+      "job": {
+        "job_id": "t015-ep100-s11-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2129070055,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t016-ep0-s22-dcmulti-s0",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-dcmulti-s0",
+      "job": {
+        "job_id": "t016-ep0-s22-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2820348405,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t017-ep20-s22-dcmulti-s0",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-dcmulti-s0",
+      "job": {
+        "job_id": "t017-ep20-s22-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2820348405,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t018-ep100-s22-dcmulti-s0",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-dcmulti-s0",
+      "job": {
+        "job_id": "t018-ep100-s22-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2820348405,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t019-native-dcmulti-s0",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "native-dcmulti-s0",
+      "job": {
+        "job_id": "t019-native-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 1266040664,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t020-ep0-s11-dcmulti-s0",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "dcmulti",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-dcmulti-s0",
+      "job": {
+        "job_id": "t020-ep0-s11-dcmulti-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2129070055,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t021-ep100-s11-dcmulti-s1",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-dcmulti-s1",
+      "job": {
+        "job_id": "t021-ep100-s11-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3553290306,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t022-ep0-s22-dcmulti-s1",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-dcmulti-s1",
+      "job": {
+        "job_id": "t022-ep0-s22-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 3424227568,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t023-ep20-s22-dcmulti-s1",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-dcmulti-s1",
+      "job": {
+        "job_id": "t023-ep20-s22-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 3424227568,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t024-ep100-s22-dcmulti-s1",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-dcmulti-s1",
+      "job": {
+        "job_id": "t024-ep100-s22-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 3424227568,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t025-native-dcmulti-s1",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "native-dcmulti-s1",
+      "job": {
+        "job_id": "t025-native-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 1516473443,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t026-ep0-s11-dcmulti-s1",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-dcmulti-s1",
+      "job": {
+        "job_id": "t026-ep0-s11-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3553290306,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t027-ep20-s11-dcmulti-s1",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "dcmulti",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-dcmulti-s1",
+      "job": {
+        "job_id": "t027-ep20-s11-dcmulti-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3553290306,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t028-ep0-s22-eil33-2-s0",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-eil33-2-s0",
+      "job": {
+        "job_id": "t028-ep0-s22-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2552958316,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t029-ep20-s22-eil33-2-s0",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-eil33-2-s0",
+      "job": {
+        "job_id": "t029-ep20-s22-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2552958316,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t030-ep100-s22-eil33-2-s0",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-eil33-2-s0",
+      "job": {
+        "job_id": "t030-ep100-s22-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2552958316,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t031-native-eil33-2-s0",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "native-eil33-2-s0",
+      "job": {
+        "job_id": "t031-native-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2014231758,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t032-ep0-s11-eil33-2-s0",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-eil33-2-s0",
+      "job": {
+        "job_id": "t032-ep0-s11-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2115859868,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t033-ep20-s11-eil33-2-s0",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-eil33-2-s0",
+      "job": {
+        "job_id": "t033-ep20-s11-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2115859868,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t034-ep100-s11-eil33-2-s0",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "eil33-2",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-eil33-2-s0",
+      "job": {
+        "job_id": "t034-ep100-s11-eil33-2-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2115859868,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t035-ep20-s22-eil33-2-s1",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-eil33-2-s1",
+      "job": {
+        "job_id": "t035-ep20-s22-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 3241366388,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t036-ep100-s22-eil33-2-s1",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-eil33-2-s1",
+      "job": {
+        "job_id": "t036-ep100-s22-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 3241366388,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t037-native-eil33-2-s1",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "native-eil33-2-s1",
+      "job": {
+        "job_id": "t037-native-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 1455161327,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t038-ep0-s11-eil33-2-s1",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-eil33-2-s1",
+      "job": {
+        "job_id": "t038-ep0-s11-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3865892177,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t039-ep20-s11-eil33-2-s1",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-eil33-2-s1",
+      "job": {
+        "job_id": "t039-ep20-s11-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3865892177,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t040-ep100-s11-eil33-2-s1",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-eil33-2-s1",
+      "job": {
+        "job_id": "t040-ep100-s11-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3865892177,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t041-ep0-s22-eil33-2-s1",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "eil33-2",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-eil33-2-s1",
+      "job": {
+        "job_id": "t041-ep0-s22-eil33-2-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/eil33-2.mps.gz",
+        "instance_name": "eil33-2",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 3241366388,
+        "cutoff": 934.007915999999,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "8d1c51129d3623338c670bd3e98489c5f71734de3f708e1878e39a5a1fe20b6b"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t042-ep100-s22-neos-476283-s0",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-neos-476283-s0",
+      "job": {
+        "job_id": "t042-ep100-s22-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2498539255,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t043-native-neos-476283-s0",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "native-neos-476283-s0",
+      "job": {
+        "job_id": "t043-native-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 307698134,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t044-ep0-s11-neos-476283-s0",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-neos-476283-s0",
+      "job": {
+        "job_id": "t044-ep0-s11-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 357420015,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t045-ep20-s11-neos-476283-s0",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-neos-476283-s0",
+      "job": {
+        "job_id": "t045-ep20-s11-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 357420015,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t046-ep100-s11-neos-476283-s0",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-neos-476283-s0",
+      "job": {
+        "job_id": "t046-ep100-s11-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 357420015,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t047-ep0-s22-neos-476283-s0",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-neos-476283-s0",
+      "job": {
+        "job_id": "t047-ep0-s22-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2498539255,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t048-ep20-s22-neos-476283-s0",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "neos-476283",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-neos-476283-s0",
+      "job": {
+        "job_id": "t048-ep20-s22-neos-476283-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 2498539255,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t049-native-neos-476283-s1",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "native-neos-476283-s1",
+      "job": {
+        "job_id": "t049-native-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3027088240,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t050-ep0-s11-neos-476283-s1",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-neos-476283-s1",
+      "job": {
+        "job_id": "t050-ep0-s11-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3502684360,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t051-ep20-s11-neos-476283-s1",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-neos-476283-s1",
+      "job": {
+        "job_id": "t051-ep20-s11-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3502684360,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t052-ep100-s11-neos-476283-s1",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-neos-476283-s1",
+      "job": {
+        "job_id": "t052-ep100-s11-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3502684360,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t053-ep0-s22-neos-476283-s1",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-neos-476283-s1",
+      "job": {
+        "job_id": "t053-ep0-s22-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 892225963,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t054-ep20-s22-neos-476283-s1",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-neos-476283-s1",
+      "job": {
+        "job_id": "t054-ep20-s22-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 892225963,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t055-ep100-s22-neos-476283-s1",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "neos-476283",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-neos-476283-s1",
+      "job": {
+        "job_id": "t055-ep100-s22-neos-476283-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/neos-476283.mps.gz",
+        "instance_name": "neos-476283",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 892225963,
+        "cutoff": 406.363206984,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2010_all.solu",
+          "status": "optimal",
+          "record_sha256": "fccf24ef510bdbd7bb09bd67c62afc547afdebf6e42f6b8f034dde96ac5c3d07"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t056-ep0-s11-roi5alpha10n8-s0",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t056-ep0-s11-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2578057470,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t057-ep20-s11-roi5alpha10n8-s0",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t057-ep20-s11-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2578057470,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t058-ep100-s11-roi5alpha10n8-s0",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t058-ep100-s11-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 2578057470,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t059-ep0-s22-roi5alpha10n8-s0",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t059-ep0-s22-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 1878208693,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t060-ep20-s22-roi5alpha10n8-s0",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t060-ep20-s22-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 1878208693,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t061-ep100-s22-roi5alpha10n8-s0",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t061-ep100-s22-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 22,
+        "sampling_seed": 1878208693,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t062-native-roi5alpha10n8-s0",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 0,
+      "canonical_sampling_job_id": "native-roi5alpha10n8-s0",
+      "job": {
+        "job_id": "t062-native-roi5alpha10n8-s0",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 0,
+        "training_seed": 11,
+        "sampling_seed": 3292196506,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t063-ep20-s11-roi5alpha10n8-s1",
+      "label": "ep20-s11",
+      "episode": 20,
+      "training_seed": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t063-ep20-s11-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3950001398,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t064-ep100-s11-roi5alpha10n8-s1",
+      "label": "ep100-s11",
+      "episode": 100,
+      "training_seed": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t064-ep100-s11-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3950001398,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t065-ep0-s22-roi5alpha10n8-s1",
+      "label": "ep0-s22",
+      "episode": 0,
+      "training_seed": 22,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t065-ep0-s22-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 205805387,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t066-ep20-s22-roi5alpha10n8-s1",
+      "label": "ep20-s22",
+      "episode": 20,
+      "training_seed": 22,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t066-ep20-s22-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 205805387,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep20-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t067-ep100-s22-roi5alpha10n8-s1",
+      "label": "ep100-s22",
+      "episode": 100,
+      "training_seed": 22,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t067-ep100-s22-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 22,
+        "sampling_seed": 205805387,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep100-s22.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t068-native-roi5alpha10n8-s1",
+      "label": "native",
+      "episode": null,
+      "training_seed": null,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "native-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t068-native-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 5641664,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "native",
+        "checkpoint": null,
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    },
+    {
+      "job_id": "t069-ep0-s11-roi5alpha10n8-s1",
+      "label": "ep0-s11",
+      "episode": 0,
+      "training_seed": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 1,
+      "canonical_sampling_job_id": "dev-roi5alpha10n8-s1",
+      "job": {
+        "job_id": "t069-ep0-s11-roi5alpha10n8-s1",
+        "instance": "/tmp/tgppo-dev-curve-5ms6bukw/instances/roi5alpha10n8.mps.gz",
+        "instance_name": "roi5alpha10n8",
+        "limits": {
+          "time_limit": 120.0,
+          "node_limit": -1
+        },
+        "params": {
+          "heuristics": false,
+          "cutoff": true,
+          "conflict_usesb": false,
+          "probing_bounds": false,
+          "checksol": false,
+          "reevalage": 0
+        },
+        "solver_seed": 1,
+        "training_seed": 11,
+        "sampling_seed": 3950001398,
+        "cutoff": -52.322274351,
+        "cutoff_provenance": {
+          "verified": true,
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "record_sha256": "76759ed58dd889b971c171fbc6a235e571371f782ad4f99117942c4e5deb489a"
+        },
+        "mode": "eval",
+        "checkpoint": "/tmp/tgppo-dev-curve-5ms6bukw/actors/ep0-s11.pt",
+        "baseline": null,
+        "address_space_limit_bytes": 8589934592
+      }
+    }
+  ],
+  "selected": [
+    {
+      "instance": "vpm2",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+      "sha256": "484ac31f97ef1c7b9b813aba29e441d84ef3b3b09eedab04df81159102d571ca"
+    },
+    {
+      "instance": "dcmulti",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+      "sha256": "83627542fa87eb04e4eb22ce805d3bcde64e2a58f3caa3eafac7004816c470df"
+    },
+    {
+      "instance": "eil33-2",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/eil33-2.mps.gz",
+      "sha256": "2d349f8ba12aaf170c9f8bf85327d6592cc0f4d89d300dfb77197acd34a7ffb1"
+    },
+    {
+      "instance": "neos-476283",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/neos-476283.mps.gz",
+      "sha256": "2f90490b487fc8c4df5ef002f27429ea765b6ce190321a355ad1574cbe1e9566"
+    },
+    {
+      "instance": "roi5alpha10n8",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/roi5alpha10n8.mps.gz",
+      "sha256": "243c8af3215de29e46fcbeb0c0eaa7f6c33f5ee1d23fd22d76afc3708748c633"
+    }
+  ],
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "host": "sg-duweiyue25-261105-d8253-default0-0",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "workers": 4,
+  "threads_per_worker": 1,
+  "worker_start_method": "fork",
+  "scope": "five existing development instances; not held-out testing",
+  "canonical_action_rng": "dev-{instance}-s{solver_seed}; native uses native-",
+  "native_reference": "fresh10 on same host as all60 model tasks",
+  "runner_sha256": "f7bd7f82b8c846e7d86c5d6bfac49549d40db766f44db80c9973920b55ee35a2",
+  "plan_sha256": "73c61c75982d89ddc83ff27c2a93b4e55f096e3d17141912be58d139e05db340"
+}

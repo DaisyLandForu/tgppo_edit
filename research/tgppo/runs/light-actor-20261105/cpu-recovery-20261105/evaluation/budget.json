@@ -1,0 +1,23 @@
+{
+  "attempts": [
+    {
+      "allocated_seconds": 5400,
+      "elapsed_seconds": 645.5597896575928,
+      "stage": "initial_setup",
+      "started_epoch": 1793866241.7203128
+    },
+    {
+      "allocated_seconds": 4754.440210342407,
+      "elapsed_seconds": 421.9163708873093,
+      "started_epoch": 1793866887.4533916
+    },
+    {
+      "stage": "cached_cpu_retry",
+      "started_epoch": 1793867973.3830147,
+      "allocated_seconds": 4332.523839455098,
+      "elapsed_seconds": 3714.044627904892
+    }
+  ],
+  "charged_seconds": 4781.520788449794,
+  "charged_before_attempt": 1067.476160544902
+}

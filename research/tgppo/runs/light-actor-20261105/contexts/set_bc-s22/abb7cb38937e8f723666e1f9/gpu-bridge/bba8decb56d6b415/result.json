@@ -1,0 +1,31 @@
+{
+  "actual_optimizer_steps": 4,
+  "checks": {
+    "actor_only_cpu": true,
+    "actor_only_export_exact": true,
+    "cpu_collection_ratio": true,
+    "recovery_models_optimizers_exact": true,
+    "recovery_rng_exact": true,
+    "replay_ratio": true,
+    "update_completed": true
+  },
+  "committed_training_episodes": 0,
+  "device": "cuda",
+  "metrics": {
+    "actor_loss": -0.0033960044384002686,
+    "advantage_std_before_normalization": 0.6083958745002747,
+    "clip_fraction": 0.0,
+    "critic_loss": 0.5130095481872559,
+    "entropy": 1.1320046782493591,
+    "initial_ratio_max_error": 1.1920928955078125e-07,
+    "num_samples": 4,
+    "num_updates": 1,
+    "policy_version": 1,
+    "update_step": 1,
+    "updated": true
+  },
+  "passed": true,
+  "scip_solves": 0,
+  "scope": "synthetic full-model update/recovery; not method performance",
+  "synthetic_transitions": 4
+}

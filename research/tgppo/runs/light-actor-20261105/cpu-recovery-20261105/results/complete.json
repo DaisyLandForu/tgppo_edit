@@ -1,0 +1,24 @@
+{
+  "complete": true,
+  "seeds": [
+    11,
+    22
+  ],
+  "episode": 100,
+  "model_tasks": 160,
+  "cohort": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cpu-recovery-20261105/evaluation/episode-0100/f43d84f1b9cd8443e8252512",
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "native_reference": "fresh10, same host as all160 model evaluations",
+  "worker_start_method": "fork",
+  "driver_sha256": "d0488512b457952226d100d12bdd37049419ae5066a990d84ded1859cddf074c",
+  "cpu_fork_verification": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cpu-recovery-20261105/cpu_fork_verification.json"
+}

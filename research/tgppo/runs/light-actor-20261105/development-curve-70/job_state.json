@@ -1,0 +1,39 @@
+{
+  "started_epoch": 1793880566.60591,
+  "budget_seconds": 2400,
+  "workers": 4,
+  "training_steps": 0,
+  "gpu": false,
+  "automatic_retry": false,
+  "requested_tasks": 70,
+  "authorization": "User requested existing BC/PPO20/PPO100 dev curve on cluster Custom",
+  "queue_time_excluded": true,
+  "scope": "new independent evaluation budget; no old training deadline reused",
+  "status": "complete",
+  "supervisor_pid": 16,
+  "host": "sg-duweiyue25-261105-d8253-default0-0",
+  "input_verification": {
+    "delivery_and_inputs": 32,
+    "original_files": 57,
+    "external_inputs": 14,
+    "protected_sources": 41,
+    "requested_tasks": 70,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "engine_pid": 19,
+  "final_input_verification": {
+    "delivery_and_inputs": 32,
+    "original_files": 57,
+    "external_inputs": 14,
+    "protected_sources": 41,
+    "requested_tasks": 70,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "engine_complete": true,
+  "persistent_rows": 70,
+  "error": null,
+  "charged_wall_seconds": 1371.7819599169306,
+  "analysis_exit_code": 0
+}

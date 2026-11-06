@@ -1,0 +1,28 @@
+{
+  "status": "complete",
+  "pid": 19,
+  "host": "sg-duweiyue25-261105-d8253-default0-0",
+  "started_epoch": 1793880566.60591,
+  "budget_seconds": 2400,
+  "requested_tasks": 70,
+  "workers": 4,
+  "training_steps": 0,
+  "gpu": false,
+  "data_split": "development",
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "setup_seconds": 226.06398177146912,
+  "valid_tasks": 70,
+  "weights_unchanged": true,
+  "summed_worker_wall_seconds": 4419.282706656959,
+  "engine_wall_seconds": 1369.0506279468536,
+  "raw_result_files": 70
+}

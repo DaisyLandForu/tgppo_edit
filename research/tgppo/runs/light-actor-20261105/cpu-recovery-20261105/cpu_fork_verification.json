@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "parent_threads": 1,
+  "child": {
+    "values": [
+      {
+        "probability_action_sha256": "e698ef31f6bc96988f178c73dcd49a5413f8cc4a01db9542d98db55347838bbc",
+        "actions": [
+          [
+            3,
+            -1.6094378232955933
+          ],
+          [
+            14,
+            -3.3672964572906494
+          ]
+        ]
+      },
+      {
+        "probability_action_sha256": "729a3846fece07132c99ced2fad15442754566741173fccde4a1b27eb38f2423",
+        "actions": [
+          [
+            0,
+            -1.6146364212036133
+          ],
+          [
+            12,
+            -3.409926652908325
+          ]
+        ]
+      },
+      {
+        "probability_action_sha256": "b1c0da1fffee44fe882e8fa48849268f2d4b6df1b7fbfbadd203db1f54b36146",
+        "actions": [
+          [
+            0,
+            -1.839246392250061
+          ],
+          [
+            10,
+            -4.178704261779785
+          ]
+        ]
+      },
+      {
+        "probability_action_sha256": "e25b7b4529d5a473b8d9588cf07f79044b6cb75f79174b640ff64205fca8b35f",
+        "actions": [
+          [
+            1,
+            -2.86405873298645
+          ],
+          [
+            27,
+            -2.3034234046936035
+          ]
+        ]
+      }
+    ],
+    "scip_version": 6.01,
+    "threads": 1,
+    "cuda_initialized": false
+  },
+  "paths": [
+    "/tmp/tgppo-eval-yobfg98a/actors/b0-s11.pt",
+    "/tmp/tgppo-eval-yobfg98a/actors/mlp_bc-s11.pt",
+    "/tmp/tgppo-eval-yobfg98a/actors/set_bc-s11.pt",
+    "/tmp/tgppo-eval-yobfg98a/actors/isab_bc-s11.pt"
+  ],
+  "scip_model_constructed_not_solved": true,
+  "probabilities_and_actions_bitwise_equal": true,
+  "source_references": [
+    "https://docs.python.org/3.8/library/multiprocessing.html",
+    "https://raw.githubusercontent.com/pytorch/pytorch/v1.13.1/docs/source/notes/multiprocessing.rst"
+  ]
+}
