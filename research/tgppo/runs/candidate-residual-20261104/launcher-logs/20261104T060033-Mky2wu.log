@@ -1,0 +1,36 @@
+Log: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/launcher-logs/20261104T060033-Mky2wu.log
+test_complete_report_and_pairing_on_temporary_fixtures (test_automation.AutomationTests) ... Results: /tmp/tmp171eikx3/results/REPORT.md
+ok
+test_instance_weights_are_not_solver_repeat_weights (test_automation.AutomationTests) ... ok
+test_missing_gpu_is_recorded_without_starting_solves (test_automation.AutomationTests) ... {
+  "status": "failed",
+  "variant": "candidate",
+  "seed": 11,
+  "attempts": [
+    {
+      "id": "aaf9e1a33ee54a97bb2025c77e47927d",
+      "started_epoch": 1793772035.780401,
+      "wall_seconds": 0.043323516845703125
+    }
+  ],
+  "protocol_sha256": "7fab5699f1ddbabcfd10d50ee9768b80104752899ef0054963c9278962467035",
+  "budget_seconds": 8400,
+  "error": "RuntimeError('CUDA unavailable')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py\", line 197, in run\n    info = server.preflight(ROOT, c, 'cuda')\n  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py\", line 1081, in __call__\n    return self._mock_call(*args, **kwargs)\n  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py\", line 1085, in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py\", line 1140, in _execute_mock_call\n    raise effect\nRuntimeError: CUDA unavailable\n",
+  "charged_wall_seconds": 0.043323516845703125
+}
+Other GPU jobs pending; finalization will run after all six terminate.
+ok
+test_full_update_resume_actor_export_all_modes (test_method.MethodTests) ... ok
+test_legacy_actor_config_and_bad_modes (test_method.MethodTests) ... ok
+test_nonuniform_policy_permutation_and_padding (test_method.MethodTests) ... ok
+test_nonzero_residual_matches_declared_formula (test_method.MethodTests) ... ok
+test_paired_initial_weights_rng_and_zero_policy_at_production_size (test_method.MethodTests) ... ok
+test_common_endpoint_no_mixed_budgets (test_method.ProtocolTests) ... ok
+test_native_adoption_rejects_changed_machine (test_method.ProtocolTests) ... ok
+test_only_declared_variables_and_schedule_prefix (test_method.ProtocolTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 6.591s
+
+OK

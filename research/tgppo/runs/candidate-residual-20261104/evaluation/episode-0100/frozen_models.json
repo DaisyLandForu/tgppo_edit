@@ -1,0 +1,99 @@
+{
+  "development": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "roi5alpha10n8"
+  ],
+  "episode": 100,
+  "models": [
+    {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/actor-0100.pt",
+      "actor_sha256": "38d634055e5f5ddfd35757b1f55d3cf20acb01c81fe05a504bb4e9ccd528625e",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/episode-0100.pt",
+      "checkpoint_sha256": "f5ba6a7373b024f821f4ded5a1d90ea3650b1cd964f93c9d2c57a92f02d2eba7",
+      "complete_ppo_blocks": 25,
+      "logical_minibatch_updates": 690,
+      "pending_transitions": 0,
+      "seed": 11,
+      "trained_episodes": 100,
+      "variant": "b0"
+    },
+    {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s22/actor-0100.pt",
+      "actor_sha256": "b400c734c82d6b48d95806faceaf448b96d3f22bf5a8506425dc2d4ecf3d6d91",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s22/episode-0100.pt",
+      "checkpoint_sha256": "7a0b7c833192cde08c0d84443d3970a6337af7293a6994930467083b4d99a815",
+      "complete_ppo_blocks": 25,
+      "logical_minibatch_updates": 846,
+      "pending_transitions": 0,
+      "seed": 22,
+      "trained_episodes": 100,
+      "variant": "b0"
+    },
+    {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s11/actor-0100.pt",
+      "actor_sha256": "5cf3b0fe56c58d24124506681e13d7cf746118c7c51acd112b1389c832e1da23",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s11/episode-0100.pt",
+      "checkpoint_sha256": "5d2e72d76f651a5fd1264808e5ca68ffce91c1a6b2f8799c62612562604930ee",
+      "complete_ppo_blocks": 25,
+      "logical_minibatch_updates": 720,
+      "pending_transitions": 0,
+      "seed": 11,
+      "trained_episodes": 100,
+      "variant": "score"
+    },
+    {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s22/actor-0100.pt",
+      "actor_sha256": "93bbae8144d2ab8419ffa9cb1c7ba385cb9c3b091f99049b65e6a6c3ffeeb688",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s22/episode-0100.pt",
+      "checkpoint_sha256": "61b0bcf5730358eb795f00c1a301abc2ede753d58790819c9b1cde16de1c6ebe",
+      "complete_ppo_blocks": 25,
+      "logical_minibatch_updates": 876,
+      "pending_transitions": 0,
+      "seed": 22,
+      "trained_episodes": 100,
+      "variant": "score"
+    },
+    {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s11/actor-0100.pt",
+      "actor_sha256": "0ad2c5989a37be6ac01007acb6112a11403dfef7767b772cc4d6c95f98854ea7",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s11/episode-0100.pt",
+      "checkpoint_sha256": "c4018d394091ea5b778354ca2bc8bebfa3f63e6099cda15e279ad966bfccf266",
+      "complete_ppo_blocks": 25,
+      "logical_minibatch_updates": 720,
+      "pending_transitions": 0,
+      "seed": 11,
+      "trained_episodes": 100,
+      "variant": "candidate"
+    },
+    {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s22/actor-0100.pt",
+      "actor_sha256": "6c76be7c00f1145136c93c93cc3437eac7516439a338a1fe46dd3bd7c41a9caf",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s22/episode-0100.pt",
+      "checkpoint_sha256": "a489b2bf3fd386be8cb2325e03b8daaafbfa2124f1d5f67ead87002c3e7bc370",
+      "complete_ppo_blocks": 25,
+      "logical_minibatch_updates": 699,
+      "pending_transitions": 0,
+      "seed": 22,
+      "trained_episodes": 100,
+      "variant": "candidate"
+    }
+  ],
+  "scope": "existing development exploration; not unseen generalization",
+  "solver_seeds": [
+    0,
+    1
+  ],
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  }
+}

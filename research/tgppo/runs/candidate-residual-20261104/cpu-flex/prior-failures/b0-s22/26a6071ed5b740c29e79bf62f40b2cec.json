@@ -1,0 +1,17 @@
+{
+  "attempts": [
+    {
+      "id": "26a6071ed5b740c29e79bf62f40b2cec",
+      "started_epoch": 1793781574.0,
+      "wall_seconds": 48.277897119522095
+    }
+  ],
+  "budget_seconds": 8400,
+  "charged_wall_seconds": 48.277897119522095,
+  "error": "ValueError('Matrix CPU/software/GPU differs; keep all arms on matching resources')",
+  "protocol_sha256": "8db04d4219c7396f1faca4f400445605b30448f1a47f1b2aedbd8ad497c650dd",
+  "seed": 22,
+  "status": "failed",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py\", line 198, in run\n    prepare(variant, c, directory, info)\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py\", line 133, in prepare\n    raise ValueError('Matrix CPU/software/GPU differs; keep all arms on matching resources')\nValueError: Matrix CPU/software/GPU differs; keep all arms on matching resources\n",
+  "variant": "b0"
+}

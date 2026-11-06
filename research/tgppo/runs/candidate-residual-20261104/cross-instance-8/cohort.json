@@ -1,0 +1,727 @@
+{
+  "schema": "frozen-cross-instance-exploration-v1",
+  "scope": "8-instance subset of previously examined 66; not a pristine holdout",
+  "authorization": "User requested frozen-model small cross-instance evaluation; local CPU, Custom only if needed; no training",
+  "selection_rule": "Two smallest salted SHA256 ranks per native-cost stratum; no current B0/S/CR outcomes used",
+  "salt": "tgppo-cr-cross-instance-20261104-v1:",
+  "strata_definitions": {
+    "fast": "3/3 native proofs; mean solve <=10s",
+    "medium": "3/3 native proofs; 10s<mean solve<=60s",
+    "slow": "3/3 native proofs; mean solve>60s",
+    "unfinished": "fewer than3/3 native proofs within120s"
+  },
+  "selection_source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/stage5-results-20261023/per_task_with_sources.csv",
+  "selection_source_sha256": "743bd2ef3a95d9018b544c82faaf4bb19263d2b4ce99bf9f4a82063be2a840cd",
+  "pool": [
+    {
+      "instance": "aflow40b",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00038333333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a3ab517683e78c10c13a11ff1f3a1fa5fbf05c09e8de58656804b8519173e9c3"
+    },
+    {
+      "instance": "app1-2",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.07139066666667,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a4f998afe10027a20986e92e215ee89649bc69da157fc11a066ad0fad1dc9f3b"
+    },
+    {
+      "instance": "atlanta-ip",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00946366666666,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "589914d9cffa352d646b94937249b6947a849678f6ce8a23e4a12e734eb80e30"
+    },
+    {
+      "instance": "bab5",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.007204,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "6c9690c150ffc0d744c4e414aaa32a93fca13402ba9f9393b57fa28d170ee41f"
+    },
+    {
+      "instance": "bc1",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00689133333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "0be003cad8eed79c779e17a9838c6f40e9a74b21da13303cf2635cf2b1193769"
+    },
+    {
+      "instance": "bell3a",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 1.5776606666666666,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "7a0a0fecb5485ea46db6777c0dd1b548e3a0eaf0f587b79f6fc153f803c385ac"
+    },
+    {
+      "instance": "bell5",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 0.42734099999999997,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "26947bfb476c93235c52300f4fed3b4ecaa4b614286d486a50afb2b9a1b1e24b"
+    },
+    {
+      "instance": "biella1",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00068366666666,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "c7619a837f96ddf9d0d7c0e2bb55ce5221e34076f91c7d01cab36f2c074a9724"
+    },
+    {
+      "instance": "binkar10_1",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 63.16562666666667,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a77bcd820aa380218ce2581600a4c8ef43b2400e4a2b42b610a6a6b3d6caceea"
+    },
+    {
+      "instance": "blend2",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 0.48899099999999995,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "967f8d352df556ffc6513031a2bf1b1e788c6b7b25d6eec436a7ef78d1a7ddec"
+    },
+    {
+      "instance": "dano3_5",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00455533333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "496c54730b969762578153abaf6e439eab67d1da695214d2d21ee694c100f275"
+    },
+    {
+      "instance": "fast0507",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00321133333334,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "c9ac3e275b7c43c6fc5084a923726d316fdb7a0e2031a2f63dea90f3065173d3"
+    },
+    {
+      "instance": "harp2",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00056333333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "8ebfd87d6c37de87ed67a16cd2a644ada30671e45be77a55323a554d6b682c8d"
+    },
+    {
+      "instance": "map10",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.011193,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "b4ea7d0e97facd4bef5824197431f5d96d56e00e591778760eb1c2afeb232af5"
+    },
+    {
+      "instance": "map16715-04",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.01819066666667,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "0cceb46502599f1bcf9571c3ff0cc38aa0090a24b9eeb0dd90f417a22a234d73"
+    },
+    {
+      "instance": "map18",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00310866666666,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "4403cf52ca57e488bb447d78ffc5c847ba7cf6cf695f8f3fb76fe1026dd02d6a"
+    },
+    {
+      "instance": "map20",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00957533333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "8079a708c626f7effe9952fad79e7ea2808cda584b8f81bdd36e90d374a07894"
+    },
+    {
+      "instance": "mik-250-20-75-4",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 76.606125,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "3cf2ed6cc278180bf576731f117dbeb9b3ad923e78676980ed8a256a452a38f6"
+    },
+    {
+      "instance": "mine-166-5",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 83.787307,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "d672ef07ff9839b91bc818a771395f764eb73aac67ce7f832f4235620fc2baa1"
+    },
+    {
+      "instance": "misc07",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 23.883650666666664,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "f10dede34cab23489e0a8c628452876171eea4d562f496976d6b775ee9fd12fc"
+    },
+    {
+      "instance": "msc98-ip",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00219833333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "145fbcf398d869d3dd8131380c169c46290a6d8fb4544ce4e65df0a446866f7b"
+    },
+    {
+      "instance": "mspp16",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.083996,
+      "native_proof_count": 0,
+      "eligible": false,
+      "exclusion": "historical extra-memory protocol; no new memory exception in this pilot",
+      "selection_hash": "47b3b133102c83d701b49979c96788790730a84f7cf07577b67ad9058be8b28a"
+    },
+    {
+      "instance": "n2seq36q",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.004129,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "6f532811fe375435314d3413c0bc9b4bafe918c941729255e71dbb8fc027612f"
+    },
+    {
+      "instance": "n3seq24",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.023431,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "051d1ceefcf130396e3e77d41b1701e0e2f686f49ddd3088b49b4543ae9327c9"
+    },
+    {
+      "instance": "neos-1200887",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 33.53192966666666,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a322c15ab8d42e69821ffba59bcda763586c930560d4c64e55e43d76e240e274"
+    },
+    {
+      "instance": "neos-1215259",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 58.13222433333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "2563ce95342ba953dc3ad607755496e9a5cca5cae6da5c6de91011378c36bc90"
+    },
+    {
+      "instance": "neos-4722843-widden",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 124.88620766666666,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "d39232c726ffa28a439653e2e2b76b91d4cb2ab5e2739c6b51e95d133b8728ac"
+    },
+    {
+      "instance": "neos-4738912-atrato",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00153966666667,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "36dea8493847e9ba75634ff42bb0927bc19fec9813b3923b8fd5198f3632d64b"
+    },
+    {
+      "instance": "neos-480878",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 72.661056,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "99dfdb9a7ade01d19b90055a0eb073bf4cf0e711921ff9850d6066ce2a935fd7"
+    },
+    {
+      "instance": "neos-504674",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 102.587121,
+      "native_proof_count": 2,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "cd14ea7c60abf60fbe7b84e26fa539b3bd2cf551ae33a3d62d192e5d6c6edfe0"
+    },
+    {
+      "instance": "neos-504815",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 39.141026000000004,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "5867680d494de5a078b2e72c1a4a1642890ea2487e1d3024ffaedf24d3e35ce8"
+    },
+    {
+      "instance": "neos-512201",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 64.34511266666667,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "12ec7ac2c5f1ab2d371c2457ddbf8ccc23a038a1cbf11469852e04b85bb8a720"
+    },
+    {
+      "instance": "neos-584851",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 21.403966666666665,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "5f3b3f8e4a73a7b6ef11a9b430d1473d750565c4035611df76da07bae00084a4"
+    },
+    {
+      "instance": "neos-603073",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00017633333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "2d1b503d08c93dd5ac19304466e0645463270dc8f26c9a53f840f810a57f92e2"
+    },
+    {
+      "instance": "neos-612125",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 47.851276,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "55759cadc895d67dd0c1878773b44a0dc21e285be658891dab2262c6de55eccb"
+    },
+    {
+      "instance": "neos-612162",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 46.814458,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "8c268707712b3b806b95dcdd020d0d83787cf260f5212d592e9787364acd508c"
+    },
+    {
+      "instance": "neos-662469",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00148,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "80ab8a5748dbf73151a322f046e7caf6532f514894415b71bcffdd0c3cd172a2"
+    },
+    {
+      "instance": "neos-686190",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 85.00073533333334,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a9a30a91f717978012f074d5fecf94e46e79f23cbc76cc14071dea3bb6549171"
+    },
+    {
+      "instance": "neos-801834",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 60.41922733333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "17bebbff1f3142c6dfd38a5fb3fbfd01d30b1cd2edb2c32fbe287dd506a1839d"
+    },
+    {
+      "instance": "neos-803219",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 65.68239,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "ac3fbc2a2a2346c94b30903bf08d70c9fe7efbaefc2967781b67ba66f29fb8ee"
+    },
+    {
+      "instance": "neos-807639",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 63.45862866666666,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a2504ab14f49259ea8132d9a874182c9446e3e2b7128ccb1ef5a45278006e083"
+    },
+    {
+      "instance": "neos-820879",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 52.17936233333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "6880edf8277d44002d70f8144783bb5d10608baca227944d785fa6234343b05f"
+    },
+    {
+      "instance": "neos-829552",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.01027033333334,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "452dda85612e4d117dedfe2aa38894b27ae1564cfd2bff6b8ab350dcb6e770a8"
+    },
+    {
+      "instance": "neos-839859",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 85.07099466666666,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "7bcca6e6de601aad26551a97068372d76de70380e4700e174668dbb54958a672"
+    },
+    {
+      "instance": "neos-892255",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 111.26034333333332,
+      "native_proof_count": 1,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "f6fb51cb45815a4d98e7b589681228027af9abbcb673d0fbbf4e955444fa0619"
+    },
+    {
+      "instance": "neos-950242",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.004733,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "8fa40f6020835bb89be24792f587c2cfa523d4e0ce68aaace207ad8e3fafe786"
+    },
+    {
+      "instance": "neos11",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.001176,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "a92880d04b7b58f9973169d88b41e588731f944c89fa365c6fe639012344feb1"
+    },
+    {
+      "instance": "neos12",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00075966666667,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "23b21b8839da86982535d51fa1dd7eea136189814d1ed1db9a6b5526afb48bd4"
+    },
+    {
+      "instance": "neos13",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 104.04828166666667,
+      "native_proof_count": 1,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "bed6671b2501056104b11fca9306b0bdca7d5b9be9bbbe0055866ca5d0307c72"
+    },
+    {
+      "instance": "neos18",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 104.72611166666667,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "371215dd11ad40eda1ac1cc904480362fd466ce794abf0b035a01d8a4240232f"
+    },
+    {
+      "instance": "ns1208400",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 60.846914,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "3492cfdb4cb03e8de253a514cfd0efe1bbf41f050a51c9a46f6dec0f3cddd7e8"
+    },
+    {
+      "instance": "ns1830653",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00029433333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "0bfcc154a7d7f5c091169531882095a22ec4c3d056e64863a51a8250ca24e69e"
+    },
+    {
+      "instance": "nu25-pr12",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 12.860439,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "db80183a253e6390911ce0229caf5050ba25663f9e08b7d700be1181bd8633ee"
+    },
+    {
+      "instance": "nw04",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 24.108363333333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "cd0c175593a6502c0c1e44fc659139c6b4ba68ed4685cafff9a5a2180a2eba58"
+    },
+    {
+      "instance": "opm2-z7-s2",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00987766666667,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "9bc0195880f29f8c3a8d8ccca10041829951ee9819bff5483ae95695c244d9f9"
+    },
+    {
+      "instance": "p0201",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 1.4640786666666668,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "b89ec4d7a4bcd3b6030b305e74201072f27634859150575fb8c7f09bf9f22094"
+    },
+    {
+      "instance": "pg",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 49.72628566666667,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "d778541fadc3a336661c40fc306a973c7ddea3ba9cf74f222a6dc46585e44bbd"
+    },
+    {
+      "instance": "pigeon-10",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00016266666667,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "6e9eb12cdecc6beacdce36f36512d9be2c2137533efe512d1bfafd85f20a15df"
+    },
+    {
+      "instance": "pp08a",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 1.9246213333333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "fa310dd656ab8354bd29a7df5405c9712b6c8e38e58b490a0f4355be6eec6171"
+    },
+    {
+      "instance": "rail507",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00251133333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "973d1d1953126cbeb31d9a4150627c9d7e3b274b32ef17554c99c2b6e42a34bc"
+    },
+    {
+      "instance": "roll3000",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 82.675573,
+      "native_proof_count": 2,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "3b785947b518c19e1722c0e5e0088c87557871b09139f080cbdc21f5f8a937fc"
+    },
+    {
+      "instance": "rout",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 61.30342833333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "44e532f250b4c0a884b21077b516138bc978ae7597aebbb90930be20d4b1588b"
+    },
+    {
+      "instance": "satellites1-25",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.41369,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "6eaa80a2dc8dd2cf8f9ec4127e79142433fe86a18a564c4725e61d27078172ec"
+    },
+    {
+      "instance": "seymour1",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 83.531795,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "ffdcda7d9d81ff2132910fa9bb083d2452b4cffa3846d4542986e51c2f286d8e"
+    },
+    {
+      "instance": "sp98ir",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 70.306785,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "0a2eebafdb8e2a411a47e3afe601112c6603c13009b3ff69b76a6c48c8d510c9"
+    },
+    {
+      "instance": "unitcal_7",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.016317,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "71ce2be0500272f97dbf19da3fa64be9ab6f7a68bdb485f5b4354b4af60da48f"
+    }
+  ],
+  "selected": [
+    {
+      "instance": "bell5",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 0.42734099999999997,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "26947bfb476c93235c52300f4fed3b4ecaa4b614286d486a50afb2b9a1b1e24b",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/bell5.mps.gz",
+      "sha256": "2aab3da01019fdd5acbdeba604e01758a1fcd8fae666464322860cabe322e6a0"
+    },
+    {
+      "instance": "bell3a",
+      "stratum": "fast",
+      "native_mean_solve_seconds": 1.5776606666666666,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "7a0a0fecb5485ea46db6777c0dd1b548e3a0eaf0f587b79f6fc153f803c385ac",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/bell3a.mps.gz",
+      "sha256": "46db23e722a94011bc07f39da5471148579f55be4127ee9b0f060375ce9eeb23"
+    },
+    {
+      "instance": "neos-1215259",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 58.13222433333333,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "2563ce95342ba953dc3ad607755496e9a5cca5cae6da5c6de91011378c36bc90",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-1215259.mps.gz",
+      "sha256": "b9c5d72e3f4fa61060e8a1c1ee49a6f9177c7080d64045285ce77300985fef17"
+    },
+    {
+      "instance": "neos-612125",
+      "stratum": "medium",
+      "native_mean_solve_seconds": 47.851276,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "55759cadc895d67dd0c1878773b44a0dc21e285be658891dab2262c6de55eccb",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-612125.mps.gz",
+      "sha256": "fe48dcb6146464d9626c4439e9d9eea160632772b7861ff75c16f441edb633a7"
+    },
+    {
+      "instance": "sp98ir",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 70.306785,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "0a2eebafdb8e2a411a47e3afe601112c6603c13009b3ff69b76a6c48c8d510c9",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/sp98ir.mps.gz",
+      "sha256": "2d25ae3ab7f1ad269741d94f95f90b3a8f457001d234bae340a9ba9db2e36f4a"
+    },
+    {
+      "instance": "neos-512201",
+      "stratum": "slow",
+      "native_mean_solve_seconds": 64.34511266666667,
+      "native_proof_count": 3,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "12ec7ac2c5f1ab2d371c2457ddbf8ccc23a038a1cbf11469852e04b85bb8a720",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-512201.mps.gz",
+      "sha256": "331558a1cebe42713cb759fe6280bbf66c0b8700494db9c83f2498dcf442b2a1"
+    },
+    {
+      "instance": "n3seq24",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.023431,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "051d1ceefcf130396e3e77d41b1701e0e2f686f49ddd3088b49b4543ae9327c9",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/n3seq24.mps.gz",
+      "sha256": "a5ad2a7c192efceb11e65cfde9e0a2baffb53f1e1d3f530bd3b43169c56f4b27"
+    },
+    {
+      "instance": "bc1",
+      "stratum": "unfinished",
+      "native_mean_solve_seconds": 120.00689133333333,
+      "native_proof_count": 0,
+      "eligible": true,
+      "exclusion": null,
+      "selection_hash": "0be003cad8eed79c779e17a9838c6f40e9a74b21da13303cf2635cf2b1193769",
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/bc1.mps.gz",
+      "sha256": "1067575fae3c46c558ffcb0dd54af67b67710cd22ac6413229c4e95f9a218877"
+    }
+  ],
+  "solver_seeds": [
+    0,
+    1
+  ],
+  "training_seeds": [
+    11,
+    22
+  ],
+  "variants": [
+    "b0",
+    "score",
+    "candidate"
+  ],
+  "model_tasks": 96,
+  "native_tasks": 16,
+  "total_tasks": 112,
+  "workers": 4,
+  "threads_per_worker": 1,
+  "time_limit_seconds": 120,
+  "watchdog_seconds": 180,
+  "aggregate_elapsed_wall_cap_seconds": 5400,
+  "legacy_predicted_sum_worker_seconds": 9247.423655840723,
+  "legacy_predicted_4_worker_seconds": 2311.8559139601807,
+  "solve_limit_core_hour_ceiling": 3.7333333333333334,
+  "success_rule": "Report all8 instance-equal PDI and proof rate, CR-vs-B0/S separately for both training seeds, per-instance signs, native reference and Actor participation; broad gain requires consistent seed directions and more than isolated instance wins. No posthoc model selection.",
+  "stop_rule": "Complete112 tasks or90 elapsed minutes, whichever first; preserve invalid/missing tasks, no automatic retries/cohort changes/training or full66 expansion"
+}

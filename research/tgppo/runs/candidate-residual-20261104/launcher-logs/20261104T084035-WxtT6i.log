@@ -1,0 +1,27 @@
+Log: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/launcher-logs/20261104T084035-WxtT6i.log
+{
+  "status": "failed",
+  "variant": "score",
+  "seed": 22,
+  "attempts": [
+    {
+      "id": "b31836260c4240b1a416f0dd9f49b313",
+      "started_epoch": 1793781635.0,
+      "wall_seconds": 2.790649890899658
+    }
+  ],
+  "protocol_sha256": "0c0462f43262c5299bd57fe468fec86d3b6850d823d9be87067388f0a95dd9fc",
+  "budget_seconds": 8400,
+  "error": "ValueError('Matrix CPU/software/GPU differs; keep all arms on matching resources')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py\", line 198, in run\n    prepare(variant, c, directory, info)\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py\", line 133, in prepare\n    raise ValueError('Matrix CPU/software/GPU differs; keep all arms on matching resources')\nValueError: Matrix CPU/software/GPU differs; keep all arms on matching resources\n",
+  "charged_wall_seconds": 2.790649890899658
+}
+Other GPU jobs pending; finalization will run after all six terminate.
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py", line 385, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py", line 375, in main
+    run(args.variant, args.seed, args.resume)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py", line 219, in run
+    raise RuntimeError('Job failed; retained logs at ' + str(target))
+RuntimeError: Job failed; retained logs at /home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/jobs/score-s22.json

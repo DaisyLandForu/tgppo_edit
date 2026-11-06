@@ -1,0 +1,1158 @@
+{
+  "cpu_affinity": [
+    0
+  ],
+  "host": "jpt-duweiyue25-261102-47466-default0-0",
+  "instances": [
+    "dcmulti",
+    "vpm2"
+  ],
+  "models": {
+    "b0-s11": {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/actor-0100.pt",
+      "actor_sha256": "38d634055e5f5ddfd35757b1f55d3cf20acb01c81fe05a504bb4e9ccd528625e",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/episode-0100.pt",
+      "checkpoint_sha256": "f5ba6a7373b024f821f4ded5a1d90ea3650b1cd964f93c9d2c57a92f02d2eba7",
+      "complete_ppo_blocks": 25,
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s11.pt",
+      "logical_minibatch_updates": 690,
+      "pending_transitions": 0,
+      "seed": 11,
+      "trained_episodes": 100,
+      "variant": "b0"
+    },
+    "b0-s22": {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s22/actor-0100.pt",
+      "actor_sha256": "b400c734c82d6b48d95806faceaf448b96d3f22bf5a8506425dc2d4ecf3d6d91",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/b0/training/B0-s22/episode-0100.pt",
+      "checkpoint_sha256": "7a0b7c833192cde08c0d84443d3970a6337af7293a6994930467083b4d99a815",
+      "complete_ppo_blocks": 25,
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s22.pt",
+      "logical_minibatch_updates": 846,
+      "pending_transitions": 0,
+      "seed": 22,
+      "trained_episodes": 100,
+      "variant": "b0"
+    },
+    "candidate-s11": {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s11/actor-0100.pt",
+      "actor_sha256": "0ad2c5989a37be6ac01007acb6112a11403dfef7767b772cc4d6c95f98854ea7",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s11/episode-0100.pt",
+      "checkpoint_sha256": "c4018d394091ea5b778354ca2bc8bebfa3f63e6099cda15e279ad966bfccf266",
+      "complete_ppo_blocks": 25,
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s11.pt",
+      "logical_minibatch_updates": 720,
+      "pending_transitions": 0,
+      "seed": 11,
+      "trained_episodes": 100,
+      "variant": "candidate"
+    },
+    "candidate-s22": {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s22/actor-0100.pt",
+      "actor_sha256": "6c76be7c00f1145136c93c93cc3437eac7516439a338a1fe46dd3bd7c41a9caf",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/candidate/training/B0-s22/episode-0100.pt",
+      "checkpoint_sha256": "a489b2bf3fd386be8cb2325e03b8daaafbfa2124f1d5f67ead87002c3e7bc370",
+      "complete_ppo_blocks": 25,
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s22.pt",
+      "logical_minibatch_updates": 699,
+      "pending_transitions": 0,
+      "seed": 22,
+      "trained_episodes": 100,
+      "variant": "candidate"
+    },
+    "score-s11": {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s11/actor-0100.pt",
+      "actor_sha256": "5cf3b0fe56c58d24124506681e13d7cf746118c7c51acd112b1389c832e1da23",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s11/episode-0100.pt",
+      "checkpoint_sha256": "5d2e72d76f651a5fd1264808e5ca68ffce91c1a6b2f8799c62612562604930ee",
+      "complete_ppo_blocks": 25,
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s11.pt",
+      "logical_minibatch_updates": 720,
+      "pending_transitions": 0,
+      "seed": 11,
+      "trained_episodes": 100,
+      "variant": "score"
+    },
+    "score-s22": {
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s22/actor-0100.pt",
+      "actor_sha256": "93bbae8144d2ab8419ffa9cb1c7ba385cb9c3b091f99049b65e6a6c3ffeeb688",
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/score/training/B0-s22/episode-0100.pt",
+      "checkpoint_sha256": "61b0bcf5730358eb795f00c1a301abc2ede753d58790819c9b1cde16de1c6ebe",
+      "complete_ppo_blocks": 25,
+      "frozen_actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s22.pt",
+      "logical_minibatch_updates": 876,
+      "pending_transitions": 0,
+      "seed": 22,
+      "trained_episodes": 100,
+      "variant": "score"
+    }
+  },
+  "original_evaluation_stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  },
+  "parent_frozen_manifest_sha256": "aa84ec0f5c80197c3210b50a7e6cee3a8da545458eefeeb1ab9936d08735cc13",
+  "runner_sha256": "d45c18ee859b5d6792047e0a54baf0d45f4c46b011fba3265c5aa0402c01c636",
+  "scope": "paired positive/negative development-instance retest; no new training or model selection",
+  "solver_seeds": [
+    2,
+    3
+  ],
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  },
+  "tasks": [
+    {
+      "index": 0,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": null,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "native",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1847182682,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "native",
+      "training_seed": null,
+      "variant": "native"
+    },
+    {
+      "index": 1,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s11.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1847182682,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "b0-s11",
+      "training_seed": 11,
+      "variant": "b0"
+    },
+    {
+      "index": 2,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s11.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1847182682,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "score-s11",
+      "training_seed": 11,
+      "variant": "score"
+    },
+    {
+      "index": 3,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s11.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1847182682,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "candidate-s11",
+      "training_seed": 11,
+      "variant": "candidate"
+    },
+    {
+      "index": 4,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s22.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 842055146,
+        "solver_seed": 2,
+        "training_seed": 22
+      },
+      "label": "b0-s22",
+      "training_seed": 22,
+      "variant": "b0"
+    },
+    {
+      "index": 5,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s22.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 842055146,
+        "solver_seed": 2,
+        "training_seed": 22
+      },
+      "label": "score-s22",
+      "training_seed": 22,
+      "variant": "score"
+    },
+    {
+      "index": 6,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s22.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 842055146,
+        "solver_seed": 2,
+        "training_seed": 22
+      },
+      "label": "candidate-s22",
+      "training_seed": 22,
+      "variant": "candidate"
+    },
+    {
+      "index": 7,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s11.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2616830845,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "score-s11",
+      "training_seed": 11,
+      "variant": "score"
+    },
+    {
+      "index": 8,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s11.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2616830845,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "candidate-s11",
+      "training_seed": 11,
+      "variant": "candidate"
+    },
+    {
+      "index": 9,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s22.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2077315775,
+        "solver_seed": 2,
+        "training_seed": 22
+      },
+      "label": "b0-s22",
+      "training_seed": 22,
+      "variant": "b0"
+    },
+    {
+      "index": 10,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s22.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2077315775,
+        "solver_seed": 2,
+        "training_seed": 22
+      },
+      "label": "score-s22",
+      "training_seed": 22,
+      "variant": "score"
+    },
+    {
+      "index": 11,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s22.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2077315775,
+        "solver_seed": 2,
+        "training_seed": 22
+      },
+      "label": "candidate-s22",
+      "training_seed": 22,
+      "variant": "candidate"
+    },
+    {
+      "index": 12,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": null,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "native",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2616830845,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "native",
+      "training_seed": null,
+      "variant": "native"
+    },
+    {
+      "index": 13,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s11.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s2",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 2616830845,
+        "solver_seed": 2,
+        "training_seed": 11
+      },
+      "label": "b0-s11",
+      "training_seed": 11,
+      "variant": "b0"
+    },
+    {
+      "index": 14,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s22.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1358962668,
+        "solver_seed": 3,
+        "training_seed": 22
+      },
+      "label": "b0-s22",
+      "training_seed": 22,
+      "variant": "b0"
+    },
+    {
+      "index": 15,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s22.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1358962668,
+        "solver_seed": 3,
+        "training_seed": 22
+      },
+      "label": "score-s22",
+      "training_seed": 22,
+      "variant": "score"
+    },
+    {
+      "index": 16,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s22.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1358962668,
+        "solver_seed": 3,
+        "training_seed": 22
+      },
+      "label": "candidate-s22",
+      "training_seed": 22,
+      "variant": "candidate"
+    },
+    {
+      "index": 17,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": null,
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "native",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 567568124,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "native",
+      "training_seed": null,
+      "variant": "native"
+    },
+    {
+      "index": 18,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s11.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 567568124,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "b0-s11",
+      "training_seed": 11,
+      "variant": "b0"
+    },
+    {
+      "index": 19,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s11.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 567568124,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "score-s11",
+      "training_seed": 11,
+      "variant": "score"
+    },
+    {
+      "index": 20,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s11.pt",
+        "cutoff": 13.75,
+        "cutoff_provenance": {
+          "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+          "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+        "instance_name": "vpm2",
+        "job_id": "dev-vpm2-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 567568124,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "candidate-s11",
+      "training_seed": 11,
+      "variant": "candidate"
+    },
+    {
+      "index": 21,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s22.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 3483632041,
+        "solver_seed": 3,
+        "training_seed": 22
+      },
+      "label": "candidate-s22",
+      "training_seed": 22,
+      "variant": "candidate"
+    },
+    {
+      "index": 22,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": null,
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "native",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1458438546,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "native",
+      "training_seed": null,
+      "variant": "native"
+    },
+    {
+      "index": 23,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s11.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1458438546,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "b0-s11",
+      "training_seed": 11,
+      "variant": "b0"
+    },
+    {
+      "index": 24,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s11.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1458438546,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "score-s11",
+      "training_seed": 11,
+      "variant": "score"
+    },
+    {
+      "index": 25,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/candidate-s11.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 1458438546,
+        "solver_seed": 3,
+        "training_seed": 11
+      },
+      "label": "candidate-s11",
+      "training_seed": 11,
+      "variant": "candidate"
+    },
+    {
+      "index": 26,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/b0-s22.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 3483632041,
+        "solver_seed": 3,
+        "training_seed": 22
+      },
+      "label": "b0-s22",
+      "training_seed": 22,
+      "variant": "b0"
+    },
+    {
+      "index": 27,
+      "job": {
+        "address_space_limit_bytes": 8589934592,
+        "baseline": null,
+        "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/cpu-retest-seeds23/frozen/score-s22.pt",
+        "cutoff": 188182.0,
+        "cutoff_provenance": {
+          "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+          "source": "miplib2017.solu",
+          "status": "optimal",
+          "verified": true
+        },
+        "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+        "instance_name": "dcmulti",
+        "job_id": "dev-dcmulti-s3",
+        "limits": {
+          "node_limit": -1,
+          "time_limit": 120.0
+        },
+        "mode": "eval",
+        "params": {
+          "checksol": false,
+          "conflict_usesb": false,
+          "cutoff": true,
+          "heuristics": false,
+          "probing_bounds": false,
+          "reevalage": 0
+        },
+        "sampling_seed": 3483632041,
+        "solver_seed": 3,
+        "training_seed": 22
+      },
+      "label": "score-s22",
+      "training_seed": 22,
+      "variant": "score"
+    }
+  ],
+  "time_limit": 120,
+  "wall_budget_seconds": 600,
+  "workers": 1
+}

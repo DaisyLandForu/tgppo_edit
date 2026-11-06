@@ -1,0 +1,211 @@
+{
+  "address_space_limit_bytes": 8589934592,
+  "bounds_trace": [
+    {
+      "dual": -1e+20,
+      "native_last_update_time": 0.0,
+      "native_previous_percent_gap": 100.0,
+      "native_raw": 0.0,
+      "primal": 1844367.88,
+      "reason": "event",
+      "time": 0.063042
+    },
+    {
+      "dual": 1818162.2850798012,
+      "native_last_update_time": 35.167639,
+      "native_previous_percent_gap": 1.4208442472007627,
+      "native_raw": 145.9753942121184,
+      "primal": 1844367.88,
+      "reason": "event",
+      "time": 35.168909
+    },
+    {
+      "dual": 1822877.3817511266,
+      "native_last_update_time": 36.930527,
+      "native_previous_percent_gap": 1.1651958636838373,
+      "native_raw": 148.48018348537767,
+      "primal": 1844367.88,
+      "reason": "event",
+      "time": 36.931026
+    },
+    {
+      "dual": 1826683.4418754624,
+      "native_last_update_time": 37.964668,
+      "native_previous_percent_gap": 0.9588346401118994,
+      "native_raw": 149.68516030104354,
+      "primal": 1844367.88,
+      "reason": "event",
+      "time": 37.964884
+    },
+    {
+      "dual": 1827695.8183700808,
+      "native_last_update_time": 39.456563,
+      "native_previous_percent_gap": 0.9039444793366876,
+      "native_raw": 151.11564090645328,
+      "primal": 1844367.88,
+      "reason": "event",
+      "time": 39.463232
+    },
+    {
+      "dual": 1827695.8183700808,
+      "native_last_update_time": 39.456563,
+      "native_previous_percent_gap": 0.9039444793366876,
+      "native_raw": 151.11564090645328,
+      "primal": 1844367.875,
+      "reason": "event",
+      "time": 40.626837
+    },
+    {
+      "dual": 1831036.4243049256,
+      "native_last_update_time": 40.683258,
+      "native_previous_percent_gap": 0.7228195023226804,
+      "native_raw": 152.22450506437812,
+      "primal": 1844367.875,
+      "reason": "event",
+      "time": 40.68724
+    },
+    {
+      "dual": 1831404.1743705831,
+      "native_last_update_time": 41.448143,
+      "native_previous_percent_gap": 0.7028804180086282,
+      "native_raw": 152.7773788594122,
+      "primal": 1844367.875,
+      "reason": "event",
+      "time": 41.455057
+    },
+    {
+      "dual": 1835780.7967786393,
+      "native_last_update_time": 43.615094,
+      "native_previous_percent_gap": 0.4655838099197367,
+      "native_raw": 154.30048628409642,
+      "primal": 1844367.875,
+      "reason": "event",
+      "time": 43.619577
+    },
+    {
+      "dual": 1836069.5135007033,
+      "native_last_update_time": 43.935403,
+      "native_previous_percent_gap": 0.4499298438114866,
+      "native_raw": 154.449616968668,
+      "primal": 1844367.875,
+      "reason": "event",
+      "time": 43.935463
+    },
+    {
+      "dual": 1844367.875,
+      "native_last_update_time": 43.972783,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 154.46643534622967,
+      "primal": 1844367.875,
+      "reason": "event",
+      "time": 43.972818
+    },
+    {
+      "dual": 1844367.875,
+      "native_last_update_time": 43.972827,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 154.46643534622967,
+      "primal": 1844367.875,
+      "reason": "stop",
+      "time": 43.973102
+    }
+  ],
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cuda_initialized": false,
+  "cutoff_applied": true,
+  "cutoff_proof": true,
+  "cutoff_verified": true,
+  "dual_bound": 1844367.875,
+  "dual_bound_finite": true,
+  "environment_wall_seconds_before_free": 44.013085598126054,
+  "episode_ended": true,
+  "episode_id": "t049-native-neos-612125-s1",
+  "gap": 0.0,
+  "gap_finite": true,
+  "has_feasible_solution": true,
+  "identity": {
+    "cutoff": 1844367.88,
+    "cutoff_provenance": {
+      "record_sha256": "ed9264665cabdf8165a83bb25df30d0bcabc93c0a9342aa10b23f756670aa044",
+      "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+      "status": "optimal",
+      "verified": true
+    },
+    "instance_sha256": "fe48dcb6146464d9626c4439e9d9eea160632772b7861ff75c16f441edb633a7",
+    "integral_snapshot_protocol": "read-only-stat-v1",
+    "limits": {
+      "node_limit": -1,
+      "time_limit": 120.0
+    },
+    "params": {
+      "checksol": false,
+      "conflict_usesb": false,
+      "cutoff": true,
+      "heuristics": false,
+      "probing_bounds": false,
+      "reevalage": 0
+    },
+    "protocol_version": "stage3-measured-pdi-v1",
+    "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+    "solver_seed": 1,
+    "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+  },
+  "instance_name": "neos-612125",
+  "integral_snapshot": {
+    "integral": 154.46643534622967,
+    "last_dual_bound": 1e+20,
+    "last_primal_bound": 1844367.875,
+    "last_update_time": 43.972827,
+    "previous_percent_gap": 0.0,
+    "solving_time": 43.973102
+  },
+  "job_id": "t049-native-neos-612125-s1",
+  "load_wall_seconds": 0.039820882491767406,
+  "measurement_callback_seconds": 0.0016174204647541046,
+  "measurement_event_calls": 127,
+  "measurement_version": "native-pdi-snapshot-horizon-v2",
+  "mode": "native",
+  "nnodes": 37,
+  "num_stored_solutions": 1,
+  "objective": 1844367.875,
+  "optimize_wall_seconds": 43.97322206944227,
+  "original_optimal": true,
+  "pdi_extension_basis": "verified_proof_certificate",
+  "pdi_horizon_exact": true,
+  "pdi_horizon_lower": 154.46643534622967,
+  "pdi_horizon_midpoint": 154.46643534622967,
+  "pdi_horizon_normalized_midpoint": 0.01287220294551914,
+  "pdi_horizon_seconds": 120.0,
+  "pdi_horizon_uncertainty": 0.0,
+  "pdi_horizon_upper": 154.46643534622967,
+  "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+  "pdi_native_complete_at_stop": 154.46643534622967,
+  "pdi_native_final_percent_gap": 0.0,
+  "pdi_native_raw_before_flush": 154.46643534622967,
+  "pdi_semantics": "native_raw_until_actual_stop",
+  "pdi_tail_completed_readonly": 0.0,
+  "peak_rss_kib": 370420,
+  "primalDualIntegral": 154.46643534622967,
+  "primalDualIntegral_finite": true,
+  "primal_bound": 1844367.875,
+  "primal_bound_finite": true,
+  "proof_completed": true,
+  "reward_version": "upstream_h3_t120",
+  "sampling_seed": 3902806752,
+  "scip_infinity": 1e+20,
+  "scip_solve_time": 43.973102,
+  "scip_time_overshoot_seconds": 0.0,
+  "solver_seed": 1,
+  "status": "optimal",
+  "task_terminal": true,
+  "time_limit_seconds": 120.0,
+  "valid": true,
+  "worker_cpu_complete": true,
+  "worker_cpu_seconds": 45.737205,
+  "worker_wall_seconds": 44.16598973982036
+}

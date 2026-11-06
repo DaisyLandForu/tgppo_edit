@@ -1,0 +1,30 @@
+Log: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/launcher-logs/20261104T055246-PGHzzn.log
+test_full_update_resume_actor_export_all_modes (test_method.MethodTests) ... ERROR
+test_legacy_actor_config_and_bad_modes (test_method.MethodTests) ... ok
+test_nonuniform_policy_permutation_and_padding (test_method.MethodTests) ... ok
+test_nonzero_residual_matches_declared_formula (test_method.MethodTests) ... ok
+test_paired_initial_weights_rng_and_zero_policy_at_production_size (test_method.MethodTests) ... ok
+test_common_endpoint_no_mixed_budgets (test_method.ProtocolTests) ... ok
+test_native_adoption_rejects_changed_machine (test_method.ProtocolTests) ... ok
+test_only_declared_variables_and_schedule_prefix (test_method.ProtocolTests) ... ok
+
+======================================================================
+ERROR: test_full_update_resume_actor_export_all_modes (test_method.MethodTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/tests/test_method.py", line 85, in test_full_update_resume_actor_export_all_modes
+    result=engineering.bridge(config,'cpu',Path(d)/mode)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/engineering.py", line 62, in bridge
+    replay_ratio=again['initial_ratio_max_error'] < 1e-4,
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/engineering.py", line 15, in same_state
+    return isinstance(b, torch.Tensor) and torch.equal(a, b)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/engineering.py", line 15, in <genexpr>
+    return isinstance(b, torch.Tensor) and torch.equal(a, b)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/engineering.py", line 17, in same_state
+    return isinstance(b, dict) and a.keys() == b.keys() and all(same_state(a[k], b[k]) for k in a)
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.832s
+
+FAILED (errors=1)
