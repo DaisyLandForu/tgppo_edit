@@ -1,0 +1,25 @@
+{
+  "best": {
+    "episode": 100,
+    "mean_pdi": 3534.8248521040077,
+    "mean_pdi_lower": 3534.7345821040085,
+    "mean_pdi_upper": 3534.9151221040083
+  },
+  "exports": {
+    "best": {
+      "episode": 100,
+      "path": "tgppo/runs/server6-20261022/training/Rjoint-s11/actor_best.pt",
+      "sha256": "d3fd616871780b188eca3a3aff65b7dde12b302eb92dcec9a8d940877e6d49ab"
+    },
+    "final": {
+      "episode": 500,
+      "path": "tgppo/runs/server6-20261022/training/Rjoint-s11/actor_final.pt",
+      "sha256": "b10cc24b496227cb066ca7271f96fe2e8ff245bc6ff5b53907c303b762172d85"
+    }
+  },
+  "group": "Rjoint",
+  "seed": 11,
+  "selection_path": "tgppo/runs/server6-20261022/training/Rjoint-s11/selection.json",
+  "selection_sha256": "a7246f2457fc4a4ae24e84b4038565824d643e535761ec5d18c747052c7c7cd1",
+  "verified_at_utc": "2026-10-23T03:15:18.695556+00:00"
+}

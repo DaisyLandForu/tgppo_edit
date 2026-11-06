@@ -1,0 +1,67 @@
+{
+  "all_checkpoints": [
+    {
+      "episode": 100,
+      "mean_pdi": 3534.8248521040077,
+      "mean_pdi_lower": 3534.7345821040085,
+      "mean_pdi_upper": 3534.9151221040083
+    },
+    {
+      "episode": 200,
+      "mean_pdi": 3536.638819551973,
+      "mean_pdi_lower": 3536.422372885306,
+      "mean_pdi_upper": 3536.8552662186394
+    },
+    {
+      "episode": 300,
+      "mean_pdi": 3538.7269287834906,
+      "mean_pdi_lower": 3538.489822116824,
+      "mean_pdi_upper": 3538.9640354501576
+    },
+    {
+      "episode": 400,
+      "mean_pdi": 3547.3384284358226,
+      "mean_pdi_lower": 3547.2177784358223,
+      "mean_pdi_upper": 3547.4590784358224
+    },
+    {
+      "episode": 500,
+      "mean_pdi": 3542.6120041366858,
+      "mean_pdi_lower": 3542.4313141366847,
+      "mean_pdi_upper": 3542.7926941366845
+    }
+  ],
+  "best": {
+    "episode": 100,
+    "mean_pdi": 3534.8248521040077,
+    "mean_pdi_lower": 3534.7345821040085,
+    "mean_pdi_upper": 3534.9151221040083
+  },
+  "checkpoint_sha256": "24da25ea5938deb0a0f259bc6b846f9848dfdb11033adc077d3b0c6b48573e5e",
+  "protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "rule": "minimum instance-equal dev mean 120s PDI; exact ties favor earlier episode",
+  "selection_instances": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "roi5alpha10n8"
+  ],
+  "selection_set": "frozen development only",
+  "solver_seeds": [
+    0,
+    1,
+    2
+  ],
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  },
+  "training_seed": 11
+}
