@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "verified_beijing": "2026-11-05T22:01:23+08:00",
+  "package_files": 62,
+  "external_inputs": 83,
+  "protected_sources": 41,
+  "prior_audited_sources_unchanged": 56,
+  "changed_or_added_code_files": [
+    "server.py",
+    "target_checks.py",
+    "launch.py",
+    "project/runtime.py",
+    "project/agent/agent.py",
+    "project/agent/expert_supervision.py"
+  ],
+  "local_core_checks": 14,
+  "evaluation_check_groups": 9,
+  "bc_reuse_mocked_launcher_checks": 2,
+  "target_cuda_actually_checked": false,
+  "real_ppo_episodes": 0,
+  "new_scip_solves": 0,
+  "gpu_submitted": false,
+  "conservative_preparation_charged_seconds": 374.6840399105662,
+  "preparation_cap_seconds": 600,
+  "source_output_sha256": {
+    "tgppo/experiments/supervised-ppo-20261105/docs/release.json": "34b19f47ce068d6ff08dcff3cfe17c70ec7cac8a6ba712571cb79e23419a657f",
+    "tgppo/experiments/supervised-ppo-20261105/docs/PROTOCOL.md": "b5a43e5b07a6c9d8ba838999b4517e4c24b2715e902fc6ecb0e104890344365e",
+    "tgppo/experiments/supervised-ppo-20261105/docs/CUSTOM_JOBS.md": "4033363090ba0dfe119a18dec788e2d0d16bce66829df51f8812a47c8f45ce5b",
+    "tgppo/experiments/supervised-ppo-20261105/docs/commands.txt": "f6ddea60ae20733b2ed22119cd3be9a96e1ec0b95935a0080d4a2ed59c4c867a",
+    "docs/methods/tgppo_supervised_ppo_20261105/REPORT.md": "56877a13863f7fe26f5898952f1510c7503612239861c083953d4f77901b128c",
+    "tgppo/runs/supervised-ppo-20261105/preparation/checks.json": "8c4ebc135ba626d54ba917b589eee744a5f9e1929b2ef4add6c4ace6424292c5",
+    "tgppo/runs/supervised-ppo-20261105/preparation/evaluation_checks.json": "39ac531de51b9d04e3ca7c92ed28d0fbc859fc24e0d335ae369a2a45b0d76812",
+    "tgppo/runs/supervised-ppo-20261105/preparation/launcher_checks.json": "a0dcb4d0c867841c40a4a9ce738857cf91f7d6b5ac909ca61010f610f4ba1aa4",
+    "tgppo/runs/supervised-ppo-20261105/preparation/budget.json": "3a2f306f9493fb87f1cd7ac3e0f07fb7bc40d846f18d0a6d4204d4d1871eb426"
+  }
+}

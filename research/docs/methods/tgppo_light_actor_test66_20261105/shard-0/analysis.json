@@ -1,0 +1,81 @@
+{
+  "status": "complete",
+  "valid_tasks": 324,
+  "model_tasks": 288,
+  "native_tasks": 36,
+  "instances": [
+    "bab5",
+    "biella1",
+    "dano3_5",
+    "fast0507",
+    "map20",
+    "msc98-ip",
+    "neos-512201",
+    "neos-584851",
+    "neos-603073",
+    "neos-803219",
+    "neos-829552",
+    "neos-892255",
+    "neos-950242",
+    "neos12",
+    "neos13",
+    "nu25-pr12",
+    "p0201",
+    "rail507"
+  ],
+  "common_actor_instances": [
+    "bab5",
+    "biella1",
+    "dano3_5",
+    "fast0507",
+    "map20",
+    "neos-512201",
+    "neos-584851",
+    "neos-603073",
+    "neos-803219",
+    "neos-829552",
+    "neos-892255",
+    "neos12",
+    "neos13",
+    "nu25-pr12",
+    "p0201",
+    "rail507"
+  ],
+  "no_actor_instances": [
+    "neos-950242"
+  ],
+  "mixed_actor_instances": [
+    "msc98-ip"
+  ],
+  "cohorts": [
+    {
+      "shard": 0,
+      "status": "analyzing",
+      "valid_tasks": 324,
+      "cpu": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+      "host": "sg-duweiyue25-261106-05d40-default0-0",
+      "instances": "bab5;biella1;dano3_5;fast0507;map20;msc98-ip;neos-512201;neos-584851;neos-603073;neos-803219;neos-829552;neos-892255;neos-950242;neos12;neos13;nu25-pr12;p0201;rail507",
+      "workers": 4,
+      "ordinary_address_space_gib": 8,
+      "serial_mspp16": false,
+      "watchdog_seconds": 180,
+      "charged_wall_seconds": 8583.960493276827,
+      "worker_wall_seconds": 33827.676175727975
+    }
+  ],
+  "training_steps": 0,
+  "gpu": false,
+  "no_model_selection": true,
+  "data_scope": "one shard of complete66 test evaluation",
+  "historical_test_exposure": true,
+  "full66_complete": false,
+  "source_sha256": {
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/frozen-test66-20261105/release.json": "82024dd519ff3b7d60c6bf2c1118e2db59dcdb41017a8cc7742f1db1eb90dcb0",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/frozen-test66-20261105/selection.json": "c38a3ba292e93af1e07fde7dd6f6ca23bf4e2bd4e472fef7e574f135cb146109",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/frozen-test66-20261105/docs/PROTOCOL.md": "a911665f2821cda37688d6521ddf749cf23844810639bee62f352f128a8ce37e",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/frozen-test66-20261105/analyze.py": "f35eb8e2a69d643bd008d549f1ff3c8387e2020b21127c266d38016a17955558",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-test66-20261105/shard-0/manifest.json": "142d4705c9745f4d272bd46a392d40643e7c418edd5af1ba566d07f7c1a0153e",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-test66-20261105/shard-0/evaluation_rows.json": "4d22a1c7b663054b5ebda90daa8c5615204a3b0290d92c05a57441e24137014f",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-test66-20261105/shard-0/status.json": "4d2867cb217a5bbcd064cd418172ebebebd2ba287bb6fee92a2c9b8713eeb283"
+  }
+}

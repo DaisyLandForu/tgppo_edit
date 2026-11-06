@@ -1,0 +1,88 @@
+{
+  "protocol_expanded_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "runtime_sources_sha256": "f46650285933dd69789b2164b5cce5b3122bf9f5b9deb8b00c323a73f8210ccf",
+  "raw_protocol_sha256": "6e1b13e97c103496cbed1d502f4d8ecc7c6bdfe7ef7d5741aea2aef02aedf13a",
+  "source_python_files": 39,
+  "train": [
+    "30n20b8",
+    "air04",
+    "air05",
+    "cod105",
+    "comp21-2idx",
+    "istanbul-no-cutoff",
+    "l152lav",
+    "lseu",
+    "misc03",
+    "neos20",
+    "neos21",
+    "neos648910",
+    "pp08aCUTS",
+    "rmatr100-p10",
+    "rmatr100-p5",
+    "rmatr200-p5",
+    "sp150x300d",
+    "stein27",
+    "supportcase7",
+    "swath1"
+  ],
+  "development": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "roi5alpha10n8"
+  ],
+  "baseline_records": 75,
+  "train_baseline_records": 60,
+  "train_baseline_gap_zero": 37,
+  "train_baseline_pdi_floor_active": 3,
+  "train_baseline_gap_zero_instances": [
+    "air04",
+    "air05",
+    "istanbul-no-cutoff",
+    "l152lav",
+    "lseu",
+    "misc03",
+    "neos20",
+    "neos21",
+    "neos648910",
+    "pp08aCUTS",
+    "sp150x300d",
+    "stein27",
+    "swath1"
+  ],
+  "training_records": 3000,
+  "training_zero_transition_tasks": 554,
+  "training_zero_transition_instances": [
+    "30n20b8",
+    "comp21-2idx",
+    "misc03",
+    "supportcase7"
+  ],
+  "terminal_raw_pdi_tail": {
+    "min": 0.0,
+    "p50": 7.857142918510363e-05,
+    "p95": 0.026727758051641532,
+    "max": 0.4507
+  },
+  "terminal_raw_pdi_tail_fraction": {
+    "min": 0.0,
+    "p50": 2.6752750409351357e-08,
+    "p95": 0.05002751457623768,
+    "max": 1.0
+  },
+  "terminal_raw_pdi_tail_gt_1pct": 150,
+  "terminal_raw_pdi_tail_gt_10pct": 150,
+  "terminal_raw_pdi_tail_note": "At-stop getter mismatch only; no per-step decomposition is inferred.",
+  "status_counts": {
+    "timelimit": 2013,
+    "infeasible": 987
+  },
+  "frozen_selection_top_level_keys": [
+    "frozen_at_utc",
+    "models",
+    "protocol_sha256",
+    "rule",
+    "training_audit_sha256"
+  ]
+}

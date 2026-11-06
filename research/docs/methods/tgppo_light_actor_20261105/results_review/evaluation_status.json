@@ -1,0 +1,116 @@
+{
+  "updated_beijing": "2026-11-05T16:05:17+08:00",
+  "complete": false,
+  "committed_model_tasks": 100,
+  "expected_model_tasks": 160,
+  "native_tasks": 10,
+  "coverage": [
+    {
+      "variant": "b0",
+      "training_seed": 11,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "b0",
+      "training_seed": 22,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "b0_bc",
+      "training_seed": 11,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "b0_bc",
+      "training_seed": 22,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "mlp",
+      "training_seed": 11,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "mlp",
+      "training_seed": 22,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "mlp_bc",
+      "training_seed": 11,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "mlp_bc",
+      "training_seed": 22,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "set",
+      "training_seed": 11,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "set",
+      "training_seed": 22,
+      "committed_tasks": 10,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "set_bc",
+      "training_seed": 11,
+      "committed_tasks": 0,
+      "raw_tasks": 10
+    },
+    {
+      "variant": "set_bc",
+      "training_seed": 22,
+      "committed_tasks": 0,
+      "raw_tasks": 0
+    },
+    {
+      "variant": "isab",
+      "training_seed": 11,
+      "committed_tasks": 0,
+      "raw_tasks": 0
+    },
+    {
+      "variant": "isab",
+      "training_seed": 22,
+      "committed_tasks": 0,
+      "raw_tasks": 0
+    },
+    {
+      "variant": "isab_bc",
+      "training_seed": 11,
+      "committed_tasks": 0,
+      "raw_tasks": 0
+    },
+    {
+      "variant": "isab_bc",
+      "training_seed": 22,
+      "committed_tasks": 0,
+      "raw_tasks": 0
+    }
+  ],
+  "execution_status": "stopped_incomplete",
+  "budget": {
+    "attempts": [
+      {
+        "allocated_seconds": 5400,
+        "elapsed_seconds": 2822.6254476979375,
+        "started_epoch": 1793862486.38974
+      }
+    ],
+    "charged_seconds": 2822.6254476979375
+  }
+}

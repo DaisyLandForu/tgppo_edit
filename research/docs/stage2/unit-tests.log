@@ -1,0 +1,28 @@
+test_actor_only_actions_match_collection_and_old_eval_mode (test_correctness.CorrectnessTests) ... ok
+test_actual_upstream_choose_action_matches_actor_only (test_correctness.CorrectnessTests) ... ok
+test_buffer_roundtrip_empty_duplicate_and_stale_policy (test_correctness.CorrectnessTests) ... ok
+test_checkpoint_architecture_rng_optimizer_buffer_and_exact_next_update (test_correctness.CorrectnessTests) ... ok
+test_finalize_then_free_is_idempotent_and_zero_actions_not_invented (test_correctness.CorrectnessTests) ... ok
+test_gae_terminal_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_gae_truncation_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_independent_parameters_and_gradients (test_correctness.CorrectnessTests) ... ok
+test_invalid_transition_and_incomplete_episode_rejected (test_correctness.CorrectnessTests) ... ok
+test_original_branchfree_already_idempotent (test_correctness.CorrectnessTests) ... ok
+test_padding_ratio_and_real_actor_update (test_correctness.CorrectnessTests) ... ok
+test_reward_and_solver_receive_120_and_3600_and_baseline_mismatch_rejected (test_correctness.CorrectnessTests) ... ok
+test_scip_sentinel_timeout_and_cutoff_semantics (test_correctness.CorrectnessTests) ... SIMULATED_SENTINEL_EVIDENCE={"cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -5.0, "dual_bound_finite": true, "episode_ended": true, "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "nnodes": 10, "num_stored_solutions": 0, "objective": null, "original_optimal": false, "pdi_semantics": "native_raw_until_actual_stop", "primalDualIntegral": 4.0, "primalDualIntegral_finite": true, "primal_bound": 1e+20, "primal_bound_finite": false, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 120.0, "status": "timelimit", "task_terminal": true, "valid": true}
+ok
+test_truncation_needs_actual_tail_and_uses_critic (test_correctness.CorrectnessTests) ... ok
+test_two_episodes_do_not_contaminate_each_other (test_correctness.CorrectnessTests) ... ok
+test_unchanged_networks_reward_settings_and_original_repository (test_correctness.CorrectnessTests) ... ok
+test_worker_failure_watchdog_and_order_are_explicit (test_correctness.CorrectnessTests) ... ok
+test_real_air04_timeout_retains_nonzero_raw_gap (test_correctness.RealSolverTests) ... WARNING: LP solver reached time limit, but SCIP time limit is not exceeded yet; you might consider switching the clock type of SCIP
+REAL_AIR04_TIMEOUT_EVIDENCE={"cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -80692.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 1.0261639740001556, "episode_ended": true, "episode_id": "/root/research/tgppo/datasets/train_instances/air04.mps.gz:0", "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "load_wall_seconds": 0.033347701999446144, "mode": "native", "nnodes": 1, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.9928076590003911, "original_optimal": false, "pdi_semantics": "native_raw_until_actual_stop", "primalDualIntegral": 99.2679, "primalDualIntegral_finite": true, "primal_bound": 56137.0, "primal_bound_finite": true, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 0.992683, "scip_time_overshoot_seconds": 0.0, "status": "timelimit", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+ok
+test_real_eval_never_calls_critic_reward_or_memory_and_preserves_weights (test_correctness.RealSolverTests) ... ok
+test_real_policy_exception_interrupts_and_is_invalid (test_correctness.RealSolverTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 7.563s
+
+OK

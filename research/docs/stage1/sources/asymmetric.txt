@@ -1,0 +1,539 @@
+                                                      Asymmetric Actor Critic for Image-Based Robot Learning
+                                                    Lerrel Pinto1,2 Marcin Andrychowicz1 Peter Welinder1 Wojciech Zaremba1,† Pieter Abbeel1,†
+
+
+
+                                            Abstract— Deep reinforcement learning (RL) has proven                                 Train in simulator
+                                         a powerful technique in many sequential decision making
+                                                                                                                      Randomized
+                                         domains. However, Robotics poses many challenges for RL,                                                 Asymmetric Actor Critic
+                                                                                                                     Environments
+                                         most notably training on a physical system can be expensive and
+                                         dangerous, which has sparked significant interest in learning
+                                                                                                                                                State               Critic
+arXiv:1710.06542v1 [cs.RO] 18 Oct 2017
+
+
+
+
+                                         control policies using a physics simulator. While several recent
+                                         works have shown promising results in transferring policies
+                                         trained in simulation to the real world, they often do not fully
+                                         utilize the advantage of working with a simulator. In this work,
+                                         we exploit the full state observability in the simulator to train
+                                         better policies which take as input only partial observations                                         Image                Actor
+                                         (RGBD images). We do this by employing an actor-critic
+                                         training algorithm in which the critic is trained on full states
+                                         while the actor (or policy) gets rendered images as input. We
+                                         show experimentally on a range of simulated tasks that using
+                                         these asymmetric inputs significantly improves performance.
+                                         Finally, we combine this method with domain randomization
+                                                                                                                                  Test in real world
+                                         and show real robot experiments for several tasks like picking,
+                                         pushing, and moving a block. We achieve this simulation to real
+                                         world transfer without training on any real world data. Videos
+                                         of these experiments can be found at www.goo.gl/b57WTs.
+
+                                                              I. INTRODUCTION
+                                            Reinforcement learning (RL) coupled with deep neural              Fig. 1. By training policies with asymmetric inputs for actor-critic along
+                                         networks has recently led to successes on a wide range of            with domain randomization, we learn complex visual policies that can
+                                         control problems, including achieving superhuman perfor-             operate in the real without having seen any real world data in training.
+                                         mance on Atari games [1] and beating the world champion
+                                         in the classic game of Go [2]. In physics simulators, complex
+                                         behaviours like walking, running, hopping and jumping have           are not powerful enough to learn complex behaviours due
+                                         also been shown to emerge [3], [4].                                  to the large input dimensionality and partial observability.
+                                            In the context of robotics however, learning complex be-          This leads us to a conundrum, i.e., training on full states is
+                                         haviours faces two unique challenges: scalability and safety.        hard since it depends on good state predictors while training
+                                         Robots are slow and expensive which makes existing data              on images is hard because of their partial observability and
+                                         intensive learning algorithms hard to scale. These physical          dimensionality. We solve this by learning a policy that relies
+                                         robots could also damage themselves and their environment            only on partial observations (RGBD images) but during
+                                         while exploring these behaviours. A recent approach to               training we exploit access to the full state.
+                                         circumvent these challenges is to train on a simulated version          Physics simulators give us access to both the full state
+                                         of the robot and then transfer to the real robot [5]–[12].           of the system as well as rendered images of the scene. But
+                                         However, this brings about a new challenge: observability.           how can we combine these observations to train complex
+                                            Simulators have access to the full state of the robot and its     behaviours faster? In this work, we exploit this access and
+                                         surroundings, while in the real world obtaining this full state      train an actor-critic algorithm [4], [18] that uses asymmetric
+                                         observability is often infeasible. One option is to infer the full   inputs, i.e. the actor takes visual partial observations as input
+                                         state by visual detectors [13], [14] or state prediction filters     while the critic takes the underlying full state as input. Since
+                                         [15]. Explicit full state prediction from partial observations       the critic works on full state, it learns the state-action value
+                                         is often impossible and this challenge is further exacerbated        function much faster, which also allows for better updates
+                                         by the compounding error problem [16]. Another option                for the actor. During testing, the actor is employed on the
+                                         is to train entirely on rendered partial observations (camera        partial observations and does not depend on the full state
+                                         images) of the robot [11], [17]. However, these techniques           (the full state is only used during training). This allows us
+                                           1 OpenAI {marcin,    pw, woj, pieter}@openai.com
+                                                                                                              to train an actor/policy network on visual observations while
+                                           2 Carnegie Mellon University lerrelp@cs.cmu.edu                    exploiting the availability of full states to train the critic.
+                                           † Equal advising                                                   We experimentally show significant improvements on 2D
+environments like Particle and Reacher and 3D environments        physics adaptation [26]–[28] is also receiving interest, but
+like Fetch Pick. To further speed up training, we also            these methods haven’t been shown to be powerful enough to
+demonstrate the utility of using bottlenecks [10].                work on real robots. Using bottlenecks [10] has been shown
+   Another key aspect of this work is to show that these          to help domain adaptation for simple tasks like reaching. In
+policies learned in a simulator can be transferred to the real    this work, we show how bottlenecks can be exploited for
+robot without additional real world data. Simulators are not      more complex fine manipulation tasks.
+perfect representations of the real world. The domain of             A promising approach is domain adaptation by domain
+observations (real camera images) significantly differs from      randomization [11], [17]. Here the key idea is to train on
+rendered images from a simulator. This makes directly trans-      randomized renderings of the scene, which allows to learn
+ferring policies from the simulator to the real world hard.       robust policies for transfer. However these works do not
+However, [11], [17], [19] show how randomizing textures           show transfer to precise manipulation behaviours. We show
+and lighting allows for effective transfer. By combining our      that this idea can be extended to complex behaviours when
+asymmetric actor critic training with domain randomization        coupled with our asymmetric actor critic.
+[17], we show that these policies can be transferred to a
+real robot without any training on the physical system (see       C. Robotic tasks
+Figure 1).                                                           We perform real robot experiments on tasks like picking,
+                                                                  pushing, and moving a block. The Picking task is similar to
+                  II. RELATED WORK                                grasping objects [29], [30], however in this work we learn
+A. Reinforcement Learning                                         an end-to-end policy that moves to the object, grasps it and
+   Recent works in deep reinforcement learning (RL) have          moves the grasped object to its desired position. The focus
+shown impressive results in the domain of games [1], [2] and      is hence on the fine manipulation behaviour. The tasks of
+simulated control tasks [3], [4]. The class of RL algorithms      Forward Pushing and Block Move are similar to pushing
+our method employs are called actor-critic algorithms [18].       objects [31], [32], however as in the case of Picking, this
+Deep Deterministic Policy Gradients (DDPG) [4] is a popular       paper focuses on the learning of the fine pushing behaviour.
+actor-critic algorithm that has shown impressive results in
+                                                                                     III. BACKGROUND
+continuous control tasks. Although we use DDPG for our
+base optimizer, our method is applicable to arbitrary actor-        Before we discuss our method, we briefly introduce some
+critic algorithms.                                                background and formalism for the RL algorithms used. A
+   Learning policies in an environment that provides only         more comprehensive introduction can be found in [33].
+sparse rewards is a challenging problem due to very limited
+                                                                  A. Reinforcement Learning
+feedback signal. However it has been shown that sparse
+rewards often allow for better policies when trained appro-          In this paper we deal with continuous space Markov
+priately [14]. Moreover having sparse rewards allows us to        Decision Processes that can be represented as the tuple
+circumvent manual shaping of the reward function.                 (S, O, A, P, r, γ, S), where S is a set of continuous states
+   The idea of using different inputs for the actor and critic    and A is a set of continuous actions, P : S×A×S → R is the
+has been explored previously in the domain of multi-agent         transition probability function, r : S × A → R is the reward
+learning [20], [21]. However using this in the domain             function, γ is the discount factor, and S is the initial state
+of robot learning and dealing with partial observability          distribution. O is a set of continuous partial observations
+hasn’t been explored. Exploiting the access to full state in      corresponding to states in S.
+training the critic also draws similarities to Guided Policy         An episode for the agent begins with sampling s0 from
+Search [22].                                                      the initial state distribution S. At every timestep t, the agent
+                                                                  takes an action at = π(st ) according to a deterministic
+B. Transfer from simulation to the real world                     policy π : S → A. At every timestep t, the agent gets
+   Bridging the reality gap in transferring policies trained in   a reward rt = r(st , at ), and the state transistions to st+1 ,
+a simulator to the real world is an active area of research in    which is sampled accordingly to probabilities P(st , at , ·).
+the robot learning community. One approach is to make the         The goal of the agent is to maximize the expected return
+simulator as close to the real world as possible [23]–[25].       ES [R0 |S], where thePreturn is the discounted sum of the
+                                                                                             ∞
+But these methods have had limited success due to the hard        future rewards Rt = i=t γ i−t ri . The Q-function is defined
+system identification problem.                                    as Qπ (st , at ) = E[Rt |st , at ]. In the partial observability
+   Another approach is domain adaptation from the simu-           case, the agent takes actions based on the partial observation,
+lator [5]–[10], since it may be easier to finetune from a         at = π(ot ), where ot is the observation corresponding to the
+simulator policy than training in the real world. However         full state st .
+if the simulator differs from the real world by a large factor,
+the policy trained in simulation can perform very poorly          B. Deep Deterministic Policy Gradients (DDPG)
+in the real world and finetuning may not be any easier               Deep Deterministic Policy Gradients (DDPG) [4] is an
+than training from scratch. This limits most of these works       actor-critic RL algorithm that learns a deterministic con-
+to learning simple behaviours. Making policies robust for         tinuous action policy. The algorithm maintains two neural
+networks: the policy (also called the actor) πθ : S → A (with                                      IV. METHOD
+neural network parameters θ) and a Q-function approximator                We now describe our method along with the technique
+(also called the critic) Qπφ : S ×A → R (with neural network           of bottlenecks to speed up training. Following this, we also
+parameters φ).                                                         describe domain randomization for transferring simulator
+   During training, episodes are generated using a noisy               learned policies to the real robot.
+version of the policy (called behavioural policy), e.g. πb (s) =
+π(s) + N (0, 1), where N is Normal noise. The transition                             Critic                                Actor
+tuples (st , at , rt , st+1 ) encountered during training are stored
+in a replay buffer [1]. Training examples sampled from the
+replay buffer are used to optimize the critic. By minimizing                        Q-Value                                Action
+the Bellman error loss Lc = (Q(st , at ) − yt )2 , where yt =
+rt +γQ(st+1 , π(st+1 )), the critic is optimized to approximate                                                                                         C
+the Q-function. The actor is optimized by minimizing the
+loss La = −Es [Q(s, π(s)]. The gradient of La with respect
+                                                                                      Q                                   Policy
+to the actor parameters is called the deterministic policy                         Network                               Network
+gradient [34] and can be computed by backpropagating
+through the combined critic and actor networks.
+   To stabilize the training, the targets for the actor and the
+critic yt are computed on separate versions of the actor and
+                                                                                           State               Obs
+critic networks, which change at a slower rate than the main                               Goal                Goal-Obs                                 N
+networks. A common practice is to use a Polyak averaged
+[35] version of the main network.
+                                                                       Fig. 2. Having asymmetric inputs, i.e. full states for the critic and partial
+                                                                       observations for the actor improves training. In the multi goal setting,
+C. Multigoal RL                                                        the critic additionally requires full goal states while the actor additionally
+   We are interested in learning policies that can achieve             requires partial observations for the goal.
+multiple goals (a universal policy). One way of doing this is
+by training policies and Q-functions that take as an additional        A. Asymmetric Actor Critic
+input a goal g ∈ G [14], [36], e.g. at = π(st , g). A universal
+                                                                          In its essence our method builds on actor-critic algo-
+policy can hence be trained by using arbitrary RL algorithms.
+                                                                       rithms [18] by using the full state st ∈ S to train the critic,
+   Following UVFA [36], the sparse reward formulation
+                                                                       while using partial observation ot ∈ O to train the actor
+r(st , a, g) = [d(st , g) < ] will be used in this work, where
+                                                                       (see Figure 2). Note that st is the underlying full state for
+the agent gets a positive reward when the distance d(., .)
+                                                                       the observation ot . In our experiments, observations ot are
+between the current state and the goal is less than . In
+                                                                       images taken by an external camera.
+the context of a robot performing the task of picking and
+placing an object, this means that the robot gets a reward
+                                                                       Algorithm 1 Asymmetric Actor Critic
+only if the object is within  euclidean distance of the
+desired goal location of the object. Having a sparse reward              Initialize actor-critic algorithm A
+overcomes the limitation of hand engineering the reward                  Initialize replay buffer R
+function, which often requires extensive domain knowledge.               for episode= 1, M do
+However, sparse rewards are not very informative and makes                   Sample a goal g and an initial state s0
+it hard to optimize. In order to overcome the difficulties                   Render goal observation g o
+with sparse rewards, we employ a recent method: Hindsight                               g o ← renderer(g)
+Experience Replay (HER) [14].                                                for t = 0, T − 1 do
+                                                                                  Render image observation ot
+D. Hindsight Experience Replay (HER)                                                         ot ← renderer(st )
+   HER [14] is a simple method of manipulating the replay                         Obtain action at using behavioural policy:
+buffer used in off-policy RL algorithms that allows it to                                    at ← πb (ot , g o )
+learn universal policies more efficiently with sparse rewards.                    Execute action at , receive reward rt and transition
+After experiencing some episode s0 , s1 , ..., sT , every tran-          to st+1
+sition st → st+1 along with the goal for this episode is                          Store (st , ot , at , rt , st+1 , ot+1 , g, g o ) in R
+usually stored in the replay buffer. However with HER, the                   end for
+experienced transitions are also stored in the replay buffer                 for n=1, N do
+                                                                                                                         0    0
+
+with different goals. These additional goals are states that                      Sample minibatch {s, o, a, r, s , o , g, g o }B       0 from R
+                                                                                                                           0
+
+were achieved later in the episode. Since the goal being                          Optimize critic using {s, a, r, s , g}B         0   with A
+                                                                                                                           0
+
+pursued does not influence the environment dynamics, we                           Optimize actor using {o, a, r, o , g o }B         0  with A
+can replay each trajectory using arbitrary goals assuming we                 end for
+use an off-policy RL algorithm to optimize [37].                         end for
+   The algorithm (described in Algorithm 1), begins with ini-
+tializing the networks for an off-policy actor-critic algorithm
+A [37]. In this paper, we use DDPG [4] as the actor-critic
+algorithm. The replay buffer R used by this algorithm is
+initialized with no data. For each episode, a goal g and an
+initial state s0 are sampled before the rollout begins. g o is the
+rendered goal observation. At every timestep t of the episode,
+a partially observable image of the scene ot is rendered from
+the simulator at the full state st . The behavioural policy from
+A, which is usually a noisy version of the actor is used to
+generate the action at for the agent/robot to take. After taking
+this action, the environment transitions to the next state st+1 ,
+with its corresponding rendered image ot+1 .
+   Since DDPG relies on a replay buffer to sample training
+data, we build the replay buffer from the episodic experience
+(st , ot , at , rt , st+1 , ot+1 , g, g o ) previously generated. To im-
+prove performance for the sparse reward case, we augment
+the standard replay buffer by adding hindsight experiences
+[14].
+   After the episodic experience has been added to the replay
+buffer R, we can now train our actor-critic algorithm A from
+sampled minibatch of size B from R. This minibatch can be                  Fig. 3. To enable transfer of policies from the simulator to the real world,
+                                     0    0                  0      0
+represented as {s, o, a, r, s , o , g, g o }B                              we randomize various aspects of the renderer during training. These aspects
+                                                  0 , where s and o are    include textures, lighting and the position of the camera.
+the next step full state and next step observation respectively.
+Since the critic takes full states as input, it is trained on
+             0
+{s, a, r, s , g}B    0 . Since the 0 actor takes observations as input,    box around the expected location of the real world camera.
+it is trained on {o, a, r, o , g o }B       0 . We experimentally show     Furthermore, we randomize the orientation and focal length
+that asymmetric inputs for the critic and actor significantly              of the camera and add uniform noise to the depth. RGB
+improves performance and allows to transfer more complex                   samples of randomization on the Fetch Pick environment can
+manipulation behaviours to real robots.                                    be seen in Figure 3.
+B. Improvements with bottlenecks                                                                       V. RESULTS
+   One way of improving the efficiency of training is to use                  To show the effectiveness of our method, we experiment
+bottlenecks [10]. The key idea is to constrain one of the actor            on a range of simulated and real robot environments. In this
+network’s intermediary layers to predict the full state. Since             section we first describe the environments. Following this, we
+the full state is often of a smaller dimension than the other              discuss comparisons of our methods to baselines and show
+layers of the network, this state predictive layer is called the           the utility of our method on improving training. Finally, we
+bottleneck layer.                                                          discuss real robot experiments.
+C. Randomization for transfer                                              A. Environments
+   A powerful technique for domain transfer of policies from                  Since there are no standard environments for multi-goal
+rendered images to real world images is domain randomiza-                  RL, we create three of our own simulated environments to
+tion [11], [17]. The key idea is to randomize visual elements              test our method. The first two environments, Particle and
+in the scene during the rendering. Learning policies with this             Reacher are in a 2D workspace. The third environment Fetch
+randomization allows the policy to generalize to sources of                Pick is in a 3D workspace with a simulated version of
+error in the real world and latch on to the important aspects              the Fetch robot needing to pick up and place a block. All
+of the observation.                                                        these environments are simulated in the MuJoCo [38] physics
+   For the purposes of this paper, we randomize the following              simulator.
+aspects: texture, lighting, camera location and depth. For
+textures, random textures are chosen among random RGB                      (a) Particle: In this 2D environment the goal for the agent is
+values, gradient textures and checker patterns. These ran-                 to move the 2D particle to a given location. The state space
+dom textures are applied on the different physical objects                 is 4D and consists of the particle’s location and velocity. The
+in the scene, like the robot and the table. For lighting                   observation space is RGB images (100 × 100 × 3) from a
+randomization, we randomly switch on lighting sources in                   camera placed above the scene. The action space is the 2D
+the scene and also randomize the position, orientation and                 velocity of the particle. This action space allows for control
+the specular characteristics of the light. For camera location,            on single RGB observations without requiring memory for
+we randomize the location of the monocular camera in a                     velocity (since velocity cannot be inferred from a single RGB
+                     Particle                                         Reacher                                      Fetch Pick
+
+
+
+
+     Observation              Goal                     Observation              Goal                  Observation              Goal
+
+Fig. 4. To evaluate our method, we test on three different environments: Particle, Reacher and Fetch Pick. Since we learn multi goal policies, the
+policy takes in both the observation at timestep t and the desired goal for the episode.
+
+
+
+frame). The agent gets a sparse reward (+1) if the particle                     we cover/recolor parts of the robot that are black like parts
+is within  of the desired goal position and no reward (0)                      of the torso and parts of the gripper.
+otherwise. The observation for the goal is an image of the                         We experiment on three tasks for the real robot. The
+particle in its desired goal position.                                          first task is Pick which is similar to the simulated task of
+                                                                                Fetch Pick described in Section V-A(c). The second task
+(b) Reacher: In this 2D environment the goal for the agent                      is Forward Push, where the robot needs to push the block
+is to move the end-effector of a two-link robot arm to a                        forward3 . The third task is Block Move, where the robot
+target location. The state space is 4D and consists of the                      needs to move the block to the target position on the table. In
+joint positions and velocities. The observation space is RGB                    all tasks the goal is specified by an image of the box in the
+images (100×100×3) from a camera placed above the scene.                        target location. A video of these experiments can be found
+The action space is the 2D velocities for the joints. The agent                 in www.goo.gl/b57WTs and sample successes from our
+gets a sparse reward (+1) if the end-effector is within  of                    method in Figure 7.
+the desired goal position and no reward (0) otherwise. The                         The observations for the real robot tasks is an RGBD
+observation for the goal is an image of the reacher in its                      image from the physical camera placed in front of the
+desired goal end-effector position.                                             robot. The goal observation for the actor is a simulated
+(c) Fetch Pick: In this 3D environment with the simulated                       image describing the desired goal. We note that giving real
+Fetch robot, the goal for the agent is to pick up the block                     world observations for the goal observation also works,
+on the table and move it to a given location in the air. The                    however for consistency in evaluation, we use a simulated
+state space consists of the joint positions and velocities of                   goal observation.
+the robot and the block on the table. The observation space
+                                                                                C. Does asymmetric inputs to actor critic help?
+is RGBD images (100 × 100 × 4) from a camera placed in
+front of the robot. The action space is 4D. Since this problem                     To study the effect of asymmetric inputs, we compare
+does not require gripper rotation, we keep it fixed. Three of                   to the baseline of using symmetric inputs (images for both
+the four dimensions of the action space specify the desired                     the actor and the critic networks). Figure 5 shows a sum-
+relative1 position for the gripper. The last dimension specifies                mary of the final episodic rewards, with the x-axis being
+the desired distance between the fingers of the gripper. The                    the number of episodes the agent experiences. As evident
+agent gets a sparse reward (+1) if the block is within  of                     from the Particle results, asymmetric input versions of both
+the desired goal block position. The observation for the goal                   DDPG and HER perform much better than their symmetric
+is an image of the block in its desired goal block position                     counterparts. The simplicity of the Particle may explain the
+and the Fetch arm in a random position. To make exploration                     similar performance between asymmetric DDPG and HER.
+in this task easier following [14], we record a single state                    Fetch Pick is a much harder sparse reward task, which shows
+in which the box is grasped and start half of the training                      the importance of using HER over DDPG. In this case as
+episodes from this state.                                                       well, the asymmetric version of HER performs significantly
+                                                                                better than the symmetric version.
+B. Robot evaluation
+                                                                                D. Would imitation learning from an expert policy succeed?
+   For our real world experiments we use a 7-DOF Fetch
+robotic arm2 , which is equipped with a two fingered parallel                     Imitation learning is a powerful technique in robotics [41].
+gripper. The camera observations for the real world experi-                     Hence a much stronger baseline is to behaviour clone from
+ments is an off the shelf Intel RealSense R200 camera that                      an expert policy. To do this we first train an expert policy [41]
+can provide aligned RGBD images. Since real depth often                         on full states that performs the task perfectly. Now given this
+contains holes [39], we employ nearest neighbour hole filling                   expert policy, we behaviour clone to a policy that takes the
+to get better depth images [40]. To further improve the depth,                  partial visual observations as input. We use DAgger [42] for
+                                                                                better imitation/cloning.
+  1 The desired gripper position is relative to the current gripper position.
+  2 fetchrobotics.com/platforms-research-development/                             3 The fingers are blocked for this task to avoid grasping.
+                                  Particle                                        Reacher                                  Fetch Pick
+                1.0                                             1.0                                         1.0
+
+                0.8                                             0.8                                         0.8
+                                               Asym HER
+Final success
+
+
+
+                0.6                            Sym HER          0.6
+                                               Asym DDPG
+                                                                                                            0.6
+                                               Sym DDPG
+                                               DAgger
+                0.4                                             0.4                                         0.4
+
+                0.2                                             0.2                                         0.2
+
+                 0                                               0                                           0
+                      0     3.2E3 6.4E3 9.6E3 1.2E4 1.6E4             0     3.2E3 6.4E3 9.6E3 1.2E4 1.6E4         0    1.6E4 3.2E4 4.8E4 6.4E4 8.0E4
+                          Number of episodes                              Number of episodes                          Number of episodes
+
+ Fig. 5. We show that asymmetric inputs for training outperforms symmetric inputs by significant margins. The shaded region corresponds to ±1 standard
+ deviation across 5 random seeds. Although the behaviour cloning (BC) by expert imitation baseline (dashed lines) learn faster initially, it saturates to a
+ sub optimal value compared to asymmetric HER. Also note that the BC baseline doesn’t include the iterations the expert policy was trained on.
+
+
+                                  Particle                                       Reacher                                   Fetch Pick
+                1.0                                             1.0                                         1.0
+
+                0.8                                             0.8                                         0.8
+Final success
+
+
+
+
+                0.6                                             0.6                                         0.6
+                                        Asym HER
+                                        Asym HER + Bottleneck
+                0.4                                             0.4                                         0.4
+
+                0.2                                             0.2                                         0.2
+
+                 0                                               0                                           0
+                      0     3.2E3 6.4E3 9.6E3 1.2E4 1.6E4             0    3.2E3 6.4E3 9.6E3 1.2E4 1.6E4          0    1.6E4 3.2E4 4.8E4 6.4E4 8.0E4
+                          Number of episodes                              Number of episodes                          Number of episodes
+
+ Fig. 6. We show that bottlenecks can be used to further improve training of our method. Particle and Reacher, the improvements are quite significant.
+ On Fetch Pick, we observe more stable training (lower variance denoted by shaded regions).
+
+
+
+    Figure 5 shows the final episodic rewards of the behaviour                         I) compared to baselines previously mentioned. Our method
+ cloned policy (in dashed lines) with the x-axis being the                             succeeds on all the three tasks for all the 5 times the policy
+ number of demonstrations. As expected, the DAgger policy                              was run with different block initializations and goals. We
+ learns much faster initially (since it receives supervision                           also note that behaviours like push-grasping [43] and re-
+ from a much stronger expert policy). However in all the                               grasping [44] emerge from these trained policies which can
+ environments, it saturates in performance and is lower than                           be seen in the video. Among the baselines we evaluate
+ than our method (asymmetric HER) for a large number of                                against, we note that behaviour cloning with DAgger is the
+ rollouts. One reason for this might be that behaviour cloning                         only one that performs reasonably (as seen in the video and
+ would fail if the expert policy depends on information                                Table I).
+ contained in the full state but not in the partial observation.                       G. How important is domain randomization?
+ E. Can we speed up training?                                                             To show the importance of randomization, we perform
+    Another way of incorporating the full state from the                               ablations (last two columns of Table I) by training policies
+ simulator is by adding an auxiliary task of predicting the                            without any randomization and testing them in the real world.
+ full state from partial observations. By adding a bottleneck                          We notice that without any randomization, the policies fail to
+ layer [10] in the actor and adding an additional L2 loss                              perform on the real robot while performing perfectly in the
+ between the bottleneck output and the full state, we further                          simulator. Another randomization ablation is by removing
+ speed up training. On our simulated tasks, these bottlenecks                          the viewpoint randomization while keeping the texture and
+ in the policy network improve the stability and speed of                              lighting randomization during training. We notice that apart
+ training (as seen in Figure 6).                                                       from the Block Move task, removing viewpoint randomiza-
+                                                                                       tion severely affects performance.
+ F. How well do these policies transfer?                                                  Randomizing the observations in training also gives us
+    By combining asymmetric HER with domain randomiza-                                 an added benefit: robustness to distractors. Figure 8 shows
+ tion [17], we show significant performance gains (see Table                           the performance of our Pick policy, which was trained on
+Pick
+Forward Push
+Block Move
+
+
+
+
+Fig. 7. Successive frames of our asymmetric HER policies on three real robot tasks show how our method can be successfully used for simulation to
+real transfer of complex policies. Full length experiments can be found in the videos on www.goo.gl/b57WTs.
+
+                                                                          TABLE I
+                                         C OMPARISON OF ASYMMETRIC HER WITH BASELINES AND ABLATIONS
+
+                                                                       Baselines                            Randomization ablations
+                               Asym HER
+                                              Asym DDPG         Sym HER       Vanilla BC   DAgger BC   Without any  Without viewpoints
+                    Pick           5/5            0/5              0/5           0/5          3/5          0/5               0/5
+                Forward Push       5/5            0/5              0/5           1/5          0/5          0/5               0/5
+                 Block Move        5/5            0/5              0/5           0/5          0/5          0/5               4/5
+
+
+
+                                                                                the critic is the concatenation of the current state st , the
+                                                                                desired goal state g and the current action at . The actor is
+      Scene 1
+
+
+
+
+                                                                                a convolutional neural network (CNN) with 4 convolutional
+                                                                                layers with 64 filters each and kernel size of 2 × 2. This
+                                                                                network is applied on both the current observation ot and
+                                                                                the goal observation g o . The outputs of both CNNs are
+                                                                                then concatenated and passed through a fully connected
+                                                                                neural network with 3 hidden layers. Similar to the critic,
+      Scene 2
+
+
+
+
+                                                                                the hidden layers have 512 hidden units each with ReLU
+                                                                                activation. The output of this actor network is normalized
+                                                                                by a tanh activation and rescaled to match the limits of
+                                                                                the environment’s action space. In order to prevent tanh
+                                                                                saturation, we penalize the preactivations in the actor’s cost.
+                                                                                   During each iteration of DDPG, we sample 16 parallel
+Fig. 8. Domain randomization during training allows the learned policies
+to be robust to distractors. Here we see how a policy trained to Pick the       rollouts of the actor. Following this we perform 40 opti-
+red block is robust to distractor blocks. The difference in the two scenes      mization steps on minibatches of size 128 from the replay
+shown here is that inspite of changing the initial location of the red block,   buffer of size 105 transitions. The target actor and critic
+the arm still picks the red block.
+                                                                                networks are updated every iteration with a polyak averaging
+                                                                                of 0.98. We use Adam [46] optimization with a learning rate
+a single red block, work even in the presence of distractor                     of 0.001 and the default Tensorflow [47] values for the other
+blocks.                                                                         hyperparameters. We use a discount factor of γ = 0.98 and
+                                                                                use a fixed horizon of T = 50 steps. For efficient learning,
+H. Implementation Details                                                       we also normalize the input states by running averages of
+   In this section we provide more details on our training                      the means and standard deviations of encountered states.
+setup. The critic is a fully connected neural network with 3                       The behavioural policy chosen for exploration chooses a
+hidden layers; each with 512 hidden units. The hidden layers                    uniform random action from the space of valid actions with
+use ReLU [45] for the non linear activation. The input to                       probability 20%. For the rest 80% probability, the output of
+the actor is added with coordinate independent Normal noise                     [20] J. Foerster, G. Farquhar, T. Afouras, N. Nardelli, and S. White-
+with standard deviation equal to 5% of the action range.                             son, “Counterfactual multi-agent policy gradients,” arXiv preprint
+                                                                                     arXiv:1705.08926, 2017.
+                                                                                [21] R. Lowe, Y. Wu, A. Tamar, J. Harb, P. Abbeel, and I. Mordatch,
+                        VI. CONCLUSION                                               “Multi-agent actor-critic for mixed cooperative-competitive environ-
+                                                                                     ments,” arXiv preprint arXiv:1706.02275, 2017.
+   In this work we introduce asymmetric actor-critic, a                         [22] S. Levine, C. Finn, T. Darrell, and P. Abbeel, “End-to-end training of
+powerful way of utilizing the full state observability in                            deep visuomotor policies,” JMLR 2016.
+                                                                                [23] S. James and E. Johns, “3d simulation for robot arm control with deep
+a simulator. By training the critic on full states while                             q-learning,” arXiv preprint arXiv:1609.03759, 2016.
+training its actor on rendered images, we learn vision-                         [24] B. Planche, Z. Wu, K. Ma, S. Sun, S. Kluckner, T. Chen, A. Hutter,
+based policies for complex manipulation tasks. Our extensive                         S. Zakharov, H. Kosch, and J. Ernst, “Depthsynth: Real-time realistic
+                                                                                     synthetic data generation from cad models for 2.5 d recognition,” arXiv
+evaluation both in the simulator and on the real world robot                         preprint arXiv:1702.08558, 2017.
+shows significant improvements over standard actor-critic                       [25] S. R. Richter, V. Vineet, S. Roth, and V. Koltun, “Playing for data:
+baselines. This method’s performance is also superior to                             Ground truth from computer games,” in ECCV 2016.
+                                                                                [26] A. Rajeswaran, S. Ghotra, S. Levine, and B. Ravindran, “Epopt:
+the much stronger imitation learning with DAgger baseline,                           Learning robust neural network policies using model ensembles,”
+even though it was trained without an expert. Coupled with                           arXiv preprint arXiv:1610.01283, 2016.
+domain randomization, our method is able to learn visual                        [27] L. Pinto, J. Davidson, R. Sukthankar, and A. Gupta, “Robust adver-
+                                                                                     sarial reinforcement learning,” ICML, 2017.
+policies that works in the real world while being trained                       [28] W. Yu, C. K. Liu, and G. Turk, “Preparing for the unknown: Learning
+solely in a simulator.                                                               a universal policy with online system identification,” arXiv preprint
+                                                                                     arXiv:1702.02453, 2017.
+                             R EFERENCES                                        [29] A. Bicchi and V. Kumar, “Robotic grasping and contact: a review,” in
+                                                                                     ICRA 2000.
+ [1] V. Mnih et al., “Human-level control through deep reinforcement            [30] L. Pinto and A. Gupta, “Supersizing self-supervision: Learning to
+     learning,” Nature, 2015.                                                        grasp from 50k tries and 700 robot hours,” ICRA 2016.
+ [2] D. Silver et al., “Mastering the game of go with deep neural networks      [31] Z. Balorda, “Reducing uncertainty of objects by robot pushing,” in
+     and tree search,” Nature, 2016.                                                 ICRA 1990.
+ [3] J. Schulman, S. Levine, P. Abbeel, M. Jordan, and P. Moritz, “Trust        [32] L. Pinto and A. Gupta, “Learning to push by grasping: Using multiple
+     region policy optimization,” in ICML 2015.                                      tasks for effective learning,” in ICRA 2017.
+ [4] T. P. Lillicrap, J. J. Hunt, A. Pritzel, N. Heess, T. Erez, Y. Tassa,      [33] L. P. Kaelbling, M. L. Littman, and A. W. Moore, “Reinforcement
+     D. Silver, and D. Wierstra, “Continuous control with deep reinforce-            learning: A survey,” Journal of artificial intelligence research, 1996.
+     ment learning,” arXiv preprint arXiv:1509.02971, 2015.                     [34] D. Silver, G. Lever, N. Heess, T. Degris, D. Wierstra, and M. Ried-
+ [5] M. Cutler and J. P. How, “Efficient reinforcement learning for robots           miller, “Deterministic policy gradient algorithms,” in ICML 2014.
+     using informative simulated priors,” in ICRA 2015.                         [35] B. T. Polyak and A. B. Juditsky, “Acceleration of stochastic approx-
+ [6] A. Ghadirzadeh, A. Maki, D. Kragic, and M. Björkman, “Deep                     imation by averaging,” SIAM Journal on Control and Optimization,
+     predictive policy training using reinforcement learning,” arXiv preprint        1992.
+     arXiv:1703.00727, 2017.                                                    [36] T. Schaul, D. Horgan, K. Gregor, and D. Silver, “Universal value
+ [7] J. Z. Kolter and A. Y. Ng, “Learning omnidirectional path following             function approximators,” in ICML 2015.
+     using dimensionality reduction.” in RSS, 2007.                             [37] D. Precup, R. S. Sutton, and S. Dasgupta, “Off-policy temporal-
+ [8] A. A. Rusu, M. Vecerik, T. Rothörl, N. Heess, R. Pascanu, and                  difference learning with function approximation,” in ICML, 2001.
+     R. Hadsell, “Sim-to-real robot learning from pixels with progressive       [38] E. Todorov, T. Erez, and Y. Tassa, “Mujoco: A physics engine for
+     nets,” arXiv preprint arXiv:1610.04286, 2016.                                   model-based control,” in IROS, 2012.
+ [9] P. Christiano, Z. Shah, I. Mordatch, J. Schneider, T. Blackwell,           [39] K.-J. Oh, S. Yea, and Y.-S. Ho, “Hole filling method using depth
+     J. Tobin, P. Abbeel, and W. Zaremba, “Transfer from simulation to real          based in-painting for view synthesis in free viewpoint television and
+     world through learning deep inverse dynamics model,” arXiv preprint             3-d video,” in PCS 2009.
+     arXiv:1610.03518, 2016.                                                    [40] N.-E. Yang, Y.-G. Kim, and R.-H. Park, “Depth hole filling using the
+[10] F. Zhang, J. Leitner, B. Upcroft, and P. Corke, “Vision-based reaching          depth distribution of neighboring regions of depth holes in the kinect
+     using modular deep networks: from simulation to the real world,”                sensor,” in ICSPCC 2012.
+     arXiv preprint arXiv:1610.06781, 2016.                                     [41] B. D. Argall, S. Chernova, M. Veloso, and B. Browning, “A survey
+                                                                                     of robot learning from demonstration,” Robotics and autonomous
+[11] F. Sadeghi and S. Levine, “(cad)2rl: Real single-image flight without
+                                                                                     systems, 2009.
+     a single real image,” arXiv preprint arXiv:1611.04201, 2016.
+                                                                                [42] S. Ross, G. J. Gordon, and D. Bagnell, “A reduction of imitation
+[12] D. Held, Z. McCarthy, M. Zhang, F. Shentu, and P. Abbeel, “Proba-
+                                                                                     learning and structured prediction to no-regret online learning,” in
+     bilistically safe policy transfer,” ICRA 2017.
+                                                                                     International Conference on Artificial Intelligence and Statistics, 2011.
+[13] R. Girshick, J. Donahue, T. Darrell, and J. Malik, “Rich feature
+                                                                                [43] M. Dogar and S. Srinivasa, “A framework for push-grasping in clutter,”
+     hierarchies for accurate object detection and semantic segmentation,”
+                                                                                     Robotics: Science and Systems (RSS), 2011.
+     in CVPR 2014.
+                                                                                [44] T. Schlegl, M. Buss, T. Omata, and G. Schmidt, “Fast dextrous
+[14] M. Andrychowicz, F. Wolski, A. Ray, J. Schneider, R. Fong, P. Welin-
+                                                                                     re-grasping with optimal contact forces and contact sensor-based
+     der, B. McGrew, J. Tobin, P. Abbeel, and W. Zaremba, “Hindsight
+                                                                                     impedance control,” in ICRA 2001.
+     experience replay,” arXiv preprint arXiv:1707.01495, 2017.
+                                                                                [45] A. Krizhevsky, I. Sutskever, and G. E. Hinton, “Imagenet classification
+[15] R. E. Kalman et al., “A new approach to linear filtering and prediction         with deep convolutional neural networks,” in NIPS 2012.
+     problems,” Journal of basic Engineering, 1960.                             [46] D. Kingma and J. Ba, “Adam: A method for stochastic optimization,”
+[16] A. Venkatraman, R. Capobianco, L. Pinto, M. Hebert, D. Nardi, and               arXiv preprint arXiv:1412.6980, 2014.
+     J. A. Bagnell, “Improved learning of dynamics models for control,” in      [47] M. Abadi et al., “Tensorflow: Large-scale machine learning on hetero-
+     International Symposium on Experimental Robotics. Springer, 2016.               geneous distributed systems,” arXiv preprint arXiv:1603.04467, 2016.
+[17] J. Tobin, R. Fong, A. Ray, J. Schneider, W. Zaremba, and P. Abbeel,
+     “Domain randomization for transferring deep neural networks from
+     simulation to the real world,” arXiv preprint arXiv:1703.06907, 2017.
+[18] V. R. Konda and J. N. Tsitsiklis, “Actor-critic algorithms,” in Advances
+     in neural information processing systems, 2000, pp. 1008–1014.
+[19] U. Viereck, A. t. Pas, K. Saenko, and R. Platt, “Learning a visuomotor
+     controller for real world robotic grasping using easily simulated depth
+     images,” arXiv preprint arXiv:1706.04652, 2017.
+

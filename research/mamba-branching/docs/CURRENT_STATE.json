@@ -1,0 +1,174 @@
+{
+  "status": "single_seed_milp_s_loop_complete",
+  "authorization": "User requested formal train/resume/validation selection and a single-seed loop via parallel Custom jobs",
+  "environment": "/home/duweiyue25/conda/envs/mamba-branching",
+  "dependency_installation": "complete",
+  "pip_check": "passed",
+  "gpu_available": true,
+  "training_started": true,
+  "formal_collection_started": true,
+  "jobs_submitted": true,
+  "environment_report": "runs/environment/20261027T153051.812661Z.json",
+  "cpu_preflight_report": "runs/preflight/cpu-20261027T154522.638706Z.json",
+  "collection_pilots": [
+    {
+      "report": "runs/collection-pilot/20261027T143801.212377Z/report.json",
+      "samples": 15,
+      "seed": 0,
+      "random_prefix_steps": 0
+    },
+    {
+      "report": "runs/collection-pilot/20261027T143804.396946Z/report.json",
+      "samples": 9,
+      "seed": 4,
+      "random_prefix_steps": 5
+    },
+    {
+      "report": "runs/collection-pilot/20261027T153211.404250Z/report.json",
+      "instance": "lseu",
+      "samples": 145,
+      "seed": 0,
+      "random_prefix_steps": 0,
+      "solver_status": "optimal"
+    },
+    {
+      "report": "runs/collection-pilot/20261027T153628.415737Z/report.json",
+      "instance": "air04",
+      "samples": 8,
+      "seed": 0,
+      "random_prefix_steps": 0,
+      "solver_status": "timelimit"
+    },
+    {
+      "report": "runs/collection-pilot/20261027T153714.788771Z/report.json",
+      "instance": "sp150x300d",
+      "samples": 496,
+      "seed": 0,
+      "random_prefix_steps": 0,
+      "solver_status": "nodelimit"
+    },
+    {
+      "report": "runs/collection-pilot/20261027T153907.790810Z/report.json",
+      "instance": "swath1",
+      "samples": 264,
+      "seed": 0,
+      "random_prefix_steps": 0,
+      "solver_status": "nodelimit"
+    }
+  ],
+  "data_pilot_report": "runs/data-pilot/20261027T144123.379346Z/report.json",
+  "cutoff_audit": "setup/cutoffs-audit.json",
+  "evaluation_window": {
+    "history_steps": 24,
+    "upstream_deque_groups": 49
+  },
+  "gpu_command": "bash /home/duweiyue25/tgppo-transfer/research/mamba-branching/custom_job.sh gpu-ready",
+  "next_steps": [
+    "Review and archive this single-seed result; no retraining or additional solver jobs are required to complete the authorized loop",
+    "If neural-baseline ranking or training-seed robustness is required, freeze separate experiments with matched baselines and multiple training seeds; do not tune the frozen checkpoint on these test results"
+  ],
+  "known_reference_issue": "Legacy TGPPO datasets/cutoffs.json stores misc03=2; this CPU pilot proved optimum 3360. The file was not modified; this instance is training-only and Mamba collection uses no cutoff. Impact on historical TGPPO runs is not audited here.",
+  "training_scope": "CL50/IL50 completed and frozen; formal MILP-S evaluation and reporting complete",
+  "formal_training_started": true,
+  "jobs_submitted_by_agent": false,
+  "user_custom_preflight_submitted": true,
+  "gpu_preflight_report": "runs/preflight/gpu-20261027T153116.611802Z.json",
+  "custom_gpu_preflight_report": "runs/preflight/gpu-20261027T153116.674798Z.json",
+  "gpu_training_pilot_report": "runs/gpu-training-pilot/20261027T154335.411436Z/report.json",
+  "observed_resources": {
+    "development": {
+      "gpu": "V100-PCIE-32GB",
+      "cpus_quota": 8.01,
+      "ram_bytes": 34360786944
+    },
+    "custom": {
+      "gpu": "V100-SXM2-32GB",
+      "cpus_quota": 8.01,
+      "ram_bytes": 34360786944
+    },
+    "training_fast": {
+      "host": "sg-duweiyue25-261028-ba743-default0-0",
+      "cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+      "cgroup": {
+        "cpu.max": "801000 100000",
+        "memory.max": "68720525312"
+      },
+      "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+      "gpu": "NVIDIA A100-SXM4-40GB"
+    },
+    "validation_review": {
+      "host": "jpt-duweiyue25-261029-162af-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "cgroup": {
+        "cpu.max": "801000 100000",
+        "memory.max": "34360786944"
+      },
+      "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+      "gpu": "Tesla V100-SXM2-32GB"
+    },
+    "formal_evaluation": {
+      "host": "sg-duweiyue25-261029-23e9c-default0-0",
+      "cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+      "cgroup": {
+        "cpu.max": "401000 100000",
+        "memory.max": "17180917760"
+      },
+      "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+      "gpu": "NVIDIA A100-SXM4-40GB"
+    }
+  },
+  "gpu_diagnostics": {
+    "cuda_extensions": "passed on both hosts",
+    "real_data_cl_il": "passed on development GPU",
+    "batch_size": 32,
+    "states_per_sequence": 100,
+    "candidate_range": [
+      2,
+      27
+    ],
+    "unique_windows_in_capacity_batch": 1,
+    "peak_allocated_mib": 194.63134765625,
+    "resume": "exact load/RNG/order/next loss; numerical update agreement, not bitwise",
+    "scip_gpu_solve": "misc03 and lseu optimal on train split; root relpscost + 24-step history; no cutoff"
+  },
+  "updated_utc": "2026-10-29T11:19:32.999229+00:00",
+  "formal_run_directory": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/milp-s-seed0-20261027",
+  "formal_config": "configs/formal-milp-s.json",
+  "custom_job_configuration": "configs/custom-jobs-fast-milp-s-seed0.json",
+  "custom_job_guide": "docs/CUSTOM_JOBS.md",
+  "entry_verification_report": "runs/entry-check-20261027-final/verification.json",
+  "entry_verification_checks": 31,
+  "formal_collection_committed": 475,
+  "formal_collection_expected": 475,
+  "formal_jobs_submitted_by_agent": false,
+  "gpu_availability_scope": "Current development container, V100-SXM2-32GB; final model GPU validation recheck passed",
+  "fast_training_guide": "docs/FAST_TRAINING.md",
+  "fast_training_validation": "setup/fast-training-validation-20261028.json",
+  "fast_cuda_gate_executed": true,
+  "formal_fast_training_started": true,
+  "formal_training_completed": true,
+  "training_result_report": "runs/milp-s-seed0-20261027/analysis/training-review-20261029/report.json",
+  "training_result_guide": "runs/milp-s-seed0-20261027/analysis/training-review-20261029/README.md",
+  "selected_checkpoint": "training/il/epochs/epoch-0050-200ea864153b409e983bf211ed29559f.pt",
+  "selected_cl_epoch": 44,
+  "selected_il_epoch": 50,
+  "validation_action_accuracy": 0.7370177514792899,
+  "validation_per_state_nll": 0.9525922025420962,
+  "evaluation_completed_pairs": 40,
+  "evaluation_expected_pairs": 40,
+  "formal_evaluation_started": true,
+  "formal_evaluation_completed": true,
+  "single_seed_loop_complete": true,
+  "evaluation_solver_runs": 80,
+  "evaluation_summary": "runs/milp-s-seed0-20261027/evaluation/summary.json",
+  "evaluation_analysis": "runs/milp-s-seed0-20261027/analysis/evaluation-review-20261029/analysis.json",
+  "evaluation_report": "runs/milp-s-seed0-20261027/analysis/evaluation-review-20261029/README.md",
+  "evaluation_plot": "runs/milp-s-seed0-20261027/analysis/evaluation-review-20261029/paired-performance.png",
+  "evaluation_mamba_over_relpscost": {
+    "nodes": 3.0298817854657742,
+    "fair_nodes": 1.920555848291326,
+    "wall_seconds": 1.8314252769979449,
+    "primal_dual_integral": 1.2613204380402883
+  },
+  "evaluation_interpretation": "Current checkpoint is worse than relpscost overall; same direction as paper MILP-S but a larger relative gap. Other neural baselines and training-seed robustness are unverified."
+}

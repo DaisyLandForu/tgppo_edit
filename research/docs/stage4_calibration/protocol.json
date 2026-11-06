@@ -1,0 +1,49 @@
+{
+  "version": "stage4-calibration-v1",
+  "authorization": "先统一校准各组 Critic 的拟合，再开展在线 PPO 对照。",
+  "date": "2026-10-21",
+  "stage": "4 calibration supplement; deliver for acceptance before stage5",
+  "source_cache": "/root/research/tgppo/runs/stage4/offline/cache.pt",
+  "cache_sha256": "92dde780b604d625f0077e3028b4292dc4418d615afd3051edbcbd4fae156e65",
+  "base_checkpoint": "/root/research/tgppo/runs/stage3/pilot-repaired/latest.pt",
+  "checkpoint_sha256": "1b912eec46bdf7ec3eaff04570c4aed0c3a57389b6d290bc14f3cc213442d4d1",
+  "groups": [
+    "R0",
+    "Rcap",
+    "Rprod",
+    "Rjoint"
+  ],
+  "losses": [
+    "mse",
+    "hl_gauss"
+  ],
+  "fit_seeds": [
+    11,
+    22,
+    33
+  ],
+  "batch_size": 256,
+  "pilot_group": "R0 only",
+  "pilot_seed": 11,
+  "pilot_split": "training instances solver0 fit, solver1 inner validation; development never selected on",
+  "candidate_learning_rates": [
+    0.00012,
+    0.001
+  ],
+  "candidate_update_counts": [
+    2000,
+    5000
+  ],
+  "selection": "per loss smallest instance-equal inner-validation raw MSE; ties prefer fewer updates then smaller lr",
+  "final_update_rule": "one selected fixed final count for all groups/seeds within each loss; no development best-of",
+  "mse_calibration": "train-only instance-equal static target normalization, inverse raw-value decoding; final linear zero weights/bias",
+  "hl_gauss_calibration": "fixed raw bins [-36,52]/64, sigma 0.75 bin; final weights zero, bias log of train-only instance-equal smoothed target marginal; floor 1e-6",
+  "architecture": "original TreeGate structure unchanged; no extra parameters for calibration; frozen encoder unchanged",
+  "critic_gradient_clip": 0.5,
+  "gpu_scope": "existing offline cached tensor fitting only",
+  "global_offline_cpu_cap_seconds": 14400,
+  "prior_stage4_offline_cpu_seconds": 462.22436700000003,
+  "online_started": false,
+  "quality_gate": "main MSE groups each mean train MSE <=0.8 of train-mean constant; all seed/group train MSE below constant; heldout error/seed stability separately reported",
+  "research_scope": "exploratory reuse of previously inspected development set; neither paper-scale reproduction nor online gains"
+}

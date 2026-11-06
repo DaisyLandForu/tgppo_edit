@@ -1,0 +1,590 @@
+--- /dev/null
++++ b/STAGE5.md
+@@ -0,0 +1,12 @@
++# Stage 5: calibrated online PPO
++
++Authorized 2026-10-21: “验收通过，进入下一个阶段”. Isolated from pristine upstream and all prior experiment worktrees. Complete stage5 and stop before stage6.
++
++- New `project/online.py` retains time/frontier in schema3 on-policy trajectories; raw-unit rollouts and GAE, normalized residual MSE only.
++- The original Actor/Critic/reward/settings source files remain byte-identical to upstream. `CalibratedCritic` is a separate fully trainable subclass. No frozen cached encoder is used online.
++- `Agent` uses backward compatible Critic-forward/loss hooks; default legacy behavior is unchanged.
++- Collection adds Critic context before action, without adding Actor inputs. R0 avoids frontier scan. Actor-only loading constructs no Critic, optimizer, or extra extractor.
++- Schema3 checkpoints retain configuration, fixed return statistics, both optimizers, RNG, trajectories and policy version. Schema2 remains supported for old artifacts.
++- `code/stage5.py` freezes initialization/scheduling/budgets and performs complete-batch checkpoint selection before development evaluation.
++
++Entry points and evidence: `/root/research/docs/stage5/`. See the execution record and frozen JSON before reproducing; use a new output directory for any rerun. Do not overwrite prior results.
+--- /dev/null
++++ b/code/stage5.py
+@@ -0,0 +1,265 @@
++"""Frozen stage-5 CPU online PPO experiment; no stage-6 work is queued."""
++import argparse
++import json
++import os
++from pathlib import Path
++import resource
++import signal
++import shutil
++import time
++import traceback
++import torch
++import numpy as np
++from project.runtime import (config_with_protocol,seed_all,build_agent,save_checkpoint,
++    load_agent,make_job,job_identity,run_jobs,import_trajectories,cpu_seconds,load_actor)
++from project.utils.protocol import sha256,fingerprint,validate_baseline,write_json
++
++ROOT=Path('/root/research')
++DOC=ROOT/'docs/stage5'
++RUN=ROOT/'tgppo/runs/stage5'
++PROTOCOL=DOC/'execution_config.json'
++GROUPS=('R0','Rprod','Rjoint')
++
++
++def freeze():
++    p=json.loads((ROOT/'docs/stage1/protocol_draft.json').read_text())
++    stats=ROOT/'tgppo/runs/stage4-calibration/final_train_only_statistics.json'
++    c=dict(stage=5,date='2026-10-21',authorization='验收通过，进入下一个阶段',
++        groups=list(GROUPS),training_seeds=[11,22,33],solver_seeds=[0,1,2],loss='mse',
++        target_statistics=str(stats),target_statistics_sha256=sha256(stats),
++        initialization='fresh Actor and original Critic per train seed; shared train-only calibrated zero readout; no offline adapter warm start',
++        extra_initialization='forked torch RNG seed 1000+training_seed; does not advance public RNG',
++        task_order='first lseu,stein27,misc03,pp08aCUTS; remaining 16 seeded permutation; later full 20 seeded permutations',
++        task_solver_seed='cycle number modulo 3, common across groups',
++        action_rng='group-neutral episode job ID plus training seed SHA256; reset after model construction',
++        time_limit=120.,watchdog=180.,batch_episodes=4,min_transitions=256,microbatch_size=16,
++        training_cpu_cap_seconds=7200.,training_max_episodes=50,bridge_cpu_cap_seconds=1200.,
++        bridge_max_episodes=4,budget_points_seconds=[1800.,3600.,7200.],
++        checkpoint_rule='latest complete valid PPO batch at or below each nominal total CPU budget; initial if no update; no development selection',
++        interruption_rule='discard whole incomplete PPO iteration, retain earlier valid checkpoint and all consumed CPU/data',
++        collection_guard='reserve 180 CPU seconds per next episode plus 30 CPU seconds before collection',
++        online_device='cpu',affinity=[0,1,2,3],concurrent_training_runs=2,workers_per_training_run=2,
++        max_total_collection_workers=4,eval_workers=4,worker_address_space_bytes=8*1024**3,
++        learner_address_space_bytes=32*1024**3,critic_encoder='fully trainable',
++        critic_units='raw rollout/GAE; normalized MSE residual only',
++        r0_collection='remaining time only; zero unused frontier; no open-node scan',
++        rprod_rjoint_collection='same pre-action full frontier capture; marginal product vs actual joint in Critic',
++        evaluation='Actor only; Critic and extended search extraction forbidden; stochastic paired actions',
++        final_eval_jobs=135,early_eval_jobs=90,early_eval_solver_seeds=[0],
++        train=p['data']['train'],development=p['data']['development'],
++        instance_hashes=p['data']['hashes'],
++        native_baselines=str(ROOT/'tgppo/runs/stage3/native/baselines.json'),
++        native_baselines_sha256=sha256(ROOT/'tgppo/runs/stage3/native/baselines.json'),
++        early_and_bridge_shared_reserve_cpu_seconds=10*3600.,stop_after_stage5=True)
++    if PROTOCOL.exists() and json.loads(PROTOCOL.read_text())!=c:
++        raise ValueError('Frozen stage5 execution configuration changed')
++    write_json(PROTOCOL,c)
++    write_json(RUN/'execution_config.json',c)
++    return c
++
++
++def online_config(group,seed):
++    c=json.loads(PROTOCOL.read_text());stats=json.loads(Path(c['target_statistics']).read_text())
++    if sha256(c['target_statistics'])!=c['target_statistics_sha256']:raise ValueError('Statistics changed')
++    params=json.loads((ROOT/'tgppo/configs/paper_hparams.json').read_text())
++    params.update(online_group=group,target_mean=stats['mean'],target_std=stats['std'],
++        target_statistics_sha256=c['target_statistics_sha256'],extra_initialization_seed=1000+seed,
++        online_protocol='stage5-calibrated-full-critic-v1',online_protocol_sha256=sha256(PROTOCOL))
++    return config_with_protocol(params)
++
++
++def task_schedule(seed,c):
++    first=['lseu','stein27','misc03','pp08aCUTS']
++    rng=np.random.RandomState(seed)
++    remaining=[n for n in c['train'] if n not in first];rng.shuffle(remaining)
++    result=first+remaining
++    while len(result)<c['training_max_episodes']:
++        order=list(c['train']);rng.shuffle(order);result+=order
++    return result[:c['training_max_episodes']]
++
++
++class CPULimit(RuntimeError):pass
++
++
++def limit_handler(signum,frame):
++    signal.signal(signal.SIGXCPU,signal.SIG_IGN)
++    raise CPULimit('Combined worker/learner CPU budget reached')
++
++
++def parameter_digest(state):
++    import hashlib
++    h=hashlib.sha256()
++    for key,value in sorted(state.items()):h.update(key.encode());h.update(value.detach().cpu().numpy().tobytes())
++    return h.hexdigest()
++
++
++def train(group,seed,bridge=False):
++    c=json.loads(PROTOCOL.read_text());os.sched_setaffinity(0,c['affinity'])
++    out=RUN/('bridge' if bridge else 'training')/('{}-s{}'.format(group,seed))
++    if out.exists():raise FileExistsError(str(out))
++    out.mkdir(parents=True)
++    resource.setrlimit(resource.RLIMIT_AS,(c['learner_address_space_bytes'],resource.getrlimit(resource.RLIMIT_AS)[1]))
++    cap=c['bridge_cpu_cap_seconds'] if bridge else c['training_cpu_cap_seconds']
++    max_ep=c['bridge_max_episodes'] if bridge else c['training_max_episodes']
++    cutoffs=json.loads((ROOT/'tgppo/datasets/cutoffs.json').read_text())
++    baselines=json.loads(Path(c['native_baselines']).read_text())
++    if sha256(c['native_baselines'])!=c['native_baselines_sha256']:raise ValueError('Native baselines changed')
++    for name in c['train']:
++        if sha256(ROOT/'tgppo/datasets/train_instances'/(name+'.mps.gz'))!=c['instance_hashes'][name]:
++            raise ValueError('Dataset changed: '+name)
++    params=online_config(group,seed);seed_all(seed);agent=build_agent(params)
++    actor_initial={k:v.detach().clone() for k,v in agent.actor_network.state_dict().items()}
++    critic_initial={k:v.detach().clone() for k,v in agent.critic_network.state_dict().items()}
++    write_json(out/'config.json',params)
++    write_json(out/'initialization.json',dict(actor_sha256=parameter_digest(actor_initial),
++        common_critic_sha256=parameter_digest({k:v for k,v in critic_initial.items() if not k.startswith(('extra.','extra_projection.'))}),
++        critic_parameters=sum(p.numel() for p in agent.critic_network.parameters()),
++        all_critic_parameters_trainable=all(p.requires_grad for p in agent.critic_network.parameters()),
++        rng_torch_sha256=parameter_digest({'rng':torch.get_rng_state()})))
++    worker_cpu=0.;completed=0;history=[];collected=[];checkpoints=[];batch=0
++    def progress():return dict(stage=5,group=group,training_seed=seed,next_episode=completed,
++        worker_cpu_seconds=worker_cpu,learner_cpu_seconds=cpu_seconds(),total_cpu_seconds=worker_cpu+cpu_seconds())
++    save_checkpoint(out/'initial.pt',agent,params,progress())
++    checkpoints.append(dict(path=str(out/'initial.pt'),updates=0,episodes=0,total_cpu_seconds=worker_cpu+cpu_seconds()))
++    shutil.copyfile(out/'initial.pt',out/'latest.pt')
++    schedule=task_schedule(seed,c);write_json(out/'task_schedule.json',schedule)
++    stop='episode_limit';limits=resource.getrlimit(resource.RLIMIT_CPU);handler=signal.getsignal(signal.SIGXCPU)
++    first_row=None
++    try:
++        while completed<max_ep:
++            count=min(c['batch_episodes'],max_ep-completed)
++            if cap-worker_cpu-cpu_seconds()<count*c['watchdog']+30.:
++                stop='insufficient_budget_for_next_complete_collection_batch';break
++            before=out/'rollout-policy.pt'
++            save_checkpoint(before,agent,params,progress())
++            jobs=[]
++            for idx in range(completed,completed+count):
++                name=schedule[idx];solver_seed=(idx//len(c['train']))%3
++                j=make_job('e{:04d}-{}-s{}'.format(idx,name,solver_seed),ROOT/'tgppo/datasets/train_instances',
++                    name,c['time_limit'],solver_seed,seed,cutoffs,'collect',before)
++                j['address_space_limit_bytes']=c['worker_address_space_bytes']
++                j['baseline']=baselines[fingerprint(job_identity(j))];validate_baseline(j['baseline'],job_identity(j))
++                jobs.append(j)
++            directory=out/('batch-{:03d}'.format(batch))
++            rows=run_jobs(jobs,directory,c['workers_per_training_run'],c['watchdog'])
++            # Incomplete worker CPU gets its watchdog upper bound, never zero cost.
++            worker_cpu+=sum(r['worker_cpu_seconds'] if r.get('worker_cpu_complete') else c['watchdog'] for r in rows)
++            completed+=len(rows);collected+=rows;write_json(out/'collection_results.json',collected)
++            if any(not r.get('valid') for r in rows):stop='invalid_collection_batch_retained_no_update';break
++            import_trajectories(agent,rows,directory)
++            if first_row is None and agent.memory.rows():first_row=agent.memory.rows()[0]
++            save_checkpoint(out/'collected.pt',agent,params,progress())
++            deadline=int(cap-worker_cpu-5.)
++            if deadline<=cpu_seconds():stop='cpu_budget_before_update';break
++            begin=cpu_seconds();signal.signal(signal.SIGXCPU,limit_handler)
++            resource.setrlimit(resource.RLIMIT_CPU,(deadline,limits[1]))
++            def log(p):
++                write_json(out/'learning-progress.json',dict(p,batch=batch,state='updating',
++                    worker_cpu_seconds=worker_cpu,learner_cpu_seconds=cpu_seconds(),
++                    learning_cpu_seconds=cpu_seconds()-begin,total_cpu_seconds=worker_cpu+cpu_seconds()))
++            try:
++                metrics=agent.learn(progress_callback=log,microbatch_size=c['microbatch_size'])
++            except CPULimit:
++                stop='budget_partial_iteration_discarded';write_json(out/'interrupted_update.json',progress());break
++            except Exception:
++                stop='learning_error_last_complete_checkpoint_retained'
++                write_json(out/'learning_error.json',dict(error=traceback.format_exc(),**progress()));break
++            finally:
++                resource.setrlimit(resource.RLIMIT_CPU,limits);signal.signal(signal.SIGXCPU,handler)
++            metrics.update(batch=batch,episodes_completed=completed,learning_cpu_seconds=cpu_seconds()-begin,**progress())
++            metrics['actor_l2_change_from_initial']=sum((v.detach()-actor_initial[k]).double().square().sum().item()
++                for k,v in agent.actor_network.state_dict().items())**.5
++            metrics['critic_encoder_l2_change_from_initial']=sum((v.detach()-critic_initial[k]).double().square().sum().item()
++                for k,v in agent.critic_network.state_dict().items() if k.startswith(('var_embedding','transformer','tree_embedding','tree_refinement','aggregation')))**.5
++            history.append(metrics);write_json(out/'updates.json',history)
++            if metrics['updated']:
++                checkpoint=out/('update-{:03d}.pt'.format(agent.update_counter))
++                save_checkpoint(checkpoint,agent,params,progress())
++                checkpoints.append(dict(path=str(checkpoint),updates=agent.update_counter,episodes=completed,
++                    total_cpu_seconds=worker_cpu+cpu_seconds(),num_samples=metrics['num_samples']))
++                shutil.copyfile(checkpoint,out/'latest.pt')
++            print(json.dumps(metrics,sort_keys=True),flush=True)
++            batch+=1
++    finally:
++        resource.setrlimit(resource.RLIMIT_CPU,limits);signal.signal(signal.SIGXCPU,handler)
++    write_json(out/'checkpoints.json',checkpoints)
++    # Freeze budget selection using CPU metadata only, before any development solve.
++    selected={}
++    for budget in c['budget_points_seconds']:
++        valid=[p for p in checkpoints if p['total_cpu_seconds']<=budget]
++        selected[str(int(budget))]=dict(valid[-1],nominal_cpu_budget_seconds=budget)
++    write_json(out/'selected_checkpoints.json',selected)
++    restored,payload=load_agent(out/'latest.pt',restore_random_state=False)
++    restore_audit=dict(optimizer_states_restored=bool(restored.actor_optimizer.state) and bool(restored.critic_optimizer.state),
++        full_critic_trainable=all(p.requires_grad for p in restored.critic_network.parameters()),
++        raw_target_mean=float(restored.critic_network.target_mean),raw_target_std=float(restored.critic_network.target_std),
++        checkpoint_schema_version=payload['schema_version'],trajectory_schema_version=payload['memory']['schema_version'])
++    if first_row is not None:
++        state={k:first_row[k] for k in ('cands_state','mip_state','node_state','remaining_time','frontier')}
++        _,raw_value,_=restored.choose_action(**state,deterministic=True)
++        restore_audit['restored_raw_value_first_real_state']=raw_value
++        restore_audit['initial_raw_value_first_real_state']=first_row['value']
++        restore_audit['actor_only_has_no_critic']=not hasattr(load_actor(out/'latest.pt')[0],'critic_network')
++    write_json(out/'restoration.json',restore_audit)
++    total=worker_cpu+cpu_seconds()
++    summary=dict(stage=5,group=group,training_seed=seed,bridge=bridge,stop_reason=stop,
++        episodes_attempted=completed,valid_episodes=sum(bool(r.get('valid')) for r in collected),
++        checkpoint_episodes=payload['progress']['next_episode'],complete_ppo_iterations=restored.update_counter,
++        complete_optimizer_steps=sum(m.get('num_updates',0) for m in history),
++        trained_transitions=sum(m['num_samples'] for m in history if m['updated']),
++        worker_cpu_seconds=worker_cpu,learner_cpu_seconds=cpu_seconds(),total_cpu_seconds=total,
++        cpu_cap_seconds=cap,within_budget=total<=cap,
++        peak_learner_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
++        latest_checkpoint=str(out/'latest.pt'),latest_checkpoint_sha256=sha256(out/'latest.pt'))
++    write_json(out/'summary.json',summary)
++    print(json.dumps(summary,sort_keys=True),flush=True)
++    if restored.update_counter<1 or not summary['within_budget'] or stop.startswith(('invalid','learning_error')):
++        raise RuntimeError('Run did not pass stage5 training checks; all evidence retained')
++
++
++def evaluate():
++    c=json.loads(PROTOCOL.read_text());os.sched_setaffinity(0,c['affinity'])
++    cutoffs=json.loads((ROOT/'tgppo/datasets/cutoffs.json').read_text());jobs=[];manifest=[]
++    for group in c['groups']:
++        for seed in c['training_seeds']:
++            directory=RUN/'training'/('{}-s{}'.format(group,seed))
++            s=json.loads((directory/'summary.json').read_text())
++            if not s['within_budget'] or not s['complete_ppo_iterations']:raise ValueError('Training run invalid')
++            checkpoints=json.loads((directory/'selected_checkpoints.json').read_text())
++            for budget in c['budget_points_seconds']:
++                checkpoint=checkpoints[str(int(budget))];path=Path(checkpoint['path'])
++                manifest.append(dict(group=group,training_seed=seed,**checkpoint,sha256=sha256(path)))
++                for name in c['development']:
++                    for solver_seed in (c['solver_seeds'] if budget==7200. else c['early_eval_solver_seeds']):
++                        jobid='{}-t{}-b{}-{}-s{}'.format(group,seed,int(budget),name,solver_seed)
++                        j=make_job(jobid,ROOT/'tgppo/datasets/train_instances',name,120.,solver_seed,seed,cutoffs,'eval',path)
++                        # Group- and budget-neutral random stream in every deployment comparison.
++                        from project.runtime import action_seed
++                        j['sampling_seed']=action_seed(seed,'dev-{}-s{}'.format(name,solver_seed))
++                        j['address_space_limit_bytes']=c['worker_address_space_bytes']
++                        j.update(group=group,nominal_budget_seconds=budget)
++                        jobs.append(j)
++    write_json(RUN/'evaluation/manifest.json',manifest)
++    write_json(RUN/'evaluation/jobs.json',jobs)
++    rows=run_jobs(jobs,RUN/'evaluation/jobs',c['eval_workers'],c['watchdog'])
++    write_json(RUN/'evaluation/summary.json',dict(jobs=len(rows),valid=sum(bool(r.get('valid')) for r in rows),
++        failures=sum(not r.get('valid') for r in rows),
++        critic_seconds=sum(r.get('callback_seconds',{}).get('critic',0.) for r in rows),
++        worker_cpu_seconds=sum(r.get('worker_cpu_seconds') or 0. for r in rows),
++        parent_cpu_seconds=cpu_seconds(),
++        checkpoint_hashes_preserved=all(sha256(r['path'])==r['sha256'] for r in manifest)))
++    if any(not r.get('valid') for r in rows):raise RuntimeError('Evaluation failures retained')
++
++
++def main():
++    a=argparse.ArgumentParser(description=__doc__)
++    a.add_argument('command',choices=['freeze','train','bridge','evaluate'])
++    a.add_argument('--group',choices=GROUPS);a.add_argument('--seed',type=int,default=11)
++    args=a.parse_args()
++    if args.command=='freeze':freeze()
++    elif args.command=='evaluate':evaluate()
++    elif args.command in ('train','bridge'):
++        if not args.group:raise ValueError('--group is required')
++        train(args.group,args.seed,args.command=='bridge')
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/code/project/online.py
+@@ -0,0 +1,86 @@
++"""Stage 5: raw-unit online PPO with calibrated, fully trainable Critics."""
++import numpy as np
++import torch
++from project.agent.agent import Agent
++from project.memory.memory import Memory
++
++
++def context_arrays(remaining_time, frontier):
++    t = np.array(remaining_time, dtype=np.float32).reshape(-1)
++    f = np.array(frontier, dtype=np.float32, copy=True)
++    if t.shape != (1,) or f.shape != (69,) or not np.isfinite(t).all() or not np.isfinite(f).all():
++        raise ValueError('Malformed online Critic context')
++    if not 0. <= t[0] <= 1.:
++        raise ValueError('Remaining time outside [0,1]')
++    return dict(remaining_time=t[0], frontier=f)
++
++
++class OnlineMemory(Memory):
++    schema_version = 3
++
++    def store(self, remaining_time, frontier, **kwargs):
++        extra = context_arrays(remaining_time, frontier)
++        super().store(**kwargs)
++        self.active['transitions'][-1].update(extra)
++
++    def _validate_episode(self, episode):
++        # This experiment always finishes a complete finite-time SCIP task.
++        if episode['collector_truncated']:
++            raise ValueError('Stage5 requires complete finite tasks, no collector truncation')
++        super()._validate_episode(episode)
++        for row in episode['transitions']:
++            context_arrays(row['remaining_time'], row['frontier'])
++
++    def get_batch_generator(self, batch_size=None):
++        rows = self.rows()
++        for batch in super().get_batch_generator(batch_size):
++            for key in ('remaining_time', 'frontier'):
++                batch[key] = torch.as_tensor(np.asarray([rows[i][key] for i in batch['indices']]),
++                                              dtype=torch.float32, device=self.device)
++            batch['remaining_time'] = batch['remaining_time'].reshape(-1, 1)
++            yield batch
++
++
++class OnlineAgent(Agent):
++    online_context = True
++
++    def __init__(self, *args, task_time_limit=120., **kwargs):
++        super().__init__(*args, **kwargs)
++        self.task_time_limit = float(task_time_limit)
++        self.memory = OnlineMemory(self.batch_size, self.state_dims, self.device, self.logger)
++        if not all(p.requires_grad for p in self.critic_network.parameters()):
++            raise ValueError('Online Critic must train the full encoder')
++
++    def choose_action(self, cands_state, mip_state, node_state, remaining_time, frontier,
++                      padding_mask=None, deterministic=False):
++        import time
++        extra = context_arrays(remaining_time, frontier)
++        start = time.perf_counter()
++        inputs = self._inputs(cands_state, mip_state, node_state, padding_mask)
++        action, log_prob = self._act(inputs, deterministic)
++        self.last_actor_seconds = time.perf_counter()-start
++        start = time.perf_counter()
++        with torch.no_grad():
++            self.critic_network.eval()
++            c, m, n, mask = inputs
++            t = torch.as_tensor([[extra['remaining_time']]], dtype=torch.float32, device=self.device)
++            f = torch.as_tensor(extra['frontier'][None], device=self.device)
++            value = self.critic_network(c, n, m, t, f, mask).reshape(-1)
++        self.last_critic_seconds = time.perf_counter()-start
++        if not torch.isfinite(value).all():
++            raise ValueError('Nonfinite raw value')
++        return int(action.item()), float(value.item()), float(log_prob.item())
++
++    def seal_episode(self, task_terminal, collector_truncated=False,
++                     bootstrap_state=None, end_reason=None):
++        if not task_terminal or collector_truncated or bootstrap_state is not None:
++            raise ValueError('Stage5 collector must finish its finite task')
++        self.memory.seal_episode(True, False, 0., None, end_reason)
++
++    def _learning_values(self, cands, node, mip, mask, batch, chunk):
++        return self.critic_network(cands, node, mip, batch['remaining_time'][chunk],
++                                   batch['frontier'][chunk], mask).reshape(-1)
++
++    def _value_loss(self, values, targets):
++        # Raw value -> GAE; standardized residual -> Critic loss only.
++        return ((values-targets)/self.critic_network.target_std).square().mean()
+--- a/code/project/runtime.py
++++ b/code/project/runtime.py
+@@ -57,9 +57,20 @@
+ def build_agent(config, training=True):
+     arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
+     actor, critic = Actor(**arch), Critic(**arch)
++    agent_type = Agent
++    if 'online_group' in config:
++        from project.online import OnlineAgent
++        from project.policy.calibrated_critic import CalibratedCritic
++        # Preserve public model initialization and the subsequent PPO RNG stream.
++        # Search-only modules have a separate deterministic initialization stream.
++        with torch.random.fork_rng(devices=[]):
++            torch.manual_seed(config['extra_initialization_seed'])
++            critic = CalibratedCritic(critic, group=config['online_group'], loss='mse',
++                mean=config['target_mean'], std=config['target_std'])
++        agent_type = OnlineAgent
+     actor_opt = torch.optim.Adam(actor.parameters(), lr=config['actor_lr']) if training else None
+     critic_opt = torch.optim.Adam(critic.parameters(), lr=config['critic_lr']) if training else None
+-    return Agent(actor, actor_opt, critic, critic_opt, device='cpu',
++    return agent_type(actor, actor_opt, critic, critic_opt, device='cpu',
+                  state_dims=config['state_dims'], **{k: config[k] for k in PPO_KEYS})
+ 
+ 
+@@ -76,7 +87,7 @@
+ def save_checkpoint(path, agent, config, progress=None):
+     if agent.actor_optimizer is None or agent.critic_optimizer is None:
+         raise ValueError('A resumable checkpoint requires both optimizers')
+-    payload = dict(schema_version=2, protocol_version=PROTOCOL_VERSION, config=copy.deepcopy(config),
++    payload = dict(schema_version=3 if getattr(agent, 'online_context', False) else 2, protocol_version=PROTOCOL_VERSION, config=copy.deepcopy(config),
+         config_sha256=fingerprint(config), actor=agent.actor_network.state_dict(),
+         critic=agent.critic_network.state_dict(), actor_optimizer=agent.actor_optimizer.state_dict(),
+         critic_optimizer=agent.critic_optimizer.state_dict(), policy_version=agent.policy_version,
+@@ -91,8 +102,10 @@
+ 
+ def read_checkpoint(path):
+     payload = torch.load(path, map_location='cpu')  # Trusted, locally produced checkpoints only.
+-    if payload.get('schema_version') != 2 or payload.get('protocol_version') != PROTOCOL_VERSION:
++    if payload.get('schema_version') not in (2, 3) or payload.get('protocol_version') != PROTOCOL_VERSION:
+         raise ValueError('Checkpoint requires explicit architecture/protocol; no default guessing')
++    if (payload['schema_version'] == 3) != ('online_group' in payload['config']):
++        raise ValueError('Online checkpoint discriminator mismatch')
+     if fingerprint(payload['config']) != payload['config_sha256']:
+         raise ValueError('Checkpoint configuration hash mismatch')
+     return payload
+@@ -167,7 +180,9 @@
+         # Initialization must not consume the action RNG stream.
+         seed_all(job['sampling_seed'])
+         search_recorder = None
+-        if job.get('collect_search_features'):
++        online_frontier = (job['mode'] == 'collect' and getattr(policy, 'online_context', False)
++                           and policy.critic_network.group != 'R0')
++        if job.get('collect_search_features') or online_frontier:
+             if job['mode'] != 'collect':
+                 raise ValueError('Search features forbidden during deployment')
+             from project.search_features import SearchRecorder
+--- a/code/project/agent/agent.py
++++ b/code/project/agent/agent.py
+@@ -135,6 +135,12 @@
+         if not advantages:
+             return torch.empty(0, device=self.device), torch.empty(0, device=self.device)
+         return torch.cat(advantages), torch.cat(returns)
++
++    def _learning_values(self, cands, node, mip, mask, batch, chunk):
++        return self.critic_network(cands, node, mip, mask).reshape(-1)
++
++    def _value_loss(self, values, targets):
++        return torch.nn.functional.mse_loss(values, targets)
+ 
+     def learn(self, progress_callback=None, microbatch_size=None):
+         if self.memory.active is not None:
+@@ -191,8 +197,8 @@
+                     if not torch.isfinite(actor_loss):
+                         raise ValueError('Nonfinite actor loss')
+                     (weight*actor_loss).backward()
+-                    values = self.critic_network(cands,node,mip,mask).reshape(-1)
+-                    critic_loss = torch.nn.functional.mse_loss(values,returns[ids])
++                    values = self._learning_values(cands,node,mip,mask,batch,chunk)
++                    critic_loss = self._value_loss(values,returns[ids])
+                     if not torch.isfinite(critic_loss):
+                         raise ValueError('Nonfinite critic loss')
+                     (weight*critic_loss).backward()
+--- a/code/project/brancher/brancher.py
++++ b/code/project/brancher/brancher.py
+@@ -51,6 +51,19 @@
+             self.times['features'] += time.perf_counter() - begin
+             if self.search_recorder is not None:
+                 self.search_recorder.capture(self.model, state)
++            if self.mode == 'collect' and getattr(self.agent, 'online_context', False):
++                begin = time.perf_counter()
++                if self.agent.critic_network.group == 'R0':
++                    # Baseline needs the shared remaining-time input, no frontier scan.
++                    state.update(remaining_time=np.float32(np.clip(
++                        1. - self.model.getSolvingTime() / self.agent.task_time_limit, 0., 1.)),
++                        frontier=np.zeros(69, dtype=np.float32))
++                else:
++                    if self.search_recorder is None or self.search_recorder.pending is None:
++                        raise ValueError('Missing pre-action frontier context')
++                    state.update(remaining_time=self.search_recorder.pending['remaining_time'],
++                                 frontier=self.search_recorder.pending['frontier'].copy())
++                self.times['features'] += time.perf_counter() - begin
+             if self.mode == 'collect':
+                 self._store_previous(False)
+                 action, value, log_prob = self.agent.choose_action(**state,
+--- /dev/null
++++ b/tests/test_online.py
+@@ -0,0 +1,111 @@
++import copy
++import tempfile
++import unittest
++from pathlib import Path
++from unittest.mock import patch
++import numpy as np
++import torch
++from project.runtime import (seed_all,config_with_protocol,build_agent,save_checkpoint,
++                             load_agent,load_actor,rng_state)
++
++
++def config(group='R0'):
++    return config_with_protocol(dict(hidden_dim=32,num_layers=1,num_heads=4,dropout=0.,
++        batch_size=4,n_epochs=3,online_group=group,target_mean=-13.166822661165169,
++        target_std=8.840326545776836,extra_initialization_seed=1011))
++
++
++def populate(agent):
++    agent.memory.begin_episode('online-unit',agent.policy_version)
++    for i in range(8):
++        state=dict(cands_state=np.full((2+i%3,25),.1*(i+1),np.float32),
++            mip_state=np.full(53,.1,np.float32),node_state=np.zeros(8,np.float32),
++            remaining_time=np.float32(1-i/8),frontier=np.r_[np.full(64,1/64),np.ones(5)].astype(np.float32))
++        action,value,lp=agent.choose_action(**state)
++        agent.remember(**state,action=action,value=value,log_prob=lp,reward=-float(i+1),done=i==7)
++    agent.seal_episode(task_terminal=True)
++
++
++class OnlineTests(unittest.TestCase):
++    def test_pairing_public_weights_rng_and_extra_shapes(self):
++        agents=[];rngs=[]
++        for g in ('R0','Rprod','Rjoint'):
++            seed_all(11);agents.append(build_agent(config(g)));rngs.append(rng_state())
++        common=agents[0].critic_network.state_dict()
++        for a in agents[1:]:
++            for k,v in agents[0].actor_network.state_dict().items():
++                torch.testing.assert_close(v,a.actor_network.state_dict()[k],rtol=0,atol=0)
++            for k,v in common.items():
++                torch.testing.assert_close(v,a.critic_network.state_dict()[k],rtol=0,atol=0)
++        for r in rngs[1:]:
++            self.assertTrue(torch.equal(rngs[0]['torch'],r['torch']))
++        for k,v in agents[1].critic_network.state_dict().items():
++            torch.testing.assert_close(v,agents[2].critic_network.state_dict()[k],rtol=0,atol=0)
++
++    def test_context_roundtrip_minibatch_and_reject_corruption(self):
++        seed_all(11);a=build_agent(config('Rjoint'));populate(a)
++        payload=a.memory.export_dict();self.assertEqual(payload['schema_version'],3)
++        b=build_agent(config('Rjoint'));b.memory.import_dict(payload)
++        for batch in b.memory.get_batch_generator():
++            for j,index in enumerate(batch['indices']):
++                row=a.memory.rows()[index]
++                np.testing.assert_array_equal(batch['frontier'][j],row['frontier'])
++                self.assertEqual(float(batch['remaining_time'][j]),float(row['remaining_time']))
++        for bad in ('missing','nan','shape'):
++            broken=copy.deepcopy(payload)
++            row=broken['episodes'][0]['transitions'][0]
++            if bad=='missing':del row['frontier']
++            if bad=='nan':row['frontier'][0]=float('nan')
++            if bad=='shape':row['frontier']=np.zeros(68)
++            with self.assertRaises((ValueError,KeyError)):build_agent(config('Rjoint')).memory.import_dict(broken)
++
++    def test_raw_value_gae_and_only_loss_standardized(self):
++        seed_all(11);a=build_agent(config());populate(a)
++        rows=a.memory.rows();mu=config()['target_mean'];std=config()['target_std']
++        for r in rows:self.assertAlmostEqual(r['value'],mu,places=5)
++        adv,ret=a.compute_targets()
++        gae=0.;expected=[]
++        for i in reversed(range(len(rows))):
++            r=rows[i];nextv=0. if r['done'] else rows[i+1]['value']
++            delta=r['reward']+.97*(1-r['done'])*nextv-r['value']
++            gae=delta+.97*.92*(1-r['done'])*gae;expected.append(gae+r['value'])
++        np.testing.assert_allclose(ret.numpy(),expected[::-1],rtol=1e-5)
++        x=torch.tensor([-20.,-3.],requires_grad=True);y=torch.tensor([-5.,8.])
++        loss=a._value_loss(x,y);torch.testing.assert_close(loss,((x-y)/std).square().mean())
++        self.assertAlmostEqual(ret[-1].item(),rows[-1]['reward'],places=5)
++
++    def test_full_update_restore_rng_optimizer_and_actor_only(self):
++        seed_all(11);a=build_agent(config('Rjoint'));populate(a)
++        before={k:v.detach().clone() for k,v in a.critic_network.named_parameters()}
++        with tempfile.TemporaryDirectory() as d:
++            p=Path(d)/'state.pt';save_checkpoint(p,a,config('Rjoint'))
++            a,_=load_agent(p);m=a.learn(microbatch_size=2)
++            self.assertTrue(m['updated']);self.assertLess(m['initial_ratio_max_error'],1e-4)
++            for name in ('var_embedding','transformer','tree_embedding','tree_refinement','aggregation'):
++                self.assertTrue(any(not torch.equal(v,before[k]) for k,v in a.critic_network.named_parameters() if k.startswith(name)),name)
++            self.assertGreater(a.critic_network.extra_projection.weight.norm().item(),0.)
++            save_checkpoint(p,a,config('Rjoint'));b,payload=load_agent(p)
++            self.assertEqual(b.update_counter,1);self.assertEqual(b.policy_version,1)
++            self.assertEqual(len(b.actor_optimizer.state),len(a.actor_optimizer.state))
++            self.assertEqual(len(b.critic_optimizer.state),len(a.critic_optimizer.state))
++            with patch('project.runtime.build_agent',side_effect=AssertionError('Critic forbidden')):
++                policy,_=load_actor(p)
++            self.assertFalse(hasattr(policy,'critic_network'))
++            row=dict(cands_state=np.ones((2,25)),mip_state=np.zeros(53),node_state=np.zeros(8))
++            state=torch.get_rng_state();aa=policy.act(**row);torch.set_rng_state(state);bb=b.act(**row)
++            self.assertEqual(aa,bb)
++
++    def test_online_microbatch_equivalence(self):
++        seed_all(11);a=build_agent(config('Rprod'));populate(a)
++        for opt in (a.actor_optimizer,a.critic_optimizer):
++            for g in opt.param_groups:g['lr']=0.
++        with tempfile.TemporaryDirectory() as d:
++            p=Path(d)/'x.pt';save_checkpoint(p,a,config('Rprod'))
++            full,_=load_agent(p);mf=full.learn()
++            small,_=load_agent(p);ms=small.learn(microbatch_size=1)
++            for net in ('actor_network','critic_network'):
++                for x,y in zip(getattr(full,net).parameters(),getattr(small,net).parameters()):
++                    torch.testing.assert_close(x.grad,y.grad,atol=3e-6,rtol=3e-4)
++            self.assertAlmostEqual(mf['critic_loss'],ms['critic_loss'],places=5)
++
++if __name__=='__main__':unittest.main(verbosity=2)

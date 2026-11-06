@@ -1,0 +1,246 @@
+[
+  {
+    "model": "B0-s11",
+    "source_checkpoint": {
+      "model": "B0-s11",
+      "episode": 100,
+      "path": "tgppo/runs/server6-20261022/training/B0-s11/episode-0100.pt",
+      "sha256": "e96c8afbb8af63607c0989e2b41972d84d0bf559a8fc047f2322803fc30600fa",
+      "parameters_unchanged": true,
+      "variant_state_dict_equal_to_original": true
+    },
+    "source_policy_version": 25,
+    "episodes_imported": 4,
+    "full_buffer_samples": 3735,
+    "selected_samples": 256,
+    "selected_L1": 0,
+    "selected_candidates": {
+      "min": 13.0,
+      "p50": 51.5,
+      "p95": 233.25,
+      "max": 277.0
+    },
+    "full_buffer_raw_advantages": {
+      "min": -8.082237243652344,
+      "p50": -6.631279468536377,
+      "p95": 0.47924768030643083,
+      "max": 3.7715959548950195
+    },
+    "raw_advantage_std": 2.63742733001709,
+    "full_buffer_normalized_advantages": {
+      "min": -0.9436644315719604,
+      "p50": -0.39352306723594666,
+      "p95": 2.302485632896422,
+      "max": 3.5508036613464355
+    },
+    "selected_normalized_advantages": {
+      "min": -0.931191623210907,
+      "p50": -0.3974516987800598,
+      "p95": 2.32296222448349,
+      "max": 3.482089042663574
+    },
+    "selected_positive_advantages": 68,
+    "preupdate_ratio_max_error": 4.76837158203125e-07,
+    "optimizer_coverage": {
+      "actor": {
+        "parameter_tensors": 116,
+        "state_tensors": 116,
+        "param_group_count": 1,
+        "learning_rate": 0.00024,
+        "restored": true,
+        "state_steps_before": {
+          "min": 690.0,
+          "p50": 690.0,
+          "p95": 690.0,
+          "max": 690.0
+        }
+      },
+      "critic": {
+        "parameter_tensors": 118,
+        "state_tensors": 118,
+        "param_group_count": 1,
+        "learning_rate": 0.00012,
+        "restored": true,
+        "state_steps_before": {
+          "min": 690.0,
+          "p50": 690.0,
+          "p95": 690.0,
+          "max": 690.0
+        }
+      }
+    },
+    "original_learn": {
+      "progress": {
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 1,
+        "samples": 3735,
+        "expected_minibatches": 45
+      },
+      "actual_weighted_losses": {
+        "actor_loss": -0.0365388379432261,
+        "critic_loss": 38.069414496421814,
+        "entropy": 4.230972170829773,
+        "clip_fraction": 0.0
+      },
+      "initial_ratio_max_error": 4.76837158203125e-07,
+      "full_buffer_samples": 3735
+    },
+    "pre_loss": {
+      "surrogate_loss": -0.02384592965245247,
+      "entropy": 4.230972180142999,
+      "entropy_loss": -0.012692916540428997,
+      "total_actor_loss": -0.03653884619288147,
+      "sampled_action_ratio": {
+        "min": 0.9999995231628418,
+        "p50": 1.0,
+        "p95": 1.000000238418579,
+        "max": 1.0000004768371582
+      },
+      "clip_fraction": 0.0
+    },
+    "post_loss": {
+      "surrogate_loss": -0.02384592965245247,
+      "entropy": 4.230972189456224,
+      "entropy_loss": -0.012692916568368674,
+      "total_actor_loss": -0.03653884622082114,
+      "sampled_action_ratio": {
+        "min": 0.9999995231628418,
+        "p50": 1.0,
+        "p95": 1.000000238418579,
+        "max": 1.0000004768371582
+      },
+      "clip_fraction": 0.0
+    },
+    "cuda_rng_present_in_source": true,
+    "cuda_rng_restored": false,
+    "diagnostics_saved": "updated/B0-s11/single-minibatch.pt",
+    "diagnostic_checkpoint_sha256": "ab54cbf2d3d946ad4d9373cf3d434e055b171ab1b94a56dd8eed3719afd23662",
+    "full_ppo_update_completed": false,
+    "actor_steps": 1,
+    "critic_steps": 1,
+    "elapsed_seconds": 70.85374743584543
+  },
+  {
+    "model": "B0-s22",
+    "source_checkpoint": {
+      "model": "B0-s22",
+      "episode": 100,
+      "path": "tgppo/runs/server6-20261022/training/B0-s22/episode-0100.pt",
+      "sha256": "49bb6916e2910da54e4120728a48b78895673bce663793d02cc5105c57c8016a",
+      "parameters_unchanged": true,
+      "variant_state_dict_equal_to_original": true
+    },
+    "source_policy_version": 25,
+    "episodes_imported": 4,
+    "full_buffer_samples": 5902,
+    "selected_samples": 256,
+    "selected_L1": 0,
+    "selected_candidates": {
+      "min": 3.0,
+      "p50": 9.0,
+      "p95": 175.5,
+      "max": 221.0
+    },
+    "full_buffer_raw_advantages": {
+      "min": -6.391903877258301,
+      "p50": -5.50399923324585,
+      "p95": -1.6988604068756106,
+      "max": 3.320568561553955
+    },
+    "raw_advantage_std": 1.5491271018981934,
+    "full_buffer_normalized_advantages": {
+      "min": -0.9540814757347107,
+      "p50": -0.3809169977903366,
+      "p95": 2.0753944754600524,
+      "max": 5.315560340881348
+    },
+    "selected_normalized_advantages": {
+      "min": -0.9476873278617859,
+      "p50": -0.380504846572876,
+      "p95": 1.4134430289268494,
+      "max": 4.865059852600098
+    },
+    "selected_positive_advantages": 81,
+    "preupdate_ratio_max_error": 4.76837158203125e-07,
+    "optimizer_coverage": {
+      "actor": {
+        "parameter_tensors": 116,
+        "state_tensors": 116,
+        "param_group_count": 1,
+        "learning_rate": 0.00024,
+        "restored": true,
+        "state_steps_before": {
+          "min": 723.0,
+          "p50": 723.0,
+          "p95": 723.0,
+          "max": 723.0
+        }
+      },
+      "critic": {
+        "parameter_tensors": 118,
+        "state_tensors": 118,
+        "param_group_count": 1,
+        "learning_rate": 0.00012,
+        "restored": true,
+        "state_steps_before": {
+          "min": 723.0,
+          "p50": 723.0,
+          "p95": 723.0,
+          "max": 723.0
+        }
+      }
+    },
+    "original_learn": {
+      "progress": {
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 1,
+        "samples": 5902,
+        "expected_minibatches": 72
+      },
+      "actual_weighted_losses": {
+        "actor_loss": 0.07678431528620422,
+        "critic_loss": 27.318782925605774,
+        "entropy": 2.4692982882261276,
+        "clip_fraction": 0.0
+      },
+      "initial_ratio_max_error": 4.76837158203125e-07,
+      "full_buffer_samples": 5902
+    },
+    "pre_loss": {
+      "surrogate_loss": 0.0841922014951706,
+      "entropy": 2.4692983427084982,
+      "entropy_loss": -0.007407895028125495,
+      "total_actor_loss": 0.0767843064670451,
+      "sampled_action_ratio": {
+        "min": 0.9999997615814209,
+        "p50": 1.0,
+        "p95": 1.0000001192092896,
+        "max": 1.0000004768371582
+      },
+      "clip_fraction": 0.0
+    },
+    "post_loss": {
+      "surrogate_loss": 0.08419220894575119,
+      "entropy": 2.469298326410353,
+      "entropy_loss": -0.00740789497923106,
+      "total_actor_loss": 0.07678431396652013,
+      "sampled_action_ratio": {
+        "min": 0.9999997615814209,
+        "p50": 1.0,
+        "p95": 1.0000000298023224,
+        "max": 1.0000004768371582
+      },
+      "clip_fraction": 0.0
+    },
+    "cuda_rng_present_in_source": true,
+    "cuda_rng_restored": false,
+    "diagnostics_saved": "updated/B0-s22/single-minibatch.pt",
+    "diagnostic_checkpoint_sha256": "baf2aef1c02fe87b536367b2d55b757e2508a30e596223159cfc44f58636f896",
+    "full_ppo_update_completed": false,
+    "actor_steps": 1,
+    "critic_steps": 1,
+    "elapsed_seconds": 103.28168976958841
+  }
+]

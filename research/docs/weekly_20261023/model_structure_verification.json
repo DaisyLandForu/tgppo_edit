@@ -1,0 +1,20 @@
+{
+  "architecture": {
+    "var_dim": 25,
+    "node_dim": 8,
+    "mip_dim": 53,
+    "hidden_dim": 256,
+    "num_heads": 8,
+    "num_layers": 5,
+    "dropout": 0.05
+  },
+  "parameter_counts": {
+    "actor": 4738895,
+    "B0_critic": 4804687,
+    "R0_critic": 4804943,
+    "Rjoint_critic": 4819695
+  },
+  "actor_critic_shared_parameter_objects": 0,
+  "cuda_initialized": false,
+  "training_or_solver_launched": false
+}

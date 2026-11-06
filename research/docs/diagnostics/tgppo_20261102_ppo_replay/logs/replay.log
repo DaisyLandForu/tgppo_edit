@@ -1,0 +1,25 @@
+completed B0-s11 Actor=1 Critic=1 elapsed 70.918
+completed B0-s22 Actor=1 Critic=1 elapsed 103.448
+{
+  "status": "passed",
+  "scope_complete": true,
+  "actor_steps": 2,
+  "critic_steps": 2,
+  "total_optimizer_steps": 4,
+  "new_solver_tasks": 0,
+  "cuda_initialized": false,
+  "pyscipopt_imported": false,
+  "threads": 1,
+  "interop_threads": 1,
+  "cpu_affinity": [
+    0
+  ],
+  "selected_transitions": 512,
+  "monitor_states": 164,
+  "policy_response_rows": 840,
+  "original_sources_unchanged": true,
+  "original_checkpoints_unchanged": true,
+  "original_trajectories_unchanged": true,
+  "full_ppo_updates_completed": 0,
+  "elapsed_seconds": 103.6648080451414
+}

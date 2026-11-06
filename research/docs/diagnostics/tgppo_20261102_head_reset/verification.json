@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "protected_files_unchanged": 233,
+  "source_data_and_reference_results_unchanged": true,
+  "architecture_and_layernorm_reset_checked": true,
+  "paired_uniform_initialization_checked": true,
+  "same_initial_tensors_across_source_seeds": true,
+  "trials": 4,
+  "steps_per_trial": 20,
+  "adam_parameter_tensors_per_trial": 34,
+  "cuda_initialized": false,
+  "pyscipopt_imported": false,
+  "source_solver_tasks": 0,
+  "worker_seconds": 58.14078756328672
+}

@@ -1,0 +1,75 @@
+{
+  "limit_seconds": 600.0,
+  "preparation_reserve_seconds": 20.0,
+  "runs": [
+    {
+      "tag": "localization",
+      "command": [
+        "/home/duweiyue25/conda/envs/tgppo/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_signal_localization/scripts/localize.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 470.0,
+      "started_at_beijing": "2026-11-02T15:39:53.193098+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 160.0550749124959
+    },
+    {
+      "tag": "summarize",
+      "command": [
+        "/home/duweiyue25/conda/envs/tgppo/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_signal_localization/scripts/summarize.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 35.0,
+      "started_at_beijing": "2026-11-02T15:43:28.802456+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 1.7176290256902575
+    },
+    {
+      "tag": "figures",
+      "command": [
+        "/home/duweiyue25/conda/envs/rl4scip/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_signal_localization/scripts/render_figures.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 40.0,
+      "started_at_beijing": "2026-11-02T15:43:49.447787+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 30.09109784848988
+    },
+    {
+      "tag": "final_checks",
+      "command": [
+        "/usr/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_signal_localization/scripts/final_checks.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 30.0,
+      "started_at_beijing": "2026-11-02T15:48:28.495507+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 3.771573909558356
+    }
+  ],
+  "status": "closed",
+  "used_seconds": 195.6353756962344,
+  "remaining_seconds": 384.3646243037656,
+  "closed_at_utc": "2026-11-02T07:49:55.786126+00:00",
+  "followup_requires_acceptance": true
+}

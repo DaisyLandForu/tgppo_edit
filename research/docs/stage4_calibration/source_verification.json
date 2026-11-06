@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-21",
+  "sources": [
+    {
+      "title": "Learning values across many orders of magnitude",
+      "url": "https://arxiv.org/html/1602.07714v2",
+      "use": "target scale normalization motivation; our static calibration does not implement adaptive PopArt"
+    },
+    {
+      "title": "Stop Regressing: Training Value Functions via Classification",
+      "url": "https://arxiv.org/html/2403.03950v1",
+      "use": "Gaussian-bin target masses, unchanged raw bins and smoothing"
+    },
+    {
+      "title": "The 37 Implementation Details of PPO",
+      "url": "https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/",
+      "use": "explicit initialization, separate value network, gradient clipping; no claim these are MILP-optimal"
+    }
+  ],
+  "local_diagnosis": "current old head output range + zero/mean initialization tested; no gated topology change",
+  "calibration_novelty_claim": false,
+  "development_not_used_for_selection": true
+}

@@ -1,0 +1,197 @@
+{
+  "complete": true,
+  "results": [
+    {
+      "variant": "original",
+      "source_seed": 11,
+      "actor_steps": 2,
+      "critic_steps": 2,
+      "surrogate_change": 0.0,
+      "train": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.023845916171260084,
+        "states": 256
+      },
+      "monitor": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": null,
+        "states": 164
+      },
+      "second_actor_module_gradients": {
+        "var_embedding": 3.3266100316560653e-10,
+        "tree_embedding": 6.467000967567714e-10,
+        "global_embedding": 2.2061474858461786e-09,
+        "transformer": 2.19280941706023e-09,
+        "tree_refinement": 2.528758547438388e-09,
+        "output_layer": 4.2855880231449064e-08
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      },
+      "update": {
+        "actor_loss": -0.03653882397338748,
+        "critic_loss": 38.04624980688095,
+        "entropy": 4.230972245335579,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 2,
+        "num_samples": 3735,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 2.63742733001709,
+        "update_step": 1,
+        "policy_version": 26
+      }
+    },
+    {
+      "variant": "tail8",
+      "source_seed": 11,
+      "actor_steps": 2,
+      "critic_steps": 2,
+      "surrogate_change": 4.947911164121521e-09,
+      "train": {
+        "tv_p50": 3.889740085062654e-08,
+        "tv_max": 4.686415527165033e-06,
+        "response_states": 54,
+        "surrogate_loss": -0.02384591122334892,
+        "states": 256
+      },
+      "monitor": {
+        "tv_p50": 4.2005808895909796e-08,
+        "tv_max": 8.165836273388294e-06,
+        "response_states": 30,
+        "surrogate_loss": null,
+        "states": 164
+      },
+      "second_actor_module_gradients": {
+        "var_embedding": 9.916865092150496e-07,
+        "tree_embedding": 1.9027849765458176e-06,
+        "global_embedding": 7.16945705133727e-06,
+        "transformer": 7.1534030152878595e-06,
+        "tree_refinement": 8.486917315691427e-06,
+        "output_layer": 2.744985880184694e-05
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      },
+      "update": {
+        "actor_loss": -0.03653882956132293,
+        "critic_loss": 38.04624980688095,
+        "entropy": 4.230972185730934,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 2,
+        "num_samples": 3735,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 2.63742733001709,
+        "update_step": 1,
+        "policy_version": 26
+      }
+    },
+    {
+      "variant": "original",
+      "source_seed": 22,
+      "actor_steps": 2,
+      "critic_steps": 2,
+      "surrogate_change": 0.0,
+      "train": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": 0.08419221161071386,
+        "states": 256
+      },
+      "monitor": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": null,
+        "states": 164
+      },
+      "second_actor_module_gradients": {
+        "var_embedding": 2.795331387548382e-14,
+        "tree_embedding": 3.265190208132272e-13,
+        "global_embedding": 1.535404760959593e-13,
+        "transformer": 1.057855566028292e-12,
+        "tree_refinement": 2.289636987905638e-12,
+        "output_layer": 4.230416045507158e-09
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      },
+      "update": {
+        "actor_loss": 0.07678431714884937,
+        "critic_loss": 27.317105531692505,
+        "entropy": 2.4692982882261276,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 2,
+        "num_samples": 5902,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 1.5491271018981934,
+        "update_step": 1,
+        "policy_version": 26
+      }
+    },
+    {
+      "variant": "tail8",
+      "source_seed": 22,
+      "actor_steps": 2,
+      "critic_steps": 2,
+      "surrogate_change": -1.9390247292527807e-07,
+      "train": {
+        "tv_p50": 7.450580485901526e-07,
+        "tv_max": 4.818042119353327e-06,
+        "response_states": 92,
+        "surrogate_loss": 0.08419201770824093,
+        "states": 256
+      },
+      "monitor": {
+        "tv_p50": 8.065080710152779e-08,
+        "tv_max": 1.5422701375999992e-05,
+        "response_states": 23,
+        "surrogate_loss": null,
+        "states": 164
+      },
+      "second_actor_module_gradients": {
+        "var_embedding": 9.027991244920068e-08,
+        "tree_embedding": 9.179672691842761e-07,
+        "global_embedding": 4.692978021067499e-07,
+        "transformer": 3.3144074477221756e-06,
+        "tree_refinement": 7.409012335671608e-06,
+        "output_layer": 7.787777942251264e-05
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      },
+      "update": {
+        "actor_loss": 0.07678430248051882,
+        "critic_loss": 27.317105531692505,
+        "entropy": 2.469298303127289,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 2,
+        "num_samples": 5902,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 1.5491271018981934,
+        "update_step": 1,
+        "policy_version": 26
+      }
+    }
+  ]
+}

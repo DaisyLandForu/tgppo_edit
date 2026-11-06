@@ -1,0 +1,54 @@
+{
+  "schema": "tail8-bounded-end2end-v1",
+  "date": "2026-11-02",
+  "source_seeds": [
+    11,
+    22
+  ],
+  "variants": [
+    "original",
+    "tail8"
+  ],
+  "head_initialization_seed": 101,
+  "offline_steps_each_network_per_group": 2,
+  "offline_wall_seconds": 600,
+  "online_steps_each_network_per_group": 8,
+  "online_epochs": 1,
+  "online_batch_schedule": "8 seeded samples without replacement within each 256-state logical batch; reuse full on-policy buffer across steps; full-buffer GAE",
+  "online_collection_episodes_per_group": 4,
+  "online_training_instances": [
+    "neos20",
+    "rmatr100-p10"
+  ],
+  "development_instances": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "roi5alpha10n8"
+  ],
+  "solver_seeds": [
+    0,
+    1
+  ],
+  "solve_seconds": 20,
+  "watchdog_seconds": 40,
+  "maximum_solver_tasks": 70,
+  "native_tasks": 14,
+  "collection_tasks": 16,
+  "evaluation_tasks": 40,
+  "maximum_optimizer_steps": 80,
+  "wall_limit_seconds": 3600,
+  "device": "cpu",
+  "threads": 1,
+  "checkpoint_selection": "fixed terminal budget; no development selection",
+  "test_set_tasks": 0,
+  "sampling": "same source-seed and group-neutral task key hash for paired actions",
+  "reward": "original H3 return unchanged; diagnostic getter proxy logs original observed quantities",
+  "scope_limits": [
+    "exploratory 20s pilot, not original120s result",
+    "warm-start source weights with paired reset heads and fresh Adam; not untouched B0 continuation",
+    "five development instances and two source seeds do not establish broad generalization",
+    "no complete candidate oracle labels; actual solver outcomes are task-level evidence"
+  ]
+}

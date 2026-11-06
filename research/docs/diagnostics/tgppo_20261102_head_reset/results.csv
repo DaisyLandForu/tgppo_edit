@@ -1,0 +1,5 @@
+trial,source_seed,initialization_seed,steps,surrogate_change,train_tv_p50,monitor_tv_p50,monitor_tv_max,monitor_response_states,mean_training_kl,centered_logit_rms_p50,common_logit_shift_p50,measurable_fit,changed_parameter_elements,original_reference_surrogate_change,linear_reference_surrogate_change
+s11-init101,11,101,20,0.0,0.0,0.0,7.450580818968433e-08,0,1.1378773364843459e-16,7.474156974748634e-10,0.005541956666113152,False,173372,0.0,-1.483038067817688e-05
+s11-init202,11,202,20,0.0,0.0,0.0,0.0,0,0.0,2.442693854285517e-10,0.005038820060082293,False,142689,0.0,-1.483038067817688e-05
+s22-init101,22,101,20,0.0,0.0,0.0,0.0,0,0.0,0.0,0.001265627215616405,False,3498,0.0,-9.704381227493286e-05
+s22-init202,22,202,20,0.0,0.0,0.0,0.0,0,0.0,3.479716941915616e-11,0.0008271572340993458,False,125814,0.0,-9.704381227493286e-05

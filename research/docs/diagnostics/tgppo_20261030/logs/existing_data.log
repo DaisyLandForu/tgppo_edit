@@ -1,0 +1,163 @@
+hashes {'match': 1665}
+trajectories read B0-s11
+trajectories read B0-s22
+{
+  "hash_status_counts": {
+    "match": 1665
+  },
+  "tasks": 1386,
+  "instances": 66,
+  "cohorts": [
+    {
+      "cohort": "all",
+      "instances": 66,
+      "native_mean_pdi": 2103.8212604721507,
+      "b0_mean_pdi": 2407.482873281329,
+      "b0_minus_native": 303.6616128091782,
+      "b0_point_wins": 21,
+      "b0_measurement_resolved_wins": 19,
+      "native_measurement_resolved_wins": 42
+    },
+    {
+      "cohort": "native_all_proven",
+      "instances": 31,
+      "native_mean_pdi": 693.5600166396239,
+      "b0_mean_pdi": 1191.685061681551,
+      "b0_minus_native": 498.12504504192736,
+      "b0_point_wins": 2,
+      "b0_measurement_resolved_wins": 2,
+      "native_measurement_resolved_wins": 29
+    },
+    {
+      "cohort": "native_some_proven",
+      "instances": 4,
+      "native_mean_pdi": 1714.3174073663247,
+      "b0_mean_pdi": 2609.1988647775706,
+      "b0_minus_native": 894.8814574112461,
+      "b0_point_wins": 0,
+      "b0_measurement_resolved_wins": 0,
+      "native_measurement_resolved_wins": 4
+    },
+    {
+      "cohort": "native_none_proven",
+      "instances": 31,
+      "native_mean_pdi": 3564.341065995752,
+      "b0_mean_pdi": 3597.252815010623,
+      "b0_minus_native": 32.91174901487198,
+      "b0_point_wins": 19,
+      "b0_measurement_resolved_wins": 17,
+      "native_measurement_resolved_wins": 9
+    },
+    {
+      "cohort": "exclude_mspp16",
+      "instances": 65,
+      "native_mean_pdi": 1951.572356787107,
+      "b0_mean_pdi": 2259.905686716426,
+      "b0_minus_native": 308.33332992931946,
+      "b0_point_wins": 21,
+      "b0_measurement_resolved_wins": 19,
+      "native_measurement_resolved_wins": 42
+    }
+  ],
+  "updates": [
+    {
+      "model": "B0-s11",
+      "update_records": 125,
+      "valid_updates": 125,
+      "clip_nonzero": 0,
+      "initial_ratio_max_error": 4.76837158203125e-07,
+      "optimizer_steps": 3807
+    },
+    {
+      "model": "B0-s22",
+      "update_records": 125,
+      "valid_updates": 123,
+      "clip_nonzero": 0,
+      "initial_ratio_max_error": 1.049041748046875e-05,
+      "optimizer_steps": 3786
+    },
+    {
+      "model": "R0-s11",
+      "update_records": 125,
+      "valid_updates": 125,
+      "clip_nonzero": 0,
+      "initial_ratio_max_error": 4.76837158203125e-07,
+      "optimizer_steps": 3768
+    },
+    {
+      "model": "R0-s22",
+      "update_records": 125,
+      "valid_updates": 123,
+      "clip_nonzero": 0,
+      "initial_ratio_max_error": 3.814697265625e-06,
+      "optimizer_steps": 3714
+    },
+    {
+      "model": "Rjoint-s11",
+      "update_records": 125,
+      "valid_updates": 125,
+      "clip_nonzero": 0,
+      "initial_ratio_max_error": 4.76837158203125e-07,
+      "optimizer_steps": 3741
+    },
+    {
+      "model": "Rjoint-s22",
+      "update_records": 125,
+      "valid_updates": 123,
+      "clip_nonzero": 0,
+      "initial_ratio_max_error": 5.4836273193359375e-06,
+      "optimizer_steps": 3723
+    }
+  ],
+  "recorded_chosen_action_logp_minus_uniform": {
+    "min": -0.00871185454854606,
+    "p50": -2.173874191768732e-08,
+    "p95": 2.1477518297174925e-07,
+    "max": 0.006450229125808837
+  },
+  "recorded_chosen_action_abs_logp_minus_uniform": {
+    "min": 2.8048408040604045e-10,
+    "p50": 6.35643386814877e-08,
+    "p95": 2.3332552201438261e-07,
+    "max": 0.00871185454854606
+  },
+  "b0_reward_episode_count": 1000,
+  "b0_reward_transitions": 615922,
+  "b0_step_clip_boundary_count": 0,
+  "reward_instance_correlations": [
+    {
+      "model": "B0-s11",
+      "instances": 20,
+      "pearson_mean_return_vs_pdi": 0.3787320364109941
+    },
+    {
+      "model": "B0-s22",
+      "instances": 20,
+      "pearson_mean_return_vs_pdi": 0.3877064914769874
+    }
+  ],
+  "both_proven_pairs": 76,
+  "both_proven_instances": 14,
+  "fewer_nodes_but_slower_pairs": 8,
+  "fewer_nodes_but_slower_instances": [
+    "bell3a",
+    "bell5",
+    "binkar10_1",
+    "misc07"
+  ],
+  "zero_actor_b0_tasks": 26,
+  "zero_actor_b0_instances": [
+    "mspp16",
+    "n3seq24",
+    "neos-4722843-widden",
+    "neos-950242",
+    "satellites1-25"
+  ],
+  "task_mean_actor_ms_quantiles": {
+    "min": 7.518565791825753,
+    "p50": 19.46375773517392,
+    "p95": 1150.1802057723078,
+    "max": 2444.942705491687
+  },
+  "elapsed_seconds": 230.49450521892868
+}

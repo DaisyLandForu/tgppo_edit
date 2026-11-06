@@ -1,0 +1,1288 @@
+                                             A Markov Decision Process for Variable Selection in
+                                                             Branch & Bound
+
+
+                                                  Paul Strang                    Zacharie Alès                         Côme Bissuel
+                                                EDF R&D, France               ENSTA IP Paris, France                  EDF R&D, France
+                                               CNAM Paris, France              CNAM Paris, France                   come.bissuel@edf.fr
+                                              paul.strang@edf.fr            zacharie.ales@ensta.fr
+arXiv:2510.19348v1 [cs.LG] 22 Oct 2025
+
+
+
+
+                                                          Olivier Juan                            Safia Kedad-Sidhoum
+                                                        EDF R&D, France                            CNAM Paris, France
+                                                      olivier.juan@edf.fr                     safia.kedad sidhoum@cnam.fr
+
+                                                                             Emmanuel Rachelson
+                                                                            ISAE-SUPAERO, France
+                                                                     emmanuel.rachelson@isae-supaero.fr
+
+
+
+                                                                                      Abstract
+                                                  Mixed-Integer Linear Programming (MILP) is a powerful framework used to ad-
+                                                  dress a wide range of NP-hard combinatorial optimization problems, often solved
+                                                  by Branch and bound (B&B). A key factor influencing the performance of B&B
+                                                  solvers is the variable selection heuristic governing branching decisions. Recent
+                                                  contributions have sought to adapt reinforcement learning (RL) algorithms to
+                                                  the B&B setting to learn optimal branching policies, through Markov Decision
+                                                  Processes (MDP) inspired formulations, and ad hoc convergence theorems and
+                                                  algorithms. In this work, we introduce BBMDP, a principled vanilla MDP formu-
+                                                  lation for variable selection in B&B, allowing to leverage a broad range of RL
+                                                  algorithms for the purpose of learning optimal B&B heuristics. Computational
+                                                  experiments validate our model empirically, as our branching agent outperforms
+                                                  prior state-of-the-art RL agents on four standard MILP benchmarks.
+
+
+                                         1    Introduction
+                                         Mixed-Integer Linear Programming (MILP) is a subfield of combinatorial optimization (CO),
+                                         a discipline that aims at finding solutions to optimization problems with large but finite sets of
+                                         feasible solutions. Specifically, mixed-integer linear programming addresses CO problems that are
+                                         NP-hard, meaning that no polynomial-time resolution algorithm has yet been discovered to solve
+                                         them. Mixed-integer linear programs are used to solve efficiently a vast range of high-dimensional
+                                         combinatorial problems, spanning from operations research [Hillier and Lieberman, 2015] to the
+                                         fields of deep learning [Tjeng et al., 2019], finance [Mansini et al., 2015], computational biology
+                                         [Gusfield, 2019], and fundamental physics [Barahona, 1982]. MILPs are traditionally solved using
+                                         Branch and bound (B&B) [Land and Doig, 1960], an algorithm which methodically explores the
+                                         space of solutions by dividing the original problem into smaller sub-problems, while ensuring the
+                                         optimality of the final returned solution. Intensively developed since the 1980s [Bixby, 2012],
+                                         MILP solvers based on the B&B algorithm are high-performing tools. In particular, they rely on
+                                         complex heuristics fine-tuned by experts on large heterogeneous benchmarks [Gleixner et al., 2021].
+                                         Hence, in the context of real-world applications, in which similar instances with slightly varying
+                                         inputs are solved on a regular basis, there is a huge incentive to reduce B&B total solving time by
+
+                                         39th Conference on Neural Information Processing Systems (NeurIPS 2025).
+learning efficient tailor-made heuristics. The branching heuristic, or variable selection heuristic,
+which determines how to iteratively partition the space of solutions, has been found to be critical
+to B&B computational performance [Achterberg and Wunderling, 2013]. Over the last decade,
+many contributions have sought to harness the predictive power of machine learning (ML) to learn
+better-performing B&B heuristics [Bengio et al., 2021, Scavuzzo et al., 2024]. By using imitation
+learning (IL) to replicate the behaviour of a greedy branching expert at lower computational cost,
+Gasse et al. [2019] established a landmark result as they first managed to outperform a solver relying
+on human-expert heuristics. Building on the works of Gasse et al. [2019] and He et al. [2014],
+who proposed a Markov decision process (MDP) formulation for node selection in B&B, several
+contributions succeeded in learning efficient branching strategies by reinforcement [Etheve et al.,
+2020, Scavuzzo et al., 2022, Parsonson et al., 2022], without surpassing the performance achieved
+by the IL approach. Yet, if the performance of IL heuristics are caped by that of the suboptimal
+branching experts they learn from, the performance of RL branching strategies are, in theory, only
+bounded by the maximum score achievable. We note that in order to cope with dire credit assignment
+problems [Pignatelli et al., 2023] induced by the sparse reward model described in He et al. [2014],
+prior research efforts have shifted away from the traditional Markov decision process framework,
+finding it impractical for learning efficient branching strategies. Instead, Etheve et al. [2020],
+Scavuzzo et al. [2022] and Parsonson et al. [2022] have adopted unconventional MDP-inspired
+formulations to model variable selection in B&B.
+
+In this work, we show that, despite improving the em-         103 995
+
+
+
+                                                             Normalized performance
+pirical performance of RL algorithms, these alternative
+formulations introduce approximations which undermine
+the asymptotic performance of RL branching agents in the
+general case. In order to address this issue, we introduce                233
+branch and bound Markov decision processes (BBMDP), a                          151 137
+principled vanilla MDP formulation for variable selection     10 2                       100
+                                                                                             82
+in B&B, which preserves convergence properties brought             random PG- DQN- DQN- Ours IL
+by previous contributions without sacrificing optimality.                tMDP tMDP Retro
+Our new formulation allows to define a proper Bellman
+                                                            Figure 1: Normalized scores in log scale
+optimality operator, which, in turn, enables to unlock the
+                                                            of IL, RL and random agents across the
+full potential of state-of-the-art approximate dynamic pro-
+                                                            Ecole benchmark Prouvost et al. [2020].
+gramming algorithms [Hessel et al., 2017, Dabney et al.,
+2018, Farebrother et al., 2024] for the purpose of learning optimal B&B branching strategies. We
+evaluate our method on four classic MILP benchmarks, achieving state-of-the art performance and
+dominating previous RL agents while narrowing the gap with the IL approach of Gasse et al. [2019],
+as shown in Figure 1.
+
+2     Problem statement
+2.1   Mixed-integer linear programming
+
+We consider mixed-integer linear programs (MILPs), defined as:
+                                  
+                                   min c⊤ x
+                             P :     l≤x≤u
+                                     Ax ≤ b ; x ∈ Z|I| × Rn−|I|
+                                  
+
+with n the number of variables, m the number of linear constraints, l, u ∈ Rn the lower and upper
+bound vectors, A ∈ Rm×n the constraint matrix, b ∈ Rm the right-hand side vector, c ∈ Rn
+the objective function, and I the indices of integer variables. Throughout this document, we are
+interested in repeated MILPs of fixed dimension {Pi = (Ai , bi , ci , li , ui )}i∈N sampled according to
+an unknown distribution p0 : Ω → Rm×n × Rm × Rn × Rn × Rn .
+In order to solve MILPs efficiently, the B&B algorithm iteratively builds a binary tree (V, E) where
+each node corresponds to a MILP, starting from the root node v0 ∈ V representing the original
+problem P0 . The incumbent solution x̄ ∈ Z|I| × Rn−|I| denotes the best feasible solution found at
+current iteration, its associated value GUB = c⊤ x̄ is called the global upper bound on the optimal
+value. The overall state of the optimization process is thus captured by the triplet s = (V, E, x̄), we
+
+
+                                                   2
+                                                    v0                                                                        v0                                    v0
+                                                                                       v0
+                                           x1 ≤ 2             x1 ≥ 3                                              x1 ≤ 2                x1 ≥ 3            x1 ≤ 2              x1 ≥ 3
+          v0   o1                                                         x1 ≤ 2              x1 ≥ 3
+  x1 ≤ 2             x1 ≥ 3                                                                                          v1                  v2                  v1                v2
+     x1 = 2.5 , x2 = 3.75             v1      o1               o2            v1                o1      v2
+ c⊤ xv∗LP            ⊤
+        1 = −62.5 < c x̄v=
+                         2 ∞                                                                                                x2 ≤ 2               x2 ≥ 3            x2 ≤ 2              x2 ≥ 3
+                                      x1 = 2, x2 = 4
+                                                                                       x1 = 3, x2 = 2.5
+                                   c⊤ x∗LP = c⊤ x̄ = −58 v3         v4                                                      v3     o1         o2                         v3         o1      v4
+  minimize: −13x1 − 8x2                                                            c⊤ x∗LP =o−59
+                                                                                             1   < cv⊤
+                                                                                                     4 x̄ = −58
+  subject to: x1 + v2x
+                     3 2 ≤ 10 v4   Pruned by integrity
+             5x1 + 2x2 ≤ 20                                                                                                x1 = 3.2, x2 = 2                                    infeasible
+             0 ≤ x1 , x2 ≤ 10                                                                                      c⊤ x∗LP = −57.6 > c⊤ x̄ = −58
+               x1 , x2 ∈ Z                  Open                Current           Closed               Fathomed
+                                                                                                                          Pruned by bound                             Pruned by infeasibility
+
+
+
+Figure 2: Solving a MILP by B&B using variable selection policy π and node selection policy ρ.
+Each node vi represents a MILP derived from the original problem, each edge represents the bound
+adjustment applied to derive child nodes from their parent. At each step, nodes oi ∈ O are re-indexed
+according to ρ.
+
+
+note S the set of all such triplets.1 Throughout the optimization process, B&B nodes are explored
+sequentially. We note C the set of visited or closed nodes, and O the set of unvisited or open nodes,
+such that V = C ∪ O. Originally, O = {v0 } and C = ∅. At each iteration, the node selection policy
+ρ : S → O selects the next node to explore. Since ρ necessarily defines a total order on nodes oi ∈ O,
+we can arrange indices such that o1 = ρ(s) denotes vt the node currently explored at step t.
+Figure 2 illustrates how B&B operates on an example. At each iteration, let x∗LP ∈ Rn be the optimal
+solution to the linear relaxation of Pt , the problem associated with vt . If Pt admits no solution, vt is
+marked as visited and the branch is pruned by infeasibility. If x∗LP ∈ Rn exists, and GUB < c⊤ x∗LP ,
+no integer solution in the subsequent branch can improve GUB, thus vt is marked as closed and the
+branch is pruned by bound. If x∗LP is not dominated by x̄ and x∗LP is feasible (all integer variables in
+x∗LP ∈ Rn have integer values), a new incumbent solution x̄ = x∗LP has been found. Hence GUB
+is updated and vt is marked as visited while the branch is pruned by integrity. Else, x∗LP admits
+fractional values for some integer variables. The branching heuristic π : S → I selects a variable xb
+with fractional value x̂b , to partition the solution space. As a result, two child nodes (v− , v+ ), with
+associated MILPs P− = Pt ∪ {xb ≤ ⌊x̂b ⌋} and P+ = Pt ∪ {xb ≥ ⌈x̂b ⌉}, are added to the current
+node.2 Their linear relaxation is solved, before they are added to the set of open nodes O and vt is
+marked as visited.
+This process is repeated until O = ∅ and x̄ is returned. The dynamics of the B&B algorithm between
+two branching decisions can be described by the function κρ : S ×I → S, such that s′ = κρ (s, π(s)).
+By design, B&B does not terminate before finding an optimal solution and proving its optimality.
+Consequently, optimizing the performance of B&B on a distribution of MILP instances is equivalent
+to minimizing the expected solving time of the algorithm. As Etheve [2021] evidenced, the variable
+selection strategy π is by far the most critical B&B heuristic in terms of computational performance.
+In practice, the total number of nodes of the B&B tree is used as an alternative metric to evaluate
+the performance of branching heuristics π, as it is a hardware-independent proxy for computational
+efficiency. Under these circumstances, given a fixed node selection strategy ρ, the optimal branching
+strategy π ∗ associated with a distribution p0 of MILP instances can be defined as:
+                                                                π ∗ = arg min EP ∼p0 (|BB(π,ρ) (P )|),                                                                                           (1)
+                                                                            π
+
+with |BB(π,ρ) (P )| the size of the B&B tree after solving P to optimality following strategies (π, ρ).
+
+2.2            Reinforcement learning
+
+We consider the setting of discrete-time, deterministic MDPs [Puterman, 2014] defined by the
+tuple (S, A, T , p0 , R). At each time step t, the agent observes st ∈ S the current state of the
+environment, before executing action at ∈ A, and receiving reward rt = R(st , at ). The Markov
+transition function T : S × A → S models the dynamics of the environment. In particular, it
+satisfies the Markov property: conditionally to st and at , st+1 is independent of all past visited
+states and actions. Given a trajectory starting in state s0 sampled according to the initial distribution
+                                                         P∞      ′
+p0 , the total gain is defined for all t ≥ 0 as Gt = t′ =t γ t −t R(st′ , at′ ), with γ ∈ [0, 1]. The
+      1
+     To account for early resolution steps where no incumbent solution has yet been found, we define a special
+value for x̄, whose GUB = ∞. For the sake of simplicity, we make this implicit in the remainder of the paper.
+   2
+     x̂b denotes the value of xb in x∗LP . We use the symbol ∪ to denote the refinement of the bound on xb in Pt .
+
+
+                                                                                              3
+objective of an RL agent is to maximize the expected gain of the trajectories yielded by its action
+selection policy π : S → A. This is equivalent to finding the policy maximizing value functions
+V π (st ) = Eat′ ∼π(st′ ) [Gt ] and Qπ (st , at ) = R(st , at ) + γV π (st+1 ). The optimal Q-value function
+Q∗ indicates the highest achievable cumulated gain in the MDP. It satisfies the Bellman optimality
+equation Q(s, a) = R(s, a) + γ · maxa′ ∈A Q(s′ , a′ ), noting s′ = T (s, a) for (s, a) ∈ S × A. The
+optimal policy is retrieved by acting greedily according to the learned Q-value function: π ∗ (s) =
+arg maxa∈A Q∗ (s, a).
+
+
+2.3   Related work
+
+Following the seminal work by Gasse et al. [2019], few contributions have proposed to build
+more complex neural network architectures based on transformers [Lin et al., 2022] and recurrence
+mechanisms [Seyfi et al., 2023] to improve the performance of IL branching agents, with moderate
+success. In parallel, theoretical and computational analysis [Bestuzheva et al., 2021, Sun et al.,
+2022] have shown that neural networks trained by imitation could not rival the tree size performance
+achieved by strong branching (SB), the branching expert used in Gasse et al. [2019]. In fact, low
+tree sizes associated with SB turn out to be primarily due to the formulation improvements resulting
+from the massive number of LPs solved in SB, not to the intrinsic quality of the branching decisions
+themselves.
+Since branching decisions are made sequentially, reinforcement learning appears as a natural candidate
+to learn good branching policies. Etheve et al. [2020] and Scavuzzo et al. [2022] proposed the model
+of TreeMDP, in which state si = (Pi , x∗LP,i , x̄i ) consists in the MILP associated with node vi along
+with the solution of its linear relaxation and the incumbent solution at vi . The actions available at si
+are the set of fractional variables in x∗LP,i . Given (si , ai ) the tree Markov transition function produces
+two child node states (s−        +
+                            i , si ) that can be visited in any order. Crucially, when the B&B tree is
+explored in depth-first-search (DFS), TreeMDP trajectories can be divided in independent subtrees,
+allowing to learn policies minimizing the size of each subtree independently. This helps mitigate
+credit assignment issues that arise owing to the length of episode trajectories. Subsequently, Parsonson
+et al. [2022] found the DFS node selection policy to be highly detrimental to the computational
+performance of RL branching strategies. Assuming that RL branching agents trained following
+advanced node selection strategies would perform better despite the lack of theoretical guarantee,
+they proposed to learn from retrospective trajectories, diving trajectories built from original TreeMDP
+episodes. In fact, Parsonson et al. [2022] found retrospective trajectories to alleviate the partial
+observability induced by the “disordered” exploration of the tree and outperform prior RL agents.
+A large body of work has proposed to learn, either by imitation or reinforcement, better-performing
+B&B heuristics outside of variable selection [Nair et al., 2021, Paulus et al., 2022]. RL contributions
+in primal search [Sonnerat et al., 2022, Wu and Lisser, 2023] node selection [He et al., 2014, Etheve,
+2021] and cut selection [Tang et al., 2020, Song et al., 2020, Wang et al., 2023] have all relied on
+the TreeMDP framework to train their agents, simply adapting the action set to the task at hand.
+Finally, machine learning applications in combinatorial optimization are not limited to B&B. For
+example, in the context of routing or scheduling problems where exact resolution rapidly becomes
+prohibitive, agents are trained to learn direct search heuristics [Kool et al., 2019, Grinsztajn et al.,
+2022, Chalumeau et al., 2023] yielding high-quality feasible solutions.
+
+
+
+3     Branch and bound Markov decision process
+
+By using the current B&B node as the observable state, prior attempts to learn optimal branching
+strategies have relied on the TreeMDP formalism to train RL agents. However, TreeMDPs are not
+MDPs, as they do not define a Markov process on the state random variable (for instance, a transition
+yields two states and is hence not a stochastic process on the state variables). As a result, this
+forces Etheve et al. [2020] and Scavuzzo et al. [2022] to redefine Bellman updates and derive ad hoc
+convergence theorems for TD(0), value iteration, and policy gradient algorithms. In order to leverage
+broader theoretical results from the reinforcement learning literature, we propose a description of
+variable selection in B&B as a proper Markov decision process.
+
+
+                                                     4
+3.1        Definition
+
+The problem of finding an optimal branching strategy according to Eq. (1) can be described as a
+regular deterministic Markov decision process. To this end, we introduce Branch and bound Markov
+decision processes (BBMDP), taking γ = 1 since episodes horizons are bounded by the (finite)
+largest possible number of nodes:
+State-action space. S is the set of all B&B trees st = (Vt , Et , x̄t ). Note that this includes intermediate
+B&B trees, whose incumbent solutions x̄t are yet to be proven optimal. A is the set of all integer
+variables indices I.
+Transition function. The Markov transition function is defined as T = κρ with κρ the branching
+operation described in Section 2.1. Note that if the variable associated with at is not fractional in
+x∗LP , then st+1 = T (st , at ) = st as relaxing a variable that is not fractional has no impact on the LP
+relaxation. Importantly, all states for which O = ∅ are terminal states.
+Starting states. Initial states are single node trees, where the root node is associated to a MILP P0
+drawn according to the distribution p0 defined in Section 2.1 (hence the use of p0 for both the initial
+problem P0 and the MDP’s initial state s0 ).
+Reward model. We define R(s, a) = −2 for all transitions until episode termination. Since each
+transition adds two B&B nodes, the overall value of a trajectory is the opposite of the number of
+nodes added to the B&B tree from the root node, which aligns with the definition of Eq. (1).
+Unlike in TreeMDP, the current state is defined as the state of the entire B&B tree, rather than merely
+the current B&B node. The transition function returns a B&B tree whose open nodes are sorted
+according to the node selection policy ρ, thus reflecting the true dynamics of the B&B algorithm,
+instead of a couple of pseudo-states associated with the child nodes of the last node expansion. Note
+that the definition above sets BBMDPs among the specific class of MDPs called stochastic shortest
+path problems [Puterman, 2014].
+
+3.2        Misconceptions when learning to explore B&B trees
+
+Like in TreeMDP, episode trajectories can be decomposed in independent subtree trajectories, to
+facilitate RL agents training. Consider a deterministic branching policy π, and let us we rewrite V π
+and Qπ to exhibit the tree structure. Given an open node oi ∈ Ot , we note T (oi ) the subtree rooted
+in oi , and define V̄ π (st , oi ) the function that returns the opposite of the size of the subtree rooted in
+oi , when branching according to policy π starting from state st until episode termination. Then V π
+can be expressed as:                                    X
+                                           V π (st ) =       V̄ π (st , oi ).                              (2)
+                                                         oi ∈Ot
+
+In plain words, the total number of nodes that will be added to the B&B tree past st is the sum of
+the sizes of all the subtrees T (oi ) rooted in the open nodes of st . Because the full B&B tree is a
+complex object to manipulate, it is tempting to discard the tree structure in st and define V̄ -value
+functions merely as functions of (oi , x̄oi ), rather than functions of (st , oi ), where x̄oi ∈ Rn is the
+incumbent solution when oi is processed by the B&B algorithm, at time step τi . The rationale for
+such value functions is that the size of the subtree rooted in oi ∈ Ot , for a given incumbent solution
+x̄oi , should be the same, regardless of the parents of oi , its position in the tree, or the branching
+decisions taken in subtrees T (oj ) for j ̸= i. It turns out, this last statement does not always hold,
+quite counter-intuitively. Let us write τi the time steps at which the nodes oi ∈ Ot are selected
+by the node selection strategy ρ.3 Now, consider for instance a node selection procedure ρ that
+performs a breadth-first search through the tree. The number of nodes in T (oi ) will depend strongly
+on whether an improved incumbent solution x̄oi was found in the subtrees explored between st and
+sτi , and, in turn, on the branching decisions taken in these subtrees. This example highlights the
+major importance of the node selection strategy ρ, when one wishes to define subtree sizes based
+solely on (oi , x̄oi ).
+Consider now two open nodes oi and oj in Ot . Conversely to the previous example, if one can
+guarantee that the subtree rooted in oj will be solved to optimality before oi is considered for
+expansion in the B&B process, then the number of nodes in T (oi ) will not be affected by the
+      3
+          Following our indexation of oi ∈ Ot , we have t = τ1 < ... < τi < ... < τ|Ot | .
+
+
+                                                            5
+                                                     vt        o1                                                                           si
+                                                               at                                                                           ai
+                                        o′1                                  o′2                                              s−                           s+
+                                                                                                                               i                            i
+
+
+
+
+(a) 1-step BBMDP Bellman equation:                                                                    (b) 1-step TreeMDP Bellman equation:
+V̄ π (o1 , x̄o1 ) = −2 + V̄ π (o′1 , x̄o′1 ) + V̄ π (o′2 , x̄o′2 )                                    V π (si ) = −2 + V π (s−      π +
+                                                                                                                             i ) + V (si )
+
+                                                          vt        o1                                                                      si
+                                                                    at                                                                      ai
+                    vt+1          (1)                                               (3)
+                                 o1                                                o4                                    s−                                     s+
+                                                                                                                          i                                      i
+                             at+1
+                                                                                                                         a−
+                                                                                                                          i                                     a+
+                                                                                                                                                                 i
+    vt+2      (2)                              (3)
+             o1                               o3                                                                s−−                s−+               s+−                s++
+                                                                                                                 i                  i                 i                  i
+             at+2
+                                                                                                                a−−
+                                                                                                                 i                 a−+
+                                                                                                                                    i                a+−
+                                                                                                                                                      i                 a++
+                                                                                                                                                                         i
+     (3)                   (3)
+    o1                 o2                                                                                s−−−         s−−+ s−+−          s−++ s+−−          s+−+ s++−         s+++
+                                                                                                          i            i    i             i    i             i    i            i
+
+
+
+
+  (c) k-step BBMDP Bellman equation:                                                                  (d) k-step TreeMDP Bellman equation:
+                                   π (k)
+  V̄ π (o1 , x̄o1 ) = −2k + k+1
+                           P                                                                                                           P k
+                             i=1 V̄ (oi , x̄o(k) )                                                    V π (s0 ) = −21 − 22 − ... − 2k + 2i=1 V π (sji )
+                                                                                          i
+
+ Figure 3: When minimizing 1-step temporal difference, TreeMDP and BBMDP yield equivalent
+ results, see 3a, 3b. However, over k-step trajectories, the two methods diverge as shown in 3c, 3d.
+
+
+ branching decisions taken at any node under oj . In fact, if oj is solved to optimality, x̄oi will either
+ not change if no feasible solution in T (oj ) improves GUB, or either be the best feasible solution
+ of the MILP associated with oj , which does not depend on the series of actions taken in T (oj ). In
+ other words, to make sure that the size of T (oi ) does only depend on the branching decisions taken in
+ T (oi ), all nodes oj ∈ Ot must have been either fully explored or strictly unexplored at τi . Applying
+ this argument recursively induces that the only node selection strategy which enables predicting
+ a subtree size only based on (oi , x̄oi ), is a depth-first search (DFS) exploration of the B&B tree.
+ Therefore, we consider ρ = DF S and write V̄ π (oi , x̄oi ) the opposite of the size of T (oi ) in this
+ context. We can now derive a refined Bellman update to train branching agents in BBMDP.
+ Proposition 3.1. In DFS-BBMDP, the Bellman equation V π (s) = R(s, π(s)) + V π (s′ ) yields:
+                                                                     V̄ π (o1 , x̄o1 ) = −2 + V̄ π (o′1 , x̄o′1 ) + V̄ π (o′2 , x̄o′2 ),                                         (3)
+ with o1 = ρ(s), o′1 = ρ(T (s, π(s)), and o′2 is the sibling of o′1 in the B&B tree.
+
+ Proof. Eq. (3) follows directly from injecting Eq. (2) in the Bellman equation, and observing that
+ most terms in the sums simplify as V̄ π (oi , x̄oi ) = V̄ π (o′i+1 , x̄o′i+1 ) for i ≥ 2.
+
+ Keeping the same notation convention for o1 , o′1 and o′2 , we define Q̄π (o1 , x̄o1 , a) = −2 +
+ V̄ π (o′1 , x̄o′1 ) + V̄ π (o′2 , x̄o′2 ). Analogous to V̄ π , the Q̄π function returns the opposite of the size
+ of the subtree rooted in oi ∈ Ot when branching on action a ∈ A at oi and following policy π until
+ T (oi ) is fathomed. Note that if V̄ π and Q̄π are not strictly value functions, they naturally emerge
+ when applying Bellman equations to BBMDP value functions under ρ = DF S. We stress that, in
+ depth-first search BBMDPs, it is not necessary to learn Q∗ to derive π ∗ , since acting according to
+ a policy minimizing the size of the subtree rooted in the current B&B node is equivalent to acting
+ according to a global optimal policy:
+                                                           π ∗ (s) = arg max Q∗ (s, a) = arg max Q̄∗ (o1 , x̄o1 , a).                                                            (4)
+                                                                                   a∈A                            a∈A
+
+
+
+ 3.3        Approximate dynamic programming
+
+ The previous properties enable learning π ∗ by training a neural network to approximate Q̄∗ using
+ traditional temporal difference (TD) algorithms. Notably, Q̄∗ is easier to learn than Q∗ , as it relies
+ solely on quantities observable at time t, whereas the previous decomposition of Q∗ depends on all
+ x̄oi for oi ∈ Ot , which are not known at time t. Moreover, Q̄∗ trains on much shorter trajectories
+ than Q∗ , which helps mitigate credit assignement issues.4
+       4
+           On average, the length of subtree trajectories is logarithmically shorter than the length of BBMDP episodes.
+
+
+                                                                                                     6
+Consider a transition (s, a, r, s′ ). Following Eq. (3), the Bellman optimality equation yields a
+sequence of Q̄n functions via dynamic programming updates of the form:
+              Q̄n+1 (o1 , x̄o1 , a) = −2 + max
+                                            ′
+                                               Q̄n (o′1 , x̄o′1 , a′ ) + max
+                                                                         ′′
+                                                                             Q̄n (o′2 , x̄o′2 , a′′ ).   (5)
+                                              a ∈A                         a ∈A
+
+One can also consider a k-step Bellman operator (k ≥ 1), generalizing Eq. (5). Let π be a policy, and
+s(k) the state reached after a first application of a from s, and k − 1 subsequent applications of π.
+Provided the subtree rooted in o1 has not been fathomed within these k time steps, s(k) has k + 1
+                                    (k)
+new open nodes which we label oi . Then, the Bellman update becomes:
+                                                         k+1
+                                                                            (k)
+                                                         X
+                       Q̄n+1 (o1 , x̄o1 , a) = −2k +            max Q̄n (oi , x̄o(k) , a′ ).             (6)
+                                                                a′ ∈A              i
+                                                          i=1
+
+This Bellman update can be approximated using a neural network qθ , whose weights are trained to
+minimize the k-step temporal difference loss L(θ) = E[(qθ (o1 , x̄o1 , a) − Q̄n+1 (o1 , x̄o1 , a))2 ], where
+Q̄n+1 is bootstrapped by the previous qθ . Following the work of Farebrother et al. [2024] on training
+value functions via classification, we also introduce a HL-Gauss cross-entropy loss adapted to the
+B&B setting L(θ) = E[qθ (o1 , x̄o1 , a) · log phist (Q̄n+1 (o1 , x̄o1 , a))] where phist is the function that
+encodes values in categorical histogram distributions, see Appendix B for complete description and
+theoretical motivation.
+
+3.4   BBMDP vs TreeMDP
+
+As it evacuates the core MDP notions of temporality and sequentiality, TreeMDP fails to describe
+variable selection in B&B accurately in the general case. This is illustrated in Figure 3 and further
+detailed in Appendix A: although the TreeMDP model is a valid approximation of BBMDP when
+training an RL agent to minimize temporal difference on one-step trajectories, it produces inconsis-
+tent learning schemes when evaluating temporal difference across multi-steps trajectories. In fact,
+repeatedly applying the tree Bellman operator from Etheve [2021] yields B&B trees that cannot, in
+general, be produced by DFS, as shown in Figure 3 (d).
+Hence, BBMDP leverages the results first established by Etheve et al. [2020] and Scavuzzo et al.
+[2022] — in DFS, minimizing the whole B&B tree size is achieved when any subtree is of minimal
+size (Eq. (4)) — all while preserving MDP properties. Crucially, BBMDP allows to harness RL
+algorithms that are not compatible with the TreeMDP framework, such as k-step return temporal
+difference, TD(λ), or any RL algorithms using MCTS as policy improvement operator [Grill et al.,
+2020], as illustrated in Appendix A. In the same fashion, BBMDP can be applied to augment the
+pool of RL algorithms available for learning improved cut selection and primal search heuristics,
+simply by adapting the action set and the reward model to the task at hand. Complete exploration
+and comparison of such algorithms is beyond the scope of this paper and left for future work, as our
+primary objective here is to study the conditions under which B&B search can be cast as an MDP,
+and provide the community with a solid basis for principled algorithms.
+
+4     Experiments
+We now compare our branching agent against prior IL and RL approaches. For our experiments, we
+use the open-source solver SCIP 8.0.3 [Bestuzheva et al., 2021] as backend MILP solver, along with
+the Ecole library [Prouvost et al., 2020] both for instance generation and environment simulation.
+To foster reproducibility, our implementation and pretrained models are made publicly available at
+https://github.com/abfariah/bbmdp.
+
+4.1   Experimental setup
+
+Benchmarks. We consider the usual standard MILP benchmarks for learning branching strategies:
+set covering, combinatorial auctions, maximum independent set and multiple knapsack problems. We
+train and test on instances of same dimensions as Scavuzzo et al. [2022] and Parsonson et al. [2022],
+see Appendix F. As to SCIP configuration, as in previous work, we set the time limit to one hour,
+disable restart, and deactivate cut generation beyond root node. All the other parameters are left at
+their default value.
+
+
+                                                         7
+Table 1: Performance comparison of branching agents on four standard MILP benchmarks. For
+each method, we report total number of B&B nodes, presolve time and total solving time outside
+of presolve. Lower is better, red indicates best agent overall, blue indicates best among RL agents.
+Presolve is common to all methods. Following prior works, we report geometrical mean over 100 test
+instances unseen during training and over 100 higher-dimensional transfer instances. Norm. Score
+denotes the aggregate average performance obtained by each agent across the four MILP benchmarks,
+normalized by the score of DQN-BBMDP.
+                                             Test instances
+                  Set Covering     Comb. Auction         Max. Ind. Set    Mult. Knapsack   Norm. Score
+    Method        Node    Time     Node   Time           Node    Time     Node     Time    Node Time
+    Presolve        −      4.74      −       0.90         −       1.78     −       0.20     −      −
+    Random        3289      5.94   1111      2.16        386.8     2.01   733.5   0.55     995     374
+      SB          35.8     12.93   28.2      6.21         24.9    45.87   161.7   0.69      36    2358
+     SCIP         62.0     2.27    20.2      1.77        19.5      2.44   289.5   0.53      51     253
+      IL          133.8    0.90    83.6      0.65        40.1     0.36    272.0    0.69    82     95
+    IL-DFS        136.4    0.74    95.5      0.56        69.4     0.44    472.8    1.07    114    129
+   PG-tMDP        649.4    2.32    168.0     0.94        153.6    0.92    436.9   1.57     233    206
+  DQN-tMDP        175.8    0.83    203.3     1.11        168.0    1.00    266.4   0.73     151    136
+  DQN-Retro       183.0    1.14    103.2     0.78        223.0    1.81    250.3   0.67     137    160
+ DQN-BBMDP        152.3    0.77    97.9      0.62        103.2    0.69    236.6   0.66     100    100
+
+                                            Transfer instances
+                  Set Covering     Comb. Auction         Max. Ind. Set    Mult. Knapsack   Norm. Score
+    Method        Node    Time     Node    Time          Node     Time    Node     Time    Node Time
+    Presolve        -      12.3       -       2.67         -       5.16      -     0.46     −      −
+    Random       271632    842     317235     749        215879    2102   93452    70.6    5555   2737
+      SB          672.1    398      389.6     255         169.9    2172   1709     12.5      9    1425
+     SCIP         3309     48.4     1376     14.77        3368     90.0   30620    22.1     62     90
+      IL          2610     23.1    1309       9.4        1882.0    38.6    9747    43.5     39    54
+    IL-DFS        3103     22.5    1802       10.2        3501     51.9   43224    131      75    80
+   PG-tMDP        44649    221      6001     30.7         3133     39.5   35614    123     298    223
+  DQN-tMDP         8632    71.3    20553     116         45634      477   22631    65.1    439    445
+  DQN-Retro        6100    59.4     2908     18.4        119478    1863   27077    79.5    494    662
+ DQN-BBMDP        5651     46.4    2273      11.8         7168     81.3   37098    109     100    100
+
+
+
+
+Baselines. We compare our DQN-BBMDP agent against DQN-TreeMDP (DQN-tMDP) [Etheve
+et al., 2020], REINFORCE-TreeMDP (PG-tMDP) [Scavuzzo et al., 2022] and the current state-of-the-
+art DQN-Retro [Parsonson et al., 2022] agents. We also compare against the reference IL expert from
+Gasse et al. [2019] as well as IL-DFS, which is the same expert, only evaluated following a depth-first
+search node selection policy. More details on these baselines can be found in Appendix C. Finally,
+we report the performance of reliability pseudo cost branching (SCIP), the default branching heuristic
+used in SCIP, strong branching (SB) [Applegate et al., 1995], the greedy expert from which the IL
+agent learns from, and random branching (Random), which randomly selects a fractional variable.
+Network architecture. Following prior work, we use the bipartite graph representation introduced
+by Gasse et al. [2019] augmented by the features proposed in Parsonson et al. [2022] to represent
+B&B nodes. Additionally, we use the graph convolutional architecture of Gasse et al. [2019] to
+parameterize our Q-value network; see Appendix E for a more detailed description.
+Training & evaluation. Models are trained on instances of each benchmark separately, and evaluated
+on test instances and transfer instances. Validation curves can be found in Appendix H. For evaluation,
+we report the node and time performance over 100 test instances unseen during training, as well as on
+100 transfer instances of higher dimensions (see Table 4 in Appendix F). At evaluation, performance
+scores are averaged over 5 seeds. Importantly, when comparing a machine learning (IL or RL)
+branching strategy with a standard SCIP heuristic, time performance is the only relevant criterion.
+In fact, when implementing one of its own branching rules, SCIP triggers a series of techniques
+strengthening the current MILP formulation. If these techniques effectively reduce the number of
+
+
+                                                     8
+Table 2: Ablation impact of BBMDP, HL-Gauss loss and DFS. We remove one component one at the
+time, and evaluate corresponding versions on 100 set covering test instances after training for 200k
+gradient steps as described in section 4.1.
+      k-step return   DQN-BBMDP     w.o. DFS      w.o. HL-Gauss    w.o. BBMDP     DQN-TreeMDP
+         k=1             158.9     156.2 (−2%)    175.8(+10%)      158.9(+0%)      175.8(+10%)
+         k=3          152.3(−4%)   150.1 (−5%)    172.3 (+8%)      162.1 (+2%)     178.9 (+13%)
+
+
+
+nodes to visit, they incur computational overhead which ultimately increases SCIP overall solving
+time. This renders node comparisons between ML and non-ML branching strategies negligible
+relative to solving time evaluations, as observed by Gamrath and Schubert [2018], Scavuzzo et al.
+[2022].
+
+4.2     Results
+
+Computational results obtained on the four benchmarks are presented in Table 1. On test instances,
+DQN-BBMDP consistently obtains best performance among RL agents. When compared against
+prior state-of-the-art DQN-Retro, DQN-BBMDP achieves an aggregate average 27% reduction of
+total number of node and 38% reduction of solving time outside presolve across the four Ecole
+benchmarks, as reported in Figure 1. Contrary to Parsonson et al. [2022], we find DQN-Retro to yield
+performance comparable to DQN-tMDP. Remarkably, all RL agents outperform the SCIP solver on 3
+out of 4 benchmarks in terms of solving time.
+On transfer instances, DQN-BBMDP also dominates among RL agents, although it is outperformed
+by PG-tMDP on maximum independent set instances and by DQN-Retro on multiple knapsack
+instances. The aggregate performance gap between DQN-BBMDP and other RL baselines is notably
+wider on transfer instances, which aligns with the advantages of using a principled MDP formulation
+over TreeMDP. In fact, DQN-BBMDP is the first RL agent to demonstrate robust generalization
+capabilities on higher dimensional instances, outperforming SCIP on 3 out of 4 benchmarks.
+Additional performance metrics are provided in Appendix I. A notable metric is the number of
+wins, i.e. the number of test instances that one algorithm solves faster than any other baseline.
+DQN-BBMDP outperforms even the IL approaches both in average solving time and total number of
+wins, on the set covering, combinatorial auction and multiple knapsack test instances.
+
+4.3     Ablation study
+
+We perform an ablation study on set covering test instances to separate the performance gain
+associated with BBMDP and the HL-Gauss classification loss. Since BBMDP and TreeMDP are
+strictly equivalent when minimizing one-step temporal difference, we evaluate the performance gap
+between one-step and k-step TD learning for both DQN-BBMDP and DQN-TreeMDP.
+As shown in Table 2, we find that the bulk of the performance gain is brought by the use of a cross-
+entropy loss. Nonetheless, we observe that the use of a multi-step TD loss improves the performance
+of DQN-BBMDP, but degrades the performance of DQN-TreeMDP. This supports our initial claim
+that, in the general case, despite improving the empirical properties of RL algorithms, TreeMDP
+introduces approximations which hinder the asymptotic performance achievable by RL agents.
+Following Parsonson et al. [2022], we also evaluate the cost of opting for depth-first search instead
+of best estimate search, SCIP’s default node selection policy, when learning branching strategies.
+Contrary to their work, we find DFS not to be restrictive in practice in terms of performance. We
+further investigate theses discrepancies in Appendix D.
+
+5      Conclusion and perspectives
+Guiding combinatorial optimization (CO) algorithms with reinforcement learning (RL) has proven
+challenging, including beyond mixed-integer linear programming (MILP) [Berto et al., 2023]. Not
+only are RL agents consistently outperformed by human-expert CO heuristics or IL agents trained
+to mimic these experts, but their application has also been limited so far to fairly easy problem
+instances. This begs for a thorough study of these problems’ properties, for well-posed formulations
+
+
+                                                 9
+and principled methods. In this work, we showed the theoretical and practical limits of the concept
+of TreeMDP for learning optimal branching strategies in MILP, highlighting in which context
+TreeMDPs were a valid formulation. Introducing BBMDP, we proposed a rigorous description of
+variable selection in B&B, unlocking the use of vanilla dynamic programming methods. In turn, the
+resulting DQN-BBMDP method outperformed prior RL-inspired agents on the Ecole benchmark.
+Nonetheless, there remains significant room for improvement for RL approaches on both test and
+transfer instances, suggesting that the generalization capacity of RL agents still lags behind that of IL.
+We believe this to be mainly due to out of distribution effects, since transfer instances are intrinsically
+more complex than training instances, and Q-networks are lead to evaluate B&B nodes with subtree
+sizes far exceeding those encountered during training. In contrast, IL networks learn to predict the
+strong branching action via behavioral cloning, making them robust to such out-of-distribution scaling
+effects. Yet, we believe that building on a principled MDP formulation of variable selection in B&B
+is a stepping stone to achieve substantial acceleration of solving time for higher-dimensional MILPs
+in the future, also opening avenues to tackle distribution shift and domain adaptation.
+
+References
+Tobias Achterberg and Roland Wunderling. Mixed integer programming: Analyzing 12 years of
+  progress. In Facets of combinatorial optimization: Festschrift for martin grötschel, pages 449–481.
+  Springer, 2013.
+David Applegate, Robert Bixby, Vašek Chvátal, and William Cook. Finding cuts in the TSP (A
+  preliminary report), volume 95. Citeseer, 1995.
+Egon Balas and Andrew Ho. Set covering algorithms using cutting planes, heuristics, and subgradient
+  optimization: a computational study. Combinatorial Optimization, pages 37–60, 1980.
+Francisco Barahona. On the computational complexity of ising spin glass models. Journal of Physics
+  A: Mathematical and General, 15(10):3241, 1982.
+Marc G Bellemare, Will Dabney, and Rémi Munos. A distributional perspective on reinforcement
+ learning. In International conference on machine learning, pages 449–458. PMLR, 2017.
+Yoshua Bengio, Andrea Lodi, and Antoine Prouvost. Machine learning for combinatorial op-
+  timization: A methodological tour d’horizon. European Journal of Operational Research,
+  290(2):405–421, April 2021. ISSN 0377-2217. doi: 10.1016/j.ejor.2020.07.063. URL
+  https://www.sciencedirect.com/science/article/pii/S0377221720306895.
+David Bergman, Andre A Cire, Willem-Jan Van Hoeve, and John Hooker. Decision diagrams for
+  optimization, volume 1. Springer, 2016.
+Federico Berto, Chuanbo Hua, Junyoung Park, Minsu Kim, Hyeonah Kim, Jiwoo Son, Haeyeon
+  Kim, Joungho Kim, and Jinkyoo Park. RL4CO: an Extensive Reinforcement Learning for Com-
+  binatorial Optimization Benchmark, June 2023. URL http://arxiv.org/abs/2306.17100.
+  arXiv:2306.17100 [cs].
+Ksenia Bestuzheva, Mathieu Besançon, Wei-Kun Chen, Antonia Chmiela, Tim Donkiewicz,
+  Jasper van Doornmalen, Leon Eifler, Oliver Gaul, Gerald Gamrath, Ambros Gleixner, Leona
+  Gottwald, Christoph Graczyk, Katrin Halbig, Alexander Hoen, Christopher Hojny, Rolf van der
+  Hulst, Thorsten Koch, Marco Lübbecke, Stephen J. Maher, Frederic Matter, Erik Mühmer, Ben-
+  jamin Müller, Marc E. Pfetsch, Daniel Rehfeldt, Steffan Schlein, Franziska Schlösser, Felipe
+  Serrano, Yuji Shinano, Boro Sofranac, Mark Turner, Stefan Vigerske, Fabian Wegscheider, Philipp
+  Wellner, Dieter Weninger, and Jakob Witzig. The SCIP Optimization Suite 8.0. Technical Report,
+  Optimization Online, December 2021. URL http://www.optimization-online.org/DB_
+  HTML/2021/12/8728.html.
+Robert E. Bixby. A brief history of linear and mixed-integer programming computation. Documenta
+  Mathematica, 2012:107–121, 2012.
+Felix Chalumeau, Shikha Surana, Clément Bonnet, Nathan Grinsztajn, Arnu Pretorius, Alexandre
+  Laterre, and Tom Barrett. Combinatorial optimization with policy adaptation using latent space
+  search. Advances in Neural Information Processing Systems, 36:7947–7959, 2023.
+
+
+                                                   10
+Will Dabney, Georg Ostrovski, David Silver, and Rémi Munos. Implicit quantile networks for
+ distributional reinforcement learning. In International conference on machine learning, pages
+ 1096–1105. PMLR, 2018.
+Marc Etheve. Solving repeated optimization problems by Machine Learning. phdthesis, HESAM
+ Université, December 2021. URL https://theses.hal.science/tel-03675471.
+Marc Etheve, Zacharie Alès, Côme Bissuel, Olivier Juan, and Safia Kedad-Sidhoum. Reinforcement
+ Learning for Variable Selection in a Branch and Bound Algorithm. In Emmanuel Hebrard
+ and Nysret Musliu, editors, Integration of Constraint Programming, Artificial Intelligence, and
+ Operations Research, Lecture Notes in Computer Science, pages 176–185, Cham, 2020. Springer
+ International Publishing. ISBN 978-3-030-58942-4. doi: 10.1007/978-3-030-58942-4 12.
+Jesse Farebrother, Jordi Orbay, Quan Vuong, Adrien Ali Taı̈ga, Yevgen Chebotar, Ted Xiao, Alex
+  Irpan, Sergey Levine, Pablo Samuel Castro, Aleksandra Faust, Aviral Kumar, and Rishabh Agarwal.
+  Stop Regressing: Training Value Functions via Classification for Scalable Deep RL, March 2024.
+  URL http://arxiv.org/abs/2403.03950. arXiv:2403.03950 [cs, stat].
+Alex S Fukunaga. A branch-and-bound algorithm for hard multiple knapsack problems. Annals of
+  Operations Research, 184(1):97–119, 2011.
+Gerald Gamrath and Christoph Schubert. Measuring the impact of branching rules for mixed-
+  integer programming. In Operations Research Proceedings 2017: Selected Papers of the Annual
+  International Conference of the German Operations Research Society (GOR), Freie Universiät
+  Berlin, Germany, September 6-8, 2017, pages 165–170. Springer, 2018.
+Maxime Gasse, Didier Chetelat, Nicola Ferroni, Laurent Charlin, and Andrea Lodi. Exact Combinato-
+ rial Optimization with Graph Convolutional Neural Networks. In Advances in Neural Information
+ Processing Systems, volume 32. Curran Associates, Inc., 2019. URL https://proceedings.
+ neurips.cc/paper/2019/hash/d14c2267d848abeb81fd590f371d39bd-Abstract.html.
+Ambros Gleixner, Gregor Hendel, Gerald Gamrath, Tobias Achterberg, Michael Bastubbe, Timo
+ Berthold, Philipp Christophel, Kati Jarck, Thorsten Koch, and Jeff Linderoth. MIPLIB 2017: data-
+ driven compilation of the 6th mixed-integer programming library. Mathematical Programming
+ Computation, 13(3):443–490, 2021. Publisher: Springer.
+Jean-Bastien Grill, Florent Altché, Yunhao Tang, Thomas Hubert, Michal Valko, Ioannis Antonoglou,
+  and Rémi Munos. Monte-Carlo Tree Search as Regularized Policy Optimization, July 2020. URL
+  http://arxiv.org/abs/2007.12509. arXiv:2007.12509 [cs, stat].
+Nathan Grinsztajn, Daniel Furelos-Blanco, and Thomas D. Barrett. Population-Based Reinforcement
+  Learning for Combinatorial Optimization, October 2022. URL http://arxiv.org/abs/2210.
+  03475. arXiv:2210.03475 [cs].
+Dan Gusfield. Integer linear programming in computational and systems biology: an entry-level text
+  and course. Cambridge University Press, 2019.
+He He, Hal Daume III, and Jason M Eisner.       Learning to Search in Branch and
+  Bound Algorithms. In Advances in Neural Information Processing Systems, volume 27.
+  Curran Associates, Inc., 2014.  URL https://papers.nips.cc/paper/2014/hash/
+  757f843a169cc678064d9530d12a1881-Abstract.html.
+Matteo Hessel, Joseph Modayil, Hado van Hasselt, Tom Schaul, Georg Ostrovski, Will Dabney, Dan
+ Horgan, Bilal Piot, Mohammad Azar, and David Silver. Rainbow: Combining Improvements
+ in Deep Reinforcement Learning, October 2017. URL http://arxiv.org/abs/1710.02298.
+ arXiv:1710.02298 [cs].
+Frederick S Hillier and Gerald J Lieberman. Introduction to operations research. McGraw-Hill,
+  2015.
+Ehsan Imani and Martha White. Improving Regression Performance with Distributional Losses.
+  In Proceedings of the 35th International Conference on Machine Learning, pages 2157–2166.
+  PMLR, July 2018. URL https://proceedings.mlr.press/v80/imani18a.html. ISSN:
+  2640-3498.
+
+
+                                               11
+Wouter Kool, Herke van Hoof, and Max Welling. Attention, Learn to Solve Routing Problems!,
+ February 2019. URL http://arxiv.org/abs/1803.08475. arXiv:1803.08475 [cs, stat].
+AH Land and AG Doig. An automatic method of solving discrete programming problems. Econo-
+ metrica, 28(3):497–520, 1960.
+Kevin Leyton-Brown, Mark Pearson, and Yoav Shoham. Towards a universal test suite for combina-
+  torial auction algorithms. In Proceedings of the 2nd ACM conference on Electronic commerce,
+  pages 66–76, 2000.
+Jiacheng Lin, Jialin Zhu, Huangang Wang, and Tao Zhang. Learning to branch with Tree-aware
+   Branching Transformers. Knowledge-Based Systems, 252:109455, September 2022. ISSN
+   0950-7051. doi: 10.1016/j.knosys.2022.109455. URL https://www.sciencedirect.com/
+   science/article/pii/S0950705122007298.
+Renata Mansini, Wodzimierz Ogryczak, M Grazia Speranza, and EURO: The Association of European
+  Operational Research Societies. Linear and mixed integer programming for portfolio optimization,
+  volume 21. Springer, 2015.
+Vinod Nair, Sergey Bartunov, Felix Gimeno, Ingrid von Glehn, Pawel Lichocki, Ivan Lobov, Brendan
+  O’Donoghue, Nicolas Sonnerat, Christian Tjandraatmadja, Pengming Wang, Ravichandra Addanki,
+  Tharindi Hapuarachchi, Thomas Keck, James Keeling, Pushmeet Kohli, Ira Ktena, Yujia Li, Oriol
+  Vinyals, and Yori Zwols. Solving Mixed Integer Programs Using Neural Networks, July 2021.
+  URL http://arxiv.org/abs/2012.13349. arXiv:2012.13349 [cs, math].
+Christopher W. F. Parsonson, Alexandre Laterre, and Thomas D. Barrett. Reinforcement Learning
+  for Branch-and-Bound Optimisation using Retrospective Trajectories, December 2022. URL
+  http://arxiv.org/abs/2205.14345. arXiv:2205.14345 [cs].
+Max B. Paulus, Giulia Zarpellon, Andreas Krause, Laurent Charlin, and Chris Maddison. Learning to
+ Cut by Looking Ahead: Cutting Plane Selection via Imitation Learning. In Proceedings of the 39th
+ International Conference on Machine Learning, pages 17584–17600. PMLR, June 2022. URL
+ https://proceedings.mlr.press/v162/paulus22a.html. ISSN: 2640-3498.
+Eduardo Pignatelli, Johan Ferret, Matthieu Geist, Thomas Mesnard, Hado van Hasselt, and Laura
+  Toni. A survey of temporal credit assignment in deep reinforcement learning. arXiv preprint
+  arXiv:2312.01072, 2023.
+Antoine Prouvost, Justin Dumouchelle, Lara Scavuzzo, Maxime Gasse, Didier Chételat, and Andrea
+  Lodi. Ecole: A Gym-like Library for Machine Learning in Combinatorial Optimization Solvers,
+  November 2020. URL http://arxiv.org/abs/2011.06069. arXiv:2011.06069 [cs, math].
+Martin L Puterman. Markov decision processes: discrete stochastic dynamic programming. John
+ Wiley & Sons, 2014.
+Lara Scavuzzo, Feng Yang Chen, Didier Chételat, Maxime Gasse, Andrea Lodi, Neil Yorke-Smith,
+  and Karen Aardal. Learning to branch with Tree MDPs, October 2022. URL http://arxiv.
+  org/abs/2205.11107. arXiv:2205.11107 [cs, math].
+Lara Scavuzzo, Karen Aardal, Andrea Lodi, and Neil Yorke-Smith. Machine Learning Augmented
+  Branch and Bound for Mixed Integer Linear Programming, February 2024. URL http://arxiv.
+  org/abs/2402.05501. arXiv:2402.05501 [cs, math].
+Tom Schaul. Prioritized experience replay. arXiv preprint arXiv:1511.05952, 2015.
+Mehdi Seyfi, Amin Banitalebi-Dehkordi, Zirui Zhou, and Yong Zhang. Exact Combinato-
+ rial Optimization with Temporo-Attentional Graph Neural Networks, November 2023. URL
+ http://arxiv.org/abs/2311.13843. arXiv:2311.13843 [cs].
+David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew Lai, Arthur
+  Guez, Marc Lanctot, Laurent Sifre, Dharshan Kumaran, Thore Graepel, Timothy Lillicrap, Karen
+  Simonyan, and Demis Hassabis. A general reinforcement learning algorithm that masters chess,
+  shogi, and Go through self-play. Science, 362(6419):1140–1144, December 2018. ISSN 0036-
+  8075, 1095-9203. doi: 10.1126/science.aar6404. URL https://www.science.org/doi/10.
+  1126/science.aar6404.
+
+
+                                               12
+Jialin Song, Ravi Lanka, Yisong Yue, and Bistra Dilkina. A General Large Neighborhood Search
+   Framework for Solving Integer Linear Programs, December 2020. URL http://arxiv.org/
+   abs/2004.00422. arXiv:2004.00422 [cs, math, stat].
+Nicolas Sonnerat, Pengming Wang, Ira Ktena, Sergey Bartunov, and Vinod Nair. Learning a
+  Large Neighborhood Search Algorithm for Mixed Integer Programs, May 2022. URL http:
+  //arxiv.org/abs/2107.10201. arXiv:2107.10201 [cs, math].
+Haoran Sun, Wenbo Chen, Hui Li, and Le Song. Improving Learning to Branch via Reinforcement
+  Learning. July 2022. URL https://openreview.net/forum?id=z4D7-PTxTb.
+Yunhao Tang, Shipra Agrawal, and Yuri Faenza. Reinforcement Learning for Integer Programming:
+  Learning to Cut. In Proceedings of the 37th International Conference on Machine Learning,
+  pages 9367–9376. PMLR, November 2020. URL https://proceedings.mlr.press/v119/
+  tang20a.html. ISSN: 2640-3498.
+Vincent Tjeng, Kai Y Xiao, and Russ Tedrake. Evaluating robustness of neural networks with mixed
+  integer programming. In International Conference on Learning Representations, 2019.
+Hado Van Hasselt, Arthur Guez, and David Silver. Deep reinforcement learning with double q-
+  learning. In Proceedings of the AAAI conference on artificial intelligence, volume 30, 2016.
+Zhihai Wang, Xijun Li, Jie Wang, Yufei Kuang, Mingxuan Yuan, Jia Zeng, Yongdong Zhang,
+  and Feng Wu. Learning Cut Selection for Mixed-Integer Linear Programming via Hierarchical
+  Sequence Model. February 2023. URL https://openreview.net/forum?id=Zob4P9bRNcK.
+Dawen Wu and Abdel Lisser. A deep learning approach for solving linear programming problems.
+  Neurocomputing, 520:15–24, February 2023. ISSN 09252312. doi: 10.1016/j.neucom.2022.11.053.
+  URL https://linkinghub.elsevier.com/retrieve/pii/S0925231222014412.
+
+
+
+
+                                              13
+A    BBMDP vs TreeMDP
+Side-by-side comparison
+
+TreeMDP offers an intuitive and computationaly efficient framework for training RL agents to learn
+enhanced variable selection strategies in branch and bound. However, by discarding core MDP
+concepts such as temporality and sequentiality, it fails to accommodate the diversity of RL algorithms.
+For example, defining the k-step return temporal difference target in TreeMDP is challenging. Since
+branching on action ai at state si produces two child next states s−           +
+                                                                       i and si , applying recursively
+                                                                               k         P2k
+the tree Bellman operator from Etheve [2021] to V π yields V π (si ) = − j=1 2j + j=1 V π (sji ).
+                                                                            P
+The corresponding TreeMDP trajectory is depicted in Figure 3 (d) for k = 3. More generally, it is
+important to note that such trajectories cannot be obtained when solving a MILP using B&B with
+a depth-first search node selection policy, since the subtree rooted in s−  i must be fully fathomed
+before the node s+ i can be  considered  for expansion.     Therefore, the TreeMDP   k-step return TD
+target defined above stems from approximations in the B&B dynamics, which undermines the best
+performance achievable by k-step tMDP-DQN, as demonstrated in the ablation study in Section 4.3.
+Table 3 further highlights the key differences between BBMDP and TreeMDP.
+Table 3: Side by side comparison of BBMDP and TreeMDP frameworks, complementing Figure 3.
+                                                    BBMDP                                                        TreeMDP
+
+         MDP                                            Yes                                                           No
+
+        State s                                st = (Vt , Et , x̄t )                                     si = (Pi , x∗LP,i , x̄i )
+
+       Action a                                       at ∈ I                                                      ai ∈ I
+
+       Reward r                                          -2                                                           -1
+
+     Next state s′                      st+1 = (Vt+1 , Et+1 , x̄t+1 )                                             s−    +
+                                                                                                                   i , si
+                                                                                                                                    k
+ k-step next state s(k)                st+k = (Vt+k , Et+k , x̄t+k )                                         s1i , s2i , ..., s2i
+
+    B(V π ) = V π          V̄ π (o1 , x̄o1 ) = −2 + V̄ π (o′1 , x̄o′ ) + V̄ π (o′2 , x̄o′ )        V π (si ) = −2 + V π (s−      π  +
+                                                                                                                          i ) + V (si )
+                                                                    1                        2
+
+                                                                                                                          P2k
+    Bk (V π ) = V π                                                           (k)                                                  j
+                                                           Pk+1
+                               V̄ π (o1 , x̄o1 ) = −2k +                π
+                                                                                                 V π (si ) = −
+                                                                                                                 Pk    j        π
+                                                              i=1 V̄        (oi     , x̄ (k) )
+                                                                                       o                          j=1 2 +  j=1 V (si )
+                                                                                        i
+
+
+
+Learning to branch with MCTS
+
+MCTS-based RL algorithms have achieved remarkable performance in combinatorial settings, partic-
+ularly in board games Silver et al. [2018]. Interstingly, by providing a rigorous MDP formulation
+for variable selection in B&B, BBMDP enables the adapation of MCTS-based learning algorithms
+to the B&B framework, overcoming the incompatibilities that persisted within TreeMDP. In fact,
+when searching for the next node to expand, MCTS traverses the tree following a UCT exploration
+criterion:
+                           "                             pP                                            P              #
+                                                                 b∈A N (s, b)                           b∈A N (s, b)
+                                                                                            
+         k
+       a = arg max Q(s, a) + π(s, a) ·                                                       c1 + log(               )                  (7)
+                     a∈A                                      1 + N (s, a)                                 c2
+
+where N (s, a) corresponds to the number of visits of the node (s, a), and c1 , c2 are search hyper-
+parameters. This formulation balances exploration and exploitation, guiding the search toward
+promising states while ensuring sufficient exploration of the tree. However in TreeMDP, such an
+exploration criteria leads to inconsistencies, as the exploration between node s−      +
+                                                                                i and si is balanced
+based on their estimated value. Since both s−           +
+                                                i and si originate from the same branching decision
+ai , differentiating between them for expansion is irrelevant. In B&B, branching on ai implies that
+s−         +
+ i and si are both necessarily added to the B&B tree. Consequently, in TreeMDP, MCTS could
+guide the search towards a suboptimal action ai based on the assumption that it produces a state
+s−                                                                                                +
+ i of small subtree size, while failing to account for the potentially enormous subtree size of si .
+
+
+                                                                 14
+This fundamental inconsistency hinders the effective application of MCTS within the TreeMDP
+framework.
+
+
+B    HL-Gauss Loss
+
+As they investigated the uneven success met by complex neural network architectures such as
+Transformers in supervised versus reinforcement learning, Farebrother et al. [2024] found that training
+agents using a cross-entropy classification objective significantly improved the performance and
+scalability of value-based RL methods. However, replacing mean squared error regression with cross-
+entropy classification requires methods to transform scalars into distributions and distributions into
+scalars. Farebrother et al. [2024] found the Histogram Gaussian loss (HL-Gauss) [Imani and White,
+2018], which exploits the ordinal structure of the regression task by distributing probability mass
+on multiple neighboring histogram bins, to be a reliable solution across multiple RL benchmarks.
+Concretely, in HL-Gauss, the support of the value function Zv ⊂ R is divided in mb bins of
+equal width forming a partition of Zv . Bins are centered at ζi ∈ Zv for 1 ≤ i ≤ mb , we use
+η = (ζmax − ζmin )/mb to denote their width. Given a scalar z ∈ Zv , we define the random
+variable Yz ∼ N (µ = z, σ 2 ) and note respectively ϕYz and ΦYz its associate probability density and
+cumulative distribution function. z can then be encoded into a histogram distribution on Zv using the
+function phist : R → [0, 1]mb . Explicitly, phist computes the aggregated mass of ϕYz on each bin:
+
+                                               Z ζi + η2
+                                                                                η             η
+    phist (z) = (pi (z))1≤i≤mb with pi (z) =               ϕYz (y)dy = ΦYz (ζi + ) − ΦYz (ζi − )
+                                                ζi − η2                         2             2
+
+Conversely, histogram distributions (pi )1≤i≤mb such as the ones outputted
+                                                                      Pmby    agents’ value networks
+can be converted to scalar simply by computing the expectation: z = i=1    b
+                                                                             pi · ζi .
+
+BBMDP is a challenging setting to adapt HL-Gauss, as the support for value functions
+spans over several order of magnitude. In practice, we observe that for train instances of the Ecole
+benchmark, Zv = [−106 , −2]. Since value functions predict the number of node of binary trees
+built with B&B, it seems natural to choose bins centered at ζi = −2i to partition Zv . In order to
+preserve bins of equal size, we consider distributions on the support ψ(Zv ) with ψ(z) = log2 (−z)
+for z ∈ Zv , such that ψ(Zv ) is efficiently partitioned by bins centered at ζi = i for 1 ≤ i ≤ mb .
+Thus, in BBMDP histograms distributions areP    given by phist (z) = (pi ◦ ψ(z))1≤i≤mb for z ∈ Zv ,
+                                                  mb
+and can be converted back to Zv through z = i=1       pi · ψ −1 (ζi ) with ψ −1 (z) = −2z .
+
+
+C    Baselines
+
+Imitation learning We trained and tested IL agents using the official Ecole re-implementation of
+Gasse et al. [2019] shared at https://github.com/ds4dm/learn2branch-ecole/tree/main.
+
+DQN-TreeMDP Since there is no publicly available implementation of Etheve et al. [2020], we
+re-implemented DQN-TreeMDP and trained it on the four Ecole benchmarks, using when applicable
+the same network architectures and training parameters as in DQN-BBMDP and DQN-Retro. We
+share implementation and trained network weights to the community.
+
+PG-tMDP We used the official implementation of Scavuzzo et al. [2022] to evaluate PG-TreeMDP.
+For each benchmark, we used the tMDP+DFS network weights shared at https://github.com/
+lascavana/rl2branch.
+
+DQN-Retro As Parsonson et al. [2022] only trained on set covering instances, we took inspira-
+tion from the official implementation shared at https://github.com/cwfparsonson/retro_
+branching to train and evaluate DQN-Retro agents on the four Ecole benchmarks. Importantly, we
+trained and tested DQN-Retro following SCIP’s default node selection strategy, see Appendix D for
+more details. We share our re-implementation and trained network weights with the community.
+
+
+                                                   15
+Importantly, on the multiple knapsack benchmark, given the high computational cost associated with
+opting for a depth-first search node selection policy, all baselines excepted IL-DFS are evaluated
+following SCIP default node selection policy.
+
+
+D    BBMDP vs Retro branching
+
+In their work, Parsonson et al. [2022] proposed to train RL agents on retrospective trajectories built
+from TreeMDP episodes, in order to leverage the state-of-the art node selection policies implemented
+in MILP solvers. When reproducing their work, we found several discrepancies with the results they
+stated. First, the performance gap between DQN-Retro and DQN-TreeMDP [Etheve et al., 2020]
+turned out to be much narrower than expected. On test set covering instances, the only benchmark on
+which the two agents are compared in Parsonson et al. [2022], we even found DQN-TreeMDP to
+perform better. Second, Parsonson et al. [2022] found that adopting a best-first-search (BeFS) node
+selection strategy at evaluation time greatly improved the performance of DQN-TreeMDP on test set
+covering instances, indicating that abandoning DFS during training could be beneficial. However, in
+our experiments, we observed a 20% performance drop when replacing DFS by BeFS at evaluation
+time. After thorough examination of both Parsonson et al. [2022]’s article and implementation,
+we found that the baseline labeled as DQN-TreeMDP (FMSTS-DFS in their article) was quite
+distant from the branching agent originally described in [Etheve et al., 2020]. In fact, in Parsonson
+et al. [2022], the Etheve et al. [2020] branching agent is not trained on TreeMDP trajectories, but on
+retrospective trajectories built from TreeMDP episodes, using a DFS construction heuristic. Therefore,
+Parsonson et al. [2022] could not conclude on the superiority of retro branching over TreeMDP, nor
+could they assess the limitations of DFS-based RL agents. In contrast, our contribution provides
+compelling evidence that, while DFS is generally expected to hinder the training performance of
+RL agents due to its reputation as a suboptimal node selection policy, the theoretical guarantees
+brought by DFS in BBMDP enable to surpass prior state-of-the-art non-DFS agents. We believe this
+is because optimizing the node selection policy has less influence on tree size performance compared
+to optimizing the variable selection policy, as evidenced by Etheve [2021].
+
+
+E    Neural network
+
+State representation Following the works of Gasse et al. [2019], MILPs are best represented by
+bipartite graphs G = (VG , CG , EG ) where VG denotes the set of variable nodes, CG denotes the set
+of constraint nodes, and EG denotes the set of edges linking variable and constraints nodes. Nodes
+vG ∈ VG and cG ∈ CG are connected if the variable associated with vG appears in the constraint
+associated with cG . Given a MILP P , defined as in Section 2.1, its associate bipartite representation G
+has |G| = |VG | + |CG | = n + m nodes. We use bipartite graphs to encode the information contained
+in (oi , x̄oi ), as defined in section 3.2. In our experiments, IL and PG-tMDP agents use the list
+of features of Gasse et al. [2019] to represent variable nodes, constraint nodes and edges, while
+DQN-BBMDP, DQN-TreeMDP and DQN-Retro agents also make use of the additional features
+introduced by Parsonson et al. [2022].
+
+Network architecture All RL agents utilize the graph convolutional network architecture described
+in Scavuzzo et al. [2022] and Parsonson et al. [2022]. In DQN-BBMDP, the architecture differs
+slightly, with the final layer outputting distribution vectors in Rmb instead of scalar values in R.
+
+
+F    Instance dataset
+
+Instance datasets used for training and evaluation are decribed in Table 4. We trained and tested on
+instances of same dimensions as Scavuzzo et al. [2022] and Parsonson et al. [2022]. As a reminder,
+the size of action set A is equal to the number of integer variables in P . Consequently, action set
+sizes in the Ecole benchmark range from 30 to 480 for train / test instances and from 50 to 980 for
+transfer instances.
+
+
+
+                                                   16
+Table 4: Instance size for each benchmark. Performance is evaluated on test instances that match
+the size of the training instances, as well as on larger instances, to further assess the generalization
+capacity of our agents. Last two columns indicate the approximate number of integer variables after
+presolve, both for train / test and transfer instances.
+                                                                   Parameter value          # Int. variables
+    Benchmark        Generation method           Parameters     Train / Test Transfer   Train / Test Transfer
+  Combinatorial                                    Items           100         200
+                    Leyton-Brown et al. [2000]                                             100         200
+    auction                                         Bids           500        1000
+                                                   Items           500        1000
+    Set covering       Balas and Ho [1980]                                                 100         130
+                                                    Sets          1000        1000
+    Maximum
+                      Bergman et al. [2016]        Nodes           500        1000         480         980
+ independent set
+     Multiple                                      Items           100         100
+                        Fukunaga [2011]                                                     30          50
+     knapsack                                    Knapsacks          6           12
+
+
+
+
+G     Training pipeline
+DQN Implementation In Algorithm 1, we provide a description of DQN-BBMDP training
+pipeline. Our DQN implementation includes several Rainbow-DQN features [Hessel et al., 2017]:
+double DQN [Van Hasselt et al., 2016], n-step learning and prioritized experience replay (PER)
+Schaul [2015]. Moreover, as DQN-BBMDP learns distributions representing Q-values, it integrates
+elements of [Bellemare et al., 2017].
+
+Algorithm 1 DQN-BBMDP
+    for t = 0...N − 1 do
+      Draw randomly an instance P ∼ p0 .
+      Solve P by acting following a combined ϵ-greedy and Boltzman exploration according to qθt .
+                                                             Pk
+      Collect transitions along the generated tree (si , ai , j=1 ri+j , si+k ) and store them into a
+      replay buffer Breplay .
+      Update θt using the loss described in Sec 3.3 on transition batches drawn from Breplay .
+    end for
+
+Exploration We train our agents following Boltzmann and ϵ-greedy exploration combined. Con-
+cretely, agents select actions uniformly from A with probability ϵ, while following a Boltzmann
+exploration strategy with temperature τ for the remaining probability 1 − ϵ. The decay rates for ϵ and
+τ are listed in Table 5.
+
+
+Reward model In Section 3.1, we defined R(s, a) = −2 for all transition, so that the overall value
+of a trajectory matched the size of the B&B tree. In practice, all negative constant reward model yield
+equivalent optimal policies in BBMDP, therefore, we chose to implement R(s, a) = −1 for all RL
+baselines in order to allow clearer comparison between BBMDP and TreeMDP agents.
+
+Training parameters Table 5 provides the list of hyperparameters used to train DQN agents on the
+Ecole benchmarks. To allow fair comparisons, when applicable, we keep SCIP parameters, training
+parameters and network architectures fixed for all DQN-agents.
+
+H     Validation curves
+All experiments were conducted on an NVIDIA DGX A100 system equipped with 8× A100 40GB
+GPUs, 2× AMD EPYC 7742 64-core CPUs (128 threads total), and 1 TB of DDR4 RAM. We
+present validation curves for DQN-BBMDP, DQN-TreeMDP and DQN-Retro in Figure 4. For each
+benchmark we trained for 200k gradient steps, which took approximately 2 days for combinatorial
+auction instances, 3 days for set covering instances, 5 days for multiple knapsack instances and 7
+
+
+                                                           17
+Table 5: Training parameters for all DQN branching agents. For DQN-Retro, we take γ = 0.99 as in
+Parsonson et al. [2022].
+                      Module                         Training parameter               Value
+                                                          Batch size                   128
+                                                          Optimizer                   Adam
+                                                         k-step return                  3
+                     Q-learning                        Learning rate lr             5 × 10−5
+                                                      Discount factor γ                1.0
+                                               Agent steps per network update           10
+                                               Soft target network update τnet        10−4
+                   Replay buffer              Buffer minimum size |Breplay |init     20 × 103
+                                            Buffer maximum capacity |Breplay |max   100 × 103
+                                                         PER α                         0.6
+                                                        PER βinit                      0.4
+            Prioritized experience replay              PER βf inal                     1.0
+                                                βinit → βf inal learner steps       100 × 103
+                                                Minimum experience priority           10−3
+                                              Start exploration probability ϵinit       1.0
+                                            Minimum exploration probability ϵmin    2.5 × 10−2
+                    Exploration                             ϵ-decay                    10−4
+                                                    Start temperature τinit             1.0
+                                                 Minimum temperature τmin              10−3
+                                                            τ -decay                   10−5
+                                                            zmin                        -1
+                      HL-Gauss                              zmax                        16
+              (only for DQN-BBMDP)                           mb                         18
+                                                             σ                         0.75
+
+
+days for maximum independent set instances. As shown in Figure 4, DQN-BBMDP training was
+interrupted before final convergence on 3 out of 4 benchmarks, hinting that performance could likely
+be improved by training for more steps.
+
+
+
+
+I   Additional computational results
+In this section, we include further computational results on instances of the Ecole benchmark.
+Table 6 provides additional performance metrics to compare the different baselines across test and
+transfer benchmarks. For each benchmark, we report the number of wins and the average rank of each
+baseline across 100 evaluation instances. The number of wins is defined as the number of instances
+where a baseline solves a MILP problem faster than any other baseline. When multiple baselines fail
+to solve an instance to optimality within the time limit, their performance is ranked based on final
+dual gap.
+Finally, Table 7 recapitulates the computational results presented in Table 1, and provides for each
+baseline the per-benchmark standard deviation over five seeds, as well as the fraction of test instances
+solved to optimality within the time limit.
+
+
+
+
+                                                   18
+Table 6: Additional performance metrics for each baseline on train / test and transfer instance
+benchmarks, see Appendix F for instance details. For each benchmark, we report the number of wins,
+and the average rank of each baseline across the 100 evaluation instances. We also report for each
+baseline the fraction of test instances solved to optimality within time limit. The number of wins
+is defined as the number of instances where a baseline solves a MILP problem faster than all other
+baselines. When multiple baselines fail to solve an instance to optimality within time limit, their
+performance is ranked based on final dual gap.
+                                         Train / Test                       Transfer
+                  Method        Solved        Wins       Rank     Solved        Wins    Rank
+                   SCIP        100/100       8/100        5.7     100/100     10/100     3.3
+                    IL         100/100       1/00         3.8    100/100     29/100      1.8
+                  IL-DFS       100/100      35/100        2.1    100/100     58/100      1.7
+                PG-tMDP        100/100      0/100       6.6      78/100     0/100   6.8
+               DQN-tMDP        100/100     11/100       2.9      96/100     0/100   5.0
+               DQN-Retro       100/100      1/100       4.9      98/100     0/100   5.1
+              DQN-BBMDP        100/100    44/100        1.9     100/100     3/100   4.2
+                                                  Set covering
+                                     Train / Test                      Transfer
+               Method         Solved      Wins      Rank       Solved      Wins   Rank
+                 SCIP        100/100      14/100        4.1     100/100     14/100     3.51
+                 IL          100/100      16/100        3.5     100/100     47/100     1.7
+               IL-DFS        100/100      31/100        2.6     100/100     20/100     2.5
+              PG-tMDP        100/100     0/100     5.7     100/100     0/100           5.8
+             DQN-tMDP        100/100     0/100     6.2     100/100     0/100           6.5
+             DQN-Retro       100/100    10/100     3.6     100/100     1/100           4.6
+            DQN-BBMDP        100/100    34/100     2.3     100/100 18/100              2.9
+                                          Combinatorial Auction
+                                     Train / Test                   Transfer
+               Method         Solved      Wins    Rank       Solved     Wins           Rank
+                 SCIP        100/100       9/100        5.7     100/100     7/100      4.5
+                 IL          100/100     72/100         1.6     100/100     57/100     1.7
+               IL-DFS        100/100     10/100         2.4     100/100      0/100     3.2
+              PG-tMDP        100/100    0/100     4.9   100/100 36/100                 1.8
+             DQN-tMDP        100/100    1/100     4.8    85/100    0/100               6.1
+             DQN-Retro       100/100    6/100     5.4    22/100    0/100               6.7
+            DQN-BBMDP        100/100    2/100     3.3    95/100    0/100               4.2
+                                       Maximum Independent Set
+                                    Train / Test                Transfer
+               Method        Solved      Wins    Rank    Solved     Wins               Rank
+                SCIP        100/100      88/100         1.4     100/100     60/100     1.9
+                 IL         100/100       1/100         4.5     100/100     6/100      3.4
+               IL-DFS       100/100       1/100         5.8     98/100      0/100      6.0
+              PG-tMDP       100/100       0/100      6.0    98/100           5/100     5.0
+             DQN-tMDP       100/100       1/100      3.5    99/100          14/100     3.5
+             DQN-Retro      100/100       3/100      3.5    98/100           9/100     3.8
+            DQN-BBMDP       100/100       6/100     3.3    100/100           6/100     4.3
+                                              Multiple Knapsack
+
+
+
+
+                                                   19
+Table 7: Computational performance comparison on four MILP benchmarks. Following prior works,
+we report geometrical mean over 100 instances, averaged over 5 seeds, as well as per-benchmark
+standard deviations.
+                                 Train / Test                                       Transfer
+    Method          Nodes               Time           Solved         Nodes             Time         Solved
+    Random       3289 ± 4.2%        5.9 ± 4.3%         100/100    270365 ± 9.5%     811 ± 7.9%      60/100
+      SB         35.8 ± 0.0%       12.93 ± 0.0%        100/100     672.1 ± 0.0%     398 ± 0.2%      82/100
+     SCIP        62.0 ± 0.0%        2.27 ± 0.0%        100/100     3309 ± 0.0%      48.4 ± 0.1%     100/100
+      IL         133.8 ± 1.0%      0.90 ± 4.8%         100/100    2610 ± 0.7%       23.1 ± 1.5%    100/100
+    IL-DFS       136.4 ± 1.8%      0.74 ± 5.3%         100/100    3103 ± 2.0%       22.5 ± 3.1%    100/100
+   PG-tMDP       649.4 ± 0.7%      2.32 ± 2.4%         100/100      44649 ± 3.7%     221 ± 4.1%     78/100
+  DQN-tMDP       175.8 ± 1.1%      0.83 ± 4.5%         100/100       8632 ± 4.9%    71.3 ± 5.8%     96/100
+  DQN-Retro      183.0 ± 1.2%      1.14 ± 4.1%         100/100       6100 ± 4.2%    59.4 ± 4.2%     98/100
+ DQN-BBMDP       152.3 ± 0.6%      0.77 ± 5.6%         100/100      5651 ± 2.2%     46.4 ± 3.3%    100/100
+                                                        Set covering
+                                 Train / Test                                      Transfer
+    Method          Nodes              Time        Solved            Nodes             Time         Solved
+    Random       1111 ± 4.3%      2.16 ± 6.6%      100/100       354650 ± 6.7%      814 ± 7.1%      64/100
+      SB         28.2 ± 0.0%      6.21 ± 0.1%      100/100        389.6 ± 0.0%      255 ± 0.2%      88/100
+     SCIP        20.2 ± 0.0%      1.77 ± 0.1%      100/100        1376 ± 0.0%      14.77 ± 0.1%    100/100
+      IL         83.6 ± 0.8%      0.65 ± 7.3%      100/100       1309 ± 1.6%       9.4 ± 2.2%      100/100
+    IL-DFS       95.5 ± 0.9%      0.56 ± 7.1%      100/100       1802 ± 2.0%       10.2 ± 1.8%     100/100
+   PG-tMDP       168.0 ± 2.8%     0.94 ± 6.0%      100/100      6001 ± 2.7%        30.7 ± 2.4%     100/100
+  DQN-tMDP       203.3 ± 4.2%     1.11 ± 4.0%      100/100     20553 ± 3.8%         116 ± 3.9%     100/100
+  DQN-Retro      103.2 ± 1.2%     0.78 ± 7.5%      100/100      2908 ± 1.7%        18.4 ± 2.7%     100/100
+ DQN-BBMDP       97.9 ± 1.2%      0.62 ± 8.5%      100/100     2273 ± 1.9%         11.8 ± 2.0%     100/100
+                                                  Combinatorial auction
+                                 Train / Test                                       Transfer
+    Method          Nodes               Time           Solved         Nodes             Time         Solved
+    Random       386.8 ± 5.4%      2.01 ± 4.8%         100/100    215879 ± 6.7%     2102 ± 6.2%     25/100
+      SB          24.9 ± 0.0%      45.87 ± 0.4%        100/100     169.9 ± 0.2%     2172 ± 0.9%     15/100
+     SCIP         19.5 ± 0.0%       2.44 ± 0.4%        100/100     3368 ± 0.0%      90.0 ± 0.2%     100/100
+      IL         40.1 ± 3.45%      0.36 ± 3.1%         100/100    1882 ± 4.0%       38.6 ± 3.2%    100/100
+    IL-DFS        69.4 ± 6.5%      0.44 ± 4.8%         100/100    3501 ± 2.7%       51.9 ± 2.6%    100/100
+   PG-tMDP       153.6 ± 5.0%      0.92 ± 2.6%    100/100    3133 ± 4.6%            39.5 ± 3.8%    100/100
+  DQN-tMDP       168.0 ± 5.6%      1.00 ± 3.4%    100/100    45634 ± 7.4%            477 ± 5.1%     85/100
+  DQN-Retro      223.0 ± 4.1%      1.81 ± 3.6%    100/100 119478 ± 6.1%             1863 ± 4.8%     22/100
+ DQN-BBMDP       103.2 ± 9.3%      0.62 ± 6.8% 100/100        7168 ± 5.3%           81.3 ± 4.2%     95/100
+                                              Maximum independent set
+                                 Train / Test                                       Transfer
+    Method          Nodes               Time       Solved         Nodes                 Time         Solved
+    Random       733.5 ± 13.0%      0.55 ± 6.9%        100/100    93452 ± 14.3%     70.6 ± 9.2%      99/100
+      SB          161.7 ± 0.0%      0.69 ± 0.1%        100/100     1709 ± 0.5%      12.5 ± 0.9%     100/100
+     SCIP        289.5 ± 0.0%       0.53 ± 0.2%        100/100    30260 ± 0.0%      22.14 ± 0.2%    100/100
+      IL         272.0 ± 12.9%      0.69 ± 8.5%        100/100     9747 ± 7.5%      46.5 ± 6.6%     100/100
+    IL-DFS       472.8 ± 13.0%      1.07 ± 9.0%        100/100    43224 ± 9.0%      131 ± 8.6%      98/100
+   PG-tMDP       436.9 ± 21.2%     1.57 ± 16.9%        100/100 35614 ± 14.3%        123 ± 15.4%      98/100
+  DQN-tMDP        266.4 ± 7.2%      0.73 ± 4.6%        100/100 22631 ± 8.6%         65.1 ± 5.5%      99/100
+  DQN-Retro       250.3 ± 9.5%      0.67 ± 5.0%        100/100     27077 ± 8.8%     79.5 ± 6.2%      98/100
+ DQN-BBMDP       236.6 ± 6.4%      0.66 ± 2.7%         100/100     37098 ± 7.0%      109 ± 4.9%     100/100
+                                                       Multiple knapsack
+
+
+
+
+                                                  20
+                                                              Set Covering                                                                                               Combinatorial Auction
+                                                                                               DQN-BBMDP                                                                                                         DQN-BBMDP
+                                                                                               DQN-Retro                                                                                                         DQN-Retro
+                     103                                                                       DQN-tMDP                                                                                                          DQN-tMDP
+                                                                                                                                           103
+
+
+
+
+                                                                                                                       Total number of nodes
+ Total number of nodes
+
+
+
+
+                         6 × 102
+
+
+
+
+                         4 × 102
+
+
+
+                         3 × 102
+
+
+
+                                                                                                                                           102
+                         2 × 102
+
+                                        40       60    80   100    120     140     160     180         200                                       0        25        50        75     100     125     150     175      200
+                                                            Training step (1e3)                                                                                               Training step (1e3)
+
+                                                       Maximum Independent Set
+                                                                                          DQN-BBMDP
+                                                                                          DQN-Retro
+                                                                                          DQN-tMDP
+                                                                                                                                                                     Multiple Knapsack
+                                                                                                                                                                                                            DQN-BBMDP
+                                                                                                                                                                                                            DQN-Retro
+                Total number of nodes
+
+
+
+
+                                                                                                                                                                                                            DQN-tMDP
+                                                                                                                            103
+                                                                                                        Total number of nodes
+
+
+
+
+                                    102
+
+                                             0    25   50   75    100    125      150    175     200
+                                                            Training step (1e3)
+                                                                                                                                                     25        50        75        100     125     150     175     200
+                                                                                                                                                                         Training step (1e3)
+Figure 4: Validation curves for DQN-BBMDP, DQN-Retro and DQN-tMDP agents, in log scale.
+Throughout training, agents are evaluated on 20 validation instances after each batch of 100 training
+instances solved. Note that on the multiple knapsack benchmark, none of the agents reach conver-
+gence.
+
+
+
+
+                                                                                                       21
+

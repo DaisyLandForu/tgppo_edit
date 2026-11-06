@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "verified_beijing": "2026-11-06T11:17:19.247683+08:00",
+  "status": "analysis_complete_gate_failed",
+  "valid_tasks": 110,
+  "model_tasks": 100,
+  "native_tasks": 10,
+  "raw_tar_records_equal": true,
+  "source_and_frozen_actor_sha_unchanged": true,
+  "full_checkpoints_unchanged": true,
+  "input_verification": {
+    "package_files": 62,
+    "external_inputs": 83,
+    "protected_sources": 41,
+    "requested_tasks": 110,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "preservation_checks": {
+    "current_original_results": {
+      "unchanged": true,
+      "checked_files": 25
+    },
+    "preparation": {
+      "unchanged": true,
+      "checked_files": 9
+    },
+    "previous_test66": {
+      "unchanged": true,
+      "checked_files": 4
+    }
+  },
+  "charged_evaluation_wall_seconds": 1842.3791398620233,
+  "evaluation_cap_seconds": 3000,
+  "independent_recomputation_passed": true,
+  "selected": {
+    "control-s11": 20,
+    "control-s22": 20,
+    "expert-s11": 100,
+    "expert-s22": 0
+  },
+  "gate_passed": false,
+  "cross_seed_joint_wins": [],
+  "new_solver_tasks_during_analysis": 0,
+  "new_training_episodes_during_analysis": 0,
+  "gpu_used_during_analysis": false,
+  "stage_complete_waiting_acceptance": true,
+  "source_output_sha256": {
+    "docs/methods/tgppo_supervised_ppo_20261105/results/RESULTS_REVIEW.md": "284bf4b81ac0d92a3b52e590555d2d63beedb616a27bffae9b104104edaaaecd",
+    "docs/methods/tgppo_supervised_ppo_20261105/results/review_results.py": "c565248495e6f100b3bc64f8edb992f1ddb498850a4906b505284899952e825a",
+    "docs/methods/tgppo_supervised_ppo_20261105/results/REVIEW_DATA.json": "5a730842a611b8b2904719be867e07577e3b899477bc0e4276f5a2551f86d2c4",
+    "docs/methods/tgppo_supervised_ppo_20261105/results/verified_summary.csv": "29746970c48143bcca94082b1c13e01c3bc7e56a177b95c080b8a09bf2152344",
+    "docs/methods/tgppo_supervised_ppo_20261105/results/mean_decomposition.csv": "aec10aa701c3ac53902e77e888e2a972efcdf261f199bbfebfc6d84766426913"
+  }
+}

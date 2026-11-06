@@ -1,0 +1,42 @@
+{
+  "stage": "frozen_actor_signal_localization",
+  "authorized_compute_seconds": 600,
+  "preparation_reserve_seconds": 20,
+  "source_pool": "../tgppo_20261102_local_validation/observations.pkl",
+  "source_manifest": "../tgppo_20261102_local_validation/observation_manifest.csv",
+  "observations": 164,
+  "instances": 17,
+  "checkpoints": ["B0-s11/100", "B0-s11/500", "B0-s22/100", "B0-s22/500"],
+  "variants": ["original", "ln2_fixed_state_variance"],
+  "intervention": {
+    "definition": "Keep per-candidate channel centering and learned gamma/beta; replace candidate-specific LN2 denominator by sqrt(mean_over_valid_candidates(channel_variance(x_i)) + eps), computed once from the original path for this state and held fixed for local derivatives and all checks.",
+    "variance_divisor": "population variance, unbiased=False",
+    "new_optimizer_steps": 0,
+    "calibration_or_hyperparameter_search": "none; state-local unlabelled reference only",
+    "interpretation": "operator sensitivity probe at frozen weights, not a trained or deployment-ready policy"
+  },
+  "anchor_selection": "first observation in the existing frozen manifest per instance; 17 anchors",
+  "measurement": {
+    "layerwise_all_states": ["candidate RMS around the candidate mean", "total activation RMS", "relative centered RMS", "candidate range"],
+    "anchor_only": ["participation-ratio effective rank", "score gradients", "candidate-contrast-preserving input perturbation", "original float64 replay", "permutation/padding/repeat checks"],
+    "contrast_perturbation": "x_new = x + 0.001 * (x - mean_candidates(x)); tree state unchanged",
+    "score_target": "negative log probability of the saved action; not PPO loss",
+    "effective_rank": "trace(C^T C)^2 / trace((C^T C)^2), C candidate-centered; zero if C is exactly zero"
+  },
+  "predeclared_screens": {
+    "contraction_comparisons": [["raw", "var_embedding"], ["var_embedding", "fusion"], ["fusion", "tf0"], ["tf0", "tf1"], ["tf1", "tf2"], ["tf2", "tf3"], ["tf3", "tf4"], ["transformer", "bimatching"], ["bimatching", "head0.out"], ["head0.out", "head1.out"], ["head1.out", "head2.out"], ["head2.out", "head3.out"], ["head3.out", "head4.out"], ["head4.out", "head5.out"], ["head5.out", "head6.linear"], ["head6.linear", "head6.norm"], ["head6.norm", "head6.out"], ["head6.out", "logits"], ["bimatching", "logits"]],
+    "strong_contraction": "ratio of output/input relative-centered-RMS <= 0.1; >=80% of instance medians must meet it for each checkpoint to call it cross-checkpoint consistent",
+    "visible_nonuniform_tv": 0.01,
+    "activation_rms_preservation_ratio": [0.8, 1.25],
+    "invariance_probability_atol": 0.000001,
+    "screens_are_not_policy_quality_or_information_loss_proofs": true
+  },
+  "stops": [
+    "600 second cumulative single-CPU ceiling, including reserve; partial results must be reported if hit",
+    "nonfinite tensors, input/checkpoint/source hash drift, parameter changes, wrong mask or failed invariance check",
+    "do not adjust the intervention after observing its scores",
+    "if scale preservation fails, mark the intervention inconclusive without searching another variant",
+    "after this single predefined comparison, submit evidence and continue/stop recommendation; no training or solver follow-on"
+  ],
+  "evidence_limits": ["training observations only", "no action-value or expert-ranking labels", "no new solve/PDI/proof-rate measurement", "no historic PPO update gradients", "only two training seeds", "frozen-weight failure does not rule out retraining"]
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "tgppo-tail8-probe-v1",
+  "date": "2026-11-02",
+  "source_seeds": [
+    11,
+    22
+  ],
+  "head_initialization_seeds": [
+    101,
+    202
+  ],
+  "max_steps_per_trial": 20,
+  "maximum_total_steps": 80,
+  "wall_seconds": 180,
+  "torch_threads": 1,
+  "device": "cpu",
+  "execution": "local sequential, one global budget",
+  "intervention": "replace gated 8->4->2->1 tail with gated 8->Linear(8,1); zero final readout",
+  "pairing": "retained first five blocks and full gate copied exactly from accepted head-reset initial.pt; all head parameters updated as before",
+  "unused_gate_outputs": 6,
+  "unused_gate_output_parameters": 1542,
+  "head_parameters": 241263,
+  "optimizer": "unchanged accepted fresh Adam and PPO objective",
+  "surrogate_decrease_screen": 1e-06,
+  "tv_screen": 1e-06,
+  "mean_training_kl_stop": 0.02,
+  "new_solver_tasks": 0,
+  "critic_updates": 0,
+  "full_actor_updates": 0,
+  "stop_after_this_stage": true,
+  "runner_sha256": "986faf4a1cb3f237b7b8161df6e02965d485fa48aef21bc4ac568f2f677a49d5",
+  "accepted_protocol_file_sha256": "6bfe7fe3c38c08eb271c056011e780d3e9981c448a6d9c6ae22a8594a3781d79",
+  "supervisor_source": "research/docs/diagnostics/tgppo_20261102_head_reset/run.py"
+}

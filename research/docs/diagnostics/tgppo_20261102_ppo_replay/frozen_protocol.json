@@ -1,0 +1,31 @@
+{
+  "stage": "original_B0_single_minibatch_PPO_response",
+  "source_plan": "../tgppo_20261102_ppo_replay_plan/PLAN.md",
+  "checkpoints": ["B0-s11/episode-0100.pt", "B0-s22/episode-0100.pt"],
+  "collection_directory": "e00100/attempt-000",
+  "episodes": [100, 101, 102, 103],
+  "logical_minibatch_size": 256,
+  "microbatch_size": 16,
+  "minibatch_selection": "first original Memory.get_batch_generator minibatch after restoring checkpoint CPU Python/NumPy/Torch RNG; no filtering",
+  "targets": "original Agent.compute_targets over complete same-version episode buffer; normalize advantages over that full buffer exactly as Agent.learn",
+  "optimizer_restore": "both original checkpoint Adam states on CPU, no fresh-state fallback",
+  "maximum_steps": {"per_seed_actor": 1, "per_seed_critic": 1, "total": 4},
+  "execution": "byte-identical independent Agent.learn; read-only measurements around original clipping/step calls; progress_callback raises a handled stop after the first completed logical minibatch",
+  "actor_mode": "eval with autograd",
+  "critic_mode": "train, original dropout",
+  "network_and_reward_changes": "none",
+  "monitor_pool": "../tgppo_20261102_signal_localization/observations.pkl, 164 train states; evaluation only",
+  "preupdate_ratio_max_error_limit": 0.0001,
+  "response_measurements": ["full-buffer advantages", "per-module gradient before/after clipping", "Adam coverage/steps/moments", "parameter delta", "pre/post selected-action ratio", "full-distribution KL/TV/entropy", "centered-logit delta vs common shift", "repeated-forward noise"],
+  "response_screens": {
+    "raw_repeat_comparison": "report TV(pre,post) and TV(pre,repeat) without hiding tiny changes",
+    "conservative_float32_screen": "TV(pre,post) > max(10*TV(pre,repeat), 1e-6); engineering numerical screen, not meaningful learning or policy-quality threshold",
+    "visible_nonuniform_context_only": 0.01,
+    "single_step_need_not_reach_nonuniform_context_threshold": true
+  },
+  "budget_seconds": 600,
+  "preparation_reserve_seconds": 20,
+  "stops": ["any precondition/hash/finite check fails", "no compatible original optimizer state", "insufficient same-version full trajectories", "first completed minibatch per seed", "600 second cumulative single-CPU ceiling including reserve", "no rerun of optimizer steps already entered in the durable step ledger"],
+  "limits": ["CPU replay is not bitwise historical CUDA replay", "interrupted learn does not increment full-update policy_version", "one minibatch is not a complete historical PPO update", "no expert/value labels for candidate quality", "no new solver/PDI/proof-rate evidence", "no extra epoch, seed, architecture, reward, or GPU job"],
+  "deliver_then_stop": true
+}

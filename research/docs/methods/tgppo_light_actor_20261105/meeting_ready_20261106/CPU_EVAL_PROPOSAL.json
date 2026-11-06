@@ -1,0 +1,179 @@
+{
+  "status": "proposal_only_not_authorized_or_executed",
+  "selection_rule": "SHA256(light-actor-cpu-expand-v1:name), first16 excluding current8 and mspp16",
+  "known_large_instance_exception": "mspp16 excluded before any new result due existing single-worker24GiB protocol",
+  "selected": [
+    {
+      "instance": "neos11",
+      "shard": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos11.mps.gz",
+      "sha256": "38026d00badc3cc3516ff5d277e8f4fbaf368182f295df76f66b11db79496101"
+    },
+    {
+      "instance": "neos-801834",
+      "shard": 1,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-801834.mps.gz",
+      "sha256": "8dc5e52764f130360ededc32f882209c6d892642f85139ede750142fc8599139"
+    },
+    {
+      "instance": "neos-662469",
+      "shard": 2,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-662469.mps.gz",
+      "sha256": "65cf8ea6d45f54cfcd8413dc7949c65f11890a2bad768ec559ca29f2270b4530"
+    },
+    {
+      "instance": "neos-612162",
+      "shard": 3,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-612162.mps.gz",
+      "sha256": "fdac0f6e2b9c785a33806c56d469b952344601755f4687cbe5b9e99395a5e4af"
+    },
+    {
+      "instance": "bab5",
+      "shard": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/bab5.mps.gz",
+      "sha256": "aa7e93f394d03e112fb0d36ff27d8af776d64e5721059131ffef9e7a5bf5f816"
+    },
+    {
+      "instance": "aflow40b",
+      "shard": 1,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/aflow40b.mps.gz",
+      "sha256": "a02d2c9222b3de7c7c7b3416694b1cfea6646363a61fbd61b39c8ab64dbb48c3"
+    },
+    {
+      "instance": "seymour1",
+      "shard": 2,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/seymour1.mps.gz",
+      "sha256": "fbcef8581c27234abf5816cbd1ddd5b6b6fdc3764b57d36d85c517d9fd3e9bac"
+    },
+    {
+      "instance": "mik-250-20-75-4",
+      "shard": 3,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/mik-250-20-75-4.mps.gz",
+      "sha256": "1fa6126895fa59d1c613787ad19bb10e6080a39207224b018a43b95440dca4ef"
+    },
+    {
+      "instance": "neos-820879",
+      "shard": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-820879.mps.gz",
+      "sha256": "f4af2dd30c150c15aade4992415389fcc4c95d34a7a5c77f2555177590a35225"
+    },
+    {
+      "instance": "opm2-z7-s2",
+      "shard": 1,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/opm2-z7-s2.mps.gz",
+      "sha256": "be309ae39b5ad49b78504a0c64a3cfdb225637d85c83cf6fd05c8d638e440b2e"
+    },
+    {
+      "instance": "rout",
+      "shard": 2,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/rout.mps.gz",
+      "sha256": "85e9cbff3baf54aec897ba0d57679929482c8ab039164aa22639261ee4fac0a9"
+    },
+    {
+      "instance": "neos-686190",
+      "shard": 3,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-686190.mps.gz",
+      "sha256": "aaa1e6c4781e1a683b58190e498cd5d1887b1194d69c8b94d4adf8dc1384f26d"
+    },
+    {
+      "instance": "map16715-04",
+      "shard": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/map16715-04.mps.gz",
+      "sha256": "3bb8fa8aa10d5be68f5aa272570a118a4c97a6d75bc1426dd0fec3eafaaec2e8"
+    },
+    {
+      "instance": "ns1208400",
+      "shard": 1,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/ns1208400.mps.gz",
+      "sha256": "993b8f2dce018d3d339334345eb22db979089318e708c45cfbed28b988e4d145"
+    },
+    {
+      "instance": "neos-829552",
+      "shard": 2,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/neos-829552.mps.gz",
+      "sha256": "9684ea84dc7d168614609483b5044c625b29247c9daaed4558eafd21a2f4052d"
+    },
+    {
+      "instance": "ns1830653",
+      "shard": 3,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/test_instances/ns1830653.mps.gz",
+      "sha256": "a4e3c130f7ff6ebab4d6781a7e95fadc6c4c043e3e65d95b90f3e2e5e46f1017"
+    }
+  ],
+  "frozen_models": [
+    {
+      "label": "b0-s11",
+      "variant": "b0",
+      "training_seed": 11,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/b0-s11.pt",
+      "actor_sha256": "73dffb265162b89fd0cc4b9bc1dd0e16a9cf6c2ff06e5b64a54d45dace3eb0eb"
+    },
+    {
+      "label": "b0-s22",
+      "variant": "b0",
+      "training_seed": 22,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/b0-s22.pt",
+      "actor_sha256": "5541e5a13de074baad8618715452f9b3ee2ac65efbca8ad281664d02a7c7d155"
+    },
+    {
+      "label": "b0_bc-s11",
+      "variant": "b0_bc",
+      "training_seed": 11,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/b0_bc-s11.pt",
+      "actor_sha256": "ec967ed4bcd0051eb0ddbca9996c70d9a8d11bba5103eab8fb727e42a0e7ab30"
+    },
+    {
+      "label": "b0_bc-s22",
+      "variant": "b0_bc",
+      "training_seed": 22,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/b0_bc-s22.pt",
+      "actor_sha256": "4aca1ed6f52d64fc367ee146d11ce36fbe00aaf74c46599ac6282b7d138a4ebb"
+    },
+    {
+      "label": "mlp-s11",
+      "variant": "mlp",
+      "training_seed": 11,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/mlp-s11.pt",
+      "actor_sha256": "db897429fae431d2bff091c56227e27fa48784e030b1fd0e2b5f187368c23762"
+    },
+    {
+      "label": "mlp-s22",
+      "variant": "mlp",
+      "training_seed": 22,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/mlp-s22.pt",
+      "actor_sha256": "02be7899421faffcf6f75122b94fc775adfd182b8e70cbdd913835c2a6f12b67"
+    },
+    {
+      "label": "mlp_bc-s11",
+      "variant": "mlp_bc",
+      "training_seed": 11,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/mlp_bc-s11.pt",
+      "actor_sha256": "44523049a2a4eeb9710a84bdece8ae298d41fcc01a5266e4f265c0b8b24c23c5"
+    },
+    {
+      "label": "mlp_bc-s22",
+      "variant": "mlp_bc",
+      "training_seed": 22,
+      "actor": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cross-instance-8/frozen/mlp_bc-s22.pt",
+      "actor_sha256": "dbe6bd8867034cb8c88cf894af2cbbaa3a6e4d7a3da1773184efeb45fb0a38ad"
+    }
+  ],
+  "tasks": 288,
+  "model_tasks": 256,
+  "fresh_native_tasks": 32,
+  "shards": 4,
+  "tasks_per_shard": 72,
+  "requested_resources_per_shard": {
+    "cpu": 4,
+    "ram_gib": 32,
+    "gpu": 0
+  },
+  "proposed_wall_cap_seconds_per_shard": 3000,
+  "time_limit_seconds": 120,
+  "watchdog_seconds": 180,
+  "planned_epochs": 100,
+  "new_training": false,
+  "sampling": "same dev/test action seed convention as frozen previous cross-instance evaluation",
+  "caveat": "These16 are outside current8, but project historical test results were viewed; not an untouched holdout. Not a66-instance evaluation.",
+  "data_scope": "old frozen MLP/B0 x noBC/BC x training seeds11/22, all methods for each instance on one CPU host"
+}

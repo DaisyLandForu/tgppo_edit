@@ -1,0 +1,898 @@
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,4 +1,4 @@
+-# Rebuilt from the preserved custom binding by docs/stage3/build_metrics_binding.py.
++# Isolated stage3 metric + stage4 frontier binding: docs/stage4/build_search_binding.py.
+ metrics_binding/
+ __pycache__/
+ *.pyc
+--- /dev/null
++++ b/STAGE4.md
+@@ -0,0 +1,55 @@
++# Stage 4: fixed-policy search information diagnosis
++
++Authorization: user `进入阶段4`, 2026-10-21. Stage 5 is not authorized here.
++
++This detached worktree includes the accepted stage-3 correctness and metric fixes.
++The upstream Actor, Critic, modules, reward and solver-settings sources stay unchanged.
++New `project/policy/search_critic.py` implements the Critic-only extension.
++
++`docs/stage4/build_search_binding.py` copies the stage-3 isolated binding and adds
++a read-only `getOpenNodeSnapshot()` (all leaves+children+siblings, internal lower
++bounds and depths). Installed binding and SCIP shared library stay untouched.
++
++Run with the existing environment and explicit worktree precedence:
++
++```bash
++source /root/research/tgppo/activate.sh
++export PYTHONPATH=/root/research/tgppo/experiments/stage4/metrics_binding/src:/root/research/tgppo/experiments/stage4/code
++python /root/research/tgppo/experiments/stage4/code/stage4.py bridge
++python /root/research/tgppo/experiments/stage4/code/stage4.py collect
++python /root/research/tgppo/experiments/stage4/code/stage4.py cache
++python /root/research/tgppo/experiments/stage4/code/stage4.py fit
++python /root/research/docs/stage4/summarize.py
++python /root/research/docs/stage4/value_scale_diagnostics.py
++```
++
++Existing output is deliberately protected. `--run-root /absolute/new/path` on
++`stage4.py` provides a separate new run; `summarize.py --run-root PATH --report-dir PATH`
++audits an independent run. Native stage-3 baselines and the fixed accepted stage-3 checkpoint
++are explicit hashed dependencies, not rerun or development-selected.
++
++Collection is CPU-only with the original Actor and B0 Critic. Search features
++are an independently versioned sidecar of the original episode-preserving
++trajectory; each row must match action index, action and candidate count.
++Absent branching decisions produce zero samples and retained task records.
++
++Cache uses the frozen B0 Critic encoder in eval mode on CPU, sorted by candidate
++length, microbatch 8. Fits use cached pure tensors (existing GPU allowed).
++24 variants: R0/Rcap/Rprod/Rjoint × MSE/HL-Gauss × seeds 11/22/33.
++All use 500 updates of 256 instance-balanced train-only samples and identical
++index schedules for a given fitting seed. The dev split never selects updates.
++
++Final adapter checkpoints store all trainable parameters and the common base
++checkpoint/cache hashes. Reconstruct `SearchCritic(base, group, loss)` and load
++`trainable_state_dict` with `strict=False`; missing keys must be frozen encoder
++or constant return-support buffers only. The delivered audit checks every
++adapter against saved predictions and a raw-state end-to-end evaluation.
++
++The result is prediction on a fixed, weakly trained Actor's trajectory
++distribution with a frozen encoder. It does not reproduce the paper's result
++and does not demonstrate online PPO or solver performance gains.
++
++The completed 500-update fits were worse than a train-mean constant predictor.
++Read-only output-range diagnosis found a shared value-scale underfitting issue.
++The tiny paired differences must not be interpreted as validated information
++benefit. No further fitting or online stage was started after these results.
+--- a/code/project/brancher/brancher.py
++++ b/code/project/brancher/brancher.py
+@@ -8,11 +8,12 @@
+ 
+ class Brancher(scip.Branchrule):
+     def __init__(self, model, state_dims, agent, mode, reward_func=None,
+-                 deterministic=False):
++                 deterministic=False, search_recorder=None):
+         super().__init__()
+         self.model, self.state_dims, self.agent = model, state_dims, agent
+         self.mode, self.reward_func = mode, reward_func
+         self.deterministic = deterministic
++        self.search_recorder = search_recorder
+         self.prev = None
+         self.finalized = False
+         self.error = None
+@@ -48,6 +49,8 @@
+                                  self.model.getNodeState(self.state_dims['node_dim']),
+                                  self.state_dims)
+             self.times['features'] += time.perf_counter() - begin
++            if self.search_recorder is not None:
++                self.search_recorder.capture(self.model, state)
+             if self.mode == 'collect':
+                 self._store_previous(False)
+                 action, value, log_prob = self.agent.choose_action(**state,
+@@ -60,6 +63,8 @@
+                 raise ValueError('Policy action out of range; no action-0 fallback')
+             begin = time.perf_counter()
+             self.model.branchVar(cands[action])
++            if self.search_recorder is not None:
++                self.search_recorder.commit(action)
+             self.times['branch'] += time.perf_counter() - begin
+             self.branch_count += 1
+             if self.mode == 'collect':
+--- a/code/project/environment/environment.py
++++ b/code/project/environment/environment.py
+@@ -11,7 +11,8 @@
+ 
+ class Environment:
+     def __init__(self, device, agent, state_dims, scip_limits, scip_params, scip_seed,
+-                 reward_func=None, logger=None, mode='collect', deterministic=False):
++                 reward_func=None, logger=None, mode='collect', deterministic=False,
++                 search_recorder=None):
+         if mode not in ('collect', 'eval', 'native'):
+             raise ValueError('Unknown environment mode')
+         if mode == 'collect' and (agent is None or reward_func is None):
+@@ -25,6 +26,9 @@
+         self.reward_func, self.mode = reward_func, mode
+         self.logger = logger or logging.getLogger(__name__)
+         self.deterministic = deterministic
++        if search_recorder is not None and mode != 'collect':
++            raise ValueError('Extra search features are training-collection only')
++        self.search_recorder = search_recorder
+         self.model = self.brancher = None
+         self.episode_count = 0
+ 
+@@ -72,7 +76,7 @@
+                 self.agent.memory.begin_episode(self.episode_id, self.agent.policy_version)
+             if self.mode != 'native':
+                 self.brancher = Brancher(self.model, self.state_dims, self.agent, self.mode,
+-                                         self.reward_func, self.deterministic)
++                                         self.reward_func, self.deterministic, self.search_recorder)
+                 self.model.includeBranchrule(self.brancher, 'TreeGatePPO_Brancher',
+                     'Stage2 original features', priority=999999, maxdepth=-1, maxbounddist=1)
+             self.model.optimize()
+--- /dev/null
++++ b/code/project/policy/search_critic.py
+@@ -0,0 +1,93 @@
++"""Critic-only search extension; the upstream Actor/Critic modules stay untouched.
++
++Frozen encoder caching is the stage-4 diagnostic. forward() also provides the
++same input-to-value chain for checking future end-to-end use; no PPO is run here.
++"""
++import copy
++import torch
++from torch import nn
++from .critic import Critic
++
++
++class SearchCritic(Critic):
++    def __init__(self, base, group='R0', loss='mse'):
++        nn.Module.__init__(self)
++        if group not in ('R0', 'Rcap', 'Rprod', 'Rjoint') or loss not in ('mse', 'hl_gauss'):
++            raise ValueError('Unknown critic variant')
++        for name, module in base.named_children():
++            self.add_module(name, copy.deepcopy(module))
++        self.hidden_dim = base.hidden_dim
++        self.group, self.loss = group, loss
++        self.time_projection = nn.Linear(1, self.hidden_dim, bias=False)
++        nn.init.zeros_(self.time_projection.weight)
++        if loss == 'hl_gauss':
++            previous = self.value_head.BranchingNet[-1][0]
++            self.value_head.BranchingNet[-1][0] = nn.Linear(previous.in_features, 64)
++        if group != 'R0':
++            self.extra = nn.Sequential(nn.Linear(69, 64), nn.ReLU(), nn.Linear(64, 32), nn.ReLU())
++            self.extra_projection = nn.Linear(32, self.hidden_dim, bias=False)
++            nn.init.zeros_(self.extra_projection.weight)
++        self.register_buffer('return_edges', torch.linspace(-36., 52., 65))
++        self.register_buffer('return_centers', (self.return_edges[:-1]+self.return_edges[1:])/2)
++
++    def freeze_encoder(self):
++        for name in ('var_embedding', 'tree_embedding', 'transformer', 'tree_refinement', 'aggregation'):
++            for p in getattr(self, name).parameters():
++                p.requires_grad_(False)
++
++    def encode(self, cands_state_mat, node_state, mip_state, padding_mask=None):
++        batch, count, _ = cands_state_mat.shape
++        if padding_mask is None:
++            padding_mask = torch.zeros((batch, count), dtype=torch.bool, device=cands_state_mat.device)
++        var = self.var_embedding(cands_state_mat).transpose(0, 1)
++        var = self.transformer(var, src_key_padding_mask=padding_mask).transpose(0, 1)
++        tree = self.tree_embedding(torch.cat([node_state, mip_state], dim=-1))
++        refined = self.tree_refinement(tree, var, padding_mask)
++        valid = (~padding_mask).unsqueeze(-1)
++        pooled = (refined*valid).sum(1)/valid.sum(1).clamp(min=1)
++        aggregated = self.aggregation(torch.cat([pooled, tree], dim=-1))
++        return aggregated, tree
++
++    def extra_input(self, tree_state, remaining_time, frontier):
++        if self.group == 'Rcap':
++            return torch.cat([tree_state, remaining_time, torch.zeros_like(frontier[:, :7])], dim=-1)
++        if self.group == 'Rprod':
++            h = frontier[:, :64].reshape(-1, 8, 8)
++            h = h.sum(2).unsqueeze(2)*h.sum(1).unsqueeze(1)
++            return torch.cat([h.flatten(1), frontier[:, 64:]], dim=-1)
++        return frontier
++
++    def logits_cached(self, aggregated, tree, tree_state, remaining_time, frontier):
++        z = aggregated + self.time_projection(remaining_time)
++        if self.group != 'R0':
++            z = z + self.extra_projection(self.extra(self.extra_input(tree_state, remaining_time, frontier)))
++        gates = self.value_head.GatingNet(tree)
++        start = 0
++        for index, layer in enumerate(self.value_head.BranchingNet):
++            stop = start + self.value_head.n_units_dict[index]
++            z = layer(z*gates[:, start:stop])
++            start = stop
++        return z
++
++    def decode(self, output):
++        return (output.softmax(-1)*self.return_centers).sum(-1) if self.loss == 'hl_gauss' else output.squeeze(-1)
++
++    def forward_cached(self, *args):
++        return self.decode(self.logits_cached(*args))
++
++    def forward(self, cands_state_mat, node_state, mip_state, remaining_time, frontier, padding_mask=None):
++        a, t = self.encode(cands_state_mat, node_state, mip_state, padding_mask)
++        return self.forward_cached(a, t, torch.cat([node_state, mip_state], -1), remaining_time, frontier)
++
++    def gaussian_targets(self, targets):
++        if not torch.isfinite(targets).all() or (targets < -36).any() or (targets > 52).any():
++            raise ValueError('Return outside frozen HL-Gauss support')
++        sigma = .75*(88./64)
++        cdf = .5*(1+torch.erf((self.return_edges[None, :]-targets[:, None])/(sigma*2**.5)))
++        probabilities = (cdf[:, 1:]-cdf[:, :-1]).clamp(min=0)
++        return probabilities/probabilities.sum(-1, keepdim=True)
++
++    def training_loss(self, output, targets):
++        if self.loss == 'mse':
++            return (output.squeeze(-1)-targets).square().mean()
++        return -(self.gaussian_targets(targets)*output.log_softmax(-1)).sum(-1).mean()
+--- a/code/project/runtime.py
++++ b/code/project/runtime.py
+@@ -166,8 +166,15 @@
+             policy, payload = load_actor(job['checkpoint'])
+         # Initialization must not consume the action RNG stream.
+         seed_all(job['sampling_seed'])
++        search_recorder = None
++        if job.get('collect_search_features'):
++            if job['mode'] != 'collect':
++                raise ValueError('Search features forbidden during deployment')
++            from project.search_features import SearchRecorder
++            search_recorder = SearchRecorder(job['limits']['time_limit'])
+         env = Environment('cpu', policy, state_dims, job['limits'], job['params'],
+-                          job['solver_seed'], reward, mode=job['mode'])
++                          job['solver_seed'], reward, mode=job['mode'],
++                          search_recorder=search_recorder)
+         env.reset(job['instance'], job['cutoff'], job.get('baseline'),
+                   job['cutoff_provenance'], episode_id=job['job_id'])
+         _, info, _ = env.run_episode()
+@@ -177,6 +184,9 @@
+         if job['mode'] == 'collect' and info['valid']:
+             result['policy_version'] = policy.policy_version
+             trajectory = policy.memory.export_dict()
++            if search_recorder is not None:
++                trajectory['search_features'] = search_recorder.export(trajectory)
++                result['search_extraction_wall_seconds'] = search_recorder.seconds
+             result['num_transitions'] = trajectory['num_transitions']
+             result['num_terminal_transitions'] = sum(r['done'] for e in trajectory['episodes']
+                                                     for r in e['transitions'])
+--- /dev/null
++++ b/code/project/search_features.py
+@@ -0,0 +1,92 @@
++"""Action-before-branch frontier summary and separately versioned trajectory sidecar."""
++import time
++import numpy as np
++
++SCHEMA = 'stage4-frontier-v1'
++
++
++def frontier_features(snapshot):
++    bounds = np.asarray(snapshot['bounds'], dtype=np.float64)
++    depths = np.asarray(snapshot['depths'], dtype=np.int64)
++    n = len(bounds)
++    if bounds.ndim != 1 or depths.shape != bounds.shape or (depths < 0).any():
++        raise ValueError('Malformed open-node snapshot')
++    if n != sum(snapshot[k] for k in ('nleaves', 'nchildren', 'nsiblings')):
++        raise ValueError('Missing open-node category')
++    if n != snapshot['solver_open_nodes']:
++        raise ValueError('Frontier count differs from SCIPgetNNodesLeft')
++    if np.isnan(bounds).any():
++        raise ValueError('NaN frontier bound')
++    infinity = float(snapshot['infinity'])
++    pos = bounds >= infinity
++    neg = bounds <= -infinity
++    finite = ~(pos | neg)
++    h = np.zeros((8, 8), dtype=np.float64)
++    nf = int(finite.sum())
++    bound_span = float(np.ptp(bounds[finite])) if nf else 0.
++    max_depth = int(depths.max()) if n else 0
++    finite_depth_span = int(np.ptp(depths[finite])) if nf else 0
++    if nf:
++        b = bounds[finite]
++        bx = (b - b.min()) / bound_span if bound_span > 0 else np.zeros(nf)
++        dx = depths[finite] / float(max_depth) if max_depth else np.zeros(nf)
++        bi = np.minimum((bx * 8).astype(np.int64), 7)
++        di = np.minimum((dx * 8).astype(np.int64), 7)
++        np.add.at(h, (bi, di), 1.)
++        h /= nf
++    prod = np.outer(h.sum(1), h.sum(0))
++    scalars = np.asarray([np.log1p(n), float(n == 0), nf / n if n else 0.,
++                          float(pos.sum()) / n if n else 0.,
++                          float(neg.sum()) / n if n else 0.], dtype=np.float32)
++    diag = dict(n_open=n, n_finite=nf, nleaves=int(snapshot['nleaves']),
++        nchildren=int(snapshot['nchildren']), nsiblings=int(snapshot['nsiblings']),
++        bound_span=bound_span, finite_depth_span=finite_depth_span, max_depth=max_depth,
++        both_axes_nondegenerate=bool(bound_span > 0 and finite_depth_span > 0),
++        association_l1=float(np.abs(h-prod).sum()))
++    return np.r_[h.ravel(), scalars].astype(np.float32), diag
++
++
++def discounted_returns(rewards, gamma=.97):
++    result = np.empty(len(rewards), dtype=np.float32)
++    total = 0.
++    for i in range(len(rewards)-1, -1, -1):
++        total = float(rewards[i]) + gamma * total
++        result[i] = total
++    return result
++
++
++class SearchRecorder:
++    def __init__(self, time_limit):
++        self.time_limit = float(time_limit)
++        self.rows = []
++        self.pending = None
++        self.seconds = 0.
++
++    def capture(self, model, state):
++        if self.pending is not None:
++            raise RuntimeError('Previous feature snapshot not committed')
++        start = time.perf_counter()
++        snapshot = model.getOpenNodeSnapshot()
++        vector, diag = frontier_features(snapshot)
++        t = float(snapshot['solving_time'])
++        self.pending = dict(frontier=vector, remaining_time=np.float32(
++            np.clip(1.-t/self.time_limit, 0., 1.)), solving_time=t,
++            num_candidates=len(state['cands_state']), diagnostics=diag)
++        self.seconds += time.perf_counter() - start
++
++    def commit(self, action):
++        if self.pending is None:
++            raise RuntimeError('No action-before-branch snapshot')
++        self.pending.update(action=int(action), decision_index=len(self.rows))
++        self.rows.append(self.pending)
++        self.pending = None
++
++    def export(self, trajectory):
++        rows = [r for e in trajectory['episodes'] for r in e['transitions']]
++        if self.pending is not None or len(rows) != len(self.rows):
++            raise ValueError('Search sidecar / trajectory length mismatch')
++        for i, (row, extra) in enumerate(zip(rows, self.rows)):
++            if row['action'] != extra['action'] or len(row['cands_state']) != extra['num_candidates']:
++                raise ValueError('Search sidecar alignment failure at {}'.format(i))
++        return dict(schema=SCHEMA, collection_timing='before action and branchVar',
++                    rows=self.rows, extraction_wall_seconds=self.seconds)
+--- /dev/null
++++ b/code/stage4.py
+@@ -0,0 +1,368 @@
++"""Stage 4: fixed-Actor collection and controlled frozen-encoder value diagnosis."""
++import argparse
++import hashlib
++import json
++import os
++from pathlib import Path
++import pickle
++import resource
++import signal
++import time
++import traceback
++import numpy as np
++import torch
++from project.runtime import (make_job, job_identity, run_jobs, load_agent, seed_all,
++                             cpu_seconds)
++from project.utils.protocol import fingerprint, sha256, write_json, validate_baseline
++from project.search_features import discounted_returns, SCHEMA
++from project.policy.search_critic import SearchCritic
++
++ROOT = Path('/root/research')
++RUN = ROOT / 'tgppo/runs/stage4'
++CHECKPOINT = ROOT / 'tgppo/runs/stage3/pilot-repaired/latest.pt'
++CHECKPOINT_SHA = '1b912eec46bdf7ec3eaff04570c4aed0c3a57389b6d290bc14f3cc213442d4d1'
++GROUPS = ('R0', 'Rcap', 'Rprod', 'Rjoint')
++LOSSES = ('mse', 'hl_gauss')
++FIT_SEEDS = (11, 22, 33)
++
++
++def protocol():
++    return json.loads((ROOT / 'docs/stage1/protocol_draft.json').read_text())
++
++
++def check_checkpoint():
++    if sha256(CHECKPOINT) != CHECKPOINT_SHA:
++        raise ValueError('Frozen stage3 checkpoint changed')
++
++
++def frozen_config():
++    p = protocol()
++    return dict(stage=4, authorization='进入阶段4', checkpoint=str(CHECKPOINT),
++        checkpoint_sha256=CHECKPOINT_SHA, time_limit=120., max_workers=4, watchdog=180.,
++        solver_seeds=[0, 1], train=p['data']['train'], development=p['data']['development'],
++        groups=GROUPS, losses=LOSSES, fit_seeds=FIT_SEEDS, max_updates=500, batch_size=256,
++        critic_lr=.00012, gamma=.97, affinity=[0, 1, 2, 3],
++        target='full finite-horizon empirical discounted return, no bootstrap or GAE',
++        cache_device='cpu', fit_device='cuda if available, cached pure tensors only',
++        offline_cpu_cap_seconds=14400., encoder_microbatch_size=8,
++        initialization='common B0 head + zero time projection; identical extra initialization by fit seed',
++        selection='fixed final 500-update head, never choose by development outcomes',
++        weighting='uniform train instance, then uniform transition within instance',
++        frontend='frozen B0 Critic embeddings/transformer/refinement/aggregation',
++        action_features='unchanged upstream Actor inputs', online_training_started=False)
++
++
++def collect():
++    check_checkpoint()
++    p = protocol()
++    cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++    baselines = json.loads((ROOT / 'tgppo/runs/stage3/native/baselines.json').read_text())
++    names = p['data']['train'] + p['data']['development']
++    jobs = []
++    for i, name in enumerate(names):
++        instance = ROOT / 'tgppo/datasets/train_instances' / (name+'.mps.gz')
++        if sha256(instance) != p['data']['hashes'][name]:
++            raise ValueError('Instance hash changed')
++        for seed in (0, 1):
++            j = make_job('offline-{:02d}-{}-s{}'.format(i, name, seed),
++                instance.parent, name, 120., seed, 11, cutoffs, 'collect', CHECKPOINT)
++            identity = job_identity(j)
++            j['baseline'] = baselines[fingerprint(identity)]
++            validate_baseline(j['baseline'], identity)
++            j.update(collect_search_features=True, address_space_limit_bytes=8*1024**3)
++            jobs.append(j)
++    write_json(RUN / 'collection/jobs_manifest.json', jobs)
++    rows = run_jobs(jobs, RUN / 'collection/jobs', 4, 180.)
++    write_json(RUN / 'collection/summary.json', dict(jobs=len(rows), valid=sum(bool(r.get('valid')) for r in rows),
++        transitions=sum(r.get('num_transitions', 0) for r in rows),
++        worker_cpu_seconds=sum(r.get('worker_cpu_seconds') or 0 for r in rows),
++        parent_cpu_seconds=cpu_seconds(),
++        search_extraction_wall_seconds=sum(r.get('search_extraction_wall_seconds', 0) for r in rows),
++        checkpoint_sha256_after=sha256(CHECKPOINT)))
++    if any(not r.get('valid') for r in rows):
++        raise RuntimeError('Collection failures retained; no automatic sample deletion')
++
++
++def bridge():
++    check_checkpoint()
++    cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++    comparisons = []
++    for name in ('lseu', 'stein27'):
++        j = make_job('bridge-native-'+name, ROOT / 'tgppo/datasets/train_instances', name,
++                     120., 0, 11, cutoffs, 'native')
++        native = run_jobs([j], RUN/'bridge/native'/name, 1, 180.)[0]
++        baseline = dict(identity=job_identity(j), result=native)
++        paired = []
++        for enabled in (False, True):
++            # Identical job ID gives identical action RNG. Separate output directories.
++            k = make_job('bridge-actor-'+name, ROOT/'tgppo/datasets/train_instances', name,
++                         120., 0, 11, cutoffs, 'collect', CHECKPOINT, baseline)
++            k['collect_search_features'] = enabled
++            directory = RUN/'bridge'/('enabled' if enabled else 'disabled')/name
++            row = run_jobs([k], directory, 1, 180.)[0]
++            if not row.get('valid'):
++                raise RuntimeError('Bridge invalid: '+str(row))
++            with open(directory/(k['job_id']+'.pkl'), 'rb') as f:
++                trajectory = pickle.load(f)
++            transitions = [t for e in trajectory['episodes'] for t in e['transitions']]
++            paired.append((row, transitions, trajectory))
++        a, b = paired
++        equal = all(a[0][key] == b[0][key] for key in ('nnodes', 'status', 'primal_bound', 'dual_bound', 'gap'))
++        actions_equal = [t['action'] for t in a[1]] == [t['action'] for t in b[1]]
++        features_equal = len(a[1]) == len(b[1]) and all(
++            np.array_equal(x[key], y[key]) for x,y in zip(a[1],b[1])
++            for key in ('cands_state','node_state'))
++        # MIP state includes solving-time-dependent PDI, so it need not be bit-identical.
++        comparisons.append(dict(instance=name, solver_outcome_equal=equal, actions_equal=actions_equal,
++            static_features_equal=features_equal, transitions=len(a[1]),
++            sidecar_aligned=len(b[2]['search_features']['rows']) == len(b[1])))
++        # Full Actor inputs contain real elapsed time/PDI. Identical actions in
++        # separate timed runs are diagnostic, not a bitwise read-only guarantee.
++        if not comparisons[-1]['sidecar_aligned']:
++            raise RuntimeError('Unaligned real search sidecar')
++    write_json(RUN/'bridge/verification.json', dict(passed=True, comparisons=comparisons))
++
++
++def offline_prior_cpu():
++    return sum(json.loads(p.read_text()).get('cpu_seconds', 0.)
++               for p in (RUN/'offline').glob('*_cost.json'))
++
++
++def budget_signal(signum, frame):
++    raise RuntimeError('Stage4 shared offline CPU cap reached; partial results retained')
++
++
++def offline_budget():
++    prior = offline_prior_cpu()
++    available = 14400.-prior
++    if available <= 10:
++        raise RuntimeError('Offline budget exhausted')
++    signal.signal(signal.SIGXCPU, budget_signal)
++    resource.setrlimit(resource.RLIMIT_CPU, (int(available-5), resource.getrlimit(resource.RLIMIT_CPU)[1]))
++    return prior
++
++
++def cache():
++    prior = offline_budget()
++    check_checkpoint()
++    start_cpu, start_wall = cpu_seconds(), time.perf_counter()
++    out = RUN/'offline'
++    out.mkdir(parents=True, exist_ok=True)
++    if (out/'cache.pt').exists():
++        raise FileExistsError('Preserve existing cache')
++    agent, _ = load_agent(CHECKPOINT, training=False, restore_random_state=False)
++    agent.critic_network.eval()
++    model = SearchCritic(agent.critic_network).eval()
++    for par in model.parameters(): par.requires_grad_(False)
++    summaries, parts = [], []
++    for path in sorted((RUN/'collection/jobs').glob('*.pkl')):
++        result = json.loads(path.with_suffix('.json').read_text())
++        if not result['valid']: raise ValueError('Invalid source trajectory')
++        with path.open('rb') as f: payload = pickle.load(f)
++        side = payload['search_features']
++        if side['schema'] != SCHEMA: raise ValueError('Search schema mismatch')
++        episodes = payload['episodes']
++        if len(episodes) != 1: raise ValueError('One finite task per file required')
++        ep = episodes[0]; rows = ep['transitions']; extras = side['rows']; n = len(rows)
++        if n != len(extras) or n != payload['num_transitions']: raise ValueError('Sidecar length mismatch')
++        if not ep['task_terminal'] or ep['collector_truncated'] or ep['bootstrap_value'] != 0:
++            raise ValueError('Only complete finite-horizon targets')
++        if n and (not rows[-1]['done'] or sum(t['done'] for t in rows) != 1):
++            raise ValueError('Missing/duplicate terminal')
++        name = result['instance_name']
++        summaries.append(dict(job_id=path.stem, instance=name, transitions=n,
++            terminal_reward=rows[-1]['reward'] if n else None, source_sha256=sha256(path)))
++        if not n: continue
++        target = discounted_returns([r['reward'] for r in rows])
++        if not np.isfinite(target).all() or target.min() < -36 or target.max() > 52:
++            raise ValueError('Frozen return support violated; stop before fitting')
++        aggregated = np.empty((n, model.hidden_dim), dtype=np.float32)
++        tree = np.empty_like(aggregated)
++        ordering = sorted(range(n), key=lambda i: len(rows[i]['cands_state']))
++        with torch.no_grad():
++            for start in range(0, n, 8):
++                ids = ordering[start:start+8]
++                cands = torch.nn.utils.rnn.pad_sequence(
++                    [torch.from_numpy(rows[i]['cands_state']) for i in ids], batch_first=True)
++                lengths = torch.tensor([len(rows[i]['cands_state']) for i in ids])
++                mask = torch.arange(cands.shape[1])[None, :] >= lengths[:, None]
++                nodes = torch.from_numpy(np.stack([rows[i]['node_state'] for i in ids]))
++                mips = torch.from_numpy(np.stack([rows[i]['mip_state'] for i in ids]))
++                a, t = model.encode(cands, nodes, mips, mask)
++                aggregated[ids], tree[ids] = a.numpy(), t.numpy()
++                # Full/base consistency is checked on the first microbatch of every trajectory.
++                if start == 0:
++                    expected = agent.critic_network(cands, nodes, mips, mask).reshape(-1)
++                    predicted = model.forward_cached(a, t, torch.cat([nodes,mips], -1),
++                        torch.tensor([[extras[i]['remaining_time']] for i in ids]),
++                        torch.from_numpy(np.stack([extras[i]['frontier'] for i in ids])))
++                    torch.testing.assert_close(predicted, expected)
++        for i,(row, extra) in enumerate(zip(rows, extras)):
++            if row['action'] != extra['action'] or extra['decision_index'] != i:
++                raise ValueError('Action alignment mismatch')
++        parts.append(dict(aggregated=aggregated, tree=tree,
++            tree_state=np.stack([np.r_[r['node_state'],r['mip_state']] for r in rows]),
++            remaining_time=np.asarray([[x['remaining_time']] for x in extras], dtype=np.float32),
++            frontier=np.stack([x['frontier'] for x in extras]), target=target,
++            instance=np.asarray([name]*n), job_id=np.asarray([path.stem]*n)))
++        print(json.dumps(dict(event='cached', instance=name, transitions=n,
++                              cpu_seconds=cpu_seconds()-start_cpu)), flush=True)
++    if len(summaries) != 50: raise ValueError('Expected all 50 episode records')
++    dataset = {k: np.concatenate([x[k] for x in parts]) for k in parts[0]}
++    torch.save(dict(schema=SCHEMA, checkpoint_sha256=CHECKPOINT_SHA, arrays=dataset,
++                    episodes=summaries), out/'cache.pt')
++    cost = dict(cpu_seconds=cpu_seconds(), execution_cpu_seconds=cpu_seconds()-start_cpu,
++                wall_seconds=time.perf_counter()-start_wall,
++                startup_cpu_seconds=start_cpu, prior_offline_cpu_seconds=prior,
++                transitions=len(dataset['target']), episodes=50, cache_sha256=sha256(out/'cache.pt'),
++                target_min=float(dataset['target'].min()), target_max=float(dataset['target'].max()),
++                peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
++    write_json(out/'cache_cost.json', cost)
++
++
++def metrics(prediction, target, train_variance):
++    error = prediction-target
++    variance = float(np.var(target))
++    return dict(mae=float(np.abs(error).mean()), mse=float(np.square(error).mean()),
++        nmse=float(np.square(error).mean()/train_variance) if train_variance > 0 else None,
++        explained_variance=float(1.-np.var(error)/variance) if variance > 1e-12 else None,
++        target_variance=variance, transitions=len(target))
++
++
++def fit():
++    prior = offline_budget()
++    check_checkpoint()
++    start_cpu, start_wall = cpu_seconds(), time.perf_counter()
++    out = RUN/'offline'
++    if (out/'fits').exists(): raise FileExistsError('Preserve existing fits')
++    (out/'fits').mkdir()
++    payload = torch.load(out/'cache.pt', map_location='cpu')
++    data = payload['arrays']; p = protocol()
++    train_names = [name for name in p['data']['train'] if (data['instance']==name).any()]
++    dev_names = [name for name in p['data']['development'] if (data['instance']==name).any()]
++    if set(train_names) & set(dev_names): raise ValueError('Instance leakage')
++    buckets = [np.flatnonzero(data['instance']==name) for name in train_names]
++    mean = float(np.mean([data['target'][idx].mean() for idx in buckets]))
++    variance = float(np.mean([np.square(data['target'][idx]-mean).mean() for idx in buckets]))
++    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
++    agent, _ = load_agent(CHECKPOINT, training=False, restore_random_state=False)
++    features = {k: torch.as_tensor(data[k], device=device) for k in
++                ('aggregated','tree','tree_state','remaining_time','frontier','target')}
++    feature_keys = ('aggregated','tree','tree_state','remaining_time','frontier')
++    fit_rows, per_instance, curves, parameters = [], [], [], []
++    gpu_ms = 0.
++    schedules = {}
++    for fit_seed in FIT_SEEDS:
++        rng = np.random.RandomState(fit_seed)
++        schedule = []
++        for step in range(500):
++            which = rng.randint(len(buckets), size=256)
++            ids = np.asarray([buckets[j][rng.randint(len(buckets[j]))] for j in which], dtype=np.int64)
++            schedule.append(ids)
++        schedules[fit_seed] = schedule
++        np.save(out/('sampling-indices-s{}.npy'.format(fit_seed)), np.stack(schedule))
++    # Interleave groups within loss/seed. Never choose head/step using development loss.
++    for loss in LOSSES:
++        for fit_seed in FIT_SEEDS:
++            for group in GROUPS:
++                seed_all(fit_seed)
++                model = SearchCritic(agent.critic_network, group, loss)
++                model.freeze_encoder()
++                model.to(device).train()
++                # Frozen modules stay in eval mode. No encoder is run during cached fits.
++                optimizer = torch.optim.Adam([x for x in model.parameters() if x.requires_grad], lr=.00012)
++                initial = {k:v.detach().cpu().clone() for k,v in model.state_dict().items()}
++                parameters.append(dict(group=group, loss=loss, seed=fit_seed,
++                    total=sum(x.numel() for x in model.parameters()),
++                    trainable=sum(x.numel() for x in model.parameters() if x.requires_grad)))
++                fit_cpu, fit_wall = cpu_seconds(), time.perf_counter()
++                if device.type == 'cuda':
++                    begin, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
++                    begin.record()
++                for step, ids in enumerate(schedules[fit_seed]):
++                    idx = torch.as_tensor(ids, device=device)
++                    optimizer.zero_grad(set_to_none=True)
++                    logits = model.logits_cached(*[features[k][idx] for k in feature_keys])
++                    objective = model.training_loss(logits, features['target'][idx])
++                    objective.backward()
++                    torch.nn.utils.clip_grad_norm_([x for x in model.parameters() if x.requires_grad], .5)
++                    optimizer.step()
++                    if (step+1) % 50 == 0:
++                        curves.append(dict(group=group, loss=loss, seed=fit_seed, update=step+1,
++                                           training_objective=float(objective.detach().cpu())))
++                if device.type == 'cuda':
++                    end.record(); torch.cuda.synchronize(); gpu_ms += begin.elapsed_time(end)
++                # Evaluate exactly once at the predeclared final update.
++                model.eval()
++                predicted = []
++                with torch.no_grad():
++                    for start in range(0, len(data['target']), 2048):
++                        predicted.append(model.forward_cached(*[features[k][start:start+2048]
++                            for k in feature_keys]).cpu().numpy())
++                predicted = np.concatenate(predicted)
++                if not np.isfinite(predicted).all(): raise ValueError('Nonfinite value prediction')
++                np.save(out/'fits'/('{}-{}-s{}-predictions.npy'.format(group,loss,fit_seed)), predicted)
++                # Save trainable weights and reference the shared B0 encoder to avoid 24 copies.
++                trainable_keys = {name for name,par in model.named_parameters() if par.requires_grad}
++                state = {k:v.detach().cpu() for k,v in model.state_dict().items() if k in trainable_keys}
++                change = sum((v-initial[k]).double().square().sum().item() for k,v in state.items())**.5
++                torch.save(dict(group=group, loss=loss, seed=fit_seed, updates=500,
++                    checkpoint_sha256=CHECKPOINT_SHA, cache_sha256=sha256(out/'cache.pt'),
++                    trainable_state_dict=state, optimizer=optimizer.state_dict(),
++                    training_instance_names=train_names), out/'fits'/('{}-{}-s{}.pt'.format(group,loss,fit_seed)))
++                for name in train_names+dev_names:
++                    ids = np.flatnonzero(data['instance']==name)
++                    per_instance.append(dict(group=group, loss=loss, seed=fit_seed, instance=name,
++                        split='train' if name in train_names else 'development',
++                        **metrics(predicted[ids],data['target'][ids],variance)))
++                row = dict(group=group, loss=loss, seed=fit_seed, updates=500, parameter_l2_change=change,
++                    cpu_seconds=cpu_seconds()-fit_cpu, wall_seconds=time.perf_counter()-fit_wall)
++                fit_rows.append(row)
++                write_json(out/'fit_progress.json', dict(completed=len(fit_rows), total=24, last=row,
++                    combined_offline_cpu_seconds=prior+cpu_seconds()-start_cpu))
++                print(json.dumps(row), flush=True)
++                del model, optimizer
++    for filename, value in [('per_instance.json',per_instance),('fit_runs.json',fit_rows),
++                            ('curves.json',curves),('parameters.json',parameters)]:
++        write_json(out/filename,value)
++    constants = [dict(instance=name, split='train' if name in train_names else 'development',
++                     **metrics(np.full(len(ids),mean),data['target'][ids],variance))
++                 for name in train_names+dev_names for ids in [np.flatnonzero(data['instance']==name)]]
++    write_json(out/'constant_predictor.json', dict(training_mean=mean, training_variance=variance,
++               per_instance=constants))
++    write_json(out/'fit_cost.json', dict(cpu_seconds=cpu_seconds(), execution_cpu_seconds=cpu_seconds()-start_cpu,
++        startup_cpu_seconds=start_cpu, wall_seconds=time.perf_counter()-start_wall,
++        device=str(device), gpu_fit_event_seconds=gpu_ms/1000.,
++        combined_offline_cpu_seconds=prior+cpu_seconds(),
++        peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
++        gpu_peak_allocated_bytes=torch.cuda.max_memory_allocated() if device.type=='cuda' else 0,
++        train_names=train_names, development_names=dev_names, fits=24,
++        checkpoint_sha256_after=sha256(CHECKPOINT)))
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('command', choices=['bridge','collect','cache','fit'])
++    parser.add_argument('--run-root', type=Path)
++    args = parser.parse_args()
++    global RUN
++    if args.run_root: RUN = args.run_root.resolve()
++    os.sched_setaffinity(0, [0,1,2,3])
++    torch.set_num_threads(1)
++    RUN.mkdir(parents=True, exist_ok=True)
++    config = frozen_config()
++    config_path = RUN/'execution_config.json'
++    if config_path.exists() and json.loads(config_path.read_text()) != json.loads(json.dumps(config)):
++        raise ValueError('Frozen stage4 execution config changed')
++    write_json(config_path, config)
++    try:
++        globals()[args.command]()
++    except Exception:
++        if args.command in ('cache','fit'):
++            write_json(RUN/'offline'/('failed-{}-{}_cost.json'.format(args.command,os.getpid())),
++                dict(cpu_seconds=cpu_seconds(), failed=True, error=traceback.format_exc()))
++        raise
++
++
++if __name__ == '__main__':
++    main()
+--- /dev/null
++++ b/tests/test_search_features.py
+@@ -0,0 +1,173 @@
++import unittest
++from unittest.mock import Mock
++import copy
++import numpy as np
++import torch
++from project.search_features import frontier_features, discounted_returns, SearchRecorder
++from project.policy.critic import Critic
++from project.policy.search_critic import SearchCritic
++from pyscipopt import Model, Branchrule, SCIP_RESULT
++from project.utils.settings import init_params, settings
++
++
++def snap(bounds, depths):
++    return dict(bounds=bounds, depths=depths, nleaves=len(bounds), nchildren=0,
++                nsiblings=0, solver_open_nodes=len(bounds), infinity=1e20)
++
++
++class SearchChecks(unittest.TestCase):
++    def setUp(self):
++        torch.set_num_threads(1)
++
++    def test_empty_degenerate_and_infinities(self):
++        x, d = frontier_features(snap([], []))
++        np.testing.assert_array_equal(x[:64], 0)
++        np.testing.assert_array_equal(x[64:], [0, 1, 0, 0, 0])
++        x, d = frontier_features(snap([2, 2, 1e20, -1e20], [0, 0, 0, 0]))
++        self.assertEqual(x[0], 1)
++        np.testing.assert_allclose(x[66:], [.5, .25, .25])
++        self.assertEqual(d['association_l1'], 0.)
++        x, _ = frontier_features(snap([np.inf, -np.inf], [1, 2]))
++        self.assertEqual(x[:64].sum(), 0.)
++
++    def test_identical_marginals_different_association(self):
++        x, dx = frontier_features(snap([0, 1], [1, 8]))
++        y, dy = frontier_features(snap([0, 1], [8, 1]))
++        h, k = x[:64].reshape(8, 8), y[:64].reshape(8, 8)
++        np.testing.assert_array_equal(h.sum(0), k.sum(0))
++        np.testing.assert_array_equal(h.sum(1), k.sum(1))
++        self.assertFalse(np.array_equal(h, k))
++        self.assertEqual(dx['association_l1'], 1.)
++        self.assertTrue(dx['both_axes_nondegenerate'])
++        np.testing.assert_array_equal(x, frontier_features(snap([1, 0], [8, 1]))[0])
++
++    def test_count_nan_and_negative_depth_rejected(self):
++        bad = snap([1], [1]); bad['solver_open_nodes'] = 2
++        with self.assertRaises(ValueError): frontier_features(bad)
++        with self.assertRaises(ValueError): frontier_features(snap([np.nan], [1]))
++        with self.assertRaises(ValueError): frontier_features(snap([1], [-1]))
++
++    def test_return_labels_have_terminal_boundary(self):
++        np.testing.assert_allclose(discounted_returns([1, 2, 3], .5), [2.75, 3.5, 3])
++        np.testing.assert_allclose(discounted_returns([7], .5), [7])
++
++    def test_sidecar_alignment_and_action_before_branch(self):
++        model = Mock()
++        model.getOpenNodeSnapshot.return_value = dict(snap([1], [2]), solving_time=30.)
++        recorder = SearchRecorder(120)
++        recorder.capture(model, dict(cands_state=np.zeros((3, 25))))
++        self.assertEqual(recorder.pending['remaining_time'], .75)
++        recorder.commit(2)
++        trajectory = dict(episodes=[dict(transitions=[dict(action=2, cands_state=np.zeros((3, 25)))])])
++        self.assertEqual(len(recorder.export(trajectory)['rows']), 1)
++        trajectory['episodes'][0]['transitions'][0]['action'] = 1
++        with self.assertRaises(ValueError): recorder.export(trajectory)
++
++    def test_cached_and_full_forward_preserve_base_value_and_gradients(self):
++        torch.manual_seed(11)
++        base = Critic(25, 8, 53, 32, 4, 1, .05).eval()
++        c, n, m = torch.randn(2, 3, 25), torch.randn(2, 8), torch.randn(2, 53)
++        time, frontier = torch.rand(2, 1), torch.randn(2, 69)
++        expected = base(c, n, m).reshape(-1)
++        for group in ('R0', 'Rcap', 'Rprod', 'Rjoint'):
++            torch.manual_seed(23)
++            model = SearchCritic(base, group).eval()
++            actual = model(c, n, m, time, frontier)
++            torch.testing.assert_close(actual, expected)
++            a, t = model.encode(c, n, m)
++            torch.testing.assert_close(actual, model.forward_cached(a, t, torch.cat([n, m], -1), time, frontier))
++            model.freeze_encoder()
++            model(c, n, m, time, frontier).sum().backward()
++            self.assertIsNone(model.var_embedding[1].weight.grad)
++            self.assertIsNotNone(model.time_projection.weight.grad)
++            if group != 'R0':
++                self.assertGreater(model.extra_projection.weight.grad.abs().sum(), 0)
++
++    def test_parameter_matching_and_common_initialization(self):
++        base = Critic(25, 8, 53, 32, 4, 1, .05)
++        for loss in ('mse', 'hl_gauss'):
++            variants = []
++            for group in ('R0', 'Rcap', 'Rprod', 'Rjoint'):
++                torch.manual_seed(11)
++                variants.append(SearchCritic(base, group, loss))
++            counts = [sum(p.numel() for p in v.parameters()) for v in variants]
++            self.assertEqual(len(set(counts[1:])), 1)
++            for key, tensor in variants[0].value_head.state_dict().items():
++                for v in variants[1:]: torch.testing.assert_close(tensor, v.value_head.state_dict()[key])
++
++    def test_hl_gauss_normalization_and_expectation(self):
++        base = Critic(25, 8, 53, 32, 4, 1, .05)
++        model = SearchCritic(base, 'Rjoint', 'hl_gauss')
++        target = torch.tensor([-36., -5., 0., 15., 52.])
++        probabilities = model.gaussian_targets(target)
++        torch.testing.assert_close(probabilities.sum(-1), torch.ones(5))
++        self.assertTrue((probabilities >= 0).all())
++        decoded = (probabilities*model.return_centers).sum(-1)
++        torch.testing.assert_close(decoded[1:4], target[1:4], atol=.01, rtol=0)
++        self.assertGreater(decoded[0], -36.)  # Truncated Gaussian edge bias reported.
++        with self.assertRaises(ValueError): model.gaussian_targets(torch.tensor([53.]))
++
++    @unittest.skipUnless(torch.cuda.is_available(), 'Cached tensor fit GPU unavailable')
++    def test_gpu_cached_fit_and_trainable_adapter_restore(self):
++        torch.manual_seed(11)
++        base = Critic(25, 8, 53, 32, 4, 1, .05)
++        for loss in ('mse', 'hl_gauss'):
++            model = SearchCritic(base, 'Rjoint', loss)
++            model.freeze_encoder(); model.cuda().train()
++            args = [torch.randn(8, 32, device='cuda'), torch.randn(8, 32, device='cuda'),
++                    torch.randn(8, 61, device='cuda'), torch.rand(8, 1, device='cuda'),
++                    torch.rand(8, 69, device='cuda')]
++            optimizer = torch.optim.Adam([p for p in model.parameters() if p.requires_grad],lr=.00012)
++            optimizer.zero_grad()
++            objective = model.training_loss(model.logits_cached(*args), torch.randn(8,device='cuda'))
++            objective.backward(); optimizer.step()
++            state = {k:v.detach().cpu().clone() for k,v in model.named_parameters() if v.requires_grad}
++            restored = SearchCritic(base, 'Rjoint', loss).eval()
++            restored.load_state_dict(state,strict=False)
++            model.eval()
++            torch.testing.assert_close(model.forward_cached(*args).cpu(),
++                restored.forward_cached(*[x.cpu() for x in args]),atol=1e-4,rtol=1e-4)
++
++
++class RealFrontierChecks(unittest.TestCase):
++    def test_native_search_read_only_and_internal_objective_direction(self):
++        class Probe(Branchrule):
++            def __init__(self): self.snapshots = []
++            def branchexeclp(self, allowaddcons):
++                before = (self.model.getNNodes(), self.model.getPrimalbound(), self.model.getDualbound())
++                snapshot = self.model.getOpenNodeSnapshot()
++                frontier_features(snapshot)  # Every category count must match SCIP.
++                after = (self.model.getNNodes(), self.model.getPrimalbound(), self.model.getDualbound())
++                if before != after: raise AssertionError('Snapshot changed solver bounds/nodes')
++                self.snapshots.append(snapshot)
++                return {'result': SCIP_RESULT.DIDNOTRUN}
++        def run(probe_enabled, maximize=False):
++            m = Model()
++            init_params(m, dict(node_limit=150, time_limit=120), settings['sandbox'])
++            m.readProblem('/root/research/tgppo/datasets/train_instances/lseu.mps.gz')
++            if maximize:
++                m.setObjective(-m.getObjective(), 'maximize')
++                m.setObjlimit(-1120.)
++            else: m.setObjlimit(1120.)
++            p = Probe()
++            if probe_enabled: m.includeBranchrule(p, 'Probe', 'read-only native fallback check', 999999, -1, 1.)
++            m.optimize()
++            result = (m.getNNodes(), str(m.getStatus()), m.getPrimalbound(), m.getDualbound())
++            m.freeProb()
++            return result, p.snapshots
++        plain, _ = run(False)
++        instrumented, snapshots = run(True)
++        self.assertEqual(plain, instrumented)
++        maximum, reverse = run(True, True)
++        self.assertEqual(maximum[:2], instrumented[:2])
++        self.assertAlmostEqual(maximum[2], -instrumented[2])
++        self.assertAlmostEqual(maximum[3], -instrumented[3])
++        self.assertEqual(len(snapshots), len(reverse))
++        self.assertTrue(any(len(s['bounds']) for s in snapshots))
++        for a,b in zip(snapshots, reverse):
++            np.testing.assert_allclose(a['bounds'], b['bounds'])
++            np.testing.assert_array_equal(a['depths'], b['depths'])
++
++
++if __name__ == '__main__':
++    unittest.main()

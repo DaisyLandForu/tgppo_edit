@@ -1,0 +1,91 @@
+{
+  "limit_seconds": 600.0,
+  "preparation_reserve_seconds": 10.0,
+  "runs": [
+    {
+      "tag": "local_validation",
+      "command": [
+        "/home/duweiyue25/conda/envs/tgppo/bin/python",
+        "-u",
+        "docs/diagnostics/tgppo_20261102_local_validation/scripts/local_validation.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 420.0,
+      "started_at_beijing": "2026-11-02T14:08:06.125933+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 116.62101968936622
+    },
+    {
+      "tag": "cpu_microbenchmark",
+      "command": [
+        "/home/duweiyue25/conda/envs/tgppo/bin/python",
+        "-u",
+        "docs/diagnostics/tgppo_20261102_local_validation/scripts/cpu_microbenchmark.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 110.0,
+      "started_at_beijing": "2026-11-02T14:10:36.210948+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 35.837909256108105
+    },
+    {
+      "tag": "summarize_checks",
+      "command": [
+        "/usr/bin/python",
+        "-u",
+        "docs/diagnostics/tgppo_20261102_local_validation/scripts/summarize_checks.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 20.0,
+      "started_at_beijing": "2026-11-02T14:13:18.370091+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.11575243808329105
+    },
+    {
+      "tag": "render_figures",
+      "command": [
+        "/home/duweiyue25/conda/envs/rl4scip/bin/python",
+        "-u",
+        "docs/diagnostics/tgppo_20261102_local_validation/scripts/render_figures.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 30.0,
+      "started_at_beijing": "2026-11-02T14:13:26.896635+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 26.59910280071199
+    },
+    {
+      "tag": "final_checks",
+      "command": [
+        "/usr/bin/python",
+        "-u",
+        "docs/diagnostics/tgppo_20261102_local_validation/scripts/final_checks.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 20.0,
+      "started_at_beijing": "2026-11-02T14:20:18.182730+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 2.2203344544395804
+    }
+  ],
+  "used_seconds": 181.3941186387092,
+  "remaining_seconds": 408.6058813612908,
+  "status": "closed",
+  "closed_at_beijing": "2026-11-02T14:21:19.794461+08:00",
+  "followup_requires_acceptance": true
+}

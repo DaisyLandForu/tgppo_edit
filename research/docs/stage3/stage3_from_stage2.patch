@@ -1,0 +1,742 @@
+--- a/code/project/agent/agent.py
++++ b/code/project/agent/agent.py
+@@ -136,7 +136,7 @@
+             return torch.empty(0, device=self.device), torch.empty(0, device=self.device)
+         return torch.cat(advantages), torch.cat(returns)
+ 
+-    def learn(self):
++    def learn(self, progress_callback=None, microbatch_size=None):
+         if self.memory.active is not None:
+             raise RuntimeError('Unfinished episode')
+         # Check stale data even when the buffer is too small for an update.
+@@ -153,42 +153,65 @@
+         totals = dict(actor_loss=0., critic_loss=0., entropy=0., clip_fraction=0.)
+         updates = 0
+         initial_ratio_error = None
++        last_progress_cpu = time.process_time()
+         for epoch in range(self.n_epochs):
+             for batch in self.memory.get_batch_generator():
+-                ids = batch['indices']
+-                probs = self.actor_network(batch['cands'], batch['node_state'],
+-                                           batch['mip_state'], batch['mask'])
+-                dist = Categorical(probs)
+-                new_log_probs = dist.log_prob(batch['action'])
+-                ratios = torch.exp(new_log_probs - batch['log_prob'])
+-                if updates == 0:
+-                    initial_ratio_error = (ratios.detach() - 1).abs().max().item()
+-                    if initial_ratio_error > 1e-4:
+-                        raise ValueError('Old/new probabilities disagree before update')
+-                loss = -torch.min(ratios * advantages[ids], torch.clamp(
+-                    ratios, 1 - self.policy_clip, 1 + self.policy_clip) * advantages[ids]).mean()
+-                entropy = dist.entropy().mean()
+-                actor_loss = loss - self.entropy_weight * entropy
+-                values = self.critic_network(batch['cands'], batch['node_state'],
+-                                             batch['mip_state'], batch['mask']).reshape(-1)
+-                critic_loss = torch.nn.functional.mse_loss(values, returns[ids])
+-                if not torch.isfinite(actor_loss + critic_loss):
+-                    raise ValueError('Nonfinite PPO loss')
++                size = len(batch['indices'])
++                lengths = (~batch['mask']).sum(1).cpu().numpy()
++                order = (np.argsort(lengths, kind='stable') if microbatch_size
++                         else np.arange(size))
++                chunk_size = int(microbatch_size or size)
++                if chunk_size < 1:
++                    raise ValueError('Positive microbatch size required')
+                 self.actor_optimizer.zero_grad(set_to_none=True)
+-                actor_loss.backward()
++                self.critic_optimizer.zero_grad(set_to_none=True)
++                # The outer minibatch and its optimizer step stay unchanged.
++                # Sort only inside this batch, trim padding per chunk, weight
++                # each mean by chunk_size / actual_outer_batch_size.
++                for begin in range(0, size, chunk_size):
++                    chunk = order[begin:begin+chunk_size]
++                    width = int(lengths[chunk].max())
++                    cands = batch['cands'][chunk, :width]
++                    mask = batch['mask'][chunk, :width]
++                    node, mip = batch['node_state'][chunk], batch['mip_state'][chunk]
++                    ids = batch['indices'][chunk]
++                    weight = len(chunk) / size
++                    probs = self.actor_network(cands, node, mip, mask)
++                    dist = Categorical(probs)
++                    ratios = torch.exp(dist.log_prob(batch['action'][chunk]) - batch['log_prob'][chunk])
++                    if updates == 0:
++                        error = (ratios.detach()-1).abs().max().item()
++                        initial_ratio_error = max(initial_ratio_error or 0., error)
++                        if error > 1e-4:
++                            raise ValueError('Old/new probabilities disagree before update')
++                    loss = -torch.min(ratios*advantages[ids], torch.clamp(
++                        ratios,1-self.policy_clip,1+self.policy_clip)*advantages[ids]).mean()
++                    entropy = dist.entropy().mean()
++                    actor_loss = loss - self.entropy_weight*entropy
++                    if not torch.isfinite(actor_loss):
++                        raise ValueError('Nonfinite actor loss')
++                    (weight*actor_loss).backward()
++                    values = self.critic_network(cands,node,mip,mask).reshape(-1)
++                    critic_loss = torch.nn.functional.mse_loss(values,returns[ids])
++                    if not torch.isfinite(critic_loss):
++                        raise ValueError('Nonfinite critic loss')
++                    (weight*critic_loss).backward()
++                    for key,val in dict(actor_loss=actor_loss,critic_loss=critic_loss,
++                        entropy=entropy,clip_fraction=((ratios-1).abs()>self.policy_clip).float().mean()).items():
++                        totals[key] += weight*float(val.detach())
+                 torch.nn.utils.clip_grad_norm_(self.actor_network.parameters(), .5,
+                                                error_if_nonfinite=True)
+                 self.actor_optimizer.step()
+-                self.critic_optimizer.zero_grad(set_to_none=True)
+-                critic_loss.backward()
+                 torch.nn.utils.clip_grad_norm_(self.critic_network.parameters(), .5,
+                                                error_if_nonfinite=True)
+                 self.critic_optimizer.step()
+-                for key, val in dict(actor_loss=actor_loss, critic_loss=critic_loss,
+-                                     entropy=entropy, clip_fraction=(
+-                                         (ratios - 1).abs() > self.policy_clip).float().mean()).items():
+-                    totals[key] += float(val.detach())
+                 updates += 1
++                if progress_callback is not None and (
++                        updates == 1 or time.process_time() - last_progress_cpu >= 15.):
++                    progress_callback(dict(epoch=epoch + 1, epochs=self.n_epochs,
++                        minibatches_completed=updates, samples=n,
++                        expected_minibatches=self.n_epochs * ((n + self.batch_size - 1) // self.batch_size)))
++                    last_progress_cpu = time.process_time()
+         self.memory.clear()
+         self.update_counter += 1
+         self.policy_version += 1
+--- a/code/project/environment/environment.py
++++ b/code/project/environment/environment.py
+@@ -6,6 +6,7 @@
+ from project.utils.settings import init_params
+ from project.utils.protocol import baseline_identity, validate_baseline, solver_stats
+ from project.brancher import Brancher
++from project.measurement import BoundTrace, finish_measurement
+ 
+ 
+ class Environment:
+@@ -65,6 +66,8 @@
+         info = {}
+         start = time.perf_counter()
+         try:
++            trace = BoundTrace()
++            self.model.includeEventhdlr(trace, 'Stage3BoundTrace', 'Read-only common metric trace')
+             if self.mode == 'collect':
+                 self.agent.memory.begin_episode(self.episode_id, self.agent.policy_version)
+             if self.mode != 'native':
+@@ -89,6 +92,8 @@
+                 self.agent.memory.abort_episode()
+             if self.brancher:
+                 info.update(self.brancher.stats())
++            if info['valid']:
++                info.update(finish_measurement(self.model, info, self.scip_limits['time_limit'], trace))
+             info['environment_wall_seconds_before_free'] = (
+                 time.perf_counter() - start + self.load_wall_seconds)
+         except Exception:
+--- a/code/project/measurement.py
++++ b/code/project/measurement.py
+@@ -0,0 +1,115 @@
++"""Read-only bounds trace and bounded native PDI over a common horizon.
++
++SCIP 6's integral is in percent-seconds and has integrand in [0, 100].
++The custom Python getter reads the accumulator without flushing its tail.
++A separate read-only snapshot exposes the native last time and previous gap.
++We keep the original raw value for H3, and compute the complete tail separately.
++No policy input, reward formula or solver setting is changed here.
++"""
++import math
++import time
++from pyscipopt import Eventhdlr, SCIP_EVENTTYPE
++
++MEASUREMENT_VERSION = 'native-pdi-snapshot-horizon-v2'
++
++
++def percent_gap(primal, dual, infinity=1e20, epsilon=1e-9):
++    if not all(math.isfinite(x) for x in (primal, dual)):
++        raise ValueError('IEEE nonfinite bound')
++    if abs(primal - dual) <= epsilon:
++        return 0.
++    if primal * dual <= 0 or max(abs(primal), abs(dual)) >= infinity:
++        return 100.
++    return min(100., 100. * abs(primal - dual) / max(abs(primal), abs(dual)))
++
++
++def horizon_integral(integral, stop_time, horizon, final_gap, proof_completed):
++    """Exact extension before T; rigorous enclosure when a solve overshoots T.
++
++    Never infer the last segment from getGap(), whose definition is different.
++    For overshoot, all possible integrals satisfy I(s)-100(s-T) <= I(T) <= I(s).
++    Midpoint is an explicitly labelled estimate, not an exact clipped integral.
++    """
++    if not all(math.isfinite(x) for x in (integral, stop_time, horizon, final_gap)):
++        raise ValueError('Invalid integral inputs')
++    if integral < 0 or stop_time < 0 or horizon <= 0 or not 0 <= final_gap <= 100:
++        raise ValueError('Invalid integral range')
++    if stop_time <= horizon:
++        tail = 0. if proof_completed else final_gap * (horizon - stop_time)
++        lower = upper = integral + tail
++    else:
++        lower = max(0., integral - 100. * (stop_time - horizon))
++        upper = min(integral, 100. * horizon)
++    if upper < lower - 1e-6:
++        raise ValueError('Native integral outside physical range')
++    return dict(pdi_horizon_lower=lower, pdi_horizon_upper=upper,
++                pdi_horizon_midpoint=(lower + upper) / 2.,
++                pdi_horizon_uncertainty=upper - lower,
++                pdi_horizon_exact=abs(upper - lower) < 1e-9,
++                pdi_horizon_normalized_midpoint=(lower + upper) / (2. * 100. * horizon),
++                pdi_horizon_seconds=horizon)
++
++
++class BoundTrace(Eventhdlr):
++    def __init__(self):
++        self.points = []
++        self.seconds = 0.
++        self.calls = 0
++        self.error = None
++        self.event_mask = (SCIP_EVENTTYPE.PRESOLVEROUND | SCIP_EVENTTYPE.NODEFOCUSED |
++            SCIP_EVENTTYPE.NODESOLVED | SCIP_EVENTTYPE.LPSOLVED | SCIP_EVENTTYPE.BESTSOLFOUND)
++
++    def eventinit(self):
++        self.model.catchEvent(self.event_mask, self)
++
++    def eventexit(self):
++        self.model.dropEvent(self.event_mask, self)
++
++    def eventexec(self, event):
++        self.sample('event')
++
++    def sample(self, reason):
++        start = time.perf_counter()
++        self.calls += 1
++        try:
++            p, d = float(self.model.getPrimalbound()), float(self.model.getDualbound())
++            if not all(math.isfinite(x) for x in (p, d)):
++                raise ValueError('Nonfinite bound trace')
++            # Log every bound change, not every event. Initial unknown interval is 100%.
++            if not self.points or (p, d) != (self.points[-1]['primal'], self.points[-1]['dual']) or reason == 'stop':
++                snapshot = self.model.getIntegralSnapshot()
++                self.points.append(dict(time=float(self.model.getSolvingTime()), primal=p, dual=d,
++                    native_raw=snapshot['integral'], native_last_update_time=snapshot['last_update_time'],
++                    native_previous_percent_gap=snapshot['previous_percent_gap'], reason=reason))
++        except Exception as exc:
++            self.error = repr(exc)
++            self.model.interrupt()
++        finally:
++            self.seconds += time.perf_counter() - start
++
++
++def finish_measurement(model, info, horizon, trace):
++    trace.sample('stop')
++    if trace.error:
++        raise ValueError(trace.error)
++    snapshot = model.getIntegralSnapshot()
++    before, stop = snapshot['integral'], snapshot['solving_time']
++    if abs(before - model.getPrimalDualIntegral()) > 1e-9:
++        raise ValueError('Read-only snapshot disagrees with original getter')
++    if snapshot['last_update_time'] > stop + 1e-6:
++        raise ValueError('Native integral update time exceeds stopped clock')
++    gap = snapshot['previous_percent_gap']
++    complete = before + max(0., stop - snapshot['last_update_time']) * gap
++    # Presolve can certify cutoff infeasibility while getDualbound() stays -infinity.
++    # Preserve that raw bound. A verified proof closes the *cutoff search task*;
++    # its zero extension is based on the certificate, not an invented raw bound.
++    metrics = horizon_integral(complete, stop, horizon, gap, info['proof_completed'])
++    metrics.update(pdi_native_raw_before_flush=before, pdi_native_complete_at_stop=complete,
++        pdi_tail_completed_readonly=complete - before, pdi_native_final_percent_gap=gap,
++        integral_snapshot=snapshot,
++        pdi_extension_basis=('verified_proof_certificate' if info['proof_completed']
++                             else 'hold_final_native_bound_gap'),
++        measurement_version=MEASUREMENT_VERSION, bounds_trace=trace.points,
++        measurement_event_calls=trace.calls, measurement_callback_seconds=trace.seconds,
++        pdi_measurement_semantics='native_percent_seconds; exact_extension_or_rigorous_overshoot_interval')
++    return metrics
+--- a/code/project/runtime.py
++++ b/code/project/runtime.py
+@@ -153,6 +153,10 @@
+         if job.get('_test_sleep'):
+             time.sleep(job['_test_sleep'])
+         seed_all(job['training_seed'])
++        if job.get('address_space_limit_bytes'):
++            limit = int(job['address_space_limit_bytes'])
++            resource.setrlimit(resource.RLIMIT_AS, (limit, limit))
++            result['address_space_limit_bytes'] = limit
+         policy = None
+         reward = None
+         if job['mode'] == 'collect':
+@@ -181,7 +185,8 @@
+     except Exception:
+         result.update(valid=False, task_terminal=False, status='worker_error', error=traceback.format_exc())
+     result.update(worker_wall_seconds=time.perf_counter() - start, worker_cpu_seconds=cpu_seconds(),
+-                  worker_cpu_complete=True)
++                  worker_cpu_complete=True, peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
++                  cpu_affinity=sorted(os.sched_getaffinity(0)), reward_version='upstream_h3_t{:g}'.format(job.get('limits', {}).get('time_limit', 0)))
+     write_json(result_path, result)
+ 
+ 
+--- a/code/project/utils/protocol.py
++++ b/code/project/utils/protocol.py
+@@ -4,7 +4,7 @@
+ import math
+ from pathlib import Path
+ 
+-PROTOCOL_VERSION = 'stage2-correctness-v1'
++PROTOCOL_VERSION = 'stage3-measured-pdi-v1'
+ 
+ 
+ def sha256(path):
+@@ -34,6 +34,7 @@
+                 cutoff_provenance=cutoff_provenance,
+                 settings_sha256=sha256(Path(__file__).with_name('settings.py')),
+                 solver_stack='SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9',
++                integral_snapshot_protocol='read-only-stat-v1',
+                 protocol_version=PROTOCOL_VERSION)
+ 
+ 
+--- a/code/repair_pilot.py
++++ b/code/repair_pilot.py
+@@ -0,0 +1,82 @@
++"""Resume the saved pre-update batch after the padded-batch memory failure.
++
++No instance is resampled; prior failed computation counts toward the same cap.
++Microbatches retain the original outer batch, targets and optimizer step count.
++"""
++import json
++from pathlib import Path
++import resource
++import signal
++import shutil
++import traceback
++import argparse
++from project.runtime import load_agent,save_checkpoint,cpu_seconds
++from project.utils.protocol import write_json
++from stage3 import PilotCPULimit,_cpu_limit
++
++ROOT=Path('/root/research/tgppo/runs/stage3')
++
++
++def main():
++    global ROOT
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--run-root',type=Path,default=ROOT)
++    args=parser.parse_args()
++    ROOT=args.run_root.resolve()
++    source=ROOT/'pilot'
++    out=ROOT/'pilot-repaired'
++    if out.exists(): raise FileExistsError(str(out))
++    out.mkdir()
++    previous=json.loads((source/'summary.json').read_text())
++    prior_cpu=previous['total_cpu_seconds']
++    resource.setrlimit(resource.RLIMIT_AS,(32*1024**3,resource.getrlimit(resource.RLIMIT_AS)[1]))
++    agent,payload=load_agent(source/'collected-batch-01.pt')
++    config=dict(payload['config'],learner_microbatch_size=16,
++                microbatch_semantics='sort inside fixed logical batch; sample-weighted gradient accumulation; one optimizer step')
++    shutil.copyfile(source/'latest.pt',out/'latest.pt')
++    write_json(out/'config.json',config)
++    write_json(out/'provenance.json',dict(source_checkpoint=str(source/'collected-batch-01.pt'),
++        source_failure=str(source/'learning_error.json'),prior_total_cpu_seconds=prior_cpu,
++        trajectories_reused_without_resampling=True,logical_batch_size=256,microbatch_size=16,
++        dropout_note='Critic training dropout stays .05; gradient equivalence tested with dropout off; stochastic masks need not be bitwise identical'))
++    signal.signal(signal.SIGXCPU,_cpu_limit)
++    original=resource.getrlimit(resource.RLIMIT_CPU)
++    resource.setrlimit(resource.RLIMIT_CPU,(int(1800.-prior_cpu-5.),original[1]))
++    begin=cpu_seconds()
++    history=[]
++    reason='repaired_saved_batch_complete_no_new_episodes'
++    def progress(data):
++        write_json(out/'learning-progress.json',dict(data,learning_cpu_seconds=cpu_seconds()-begin,
++                    total_cpu_seconds=prior_cpu+cpu_seconds()))
++    try:
++        metrics=agent.learn(progress_callback=progress,microbatch_size=16)
++        metrics.update(batch=1,episodes_completed=8,learning_cpu_seconds=cpu_seconds()-begin,
++            worker_cpu_seconds=previous['worker_cpu_seconds'],
++            learner_cpu_seconds=previous['learner_cpu_seconds']+cpu_seconds())
++        history.append(metrics)
++        save_checkpoint(out/'latest.pt',agent,config,dict(next_episode=8,
++            worker_cpu_seconds=previous['worker_cpu_seconds'],
++            learner_cpu_seconds=previous['learner_cpu_seconds']+cpu_seconds(),stage=3))
++        print(json.dumps(metrics,sort_keys=True),flush=True)
++    except PilotCPULimit:
++        reason='cpu_budget_partial_update_discarded_last_complete_checkpoint_retained'
++        write_json(out/'interrupted_update.json',dict(error=traceback.format_exc(),
++                  total_cpu_seconds=prior_cpu+cpu_seconds()))
++    except Exception:
++        reason='repair_error_last_complete_checkpoint_retained'
++        write_json(out/'learning_error.json',dict(error=traceback.format_exc()))
++    finally:
++        resource.setrlimit(resource.RLIMIT_CPU,original)
++    write_json(out/'updates.json',history)
++    valid,_=load_agent(out/'latest.pt')
++    write_json(out/'summary.json',dict(stop_reason=reason,episodes_attempted=8,
++        checkpoint_episodes=8 if history else 4,completed_updates=valid.update_counter,
++        policy_version=valid.policy_version,cpu_cap_seconds=1800.,
++        total_cpu_seconds=prior_cpu+cpu_seconds(),within_budget=prior_cpu+cpu_seconds()<=1800.,
++        worker_cpu_seconds=previous['worker_cpu_seconds'],
++        learner_cpu_seconds=previous['learner_cpu_seconds']+cpu_seconds(),
++        prior_failed_run_cpu_seconds=prior_cpu,repair_cpu_seconds=cpu_seconds(),
++        peak_learner_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))
++
++
++if __name__=='__main__':main()
+--- a/code/stage3.py
++++ b/code/stage3.py
+@@ -0,0 +1,253 @@
++"""Stage-3 only: frozen native baseline, budgeted B0 pilot, development evaluation."""
++import argparse
++import json
++import os
++from pathlib import Path
++import resource
++import signal
++import shutil
++import traceback
++import time
++import torch
++from project.runtime import (make_job, job_identity, run_jobs, config_with_protocol,
++    seed_all, build_agent, save_checkpoint, load_agent, import_trajectories, cpu_seconds)
++from project.utils.protocol import fingerprint, validate_baseline, sha256, write_json
++
++ROOT = Path('/root/research')
++DEFAULT_RUN = ROOT / 'tgppo/runs/stage3'
++RUN = DEFAULT_RUN
++DOC = ROOT / 'docs/stage3'
++PILOT_ORDER = ['lseu', 'stein27', 'misc03', 'pp08aCUTS', 'neos20', 'l152lav',
++               'sp150x300d', 'neos21', 'air04', 'air05']
++
++
++def frozen_config():
++    protocol = json.loads((ROOT / 'docs/stage1/protocol_draft.json').read_text())
++    return dict(stage=3, authorization='通过，进入阶段3', stage2_accepted=True,
++        time_limit=120., watchdog=180., max_workers=4, threads_per_worker=1,
++        native_cpu_cap_seconds=9000., pilot_cpu_cap_seconds=1800., pilot_max_episodes=10,
++        training_seed=11, solver_seeds=[0, 1, 2], pilot_order=PILOT_ORDER,
++        train=protocol['data']['train'], development=protocol['data']['development'],
++        instance_hashes=protocol['data']['hashes'],
++        pilot_schedule_basis='declared before 120s results; small verified cases first, then larger cases',
++        evaluation_checkpoint='final valid budget/episode-limited pilot checkpoint; no development selection',
++        pdi_definition='SCIP percent-seconds at T=120; preserve exact extension or overshoot enclosure',
++        measurement_version='native-pdi-snapshot-horizon-v2',
++        metric_binding='isolated PySCIPOpt1.4.9 + read-only getIntegralSnapshot; same SCIP shared library',
++        pdi_uncertainty_rule='report intervals; no ordering claim when paired intervals overlap',
++        cpu_affinity=sorted(os.sched_getaffinity(0))[:4])
++
++
++def prepare(config):
++    out = RUN / 'native'
++    if out.exists():
++        raise FileExistsError(str(out))
++    cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++    names = config['train'] + config['development']
++    # Frozen hashes and sources are checked before any formal solve.
++    for name in names:
++        path = ROOT / 'tgppo/datasets/train_instances' / (name + '.mps.gz')
++        if sha256(path) != config['instance_hashes'][name]:
++            raise ValueError('Frozen instance changed: ' + name)
++    jobs = [make_job('native-{:02d}-{}-s{}'.format(i, name, seed),
++        ROOT / 'tgppo/datasets/train_instances', name, 120., seed, 11, cutoffs, 'native')
++        for i, name in enumerate(names) for seed in config['solver_seeds']]
++    rows = run_jobs(jobs, out / 'jobs', config['max_workers'], config['watchdog'])
++    audit = json.loads((DOC / 'measurement-audit-restart.json').read_text())
++    prior_cpu_upper = ((audit['completed_worker_cpu_seconds'] + audit['cpu_reserve_seconds']
++        + sum(r['cpu_seconds'] for r in audit['active_children_cpu_snapshots'])) if RUN == DEFAULT_RUN else 0.)
++    measured_cpu = sum(row.get('worker_cpu_seconds') or 0. for row in rows) + cpu_seconds() + prior_cpu_upper
++    baselines = {}
++    for job, row in zip(sorted(jobs, key=lambda j: j['job_id']), rows):
++        identity = job_identity(job)
++        baseline = dict(identity=identity, result=row)
++        if row.get('valid'):
++            validate_baseline(baseline, identity)
++        baselines[fingerprint(identity)] = baseline
++    write_json(out / 'baselines.json', baselines)
++    write_json(out / 'summary.json', dict(jobs=len(rows), valid=sum(bool(r.get('valid')) for r in rows),
++        worker_cpu_seconds=sum(r.get('worker_cpu_seconds') or 0. for r in rows),
++        parent_cpu_seconds=cpu_seconds(), total_cpu_seconds=measured_cpu,
++        audit_restart_cpu_upper_seconds=prior_cpu_upper,
++        cpu_cap_seconds=config['native_cpu_cap_seconds'],
++        within_budget=measured_cpu <= config['native_cpu_cap_seconds']))
++    if any(not r.get('valid') for r in rows) or measured_cpu > config['native_cpu_cap_seconds']:
++        raise RuntimeError('Native failures or budget issue; all records retained')
++
++
++class PilotCPULimit(RuntimeError):
++    pass
++
++
++def _cpu_limit(signum, frame):
++    signal.signal(signal.SIGXCPU, signal.SIG_IGN)
++    raise PilotCPULimit('Pilot combined worker + learner CPU budget reached')
++
++
++def pilot(config):
++    out = RUN / 'pilot'
++    if out.exists():
++        raise FileExistsError(str(out))
++    out.mkdir(parents=True)
++    learner_as_limit = 32 * 1024**3
++    resource.setrlimit(resource.RLIMIT_AS, (learner_as_limit, resource.getrlimit(resource.RLIMIT_AS)[1]))
++    write_json(out / 'resource_limits.json', dict(worker_address_space_limit_bytes=8*1024**3,
++        learner_address_space_limit_bytes=learner_as_limit,
++        candidate_truncation=False, action_fallback=False))
++    baselines = json.loads((RUN / 'native/baselines.json').read_text())
++    cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++    params = config_with_protocol(json.loads((ROOT / 'tgppo/configs/paper_hparams.json').read_text()))
++    seed_all(config['training_seed'])
++    agent = build_agent(params)
++    write_json(out / 'config.json', params)
++    worker_cpu, completed, history = 0., 0, []
++    collected = []
++    initial_weights = {k: v.detach().clone() for k, v in agent.actor_network.state_dict().items()}
++    save_checkpoint(out / 'initial.pt', agent, params,
++                    dict(next_episode=0, worker_cpu_seconds=0., stage=3))
++    shutil.copyfile(out / 'initial.pt', out / 'latest.pt')
++    stop_reason = 'episode_limit'
++    original_limits = resource.getrlimit(resource.RLIMIT_CPU)
++    original_handler = signal.getsignal(signal.SIGXCPU)
++    try:
++        while completed < config['pilot_max_episodes']:
++            count = min(4, config['pilot_max_episodes'] - completed)
++            remaining = config['pilot_cpu_cap_seconds'] - worker_cpu - cpu_seconds()
++            learning_reserve = (max(10., 1.25 * history[-1]['learning_cpu_seconds'] * count / 4.)
++                                if history else 10.)
++            if remaining < count * config['watchdog'] + learning_reserve:
++                stop_reason = 'insufficient_remaining_budget_for_next_complete_batch'
++                break
++            batch = len(history)
++            before = out / ('before-batch-{:02d}.pt'.format(batch))
++            save_checkpoint(before, agent, params, dict(next_episode=completed,
++                worker_cpu_seconds=worker_cpu, learner_cpu_seconds=cpu_seconds(), stage=3))
++            jobs = []
++            for i in range(count):
++                index = completed + i
++                name = config['pilot_order'][index]
++                j = make_job('b0-e{:02d}-{}-s0'.format(index, name),
++                    ROOT / 'tgppo/datasets/train_instances', name, 120., 0,
++                    config['training_seed'], cutoffs, 'collect', before)
++                j['address_space_limit_bytes'] = 8 * 1024**3
++                identity = job_identity(j)
++                j['baseline'] = baselines[fingerprint(identity)]
++                validate_baseline(j['baseline'], identity)
++                jobs.append(j)
++            directory = out / ('batch-{:02d}'.format(batch))
++            rows = run_jobs(jobs, directory, min(4, count), config['watchdog'])
++            worker_cpu += sum(r.get('worker_cpu_seconds') or 0. for r in rows)
++            completed += len(rows)
++            collected.extend(rows)
++            write_json(out / 'collection_results.json', collected)
++            if any(not r.get('valid') for r in rows):
++                stop_reason = 'invalid_collection_batch_retained_no_update'
++                break
++            import_trajectories(agent, rows, directory)
++            # Preserve every collected episode even if this update exhausts budget.
++            save_checkpoint(out / ('collected-batch-{:02d}.pt'.format(batch)), agent, params,
++                dict(next_episode=completed, worker_cpu_seconds=worker_cpu, stage=3))
++            deadline = int(config['pilot_cpu_cap_seconds'] - worker_cpu - 5.)
++            if deadline <= cpu_seconds():
++                stop_reason = 'budget_reached_before_learning'
++                break
++            signal.signal(signal.SIGXCPU, _cpu_limit)
++            resource.setrlimit(resource.RLIMIT_CPU, (deadline, original_limits[1]))
++            begin = cpu_seconds()
++            write_json(out / 'learning-progress.json', dict(batch=batch, state='starting',
++                samples=len(agent.memory), learner_cpu_seconds=begin, worker_cpu_seconds=worker_cpu))
++            def log_progress(progress):
++                write_json(out / 'learning-progress.json', dict(progress, batch=batch, state='updating',
++                    learner_cpu_seconds=cpu_seconds(), worker_cpu_seconds=worker_cpu,
++                    learning_cpu_seconds=cpu_seconds()-begin))
++            try:
++                metrics = agent.learn(progress_callback=log_progress)
++            except PilotCPULimit as exc:
++                stop_reason = 'cpu_budget_partial_update_discarded_last_valid_checkpoint_retained'
++                write_json(out / 'interrupted_update.json', dict(error=str(exc), batch=batch,
++                    worker_cpu_seconds=worker_cpu, learner_cpu_seconds=cpu_seconds()))
++                break
++            except Exception:
++                stop_reason = 'learning_error_last_valid_checkpoint_retained'
++                write_json(out / 'learning_error.json', dict(error=traceback.format_exc(), batch=batch,
++                    worker_cpu_seconds=worker_cpu, learner_cpu_seconds=cpu_seconds()))
++                break
++            finally:
++                resource.setrlimit(resource.RLIMIT_CPU, original_limits)
++                signal.signal(signal.SIGXCPU, original_handler)
++            metrics.update(batch=batch, episodes_completed=completed, learning_cpu_seconds=cpu_seconds()-begin,
++                           worker_cpu_seconds=worker_cpu, learner_cpu_seconds=cpu_seconds())
++            metrics['actor_l2_change_from_initial'] = sum(
++                (v.detach()-initial_weights[k]).double().square().sum().item()
++                for k,v in agent.actor_network.state_dict().items()) ** .5
++            history.append(metrics)
++            write_json(out / 'updates.json', history)
++            save_checkpoint(out / 'latest.pt', agent, params, dict(next_episode=completed,
++                worker_cpu_seconds=worker_cpu, learner_cpu_seconds=cpu_seconds(), stage=3))
++            print(json.dumps(metrics, sort_keys=True), flush=True)
++    finally:
++        resource.setrlimit(resource.RLIMIT_CPU, original_limits)
++        signal.signal(signal.SIGXCPU, original_handler)
++    latest, payload = load_agent(out / 'latest.pt')
++    write_json(out / 'summary.json', dict(stop_reason=stop_reason, episodes_attempted=completed,
++        completed_updates=latest.update_counter, policy_version=latest.policy_version,
++        checkpoint_episodes=payload['progress']['next_episode'],
++        worker_cpu_seconds=worker_cpu, learner_cpu_seconds=cpu_seconds(),
++        total_cpu_seconds=worker_cpu+cpu_seconds(), cpu_cap_seconds=config['pilot_cpu_cap_seconds'],
++        within_budget=worker_cpu+cpu_seconds() <= config['pilot_cpu_cap_seconds'],
++        peak_learner_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss))
++    if latest.update_counter < 1:
++        raise RuntimeError('No effective B0 update; records retained')
++
++
++def evaluate(config):
++    cutoffs = json.loads((ROOT / 'tgppo/datasets/cutoffs.json').read_text())
++    checkpoint = RUN / ('pilot-repaired/latest.pt' if (RUN / 'pilot-repaired/summary.json').exists()
++                        else 'pilot/latest.pt')
++    write_json(RUN / 'selected_checkpoint.json', dict(checkpoint=str(checkpoint),
++        selection='last complete valid update after resource repair, before any development results'))
++    before = sha256(checkpoint)
++    jobs = [make_job('b0-dev-{:02d}-{}-s{}'.format(i, name, seed),
++        ROOT / 'tgppo/datasets/train_instances', name, 120., seed, 11, cutoffs,
++        'eval', checkpoint) for i,name in enumerate(config['development']) for seed in config['solver_seeds']]
++    for job in jobs:
++        job['address_space_limit_bytes'] = 8 * 1024**3
++    rows = run_jobs(jobs, RUN / 'evaluation/jobs', 4, config['watchdog'])
++    if sha256(checkpoint) != before:
++        raise RuntimeError('Evaluation changed checkpoint')
++    write_json(RUN / 'evaluation/summary.json', dict(jobs=len(rows),
++        valid=sum(bool(r.get('valid')) for r in rows),
++        failures=sum(not r.get('valid') for r in rows), checkpoint_sha256=before,
++        critic_seconds=sum(r.get('callback_seconds', {}).get('critic', 0.) for r in rows),
++        worker_cpu_seconds=sum(r.get('worker_cpu_seconds') or 0. for r in rows),
++        parent_cpu_seconds=cpu_seconds()))
++    if any(not r.get('valid') for r in rows):
++        raise RuntimeError('Development evaluation failures retained')
++
++
++def main():
++    global RUN
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('command', choices=['prepare', 'pilot', 'evaluate'])
++    parser.add_argument('--run-root', type=Path, default=DEFAULT_RUN,
++                        help='New directory for a separate reproduction; never overwrite existing jobs')
++    args = parser.parse_args()
++    RUN = args.run_root.resolve()
++    config = frozen_config()
++    DOC.mkdir(parents=True, exist_ok=True)
++    path = DOC / 'execution_config.json'
++    if path.exists() and json.loads(path.read_text()) != config:
++        raise ValueError('Frozen stage3 execution configuration changed')
++    write_json(path, config)
++    write_json(RUN / 'execution_config.json', config)
++    os.sched_setaffinity(0, config['cpu_affinity'])
++    if args.command == 'prepare':
++        prepare(config)
++    elif args.command == 'pilot':
++        pilot(config)
++    elif args.command == 'evaluate':
++        evaluate(config)
++
++
++if __name__ == '__main__':
++    main()
+--- a/tests/test_correctness.py
++++ b/tests/test_correctness.py
+@@ -188,7 +188,9 @@
+             self.assertEqual(payload['config']['hidden_dim'], 32)
+             self.assertEqual(payload['progress']['next_batch'], 2)
+             a, _ = load_agent(path)
+-            a.learn()
++            progress = []
++            a.learn(progress_callback=progress.append)
++            self.assertTrue(progress)
+             b, _ = load_agent(path)
+             b.learn()
+             for k, v in a.actor_network.state_dict().items():
+--- a/tests/test_measurement.py
++++ b/tests/test_measurement.py
+@@ -0,0 +1,54 @@
++import unittest
++import json
++from pathlib import Path
++from project.measurement import percent_gap, horizon_integral
++from project.environment import Environment
++from project.runtime import make_job
++from project.utils.settings import state_dims
++
++
++class MeasurementTests(unittest.TestCase):
++    def test_percent_gap_is_not_scip_relative_gap(self):
++        self.assertAlmostEqual(percent_gap(100., 80.), 20.)
++        self.assertAlmostEqual(percent_gap(-80., -100.), 20.)
++        self.assertEqual(percent_gap(0., 0.), 0.)
++        self.assertEqual(percent_gap(2., -1.), 100.)
++        self.assertEqual(percent_gap(100., 1e20), 100.)
++
++    def test_early_proof_zero_extension_and_timeout_hold_extension(self):
++        self.assertEqual(horizon_integral(12., 2., 120., 0., True)['pdi_horizon_midpoint'], 12.)
++        self.assertEqual(horizon_integral(12., 119., 120., 20., False)['pdi_horizon_midpoint'], 32.)
++
++    def test_overshoot_is_an_interval_not_fabricated_exact_integral(self):
++        r = horizon_integral(300., 120.01, 120., 20., False)
++        self.assertAlmostEqual(r['pdi_horizon_lower'], 299.)
++        self.assertAlmostEqual(r['pdi_horizon_upper'], 300.)
++        self.assertFalse(r['pdi_horizon_exact'])
++
++    def test_real_solved_presolve_and_timeout_flush(self):
++        root = Path('/root/research')
++        cutoffs = json.loads((root / 'tgppo/datasets/cutoffs.json').read_text())
++        for name in ('misc03', 'lseu', 'air04'):
++            job = make_job('metric-' + name, root / 'tgppo/datasets/train_instances',
++                           name, 1., 0, 11, cutoffs, 'native')
++            env = Environment('cpu', None, state_dims, job['limits'], job['params'], 0, mode='native')
++            env.reset(job['instance'], job['cutoff'], cutoff_provenance=job['cutoff_provenance'])
++            valid, info, _ = env.run_episode()
++            self.assertTrue(valid, info)
++            self.assertGreaterEqual(info['pdi_native_complete_at_stop'] + 1e-6,
++                                    info['pdi_native_raw_before_flush'])
++            self.assertLessEqual(info['pdi_horizon_upper'], 100. + 1e-5)
++            self.assertGreaterEqual(info['pdi_horizon_lower'], 0.)
++            snapshot = info['integral_snapshot']
++            expected = snapshot['integral'] + (snapshot['solving_time'] - snapshot['last_update_time']) * snapshot['previous_percent_gap']
++            self.assertAlmostEqual(info['pdi_native_complete_at_stop'], expected)
++            if name == 'misc03':
++                self.assertEqual(info['nnodes'], 0)
++                self.assertEqual(snapshot['integral'], 0.)
++                self.assertGreater(info['pdi_native_complete_at_stop'], 0.)
++                self.assertEqual(info['pdi_extension_basis'], 'verified_proof_certificate')
++            print('MEASUREMENT_EVIDENCE=' + json.dumps(info, sort_keys=True))
++
++
++if __name__ == '__main__':
++    unittest.main(verbosity=2)
+--- a/tests/test_microbatch.py
++++ b/tests/test_microbatch.py
+@@ -0,0 +1,37 @@
++import tempfile
++from pathlib import Path
++import unittest
++import torch
++from project.runtime import seed_all,config_with_protocol,build_agent,save_checkpoint,load_agent
++from test_correctness import populate
++
++
++class MicrobatchTests(unittest.TestCase):
++    def test_same_logical_batch_gradient_without_dropout(self):
++        seed_all(17)
++        config=config_with_protocol(dict(hidden_dim=32,num_layers=1,num_heads=4,
++                                        batch_size=4,n_epochs=1,dropout=0.))
++        a=build_agent(config)
++        populate(a)
++        populate(a,'second',(3.,4.))
++        # Zero optimizer rates expose matching accumulated/clipped gradients.
++        for opt in (a.actor_optimizer,a.critic_optimizer):
++            for group in opt.param_groups: group['lr']=0.
++        with tempfile.TemporaryDirectory() as directory:
++            path=Path(directory)/'same.pt'
++            save_checkpoint(path,a,config)
++            full,_=load_agent(path)
++            mf=full.learn()
++            split,_=load_agent(path)
++            ms=split.learn(microbatch_size=1)
++            self.assertEqual(mf['num_updates'],ms['num_updates'])
++            self.assertEqual(mf['num_samples'],ms['num_samples'])
++            for x,y in zip(full.actor_network.parameters(),split.actor_network.parameters()):
++                torch.testing.assert_close(x.grad,y.grad,atol=2e-6,rtol=2e-4)
++            for x,y in zip(full.critic_network.parameters(),split.critic_network.parameters()):
++                torch.testing.assert_close(x.grad,y.grad,atol=2e-6,rtol=2e-4)
++            self.assertAlmostEqual(mf['actor_loss'],ms['actor_loss'],places=5)
++            self.assertAlmostEqual(mf['critic_loss'],ms['critic_loss'],places=5)
++
++
++if __name__=='__main__': unittest.main(verbosity=2)

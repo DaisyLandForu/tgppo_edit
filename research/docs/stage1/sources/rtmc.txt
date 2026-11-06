@@ -1,0 +1,1317 @@
+                                                RTMC: Step-Level Credit Assignment via Rollout Trees
+                                                                  Tao Wang           Suhang Zheng           Xiaoxiao Xu
+                                                                                      Alibaba Group
+                                                           {shayue.wt, suhang.zhengsh, xiaoxiao.xuxx}@alibaba-inc.com
+arXiv:2604.11037v1 [cs.LG] 13 Apr 2026
+
+
+
+
+                                                                                         Abstract
+                                                   Multi-step agentic reinforcement learning benefits from fine-grained credit assignment, yet
+                                               existing approaches offer limited options: critic-free methods like GRPO assign a uniform ad-
+                                               vantage to every action in a trajectory, while learned value networks introduce notable overhead
+                                               and can be fragile under sparse rewards. We observe that group rollouts targeting the same
+                                               problem often traverse overlapping intermediate states, implicitly forming a tree whose branches
+                                               diverge at successive decision points. Building on this insight, we introduce Rollout-Tree Monte
+                                               Carlo (RTMC) advantage estimation, which aggregates return statistics across rollouts shar-
+                                               ing a common state to produce per-step Q-values and advantages—without any learned critic.
+                                               A state-action signature system compresses raw interaction histories into compact, comparable
+                                               representations, making cross-rollout state matching tractable. On SWE-bench Verified, RTMC
+                                               improves pass@1 by 3.2 percentage points over GRPO.
+
+
+                                         1    Introduction
+                                         Large language models have achieved remarkable capabilities across a wide range of tasks [Qwen
+                                         Team, 2025, MiniMax, 2025, Kimi Team, 2025, DeepSeek-AI, 2025], yet most real-world problems
+                                         cannot be solved by a single question-answer exchange. Such tasks require agent systems that
+                                         pair an LLM with external tools—file editors, code executors, search utilities—and orchestrate
+                                         multi-turn loops of reasoning and action [Yao et al., 2022, Zhang et al., 2025a].
+                                             Reinforcement learning has proven effective for improving such LLM-based agents [Ouyang et al.,
+                                         2022, DeepSeek-AI, 2025]. In single-turn settings, critic-free methods like GRPO [Shao et al., 2024]
+                                         estimate advantages through group-level comparisons, eliminating the need for a learned value
+                                         network. However, agentic RL [Zhang et al., 2025a] is fundamentally different: the LLM acts as
+                                         the decision-making core of an agent, and training resembles classic RL—with states, transitions,
+                                         delayed rewards, and long horizons—where the consequence of a single tool call may not be apparent
+                                         until many steps later.
+
+                                         Advantage estimation challenge in agentic RL. Applying RL to agentic tasks exposes a
+                                         critical gap in credit assignment [Wang and Ammanabrolu, 2025, Zhang et al., 2025b]. Critic-free
+                                         methods like GRPO assign a single advantage to an entire trajectory, unable to distinguish good
+                                         steps from bad ones within a multi-turn episode. Training a critic via GAE [Schulman et al., 2016]
+                                         could help, but is expensive and struggles under sparse binary rewards. This has motivated a wave
+                                         of recent work, including anchor-state grouping [Feng et al., 2025], implicit process rewards [Liu
+                                         et al., 2025], tree-search-based credit assignment [Zong et al., 2026], retrospective critics [Zhang
+                                         et al., 2025c], trajectory purification [Xu et al., 2026], and reflective retry [Shi et al., 2026]. These
+
+
+                                                                                              1
+methods either require additional learned components, introduce extra computation beyond the
+rollouts already collected, or do not provide true per-step advantage estimates.
+
+Our key insight. Effective policy optimization fundamentally depends on the quality of advan-
+tage estimates—accurate per-step signals that distinguish beneficial actions from harmful ones [Sut-
+ton et al., 1999, Kakade and Langford, 2002, Schulman et al., 2016]. Continuing the critic-free
+paradigm, we cast agentic interaction asPan MDP where each tool call is an action at taken in state
+                                           T −t k
+st , yielding a discounted return Gt =     k=0 γ rt+k . When N group rollouts attempt the same
+problem, they traverse different trajectories but may pass through similar states. This requires
+a way to recognize when two rollouts have reached the “same” state despite differing surface-level
+histories—a problem we address through state-action signatures (Section 4). Given such an ab-
+straction, we can aggregate return statistics across rollouts that share a common state to estimate
+per-step advantages, without training any additional model.
+
+Contributions. We make the following contributions:
+
+
+    1. Rollout-tree Monte Carlo advantage estimation: We propose aggregating return statis-
+       tics from group rollouts over a tree structure to compute per-step Q-values and advantages,
+       enabling fine-grained credit assignment without a critic network. To handle sparsely visited
+       tree nodes, we introduce a prior-based value smoothing mechanism that ensures informative
+       advantages throughout the tree (Section 3).
+
+    2. State-action signature system: We design a state abstraction strategy that compresses
+       raw agent interaction histories into compact, comparable signatures, making tree construction
+       tractable. We instantiate this strategy for software engineering tasks via view bucketing,
+       content hashing, and action classification (Section 4).
+
+    3. Empirical validation: On SWE-bench Verified, a progressive ablation from the untrained
+       baseline through GRPO, step-level rewards, and our tree-based estimator demonstrates ad-
+       ditive gains at each stage, with Rollout-Tree MC achieving 52.2% pass@1—a 3.2 percentage
+       point improvement over GRPO (Section 5).
+
+
+2     Related Work
+LLM training has progressed from supervised fine-tuning [Ouyang et al., 2022] through RLHF [Chris-
+tiano et al., 2017, Ouyang et al., 2022, Schulman et al., 2017] to reinforcement learning with verifiable
+rewards (RLVR), where rule-based signals replace learned reward models [DeepSeek-AI, 2025, Shao
+et al., 2024]. The natural next frontier is agentic RL [Zhang et al., 2025a]: using RL to im-
+prove LLM policies within multi-turn agent systems that pair an LLM with external tools and an
+environment [Wang et al., 2023, Yao et al., 2022].
+
+Single-turn RLVR. In RLVR, a policy πθ generates a response y for prompt x and receives a
+verifiable reward R(x, y) [DeepSeek-AI, 2025]. GRPO [Shao et al., 2024] samples K responses per
+prompt and computes
+                                                 K
+                       R(x, yi ) − µ          1 X
+                                                               σ = std {R(x, yj )}K                  (1)
+                                                                                     
+                Ai =                 ,   µ=       R(x, yj ),                      j=1 .
+                            σ                 K
+                                                j=1
+
+
+                                                      2
+This advantage is shared across all tokens within response yi . The approach is effective for single-
+turn tasks but provides no mechanism to distinguish good steps from bad ones within a multi-step
+episode.
+
+Multi-turn agentic RL as an MDP. Agentic tasks are fundamentally sequential: an agent
+interacts with an environment over multiple turns, and the consequence of a single action may not
+manifest until many steps later [Zhang et al., 2025a, Wang and Ammanabrolu, 2025]. We formalize
+this as a Markov Decision Process (S, A, P, R, γ):
+   • State st ∈ S: the agent’s problem-solving progress at step t.
+   • Action at ∈ A: an LLM-generated tool call (e.g., file editor, code executor, shell command).
+   • Transition P (st+1 | st , at ): the environment executes at and returns the next state.
+   • Reward R ∈ {0, 1}: a sparse terminal signal for task success.
+    • Discount factor γ ∈ (0, 1]: trades off immediate and future rewards [Sutton and Barto,
+      2018].
+                                                 P −t k
+    The discounted return from step t is Gt = Tk=0     γ rt+k . Following the standard RL frame-
+work [Sutton and Barto, 2018, Sutton et al., 1999], we define the action-value function Q, the
+state-value function V , and the advantage function A:
+       Q(s, a) = E[Gt | st = s, at = a],   V (s) = Ea∼π [Q(s, a)],   A(s, a) = Q(s, a) − V (s).   (2)
+Accurate advantage estimation is central to policy gradient methods [Schulman et al., 2016, Kakade
+and Langford, 2002]. Unlike single-turn RLVR, agentic trajectories consist of heterogeneous steps
+that contribute unevenly to the outcome; distributing a terminal reward uniformly is problem-
+atic [Feng et al., 2025, Liu et al., 2025].
+
+Credit assignment and advantage estimation. Recent work addresses the credit assignment
+gap in agentic RL through various mechanisms. GiGPO [Feng et al., 2025] groups actions from
+matching anchor states across rollouts, but requires exact raw-state matching, which rarely occurs
+in complex environments. iStar [Liu et al., 2025] trains an implicit process reward model that
+infers step-level rewards from trajectory preferences, introducing a separate learned component into
+the training pipeline. CriticSearch [Zhang et al., 2025c] employs a retrospective critic for dense
+feedback, but also requires training an additional model. AT2 PO [Zong et al., 2026] propagates
+terminal rewards through a tree, but requires additional rollouts beyond those already collected.
+CLEANER [Xu et al., 2026] purifies trajectories at the data level but retains trajectory-level GRPO
+advantages. R3 L [Shi et al., 2026] identifies divergence points via reflect-then-retry but requires
+extra inference and does not provide per-step advantages. Closer to our work are methods that
+use tree or branching structures to estimate per-step values. VinePPO [Kazemnejad et al., 2025]
+launches branch rollouts from each intermediate state to obtain unbiased MC value estimates,
+but requires extra inference proportional to sequence length. TEMPO [Tran et al., 2025] builds
+a prefix tree over group responses and applies branch-gated TD corrections, remaining critic-free
+with no extra rollouts. It treats raw token prefixes as state identity, however, which assumes that
+equivalent problem-solving progress produces identical token histories—an assumption that rarely
+holds in agentic settings. Our method requires no additional inference or learned components: by
+decoupling state identity from raw context through an explicit signature system, we enable cross-
+rollout tree construction and unbiased per-step advantage estimation precisely where prefix-based
+approaches fail.
+
+                                                  3
+3     Rollout-Tree Monte Carlo Advantage Estimation
+Training a critic for LLM agents is difficult due to combinatorially large state spaces and sparse
+binary rewards [Wang and Ammanabrolu, 2025]. GRPO [Shao et al., 2024] avoids a critic by using
+group-level returns, but assigns all steps the same advantage. Our goal is to preserve GRPO’s
+critic-free efficiency while recovering step-level discrimination.
+    The key observation is that N group rollouts for the same problem already constitute natural
+counterfactual comparisons: rollouts sharing a common state prefix but diverging at a decision
+point reveal the causal effect of each branching action. We organize these rollouts into a tree via
+state-action signatures (Section 4) and apply first-visit Monte Carlo estimation [Sutton and Barto,
+2018] to obtain unbiased per-step advantages without any additional model or computation.
+
+3.1    From Rollouts to Trees
+A trajectory τ is an alternating sequence of states, actions, and rewards:
+
+                                      τ = (s0 , a0 , r0 , s1 , a1 , r1 , . . . , sT ),                            (3)
+
+where st is the state, at the action, and rt the reward [Sutton and Barto, 2018]. In the LLM agentic
+setting, each action at is a variable-length token span (reasoning trace + tool call + arguments),
+and the state st is the accumulated textual context. The rollout unfolds as:
+
+                                                                                                                   (4)
+                                                                                                                
+               τ = u1 , . . . , up0 , wb0 , . . . , we0 , r0 , u1 , . . . , up1 , wb1 , . . . , we1 , r1 , . . . ,
+                     | {z } |                {z       }        | {z } |                  {z       }
+                            s0              a0                        s1                 a1
+
+Only the action segments at participate in the policy gradient; state context tokens are masked.
+Our advantage estimation assigns a single value to each (st , at ) pair, broadcast to all tokens in the
+action segment.
+    To organize N rollouts into a tree, we need cross-rollout comparability of states and actions. We
+achieve this through state-action signatures (Section 4), which abstract the cumulative interaction
+history into compact identifiers. Because signatures encode cumulative history, each appears at
+most once per rollout, satisfying the first-visit Monte Carlo condition.
+    Given N rollouts for the same problem, we construct the rollout tree in a single pass. For each
+step t in each rollout τ (i) , we compute the discounted future return:
+                                                           i −t
+                                                          TX
+                                                   (i)                 (i)
+                                                 Gt =             γ k rt+k ,                                      (5)
+                                                           k=0
+
+and update a statistics table T indexed by state-action pairs:
+                                           n                        o
+                                                                (i)
+                                                                                                                  (6)
+                                                      P
+                                 T (s, a) = N (s, a),         G
+                                                        visits t     ,
+
+where N (s, a) counts the number of rollouts that visit state s and take action a, and the sum
+accumulates their returns. This is precisely the bookkeeping required for first-visit Monte Carlo
+estimation [Sutton and Barto, 2018]. Figure 1 illustrates this process on a concrete example.
+
+3.2    Monte Carlo Advantage Computation
+We use hat notation (Q̂, V̂ , Â) for Monte Carlo estimates, distinguishing them from the true values
+in Eq. (2).
+
+                                                             4
+                                                            s0 (N =4)
+                                                   a1                           a2
+                                                   ↙                            ↘
+                                               R=0, G0 =0                 s1 (N =3)
+                                                                   a3                    a4
+                                                                   ↙                    ↘
+                                                        R=1, G0 =γ             s2 (N =2)
+                                                                               a5               a6
+                                                                               ↙                ↘
+                                                                   R=1, G0 =γ 2        R=0, G0 =0
+                                                        2                  2
+                Q̂(s0 , a1 )=0,       Q̂(s0 , a2 )= γ+γ
+                                                     3 ,    V̂ (s0 )= γ+γ
+                                                                       4 ,          Â(s0 , a2 )>0,   Â(s0 , a1 )<0.
+
+Figure 1: A rollout tree from four rollouts. Rollout 1 terminates at depth 1 via a1 (failure), while rollouts 2–4 share
+action a2 and diverge at deeper states s1 , s2 . Returns G0 are discounted from terminal rewards back to s0 , yielding
+per-action advantages.
+
+
+Action-value estimate. The first-visit MC estimator [Sutton and Barto, 2018] averages returns
+across rollouts visiting (s, a):
+                                                           1             X                (i)
+                                          Q̂(s, a) =                                    Gt .                             (7)
+                                                        N (s, a)       (i) (i)
+                                                                   i:(st ,at )=(s,a)
+
+         (i)
+Each Gt is an independent, unbiased sample of Qπ (s, a) under the current policy π, so Q̂(s, a) is
+an unbiased estimator with variance Var[Q̂] = σQ
+                                               2 (s, a)/N (s, a).
+
+
+
+State-value estimate. The visit-weighted average of action values equals the sample mean of all
+returns from s:              P
+                                   N (s, a) · Q̂(s, a)    1    X    (i)
+                     V̂ (s) = a∈A
+                                Ps                     =           Gt ,                    (8)
+                                  a∈As N (s, a)          N (s) (i)
+                                                                                         i:st =s
+
+where N (s) = a N (s, a). The visit-weighted form recovers V π (s) since visit frequencies reflect the
+                 P
+policy’s action distribution.
+
+Advantage estimate. The per-step advantage is the difference between the action value and the
+state value:
+                               Â(s, a) = Q̂(s, a) − V̂ (s).                              (9)
+Since each action at spans a contiguous token segment [bt , et ] (Eq. (4)), the step-level advantage is
+broadcast to all tokens in that segment. Following the PPO clipped surrogate objective [Schulman
+et al., 2017]:
+                                 et
+                              hX X                                                                       i
+                                                                                                                        (10)
+                                                                                            
+                L(θ) = −E                     min rj (θ) Â(st , at ), clip rj (θ), 1−ϵ, 1+ϵ Â(st , at ) ,
+                                  t    j=bt
+
+                  πθ (wj | context<j )
+where rj (θ) =                           is the token-level probability ratio and ϵ is the clipping thresh-
+                 πθold (wj | context<j )
+old.
+
+
+
+                                                                   5
+Algorithm 1 Rollout-Tree Monte Carlo Advantage Estimation
+Require: Batch of rollouts grouped by problem_id
+Ensure: Token-level advantages
+ 1: for each problem_group in batch do
+ 2:   T ← new StatisticsTable
+ 3:   // Phase 1: Build rollout tree
+ 4:   for each rollout τ (i) in problem_group do
+ 5:      for each step t = 0, 1, . . . , Ti do
+ 6:        s ← StateSignature(history<t )
+ 7:        a ← ActionSignature(stept )
+                  PTi −t k
+ 8:        Gt ← k=0      γ rt+k
+ 9:        T (s, a).count += 1; T (s, a).sum += Gt
+10:      end for
+11:   end for
+12:   // Phase 2: Compute per-step advantages
+13:   for each rollout τ (i) in problem_group do
+14:      for each step t = 0, 1, . . . , Ti do
+15:        Q̂ ← TP(s, a).sum / T (s, a).count                                                ▷ Eq. (7)
+           V̂ ← a′ T (s, a′ ).sum / a′ T (s, a′ ).count
+                                          P
+16:                                                                                          ▷ Eq. (8)
+17:        Ât ← Q̂ − V̂                                                                      ▷ Eq. (9)
+18:      end for
+19:      Broadcast Ât to tokens [bt , et ] for each step t
+20:   end for
+21:   Divide advantages by group-level std (optional per-group normalization)
+22: end for
+23: return all token-level advantages
+
+
+
+3.3   Procedure and Properties
+Algorithm 1 summarizes the procedure. Two linear passes over the rollout data suffice: the first
+populates the statistics table T , the second reads off per-step advantages and broadcasts them to
+the corresponding token segments. The overall complexity is O(N · L) in scalar operations, where N
+is the number of rollouts and L the average episode length, with no gradient computation involved.
+
+Per-group normalization. Because different problems produce advantages at different scales
+(e.g., easy problems have near-uniform returns while hard problems exhibit high variance), we
+optionally normalize advantages within each problem group by dividing by the group-level standard
+deviation computed over step-level advantages. This prevents high-variance groups from dominating
+the gradient while preserving the sign and relative ordering of advantages within each group.
+
+Properties. By the first-visit MC guarantee [Sutton and Barto, 2018], Q̂, V̂ , and Â are all
+unbiased. Variance scales as σQ 2 /N (s, a): root-level states have low variance while leaf states have
+
+high variance, motivating prior smoothing (Section 3.4). The method generalizes GRPO along the
+axis of state abstraction granularity: at the coarsest extreme (all rollouts share a single root state)
+the tree collapses to trajectory-level GRPO, and it is critic-free unlike GAE.
+
+3.4   Corrections to the Advantage Estimator
+Two practical issues arise when applying this estimator to agentic tasks. First, states visited by
+only a single rollout yield Â = 0 regardless of action quality, because Q̂ = V̂ when only one action
+
+
+                                                   6
+is observed. Second, in coding tasks usually requiring validation, such as SWE, the discount factor
+γ penalizes multi-step verification actions. We address each below.
+
+Prior-based value smoothing. In practice, a large fraction of states are visited by only a single
+rollout, an inherent limitation of tree-based Monte Carlo with finite N . We regularize by blending
+the local estimate with a global prior:
+                                              n(s) · V̂ (s) + nprior · Vprior
+                                 V̂ ′ (s) =                                                      (11)
+                                                      n(s) + nprior
+where Vprior is the group success rate and nprior = 2. This Bayesian shrinkage [James and Stein, 1961]
+pulls low-sample estimates toward the group mean; at n=1 the prior contributes 67%, vanishing as
+visits grow.
+
+Task-specific reward shaping. An agent finishing immediately gets Q̂ = 1.0, while one running
+tests first gets Q̂ ≈ 0.98, receiving negative advantage despite best practice. We add a small reward
+to validation actions after code modifications:
+                    rt′ = rt + β · ⊮[has_modifications(st )] · ⊮[is_validation(at )]             (12)
+where β = 0.05. This is potential-based reward shaping [Ng et al., 1999], preserving the optimal
+policy. Other agentic domains may require analogous domain-specific corrections or none at all.
+
+
+4     State-Action Signature Design
+We instantiate the framework on SWE tasks [Jimenez et al., 2024], where an agent following the
+SWE-agent architecture [Yang et al., 2024] interacts with code repositories via R2E-Gym tools [Jain
+et al., 2025]: file editor, search, bash executor, think, and finish. Action types are finite but
+arguments are unbounded.
+    Two properties make naïve representations inadequate: (1) combinatorial state space—raw inter-
+action histories almost never match across rollouts even when problem-solving progress is equivalent;
+(2) functional overlap—bash commands subsume dedicated tools (e.g., cat ≡ file_editor view),
+fragmenting the tree if recorded literally. We therefore design signatures that map this space into
+compact, comparable representations. Signature granularity governs tree quality: too coarse mixes
+heterogeneous returns, too fine reduces to trajectory-level estimation.
+
+4.1   Action Signature
+We classify tool invocations by effect on progress rather than tool name (Table 1). Equivalent tools
+map to the same category.
+     Each action is encoded as a structured string that captures not only the category but also
+the scope of the operation. The general format is category:scope@target[:result], where
+category is drawn from Table 1, scope encodes operation-specific detail, target is the primary
+file, and result records success or error when applicable. For view actions, the scope distin-
+guishes full-file reads (view:full@core.py) from range-based reads with 100-line bucket identi-
+fiers (view:partial[1-2]@core.py for lines 100–299). For modify actions, the scope includes a
+4-character content hash of the changed text (modify:replace:a3f2@core.py), so that different
+edits to the same file produce distinct signatures. For test and execute actions, the result suffix
+distinguishes successful runs from failures (test@test_main.py:ok vs. test@test_main.py:error).
+think and finish actions carry no file target and are encoded as bare categories.
+
+                                                       7
+Table 1: Action categories classified by effect on problem-solving progress. Dedicated tools and bash commands with
+equivalent effects map to the same category.
+
+      Category    Description                                               Example
+      view        Inspect file content (full or range-based)                file_editor view, cat, head
+      search      Locate files or code patterns                             search, grep, find, ls
+      modify      Edit existing code (replace or insert)                    str_replace, insert
+      create      Create a new file                                         file_editor create
+      execute     Run a script for debugging or reproduction                python reproduce.py
+      test        Execute test suites to validate changes                   pytest, python -m unittest
+      install     Manage dependencies                                       pip install
+      fileop      File-system operations (copy, move, delete)               cp, mv, mkdir
+      think       Internal reasoning without environment interaction        think
+      finish      Submit the solution and terminate the episode             finish
+
+
+4.2    State Signature
+A state signature captures the cumulative effect of all preceding actions by step t: which files
+have been inspected, what edits applied, and what execution outcomes observed. It must abstract
+surface differences (e.g., file access order) while preserving progress distinctions. We encode this as
+an ordered, per-file record:
+
+                             s = file1 :OPS1 | file2 :OPS2 | . . . | (FLAGS)                                  (13)
+
+   Each file contributes file:OPS, where OPS is the set (not sequence) of operations performed
+(Table 2), ensuring order-invariance. Non-file actions are recorded in FLAGS (think count, test
+pass/fail counts). Files are sorted alphabetically for determinism.
+
+View bucketing. We partition files into 100-line buckets, recording only bucket indices (V[1-2]
+for lines 100–299). This bounds distinct view states to ⌈L/100⌉ per file while retaining coarse
+location sensitivity.
+
+Content hashing. Each edit is represented by a 4-character MD5 hash of the concatenated old
+and new text, yielding 164 = 65,536 possible hashes per file—sufficient to avoid collisions while
+keeping signatures compact.
+
+                                  Table 2: State signature operation encodings.
+
+                    Operation          Encoding     Example              Notes
+                    View (full file)   Vf           core.py:Vf
+                    View (partial)     V[b]         core.py:V[2]         Lines 200–299
+                    Modify             M:xxxx       core.py:M:a3f2       4-char content hash
+                    Insert             I:xxxx       core.py:I:b7c1       4-char content hash
+                    Search             S            core.py:S
+                    Create             C            test.py:C
+
+
+
+
+                                                        8
+5     Experimental Analysis
+5.1    Experimental Setup
+We train Qwen3-Coder-30B-A3B-Instruct [Qwen Team, 2025] with the ROLL framework [Wang
+et al., 2025a] on 32 GPUs, and evaluate on SWE-bench Verified [Jimenez et al., 2024] (500 GitHub
+issues). The agent follows SWE-agent [Yang et al., 2024] in the ROCK sandbox [Wang et al., 2025b]
+with R2E-Gym tools [Jain et al., 2025]. Training data is an 8.1K-instance R2E-Gym subset [Jain
+et al., 2025] with no SWE-bench overlap. The metric is pass@1 determined by majority vote over
+3 runs.
+    We compare four configurations in a progressive ablation:
+
+    • Baseline: pretrained model without RL training;
+
+    • GRPO: trajectory-level advantage from terminal reward only [Shao et al., 2024];
+
+    • GRPO + Step Reward: GRPO augmented with per-step rewards (+0.005 valid, −0.005
+      invalid, +0.05 validation) accumulated via γ-discounted returns;
+
+    • Rollout-Tree MC (Ours): tree-based per-step advantages (γ=0.99, prior smoothing nprior =2,
+      validation bonus β=0.05), using the same step rewards.
+
+All RL configurations share: learning rate 1×10−7 with a linear constant scheduler and 20-step
+warmup, 8 problems × 8 rollouts = 64 trajectories per step, filtering of uniform-outcome groups,
+and off-policy minibatch updates with loss scaling.
+
+5.2    Main Results
+As shown in Table 3, each component in our progressive ablation yields additive gains: episode-level
+GRPO improves over the baseline model, adding step-level rewards provides further improvement,
+and Rollout-Tree MC achieves the best performance through tree-based per-step advantage estima-
+tion.
+    The absolute gains are modest—each stage contributes between 1.4 and 2.2 percentage points—
+but the strictly monotonic ordering across all four configurations is notable: every refinement in
+credit assignment granularity (episode-level → step-level → state-level) translates into a measurable
+improvement.
+
+Table 3: Pass@1 on SWE-bench Verified (500 problems), determined by majority vote over 3 evaluation runs. Best
+checkpoint selected for each method. ∆ denotes improvement over the baseline.
+
+                      Method                     Resolved     Pass@1     ∆ vs Baseline
+                      Baseline (no training)     234 / 500     46.8%         —
+                      GRPO                       245 / 500     49.0%       +2.2 pp
+                      GRPO + Step Reward         252 / 500     50.4%       +3.6 pp
+                      Rollout-Tree MC           261 / 500      52.2%       +5.4 pp
+
+
+5.3    Learning Curves
+Figure 2 tracks the episode resolve rate on the R2E training set across 150 optimization steps.
+Note that this metric is computed over all rollout groups, including those with uniform outcomes
+(all success or all failure) that are excluded from gradient updates (Section 5.1), and therefore
+
+                                                      9
+reflects the policy’s overall problem-solving ability rather than the training signal quality. The three
+methods separate progressively: episode-level GRPO learns slowly under high-variance trajectory
+signals, step-level reward decomposition narrows the credit assignment gap and accelerates early
+improvement, and tree-based advantage estimation widens the margin further by enabling state-level
+action comparison. This ordering—consistent throughout training—mirrors the ablation hierarchy
+in Table 3 and supports the hypothesis that finer-grained credit assignment translates into more
+effective policy gradients.
+
+                               1.0
+
+
+                               0.8
+        Episode Resolve Rate
+
+
+
+
+                               0.6
+
+
+                               0.4
+
+
+                               0.2                                                              GRPO
+                                                                                                GRPO + Step Reward
+                                                                                                Rollout-Tree MC
+                               0.0
+                                     0   20       40        60           80       100           120         140
+                                                                 Training Step
+
+Figure 2: Training episode resolve rate on the R2E dataset. All methods start from the same pretrained checkpoint
+and share the GRPO optimization framework; they differ only in how per-token advantages are computed. The
+progressive separation confirms that finer-grained credit assignment yields more effective policy gradients.
+
+
+5.4    Ablation Study
+We isolate the contribution of prior-based value smoothing by comparing the full Rollout-Tree MC
+configuration against a variant trained without the prior (nprior =0), with all other hyperparameters
+held constant.
+    Table 4 shows that removing prior smoothing reduces pass@1 from 52.2% to 49.7%, a 2.5 pp drop
+that falls below GRPO + Step Reward (50.4%). This confirms that the prior is essential: as noted
+in Section 3.4, a large fraction of states are visited only once and produce zero advantage without
+smoothing. The prior converts these dead nodes into informative training signals by anchoring their
+value estimates to the group-level success rate.
+
+Table 4: Ablation of prior-based value smoothing. Removing the prior (nprior =0) reduces pass@1 by 2.5 percentage
+points.
+
+                                          Configuration                             Pass@1
+                                          Rollout-Tree MC w/o prior (nprior =0)         49.7%
+                                          Rollout-Tree MC full (nprior =2)              52.2%
+                                          Improvement from prior smoothing          +2.5 pp
+
+
+                                                                  10
+6     Discussion
+6.1   Advantages of the Approach
+Group-informed credit assignment. Unlike trajectory-level methods (GRPO) that assign iden-
+tical advantages to all actions within a trajectory, and step-reward methods where credit remains a
+function of a single trajectory, Rollout-Tree MC determines each action’s advantage by comparing
+its return against outcomes of all rollouts sharing the same state. This enables within-trajectory
+differentiation—penalizing suboptimal actions in successful trajectories and rewarding good actions
+in failed ones—while grounding advantages in relative action quality at each decision point rather
+than absolute returns subject to problem-difficulty confounds.
+    Critic-free and lightweight. The method computes advantages purely from rollout return
+statistics, eliminating the need to train and maintain a separate value network. Tree construction
+and advantage computation are linear in the number of rollouts and episode length, requiring
+no gradient computation or additional inference beyond the rollouts already collected for policy
+optimization.
+
+6.2   Limitations and Future Work
+While Rollout-Tree MC consistently outperforms both GRPO baselines, the absolute improvement
+remains modest (5.4 pp over the untrained baseline, 1.8 pp over GRPO + Step Reward). In
+essence, our approach trades a learned critic for engineered state abstractions: it eliminates the
+cost of training and maintaining a value network, but shifts the burden to domain-specific signature
+design. We attribute the current performance ceiling primarily to the hand-crafted nature of this
+signature system.
+    Signature coverage and granularity. Our signature design relies on manually defined rules—
+action classification, view bucketing, content hashing—that inevitably leave blind spots. Actions
+whose effects are difficult to capture through surface-level heuristics (e.g., subtle differences in
+reasoning depth) may be mapped to identical signatures, collapsing distinct states into one tree
+node. Conversely, overly fine distinctions fragment the tree and reduce visit counts. With N =8
+rollouts per problem, the majority of states are visited only once, limiting where true cross-rollout
+action comparison can occur.
+    State isolation. Because most tree nodes receive only a single visit, the raw MC estimate
+yields zero advantage there; the prior compensates but cannot substitute for genuine multi-action
+comparisons. Increasing the proportion of shared states—through more rollouts, coarser signatures,
+or both—is the most direct path to stronger credit assignment. The validation reward shaping we
+use is specific to SWE tasks where verification steps are penalized by γ-discounting; other domains
+may need different corrections or none at all.
+    Toward learned signatures. One promising direction is replacing hand-crafted signatures
+with learned embeddings from a pre-trained encoder, clustering semantically similar states in a
+continuous space. This could capture similarities that rule-based signatures miss—for instance,
+recognizing that different debugging strategies have reached equivalent progress—but reintroduces
+dependency on an external model. Crucially, the tree-based estimation framework itself is agnostic to
+how signatures are produced: as signature quality improves or rollout budgets grow, the proportion
+of shared tree nodes increases and the method’s advantage over flat baselines widens, suggesting
+that the current gains represent a lower bound on the approach’s potential.
+    Performance redistribution. We observe that RL training does not uniformly improve per-
+formance: the trained model solves new problems that the base checkpoint fails on, but also regresses
+
+
+                                                 11
+on a subset of previously solved instances. Understanding and mitigating this regression—whether
+through better credit assignment, curriculum design, or checkpoint selection—remains an open
+question.
+   Single benchmark. We evaluate on SWE-bench Verified with a single base model. Experi-
+ments on additional benchmarks, task domains, and model families are needed to establish broader
+generality.
+
+
+7    Conclusion
+We presented Rollout-Tree MC, a critic-free advantage estimator that organizes group rollouts into
+a shared tree to enable step-level credit assignment for agentic RL. Experiments on SWE-bench
+Verified show consistent gains over trajectory-level and step-level baselines, with each stage of
+credit assignment refinement contributing to the overall improvement. The approach adds negli-
+gible overhead and integrates directly into existing GRPO-based pipelines. The main limitation—
+hand-crafted state-action signatures—suggests that combining rule-based abstraction with learned
+representations is a promising direction for scaling tree-based advantage estimation to broader agen-
+tic domains.
+
+
+Acknowledgments
+Appreciation is extended to Qifang Zhao and Liang Peng for their valuable feedback and constructive
+suggestions during the review of this manuscript.
+
+
+References
+Paul Christiano, Jan Leike, Tom B. Brown, Miljan Martic, Shane Legg, and Dario Amodei. Deep
+  reinforcement learning from human preferences, 2017.
+
+DeepSeek-AI. DeepSeek-R1: Incentivizing reasoning capability in LLMs via reinforcement learning,
+  2025.
+
+Wentao Feng, Xiang Li, Pengfei Liu, and Weizhi Wang. Group-in-group policy optimization for
+ LLM agent training, 2025.
+
+Naman Jain, Jaskirat Singh, Manish Shetty, Liang Zheng, Koushik Sen, and Ion Stoica. R2E-Gym:
+  Procedural environments and hybrid verifiers for scaling open-weights SWE agents, 2025.
+
+William James and Charles Stein. Estimation with quadratic loss. Proceedings of the Fourth Berkeley
+ Symposium on Mathematical Statistics and Probability, 1:361–379, 1961.
+
+Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik
+  Narasimhan. SWE-bench: Can language models resolve real-world GitHub issues? In Interna-
+  tional Conference on Learning Representations (ICLR), 2024.
+
+Sham Kakade and John Langford. Approximately optimal approximate reinforcement learning. In
+  Proceedings of the 19th International Conference on Machine Learning (ICML), pages 267–274,
+  2002.
+
+
+
+
+                                                 12
+Amirhossein Kazemnejad, Milad Aghajohari, Eva Portelance, Alessandro Sordoni, Siva Reddy,
+ Aaron Courville, and Nicolas Le Roux. VinePPO: Refining credit assignment in RL training
+ of LLMs, 2025.
+
+Kimi Team. Kimi k1.5: Scaling reinforcement learning with LLMs, 2025.
+
+Xiaoqian Liu, Xiangyuan Zhao, Ang Li, Yingce Li, Hao Liu, and Di He. Agentic reinforcement
+  learning with implicit step rewards, 2025.
+
+MiniMax. MiniMax-01: Scaling foundation models with lightning attention, 2025.
+
+Andrew Y. Ng, Daishi Harada, and Stuart Russell. Policy invariance under reward transformations:
+ Theory and application to reward shaping. In International Conference on Machine Learning
+ (ICML), 1999.
+
+Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong
+  Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kel-
+  ton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, and
+  Ryan Lowe. Training language models to follow instructions with human feedback. In Advances
+  in Neural Information Processing Systems (NeurIPS), 2022.
+
+Qwen Team. Qwen3 technical report, 2025.
+
+John Schulman, Philipp Moritz, Sergey Levine, Michael Jordan, and Pieter Abbeel. High-
+  dimensional continuous control using generalized advantage estimation. In International Con-
+  ference on Learning Representations (ICLR), 2016.
+
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. Proximal policy
+  optimization algorithms, 2017.
+
+Zhihong Shao, Peiyi Wang, Qihao Zhu, Runxin Xu, Junxiao Song, Mingchuan Zhang, Y.K. Li,
+  Y. Wu, and Daya Guo. Deepseekmath: Pushing the limits of mathematical reasoning in open
+  language models, 2024.
+
+Weijie Shi, Yanxi Chen, Zexi Li, Xuchen Pan, Yuchang Sun, Jiajie Xu, Xiaofang Zhou, and Yaliang
+ Li. R3 L: Reflect-then-retry reinforcement learning, 2026.
+
+Richard S. Sutton and Andrew G. Barto. Reinforcement Learning: An Introduction. MIT Press,
+  2nd edition, 2018.
+
+Richard S. Sutton, David A. McAllester, Satinder P. Singh, and Yishay Mansour. Policy gradient
+  methods for reinforcement learning with function approximation. In Advances in Neural Infor-
+  mation Processing Systems (NeurIPS), 1999.
+
+Hieu Tran, Zonghai Yao, and Hong Yu. Exploiting tree structure for credit assignment in RL
+  training of LLMs, 2025.
+
+Lei Wang, Chen Ma, Xueyang Feng, Zeyu Zhang, Hao Yang, Jingsen Zhang, Zhiyuan Chen, Jiakai
+  Tang, Xu Chen, Yankai Lin, Wayne Xin Zhao, Zhewei Wei, and Ji-Rong Wen. A survey on large
+  language model based autonomous agents, 2023.
+
+Ruiyi Wang and Prithviraj Ammanabrolu. A practitioner’s guide to multi-turn agentic reinforcement
+ learning, 2025.
+
+                                               13
+Weixun Wang, Shaopan Xiong, Gengru Chen, Wei Gao, Sheng Guo, Yancheng He, Ju Huang,
+ Jiaheng Liu, Zhendong Li, Xiaoyang Li, Zichen Liu, Haizhou Zhao, Dakai An, Lunxi Cao, Qiyang
+ Cao, Wanxi Deng, Feilei Du, Yiliang Gu, Jiahe Li, Xiang Li, Mingjie Liu, Yijia Luo, Zihe Liu,
+ Yadao Wang, Pei Wang, Tianyuan Wu, Yanan Wu, Yuheng Zhao, Shuaibing Zhao, Jin Yang,
+ Siran Yang, Yingshui Tan, Huimin Yi, Yuchi Xu, Yujin Yuan, Xingyao Zhang, Lin Qu, Wenbo
+ Su, Wei Wang, Jiamang Wang, and Bo Zheng. ROLL: Reinforcement learning optimization for
+ large-scale learning, 2025a.
+
+Weixun Wang, XiaoXiao Xu, Wanhe An, Fangwen Dai, Wei Gao, Yancheng He, Ju Huang, Qiang
+ Ji, Hanqi Jin, Xiaoyang Li, Yang Li, Zhongwen Li, Shirong Lin, Jiashun Liu, Zenan Liu, Tao
+ Luo, Dilxat Muhtar, Yuanbin Qu, Jiaqiang Shi, Qinghui Sun, Yingshui Tan, Hao Tang, Runze
+ Wang, Yi Wang, Zhaoguo Wang, Yanan Wu, Shaopan Xiong, Binchen Xu, Xander Xu, Yuchi Xu,
+ Qipeng Zhang, Xixia Zhang, Haizhou Zhao, Jie Zhao, Shuaibing Zhao, Baihui Zheng, Jianhui
+ Zheng, Suhang Zheng, Yanni Zhu, Mengze Cai, Kerui Cao, Xitong Chen, Yue Dai, Lifan Du, Tao
+ Feng, Tao He, Jin Hu, Yijie Hu, Ziyu Jiang, Cheng Li, Xiang Li, Jing Liang, Xin Lin, Chonghuan
+ Liu, ZhenDong Liu, Zhiqiang Lv, Haodong Mi, Yanhu Mo, Junjia Ni, Shixin Pei, Jingyu Shen,
+ XiaoShuai Song, Cecilia Wang, Chaofan Wang, Kangyu Wang, Pei Wang, Tao Wang, Wei Wang,
+ Ke Xiao, Mingyu Xu, Tiange Xu, Nan Ya, Siran Yang, Jianan Ye, Yaxing Zang, Duo Zhang,
+ Junbo Zhang, Boren Zheng, Wanxi Deng, Ling Pan, Lin Qu, Wenbo Su, Jiamang Wang, Wei
+ Wang, Hu Wei, Minggang Wu, Cheng Yu, Bing Zhao, Zhicheng Zheng, and Bo Zheng. Let it
+ flow: Agentic crafting on rock and roll, building the ROME model within an open agentic learning
+ ecosystem, 2025b.
+
+Tianshi Xu, Yuteng Chen, and Meng Li. CLEANER: Self-purified trajectories boost agentic RL,
+  2026.
+
+John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Liber, Karthik Narasimhan, and Ofir
+  Press. SWE-agent: Agent-computer interfaces enable automated software engineering, 2024.
+
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao.
+  ReAct: Synergizing reasoning and acting in language models, 2022.
+
+Guibin Zhang, Hejia Geng, Xiaohan Yu, Zhenfei Yin, Zaibin Zhang, Hang Li, Yongkang Li, and
+ Lichao Sun. The landscape of agentic reinforcement learning for LLMs: A survey, 2025a.
+
+Hanchen Zhang, Peilin Zhong, Qi Zhu, Hao Dong, and Mingyuan Chen. AgentRL: Scaling agentic
+  reinforcement learning with a multi-turn, multi-task framework, 2025b.
+
+Yaocheng Zhang, Haohuan Huang, Zijun Song, Yuanheng Zhu, Qichao Zhang, Zijie Zhao, and
+  Dongbin Zhao. CriticSearch: Fine-grained credit assignment via retrospective critic, 2025c.
+
+Zefang Zong, Dingwei Chen, Yang Li, Qi Yi, Bo Zhou, Chengming Li, Bo Qian, Peng Chen, and
+  Jie Jiang. AT2 PO: Agentic turn-based policy optimization via tree search, 2026.
+
+
+
+A    Rollout Tree Visualization
+Figure 3 shows a representative RTMC decision tree extracted from training-time rollouts. It
+illustrates how RTMC down-weights frequently visited actions with low estimated advantage, while
+steering search toward branches that reach finish with high success likelihood.
+
+
+                                               14
+    Each node represents a state (denoted as S followed by the step index), while each edge represents
+an action (e.g., a tool call such as edit). The color encoding is as follows: green nodes and
+edges indicate trajectories reaching finish with passing tests, red ones denote trajectories reaching
+finish but failing the test suite, and gray nodes correspond to incomplete trajectories terminated
+due to timeout or exceeding the maximum context length. The root node is the initial state of
+the episode. This step-action-state binding captures the temporal evolution of the agent’s decision
+process, where the advantage of each action is estimated from downstream returns to reachable
+terminal states.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        (init)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  n=8 V=0.48 sr=50%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   think:U
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                n=8 Adv=-0.01
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        (TH:U)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  n=8 V=0.48 sr=50%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 bash:search
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                n=8 Adv=-0.01
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      (TH:U)#R1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  n=8 V=0.48 sr=50%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 bash:search
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                n=8 Adv=-0.01
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      (TH:U)#R2
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  n=8 V=0.47 sr=50%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                       bash:search      search
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      n=5 Adv=-0.08 n=2 Adv=+0.35
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      (TH:U)#R3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  n=8 V=0.48 sr=50%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                           bash:search          search         bash:browse                   view:full
+                                                                                                                                                                                                                                                                                                                                                                                                                                          n=2 Adv=-0.37     n=2 Adv=+0.37     n=1 Adv=+0.35               n=1 Adv=-0.36
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                   (TH:U)#R4                                               utils.py:Vf|(TH:U)
+                                                                                                                                                                                                                                                                                                                                                                                                                                               n=5 V=0.53 sr=60%                                          n=1 V=0.37 sr=0%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                           bash:search      search                                                         bash:search
+                                                                                                                                                                                                                                                                                                                                                                                                                                          n=1 Adv=+0.29 n=1 Adv=+0.32                                                     n=1 Adv=-0.26
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                        (TH:U)#R5                                                  view:full      utils.py:Vf|(TH:U)#R1
+                                                                                                                                                                                                                                                                                                                                                                                                                                    n=2 V=0.67 sr=100%                                          n=2 Adv=-0.02      n=1 V=0.37 sr=0%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                      bash:search                view:full                                    bash:search
+                                                                                                                                                                                                                                                                                                                                                                                                                                                     n=1 Adv=+0.16            n=2 Adv=-0.04                                  n=1 Adv=-0.26
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                             view:full         (TH:U)#R6                                                          utils.py:Vf|(TH:U)#R2
+                                                                                                                                                                                                                                                                                                                                                                                                                          n=1 Adv=+0.19    n=1 V=0.61 sr=100%                                                      n=1 V=0.37 sr=0%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                             view:full                                                        bash:search
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          n=1 Adv=+0.22                                                      n=1 Adv=-0.26
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                           test_utils.py:Vf|(TH:U)                                                 utils.py:S+Vf|(TH:U)
+                                                                                                                                                                                                                                                                                                                                                                                                                                            n=7 V=0.52 sr=57%                                                      n=1 V=0.37 sr=0%
+
+                                                                                                                                                                                                                                                                                                                                                                                                                view:partial                                 view:full                                                        view:partial
+                                                                                                                                                                                                                                                                                                                                                                                                              n=6 Adv=+0.08                               n=1 Adv=-0.45                                                      n=1 Adv=-0.26
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                            test_utils.py:Vf|ui:Vf
+                                                                                                                                                                                                                                                                                                                                 test_utils.py:V[2]|(TH:U)                                                                                                                                                        utils.py:S+V[2]|(TH:U)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                   (TH:U)
+                                                                                                                                                                                                                                                                                                                                   n=6 V=0.57 sr=67%                                                                                                                                                               n=1 V=0.37 sr=0%
+                                                                                                                                                                                                                                                                                                                                                                                                                                             n=1 V=0.35 sr=0%
+
+                                                                                                                                                                                                                                                                                                                    bash:search           view:partial                                                                                                        view:full                                                       view:partial
+                                                                                                                                                                                                                                                                                                                   n=2 Adv=-0.09        n=2 Adv=+0.26                                                                                                      n=1 Adv=-0.29                                                     n=1 Adv=-0.26
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                              test_utils.py:Vf|ui:Vf
+                                                                                                                                                                                                                                                                                                test_utils.py:V[2]|(TH:U)#R1                                                                                                                                                                                    utils.py:S+V[2]|(TH:U)#R1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                utils.py:Vf|(TH:U)
+                                                                                                                                                                                                                                                                                                    n=5 V=0.53 sr=60%                                                                                                                                                                                                n=1 V=0.37 sr=0%
+                                                                                                                                                                                                                                                                                                                                                                                                                                               n=1 V=0.35 sr=0%
+
+                                                                                                                                                                                                                                                                                                  view:partial     bash:search                                                                                                                              bash:search                                                       bash:search
+                                                                                                                                                                                                                                                                                                n=2 Adv=+0.30     n=1 Adv=-0.44                                                                                                                            n=1 Adv=-0.29                                                     n=1 Adv=-0.27
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                              test_utils.py:Vf|ui:Vf
+                                                                                                                                                                                                                                                                             test_utils.py:V[2]|(TH:U)#R2                                                     view:full                                                                                                                                         utils.py:S+V[2]|(TH:U)#R2
+                                                                                                                                                                                                                                                                                                                                                           n=1 Adv=+0.30                                                                     utils.py:Vf|(TH:U)#R1
+                                                                                                                                                                                                                                                                                 n=3 V=0.55 sr=67%                                                                                                                                                                                                                   n=1 V=0.37 sr=0%
+                                                                                                                                                                                                                                                                                                                                                                                                                                               n=1 V=0.35 sr=0%
+
+                                                                                                                                                                                                                                                                           view:partial     search     bash:search                        view:full                                                                                                            view:full                                                      view:partial
+                                                                                                                                                                                                                                                                          n=1 Adv=-0.47 n=1 Adv=+0.26 n=1 Adv=+0.31                    n=2 Adv=-0.05                                                                                                        n=1 Adv=-0.30                                                    n=1 Adv=-0.27
+
+
+                                                                                                                                                                                                                                test_utils.py:V[2]|utils.py:VVf                                                                                                                                                                                test_utils.py:Vf|ui:Vf                                      test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                                                                      test_utils.py:V[2]|(TH:U)#R3
+                                                                                                                                                                                                                                            (TH:U)                                                                                                                                                                                            utils.py:Vf|(TH:U)#R2                                                      (TH:U)
+                                                                                                                                                                                                                                                                                          n=2 V=0.67 sr=100%
+                                                                                                                                                                                                                                     n=1 V=0.36 sr=0%                                                                                                                                                                                           n=1 V=0.35 sr=0%                                                 n=1 V=0.36 sr=0%
+
+                                                                                                                                                                                                                                                 bash:search                                                           view:full                                                                                                                              bash:search                                                     bash:search
+                                                                                                                                                                                                                                                n=1 Adv=-0.28                                                       n=2 Adv=+0.17                                                                                                                            n=1 Adv=-0.30                                                   n=1 Adv=-0.27
+
+
+                                                                                                                                                                                                                  test_utils.py:V[2]|utils.py:S+VVf                                                                 test_utils.py:V[2]|utils.py:Vf                                                                                              test_utils.py:Vf|ui:Vf                                     test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                (TH:U)                                                                                         (TH:U)                                                                                                           utils.py:S+Vf|(TH:U)                                                   (TH:U)#R1
+                                                                                                                                                                                                                        n=1 V=0.36 sr=0%                                                                                n=5 V=0.65 sr=80%                                                                                                        n=1 V=0.35 sr=0%                                                n=1 V=0.36 sr=0%
+
+                                                                                                                                                                                                                                         view:partial                                                                                     view:partial                                                                                                        view:partial                                                    bash:search
+                                                                                                                                                                                                                                        n=1 Adv=-0.28                                                                                   n=4 Adv=+0.03                                                                                                        n=1 Adv=-0.30                                                   n=1 Adv=-0.27
+
+
+                                                                                                                                                                                                                test_utils.py:V[2]|utils.py:S+VVf                                                                                                                                                                                              test_utils.py:V[2]|ui:Vf                                    test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                            (TH:U)#R1                                                                                                                                                                                                           utils.py:S+Vf|(TH:U)                                                   (TH:U)#R2
+                                                                                                                                                                                                                      n=1 V=0.36 sr=0%                                                                                                                                                                                                           n=1 V=0.35 sr=0%                                                n=1 V=0.36 sr=0%
+
+                                                                                                                                                                                                                                                                                                                   test_utils.py:V[2]|utils.py:V[2]
+                                                                                                                                                                                                                                        view:partial                                                                                                                                                                                                          view:partial                                                    view:partial
+                                                                                                                                                                                                                                       n=1 Adv=-0.28                                                                           (TH:U)                                                                                                                        n=1 Adv=-0.31                                                   n=1 Adv=-0.28
+                                                                                                                                                                                                                                                                                                                        n=5 V=0.65 sr=80%
+
+                                                                                                                                                                                                               test_utils.py:V[2]|utils.py:S+VVf                                                                                                                                                                                               test_utils.py:V[2]|ui:Vf                                    test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                                                                                                                          view:partial
+                                                                                                                                                                                                                           (TH:U)#R2                                                                                                    n=4 Adv=+0.03                                                                                          utils.py:S+V[2]|(TH:U)                                                  (TH:U)#R3
+                                                                                                                                                                                                                     n=1 V=0.36 sr=0%                                                                                                                                                                                                            n=1 V=0.35 sr=0%                                                n=1 V=0.36 sr=0%
+
+                                                                                                                                                                                                                                      bash:search                                                                                                                                                                                                              view:partial                                                   bash:search
+                                                                                                                                                                                                                                     n=1 Adv=-0.29                                                                                                                                                                                                            n=1 Adv=-0.31                                                  n=1 Adv=-0.28
+
+
+                                                                                                                                                                                                            test_utils.py:V[2]|utils.py:S+VVf                                                                      test_utils.py:V[2]|utils.py:V[2]                                                                                            test_utils.py:V[2]|ui:Vf                                    test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                        (TH:U)#R3                                                                                            (TH:U)#R1                                                                                                      utils.py:S+V[2]|(TH:U)#R1                                                  (TH:U)#R4
+                                                                                                                                                                                                                  n=1 V=0.36 sr=0%                                                                                      n=5 V=0.65 sr=80%                                                                                                        n=1 V=0.34 sr=0%                                                n=1 V=0.36 sr=0%
+
+                                                                                                                                                                                                                                 bash:search                                                        view:partial        bash:search      search                  create:file                                                                                       view:full                                                  view:partial
+                                                                                                                                                                                                                                n=1 Adv=-0.29                                                      n=2 Adv=-0.15       n=1 Adv=+0.20 n=1 Adv=+0.18             n=1 Adv=+0.23                                                                                    n=1 Adv=-0.31                                                n=1 Adv=-0.28
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                               base.py:Vf|test_utils.py:V[2]
+                                                                                                                                                                                                            test_utils.py:V[2]|utils.py:S+VVf                                    test_utils.py:V[2]|utils.py:V[2]                                  reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                 test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  ui:Vf|utils.py:S+V[2]
+                                                                                                                                                                                                                        (TH:U)#R4                                                          (TH:U)#R2                                                        utils.py:V[2]|(TH:U)                                                                                                                                       (TH:U)#R5
+                                                                                                                                                                                                                                                                                                                                                                                                                                                         (TH:U)
+                                                                                                                                                                                                                  n=1 V=0.35 sr=0%                                                    n=4 V=0.61 sr=75%                                                    n=1 V=0.63 sr=100%                                                                                                                                    n=1 V=0.36 sr=0%
+                                                                                                                                                                                                                                                                                                                                                                                                                                                   n=1 V=0.34 sr=0%
+
+                                                                                                                                                                                                                 bash:search                                                            search     bash:search                                                                   bash:other                                                                       view:partial                                                view:partial
+                                                                                                                                                                                                                n=1 Adv=-0.29                                                       n=1 Adv=+0.22 n=1 Adv=-0.50                                                                n=1 Adv=+0.25                                                                     n=1 Adv=-0.31                                               n=1 Adv=-0.28
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                            base.py:Vf|progressbars.py:VVf
+                                                                                                                                                                                 test_utils.py:V[2]|utils.py:S+VVf                            test_utils.py:V[2]|ui:S            test_utils.py:V[2]|utils.py:V[2]                                      reproduce_issue.py:C|test_utils.py:V[2]                                                                                                             test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                test_utils.py:V[2]|ui:Vf
+                                                                                                                                                                                             (TH:U)#R5                                         utils.py:V[2]|(TH:U)                        (TH:U)#R3                                                          utils.py:V[2]|(TH:U)#R1                                                                                                                                  (TH:U)#R6
+                                                                                                                                                                                                                                                                                                                                                                                                                                                utils.py:S+V[2]|(TH:U)
+                                                                                                                                                                                       n=1 V=0.36 sr=0%                                       n=1 V=0.61 sr=100%                      n=1 V=0.37 sr=0%                                                         n=1 V=0.63 sr=100%                                                                                                                                n=1 V=0.36 sr=0%
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  n=1 V=0.34 sr=0%
+
+                                                                                                                                                                                                     bash:search                      search                    view:full                              bash:search                       view:full                                bash:other                                                                      bash:search                                                 bash:search
+                                                                                                                                                                                                    n=1 Adv=-0.29                 n=1 Adv=+0.27              n=1 Adv=+0.22                            n=1 Adv=-0.26                   n=1 Adv=+0.24                             n=1 Adv=+0.26                                                                    n=1 Adv=-0.32                                               n=1 Adv=-0.29
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                            base.py:Vf|progressbars.py:VVf
+                                                                                                                                                                                 test_utils.py:V[2]|utils.py:S+VVf                        test_utils.py:V[2]|ui:S+Vf             test_utils.py:V[2]|utils.py:V[2]                                        reproduce_issue.py:C|test_utils.py:V[2]                                                                                                           test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                 test_utils.py:V[2]|ui:Vf
+                                                                                                                                                                                             (TH:U)#R6                                       utils.py:V[2]|(TH:U)                          (TH:U)#R4                                                            utils.py:V[2]|(TH:U)#R2                                                                                                                                (TH:U)#R7
+                                                                                                                                                                                                                                                                                                                                                                                                                                              utils.py:S+V[2]|(TH:U)#R1
+                                                                                                                                                                                       n=1 V=0.35 sr=0%                                     n=1 V=0.61 sr=100%                        n=1 V=0.37 sr=0%                                                           n=1 V=0.64 sr=100%                                                                                                                              n=1 V=0.35 sr=0%
+                                                                                                                                                                                                                                                                                                                                                                                                                                                   n=1 V=0.34 sr=0%
+
+                                                                                                                                                                                                       view:full                                             view:full                                          view:full                                                          bash:other                                                                       view:full                                                 view:partial
+                                                                                                                                                                                                    n=1 Adv=-0.29                                         n=1 Adv=+0.22                                      n=1 Adv=-0.27                                                       n=1 Adv=+0.27                                                                   n=1 Adv=-0.31                                               n=1 Adv=-0.29
+
+
+                                                                                                                                                                                                                                  __init__.py:Vf|test_utils.py:V[2]                                                                                     reproduce_issue.py:C|test_utils.py:V[2]                                             base.py:Vf|progressbars.py:VVf
+                                                                                                                                                                                 test_utils.py:V[2]|utils.py:S+V[2]                                                                               test_utils.py:V[2]|ui:Vf                                                                                                                                                                                 test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                                                        ui:S+Vf|utils.py:V[2]                                                                                    test_utils.py::test_utils_suppress_similar|utils.py:V[2]                                        test_utils.py:V[2]|ui:Vf
+                                                                                                                                                                                               (TH:U)                                                                                               utils.py:V[2]|(TH:U)                                                                                                                                                                                               (TH:U)#R8
+                                                                                                                                                                                                                                              (TH:U)                                                                                                                       (TH:U)                                                             utils.py:S+V[2]|(TH:U)#R2
+                                                                                                                                                                                       n=2 V=0.49 sr=50%                                                                                           n=2 V=0.49 sr=50%                                                                                                                                                                                             n=1 V=0.35 sr=0%
+                                                                                                                                                                                                                                       n=1 V=0.61 sr=100%                                                                                                          n=1 V=0.64 sr=100%                                                              n=1 V=0.34 sr=0%
+
+                                                                                                                                                                                             view:partial                                       view:full                                           view:full            view:full                                                      bash:other                                                                view:partial                                                bash:search
+                                                                                                                                                                                            n=1 Adv=-0.43                                    n=1 Adv=+0.23                                       n=1 Adv=+0.37        n=1 Adv=-0.39                                                   n=1 Adv=+0.28                                                              n=1 Adv=-0.32                                               n=1 Adv=-0.29
+
+
+                                                                                                                                                                                                            __init__.py:Vf|dialog.py:Vf                 base.py:Vf|test_utils.py:V[2]              __init__.py:Vf|test_utils.py:V[2]                          reproduce_issue.py:C|test_utils.py:V[2]                                       base.py:Vf|progressbars.py:VVf
+                                                                                                                                                        test_utils.py:V[2]|utils.py:S+V[2]                                                                                                                                                                                                                                                                                                                 test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                             test_utils.py:V[2]|ui:S+Vf                      ui:Vf|utils.py:V[2]                           ui:Vf|utils.py:V[2]                         test_utils.py::test_utils_suppress_similar|utils.py:V[2]                                  test_utils.py:V[2]|ui:Vf
+                                                                                                                                                                    (TH:U)#R1                                                                                                                                                                                                                                                                                                                                          (TH:U)#R9
+                                                                                                                                                                                                                utils.py:V[2]|(TH:U)                               (TH:U)                                        (TH:U)                                                        (TH:U)#R1                                                      utils.py:S+V[2]|(TH:U)#R3
+                                                                                                                                                              n=2 V=0.49 sr=50%                                                                                                                                                                                                                                                                                                                                  n=1 V=0.35 sr=0%
+                                                                                                                                                                                                               n=1 V=0.61 sr=100%                          n=1 V=0.62 sr=100%                             n=1 V=0.36 sr=0%                                               n=1 V=0.64 sr=100%                                                        n=1 V=0.34 sr=0%
+
+                                                                                                                                                                          view:partial                                         think:U                                                          view:full             view:full                                                            bash:other                                                             bash:search                                                 view:partial
+                                                                                                                                                                         n=1 Adv=-0.43                                     n=1 Adv=+0.23                                                     n=1 Adv=+0.24         n=1 Adv=-0.27                                                         n=1 Adv=+0.29                                                           n=1 Adv=-0.32                                               n=1 Adv=-0.30
+
+
+                                                                                                                                                                                                       __init__.py:Vf|dialog.py:Vf                                                     __init__.py:Vf|base.py:Vf                                                reproduce_issue.py:C|test_utils.py:V[2]                                     base.py:Vf|progressbars.py:VVf
+                                                                                                                                             test_utils.py:V[2]|utils.py:S+V[2]                                                                                                                                                                                                                                                                                                                            test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                                        test_utils.py:V[2]|ui:S+Vf                                                      test_utils.py:V[2]|ui:Vf                                         test_utils.py::test_utils_suppress_similar|utils.py:V[2]                                test_utils.py:V[2]|ui:Vf
+                                                                                                                                                         (TH:U)#R2                                                                                                                                                                                                                                                                                                                                                    (TH:U)#R10
+                                                                                                                                                                                                         utils.py:V[2]|(TH:U)#R1                                                          utils.py:V[2]|(TH:U)                                                                   (TH:U)#R2                                                    utils.py:S+V[2]|(TH:U)#R4
+                                                                                                                                                   n=2 V=0.49 sr=50%                                                                                                                                                                                                                                                                                                                                             n=1 V=0.35 sr=0%
+                                                                                                                                                                                                          n=1 V=0.62 sr=100%                                                             n=2 V=0.49 sr=50%                                                                 n=1 V=0.65 sr=100%                                                      n=1 V=0.34 sr=0%
+
+                                                                                                                                                                   create:file                                             create:file                                                            view:partial         bash:search                                                           think:S                                                                think:R                                                   bash:search
+                                                                                                                                                                 n=1 Adv=-0.44                                           n=1 Adv=+0.23                                                          n=1 Adv=+0.38         n=1 Adv=-0.40                                                      n=1 Adv=+0.30                                                           n=1 Adv=-0.32                                               n=1 Adv=-0.30
+
+
+                                                                                                                                                                                                     __init__.py:Vf|dialog.py:Vf                                __init__.py:Vf|base.py:Vf                    __init__.py:Vf|base.py:Vf                          reproduce_issue.py:C|test_utils.py:V[2]                                     base.py:Vf|progressbars.py:VVf
+                                                                                                                                      reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                                                                                                                                                                              test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                               reproduce_issue.py:C|test_utils.py:V[2]                       dialog.py:VVf|test_utils.py:V[2]                  test_utils.py:V[2]|ui:Vf                  test_utils.py::test_utils_suppress_similar|utils.py:V[2]                                test_utils.py:V[2]|ui:Vf
+                                                                                                                                              utils.py:S+V[2]|(TH:U)                                                                                                                                                                                                                                                                                                                                                  (TH:U)#R11
+                                                                                                                                                                                                           ui:S+Vf|(TH:U)                                              ui:Vf|(TH:U)                           utils.py:V[2]|(TH:U)#R1                                          (TH:S+TH:U)                                                   utils.py:S+V[2]|(TH:R+TH:U)
+                                                                                                                                               n=2 V=0.49 sr=50%                                                                                                                                                                                                                                                                                                                                                 n=1 V=0.35 sr=0%
+                                                                                                                                                                                                       n=1 V=0.62 sr=100%                                         n=1 V=0.62 sr=100%                             n=1 V=0.36 sr=0%                                          n=1 V=0.65 sr=100%                                                      n=1 V=0.34 sr=0%
+
+                                                                                                                                                           bash:other                                                    bash:other                                              bash:search                                   bash:search                                                  bash:other                                                             create:file                                                bash:search
+                                                                                                                                                         n=2 Adv=-0.01                                                 n=1 Adv=+0.23                                            n=1 Adv=+0.25                                 n=1 Adv=-0.28                                               n=1 Adv=+0.30                                                          n=1 Adv=-0.33                                               n=1 Adv=-0.30
+
+
+                                                                                                                                                                                                 __init__.py:Vf|dialog.py:Vf                                   __init__.py:Vf|base.py:Vf                     __init__.py:Vf|base.py:Vf                          reproduce_issue.py:C|test_utils.py:V[2]                                     base.py:Vf|progressbars.py:VVf
+                                                                                                                             reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                                                                                                                                                                                       test_utils.py:VVf|utils.py:S+V[2]
+                                                                                                                                                                                           reproduce_issue.py:C|test_utils.py:V[2]                        dialog.py:S+VVf|test_utils.py:V[2]                  test_utils.py:V[2]|ui:Vf                   test_utils.py::test_utils_suppress_similar|utils.py:V[2]                       reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                                                   utils.py:S+V[2]|(TH:U)#R1                                                                                                                                                                                                                                                                                                                                                          (TH:U)#R12
+                                                                                                                                                                                                    ui:S+Vf|(TH:U)#R1                                                 ui:Vf|(TH:U)                            utils.py:S+V[2]|(TH:U)                                         (TH:S+TH:U)#R1                                                       ui:Vf|(TH:R+TH:U)
+                                                                                                                                       n=2 V=0.49 sr=50%                                                                                                                                                                                                                                                                                                                                                         n=1 V=0.35 sr=0%
+                                                                                                                                                                                                   n=1 V=0.62 sr=100%                                           n=1 V=0.63 sr=100%                              n=1 V=0.36 sr=0%                                           n=1 V=0.65 sr=100%                                                     n=1 V=0.33 sr=0%
+
+                                                                                                                                                     bash:other                                                        bash:other                                               bash:search                                       bash:search                                               bash:other                                                             bash:other                                                   view:full
+                                                                                                                                                   n=2 Adv=-0.01                                                     n=1 Adv=+0.24                                             n=1 Adv=+0.26                                     n=1 Adv=-0.28                                            n=1 Adv=+0.30                                                          n=1 Adv=-0.33                                               n=1 Adv=-0.30
+
+
+                                                                                                                                                                                                __init__.py:Vf|dialog.py:Vf                                    __init__.py:Vf|base.py:Vf                     __init__.py:Vf|base.py:Vf                           reproduce_issue.py:C|test_utils.py:V[2]                                    base.py:Vf|progressbars.py:VVf
+                                                                                                                         reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                                                                                                                                                                                                  test_utils.py:VVf|ui:Vf
+                                                                                                                                                                                          reproduce_issue.py:C|test_utils.py:V[2]                         dialog.py:S+VVf|test_utils.py:V[2]                    test_utils.py:V[2]|ui:Vf                  test_utils.py::test_utils_suppress_similar|utils.py:V[2]                      reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                                               utils.py:S+V[2]|(TH:U)#R2                                                                                                                                                                                                                                                                                                                                                          utils.py:S+V[2]|(TH:U)
+                                                                                                                                                                                                   ui:S+Vf|(TH:U)#R2                                               ui:Vf|(TH:U)#R1                           utils.py:S+V[2]|(TH:U)#R1                                        (TH:S+TH:U)#R2                                                    ui:Vf|(TH:R+TH:U)#R1
+                                                                                                                                   n=2 V=0.50 sr=50%                                                                                                                                                                                                                                                                                                                                                                n=1 V=0.35 sr=0%
+                                                                                                                                                                                                  n=1 V=0.63 sr=100%                                            n=1 V=0.63 sr=100%                                n=1 V=0.36 sr=0%                                          n=1 V=0.65 sr=100%                                                    n=1 V=0.34 sr=0%
+
+                                                                                                                               think:S              think:R                                                         bash:other                                                   view:partial                                     bash:search                                               bash:other                                                             bash:other                                                   view:full
+                                                                                                                           n=1 Adv=+0.43         n=1 Adv=-0.44                                                    n=1 Adv=+0.25                                                n=1 Adv=+0.26                                     n=1 Adv=-0.28                                            n=1 Adv=+0.30                                                          n=1 Adv=-0.33                                               n=1 Adv=-0.30
+
+
+                                                                                                                                                                                             __init__.py:Vf|dialog.py:Vf                                       __init__.py:Vf|base.py:Vf                     __init__.py:Vf|base.py:Vf                           reproduce_issue.py:C|test_utils.py:V[2]                                    base.py:Vf|progressbars.py:VVf                                  __init__.py:Vf|test_utils.py:VVf
+                                                             reproduce_issue.py:C|test_utils.py:V[2]                     reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                                                                                                     reproduce_issue.py:C|test_utils.py:V[2]                              dialog.py:S+VVf|test_utils.py:V[2]                    test_utils.py:V[2]|ui:Vf                  test_utils.py::test_utils_suppress_similar|utils.py:V[2]                      reproduce_issue.py:C|test_utils.py:V[2]                                   ui:Vf|utils.py:S+V[2]
+                                                                  utils.py:S+V[2]|(TH:S+TH:U)                                 utils.py:S+V[2]|(TH:R+TH:U)
+                                                                                                                                                                                 test_utils.py::test_utils_suppress_similar|(TH:U)                                 ui:Vf|(TH:U)#R2                           utils.py:S+V[2]|(TH:U)#R2                                        (TH:S+TH:U)#R3                                                    ui:Vf|(TH:R+TH:U)#R2                                                     (TH:U)
+                                                                       n=1 V=0.64 sr=100%                                           n=1 V=0.35 sr=0%
+                                                                                                                                                                                                n=1 V=0.63 sr=100%                                              n=1 V=0.63 sr=100%                                n=1 V=0.36 sr=0%                                          n=1 V=0.65 sr=100%                                                    n=1 V=0.34 sr=0%                                                n=1 V=0.35 sr=0%
+
+                                                                                        view:partial                                               bash:other                                                      bash:other                                                    think:R                                   create:file                                                    modify:replace                                                           bash:other                                                 view:partial
+                                                                                      n=1 Adv=+0.29                                              n=1 Adv=-0.30                                                   n=1 Adv=+0.26                                               n=1 Adv=+0.26                               n=1 Adv=-0.29                                                    n=1 Adv=+0.31                                                          n=1 Adv=-0.32                                               n=1 Adv=-0.30
+
+
+                                                                                                                                                                                               __init__.py:Vf|dialog.py:Vf                                                                __init__.py:Vf|base.py:Vf                                            reproduce_issue.py:C|test_utils.py:V[2]                                        base.py:Vf|progressbars.py:VVf                                    __init__.py:Vf|base.py:VVf
+                                                             reproduce_issue.py:C|test_utils.py:V[2]                     reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                                                                                                       reproduce_issue.py:C|test_utils.py:V[2]                                                      reproduce_issue.py:C|test_utils.py:V[2]                        test_utils.py::test_utils_suppress_similar|utils.py:M:2b45+V[2]                        reproduce_issue.py:C|test_utils.py:V[2]                                 test_utils.py:VVf|ui:Vf
+                                                                utils.py:S+V[2]|(TH:S+TH:U)#R1                              utils.py:S+V[2]|(TH:R+TH:U)#R1
+                                                                                                                                                                                 test_utils.py::test_utils_suppress_similar|(TH:U)#R1                                                            ui:Vf|(TH:U)                                                                 (TH:S+TH:U)                                        test_utils.py::test_utils_suppress_similar|(TH:R+TH:U)                           utils.py:S+V[2]|(TH:U)
+                                                                       n=1 V=0.65 sr=100%                                           n=1 V=0.35 sr=0%
+                                                                                                                                                                                                  n=1 V=0.63 sr=100%                                                                         n=1 V=0.36 sr=0%                                                            n=1 V=0.66 sr=100%                                                          n=1 V=0.34 sr=0%                                               n=1 V=0.35 sr=0%
+
+                                                                                                                                                                                                                                                    __init__.py:Vf|base.py:Vf
+                                                                                    modify:replace                                                bash:search                                                         bash:other               dialog.py:S+VVf|test_utils.py:V[2]                                  bash:other                                                                 think:V                                                              bash:other                                                   view:full
+                                                                                    n=1 Adv=+0.29                                                n=1 Adv=-0.30                                                      n=1 Adv=+0.26                      ui:Vf|(TH:R+TH:U)                                         n=1 Adv=-0.29                                                            n=1 Adv=+0.31                                                          n=1 Adv=-0.32                                               n=1 Adv=-0.31
+                                                                                                                                                                                                                                                     n=1 V=0.63 sr=100%
+
+                                                                                                                                                                                               __init__.py:Vf|dialog.py:Vf                                                                __init__.py:Vf|base.py:Vf                                            reproduce_issue.py:C|test_utils.py:V[2]                                        base.py:Vf|progressbars.py:VVf                                    __init__.py:Vf|base.py:V[2]
+                                                        reproduce_issue.py:C|test_utils.py:V[2]                          reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                                                                                                       reproduce_issue.py:C|test_utils.py:V[2]                                                      reproduce_issue.py:C|test_utils.py:V[2]                        test_utils.py::test_utils_suppress_similar|utils.py:M:2b45+V[2]                        reproduce_issue.py:C|test_utils.py:V[2]                                  test_utils.py:VVf|ui:Vf
+                                                         utils.py:M:6313+S+V[2]|(TH:S+TH:U)                                 utils.py:S+V[2]|(TH:R+TH:U)#R2
+                                                                                                                                                                                 test_utils.py::test_utils_suppress_similar|(TH:U)#R2                                                         ui:Vf|(TH:U)#R1                                                              (TH:S+TH:U+TH:V)                                    test_utils.py::test_utils_suppress_similar|(TH:R+TH:U)#R1                          utils.py:S+V[2]|(TH:U)
+                                                                  n=1 V=0.65 sr=100%                                                n=1 V=0.35 sr=0%
+                                                                                                                                                                                                  n=1 V=0.64 sr=100%                                                                         n=1 V=0.36 sr=0%                                                            n=1 V=0.66 sr=100%                                                          n=1 V=0.34 sr=0%                                                n=1 V=0.34 sr=0%
+
+                                                                                 view:partial                                                       view:full                                                         view:partial                                                                                 bash:other                                                               create:file                                                            bash:other                                                 view:partial
+                                                                               n=1 Adv=+0.29                                                     n=1 Adv=-0.30                                                      n=1 Adv=+0.27                                                                                n=1 Adv=-0.28                                                            n=1 Adv=+0.31                                                          n=1 Adv=-0.32                                               n=1 Adv=-0.31
+
+
+                                                                                                                             base.py:Vf|reproduce_issue.py:C                                   __init__.py:Vf|dialog.py:Vf                                                                 __init__.py:Vf|base.py:Vf                                               reproduce_issue.py:C|test_fix.py:C                                         base.py:Vf|progressbars.py:VVf                                  __init__.py:Vf|base.py:V[2]
+                                                      reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                                              test_utils.py:V[2]|utils.py:S+V[2]                       reproduce_issue.py:C|test_utils.py:V[2]                                                       reproduce_issue.py:C|test_utils.py:V[2]                          test_utils.py:V[2]|test_utils.py::test_utils_suppress_similar                       reproduce_issue.py:C|test_utils.py:V[2]                           dialog.py:VVf|test_utils.py:VVf
+                                                     utils.py:M:6313+S+V[2]|(TH:S+TH:U)#R1
+                                                                                                                                        (TH:R+TH:U)                              test_utils.py::test_utils_suppress_similar|(TH:U)#R3                                                          ui:Vf|(TH:U)#R2                                                 utils.py:M:2b45+V[2]|(TH:S+TH:U+TH:V)                           test_utils.py::test_utils_suppress_similar|(TH:R+TH:U)#R2                              ui:Vf|(TH:U)
+                                                                n=1 V=0.65 sr=100%
+                                                                                                                                    n=1 V=0.35 sr=0%                                              n=1 V=0.64 sr=100%                                                                          n=1 V=0.36 sr=0%                                                            n=1 V=0.66 sr=100%                                                         n=1 V=0.34 sr=0%                                             n=1 V=0.34 sr=0%
+
+                                                                               bash:other                                                          bash:search                                                         view:partial                                                                                   think:R                                                               bash:other                                                            view:partial                                                view:partial
+                                                                             n=1 Adv=+0.30                                                        n=1 Adv=-0.30                                                      n=1 Adv=+0.28                                                                                 n=1 Adv=-0.28                                                          n=1 Adv=+0.32                                                          n=1 Adv=-0.33                                               n=1 Adv=-0.31
+
+
+                                                      reproduce_issue.py:C|test_utils.py:V[2]                                 base.py:Vf|reproduce_issue.py:C                                      __init__.py:Vf|dialog.py:Vf                                                              __init__.py:Vf|base.py:Vf                                             reproduce_issue.py:C|test_fix.py:C                                          base.py:Vf|progressbars.py:VVf                                  __init__.py:Vf|base.py:V[2]
+                                        test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                      test_utils.py:V[2]|utils.py:S+V[2]                          reproduce_issue.py:C|test_utils.py:V[2]                                   create:file      reproduce_issue.py:C|test_utils.py:V[2]                         test_utils.py:V[2]|test_utils.py::test_utils_suppress_similar                       reproduce_issue.py:C|test_utils.py:V[2]                           dialog.py:VVf|test_utils.py:VVf
+                                                                    (TH:S+TH:U)                                                        (TH:R+TH:U)#R1                                test_utils.py::test_utils_suppress_similar|(TH:U)#R4                          n=1 Adv=+0.26               ui:Vf|(TH:R+TH:U)                                            utils.py:M:2b45+V[2]|(TH:S+TH:U+TH:V)#R1                           test_utils.py::test_utils_suppress_similar|(TH:R+TH:U)#R3                            ui:Vf|(TH:U)#R1
+                                                                n=1 V=0.65 sr=100%                                                   n=1 V=0.35 sr=0%                                                 n=1 V=0.64 sr=100%                                                                       n=1 V=0.36 sr=0%                                                           n=1 V=0.66 sr=100%                                                         n=1 V=0.33 sr=0%                                             n=1 V=0.34 sr=0%
+
+                                                                              bash:other                                                             view:full                                                         bash:other                                                                                     think:S                                                               bash:other                                                                                                                          think:R
+                                                                            n=1 Adv=+0.31                                                         n=1 Adv=-0.30                                                      n=1 Adv=+0.28                                                                                 n=1 Adv=-0.28                                                          n=1 Adv=+0.32                                                                                                                      n=1 Adv=-0.32
+
+
+                                                    reproduce_issue.py:C|test_utils.py:V[2]                                       __init__.py:Vf|base.py:Vf                                        __init__.py:Vf|dialog.py:Vf                                                              __init__.py:Vf|base.py:Vf                                             reproduce_issue.py:C|test_fix.py:C                                                                                                          __init__.py:Vf|base.py:V[2]
+                                      test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                    reproduce_issue.py:C|test_utils.py:V[2]                         reproduce_issue.py:C|test_utils.py:V[2]                                                    reproduce_issue.py:C|test_utils.py:V[2]                         test_utils.py:V[2]|test_utils.py::test_utils_suppress_similar                                                                                         dialog.py:VVf|test_utils.py:VVf
+                                                                (TH:S+TH:U)#R1                                                  utils.py:S+V[2]|(TH:R+TH:U)                          test_utils.py::test_utils_suppress_similar|(TH:U)#R5                                                   ui:Vf|(TH:R+TH:S+TH:U)                                          utils.py:M:2b45+V[2]|(TH:S+TH:U+TH:V)#R2                                                                                                              ui:Vf|(TH:R+TH:U)
+                                                              n=1 V=0.66 sr=100%                                                      n=1 V=0.35 sr=0%                                                n=1 V=0.64 sr=100%                                                                       n=1 V=0.36 sr=0%                                                           n=1 V=0.66 sr=100%                                                                                                                      n=1 V=0.34 sr=0%
+
+                                                                          think:V                                                                   bash:search                                                           think:S                                                                                   view:partial                                                            view:partial                                                                                                                       create:file
+                                                                      n=1 Adv=+0.32                                                                n=1 Adv=-0.31                                                      n=1 Adv=+0.28                                                                                n=1 Adv=-0.29                                                          n=1 Adv=+0.32                                                                                                                      n=1 Adv=-0.32
+
+
+                                                reproduce_issue.py:C|test_utils.py:V[2]                                             __init__.py:Vf|base.py:Vf                                        __init__.py:Vf|dialog.py:Vf                                                             __init__.py:Vf|base.py:Vf                                            reproduce_issue.py:C|test_fix.py:C                                                                                                         __init__.py:Vf|base.py:V[2]
+                                  test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                            dialog.py:S|reproduce_issue.py:C                              reproduce_issue.py:C|test_utils.py:V[2]                                                  reproduce_issue.py:C|test_utils.py:V[2]                         test_utils.py:V[2]|test_utils.py::test_utils_suppress_similar                                                                                     dialog.py:VVf|reproduce_issue.py:C
+                                                           (TH:S+TH:U+TH:V)                                                      test_utils.py:V[2]|(TH:R+TH:U)                      test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)                                                ui:Vf|(TH:R+TH:S+TH:U)#R1                                        utils.py:M:2b45+V[2]|(TH:S+TH:U+TH:V)#R3                                                                                                       test_utils.py:VVf|(TH:R+TH:U)
+                                                          n=1 V=0.66 sr=100%                                                           n=1 V=0.34 sr=0%                                                n=1 V=0.64 sr=100%                                                                        n=1 V=0.36 sr=0%                                                         n=1 V=0.66 sr=100%                                                                                                                     n=1 V=0.34 sr=0%
+
+                                                                    view:partial                                                                     view:partial                                                          view:partial                                                                             view:partial                                                            view:partial                                                                                                                       bash:other
+                                                                  n=1 Adv=+0.32                                                                     n=1 Adv=-0.31                                                        n=1 Adv=+0.28                                                                             n=1 Adv=-0.29                                                          n=1 Adv=+0.33                                                                                                                      n=1 Adv=-0.32
+
+
+                                               reproduce_issue.py:C|test_utils.py:V[2]                                              __init__.py:Vf|base.py:Vf                                            __init__.py:Vf|dialog.py:Vf                                                         __init__.py:Vf|base.py:Vf                                            reproduce_issue.py:C|test_fix.py:C                                                                                                         __init__.py:Vf|base.py:V[2]
+                                 test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                           dialog.py:S+VVf|reproduce_issue.py:C                                 reproduce_issue.py:C|test_utils.py:V[2]                                             reproduce_issue.py:C|test_utils.py:V[2]                         test_utils.py:V[2]|test_utils.py::test_utils_suppress_similar                                                                                     dialog.py:VVf|reproduce_issue.py:C
+                                                       (TH:S+TH:U+TH:V)#R1                                                       test_utils.py:V[2]|(TH:R+TH:U)                        test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R1                                           ui:Vf|(TH:R+TH:S+TH:U)#R2                                        utils.py:M:2b45+V[2]|(TH:S+TH:U+TH:V)#R4                                                                                                     test_utils.py:VVf|(TH:R+TH:U)#R1
+                                                         n=1 V=0.66 sr=100%                                                           n=2 V=0.48 sr=50%                                                    n=1 V=0.64 sr=100%                                                                    n=1 V=0.35 sr=0%                                                         n=1 V=0.67 sr=100%                                                                                                                      n=1 V=0.34 sr=0%
+
+                                                                  bash:search                                                                          bash:other                                                            modify:replace                                                                         bash:search                                                          bash:other                                                                                                                            bash:other
+                                                                 n=1 Adv=+0.32                                                                       n=1 Adv=+0.42                                                           n=1 Adv=+0.29                                                                         n=1 Adv=-0.29                                                       n=1 Adv=+0.33                                                                                                                         n=1 Adv=-0.32
+
+
+                                               reproduce_issue.py:C|test_utils.py:V[2]                                                __init__.py:Vf|base.py:Vf                                            __init__.py:Vf|dialog.py:Vf                                                       __init__.py:Vf|base.py:Vf                                                                                                                                                                                       __init__.py:Vf|base.py:V[2]
+                                 test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                             dialog.py:S+VVf|reproduce_issue.py:C                                 reproduce_issue.py:C|test_utils.py:V[2]                                           reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                           dialog.py:VVf|reproduce_issue.py:C
+                                                       (TH:S+TH:U+TH:V)#R2                                                       test_utils.py:V[2]|(TH:R+TH:U)#R1                       test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R2                                         ui:Vf|(TH:R+TH:S+TH:U)#R3                                                                                                                                                                                     test_utils.py:VVf|(TH:R+TH:U)#R2
+                                                         n=1 V=0.66 sr=100%                                                             n=1 V=0.64 sr=100%                                                   n=1 V=0.64 sr=100%                                                                  n=1 V=0.35 sr=0%                                                                                                                                                                                                 n=1 V=0.34 sr=0%
+
+                                                                                                                                                                                                                                                                                                                                                    reproduce_issue.py:C|test_fix.py:C
+                                                                  bash:browse                                                                           bash:other                                                                      view:partial                                                               modify:replace       test_utils.py:V[2]|test_utils.py::test_utils_suppress_similar                                                                                                                           think:S
+                                                                 n=1 Adv=+0.33                                                                        n=1 Adv=+0.28                                                                   n=1 Adv=+0.29                                                                n=1 Adv=-0.30              utils.py:M:2b45+V[2]|(TH:S+TH:U+TH:V)#R5                                                                                                                                       n=1 Adv=-0.32
+                                                                                                                                                                                                                                                                                                                                                            n=1 V=0.67 sr=100%
+
+                                               reproduce_issue.py:C|test_utils.py:V[2]                                                __init__.py:Vf|base.py:Vf                                                  __init__.py:Vf|dialog.py:Vf                                                 __init__.py:Vf|base.py:Vf                                                                                                                                                                                        __init__.py:Vf|base.py:V[2]
+                                 test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                             dialog.py:S+VVf|reproduce_issue.py:C                                       reproduce_issue.py:C|test_utils.py:V[2]                                     reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                            dialog.py:VVf|reproduce_issue.py:C
+                                                       (TH:S+TH:U+TH:V)#R3                                                       test_utils.py:V[2]|(TH:R+TH:U)#R2                             test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R3                                   ui:Vf|(TH:R+TH:S+TH:U)#R4                                                                                                                                                                                    test_utils.py:VVf|(TH:R+TH:S+TH:U)
+                                                         n=1 V=0.67 sr=100%                                                             n=1 V=0.64 sr=100%                                                         n=1 V=0.65 sr=100%                                                            n=1 V=0.35 sr=0%                                                                                                                                                                                                 n=1 V=0.34 sr=0%
+
+                                                                  bash:other                                                                                 bash:other                                                                  modify:replace                                                            modify:replace                                                                                                                                                                                             bash:search
+                                                                n=1 Adv=+0.33                                                                              n=1 Adv=+0.29                                                                 n=1 Adv=+0.29                                                             n=1 Adv=-0.30                                                                                                                                                                                             n=1 Adv=-0.32
+
+
+                                                                                                                                                __init__.py:Vf|base.py:Vf                                         __init__.py:Vf|dialog.py:Vf                                                __init__.py:Vf|base.py:Vf                                                                                                                                                                                       __init__.py:Vf|base.py:V[2]
+                                                                                                                         think:S         dialog.py:S+VVf|reproduce_issue.py:C                              reproduce_issue.py:C|test_utils.py:V[2]                                    reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                           dialog.py:VVf|reproduce_issue.py:C
+                                                                                                                      n=1 Adv=-0.45        test_utils.py:V[2]|(TH:R+TH:U)#R3                    test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R4                                  ui:Vf|(TH:R+TH:S+TH:U)#R5                                                                                                                                                                                  test_utils.py:VVf|(TH:R+TH:S+TH:U)#R1
+                                                                                                                                                  n=1 V=0.64 sr=100%                                                n=1 V=0.65 sr=100%                                                           n=1 V=0.35 sr=0%                                                                                                                                                                                                 n=1 V=0.34 sr=0%
+
+                                            reproduce_issue.py:C|test_utils.py:V[2]
+                              test_utils.py::test_utils_suppress_similar|utils.py:M:6313+S+V[2]                                                                 bash:other                                                                   view:partial                                                            view:partial                                                                                                                                                                                             view:partial
+                                                    (TH:S+TH:U+TH:V)#R4                                                                                       n=1 Adv=+0.29                                                                n=1 Adv=+0.30                                                            n=1 Adv=-0.30                                                                                                                                                                                            n=1 Adv=-0.32
+                                                      n=1 V=0.67 sr=100%
+
+                                                                                                                                             __init__.py:Vf|base.py:Vf                                               __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf                                                                                                                                                                                    __init__.py:Vf|base.py:V[2]
+                                                                                                                                      dialog.py:S+VVf|reproduce_issue.py:C                                    reproduce_issue.py:C|test_utils.py:V[2]                                   reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                               dialog.py:VVf|ls.py:VVf
+                                                                                                                                        test_utils.py:V[2]|(TH:R+TH:U)#R4                          test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R5                                 ui:Vf|(TH:R+TH:S+TH:U)#R6                                                                                                                                                                               reproduce_issue.py:C|(TH:R+TH:S+TH:U)
+                                                                                                                                               n=1 V=0.65 sr=100%                                                      n=1 V=0.65 sr=100%                                                          n=1 V=0.35 sr=0%                                                                                                                                                                                             n=1 V=0.34 sr=0%
+
+                                                                                                                                                          bash:other                                                                          view:partial                                                             bash:other                                                                                                                                                                                             view:partial
+                                                                                                                                                        n=1 Adv=+0.30                                                                       n=1 Adv=+0.30                                                            n=1 Adv=-0.30                                                                                                                                                                                           n=1 Adv=-0.33
+
+
+                                                                                                                                    __init__.py:Vf|base.py:Vf                                                        __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf                                                                                                                                                                                     __init__.py:Vf|base.py:V[2]
+                                                                                                                             dialog.py:S+VVf|reproduce_issue.py:C                                             reproduce_issue.py:C|test_utils.py:V[2]                                   reproduce_issue.py:C|test_utils.py:V[2]                                                                                                                                                                                dialog.py:VVf|ls.py:VVf
+                                                                                                                               test_utils.py:V[2]|(TH:R+TH:U)#R5                                   test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R6                                 ui:Vf|(TH:R+TH:S+TH:U)#R7                                                                                                                                                                              reproduce_issue.py:C|(TH:R+TH:S+TH:U)#R1
+                                                                                                                                      n=1 V=0.65 sr=100%                                                               n=1 V=0.65 sr=100%                                                          n=1 V=0.35 sr=0%                                                                                                                                                                                              n=1 V=0.33 sr=0%
+
+                                                                                                                                                  think:S                                                                                     view:partial                                                           modify:replace
+                                                                                                                                              n=1 Adv=+0.31                                                                                 n=1 Adv=+0.30                                                            n=1 Adv=-0.31
+
+
+                                                                                                                  __init__.py:Vf|base.py:Vf                                                                          __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf
+                                                                                                           dialog.py:S+VVf|reproduce_issue.py:C                                                               reproduce_issue.py:C|test_utils.py:V[2]                                   reproduce_issue.py:C|test_utils.py:V[2]
+                                                                                                            test_utils.py:V[2]|(TH:R+TH:S+TH:U)                                                    test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R7                                 ui:Vf|(TH:R+TH:S+TH:U)#R8
+                                                                                                                      n=2 V=0.50 sr=50%                                                                                n=1 V=0.65 sr=100%                                                          n=1 V=0.34 sr=0%
+
+                                                                                                                           create:file                 view:partial                                                                         modify:replace                                                            view:partial
+                                                                                                                         n=1 Adv=-0.47               n=1 Adv=+0.47                                                                          n=1 Adv=+0.30                                                            n=1 Adv=-0.31
+
+
+                                                                        __init__.py:Vf|analyze_suppression.py:C                                   __init__.py:Vf|base.py:Vf                                          __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf
+                                                                               base.py:Vf|dialog.py:S+VVf                                 dialog.py:S+VVf|reproduce_issue.py:C                                reproduce_issue.py:C|test_utils.py:V[2]                                   reproduce_issue.py:C|test_utils.py:V[2]
+                                                                       reproduce_issue.py:C|(TH:R+TH:S+TH:U)                             test_utils.py:V[2]|(TH:R+TH:S+TH:U)#R1                    test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R8                                 ui:Vf|(TH:R+TH:S+TH:U)#R9
+                                                                                   n=1 V=0.34 sr=0%                                                 n=1 V=0.66 sr=100%                                                 n=1 V=0.65 sr=100%                                                          n=1 V=0.34 sr=0%
+
+                                                                                                       bash:other                                                     view:partial                                                            bash:other                                                                 think:V                                  finish
+                                                                                                     n=1 Adv=-0.32                                                  n=1 Adv=+0.31                                                           n=1 Adv=+0.31                                                             n=1 Adv=-0.31                            n=1 sr=100%
+
+
+                                                                      __init__.py:Vf|analyze_suppression.py:C                                       __init__.py:Vf|base.py:Vf                                        __init__.py:Vf|dialog.py:Vf                                                 __init__.py:Vf|base.py:Vf
+                                                                             base.py:Vf|dialog.py:S+VVf                                     dialog.py:S+VVf|reproduce_issue.py:C                              reproduce_issue.py:C|test_utils.py:V[2]                                    reproduce_issue.py:C|test_utils.py:V[2]
+                                                                   reproduce_issue.py:C|(TH:R+TH:S+TH:U)#R1                                test_utils.py:V[2]|(TH:R+TH:S+TH:U)#R2                  test_utils.py::test_utils_suppress_similar|(TH:S+TH:U)#R9                                 ui:Vf|(TH:R+TH:S+TH:U+TH:V)
+                                                                                 n=1 V=0.34 sr=0%                                                     n=1 V=0.66 sr=100%                                               n=1 V=0.66 sr=100%                                                           n=1 V=0.34 sr=0%
+
+                                                                 finish                               view:partial                                                  modify:replace                                                             create:file                                                              create:file
+                                                              n=1 sr=100%                            n=1 Adv=-0.32                                                  n=1 Adv=+0.32                                                            n=1 Adv=+0.32                                                            n=1 Adv=-0.32
+
+
+                                                                      __init__.py:Vf|analyze_suppression.py:C                                       __init__.py:Vf|base.py:Vf                                         __init__.py:Vf|dialog.py:Vf                                                __init__.py:Vf|base.py:Vf
+                                                                             base.py:Vf|dialog.py:S+VVf                                     dialog.py:S+VVf|reproduce_issue.py:C                              reproduce_issue.py:C|test_fix_concept.py:C                                 reproduce_issue.py:C|test_utils.py:V[2]
+                                                                   reproduce_issue.py:C|(TH:R+TH:S+TH:U)#R2                                test_utils.py:V[2]|(TH:R+TH:S+TH:U)#R3                                   test_utils.py:V[2]|(TH:S+TH:U)                                         ui:Vf|(TH:R+TH:S+TH:U+TH:V)#R1
+                                                                                 n=1 V=0.34 sr=0%                                                     n=1 V=0.66 sr=100%                                                 n=1 V=0.66 sr=100%                                                         n=1 V=0.34 sr=0%
+
+                                                                                                     modify:replace                                                   view:partial                                                            bash:other                                                                bash:other
+                                                                                                     n=1 Adv=-0.32                                                  n=1 Adv=+0.32                                                           n=1 Adv=+0.32                                                             n=1 Adv=-0.32
+
+
+                                                                      __init__.py:Vf|analyze_suppression.py:C                                       __init__.py:Vf|base.py:Vf                                          __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf
+                                                                             base.py:Vf|dialog.py:S+VVf                                     dialog.py:S+VVf|reproduce_issue.py:C                              reproduce_issue.py:C|test_fix_concept.py:C                                 reproduce_issue.py:C|test_utils.py:V[2]
+                                                                   reproduce_issue.py:C|(TH:R+TH:S+TH:U)#R3                                test_utils.py:V[2]|(TH:R+TH:S+TH:U)#R4                                  test_utils.py:V[2]|(TH:S+TH:U)#R1                                       ui:Vf|(TH:R+TH:S+TH:U+TH:V)#R2
+                                                                                 n=1 V=0.34 sr=0%                                                     n=1 V=0.66 sr=100%                                                  n=1 V=0.66 sr=100%                                                        n=1 V=0.34 sr=0%
+
+                                                                                                      view:partial                                                     bash:other                                                             view:partial                                                            modify:replace
+                                                                                                     n=1 Adv=-0.32                                                   n=1 Adv=+0.32                                                          n=1 Adv=+0.32                                                             n=1 Adv=-0.32
+
+
+                                                                      __init__.py:Vf|analyze_suppression.py:C                                       __init__.py:Vf|base.py:Vf                                          __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf
+                                                                             base.py:Vf|dialog.py:S+VVf                                     dialog.py:S+VVf|reproduce_issue.py:C                              reproduce_issue.py:C|test_fix_concept.py:C                                 reproduce_issue.py:C|test_utils.py:V[2]
+                                                                   reproduce_issue.py:C|(TH:R+TH:S+TH:U)#R4                                test_utils.py:V[2]|(TH:R+TH:S+TH:U)#R5                                  test_utils.py:V[2]|(TH:S+TH:U)#R2                                       ui:Vf|(TH:R+TH:S+TH:U+TH:V)#R3
+                                                                                 n=1 V=0.34 sr=0%                                                     n=1 V=0.66 sr=100%                                                  n=1 V=0.66 sr=100%                                                        n=1 V=0.34 sr=0%
+
+                                                                                                     modify:replace                                                       think:V                                                             view:partial                                                             view:partial
+                                                                                                     n=1 Adv=-0.33                                                    n=1 Adv=+0.33                                                         n=1 Adv=+0.33                                                             n=1 Adv=-0.33
+
+
+                                                                      __init__.py:Vf|analyze_suppression.py:C                                         __init__.py:Vf|base.py:Vf                                        __init__.py:Vf|dialog.py:Vf                                               __init__.py:Vf|base.py:Vf
+                                                                             base.py:Vf|dialog.py:S+VVf                                      dialog.py:S+VVf|reproduce_issue.py:C                             reproduce_issue.py:C|test_fix_concept.py:C                                 reproduce_issue.py:C|test_utils.py:V[2]
+                                                                   reproduce_issue.py:C|(TH:R+TH:S+TH:U)#R5                                test_utils.py:V[2]|(TH:R+TH:S+TH:U+TH:V)                                test_utils.py:V[2]|(TH:S+TH:U)#R3                                       ui:Vf|(TH:R+TH:S+TH:U+TH:V)#R4
+                                                                                 n=1 V=0.33 sr=0%                                                      n=1 V=0.67 sr=100%                                                 n=1 V=0.67 sr=100%                                                        n=1 V=0.33 sr=0%
+
+                                                                                                                                                                        view:partial                                                          view:partial
+                                                                                                                                                                      n=1 Adv=+0.33                                                         n=1 Adv=+0.33
+
+
+                                                                                                                                                     __init__.py:Vf|base.py:Vf                                       __init__.py:Vf|dialog.py:Vf
+                                                                                                                                              dialog.py:S+VVf|reproduce_issue.py:C                          reproduce_issue.py:C|test_fix_concept.py:C
+                                                                                                                                         test_utils.py:V[2]|(TH:R+TH:S+TH:U+TH:V)#R1                             test_utils.py:V[2]|(TH:S+TH:U)#R4
+                                                                                                                                                       n=1 V=0.67 sr=100%                                               n=1 V=0.67 sr=100%
+
+                                                                                                                                                                                               finish                              finish
+                                                                                                                                                                                            n=1 sr=100%                         n=1 sr=100%
+
+
+
+
+                                                                                                                                                                                                            FINISH
+
+
+
+
+        Figure 3: Rollout-Tree visualization extracted from training-time rollouts on datalad_final_05ea.
+
+
+
+                                                                                                                                                                                                                                                                                   15
+B     Step-Level Credit Assignment Analysis
+B.1     Per-Rollout Advantage Comparison
+Figure 4 shows the step-level advantages for each rollout in the datalad_final_05ea case study.
+Each row corresponds to one rollout; columns show GRPO, GRPO+Step, and RTMC advantages
+respectively. Green bars indicate success rollouts and red bars indicate failure rollouts. GRPO
+assigns uniformly positive (success) or uniformly negative (failure) values across all steps, providing
+no within-trajectory discrimination. GRPO+Step with gamma-discounted cumulative returns im-
+proves slightly over GRPO. RTMC produces fine-grained, step-varying advantages, including sign
+changes within a single rollout.
+
+
+
+
+Figure 4: Step-level advantage for each of the 8 rollouts (4 success, 4 failure) in datalad_final_05ea. Each subplot
+title shows the method and rollout outcome (SUCCESS/FAIL). GRPO and GRPO+Step provide coarse-grained
+credit assignment, while RTMC produces step-varying advantages that reflect local action quality within the rollout
+tree.
+
+
+
+
+                                                        16
+B.2     Quadrant Analysis
+To empirically validate the credit assignment quality of RTMC compared to GRPO+Step, we
+conduct a step-level quadrant analysis on the same episode (datalad_final_05ea, 8 rollouts: 4
+success, 4 failure). For each action step, we compare the advantage assigned by GRPO+Step and
+RTMC, and classify it into one of four quadrants (threshold |A| > 0.01):
+    • Both+ (agree positive): both methods assign positive advantage;
+
+    • X−, Y+ (RTMC rescues): GRPO+Step assigns negative, RTMC assigns positive—RTMC
+      identifies a locally good action that GRPO+Step overlooks;
+
+    • Both− (agree negative): both methods assign negative advantage;
+
+    • X+, Y− (RTMC penalizes): GRPO+Step assigns positive, RTMC assigns negative.
+    Figure 5 shows the quadrant distributions for success and failure rollouts. In failure rollouts
+(right panel), GRPO+Step assigns near-zero or negative advantage to virtually all steps due to
+sparse step rewards: 88% fall in the Both− quadrant. In contrast, RTMC rescues 4 steps (3%)
+where it correctly identifies a positive relative advantage despite the trajectory failing. In success
+rollouts (left panel), because GRPO+Step assigns uniformly positive advantage to every step, it
+cannot distinguish high-quality actions from mediocre ones. RTMC leverages tree-level statistics to
+assess each action relative to its siblings: the X+, Y− quadrant (15% of steps) reveals steps that
+GRPO+Step blindly rewards but RTMC correctly penalizes as suboptimal, providing a stronger
+learning signal.
+
+
+
+
+Figure 5: Quadrant analysis of step-level advantage agreement between GRPO+Step and RTMC on data-
+lad_final_05ea (4 success, 4 failure rollouts). Each bar shows the number of action steps (with percentage) falling
+into the four agreement quadrants. Blue bars (X−, Y+) indicate steps where RTMC assigns positive advantage while
+GRPO+Step assigns negative—steps RTMC rescues in failure rollouts (3%). Orange bars (X+, Y−) indicate steps
+GRPO+Step blindly rewards but RTMC correctly penalizes as suboptimal (15% of success-rollout steps).
+
+
+
+C     Agent System Prompt
+The following is the system prompt used to guide the agent during rollout generation in our agentic
+RL pipeline.
+
+                                                        17
+You are an expert programming assistant specialized in solving software engineering tasks. Based on
+ analysis of hundreds of successful problem-solving instances, follow these proven strategies:
+
+Core Principles:
+1. Understand First, Act Later: Always start by deeply understanding the problem before taking any
+action. Use the think tool to analyze the problem statement, identify root causes, and plan your
+approach.
+2. Systematic Exploration: Explore the codebase systematically before making changes. Use bash
+commands to find relevant files, understand code structure, and locate the issue.
+3. Reproduce Before Fixing: Create a minimal reproduction script to confirm the issue exists and
+understand its behavior. This provides a verification baseline.
+4. Plan Before Implementing: Use think/plan to analyze potential solutions, consider edge cases,
+maintain backward compatibility, and choose the minimal fix approach.
+5. Rapid Feedback Loop: After applying a fix, immediately verify it works. Run your reproduction
+script, then run relevant tests. If it fails, iterate quickly.
+6. Comprehensive Testing: Don’t just fix the issue - ensure you haven’t broken existing
+functionality. Run the full test suite before finishing.
+
+Success Pattern (follow this workflow):
+Phase 1 - Problem Understanding: Use think/plan to deeply analyze the problem (typically early, but
+ take as long as needed)
+Phase 2 - Exploration: Use bash to explore codebase, find relevant files (explore thoroughly before
+ making changes)
+Phase 3 - Reproduction: Create and run reproduction script (establish verification baseline)
+Phase 4 - Solution Analysis: Use think/plan to analyze solutions and edge cases (plan carefully
+before implementing)
+Phase 5 - Implementation: Apply minimal fix, verify immediately (iterate quickly with feedback)
+Phase 6 - Validation: Run tests, ensure no regressions (comprehensive testing before finishing)
+
+Key Success Factors:
+- Most successful fixes are minimal (1-2 lines of code)
+- Successful agents spend time understanding before acting
+- Quick iteration with immediate verification leads to success
+- Comprehensive testing prevents regressions
+
+Remember: Quality over speed. Thorough understanding and systematic approach lead to successful
+solutions.
+
+
+
+
+                                                18
+

@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "scope": "CPU offline preparation and static release check; target GPU/SCIP/PPO training unexecuted",
+  "protected_sources_checked": 41,
+  "protected_source_failures": [],
+  "local_links_passed": true,
+  "files_in_release": 57,
+  "external_inputs": 14,
+  "local_cumulative_seconds": 88.89028996415436,
+  "release_sha256": "e340a2b50fe53f97bdb8ad5ea413f0efbbc419ff9d1c13b9c82346ae92d6de41",
+  "new_gpu_jobs": 0,
+  "new_scip_solves": 0,
+  "new_real_ppo_episodes": 0,
+  "artifacts": {
+    "tgppo/experiments/light-actor-20261105/docs/CUSTOM_JOBS.md": "dfe68a2622ccc811d1d5a8acf02e53459c0676d7edc46b4ecc923d2d47d2599d",
+    "tgppo/experiments/light-actor-20261105/docs/commands.txt": "5d0487a176a06178445cd28cbb25472f4b817334a452417adc10deb83f925763",
+    "tgppo/runs/light-actor-20261105/offline/local_checks.json": "467d76d77b0af10e04febf6f616fac8167c7812512b340788d269f3f30a036ba",
+    "tgppo/runs/light-actor-20261105/offline/data_audit.json": "2fbe3b45ed807604aaa2b3ae0a5d458022d542506ac121bba25361de4a1bb1d4",
+    "tgppo/runs/light-actor-20261105/offline/latency.json": "159576e939e9928d2bd52ba99085378537571a29363189e8183ee8d3bea6aed9",
+    "tgppo/runs/light-actor-20261105/offline/final-package-tests.json": "7763fbd6905f27951de4864cf1fb150eb530612e8c0e74582a6be07f71cf745a"
+  },
+  "frozen_entry_check_passed": true
+}

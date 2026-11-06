@@ -1,0 +1,75 @@
+{
+  "limit_seconds": 600.0,
+  "preparation_reserve_seconds": 20.0,
+  "runs": [
+    {
+      "tag": "replay",
+      "command": [
+        "/home/duweiyue25/conda/envs/tgppo/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_ppo_replay/scripts/replay.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 500.0,
+      "started_at_beijing": "2026-11-02T16:55:31.890424+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 104.01848140079528
+    },
+    {
+      "tag": "summarize",
+      "command": [
+        "/home/duweiyue25/conda/envs/tgppo/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_ppo_replay/scripts/summarize.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 25.0,
+      "started_at_beijing": "2026-11-02T16:58:16.453478+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 0.21498834900557995
+    },
+    {
+      "tag": "figures",
+      "command": [
+        "/home/duweiyue25/conda/envs/rl4scip/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_ppo_replay/scripts/render_figures.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 40.0,
+      "started_at_beijing": "2026-11-02T16:58:22.904054+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 3.119986749254167
+    },
+    {
+      "tag": "final_checks",
+      "command": [
+        "/usr/bin/python",
+        "-u",
+        "research/docs/diagnostics/tgppo_20261102_ppo_replay/scripts/final_checks.py"
+      ],
+      "cpu_affinity": [
+        0
+      ],
+      "timeout_seconds": 30.0,
+      "started_at_beijing": "2026-11-02T17:03:53.146284+08:00",
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 1.9680950809270144
+    }
+  ],
+  "status": "closed",
+  "used_seconds": 109.32155157998204,
+  "remaining_seconds": 470.67844842001796,
+  "closed_at_utc": "2026-11-02T09:05:20.129820+00:00",
+  "followup_requires_acceptance": true
+}

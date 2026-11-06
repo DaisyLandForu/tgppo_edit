@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "scope": "bounded CPU diagnostic, not formal collection",
+  "limits": {
+    "nodes": 500,
+    "seconds": 30.0
+  },
+  "instance": "swath1",
+  "solver_seed": 0,
+  "random_prefix_steps": 0,
+  "training_started": false,
+  "timestamp_utc": "20261027T153907.790810Z",
+  "samples": 264,
+  "solver_stats": {
+    "name": "swath1",
+    "explorer": "random",
+    "expert": "relpscost",
+    "k": 0,
+    "seed": 0,
+    "nnodes": 500,
+    "fair_nnodes": 3146,
+    "nnodes_left": 20,
+    "nLP_iterations": 14420,
+    "max_depth": 59,
+    "status": "nodelimit",
+    "gap": 0.07205001193902634,
+    "primal_bound": 379.07129575,
+    "dual_bound": 353.5947871166667,
+    "primaldualintegral": 626.1247087427935,
+    "scip_solve_time": 25.93738,
+    "scip_presolve_time": 1.6885949999999998,
+    "opt_time_process": 25.210921735,
+    "opt_time_wallclock": 25.93747901916504
+  },
+  "trajectory_sha256": "9ffd04d05c29204c134bb34f28c33ad53849a05d2a2b098f4bd2d62d83c890e3"
+}

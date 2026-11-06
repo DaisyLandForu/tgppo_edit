@@ -1,0 +1,438 @@
+{
+  "response": [
+    {
+      "model": "B0-s11",
+      "dataset": "update_batch",
+      "states": 256,
+      "instances": 4,
+      "L1_states": 0,
+      "tv_pre_post": {
+        "min": 6.59140288357396e-09,
+        "p50": 2.180652802124053e-08,
+        "p95": 2.94125491139257e-08,
+        "max": 3.436881038793027e-08
+      },
+      "tv_pre_repeat": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "pre_tv_uniform": {
+        "min": 3.570069795344466e-09,
+        "p50": 1.7347221517322736e-08,
+        "p95": 2.5142372638703447e-08,
+        "max": 2.860061818280024e-08
+      },
+      "post_tv_uniform": {
+        "min": 1.8062013031061586e-09,
+        "p50": 1.689913441994817e-08,
+        "p95": 2.569296577705979e-08,
+        "max": 2.9103829700394268e-08
+      },
+      "pre_post_kl": {
+        "min": 4.1652907736764043e-16,
+        "p50": 1.47169899137579e-15,
+        "p95": 2.494457174548283e-15,
+        "max": 3.7022357194664215e-15
+      },
+      "instance_median_tv_pre_post": {
+        "min": 2.1170554347776926e-08,
+        "p50": 2.169377396167918e-08,
+        "p95": 2.279371548248761e-08,
+        "max": 2.2959973288057267e-08
+      },
+      "above_repeat_noise": 256,
+      "above_float32_screen": 0,
+      "post_tv_uniform_ge_001": 0,
+      "abs_common_logit_shift": {
+        "min": 3.359819713391756e-06,
+        "p50": 5.779911734663184e-06,
+        "p95": 2.9259791167882773e-05,
+        "max": 2.9306858777999878e-05
+      },
+      "centered_logit_delta_rms": {
+        "min": 2.021020587241269e-08,
+        "p50": 4.054795835312377e-08,
+        "p95": 5.045369421408191e-08,
+        "max": 5.752971067079265e-08
+      },
+      "post_old_ratio": {
+        "min": 0.9999995231629555,
+        "p50": 1.0,
+        "p95": 1.0000002384186075,
+        "max": 1.000000476837272
+      },
+      "post_pre_action_ratio": {
+        "min": 0.9999995231629555,
+        "p50": 1.0,
+        "p95": 1.0000002384186075,
+        "max": 1.000000476837272
+      }
+    },
+    {
+      "model": "B0-s11",
+      "dataset": "monitor_164",
+      "states": 164,
+      "instances": 17,
+      "L1_states": 0,
+      "tv_pre_post": {
+        "min": 0.0,
+        "p50": 2.0672147344174413e-08,
+        "p95": 3.276136248420722e-08,
+        "max": 4.281835632043672e-08
+      },
+      "tv_pre_repeat": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "pre_tv_uniform": {
+        "min": 0.0,
+        "p50": 1.5405775551091683e-08,
+        "p95": 2.6177893864491163e-08,
+        "max": 2.9270138006062818e-08
+      },
+      "post_tv_uniform": {
+        "min": 0.0,
+        "p50": 1.638828965740656e-08,
+        "p95": 2.5868126842616343e-08,
+        "max": 2.844229607563975e-08
+      },
+      "pre_post_kl": {
+        "min": 0.0,
+        "p50": 1.2425293025661695e-15,
+        "p95": 3.1324681837702918e-15,
+        "max": 4.665967761816956e-15
+      },
+      "instance_median_tv_pre_post": {
+        "min": 1.3836792593646674e-08,
+        "p50": 2.0585857954044662e-08,
+        "p95": 2.642338331943807e-08,
+        "max": 2.687268840372188e-08
+      },
+      "above_repeat_noise": 163,
+      "above_float32_screen": 0,
+      "post_tv_uniform_ge_001": 0,
+      "abs_common_logit_shift": {
+        "min": 3.5694012275108926e-06,
+        "p50": 7.392727010261079e-06,
+        "p95": 2.9042214155197144e-05,
+        "max": 3.058062149928166e-05
+      },
+      "centered_logit_delta_rms": {
+        "min": 1.2904784139758924e-08,
+        "p50": 3.645656196054119e-08,
+        "p95": 4.899162013392034e-08,
+        "max": 6.752854124045825e-08
+      },
+      "post_old_ratio": {},
+      "post_pre_action_ratio": {
+        "min": 0.9999995231629555,
+        "p50": 1.0,
+        "p95": 1.0000002384186075,
+        "max": 1.000000476837272
+      }
+    },
+    {
+      "model": "B0-s22",
+      "dataset": "update_batch",
+      "states": 256,
+      "instances": 3,
+      "L1_states": 0,
+      "tv_pre_post": {
+        "min": 0.0,
+        "p50": 6.519258050063925e-09,
+        "p95": 2.2351742123838392e-08,
+        "max": 2.554484801464696e-08
+      },
+      "tv_pre_repeat": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "pre_tv_uniform": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 1.9868214934382067e-08,
+        "max": 2.682209093718413e-08
+      },
+      "post_tv_uniform": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 2.0108733252100983e-08,
+        "max": 2.682209093718413e-08
+      },
+      "pre_post_kl": {
+        "min": 0.0,
+        "p50": 1.9428901524733198e-16,
+        "p95": 1.1102230006369188e-15,
+        "max": 2.220446042632868e-15
+      },
+      "instance_median_tv_pre_post": {
+        "min": 0.0,
+        "p50": 6.151235612018857e-09,
+        "p95": 6.680573419199504e-09,
+        "max": 6.739388731108464e-09
+      },
+      "above_repeat_noise": 144,
+      "above_float32_screen": 0,
+      "post_tv_uniform_ge_001": 0,
+      "abs_common_logit_shift": {
+        "min": 8.652512536664898e-06,
+        "p50": 9.821727871894836e-06,
+        "p95": 1.0470859706401825e-05,
+        "max": 1.0498441182650053e-05
+      },
+      "centered_logit_delta_rms": {
+        "min": 0.0,
+        "p50": 1.5621028879676506e-08,
+        "p95": 3.0664461632333e-08,
+        "max": 4.3585719602267554e-08
+      },
+      "post_old_ratio": {
+        "min": 0.9999997615814493,
+        "p50": 1.0,
+        "p95": 1.0000000298023242,
+        "max": 1.000000476837272
+      },
+      "post_pre_action_ratio": {
+        "min": 0.9999997615814493,
+        "p50": 1.0,
+        "p95": 1.0,
+        "max": 1.0000002384186075
+      }
+    },
+    {
+      "model": "B0-s22",
+      "dataset": "monitor_164",
+      "states": 164,
+      "instances": 17,
+      "L1_states": 0,
+      "tv_pre_post": {
+        "min": 0.0,
+        "p50": 1.1382831829886975e-08,
+        "p95": 2.634356277278135e-08,
+        "max": 3.353883702792576e-08
+      },
+      "tv_pre_repeat": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "pre_tv_uniform": {
+        "min": 0.0,
+        "p50": 1.585473592040712e-09,
+        "p95": 3.403738811167538e-08,
+        "max": 4.678964963533705e-07
+      },
+      "post_tv_uniform": {
+        "min": 0.0,
+        "p50": 3.556261916675893e-09,
+        "p95": 2.9495969228274934e-08,
+        "max": 4.708767323280405e-07
+      },
+      "pre_post_kl": {
+        "min": 0.0,
+        "p50": 4.622320246482375e-16,
+        "p95": 2.149778672553053e-15,
+        "max": 3.2019257829516196e-15
+      },
+      "instance_median_tv_pre_post": {
+        "min": 0.0,
+        "p50": 1.1005009609762334e-08,
+        "p95": 1.5268828218364254e-08,
+        "max": 1.5818155750524365e-08
+      },
+      "above_repeat_noise": 119,
+      "above_float32_screen": 0,
+      "post_tv_uniform_ge_001": 0,
+      "abs_common_logit_shift": {
+        "min": 8.578811373029436e-06,
+        "p50": 9.017288926746938e-06,
+        "p95": 1.0956804219045137e-05,
+        "max": 1.1030351743102074e-05
+      },
+      "centered_logit_delta_rms": {
+        "min": 0.0,
+        "p50": 1.7547008683731812e-08,
+        "p95": 4.9547857580190264e-08,
+        "max": 6.145348672457605e-08
+      },
+      "post_old_ratio": {},
+      "post_pre_action_ratio": {
+        "min": 0.9999995231629555,
+        "p50": 1.0,
+        "p95": 1.0,
+        "max": 1.000000476837272
+      }
+    }
+  ],
+  "parameter_updates": [
+    {
+      "model": "B0-s11",
+      "network": "actor",
+      "tensors": 116,
+      "parameter_delta_l2": 0.00020792449781314488,
+      "parameter_l2_before": 92.27118596453124,
+      "max_abs_parameter_delta": 4.149973392486572e-05,
+      "changed_elements": 3823985,
+      "total_elements": 4738895,
+      "step_before": {
+        "min": 690.0,
+        "p50": 690.0,
+        "p95": 690.0,
+        "max": 690.0
+      },
+      "step_after": {
+        "min": 691.0,
+        "p50": 691.0,
+        "p95": 691.0,
+        "max": 691.0
+      },
+      "each_adam_step_increased_once": true
+    },
+    {
+      "model": "B0-s11",
+      "network": "critic",
+      "tensors": 118,
+      "parameter_delta_l2": 0.00824360474992715,
+      "parameter_l2_before": 92.75475585298648,
+      "max_abs_parameter_delta": 0.0003527812659740448,
+      "changed_elements": 4567550,
+      "total_elements": 4804687,
+      "step_before": {
+        "min": 690.0,
+        "p50": 690.0,
+        "p95": 690.0,
+        "max": 690.0
+      },
+      "step_after": {
+        "min": 691.0,
+        "p50": 691.0,
+        "p95": 691.0,
+        "max": 691.0
+      },
+      "each_adam_step_increased_once": true
+    },
+    {
+      "model": "B0-s22",
+      "network": "actor",
+      "tensors": 116,
+      "parameter_delta_l2": 0.00016325725400448502,
+      "parameter_l2_before": 92.28183486084694,
+      "max_abs_parameter_delta": 2.4837907403707504e-05,
+      "changed_elements": 3227383,
+      "total_elements": 4738895,
+      "step_before": {
+        "min": 723.0,
+        "p50": 723.0,
+        "p95": 723.0,
+        "max": 723.0
+      },
+      "step_after": {
+        "min": 724.0,
+        "p50": 724.0,
+        "p95": 724.0,
+        "max": 724.0
+      },
+      "each_adam_step_increased_once": true
+    },
+    {
+      "model": "B0-s22",
+      "network": "critic",
+      "tensors": 118,
+      "parameter_delta_l2": 0.001193196218504176,
+      "parameter_l2_before": 92.72435198906585,
+      "max_abs_parameter_delta": 0.0001342296600341797,
+      "changed_elements": 3435513,
+      "total_elements": 4804687,
+      "step_before": {
+        "min": 723.0,
+        "p50": 723.0,
+        "p95": 723.0,
+        "max": 723.0
+      },
+      "step_after": {
+        "min": 724.0,
+        "p50": 724.0,
+        "p95": 724.0,
+        "max": 724.0
+      },
+      "each_adam_step_increased_once": true
+    }
+  ],
+  "clipping": [
+    {
+      "model": "B0-s11",
+      "network": "actor",
+      "norm_before": "1.0221451418601646e-07",
+      "norm_after": "1.0221459122792765e-07",
+      "max_norm": "0.5",
+      "clip_scale": "1.000000753727705"
+    },
+    {
+      "model": "B0-s11",
+      "network": "critic",
+      "norm_before": "70.4817123413086",
+      "norm_after": "0.49999997428154497",
+      "max_norm": "0.5",
+      "clip_scale": "0.0070940384061653995"
+    },
+    {
+      "model": "B0-s22",
+      "network": "actor",
+      "norm_before": "9.031179359908492e-08",
+      "norm_after": "9.031187435449282e-08",
+      "max_norm": "0.5",
+      "clip_scale": "1.0000008941845209"
+    },
+    {
+      "model": "B0-s22",
+      "network": "critic",
+      "norm_before": "16.142637252807617",
+      "norm_after": "0.49999996408242814",
+      "max_norm": "0.5",
+      "clip_scale": "0.030973871013267387"
+    }
+  ],
+  "optimizer_steps": {
+    "limit_total": 4,
+    "limit_each_seed_each_network": 1,
+    "entries": [
+      {
+        "model": "B0-s11",
+        "network": "actor",
+        "status": "completed",
+        "entered_at_utc": "2026-11-02T08:56:31.354635+00:00",
+        "completed_at_utc": "2026-11-02T08:56:31.385184+00:00"
+      },
+      {
+        "model": "B0-s11",
+        "network": "critic",
+        "status": "completed",
+        "entered_at_utc": "2026-11-02T08:56:31.473648+00:00",
+        "completed_at_utc": "2026-11-02T08:56:31.509597+00:00"
+      },
+      {
+        "model": "B0-s22",
+        "network": "actor",
+        "status": "completed",
+        "entered_at_utc": "2026-11-02T08:57:07.514519+00:00",
+        "completed_at_utc": "2026-11-02T08:57:07.545805+00:00"
+      },
+      {
+        "model": "B0-s22",
+        "network": "critic",
+        "status": "completed",
+        "entered_at_utc": "2026-11-02T08:57:07.639223+00:00",
+        "completed_at_utc": "2026-11-02T08:57:07.672369+00:00"
+      }
+    ]
+  },
+  "no_solver_or_generalization_claim": true,
+  "note": "One actual logical minibatch per seed. Raw TV above zero-repeat noise is distinguished from a conservative float32 screen; neither is policy-quality evidence."
+}

@@ -1,0 +1,155 @@
+{
+  "status": "passed",
+  "evaluated_beijing": "2026-11-05T17:41:43+08:00",
+  "rule_sha256": "709f76ac7fc88b3bb67c39cc4bdaf4cff5147220b64190f63e81b40d8a8483fe",
+  "rule_timing": "written after some evaluations started; before inspecting light-model solver metrics",
+  "decision_script_sha256": "a3ddddb8706ae22013712713d9db3dc6efcb9e648d15811b865a27de014e7e6c",
+  "cross_instance_allowed": true,
+  "chosen": {
+    "variant": "mlp_bc",
+    "kind": "mlp",
+    "passed": true,
+    "references": [
+      "b0",
+      "b0_bc",
+      "mlp"
+    ],
+    "common_instance_wins": [
+      "eil33-2",
+      "vpm2"
+    ],
+    "failed_conditions": [],
+    "mean_pdi": 3016.9822171037645,
+    "parameters": 24493
+  },
+  "candidates": [
+    {
+      "variant": "mlp",
+      "kind": "mlp",
+      "passed": true,
+      "references": [
+        "b0"
+      ],
+      "common_instance_wins": [
+        "eil33-2",
+        "vpm2"
+      ],
+      "failed_conditions": [],
+      "mean_pdi": 3107.7450737675936,
+      "parameters": 24493
+    },
+    {
+      "variant": "mlp_bc",
+      "kind": "mlp",
+      "passed": true,
+      "references": [
+        "b0",
+        "b0_bc",
+        "mlp"
+      ],
+      "common_instance_wins": [
+        "eil33-2",
+        "vpm2"
+      ],
+      "failed_conditions": [],
+      "mean_pdi": 3016.9822171037645,
+      "parameters": 24493
+    },
+    {
+      "variant": "set",
+      "kind": "set",
+      "passed": true,
+      "references": [
+        "b0"
+      ],
+      "common_instance_wins": [
+        "eil33-2",
+        "vpm2"
+      ],
+      "failed_conditions": [],
+      "mean_pdi": 3095.2648319512055,
+      "parameters": 32749
+    },
+    {
+      "variant": "set_bc",
+      "kind": "set",
+      "passed": false,
+      "references": [
+        "b0",
+        "b0_bc",
+        "set"
+      ],
+      "common_instance_wins": [
+        "dcmulti",
+        "eil33-2",
+        "vpm2"
+      ],
+      "failed_conditions": [
+        "22:set:all:PDI"
+      ],
+      "mean_pdi": 3089.1926909943586,
+      "parameters": 32749
+    },
+    {
+      "variant": "isab",
+      "kind": "isab",
+      "passed": true,
+      "references": [
+        "b0"
+      ],
+      "common_instance_wins": [
+        "dcmulti",
+        "eil33-2",
+        "vpm2"
+      ],
+      "failed_conditions": [],
+      "mean_pdi": 3112.2044599969577,
+      "parameters": 92205
+    },
+    {
+      "variant": "isab_bc",
+      "kind": "isab",
+      "passed": true,
+      "references": [
+        "b0",
+        "b0_bc",
+        "isab"
+      ],
+      "common_instance_wins": [
+        "eil33-2",
+        "vpm2"
+      ],
+      "failed_conditions": [],
+      "mean_pdi": 3036.8960340893345,
+      "parameters": 92205
+    }
+  ],
+  "common_actor_instances": [
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "vpm2"
+  ],
+  "results_directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cpu-recovery-20261105/results",
+  "no_actor_instances": [
+    "roi5alpha10n8"
+  ],
+  "native": {
+    "pdi": 3058.714068136137,
+    "lower": 3058.5814181361366,
+    "upper": 3058.846718136137,
+    "proof_rate": 0.7,
+    "nodes": 298.5,
+    "wall": 59.54784200135619,
+    "actor_calls": 0,
+    "actor_ms": null,
+    "feature_seconds": 0
+  },
+  "source_sha256": {
+    "tgppo/runs/light-actor-20261105/cpu-recovery-20261105/results/complete.json": "93f1606268dbb07786802dcd58d344772d73c664245aff79e9191960521000a3",
+    "tgppo/runs/light-actor-20261105/cpu-recovery-20261105/evaluation/episode-0100/f43d84f1b9cd8443e8252512/models-seeds-11-22.json": "aef70c43253a5618f0f6732ef1fc0b180dcd67ff6d07c2990f6d8ab47cbda2fa",
+    "tgppo/runs/light-actor-20261105/cpu-recovery-20261105/evaluation/episode-0100/f43d84f1b9cd8443e8252512/native.json": "21565c9f6045daea23faab03f007cedbc150384ca174a8c56c61ec096c63cba4"
+  },
+  "native_reference": "fresh10, same host as all160 model evaluations",
+  "training_randomness_limit": "B0/light CUDA initial RNG differs; Critic weights and within-architecture BC RNG match"
+}

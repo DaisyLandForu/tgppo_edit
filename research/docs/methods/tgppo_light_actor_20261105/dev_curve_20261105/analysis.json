@@ -1,0 +1,72 @@
+{
+  "status": "complete",
+  "valid_tasks": 70,
+  "model_tasks": 60,
+  "native_tasks": 10,
+  "common_actor_instances": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283"
+  ],
+  "no_actor_instances": [
+    "roi5alpha10n8"
+  ],
+  "selections": [
+    {
+      "training_seed": 11,
+      "panel": "all",
+      "descriptive_min_pdi_episode": 0,
+      "pdi": 3023.585017424174,
+      "proof_rate": 0.6
+    },
+    {
+      "training_seed": 22,
+      "panel": "all",
+      "descriptive_min_pdi_episode": 100,
+      "pdi": 3026.7266210486027,
+      "proof_rate": 0.6
+    },
+    {
+      "training_seed": "pooled",
+      "panel": "all",
+      "descriptive_min_pdi_episode": 0,
+      "pdi": 3030.041477417147,
+      "proof_rate": 0.6
+    },
+    {
+      "training_seed": 11,
+      "panel": "common_actor",
+      "descriptive_min_pdi_episode": 0,
+      "pdi": 907.684631173333,
+      "proof_rate": 0.75
+    },
+    {
+      "training_seed": 22,
+      "panel": "common_actor",
+      "descriptive_min_pdi_episode": 20,
+      "pdi": 897.2667584511913,
+      "proof_rate": 0.75
+    },
+    {
+      "training_seed": "pooled",
+      "panel": "common_actor",
+      "descriptive_min_pdi_episode": 100,
+      "pdi": 905.5864535463219,
+      "proof_rate": 0.75
+    }
+  ],
+  "training_steps": 0,
+  "gpu": false,
+  "budget_seconds": 2400,
+  "wall_seconds_at_analysis": 1371.155928296037,
+  "final_cost_record": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/job_state.json",
+  "source_sha256": {
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/manifest.json": "a30255f2f49b42d889927d156846825c0363dc280bc0fcbb353ce77e8f8689ef",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/status.json": "1ff45eb956c9f93e7e750241ca6888dce25452444a59675ac10c1130a69a8652",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/development-curve-70/evaluation_rows.json": "57accb8896b358adb2a0c52327d3be098c137b32f5ff2a02ff78c644b31c216e",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/dev-curve-20261105/release.json": "5fc4e70c34c1c99763199bfe7b25ad63928ec50946ac214a46a6b081cd4d7b6a",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/dev-curve-20261105/analyze.py": "ded1b0d40d231f60fa16d915141dfe035b56a16d0bc9d3de19fb9f6eef39cb3b",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_light_actor_20261105/dev_curve_20261105/PLAN.md": "73c61c75982d89ddc83ff27c2a93b4e55f096e3d17141912be58d139e05db340"
+  }
+}

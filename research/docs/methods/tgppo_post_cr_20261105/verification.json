@@ -1,0 +1,270 @@
+{
+  "checked_at_utc": "2026-11-04T16:39:59.845136+00:00",
+  "stage": "literature review and post-CR recommendations only",
+  "passed": true,
+  "cr_line_status": "temporarily terminated by explicit user instruction",
+  "new_scip_solves": 0,
+  "new_training_steps": 0,
+  "gpu_jobs_submitted": 0,
+  "literature_items": 8,
+  "read_scope": "methods, experimental settings, and relevant limitations, as listed in REPORT.md; not an exhaustive survey",
+  "manifest_checks": [
+    {
+      "manifest": "research/tgppo/experiments/candidate-residual-20261104/docs/protected_sources.json",
+      "entries": 41,
+      "failures": []
+    },
+    {
+      "manifest": "research/tgppo/experiments/candidate-residual-20261104/docs/bundle_manifest.json",
+      "entries": 39,
+      "failures": []
+    },
+    {
+      "manifest": "research/docs/methods/tgppo_candidate_residual_20261104/cpu_retest/delivery_manifest.json",
+      "entries": 14,
+      "failures": []
+    },
+    {
+      "manifest": "research/docs/methods/tgppo_candidate_residual_20261104/cross_instance/delivery_manifest.json",
+      "entries": 21,
+      "failures": []
+    },
+    {
+      "manifest": "research/docs/methods/tgppo_candidate_residual_20261104/review/delivery_manifest.json",
+      "entries": 20,
+      "failures": []
+    },
+    {
+      "manifest": "research/docs/methods/tgppo_candidate_residual_20261104/cross_instance/input_hashes.json",
+      "entries": 118,
+      "failures": []
+    }
+  ],
+  "frozen_model_file_checks": [
+    {
+      "model": "b0-s11",
+      "kind": "actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "b0-s11",
+      "kind": "checkpoint",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "b0-s11",
+      "kind": "frozen_actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "b0-s22",
+      "kind": "actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "b0-s22",
+      "kind": "checkpoint",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "b0-s22",
+      "kind": "frozen_actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "candidate-s11",
+      "kind": "actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "candidate-s11",
+      "kind": "checkpoint",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "candidate-s11",
+      "kind": "frozen_actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "candidate-s22",
+      "kind": "actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "candidate-s22",
+      "kind": "checkpoint",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "candidate-s22",
+      "kind": "frozen_actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "score-s11",
+      "kind": "actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "score-s11",
+      "kind": "checkpoint",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "score-s11",
+      "kind": "frozen_actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "score-s22",
+      "kind": "actor",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "score-s22",
+      "kind": "checkpoint",
+      "matches_frozen_sha256": true
+    },
+    {
+      "model": "score-s22",
+      "kind": "frozen_actor",
+      "matches_frozen_sha256": true
+    }
+  ],
+  "local_markdown_links": [
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../../diagnostics/tgppo_20261102_ppo_replay/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../../diagnostics/tgppo_20261102_end2end/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../../diagnostics/tgppo_20261030/03_runtime_and_solver_diagnostics.md",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../tgppo_candidate_residual_20261104/cross_instance/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../../../tgppo/experiments/server-20261022/code/project/memory/memory.py",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../../diagnostics/tgppo_20261030/00_inventory_and_protocol.md",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "../../diagnostics/tgppo_20261030/02_training_reward_actor_diagnostics.md",
+      "exists": true
+    },
+    {
+      "document": "research/docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "target": "verification.json",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_candidate_residual_20261104/cross_instance/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_candidate_residual_20261104/cross_instance/MEETING_BRIEF_20261106.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_candidate_residual_20261104/cpu_retest/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_candidate_residual_20261104/RESULTS_REVIEW.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_candidate_residual_20261104/MEETING_BRIEF_20261106.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "cpu-flex/AMENDMENT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "docs/CUSTOM_JOBS.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "../../../docs/methods/tgppo_candidate_residual_20261104/PLAN.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/README.md",
+      "target": "docs/PREPARATION.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../../../../docs/methods/tgppo_post_cr_20261105/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../../../../docs/methods/tgppo_candidate_residual_20261104/cross_instance/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../../../../docs/methods/tgppo_candidate_residual_20261104/cross_instance/MEETING_BRIEF_20261106.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../../../../docs/methods/tgppo_candidate_residual_20261104/cpu_retest/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../../../../docs/methods/tgppo_candidate_residual_20261104/RESULTS_REVIEW.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../../../../docs/methods/tgppo_candidate_residual_20261104/MEETING_BRIEF_20261106.md",
+      "exists": true
+    },
+    {
+      "document": "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md",
+      "target": "../cpu-flex/AMENDMENT.md",
+      "exists": true
+    }
+  ],
+  "changed_existing_files": [
+    "research/AGENTS.md",
+    "research/tgppo/experiments/candidate-residual-20261104/README.md",
+    "research/tgppo/experiments/candidate-residual-20261104/docs/CUSTOM_JOBS.md"
+  ],
+  "new_report_sha256": "065050cbc041130c5a0f29aba71bd144578d97300c3993f7e0abc4efb4967996",
+  "experimental_proposals_executed": false,
+  "note": "Documentation changes and read-only source/artifact checks; no experiment implementation or optimizer/solver import."
+}

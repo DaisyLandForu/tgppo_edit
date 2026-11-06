@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "timestamp_utc": "20261027T144123.379346Z",
+  "training_started": false,
+  "scope": "pilot-only HDF5/read/batch/loss diagnostic; no parameter updates or GPU execution",
+  "sources": {
+    "train": {
+      "solver_seed": 0,
+      "random_prefix_steps": 0,
+      "trajectory": "runs/collection-pilot/20261027T143801.212377Z/data.pkl",
+      "sha256": "de0bb4eb97f990535a610ac196c5df9bdb85407c95e7fa14e76ab5578a54749b"
+    },
+    "valid": {
+      "solver_seed": 4,
+      "random_prefix_steps": 5,
+      "trajectory": "runs/collection-pilot/20261027T143804.396946Z/data.pkl",
+      "sha256": "a8e4bb8448e347362b5aece34344bd7aa1524199a9a88efad88c77bb6330a573"
+    }
+  },
+  "clip_samples": {
+    "train": 15,
+    "valid": 9
+  },
+  "sequence_count": 1,
+  "actual_sequence_states": 15,
+  "requested_max_sequence_states": 100,
+  "full_100_state_batch_tested": false,
+  "padded_candidates": 384,
+  "min_candidates": 8,
+  "max_candidates": 48,
+  "original_contrastive_loss": 1.8288034200668335,
+  "masked_contrastive_loss": 1.9691663980484009,
+  "loss_difference": -0.14036297798156738,
+  "note": "The upstream padding issue remains open; this diagnostic does not modify the training loss."
+}

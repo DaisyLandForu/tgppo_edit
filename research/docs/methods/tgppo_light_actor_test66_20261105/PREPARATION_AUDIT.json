@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "status": "prepared_awaiting_user_custom_submission",
+  "verified_beijing": "2026-11-06T00:00:32.097391+08:00",
+  "shards": 4,
+  "instances_per_shard": [
+    18,
+    17,
+    17,
+    14
+  ],
+  "tasks_per_shard": [
+    324,
+    306,
+    306,
+    252
+  ],
+  "model_tasks": 1056,
+  "native_tasks": 132,
+  "local_new_solver_tasks": 0,
+  "real_training_episodes": 0,
+  "gpu": false,
+  "fixture_check_groups": 17,
+  "actual_phase_dispatcher_mocked_checks_passed": true,
+  "target_actor_cpu_fork_check": "performed by each Custom before optimizing; not executed locally",
+  "cpu_request_per_job": 4,
+  "ram_gib_per_job": 32,
+  "aggregate_ram_gib": 128,
+  "per_job_wall_cap_seconds": 14400,
+  "platform_limit_minutes": 255,
+  "mspp16": "shard3; all ordinary workers exit then single-worker24GiB/300watchdog; search120s",
+  "input_verification": {
+    "package_files": 15,
+    "original_files": 57,
+    "external_inputs": 9,
+    "protected_sources": 41,
+    "frozen_actors": 8,
+    "instance_hashes": 66,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "prior_gpu_package_files_unchanged": 62,
+  "prior_gpu_external_inputs_unchanged": 83,
+  "prior_meeting_pack_unchanged": true,
+  "all_four_shards_not_started": true,
+  "source_output_sha256": {
+    "tgppo/experiments/frozen-test66-20261105/release.json": "82024dd519ff3b7d60c6bf2c1118e2db59dcdb41017a8cc7742f1db1eb90dcb0",
+    "tgppo/experiments/frozen-test66-20261105/CHECKS.json": "6fdf68092eb94d5ae4b4b5dc16e88df6943492665443f3b982041cf574d4fa45",
+    "tgppo/experiments/frozen-test66-20261105/docs/CUSTOM_JOBS.md": "12bd9c19d67122a7f97d0c06619ede4d43f9773d536b7799faafa9b5b449f91c",
+    "tgppo/experiments/frozen-test66-20261105/docs/commands.txt": "174ffe38a054c81a585f738feef566726dd249db4f961c064f0db665cec1fb0a",
+    "tgppo/experiments/frozen-test66-20261105/docs/PROTOCOL.md": "a911665f2821cda37688d6521ddf749cf23844810639bee62f352f128a8ce37e",
+    "docs/methods/tgppo_light_actor_test66_20261105/README.md": "498b18958761e5113a79ab4556b8e2942799e04cd58277cc63b38b3c7a0fa783"
+  }
+}

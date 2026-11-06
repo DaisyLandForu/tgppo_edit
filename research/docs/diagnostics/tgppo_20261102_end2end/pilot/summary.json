@@ -1,0 +1,173 @@
+{
+  "complete": true,
+  "results": [
+    {
+      "model": "original-s11",
+      "source_seed": 11,
+      "variant": "original",
+      "transitions": 392,
+      "actor_steps": 8,
+      "critic_steps": 8,
+      "full_buffer_advantage_std": 3.652796745300293,
+      "before": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.2643047441401022,
+        "states": 256
+      },
+      "after": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.2643047441401022,
+        "states": 256
+      },
+      "update": {
+        "actor_loss": -0.01554779103025794,
+        "critic_loss": 14.654629145748913,
+        "entropy": 4.7845544796437025,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 8,
+        "num_samples": 392,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 3.652796745300293,
+        "update_step": 1,
+        "policy_version": 26
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      }
+    },
+    {
+      "model": "tail8-s11",
+      "source_seed": 11,
+      "variant": "tail8",
+      "transitions": 394,
+      "actor_steps": 8,
+      "critic_steps": 8,
+      "full_buffer_advantage_std": 3.6574366092681885,
+      "before": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.2580964182849517,
+        "states": 256
+      },
+      "after": {
+        "tv_p50": 1.4876321883641524e-06,
+        "tv_max": 2.856993881621833e-06,
+        "response_states": 183,
+        "surrogate_loss": -0.2580966450675041,
+        "states": 256
+      },
+      "update": {
+        "actor_loss": -0.017892842093715444,
+        "critic_loss": 14.698906780220568,
+        "entropy": 4.788097495213151,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 8,
+        "num_samples": 394,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 3.6574366092681885,
+        "update_step": 1,
+        "policy_version": 26
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      }
+    },
+    {
+      "model": "tail8-s22",
+      "source_seed": 22,
+      "variant": "tail8",
+      "transitions": 382,
+      "actor_steps": 8,
+      "critic_steps": 8,
+      "full_buffer_advantage_std": 3.7273361682891846,
+      "before": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.12106373588455288,
+        "states": 256
+      },
+      "after": {
+        "tv_p50": 1.6943600577928267e-07,
+        "tv_max": 3.032182875500368e-07,
+        "response_states": 0,
+        "surrogate_loss": -0.12106377276278979,
+        "states": 256
+      },
+      "update": {
+        "actor_loss": -0.015055779367685318,
+        "critic_loss": 14.661316035315394,
+        "entropy": 4.732683353126049,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 8,
+        "num_samples": 382,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 3.7273361682891846,
+        "update_step": 1,
+        "policy_version": 26
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      }
+    },
+    {
+      "model": "original-s22",
+      "source_seed": 22,
+      "variant": "original",
+      "transitions": 381,
+      "actor_steps": 8,
+      "critic_steps": 8,
+      "full_buffer_advantage_std": 3.7332022190093994,
+      "before": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.12431374120926758,
+        "states": 256
+      },
+      "after": {
+        "tv_p50": 0.0,
+        "tv_max": 0.0,
+        "response_states": 0,
+        "surrogate_loss": -0.12431374120926758,
+        "states": 256
+      },
+      "update": {
+        "actor_loss": -0.01618677080841735,
+        "critic_loss": 14.699566535651684,
+        "entropy": 4.731576872989535,
+        "clip_fraction": 0.0,
+        "updated": true,
+        "num_updates": 8,
+        "num_samples": 381,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "advantage_std_before_normalization": 3.7332022190093994,
+        "update_step": 1,
+        "policy_version": 26
+      },
+      "roundtrip": {
+        "checkpoint_reload_exact": true,
+        "actor_only_reload_exact": true,
+        "no_critic_constructed": true,
+        "padding_probability_zero": true
+      }
+    }
+  ]
+}

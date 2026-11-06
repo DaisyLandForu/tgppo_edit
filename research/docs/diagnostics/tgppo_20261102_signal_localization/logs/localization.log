@@ -1,0 +1,31 @@
+completed B0-s11 100 elapsed 68.936
+completed B0-s11 500 elapsed 97.725
+completed B0-s22 100 elapsed 126.813
+completed B0-s22 500 elapsed 155.887
+{
+  "status": "passed",
+  "scope_complete": true,
+  "no_parameters_updated": true,
+  "original_sources_unchanged": true,
+  "input_trajectories_unchanged": true,
+  "copied_observations_unchanged": true,
+  "protocol_unchanged": true,
+  "optimizer_steps": 0,
+  "new_solver_tasks": 0,
+  "cuda_initialized": false,
+  "pyscipopt_imported": false,
+  "threads": 1,
+  "interop_threads": 1,
+  "cpu_affinity": [
+    0
+  ],
+  "observations": 164,
+  "instances": 17,
+  "checkpoints": 4,
+  "policy_rows": 1312,
+  "layer_rows": 43296,
+  "gradient_rows": 1904,
+  "anchor_cases": 68,
+  "invariant_cases": 136,
+  "elapsed_seconds": 156.4138902472332
+}

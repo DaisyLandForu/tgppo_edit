@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "timestamp_utc": "20261027T143959.160050Z",
+  "training_started": false,
+  "scope": "pilot-only HDF5/read/batch/loss diagnostic; no parameter updates or GPU execution",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/data_pilot.py\", line 51, in main\n    batch = clip_collate([train[i] for i in range(len(train))])\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/data_pilot.py\", line 51, in <listcomp>\n    batch = clip_collate([train[i] for i in range(len(train))])\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/code/dataset_scip.py\", line 46, in __getitem__\n    torch.LongTensor([x[0]]),\nTypeError: 'numpy.float32' object cannot be interpreted as an integer\n"
+}

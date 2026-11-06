@@ -1,0 +1,130 @@
+{
+  "status": "paused_by_user",
+  "time_china": "2026-10-27T20:12:21.794131+08:00",
+  "reason": "User asked to stop and wait for manual resume",
+  "training_started": false,
+  "formal_collection_started": false,
+  "jobs_submitted": false,
+  "environment": "/home/duweiyue25/conda/envs/mamba-branching",
+  "installed_packages": {
+    "safetensors": "0.8.0",
+    "tqdm": "4.70.1",
+    "scipy": "1.13.1",
+    "numpy": "1.26.4",
+    "tensorboard": "2.17.1",
+    "transformers": "4.44.2",
+    "pip": "26.1.1",
+    "h5py": "3.11.0",
+    "nvidia-ml-py": "12.560.30",
+    "fsspec": "2026.9.0",
+    "hf-xet": "1.7.0",
+    "regex": "2026.9.29",
+    "wheel": "0.43.0",
+    "urllib3": "2.8.0",
+    "PySCIPOpt": "4.3.0",
+    "requests": "2.34.2",
+    "MarkupSafe": "3.0.4",
+    "grpcio": "1.85.0",
+    "absl-py": "2.5.1",
+    "protobuf": "7.36.2",
+    "charset-normalizer": "3.5.2",
+    "idna": "3.20",
+    "typing_extensions": "4.16.0",
+    "certifi": "2026.10.23",
+    "setuptools": "69.5.1",
+    "tokenizers": "0.19.1",
+    "Cython": "0.29.37",
+    "filelock": "4.1.0",
+    "tensorboard-data-server": "0.7.2",
+    "huggingface_hub": "0.36.2",
+    "einops": "0.8.0",
+    "ninja": "1.11.1.3",
+    "Markdown": "3.10.3",
+    "Werkzeug": "3.1.9",
+    "packaging": "24.2",
+    "six": "1.17.0",
+    "PyYAML": "6.0.3"
+  },
+  "ready_wheels": [
+    {
+      "file": "PySCIPOpt-4.3.0-cp310-cp310-linux_x86_64.whl",
+      "bytes": 885457
+    }
+  ],
+  "partial_wheel_downloads": [
+    {
+      "directory": "nvidia_cusparse_cu11-11.7.5.86-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "triton-2.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_cuda_cupti_cu11-11.8.87-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 1,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_nccl_cu11-2.19.3-py3-none-manylinux1_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_cufft_cu11-10.9.0.58-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl.parts",
+      "parts": 49,
+      "bytes": 817084659
+    },
+    {
+      "directory": "nvidia_cudnn_cu11-8.7.0.84-py3-none-manylinux1_x86_64.whl.parts",
+      "parts": 5,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_cusolver_cu11-11.4.1.48-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_cuda_nvrtc_cu11-11.8.89-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 2,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_nvtx_cu11-11.8.86-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_cuda_runtime_cu11-11.8.89-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 1,
+      "bytes": 875592
+    },
+    {
+      "directory": "nvidia_cublas_cu11-11.11.3.6-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    },
+    {
+      "directory": "nvidia_curand_cu11-10.3.0.86-py3-none-manylinux2014_x86_64.whl.parts",
+      "parts": 0,
+      "bytes": 0
+    }
+  ],
+  "remaining_download_processes": [],
+  "cpu_preflight": "runs/preflight/cpu-20261027T120916.186191Z.json",
+  "next_steps": [
+    "Resume cached CUDA wheel downloads (setup/download_wheels.py and setup/download_torch_dependencies.py); preserve partial files",
+    "Install Torch and matching Mamba/causal-conv1d wheels, then pip check and freeze environment",
+    "Run CPU expert collection pilot and resolve any observed compatibility issues",
+    "Run GPU preflight only after user has allocated a V100 node",
+    "Before formal training resolve and validate the open issues in docs/SOURCE_AUDIT.md"
+  ]
+}

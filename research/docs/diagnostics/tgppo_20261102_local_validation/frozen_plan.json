@@ -1,0 +1,40 @@
+{
+  "max_observations": 200,
+  "observations": 164,
+  "instances": 17,
+  "checkpoint_models": [
+    "B0-s11",
+    "B0-s22"
+  ],
+  "episodes": [
+    100,
+    500
+  ],
+  "variants": [
+    "original",
+    "ln2_affine_only"
+  ],
+  "material_nonuniform_tv_threshold": 0.01,
+  "invariance_atol": 1e-06,
+  "check_indices": [
+    0,
+    4,
+    14,
+    24,
+    34,
+    44,
+    54,
+    64,
+    74,
+    84,
+    94,
+    104,
+    114,
+    124,
+    134,
+    144,
+    154
+  ],
+  "manifest_sha256": "ae3be5471ab61f0e45fe3f420b1924a7d0a9062348e647804ea3c39e98c8d6e7",
+  "no_previous_pool_overlap": true
+}

@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "verified_beijing": "2026-11-05T23:40:26.419293+08:00",
+  "status": "prepared_awaiting_user_custom_submission",
+  "fixture_check_groups": 13,
+  "syntax_checks_passed": true,
+  "approved_proposal_grid_exact_match": true,
+  "local_new_solver_tasks": 0,
+  "new_training_episodes": 0,
+  "gpu": false,
+  "target_actual_actor_fork_verification": "runs at start of each Custom before first optimize; not claimed locally executed",
+  "entrypoint_verification": {
+    "package_files": 13,
+    "original_files": 57,
+    "external_inputs": 7,
+    "protected_sources": 41,
+    "frozen_actors": 8,
+    "instance_hashes": 16,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "planned_solver_tasks": 288,
+  "shards": 4,
+  "tasks_per_shard": 72,
+  "seconds_per_shard": 3000,
+  "all_shards_not_started": true,
+  "old_meeting_pack_unchanged": true,
+  "active_gpu_package_files_unchanged": 62,
+  "active_gpu_external_inputs_unchanged": 83,
+  "active_gpu_preparation_sources_unchanged": 9,
+  "source_output_sha256": {
+    "tgppo/experiments/frozen-test16-20261105/release.json": "a048f392ef241e89b7a3c8a905043ac66e502f92595a52d22525af241846da89",
+    "tgppo/experiments/frozen-test16-20261105/CHECKS.json": "07c569f2c049d5bd62d890c322651fb3d55cedf3dace67580138316744a23b4f",
+    "tgppo/experiments/frozen-test16-20261105/docs/CUSTOM_JOBS.md": "d6011d76e2cc7ac9156c58b66dd45161995a689ec9ea31c36679e0fb4e07254d",
+    "tgppo/experiments/frozen-test16-20261105/docs/commands.txt": "959ca3ff868346cf00b402abb9b974331867b407591f4618a42df631f068cc8e",
+    "docs/methods/tgppo_light_actor_test16_20261105/README.md": "77e3a2aa9ab69ea07d848026319174508e2e760c5f841d47fda781da7adc203a"
+  }
+}

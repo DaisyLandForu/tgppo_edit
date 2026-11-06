@@ -1,0 +1,45 @@
+test_actor_only_actions_match_collection_and_old_eval_mode (test_correctness.CorrectnessTests) ... ok
+test_buffer_roundtrip_empty_duplicate_and_stale_policy (test_correctness.CorrectnessTests) ... ok
+test_checkpoint_architecture_rng_optimizer_buffer_and_exact_next_update (test_correctness.CorrectnessTests) ... ok
+test_finalize_then_free_is_idempotent_and_zero_actions_not_invented (test_correctness.CorrectnessTests) ... ERROR
+test_gae_terminal_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_gae_truncation_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_independent_parameters_and_gradients (test_correctness.CorrectnessTests) ... ok
+test_original_branchfree_already_idempotent (test_correctness.CorrectnessTests) ... ERROR
+test_padding_ratio_and_real_actor_update (test_correctness.CorrectnessTests) ... ok
+test_reward_and_solver_receive_120_and_3600_and_baseline_mismatch_rejected (test_correctness.CorrectnessTests) ... ok
+test_scip_sentinel_timeout_and_cutoff_semantics (test_correctness.CorrectnessTests) ... ok
+test_truncation_needs_actual_tail_and_uses_critic (test_correctness.CorrectnessTests) ... ok
+test_two_episodes_do_not_contaminate_each_other (test_correctness.CorrectnessTests) ... ok
+test_unchanged_networks_reward_settings_and_original_repository (test_correctness.CorrectnessTests) ... ok
+test_worker_failure_watchdog_and_order_are_explicit (test_correctness.CorrectnessTests) ... ok
+test_real_air04_timeout_retains_nonzero_raw_gap (test_correctness.RealSolverTests) ... ok
+test_real_eval_never_calls_critic_reward_or_memory_and_preserves_weights (test_correctness.RealSolverTests) ... ok
+test_real_policy_exception_interrupts_and_is_invalid (test_correctness.RealSolverTests) ... ok
+
+======================================================================
+ERROR: test_finalize_then_free_is_idempotent_and_zero_actions_not_invented (test_correctness.CorrectnessTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/root/research/tgppo/experiments/stage2/tests/test_correctness.py", line 177, in test_finalize_then_free_is_idempotent_and_zero_actions_not_invented
+    brancher = Brancher(Mock(), state_dims, a, 'collect', reward)
+  File "/root/research/tgppo/experiments/stage2/code/project/brancher/brancher.py", line 13, in __init__
+    self.model, self.state_dims, self.agent = model, state_dims, agent
+  File "src/pyscipopt/branchrule.pxi", line 2, in pyscipopt.scip.Branchrule.model.__set__
+TypeError: Cannot convert Mock to pyscipopt.scip.Model
+
+======================================================================
+ERROR: test_original_branchfree_already_idempotent (test_correctness.CorrectnessTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/root/research/tgppo/experiments/stage2/tests/test_correctness.py", line 202, in test_original_branchfree_already_idempotent
+    b = module.Brancher(Mock(), state_dims, 'cpu', collector, reward, 1., logging.getLogger('quiet'))
+  File "/root/research/tgppo/repo/code/project/brancher/brancher.py", line 10, in __init__
+    self.model = model
+  File "src/pyscipopt/branchrule.pxi", line 2, in pyscipopt.scip.Branchrule.model.__set__
+TypeError: Cannot convert Mock to pyscipopt.scip.Model
+
+----------------------------------------------------------------------
+Ran 18 tests in 7.493s
+
+FAILED (errors=2)

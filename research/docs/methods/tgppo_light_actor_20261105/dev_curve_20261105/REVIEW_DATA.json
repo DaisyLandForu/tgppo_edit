@@ -1,0 +1,164 @@
+{
+  "contrasts": [
+    {
+      "panel": "all",
+      "episode": 0,
+      "pdi": 3030.041477417147,
+      "vs_bc_pdi_percent": 0.0,
+      "vs_native_pdi_percent": -0.40152033701597034,
+      "vs_bc_wall_percent": 0.0,
+      "vs_native_wall_percent": 4.213790675784179
+    },
+    {
+      "panel": "all",
+      "episode": 20,
+      "pdi": 3037.6783636765244,
+      "vs_bc_pdi_percent": 0.2520390006637063,
+      "vs_native_pdi_percent": -0.150493324197154,
+      "vs_bc_wall_percent": 0.5247634890238828,
+      "vs_native_wall_percent": 4.760666599778474
+    },
+    {
+      "panel": "all",
+      "episode": 100,
+      "pdi": 3035.017559134586,
+      "vs_bc_pdi_percent": 0.16422487132687902,
+      "vs_native_pdi_percent": -0.23795486194591042,
+      "vs_bc_wall_percent": 1.1111242438294422,
+      "vs_native_wall_percent": 5.37173536939648
+    },
+    {
+      "panel": "common_actor",
+      "episode": 0,
+      "pdi": 909.724603938255,
+      "vs_bc_pdi_percent": 0.0,
+      "vs_native_pdi_percent": -2.956605871675655,
+      "vs_bc_wall_percent": 0.0,
+      "vs_native_wall_percent": 7.061843228427622
+    },
+    {
+      "panel": "common_actor",
+      "episode": 20,
+      "pdi": 905.8571430166177,
+      "vs_bc_pdi_percent": -0.4251243623504153,
+      "vs_native_pdi_percent": -3.3691609821668966,
+      "vs_bc_wall_percent": 0.7607356805970911,
+      "vs_native_wall_percent": 7.876300870171193
+    },
+    {
+      "panel": "common_actor",
+      "episode": 100,
+      "pdi": 905.5864535463219,
+      "vs_bc_pdi_percent": -0.45487946286367764,
+      "vs_native_pdi_percent": -3.398036341631261,
+      "vs_bc_wall_percent": 1.74724743947543,
+      "vs_native_wall_percent": 8.93247854289152
+    }
+  ],
+  "mean_decomposition": [
+    {
+      "before_episode": 0,
+      "after_episode": 20,
+      "instance": "vpm2",
+      "bc_pdi": 21.532283682778903,
+      "after_pdi": 22.241103670869933,
+      "instance_delta": 0.7088199880910295,
+      "contribution_to_full_mean_delta": 0.1417639976182059,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 20,
+      "instance": "dcmulti",
+      "bc_pdi": 3.724571828757383,
+      "after_pdi": 3.755224631961413,
+      "instance_delta": 0.0306528032040303,
+      "contribution_to_full_mean_delta": 0.006130560640806059,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 20,
+      "instance": "eil33-2",
+      "bc_pdi": 589.7897566796698,
+      "after_pdi": 574.1923893788789,
+      "instance_delta": -15.597367300790893,
+      "contribution_to_full_mean_delta": -3.1194734601581784,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 20,
+      "instance": "neos-476283",
+      "bc_pdi": 3023.851803561814,
+      "after_pdi": 3023.2398543847607,
+      "instance_delta": -0.6119491770532477,
+      "contribution_to_full_mean_delta": -0.12238983541064954,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 20,
+      "instance": "roi5alpha10n8",
+      "bc_pdi": 11511.308971332714,
+      "after_pdi": 11564.96324631615,
+      "instance_delta": 53.65427498343706,
+      "contribution_to_full_mean_delta": 10.730854996687412,
+      "no_actor": true
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 100,
+      "instance": "vpm2",
+      "bc_pdi": 21.532283682778903,
+      "after_pdi": 22.62476626297575,
+      "instance_delta": 1.0924825801968474,
+      "contribution_to_full_mean_delta": 0.21849651603936948,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 100,
+      "instance": "dcmulti",
+      "bc_pdi": 3.724571828757383,
+      "after_pdi": 3.7538650956962316,
+      "instance_delta": 0.029293266938848816,
+      "contribution_to_full_mean_delta": 0.0058586533877697635,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 100,
+      "instance": "eil33-2",
+      "bc_pdi": 589.7897566796698,
+      "after_pdi": 584.1422710626075,
+      "instance_delta": -5.64748561706233,
+      "contribution_to_full_mean_delta": -1.129497123412466,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 100,
+      "instance": "neos-476283",
+      "bc_pdi": 3023.851803561814,
+      "after_pdi": 3011.824911764008,
+      "instance_delta": -12.026891797806002,
+      "contribution_to_full_mean_delta": -2.4053783595612,
+      "no_actor": false
+    },
+    {
+      "before_episode": 0,
+      "after_episode": 100,
+      "instance": "roi5alpha10n8",
+      "bc_pdi": 11511.308971332714,
+      "after_pdi": 11552.741981487643,
+      "instance_delta": 41.433010154929434,
+      "contribution_to_full_mean_delta": 8.286602030985886,
+      "no_actor": true
+    }
+  ],
+  "fact": "PPO incremental solver gains are mixed across seeds; no convergence or failure-cause inference",
+  "extra_solver_tasks": 0,
+  "extra_training_steps": 0,
+  "gpu": false
+}

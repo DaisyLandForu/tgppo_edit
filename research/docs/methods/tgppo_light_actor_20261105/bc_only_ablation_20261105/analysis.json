@@ -1,0 +1,112 @@
+{
+  "status": "complete",
+  "verdict": "mixed_or_inconclusive_on_selected_cases",
+  "means": {
+    "bc_only": {
+      "pdi": 3323.6371628435622,
+      "lower": 3323.564550343562,
+      "upper": 3323.7097753435623,
+      "proof_rate": 0,
+      "nodes": 4346,
+      "wall": 120.00182578811655,
+      "actor_calls": 19391,
+      "actor_ms": 1.8324269509456579,
+      "feature_seconds": 213.02462355419993
+    },
+    "bc_ppo": {
+      "pdi": 3440.8100695038847,
+      "lower": 3440.727663253885,
+      "upper": 3440.892475753885,
+      "proof_rate": 0,
+      "nodes": 4352.5,
+      "wall": 120.00200207310263,
+      "actor_calls": 20005,
+      "actor_ms": 1.839858406171914,
+      "feature_seconds": 220.922205273062
+    },
+    "native": {
+      "pdi": 1239.4915632707507,
+      "lower": 1239.4915632707507,
+      "upper": 1239.4915632707507,
+      "proof_rate": 1,
+      "nodes": 1425.25,
+      "wall": 45.5634592854185,
+      "actor_calls": 0,
+      "actor_ms": null,
+      "feature_seconds": 0
+    }
+  },
+  "pairs": [
+    {
+      "instance": "neos-1215259",
+      "training_seed": 11,
+      "bc_only_pdi": 3495.0675773910816,
+      "bc_ppo_pdi": 3331.480320710787,
+      "pdi_percent": -4.680517702676457,
+      "pdi_delta": -163.58725668029456,
+      "measurement_delta_lower": -163.6455566802947,
+      "measurement_delta_upper": -163.52895668029487,
+      "proof_delta": 0,
+      "wall_delta": 0.00083752884529531,
+      "direction": "ppo_better"
+    },
+    {
+      "instance": "neos-1215259",
+      "training_seed": 22,
+      "bc_only_pdi": 2955.354790964753,
+      "bc_ppo_pdi": 3312.5510931188464,
+      "pdi_percent": 12.086410174715079,
+      "pdi_delta": 357.19630215409325,
+      "measurement_delta_lower": 357.1705771540933,
+      "measurement_delta_upper": 357.22202715409276,
+      "proof_delta": 0,
+      "wall_delta": -8.604582399129868e-05,
+      "direction": "ppo_worse"
+    },
+    {
+      "instance": "neos-512201",
+      "training_seed": 11,
+      "bc_only_pdi": 3410.9485020931165,
+      "bc_ppo_pdi": 3560.2610703204373,
+      "pdi_percent": 4.377450088610124,
+      "pdi_delta": 149.31256822732075,
+      "measurement_delta_lower": 149.26676822732088,
+      "measurement_delta_upper": 149.35836822732108,
+      "proof_delta": 0,
+      "wall_delta": 0.000265912851318717,
+      "direction": "ppo_worse"
+    },
+    {
+      "instance": "neos-512201",
+      "training_seed": 22,
+      "bc_only_pdi": 3433.177780925297,
+      "bc_ppo_pdi": 3558.947793865468,
+      "pdi_percent": 3.6633702349743613,
+      "pdi_delta": 125.770012940171,
+      "measurement_delta_lower": 125.27976294017162,
+      "measurement_delta_upper": 126.26026294017083,
+      "proof_delta": 0,
+      "wall_delta": -0.0003122559282928705,
+      "direction": "ppo_worse"
+    }
+  ],
+  "instances": [
+    "neos-1215259",
+    "neos-512201"
+  ],
+  "improvement_pairs": 1,
+  "regression_pairs": 3,
+  "charged_wall_seconds": 701.2622981071472,
+  "budget_seconds": 1200,
+  "training_steps": 0,
+  "gpu": false,
+  "limitation": "Two previously inspected cases, selected from earlier results; not a generalization estimate or a new selection set",
+  "source_sha256": {
+    "tgppo/runs/light-actor-20261105/bc-only-ablation-20/manifest.json": "5c19648067c02fedd21ab57bda0985e89d64140e368a6ab5c5f2ab168473021d",
+    "tgppo/runs/light-actor-20261105/bc-only-ablation-20/status.json": "2117569480b1c3796a25b2cb051f2d725d2178d37a003caa604fe1877f91c89f",
+    "tgppo/runs/light-actor-20261105/bc-only-ablation-20/evaluation_rows.json": "5585116150031216035f502b40df7ffac0ed8f7d51dae70dd57337c5745b196e",
+    "docs/methods/tgppo_light_actor_20261105/bc_only_ablation_20261105/run.py": "65b2239e9860c77fd067541c8e54827bd8953e9ad219ea48e3c5d2c4562173db",
+    "docs/methods/tgppo_light_actor_20261105/bc_only_ablation_20261105/PLAN.md": "68a94919b1d6161e1e138575a489ad126624cbf670fed91040383d28bb01e3b8",
+    "docs/methods/tgppo_light_actor_20261105/bc_only_ablation_20261105/analyze.py": "98f83f907ef4dfc8de68ddfcd5fed29c971bf7e6574d140ded71d2dbc175382b"
+  }
+}

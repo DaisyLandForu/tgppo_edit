@@ -1,0 +1,45 @@
+{
+  "checked_at_utc": "2026-11-04T17:51:31.354033+00:00",
+  "stage": "targeted light-Actor literature survey and design only",
+  "passed": true,
+  "literature_items": 19,
+  "reading_levels": {
+    "methods_and_conditions": 15,
+    "partial": 1,
+    "screened": 3
+  },
+  "claim_boundary": "Relevant methods and settings read, not a claim of full-paper or exhaustive reading; source records distinguish partial/screened papers.",
+  "new_networks_implemented": 0,
+  "new_training_steps": 0,
+  "new_scip_solves": 0,
+  "gpu_jobs_submitted": 0,
+  "parameter_formula_check": {
+    "candidate_encoder": 5824,
+    "tree_encoder": 8128,
+    "fusion_and_head": 18625,
+    "input_layernorms": 172,
+    "total": 32749
+  },
+  "parameter_count_is_static_estimate_not_runtime_measurement": true,
+  "local_markdown_links_checked": 15,
+  "local_link_failures": [],
+  "protected_source_manifest": "research/tgppo/experiments/candidate-residual-20261104/docs/protected_sources.json",
+  "protected_sources_checked": 41,
+  "protected_source_failures": [],
+  "previous_post_cr_report_matches_sealed_sha256": true,
+  "checks_not_run": "No model execution, latency benchmark, BC, PPO, solver, or remote-job check performed in this literature-only stage.",
+  "written_files": [
+    "research/docs/methods/tgppo_light_actor_survey_20261105/LITERATURE.csv",
+    "research/docs/methods/tgppo_light_actor_survey_20261105/MEETING_BRIEF_20261106.md",
+    "research/docs/methods/tgppo_light_actor_survey_20261105/REPORT.md",
+    "research/docs/methods/tgppo_light_actor_survey_20261105/verification.json",
+    "research/AGENTS.md"
+  ],
+  "artifact_sha256": {
+    "research/docs/methods/tgppo_light_actor_survey_20261105/LITERATURE.csv": "264dafd5f56f7011790509e06af54a2c67dc6759e4a367cf3e0fb2136c2dd251",
+    "research/docs/methods/tgppo_light_actor_survey_20261105/MEETING_BRIEF_20261106.md": "8481644b45625d080a5a81fbfe80b79617c35f70744831a09476d4ac6e1e5847",
+    "research/docs/methods/tgppo_light_actor_survey_20261105/REPORT.md": "766cedf7f8dd677ea20f79873d6a8b3338221ee5f4e24dc267aaf8ce5806af9f"
+  },
+  "updated_research_agents_sha256": "f88b3503e9a5450b9be86c7358c47bc97b61975928deb06bc9f945871fc1efa3",
+  "next_stage": "Proposed local single-thread 600-second accumulated compute gate; not executed; awaiting acceptance."
+}

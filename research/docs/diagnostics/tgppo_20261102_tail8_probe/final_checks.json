@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "four_complete_trials": true,
+  "head_steps": 80,
+  "state_rows": 35280,
+  "passed_screen": 3,
+  "retained_24_tensors_identical_to_paired_original_initial": true,
+  "adam_steps_per_tensor": 20,
+  "unused_gate_output_rows_unchanged": true,
+  "live_run_lock_owned": false,
+  "no_inflight": true,
+  "additional_optimizer_steps_in_finalization": 0,
+  "new_solver_tasks": 0,
+  "finalization_seconds": 2.21120466850698,
+  "conservative_compute_wall_seconds": 60.99720152001828,
+  "wall_limit_seconds": 180,
+  "cases": {
+    "s11-init101": {
+      "last_gradient_norm": 0.00016370591765735298,
+      "max_tv_uniform_over_all_steps": 0.0001735985175610466,
+      "unused_gate_rows_unchanged": true,
+      "changed_parameter_elements": 183235,
+      "passed_screen": false
+    },
+    "s11-init202": {
+      "last_gradient_norm": 0.0006169737898744643,
+      "max_tv_uniform_over_all_steps": 0.0001748204231262207,
+      "unused_gate_rows_unchanged": true,
+      "changed_parameter_elements": 189530,
+      "passed_screen": true
+    },
+    "s22-init101": {
+      "last_gradient_norm": 0.0030796369537711143,
+      "max_tv_uniform_over_all_steps": 0.000733037745970222,
+      "unused_gate_rows_unchanged": true,
+      "changed_parameter_elements": 171145,
+      "passed_screen": true
+    },
+    "s22-init202": {
+      "last_gradient_norm": 0.0017284014029428363,
+      "max_tv_uniform_over_all_steps": 0.0004314680894215994,
+      "unused_gate_rows_unchanged": true,
+      "changed_parameter_elements": 176139,
+      "passed_screen": true
+    }
+  },
+  "curve_rows": 84,
+  "markdown_links_checked": 13
+}

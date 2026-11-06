@@ -1,0 +1,174 @@
+{
+  "models": [
+    {
+      "variant": "b0",
+      "training_seed": 11,
+      "states": 17,
+      "multi_candidate_states": 17,
+      "tv_uniform_median": 1.4992022775994762e-08,
+      "normalized_entropy_median": 0.9999999999999999,
+      "states_tv_at_least_0_01": 0,
+      "residual_weight_l2": null,
+      "actor_parameters": 4738895,
+      "optimizer_step_counts": {
+        "actor": [
+          690
+        ],
+        "critic": [
+          690
+        ]
+      },
+      "tv_vs_b0_median": 0.0
+    },
+    {
+      "variant": "b0",
+      "training_seed": 22,
+      "states": 17,
+      "multi_candidate_states": 17,
+      "tv_uniform_median": 5.277494602787258e-09,
+      "normalized_entropy_median": 0.9999999999999998,
+      "states_tv_at_least_0_01": 0,
+      "residual_weight_l2": null,
+      "actor_parameters": 4738895,
+      "optimizer_step_counts": {
+        "actor": [
+          846
+        ],
+        "critic": [
+          846
+        ]
+      },
+      "tv_vs_b0_median": 0.0
+    },
+    {
+      "variant": "score",
+      "training_seed": 11,
+      "states": 17,
+      "multi_candidate_states": 17,
+      "tv_uniform_median": 8.666969251273915e-07,
+      "normalized_entropy_median": 0.9999999999992096,
+      "states_tv_at_least_0_01": 0,
+      "residual_weight_l2": 0.05282262081756148,
+      "actor_parameters": 4739151,
+      "optimizer_step_counts": {
+        "actor": [
+          720
+        ],
+        "critic": [
+          720
+        ]
+      },
+      "tv_vs_b0_median": 8.626476963868868e-07
+    },
+    {
+      "variant": "score",
+      "training_seed": 22,
+      "states": 17,
+      "multi_candidate_states": 17,
+      "tv_uniform_median": 1.061161976079368e-05,
+      "normalized_entropy_median": 0.9999999999381242,
+      "states_tv_at_least_0_01": 1,
+      "residual_weight_l2": 0.1520890188298893,
+      "actor_parameters": 4739151,
+      "optimizer_step_counts": {
+        "actor": [
+          876
+        ],
+        "critic": [
+          876
+        ]
+      },
+      "tv_vs_b0_median": 1.0617095937789922e-05
+    },
+    {
+      "variant": "candidate",
+      "training_seed": 11,
+      "states": 17,
+      "multi_candidate_states": 17,
+      "tv_uniform_median": 0.05151175868765091,
+      "normalized_entropy_median": 0.9982608339045681,
+      "states_tv_at_least_0_01": 12,
+      "residual_weight_l2": 0.09014720668027741,
+      "actor_parameters": 4739151,
+      "optimizer_step_counts": {
+        "actor": [
+          720
+        ],
+        "critic": [
+          720
+        ]
+      },
+      "tv_vs_b0_median": 0.05151174951770543
+    },
+    {
+      "variant": "candidate",
+      "training_seed": 22,
+      "states": 17,
+      "multi_candidate_states": 17,
+      "tv_uniform_median": 0.0595922331727128,
+      "normalized_entropy_median": 0.9976514377180582,
+      "states_tv_at_least_0_01": 13,
+      "residual_weight_l2": 0.13554036275739098,
+      "actor_parameters": 4739151,
+      "optimizer_step_counts": {
+        "actor": [
+          699
+        ],
+        "critic": [
+          699
+        ]
+      },
+      "tv_vs_b0_median": 0.05959223895436363
+    }
+  ],
+  "anchor_instances": [
+    "cod105",
+    "istanbul-no-cutoff",
+    "neos21",
+    "l152lav",
+    "rmatr100-p5",
+    "swath1",
+    "rmatr200-p5",
+    "neos20",
+    "neos648910",
+    "30n20b8",
+    "air05",
+    "lseu",
+    "air04",
+    "pp08aCUTS",
+    "rmatr100-p10",
+    "stein27",
+    "sp150x300d"
+  ],
+  "no_decision_instances": [
+    "supportcase7",
+    "comp21-2idx",
+    "misc03"
+  ],
+  "source_hashes": {
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00000/attempt-000/e00000-cod105-s0.pkl": "0bb7205eec5cda68bbe838180c2925ca207a4b3578dec975f5e65dbaccbfbb04",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00000/attempt-000/e00001-istanbul-no-cutoff-s0.pkl": "6f50b195f60cdf91e7bd6ce6e73110c9d5b689bc9983380d78a8f18d6046a566",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00000/attempt-000/e00002-neos21-s0.pkl": "9dacaaeb7cc57a885f0801d56fbeb270904c0de2112a5563ad64cc0977102d5a",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00000/attempt-000/e00003-l152lav-s0.pkl": "d0b08ca5e526a2d3945ac698f0f8099daed51797cad6b4a9785967c86387a513",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00004/attempt-000/e00004-rmatr100-p5-s0.pkl": "bd89b8cf3ba21dc85908b29b7e12ef0f687b06f67b6c21f4fd806fcce89fa8f9",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00004/attempt-000/e00005-swath1-s0.pkl": "3917e00a6f0b463eb9f00c042f9c27c623a6cb5893ccac84472ffa09f64729ac",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00004/attempt-000/e00006-rmatr200-p5-s0.pkl": "ea8914ee789e18d05d4ab79f259fb18d9bf7b60271648f71a841376ecf58d76a",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00004/attempt-000/e00007-neos20-s0.pkl": "18079276582e955c87a8aed0c377b27f0bcf6bf5657f233f00bbc7b6d09c5440",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00008/attempt-000/e00008-supportcase7-s0.pkl": "d4e3a79c26e47ee5f80d2a9fd1a21d118212920afb5c60e44d308e2379637164",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00008/attempt-000/e00009-comp21-2idx-s0.pkl": "f782a19d3ef3b1e35413c595f87e36decebb41e8440b3d352c06c347044ddac3",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00008/attempt-000/e00010-neos648910-s0.pkl": "6067db542dcad72a2860668f96303446b83dc1f217bfcfec2c8e4516c9adbf3c",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00008/attempt-000/e00011-30n20b8-s0.pkl": "7b727eff25297711e1652207f515d1eb542c832b7f1a517cba30bea2494c5462",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00012/attempt-000/e00012-misc03-s0.pkl": "366fab0b9f2811824813ea53812ac427d3bffd0c7df2aa20e459587aaa324ed6",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00012/attempt-000/e00013-air05-s0.pkl": "552e32b1f8be9fceb613cf3e1f61c603afffbf5d6974b203a654f502930d2a82",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00012/attempt-000/e00014-lseu-s0.pkl": "2c93601e99430e983f46f93c39da723d28d473fe66a29c81a11cf108316ada10",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00012/attempt-000/e00015-air04-s0.pkl": "2f19df2e2c8acf5435c4d3e96aa9f4c5463c0aae27d8d16510183f7592b764cd",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00016/attempt-000/e00016-pp08aCUTS-s0.pkl": "d012e392a12b1bf4a4b52b22eb4d5017afd5a9954cc2d8680e04e9809bebaa88",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00016/attempt-000/e00017-rmatr100-p10-s0.pkl": "ff4f40b4f28d40b2cfd16b86fb4cc41240173adc20db33f71bab94bc3812fac4",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00016/attempt-000/e00018-stein27-s0.pkl": "564a5cb78c2547a8dd440ebc80b64aa649460c79cf604fa5311d0cb272254b9f",
+    "tgppo/runs/candidate-residual-20261104/b0/training/B0-s11/collection/e00016/attempt-000/e00019-sp150x300d-s0.pkl": "f3269ec6ac954b2d03ec1dc8c75064829b95e65dc97ccd7f39c6bc2705ca56e9"
+  },
+  "wall_seconds": 11.15398867521435,
+  "optimizer_steps_executed": 0,
+  "new_scip_solves": 0,
+  "scope": "one saved training anchor per participating instance; descriptive policy response, no action-value truth or generalization evidence"
+}

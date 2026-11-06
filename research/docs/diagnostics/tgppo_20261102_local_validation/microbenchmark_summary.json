@@ -1,0 +1,202 @@
+{
+  "checkpoint": "tgppo/runs/server6-20261022/training/B0-s11/episode-0100.pt",
+  "checkpoint_sha256": "e96c8afbb8af63607c0989e2b41972d84d0bf559a8fc047f2322803fc30600fa",
+  "weights_unchanged": true,
+  "original_policy_class_source": "tgppo/experiments/server-20261022/code/project/agent/agent.py",
+  "original_policy_source_sha256": "06807c4a100205590268c138c94cabaee609cf717e6129761432bcd73bc54098",
+  "extracted_class_exact": true,
+  "selected_states": 16,
+  "completed_states": 16,
+  "warmup_calls_per_state": 3,
+  "measured_repeats_per_component": 20,
+  "raw_measurements": 1280,
+  "summary": [
+    {
+      "bin": "2-16",
+      "component": "input_conversion_checks",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.14747393749999999,
+      "min_ms": 0.119037,
+      "p50_ms": 0.1430555,
+      "p95_ms": 0.1935327,
+      "max_ms": 0.203606
+    },
+    {
+      "bin": "2-16",
+      "component": "pure_actor_forward",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 6.909891499999999,
+      "min_ms": 5.75651,
+      "p50_ms": 6.8541425,
+      "p95_ms": 7.86922265,
+      "max_ms": 10.095792
+    },
+    {
+      "bin": "2-16",
+      "component": "distribution_sample_return",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.3568179625,
+      "min_ms": 0.29085,
+      "p50_ms": 0.34709350000000005,
+      "p95_ms": 0.43754109999999996,
+      "max_ms": 0.443836
+    },
+    {
+      "bin": "2-16",
+      "component": "complete_actor_policy_call",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 7.849121975,
+      "min_ms": 6.717385,
+      "p50_ms": 7.7862595,
+      "p95_ms": 8.867054450000001,
+      "max_ms": 9.225417
+    },
+    {
+      "bin": "17-64",
+      "component": "input_conversion_checks",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.1570772875,
+      "min_ms": 0.121519,
+      "p50_ms": 0.1545695,
+      "p95_ms": 0.17733505,
+      "max_ms": 0.225109
+    },
+    {
+      "bin": "17-64",
+      "component": "pure_actor_forward",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 11.2448528625,
+      "min_ms": 7.905263,
+      "p50_ms": 10.490526,
+      "p95_ms": 15.67730645,
+      "max_ms": 17.838345
+    },
+    {
+      "bin": "17-64",
+      "component": "distribution_sample_return",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.3552594,
+      "min_ms": 0.292706,
+      "p50_ms": 0.3264175,
+      "p95_ms": 0.43974885,
+      "max_ms": 0.594622
+    },
+    {
+      "bin": "17-64",
+      "component": "complete_actor_policy_call",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 12.363128637500001,
+      "min_ms": 8.875775,
+      "p50_ms": 12.326479500000001,
+      "p95_ms": 16.802323,
+      "max_ms": 17.143532
+    },
+    {
+      "bin": "65-256",
+      "component": "input_conversion_checks",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.17594868749999998,
+      "min_ms": 0.128983,
+      "p50_ms": 0.1705915,
+      "p95_ms": 0.2117855,
+      "max_ms": 0.280746
+    },
+    {
+      "bin": "65-256",
+      "component": "pure_actor_forward",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 36.418075825,
+      "min_ms": 16.412358,
+      "p50_ms": 41.394909,
+      "p95_ms": 54.07142785,
+      "max_ms": 58.082423
+    },
+    {
+      "bin": "65-256",
+      "component": "distribution_sample_return",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.3732312875,
+      "min_ms": 0.298057,
+      "p50_ms": 0.328007,
+      "p95_ms": 0.46348835,
+      "max_ms": 0.586598
+    },
+    {
+      "bin": "65-256",
+      "component": "complete_actor_policy_call",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 37.300265,
+      "min_ms": 17.463826,
+      "p50_ms": 38.947288,
+      "p95_ms": 56.66459695,
+      "max_ms": 63.62746
+    },
+    {
+      "bin": "257+",
+      "component": "input_conversion_checks",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.20472217500000003,
+      "min_ms": 0.149782,
+      "p50_ms": 0.2069085,
+      "p95_ms": 0.25846205,
+      "max_ms": 0.264942
+    },
+    {
+      "bin": "257+",
+      "component": "pure_actor_forward",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 113.13089546249998,
+      "min_ms": 54.983437,
+      "p50_ms": 97.771858,
+      "p95_ms": 209.46920684999998,
+      "max_ms": 216.814006
+    },
+    {
+      "bin": "257+",
+      "component": "distribution_sample_return",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 0.3846171,
+      "min_ms": 0.308665,
+      "p50_ms": 0.329891,
+      "p95_ms": 0.49338325,
+      "max_ms": 0.514646
+    },
+    {
+      "bin": "257+",
+      "component": "complete_actor_policy_call",
+      "states": 4,
+      "calls": 80,
+      "mean_ms": 114.1535911,
+      "min_ms": 56.179324,
+      "p50_ms": 95.455095,
+      "p95_ms": 212.7065477,
+      "max_ms": 228.184696
+    }
+  ],
+  "model_load_seconds": 0.19955322984606028,
+  "affinity": [
+    0
+  ],
+  "torch_threads": 1,
+  "torch_interop_threads": 1,
+  "cuda_initialized": false,
+  "new_solver_tasks": 0,
+  "true_solver_feature_extraction_measured": false,
+  "limitation": "Conditional warmed replay states; not historical online latency or first-call-per-fresh-process distribution.",
+  "elapsed_seconds": 35.50942533556372
+}

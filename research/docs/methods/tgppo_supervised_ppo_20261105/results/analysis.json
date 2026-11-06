@@ -1,0 +1,113 @@
+{
+  "status": "complete",
+  "valid_tasks": 110,
+  "gate": {
+    "passed": false,
+    "failed_conditions": [
+      "11:control:all:PDI",
+      "22:control:all:PDI",
+      "22:control:common_actor:PDI",
+      "22:bc:all:PDI",
+      "22:bc:common_actor:PDI",
+      "fewer_than_two_cross_seed_joint_instance_wins"
+    ],
+    "common_instance_wins": []
+  },
+  "next_stage_allowed": false,
+  "next_stage_started": false,
+  "selected": [
+    {
+      "variant": "control",
+      "training_seed": 11,
+      "selected_episode": 20,
+      "pdi": 3036.4063457096504,
+      "lower": 3036.26567570965,
+      "upper": 3036.5470157096506,
+      "proof_rate": 0.6,
+      "nodes": 2222.3,
+      "wall": 62.218549959454684,
+      "actor_calls": 11688,
+      "actor_ms": 1.7280461425044555,
+      "feature_ms": 3.600540744262817,
+      "callback_ms": 5.381192311993242,
+      "actor_fraction_of_wall": 0.0324620283287764,
+      "critic_seconds": 0.0
+    },
+    {
+      "variant": "control",
+      "training_seed": 22,
+      "selected_episode": 20,
+      "pdi": 3015.966694339267,
+      "lower": 3012.924964339267,
+      "upper": 3019.008424339267,
+      "proof_rate": 0.6,
+      "nodes": 2140.9,
+      "wall": 61.67633178634569,
+      "actor_calls": 11074,
+      "actor_ms": 1.7078760697248854,
+      "feature_ms": 3.6680155032725947,
+      "callback_ms": 5.427284280214299,
+      "actor_fraction_of_wall": 0.030664955337568356,
+      "critic_seconds": 0.0
+    },
+    {
+      "variant": "expert",
+      "training_seed": 11,
+      "selected_episode": 100,
+      "pdi": 3038.28820836926,
+      "lower": 3038.0903083692597,
+      "upper": 3038.48610836926,
+      "proof_rate": 0.6,
+      "nodes": 2165.6,
+      "wall": 61.66443293550983,
+      "actor_calls": 11331,
+      "actor_ms": 1.7092356102166455,
+      "feature_ms": 3.5506150023683785,
+      "callback_ms": 5.31340829306243,
+      "actor_fraction_of_wall": 0.03140764907320182,
+      "critic_seconds": 0.0
+    },
+    {
+      "variant": "expert",
+      "training_seed": 22,
+      "selected_episode": 0,
+      "pdi": 3023.9124833596543,
+      "lower": 3023.671988359654,
+      "upper": 3024.1529783596543,
+      "proof_rate": 0.6,
+      "nodes": 2139.4,
+      "wall": 61.50955076399259,
+      "actor_calls": 11213,
+      "actor_ms": 1.7123489474455285,
+      "feature_ms": 3.6690958762622974,
+      "callback_ms": 5.432990021031214,
+      "actor_fraction_of_wall": 0.031215589301534348,
+      "critic_seconds": 0.0
+    }
+  ],
+  "common_actor_instances": [
+    "vpm2",
+    "dcmulti",
+    "eil33-2",
+    "neos-476283"
+  ],
+  "no_actor_instances": [
+    "roi5alpha10n8"
+  ],
+  "paired_training_cpu_gpu_models_equal": {
+    "11": false,
+    "22": true
+  },
+  "training_hardware_limit": true,
+  "evaluation_cpu": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+  "training_steps_in_evaluation": 0,
+  "gpu_in_evaluation": false,
+  "source_sha256": {
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/development-110/manifest.json": "20913693facd4e2c749317ff8ec9c9116aba7201b65fd16ac4f81ba9f573f0bc",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/development-110/evaluation_rows.json": "3001fbec3c6ac371492272f207aece4caab3f10602a19cd0012ba37181d7e92a",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/development-110/status.json": "ec0c7f41689bb8170e57ff552dc2a7f02f4bd951854f2ab5e0ca936de35d9c09",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/docs/release.json": "34b19f47ce068d6ff08dcff3cfe17c70ec7cac8a6ba712571cb79e23419a657f",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/docs/PROTOCOL.md": "b5a43e5b07a6c9d8ba838999b4517e4c24b2715e902fc6ecb0e104890344365e",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/evaluation/analyze.py": "efa6e697fbd73ef33082e0e07e477daac1088ff85ff1b284459dd39be1dd0a8f"
+  }
+}

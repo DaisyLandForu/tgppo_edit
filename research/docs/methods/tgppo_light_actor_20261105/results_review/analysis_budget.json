@@ -1,0 +1,14 @@
+{
+  "limit_seconds": 600,
+  "prior_preparation_seconds": 88.89028996415436,
+  "attempts": [
+    {
+      "started_epoch": 1793862784.750518,
+      "allocated_seconds": 180,
+      "operation": "CPU checkpoint inference on 288 existing expert holdout states; no SCIP/no optimizer",
+      "returncode": 0,
+      "elapsed_seconds": 55.95782463392243
+    }
+  ],
+  "total_including_prior_preparation_seconds": 144.8481145980768
+}

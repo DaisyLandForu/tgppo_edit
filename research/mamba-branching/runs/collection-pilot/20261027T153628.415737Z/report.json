@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "scope": "bounded CPU diagnostic, not formal collection",
+  "limits": {
+    "nodes": 500,
+    "seconds": 30.0
+  },
+  "instance": "air04",
+  "solver_seed": 0,
+  "random_prefix_steps": 0,
+  "training_started": false,
+  "timestamp_utc": "20261027T153628.415737Z",
+  "samples": 8,
+  "solver_stats": {
+    "name": "air04",
+    "explorer": "random",
+    "expert": "relpscost",
+    "k": 0,
+    "seed": 0,
+    "nnodes": 9,
+    "fair_nnodes": 9,
+    "nnodes_left": 9,
+    "nLP_iterations": 17848,
+    "max_depth": 8,
+    "status": "timelimit",
+    "gap": 1e+20,
+    "primal_bound": 1e+20,
+    "dual_bound": 55789.94059368885,
+    "primaldualintegral": 3000.0337999999992,
+    "scip_solve_time": 30.000343,
+    "scip_presolve_time": 0.41887599999999997,
+    "opt_time_process": 29.988478995999998,
+    "opt_time_wallclock": 30.000428676605225
+  },
+  "trajectory_sha256": "775be40d1ccdec7ea4f4de0b9d55ea89a3c1a97fe166050f8a9223eb8cf632c6"
+}

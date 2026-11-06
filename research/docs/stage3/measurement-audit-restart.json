@@ -1,0 +1,31 @@
+{
+  "reason": "Additional source audit found SCIP statistics printing skips infeasible status; use read-only integral snapshot instead of assuming universal flush.",
+  "completed_results": 13,
+  "completed_worker_cpu_seconds": 1019.063692,
+  "active_children_cpu_snapshots": [
+    {
+      "pid": 49408,
+      "cpu_seconds": 0.02
+    },
+    {
+      "pid": 50772,
+      "cpu_seconds": 30.5
+    },
+    {
+      "pid": 50803,
+      "cpu_seconds": 26.82
+    },
+    {
+      "pid": 50905,
+      "cpu_seconds": 7.74
+    },
+    {
+      "pid": 50907,
+      "cpu_seconds": 7.39
+    }
+  ],
+  "parent_pids": [
+    49400
+  ],
+  "cpu_reserve_seconds": 10
+}

@@ -1,0 +1,45 @@
+{
+  "pid": 7396,
+  "host": "jpt-duweiyue25-261105-c54ef-default0-0",
+  "phase": "complete_with_cross_instance_report",
+  "training": false,
+  "gpu": false,
+  "cross_instance_started": true,
+  "results_directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/light-actor-20261105/cpu-recovery-20261105/results",
+  "evaluation_status": "complete",
+  "committed_model_tasks": 160,
+  "valid_model_tasks_raw": 160,
+  "valid_native_tasks_raw": 10,
+  "invalid_raw_tasks": 0,
+  "native_tasks": 10,
+  "charged_seconds": 4781.520788449794,
+  "remaining_seconds": 618.479211550206,
+  "updated_epoch": 1793874744.2914546,
+  "decision_status": "passed",
+  "chosen": {
+    "variant": "mlp_bc",
+    "kind": "mlp",
+    "passed": true,
+    "references": [
+      "b0",
+      "b0_bc",
+      "mlp"
+    ],
+    "common_instance_wins": [
+      "eil33-2",
+      "vpm2"
+    ],
+    "failed_conditions": [],
+    "mean_pdi": 3016.9822171037645,
+    "parameters": 24493
+  },
+  "cross_returncode": 0,
+  "stopped": true,
+  "development_charged_seconds": 4781.520788449794,
+  "cross_model_tasks": 128,
+  "cross_native_tasks": 16,
+  "cross_charged_seconds": 3034.2794847488403,
+  "all_evaluation_processes_exited": true,
+  "final_audit": "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_light_actor_20261105/continuation/FINAL_AUDIT.json",
+  "next_proposal_executed": false
+}

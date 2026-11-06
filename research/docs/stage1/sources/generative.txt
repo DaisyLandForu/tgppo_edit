@@ -1,0 +1,568 @@
+                                      The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26)
+
+
+
+
+                 Generative Branching for Mixed-Integer Linear Programming
+             Ruobing Wang1 , Xin Li1,2 * , Yangchuan Wang1 , Zijian Zhang1 , Mingzhong Wang3
+                                            1
+                                       Beijing Institute of Technology, Beijing, China
+  2
+      Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, China
+                                             3
+                                               University of the Sunshine Coast
+          3120245684@bit.edu.cn, xinli@bit.edu.cn, wyc2828@139.com, zhangzijian@bit.edu.cn, mwang@usc.edu.au
+
+
+
+                            Abstract
+  Branch-and-bound (B&B) is a fundamental algorithmic
+  framework for solving Mixed-Integer Linear Programming
+  (MILP) problems, where branching decisions critically affect
+  solver efficiency. Recent learning-based methods apply imita-
+  tion learning to select branching variables, but their determin-
+  istic predictions limit exploration and generalization. In this
+  paper, we propose a novel framework that formulates branch-
+  ing variable selection as a conditional generative process, ex-
+  ploring deep-level decision features. Our approach leverages
+  diffusion models to enable diverse and exploratory branching
+  score generation, while consistency modeling distills this pro-            Figure 1: Illustration of Consistency Policy generating
+  cess into efficient one-step inference conditioned on the B&B              branching score distributions in a single step, conditioned
+  state. This mode allows our method to achieve both high-                   on the branching state gi , for controllable and efficient score
+  quality and fast branching decisions, significantly improv-                generation.
+  ing the overall performance of branch-and-bound solvers.
+  Extensive experiments on challenging cross-scale and cross-
+  category benchmarks demonstrate that our framework con-
+  sistently outperforms state-of-the-art imitation learning base-            able selection by evaluating all candidates, which is effi-
+  lines, delivering substantial improvements in solution quality,            cient for medium-scale problems but intractable for large-
+  computational efficiency, and inference speed.                             scale ones. To address this, simpler heuristics, such as most-
+                                                                             fractional branching, which selects variables with the high-
+                        Introduction                                         est branching score, are computationally efficient but may
+                                                                             lead to suboptimal decisions. Recent advances in machine
+Mixed-Integer Linear Programming (MILP) problems con-                        learning have enabled learning-to-branch approaches, such
+stitute a fundamental class of NP-hard optimization prob-                    as those based on imitation learning, which aim to combine
+lems that involve both continuous and discrete vari-                         expert-level decision quality with computational efficiency
+ables (Cook 1971; Karp 1972), with widespread applications                   (Bengio, Lodi, and Prouvost 2021; Khalil et al. 2016).
+in scheduling (Yao et al. 2023; Zhao et al. 2025; Meng et al.
+                                                                                Generally, exact solvers use branching scores of each can-
+2023), routing (Reda et al. 2024), and resource allocation
+                                                                             didate variable to guide branching decisions, with higher
+(Zelaschi et al. 2025). Branch-and-Bound (B&B) algorithms
+                                                                             scores indicating greater single-step branching benefits
+(Land and Doig 1960) are widely used to solve these prob-
+                                                                             (Bestuzheva et al. 2021). State-of-the-art imitation learning-
+lems by recursively partitioning the solution space and mak-
+                                                                             based methods have demonstrated promising results in re-
+ing critical decisions on node selection and variable branch-
+                                                                             ducing the computational overhead of strong branching by
+ing at each step (Wolsey 2020; Nemhauser and Wolsey
+                                                                             predicting a single “best” variable to branch on. However,
+1988). However, the exponential growth of the search tree
+                                                                             several challenges limit their broader applicability. First,
+renders large-scale instances computationally expensive, of-
+                                                                             learning single-point decisions may lead to incomplete char-
+ten requiring prohibitive solve times for time-sensitive ap-
+                                                                             acterization of the underlying decision process, failing to
+plications (Morrison et al. 2016).
+                                                                             capture the true decision-making logic. Second, current
+   Traditional MILP solvers rely on hand-crafted branching
+                                                                             methods primarily focus on replicating expert decisions at
+heuristics. As an improvement, strong branching (Achter-
+                                                                             individual nodes, which may result in insufficient feature ex-
+berg, Koch, and Martin 2005) provides high-quality vari-
+                                                                             traction for branching decisions (Bengio, Lodi, and Prouvost
+    * Corresponding author.                                                  2021). Finally, the deterministic nature of imitation learning-
+Copyright © 2026, Association for the Advancement of Artificial              based methods limits their exploration capabilities, leading
+Intelligence (www.aaai.org). All rights reserved.                            to poor generalization when transferring to different prob-
+
+
+                                                                     14352
+lem scales or types outside the training distribution (Gasse            fractional variable xi and creating two child nodes with ad-
+et al. 2019; Nair et al. 2021).                                         ditional constraints xi ≤ ⌊x∗i ⌋ and xi ≥ ⌈x∗i ⌉, where x∗i de-
+   To balance exploration capability and decision quality               notes the fractional value from the LP relaxation. The cur-
+in the branch-and-bound framework, we propose a novel                   rent branching state at each node is defined by the set of
+methodology for solving MILP problems in a B&B setting.                 active constraints and variable bounds. This state is used to
+Drawing inspiration from the strong exploration ability of              compute the bound and is updated whenever a branching de-
+diffusion models (Ho, Jain, and Abbeel 2020; Song et al.                cision is made.
+2020; Chi et al. 2024), we adapt this paradigm to enable ef-
+fective branching score generation via conditional diffusion.           Variable Scoring The efficacy of B&B critically depends
+The branching score plays a critical role in guiding the B&B            on the variable selection strategy, which fundamentally re-
+process by determining which variable to branch on at each              lies on branching scores that quantify the potential im-
+decision node. We thus reformulate branching decisions as a             pact of branching on each candidate variable(Linderoth and
+conditional generation process, shifting from learning a sin-           Savelsbergh 1999). Strong Branching (SB), a cornerstone
+gle optimal branching variable to modeling the full distribu-           of modern branching rules(Achterberg, Koch, and Martin
+tion over branching scores.                                             2005), computes comprehensive scores by evaluating all
+   To further enhance the generation/inference efficiency,              fractional variables through tentative LP solutions for both
+we introduce a consistency modeling approach that distills              potential child nodes. Strong branching compute a com-
+knowledge from a pretrained diffusion model to achieve effi-            prehensive score for each candidate variable by simulat-
+cient inference through single-step generation(As illustrated           ing the effect of branching on it, thereby providing high-
+in Figure 1). Our design enables fast, one-step score gen-              quality guidance for branching decisions. Candidate vari-
+eration while preserving the rich decision-making patterns              ables with higher scores are expected to offer greater poten-
+acquired during multi-step diffusion-based training. Over-              tial improvements for problem solving. While this method
+all, our approach significantly improves both generalization            achieves superior decision quality, it incurs substantial com-
+ability across diverse MILP problem types and scales, and               putational overhead due to the requirement of solving mul-
+exploration efficiency in the B&B solving process.                      tiple LP relaxation problems for each candidate variable. To
+   Our main contributions are as follows:                               address this, current learning-based approaches accelerate
+                                                                        problem solving by predicting the highest-scoring variable
+ • We reformulate branch decision-making as a conditional               ai = argmax(si ) using strong branching scores as supervi-
+   generative process, enhancing model exploration capa-                sion (Gasse et al. 2019).
+   bilities and deep decision-making paradigm by generat-
+   ing multi-modal branch score distributions.                          Diffusion Models are generative probabilistic models that
+ • This paper develope an optimized architecture that main-             learn to reverse a gradual noising process, and have achieved
+   tains exploration capabilities while enabling efficient              remarkable success in high-fidelity image generation and se-
+   one-step high-quality score generation by consistency                quential decision-making tasks (Song et al. 2020; Chi et al.
+   modeling.                                                            2024). Given data x0 ∼ q(x0 ) from the true data distri-
+                                                                        bution, the forward diffusion process systematically adds
+ • Our consistency policy achieves state-of-the-art perfor-
+                                                                        Gaussian noise over T discrete timesteps:
+   mance in single-step prediction accuracy and solving ef-
+   ficiency across cross-problem and cross-size tasks, ad-                                               p
+                                                                                   q(xt |xt−1 ) = N (xt ; 1 − βt xt−1 , βt I)      (2)
+   dressing the generalization limitations of learning-based
+   B&B solvers.                                                         where {βt }Tt=1 represents a predefined variance schedule
+                                                                        controlling the noise magnitude at each step. The reverse
+                      Background                                        generative process learns to iteratively denoise samples
+Mixed Integer Linear Programming is defined as:                         through a parameterized neural network:
+
+            min c⊤ x | Ax ≤ b, x ∈ X
+                 
+                                                          (1)                      p(xt−1 |xt ) = N (xt−1 ; µ(xt , t), σt2 I)      (3)
+
+where x ∈ Rn is the decision variable vector with integer               Training optimizes the variational lower bound of the log-
+variable indices I ⊆ {1, . . . , n}, X represents the mixed-            likelihood, which simplifies to a denoising objective that
+integer feasible region, and A ∈ Rm×n , b ∈ Rm , c ∈ Rn                 predicts the noise added at each step:
+define the constraint matrix, right-hand side vector, and ob-
+                                                                                      Ldiff = Et,x0 ,ϵ ∥ϵ − ϵθ (xt , t)∥2
+                                                                                                                         
+                                                                                                                                   (4)
+jective coefficients, respectively.
+                                                                                       √          √
+Branch-and-Bound (B&B) is the predominant algorith-                     where xt = ᾱt x0 + 1 − ᾱt ϵ with ϵ ∼ N (0, I) and
+                                                                               Qt
+mic framework for solving MILPs, which systematically                   ᾱt = i=1 (1−βi ) representing the cumulative noise sched-
+partitions the feasible region through recursive branching              ule. The network ϵθ (xt , t) learns to predict the Gaussian
+on fractional integer variables. At each node of the B&B                noise ϵ that was added to the clean data x0 to produce the
+tree, the algorithm solves a linear programming (LP) relax-             noisy observation xt at timestep t. This noise prediction for-
+ation to obtain a bound on the objective. If the solution to            mulation is equivalent to learning a denoising autoencoder
+the LP relaxation contains fractional values for any integer            for each timestep, enabling stable training and high-quality
+variables, a branching decision must be made: selecting a               generation.
+
+
+                                                                14353
+                Our Proposed Method                                       Context-Aware Representation To enable flexible and
+Current imitation learning-based solvers learn direct map-                stable decisions, we fuse three types of information: the
+pings from node states to branching decisions, suffering                  branching state, the current noisy score st , and the diffu-
+from insufficient exploration, inadequate feature learning,               sion timestep t. The fused representation for each candidate
+and limited generalization. We address these limitations by               variable is given as:
+reformulating branching as a conditional generative task,
+                                                                                  F = h(L) ⊕ ScoreEmb(st ) ⊕ TimeEmb(t)                         (8)
+leveraging the exploration capabilities of diffusion models
+to enhance performance by using parameterization decom-                   We then apply self-attention across all candidate variables’
+position. To meet real-time requirements, we further em-                  fused representation to capture inter-variable dependencies
+ploy consistency models to simplify multi-step generation                 at generation step t by residual style:
+to single-step inference while maintaining solution quality.
+                                                                                                         QK T
+                                                                                                               
+                                                                                         ct = softmax √           V +F             (9)
+Branching Reformulation as Conditional                                                                       dk
+Probabilistic Generation                                                  where Q = WQ F, K = WK F, and V = WV F with learn-
+At each node gi from B&B, we model branching decisions                    able projections WQ , WK , WV ∈ Rd×dk . The resulting ct
+by learning a conditional policy distribution πθ (si |Gi ) over           serves as the conditional input for noise prediction.
+candidate scores si given by the current branching state Gi .                Accordingly, we reformulate the learning objective from
+Our objective is to maximize the likelihood of expert de-                 modeling the original branching-state-conditional distri-
+cisions, i.e., high-quality branching scores s∗i , conditioned            bution πθ (s|G) to modeling the fused representation-
+on the corresponding branching states, based on an expert                 conditional distribution πθ (s|c0 ). This enables the gener-
+dataset D = {(Gi , s∗i )j }N
+                           j=1 :                                          ated branching scores to be adaptively controlled by the cur-
+                                                                          rent branching context, thereby enhancing the expressive-
+            L(θ) = E(Gi ,s∗i )∼D [− log πθ (s∗i |Gi )]   (5)              ness and controllability of the generation process.
+To better capture factors beyond the observed branching
+state, we extend the above formulation by introducing a la-               Diffusion Modeling for Conditional Branching
+tent variable model:                                                      We implement the conditional probabilistic generation
+                       Z
+                                                                          framework from Eq. 6 using a diffusion process, guided
+         πθ (si |Gi ) = πθ (si |zi , Gi )πθ (zi |Gi )dzi (6)
+                                                                          by the fused encoding state c. This formulation enables the
+where z denotes latent factors influencing the branching de-              model to explore diverse and high-quality branching strate-
+cision. To model complex score distributions, we parameter-               gies while remaining strongly conditioned on the current en-
+ize πθ using a diffusion-based generative model, which nat-               coding state ct .
+urally captures the stochastic exploration required for effec-               Given a high-quality branching score s0 conditioned on
+tive branching decisions. For brevity, we denote the branch-              c0 , we define the diffusion process as follows:
+ing state Gi , latent features zi , and scores si at the i-th              • Forward Process. We progressively perturb the target
+branching decision step as G, z, and s, respectively.                         scores by adding Gaussian noise at each timestep :
+                                                                                                            p
+Conditional Input Encoding                                                            q(st |st−1 ) = N (st ; 1 − βt st−1 , βt I),
+                                                                                                     √        √                        (10)
+To enable conditional generation guided by the branching                                       st = ᾱt s0 + 1 − ᾱt ϵ
+state G, we design a neural encoding architecture that ef-                                                                     √
+fectively integrates graph-structured information into the                    with marginal distribution q(st |s0 ) = N (st ; ᾱt s0 , (1−
+                                                                                                                     Qt
+diffusion process. Specifically, we learn a noise prediction                  ᾱt )I), where αt = 1 − βt and ᾱt = i=1 αi .
+function ϵθ (st , t, G), along with a deterministic component              • Generation (Reverse) Process. The key innovation is to
+µθ (G), allowing the model to capture both the temporal dy-                   condition the reverse diffusion process on the fused rep-
+namics of the generative process and the structural seman-                    resentation ct :
+tics of the MILP instance represented by G. Denote each
+branching state as a bipartite graph G = (C ∪ V, E), where                       πθ (st−1 |st , ct ) = N (st−1 ; µθ (st , t, ct ), σt2 I)     (11)
+C and V are the sets of constraint and variable nodes, re-                  In practice, we implement πθ (s|c0 ) as a diffusion process
+spectively, and E is the edge set encoding their interactions.            with latent variables z0:T :
+The adjacency matrix of the graph is denoted as A.
+                                                                                                                        T
+Graph Information Encoding We use a Graph Neural
+                                                                                                                        Y
+                                                                            πθ (s, z0:T |c0 ) ≃ πθ (s|z0 , c0 )p(zT )         πθ (zt−1 |zt , ct )
+Network (GNN) encoder to embed the branching state G                                                                    t=1
+into a high-dimensional vector(Scavuzzo et al. 2022). The                                                                            (12)
+encoder processes the bipartite graph through L layers of                 where z1 , .., zT are latent variables defining the reverse de-
+message passing:                                                          noising process from zT ∼ N (0, I) to high-quality scores.
+                                                                          Thus, the associated evidence lower bound (ELBO) is:
+                                       
+        h(ℓ) = σ GCN(ℓ) (h(ℓ−1) , A, E) + h(ℓ−1)       (7)
+                                                                             E[− log πθ (s|ct )] ≤ Eq [DKL − log πθ (s|z0 , ct )] + C
+where h(ℓ) represents the node embeddings at layer ℓ.                                                                               (13)
+
+                                                                  14354
+                    P
+where DKL =            t>1 DKL [q(zt−1 |zt , z0 )∥πθ (zt−1 |zt , ct )]                  Method          Style
+                                                                                                                FA (↑, %) SC (↑, %) CA (↑, %) IS (↑, %)
+measures generation process quality, and − log πθ (s|z0 , c0 )                                                   acc@1     acc@1     acc@1     acc@1
+ensures score fidelity. Considering the complexity of the                               TREE            ML.      41.88       12.50      22.07    19.13
+scores, we adopt a structured parameterization decomposi-                               RF              ML.      49.38       12.50      31.25    14.34
+                                                                                        ExtraTree       ML.      23.75       18.75      36.66    18.26
+tion: πθ (s|z, ct ) = N (s; µθ (ct ) + αz, σ 2 I), which naturally                      GNN             IL.      66.89       46.50      44.51    49.60
+emerges from the principle that branching scores consist of a
+controllable deterministic regularization component µθ (G)                              πϕ w/o cons Diff.        67.13       49.20      45.85    51.95
+                                                                                        πϕ (Ours)   Diff.        68.73       49.30      46.25    53.05
+derived from the graph structure and a stochastic component
+αz capturing decision uncertainties. The reconstruction term
+becomes:                                                                               Table 1: Same-Scale branching                 with Top-1 accuracy
+                                                                                       (acc@1).
+                            1
+  − log πθ (s|z0 , ct ) =       ∥s − µθ (ct ) − αz0 ∥2 + C (14)
+                           2σ 2
+C, α is constant. To avoid degeneracy and ensure meaning-                              where Lµ is a regularization deterministic decom-
+ful learning of µθ (ct ) and enable high-quality branching,                            position loss that follows       the same paradigm as
+                                                                                       E(c0 ,s) ∥s∗ − µϕ (c0 )∥2 in Eq. 15, ensuring the pol-
+                                                                                                                 
+we reformulate the optimization using the reparameteriza-
+tion z0 ∝ s∗ − µθ (ct ) and noise prediction objective.                                icy retains the denoising behavior of the original mean
+   Accordingly, training πθ by optimizing the ELBO can be                              estimator with µϕ (c0 ). λµ is a hyperparameter. With
+simplified to minimizing the following loss (with detailed                             this training strategy, the consistency function distills the
+proof in Appendix):                                                                    multi-step reasoning capability of the pre-trained diffusion
+  Lθ = E ∥ϵ − ϵθ (st , t, ct )∥2 + E ∥s∗ − µθ (c0 )∥2 (15)
+                                                                                   model into a single-step generation policy, with same
+                                                                                       parameterization as πθ :
+where ϵθ (st , t, ct ) is the noise prediction network that learns
+                                                                                                       spred = πϕ (ϵ, T, cT ),    ϵ ∼ N (0, I)      (19)
+to predict the Gaussian noise ϵ ∼ N (0, I) added to clean
+scores s0 at timestep t, conditioned on the encoding state ct .                        enabling one-step branching score generation while retain-
+                                                                                       ing the exploration and generalization capabilities acquired
+Consistency Policy for Efficient Branching                                             during pre-training.
+While our diffusion-based policy πθ (·|·) demonstrates                                 Branching with the Consistency Score. We deploy the
+strong performance, the multi-step sampling process re-
+                                                                                       trained consistency policy πϕ(cons) to perform single-step gen-
+quired by the conventional diffusion model incurs substan-
+tial computational overhead, limiting its applicability in real-                       eration at each encoding state c0 during the B&B process.
+time branch-and-bound decisions. To enhance inference effi-                            To fully leverage the diversity inherent in the score distri-
+ciency, we further develop a consistency modeling approach                             butions generated by the consistency model, we employ a
+that distills the multi-step conditional diffusion policy into a                       multi-sampling strategy. Specifically, we draw multiple sam-
+single-step generation policy.                                                         ples from the consistency distribution, evaluate the confi-
+   Consistency Function Learning. Starting from our pre-                               dence of each variable’s score across samples, and select the
+trained diffusion policy πθ with T sampling steps, we learn a                          variable with the highest confidence as the final branching
+consistency function πϕ : (st , t, ct ) 7→ s0 that directly maps                       variable. Given an encoding state cT , we perform K inde-
+a noisy state to the clean score distribution. The key insight                         pendent samplings:
+is that all noisy states along the same diffusion trajectory                           s(k) = πϕ (ϵ(k) , T, cT ),        ϵ(k) ∼ N (0, I),
+                                                                                                                                      k = 1, . . . , K
+should correspond to the same underlying clean score s0 .                                                                                          (20)
+Formally, we enforce the following consistency constraint:                                For each candidate variable j, we define its confidence as
+     πϕ (st , t, ct ) = πϕ (st′ , t′ , ct′ ),   ∀t, t′ ∈ [0, T ]        (16)           a stability measure of the scores across samples:
+                                                                                                                            (k)
+                                                                                                                                         !
+where st and st′ are different noisy states along the forward                                                       Var({sj }K  k=1 )
+diffusion path originating from the same s0 .                                                      nj = exp −             (k)
+                                                                                                                                                   (21)
+   Consistency Training Objective. Building upon the pre-                                                       Mean({sj }K         2
+                                                                                                                               k=1 ) + δ
+trained conditional diffusion policy πθ (|), we fine-tune                                        (k)
+                                                                                       where sj denotes the branching score of variable j in the k-
+the consistency function πϕ by enforcing self-consistency
+across different diffusion timesteps:                                                  th sampling, and δ ≥ 0 is a constant for numerical stability.
+                                                                                       The final branching variable a∗consistency given by πϕcons is as:
+Lconsistency = Et1 ,t2 ,s0 ,c. [d(πϕ (st1 , t1 , ct1 ), πϕ (st2 , t2 , ct2 ))]                                     h                         i
+                                                                                                                                (k)
+                                                                         (17)               a∗consistency = arg max Mean({sj }K         )n
+                                                                                                                                     k=1 j
+                                                                                                                                           λ
+                                                                                                                                                    (22)
+where t1 ∼ U(0, T /2) and t2 ∼ U(T /2, T ) are sampled                                                              j
+from distinct time intervals, d(·, ·) denotes the Huber         √ loss,                where λ controls the relative importance of confidence ver-
+which
+√       provides  robustness      to outliers,    and   s t i =    ᾱti s0 +           sus the expected score.
+   1 − ᾱti ϵi with ϵi ∼ N (0, I). The consistency function
+adopts the same architecture as our pre-trained model πθ and                                                      Experiments
+is fine-tuned using the following composite loss:                                      We conduct experiments on a system equipped with an
+                   Lfine-tune = Lconsistency + λµ Lµ                    (18)           NVIDIA V100 GPU (32GB) and an Intel Core i5 processor
+
+
+                                                                               14355
+                                                                         B&B (Gasse et al. 2019), and T-BranT B&B (Lin et al.
+                                                                         2022);Strong RL-based method (Feng and Yang 2025); and
+                                                                         ML-based methods: Extra-Trees, Random forest, and Deci-
+                                                                         sion Tree, by part of Khalil features (Khalil et al. 2016).
+                                                                         Cross-problem-type Experiment Settings In our cross-
+                                                                         problem transfer experiments, we train the consistency pol-
+                                                                         icy on medium-scale MILP instances from a single prob-
+                                                                         lem category, denoted as Source (e.g., FA), and then
+                                                                         evaluate its generalization by transferring the trained pol-
+                                                                         icy to medium-scale MILP instances from other prob-
+                                                                         lem categories, denoted as Target (e.g., SC, CA, IS),
+      Figure 2: Cross-problem branching evaluation                       where Target ̸= Source.The Source (Rows) and
+                                                                         Target (Columns) notation is used consistently for all
+                                                                         cross-problem-type experiments in Figures 2 to 4.
+(4 cores, 8 threads). Our experimental evaluation consists
+of two main components designed to assess the generaliza-                Branching Evaluation
+tion capabilities of our method in both cross-size and cross-            Same-problem-type Evaluation We evaluated our model
+problem settings: (a) Branching Evaluation Experiments:                  in two variants, πϕ (with consistency fine-tuning) and πϕ
+We train branching policies using individual node state-                 w/o cons (without consistency fine-tuning), on 1,000 differ-
+action pairs to learn effective decision-making strategies at            ent branching steps from MILP instances of the same type,
+each branching step. (b) B&B Solving Evaluation: We ap-                  measuring their inference accuracy against strong imitation
+ply the trained policies from (a) to the complete branch-and-            learning baselines. Results in Table 1 show that the con-
+bound solving process to achieve end-to-end problem reso-                sistency policy outperforms all baseline methods in Top-1
+lution.                                                                  accuracy, demonstrating its significant potential for perfor-
+   We first train the conditional multi-step diffusion pol-              mance improvement under computational constraints. Ad-
+icy πθ on a training dataset with 100,000 observation-                   ditionally, πϕ shows notable improvement in single-step
+action pairs, then apply consistency fine-tuning on a separate           branching accuracy compared to the original model with-
+medium-scale dataset with 5,000 observation-action pairs to              out consistency fine-tuning, further proving that consistency
+get the consistency policy πϕcons (limited in 100/200 epochs).           training can simultaneously enhance both inference effi-
+We then evaluate our consistency policy πϕcons in B&B solv-              ciency and quality.
+ing experiments on entirely unseen instances.
+                                                                         Cross-problem-type Evaluation We assessed cross-
+Benchmark and Empirical Setting                                          problem branching accuracy, which is a challenging test of
+                                                                         model generalization. As shown in Figure 2, our consistency
+We conduct comprehensive experiments to evaluate our pro-                policy achieves significant advantages over the GNN imita-
+posed method across multiple tasks and benchmarks, mea-                  tion learning baseline in this challenge. Specifically, when
+suring both individual branching results and final solving               trained on Source datasets, the consistency policy achieves
+performance.                                                             an average 29.5% improvement over the strong GNN-based
+Datasets We follow the benchmark from (Gasse et al.                      imitation learning baseline on Target datasets. This proves
+2019) and evaluate on four NP-hard problems: (a) Set Cov-                that our model can learn more robust decision-making pat-
+ering (SC) with 1,000 columns, training on 500 rows and                  terns by modeling score distributions, thereby enabling ef-
+testing on 500 and 1,000 rows for medium and large scale,                fective generalization to different problem categories.
+respectively(Balas and Ho 1980); (b) Combinatorial Auc-
+tion (CA) with 100 items, training on 500 bids and testing               B&B Solving Evaluation
+on 500 and 1,000 bids for medium and large scale, respec-                Scale-varying solving We validated our method’s gener-
+tively(Sandholm 2002); (c) Capacitated Facility Location                 alization by transferring the policy trained on medium-scale
+(FA) with 100 facilities, training on 100 customers and test-            problems to both medium- and large-scale problems within
+ing on 100 and 200 customers for medium and large scales,                the same category. Table 2 shows that, for problems of the
+respectively(Cornuejols, Nemhauser, and Wolsey 1983);(d)                 same scale, our method significantly outperforms imitation
+Maximum Independent Set (IS) on Erdős-Rényi graphs                     learning across key metrics, including solving time, number
+with Medium(500 nodes),Large(1000 nodes)(Karp 1972).                     of branching nodes, and final optimality gap. In cross-scale
+We evaluating optimal Gap(%), number of the branching                    transfer experiments, results in Table 3 demonstrate that our
+nodes, and solving time within solving limit. For same/cross             method consistently surpasses all baseline methods across
+problem solving, we average the results across five runs.                all four benchmark datasets, providing strong evidence of
+                                                                         its superior cross-scale generalization in problem solving.
+Baselines We compare against the following baselines:
+Expert solvers, FSB (Strong Branching),and RPB (Re-                      Cross-problem-type solving We assessed cross-problem-
+liability Pseudo-cost Branching) from SCIP (Bestuzheva                   type generalization, with results for solving time presented
+et al. 2021);Strong imitation learning baselines: GNN-based              and gap in Figure 3 and Figure 4, and summarized in
+
+
+                                                                 14356
+                                                     FA(↓)                                                SC(↓)
+ Method              Style
+                                     Nodes             Time(s)         Gap(%)             Nodes             Time(s)         Gap(%)
+ FSB(SCIP)           Expert     107.71 ± 114.92     41.71 ± 33.80 0.00 ± 0.00         37.40 ± 57.74      17.13 ± 25.42 0.00 ± 0.00
+ RPB(SCIP)           Expert     267.30 ± 346.13     38.02 ± 36.03 0.00 ± 0.00        136.23 ± 398.60      8.55 ± 3.46 0.00 ± 0.00
+ TREE                ML.        512.42 ± 521.04     35.24 ± 36.85    0.02 ± 0.07     362.73 ± 447.44     11.81 ± 11.44    0.36 ± 0.01
+ RF                  ML.        571.22 ± 506.68     36.92 ± 32.51    0.02 ± 0.09     916.48 ± 225.54      19.90 ± 5.38    5.87 ± 2.87
+ ExtraTree           ML.        482.36 ± 507.44     37.73 ± 39.71    0.01 ± 0.07     344.28 ± 463.25     11.53 ± 14.57    0.44 ± 1.39
+ GNN                 IL.         77.70 ± 49.66       22.47 ± 4.77    0.00 ± 0.00     194.66 ± 225.62       8.20 ± 4.08    0.00 ± 0.00
+ T-BranT             IL.         77.70 ± 65.77       22.77 ± 6.60    0.00 ± 0.00     527.62 ± 318.72      11.98 ± 5.01    0.00 ± 0.00
+ SORREL              RL.       545.18 ± 1384.46     40.57 ± 91.23    0.00 ± 0.00     453.08 ± 522.01       8.85 ± 5.36    0.00 ± 0.00
+   (cons)
+ πϕ         (Ours) Diff.         83.64 ± 104.00      23.17 ± 5.62    0.00 ± 0.00     166.98 ± 245.95      7.86 ± 4.38     0.00 ± 0.00
+                                                     CA(↓)                                                IS(↓)
+ Method              Style
+                                     Nodes             Time(s)         Gap(%)             Nodes             Time(s)         Gap(%)
+ FSB(SCIP)           Expert      11.17 ± 91.62       3.21 ± 3.52     0.00 ± 0.00      34.30 ± 59.50      38.66 ± 59.50 0.00 ± 0.00
+ RPB(SCIP)           Expert      23.43 ± 29.46       2.19 ± 0.96     0.00 ± 0.00     123.68 ± 206.56      8.77 ± 0.98 0.00 ± 0.00
+ TREE                ML.        270.68 ± 310.61       3.62 ± 2.02    0.00 ± 0.00 750.72 ± 809.87 10.21 ± 9.47             0.48 ± 0.84
+ RF                  ML.        417.07 ± 443.75      17.32 ± 4.64    1.87 ± 1.02 1024.46 ± 812.06 36.33 ± 28.03           1.01 ± 1.09
+ ExtraTree           ML.        242.82 ± 225.12       3.94 ± 2.94    0.00 ± 0.00 732.88 ± 799.67 19.04 ± 19.21            0.39 ± 0.83
+ GNN                 IL.         105.74 ± 95.24       2.60 ± 0.72    0.00 ± 0.00 99.06 ± 151.29    7.85 ± 2.98            0.00 ± 0.00
+ T-BranT             IL.        716.06 ± 245.91       6.63 ± 1.89    0.19 ± 0.12 270.20 ± 342.62   9.92 ± 5.15            0.45 ± 0.87
+ SORREL              RL.         99.76 ± 104.97       2.62 ± 0.41    0.00 ± 0.00 88.36 ± 140.21    8.08 ± 1.36            0.00 ± 0.00
+   (cons)
+ πϕ         (Ours) Diff.         113.00 ± 92.67      2.58 ± 0.75     0.00 ± 0.00      65.86 ± 89.51       7.59 ± 2.59     0.00 ± 0.00
+
+Table 2: Same-scale B&B solving results for the consistency policy on separate instances, reporting solving time, gap(%) of
+the instances, and number of resulting B&B nodes (lower is better).
+
+
+                                                   FA(↓)                                                 SC(↓)
+ Method            Style
+                                   Nodes              Time(s)         Gap(%)            Nodes              Time(s)          Gap(%)
+ FSB(SCIP)         Expert 226.70 ± 204.60 368.90 ± 313.60 0.00 ± 0.00               357.40 ± 347.13    423.11 ± 414.10    0.00 ± 0.00
+ RPB(SCIP)         Expert 1001.58 ± 1001.36 211.39 ± 210.89 0.00 ± 0.00            3719.78 ± 8170.42    47.47 ± 53.30     0.00 ± 0.00
+ TREE              ML.         869.40 ± 513.77    204.12 ± 100.27   0.13 ± 0.17      1307.15 ± 66.93     33.86 ± 4.26      3.55 ± 3.36
+ RF                ML.        1099.90 ± 442.94    226.77 ± 85.96    0.23 ± 0.26      916.48 ± 225.54     19.90 ± 5.38     10.83 ± 2.48
+ ExtraTree         ML.         815.85 ± 418.30     203.97 ± 97.19   0.02 ± 0.07     1348.80 ± 499.31    41.46 ± 16.70     3.46 ± 3.27
+ GNN               IL.         358.62 ± 212.88     214.31 ± 87.68   0.20 ± 0.34      693.72 ± 174.94    40.09 ± 10.47     5.31 ± 3.64
+ T-BranT           IL.         360.12 ± 188.29     256.70 ± 78.54   0.28 ± 0.37      718.20 ± 154.81     39.45 ± 8.70      5.95 ± 3.74
+ SORREL            RL.         943.70 ± 702.87    189.47 ± 142.25   0.01 ± 0.04    3301.20 ± 4177.52    40.66 ± 49.40     0.00 ± 0.00
+  (cons)
+ πϕ         (Ours) Diff.       499.90 ± 252.56    272.02 ± 160.94 0.00 ± 0.00       691.50 ± 360.81     33.53 ± 13.38     0.00 ± 0.00
+                                                   CA(↓)                                                 IS(↓)
+ Method            Style
+                                   Nodes              Time(s)         Gap(%)            Nodes              Time(s)          Gap(%)
+ FSB(SCIP)         Expert   73.14 ± 76.38          99.85 ± 61.76    0.00 ± 0.00     183.38 ± 137.32    1638.10 ± 642.51   2.77 ± 2.39
+ RPB(SCIP)         Expert 1536.12 ± 1131.83        14.56 ± 5.89     0.00 ± 0.00    6515.05 ± 6666.89    111.51 ± 91.42    0.00 ± 0.00
+ TREE              ML.         1447.85 ± 525.27     12.30 ± 3.88    0.77 ± 0.70 1576.50 ± 169.51         64.38 ± 4.61     2.33 ± 0.66
+ RF                ML.         1562.90 ± 160.42     34.87 ± 2.35    2.82 ± 0.99 1407.80 ± 156.62        155.59 ± 13.77    2.76 ± 0.76
+ ExtraTree         ML.         1436.00 ± 538.76    31.41 ± 11.24    0.74 ± 0.65 1648.10 ± 175.78         93.86 ± 6.74     2.32 ± 0.75
+ GNN               IL.          693.36 ± 293.22     16.14 ± 4.89    0.22 ± 0.45   737.94 ± 214.28        59.06 ± 12.10    1.24 ± 1.19
+ T-BranT           IL.          720.08 ± 111.38     20.76 ± 4.47    2.51 ± 1.13   762.50 ± 177.80        61.40 ± 13.16    1.93 ± 1.27
+ SORREL            RL.        1410.30 ± 1331.14     10.40 ± 5.78    0.00 ± 0.00 9070.45 ± 10679.15      106.49 ± 98.17    0.00 ± 0.00
+  (cons)
+ πϕ         (Ours) Diff.       686.04 ± 390.09     14.35 ± 6.25     0.00 ± 0.00     662.71 ± 486.95     49.69 ± 18.43     0.81 ± 1.08
+
+                  Table 3: Cross-scale B&B solving results for the consistency policy on separate larger instances.
+
+
+                                                                    14357
+Table 4. Our consistency policy achieves significant im-               fine-tuning. Table 5 shows that the consistency policy sig-
+provements on cross-category problems: the model trained               nificantly reduces inference time.
+on the Source dataset reduces average solving time by                     Cross-problem-type branching. We evaluated the gener-
+11.0% and improves the final optimality gap by 27.8% on                alization capability before and after consistency fine-tuning
+Target datasets within same gap/step limit on extension                on cross-category problems with results in Table 6. While
+50 same-medium-scale instances. The results demonstrate                the consistency model continues to achieve significant im-
+that, by modeling branching score distributions, our consis-           provements over strong imitation learning baselines, its gen-
+tency model captures richer decision-making patterns and               eralization capability is slightly weakened compared to its
+achieves substantially better generalization than imitation            pre-fine-tuning variant. This may be attributed to the loss
+learning on challenging cross-category tasks.                          of fine-grained information and intermediate representations
+                                                                       during the consistency fine-tuning process, which can be
+    Source     Gap Improve(↑,%)     Time Improve (↑,%)                 beneficial for cross-category generalization.
+                                                                          Trade-off between generalization and efficiency. Al-
+    SC                +7.3                 +6.9                        though there is a slight reduction in generalization, the con-
+    FA                +34.4                +13.1                       sistency fine-tuned model achieves inference speeds that are
+    IS                +60.2                +13.2
+                                                                       several to dozens of times faster than the pre-fine-tuning
+    CA                +9.2                 +10.9
+                                                                       model during branch-and-bound search. This highlights a fa-
+    Avg Imp.          +27.8                +11.0                       vorable trade-off, demonstrating that our approach achieves
+                                                                       an effective balance between generalization performance
+Table 4: Improvements of πϕ over IL on cross-problem                   and computational efficiency.
+tasks.
+                                                                          Source    Sample step η (↓)      Inference Time (ms)(↓)
+                                                                                    πϕ w/o cons       πϕ   πϕ w/o cons      πϕ
+                                                                          FA                5          1       93.2         5.7
+                                                                          SC               50          1      1071.7        7.2
+                                                                          CA               10          1       216.2        6.1
+                                                                          IS                5          1       127.6        6.1
+
+                                                                       Table 5: Inference time per branching step for policies be-
+                                                                       fore and after consistency fine-tuning.
+
+
+                                                                                                 acc@1 Improve (↑,%)
+                                                                            Policy Style                                  Avg.
+Figure 3: Cross-problem generalization results on solving                                       FA   SC     CA     IS
+time.                                                                       πϕ w/o cons +95.7 +9.2 +8.9 +24.4 +34.5
+                                                                            πϕ (Ours)   +85.5 −3.3 +21.0 +14.9 +29.5
+
+Ablation study                                                         Table 6: Top-1 accuracy (acc@1) on cross-problem in-
+We conducted ablation studies to analyze the impact of con-            stances for policies before and after consistency fine-tuning.
+sistency fine-tuning.
+   Inference time. We compared the inference time per                                            Conclusion
+branching step for the policies before and after consistency
+                                                                       In this paper, we propose the consistency policy for effi-
+                                                                       cient generation of branching score distributions in branch-
+                                                                       and-bound solvers. By reformulating branching variable se-
+                                                                       lection in B&B as a conditional generative modeling task,
+                                                                       our model addresses the limitations of imitation learning
+                                                                       methods, particularly their lack of uncertainty modeling
+                                                                       and exploration. Specifically, we leverage diffusion policies
+                                                                       for branching score generation and incorporate consistency-
+                                                                       based inference to improve efficiency while preserving deci-
+                                                                       sion quality. Experimental results demonstrate that our con-
+                                                                       sistency policy achieves significant improvements in both
+                                                                       cross-scale and cross-problem-type generalization. Overall,
+                                                                       this work highlights the potential of generative modeling
+                                                                       in B&B solving and paves the way for future MILP B&B
+ Figure 4: Cross-problem generalization results on Gap.                solvers.
+
+
+                                                               14358
+                  Acknowledgments                                        Khalil, E.; Le Bodic, P.; Song, L.; Nemhauser, G.; and Dilk-
+The authors would like to thank the anonymous reviewers                  ina, B. 2016. Learning to branch in mixed integer program-
+for their valuable feedback. This work was partially sup-                ming. Proceedings of the AAAI Conference on Artificial In-
+ported by the NSFC under Grants 92270125 and 62276024;                   telligence, 30(1).
+by the Fundamental Research Funds for the Central Univer-                Land, A. H.; and Doig, A. G. 1960. An automatic method
+sities, JLU, under Grant 93K172025K01;and by the Funda-                  of solving discrete programming problems. Econometrica,
+mental Research Funds for the Central Universities under                 28(3): 497–520.
+Grant 2025CX01010;and funded by the Beijing Natural Sci-                 Lin, J.; Zhu, J.; Wang, H.; and Zhang, T. 2022. Learn-
+ence Foundation (Grant No.: 4262066).                                    ing to branch with Tree-aware Branching Transformers.
+                                                                         Knowledge-Based Systems, 252: 109455.
+                                                                         Linderoth, J. T.; and Savelsbergh, M. W. 1999. A computa-
+                       References                                        tional study of search strategies for mixed integer program-
+                                                                         ming. INFORMS Journal on Computing, 11(2): 173–187.
+Achterberg, T.; Koch, T.; and Martin, A. 2005. Branching
+rules revisited. Oper. Res. Lett., 33(1): 42–54.                         Meng, L.; Zhang, C.; Zhang, B.; Gao, K.; Ren, Y.; and
+                                                                         Sang, H. 2023. MILP modeling and optimization of multi-
+Balas, E.; and Ho, A. 1980. Set covering algorithms using                objective flexible job shop scheduling problem with control-
+cutting planes, heuristics, and subgradient optimization: A              lable processing times. Swarm and Evolutionary Computa-
+computational study, 37–60. Berlin, Heidelberg: Springer                 tion, 82: 101374.
+Berlin Heidelberg. ISBN 978-3-642-00802-3.
+                                                                         Morrison, D. R.; Jacobson, S. H.; Sauppe, J. J.; and Sewell,
+Bengio, Y.; Lodi, A.; and Prouvost, A. 2021. Machine                     E. C. 2016. Branch-and-bound algorithms: A survey of re-
+learning for combinatorial optimization: a methodological                cent advances in searching, branching, and pruning. Dis-
+tour d’horizon. European Journal of Operational Research,                crete Optimization, 19: 79–102.
+290(2): 405–421.
+                                                                         Nair, V.; Bartunov, S.; Gimeno, F.; von Glehn, I.; Lichocki,
+Bestuzheva, K.; Besançon, M.; Chen, W.-K.; Chmiela, A.;                 P.; Lobov, I.; O’Donoghue, B.; Sonnerat, N.; Tjandraat-
+Donkiewicz, T.; van Doornmalen, J.; Eifler, L.; Gaul, O.;                madja, C.; Wang, P.; Addanki, R.; Hapuarachchi, T.; Keck,
+Gamrath, G.; Gleixner, A.; Gottwald, L.; Graczyk, C.; Hal-               T.; Keeling, J.; Kohli, P.; Ktena, I.; Li, Y.; Vinyals, O.; and
+big, K.; Hoen, A.; Hojny, C.; van der Hulst, R.; Koch, T.;               Zwols, Y. 2021. Solving Mixed Integer Programs Using
+Lübbecke, M.; Maher, S. J.; Matter, F.; Mühmer, E.; Müller,           Neural Networks. arXiv:2012.13349.
+B.; Pfetsch, M. E.; Rehfeldt, D.; Schlein, S.; Schlösser, F.;           Nemhauser, G. L.; and Wolsey, L. A. 1988. Integer and com-
+Serrano, F.; Shinano, Y.; Sofranac, B.; Turner, M.; Vigerske,            binatorial optimization. John Wiley & Sons.
+S.; Wegscheider, F.; Wellner, P.; Weninger, D.; and Witzig, J.
+2021. The SCIP Optimization Suite 8.0. arXiv:2112.08872.                 Reda, M.; Onsy, A.; Haikal, A. Y.; and Ghanbari, A. 2024.
+                                                                         Path planning algorithms in the autonomous driving system:
+Chi, C.; Xu, Z.; Feng, S.; Cousineau, E.; Du, Y.; Burch-                 A comprehensive review. Robotics and Autonomous Sys-
+fiel, B.; Tedrake, R.; and Song, S. 2024. Diffusion Pol-                 tems, 174: 104630.
+icy: Visuomotor Policy Learning via Action Diffusion.
+                                                                         Sandholm, T. 2002. Algorithm for optimal winner deter-
+arXiv:2303.04137.
+                                                                         mination in combinatorial auctions. Artificial Intelligence,
+Cook, S. A. 1971. The complexity of theorem-proving pro-                 135(1): 1–54.
+cedures. In Proceedings of the Third Annual ACM Sympo-                   Scavuzzo, L.; Chen, F. Y.; Chételat, D.; Gasse, M.; Lodi, A.;
+sium on Theory of Computing, STOC ’71, 151–158. New                      Yorke-Smith, N.; and Aardal, K. 2022. Learning to branch
+York, NY, USA: Association for Computing Machinery.                      with Tree MDPs. arXiv:2205.11107.
+ISBN 9781450374644.
+                                                                         Song, Y.; Sohl-Dickstein, J.; Kingma, D. P.; Kumar, A.; Er-
+Cornuejols, G.; Nemhauser, G. L.; and Wolsey, L. A. 1983.                mon, S.; and Poole, B. 2020. Score-based generative model-
+The Uncapacitated Facility Location Problem. Technical re-               ing through stochastic differential equations. arXiv preprint
+port.                                                                    arXiv:2011.13456.
+Feng, S.; and Yang, Y. 2025. SORREL: Suboptimal-                         Wolsey, L. A. 2020. Integer programming. John Wiley &
+Demonstration-Guided Reinforcement Learning for Learn-                   Sons.
+ing to Branch. arXiv:2412.15534.
+                                                                         Yao, Y.; Liu, Q.-H.; Li, X.-Y.; and Gao, L. 2023. A novel
+Gasse, M.; Chételat, D.; Ferroni, N.; Charlin, L.; and Lodi,            MILP model for job shop scheduling problem with mobile
+A. 2019. Exact combinatorial optimization with graph con-                robots. Robotics and Computer-Integrated Manufacturing,
+volutional neural networks. Advances in Neural Information               81: 102506.
+Processing Systems, 32.                                                  Zelaschi, A.; Pliotti, L.; Betti, G.; Tonno, G.; Sgrò, D.; and
+Ho, J.; Jain, A.; and Abbeel, P. 2020. Denoising Diffusion               Martelli, E. 2025. An effective MILP model for the opti-
+Probabilistic Models. arXiv:2006.11239.                                  mal design of microgrids with high-reliability requirements.
+Karp, R. M. 1972. Reducibility among Combinatorial Prob-                 Applied Energy, 383: 125359.
+lems, 85–103. Boston, MA: Springer US. ISBN 978-1-                       Zhao, L.; Cheng, W.; Meng, L.; Zhang, C.; Ren, Y.; Zhang,
+4684-2001-2.                                                             B.; and Duan, P. 2025. MILP modeling and optimization of
+
+
+                                                                 14359
+flexible job shop scheduling problem with preventive main-
+tenance. Computers & Industrial Engineering, 201: 110861.
+
+
+
+
+                                                             14360
+

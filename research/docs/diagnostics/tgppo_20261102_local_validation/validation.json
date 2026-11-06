@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "observations": 164,
+  "instances": 17,
+  "policy_forward_records": 1312,
+  "intervention_pairs": 656,
+  "gradient_cases": 136,
+  "invariance_cases": 136,
+  "benchmark_states": 16,
+  "benchmark_raw_measurements": 1280,
+  "baseline_source_files_unchanged": 40,
+  "source_copies_match": true,
+  "source_and_checkpoint_audit_passed": true,
+  "no_optimizer_or_new_solver": true,
+  "material_nonuniform_threshold": 0.01,
+  "states_above_nonuniform_threshold": 0,
+  "caveat": "No training or policy-quality labels; offline intervention does not establish solver benefit."
+}

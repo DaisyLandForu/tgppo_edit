@@ -1,0 +1,36 @@
+{
+  "limit_total": 4,
+  "limit_each_seed_each_network": 1,
+  "entries": [
+    {
+      "model": "B0-s11",
+      "network": "actor",
+      "status": "completed",
+      "entered_at_utc": "2026-11-02T08:56:31.354635+00:00",
+      "completed_at_utc": "2026-11-02T08:56:31.385184+00:00"
+    },
+    {
+      "model": "B0-s11",
+      "network": "critic",
+      "status": "completed",
+      "entered_at_utc": "2026-11-02T08:56:31.473648+00:00",
+      "completed_at_utc": "2026-11-02T08:56:31.509597+00:00"
+    },
+    {
+      "model": "B0-s22",
+      "network": "actor",
+      "status": "completed",
+      "entered_at_utc": "2026-11-02T08:57:07.514519+00:00",
+      "completed_at_utc": "2026-11-02T08:57:07.545805+00:00"
+    },
+    {
+      "model": "B0-s22",
+      "network": "critic",
+      "status": "completed",
+      "entered_at_utc": "2026-11-02T08:57:07.639223+00:00",
+      "completed_at_utc": "2026-11-02T08:57:07.672369+00:00"
+    }
+  ],
+  "stage_status": "closed",
+  "reason": "Authorized per-seed steps reached; no further updates in this stage"
+}
