@@ -1,0 +1,32 @@
+usage: train.py [-h] --instances_dir INSTANCES_DIR --instances_info_dict
+                INSTANCES_INFO_DICT --logs_dir LOGS_DIR --best_params_json
+                BEST_PARAMS_JSON [--output_model OUTPUT_MODEL]
+                [--checkpoint_dir CHECKPOINT_DIR] [--time_limit TIME_LIMIT]
+                [--per_job_timeout PER_JOB_TIMEOUT]
+                [--scip_setting SCIP_SETTING] [--seeds SEEDS [SEEDS ...]]
+                [--train_iterations TRAIN_ITERATIONS]
+                [--checkpoint_every CHECKPOINT_EVERY]
+                [--max_workers MAX_WORKERS]
+                [--val_instances_dir VAL_INSTANCES_DIR]
+                [--val_seeds VAL_SEEDS [VAL_SEEDS ...]]
+
+Final training of Tree‑Gate PPO with parallel rollouts
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --instances_dir INSTANCES_DIR
+  --instances_info_dict INSTANCES_INFO_DICT
+  --logs_dir LOGS_DIR
+  --best_params_json BEST_PARAMS_JSON
+                        JSON with best hyperparameters
+  --output_model OUTPUT_MODEL
+  --checkpoint_dir CHECKPOINT_DIR
+  --time_limit TIME_LIMIT
+  --per_job_timeout PER_JOB_TIMEOUT
+  --scip_setting SCIP_SETTING
+  --seeds SEEDS [SEEDS ...]
+  --train_iterations TRAIN_ITERATIONS
+  --checkpoint_every CHECKPOINT_EVERY
+  --max_workers MAX_WORKERS
+  --val_instances_dir VAL_INSTANCES_DIR
+  --val_seeds VAL_SEEDS [VAL_SEEDS ...]

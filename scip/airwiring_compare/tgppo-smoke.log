@@ -1,0 +1,26 @@
+wrote problem to file /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/runs/aviation-k4-seed0/smoke-a1c3fe4f/tiny.cip
+original problem has 40 variables (40 bin, 0 int, 0 impl, 0 cont) and 5 constraints
+wrote parameter settings to file /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/runs/aviation-k4-seed0/smoke-a1c3fe4f/settings.set
+/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/torch/nn/modules/transformer.py:286: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+presolving:
+   (0.0s) symmetry computation started: requiring (bin +, int -, cont +), (fixed: bin -, int +, cont -)
+   (0.0s) no symmetry present
+presolving (0 rounds: 0 fast, 0 medium, 0 exhaustive):
+ 0 deleted vars, 0 deleted constraints, 0 added constraints, 0 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 0 cliques
+presolved problem has 40 variables (40 bin, 0 int, 0 impl, 0 cont) and 5 constraints
+      5 constraints of type <linear>
+transformed objective value is always integral (scale: 1)
+Presolving Time: 0.00
+
+ time | node  | left  |LP iter|LP it/n|mem/heur|mdpt |vars |cons |rows |cuts |sepa|confs|strbr|  dualbound   | primalbound  |  gap   | compl. 
+  0.0s|     1 |     0 |     9 |     - |   997k |   0 |  40 |   5 |   5 |   0 |  0 |   0 |   0 |-1.149113e+03 |      --      |    Inf | unknown
+  0.6s|     1 |     2 |     9 |     - |   997k |   0 |  40 |   5 |   5 |   0 |  1 |   0 |   0 |-1.149113e+03 |      --      |    Inf | unknown
+
+SCIP Status        : solving was interrupted [node limit reached]
+Solving Time (sec) : 0.92
+Solving Nodes      : 30
+Primal Bound       : +1.00000000000000e+20 (0 solutions)
+Dual Bound         : -1.14621528303912e+03
+Gap                : infinite

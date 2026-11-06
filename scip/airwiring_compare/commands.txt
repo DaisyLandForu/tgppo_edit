@@ -1,0 +1,10 @@
+# 每行单独提交一个 Custom 作业；同一 scip 镜像、同一共享目录。
+# 1. sssp_0923.cpp 建模 + SCIP 默认原生求解（CPU 作业即可）
+bash /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/custom_job.sh sssp
+# 2. Mamba-Branching（CPU Custom，0 GPU；原权重 + CPU Mamba-1 推理）
+bash /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/custom_job.sh mamba --device cpu
+# 3. 原 TGPPO B0 / training seed=11（CPU Custom，0 GPU）
+bash /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/custom_job.sh tgppo --device cpu
+
+# 以下在终端执行，读取已保存的结果或进行中的进度：
+# bash /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/custom_job.sh summarize

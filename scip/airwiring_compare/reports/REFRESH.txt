@@ -1,0 +1,6 @@
+组会材料使用带时间戳的落盘快照，不会自动更新。
+组会前可在CPU终端执行下列命令重新取证；它只读已有作业，不会求解或训练：
+
+python3 /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/reports/prepare_meeting_report.py
+
+每次新建 meeting_日期_时间 目录并输出其路径，保留旧报告。若已产生可行解、终态或搜索阶段改变，脚本会停止，要求重新核对汇报结论，不会复用原未解出叙述。

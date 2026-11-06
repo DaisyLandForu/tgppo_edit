@@ -1,0 +1,53 @@
+{
+  "started_utc": "2026-11-05T16:25:02.374105+00:00",
+  "hardware": {
+    "host": "sg-duweiyue25-261106-03a23-default0-0",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+    "python": "3.10.20 | packaged by conda-forge | (main, Mar  5 2026, 16:42:22) [GCC 14.3.0]",
+    "executable": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "cuda_visible_devices": null,
+    "slurm_job_id": null
+  },
+  "command": [
+    "/home/duweiyue25/tgppo-transfer/scip/airwiring_compare/compare.py",
+    "mamba",
+    "--device",
+    "cpu"
+  ],
+  "source_sha256": "58deb4ccd5fc383c22fccb3838dbaf6137538dfc7b71d1f3590c4311883e39b7",
+  "pid": 15
+}

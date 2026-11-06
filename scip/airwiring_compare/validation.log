@@ -1,0 +1,99 @@
+original problem has 258164 variables (5736 bin, 0 int, 0 impl, 252428 cont) and 162800 constraints
+{
+  "status": "passed",
+  "checked_utc": "2026-11-05T10:56:53.639530+00:00",
+  "elapsed_seconds": 3.8060854212380946,
+  "model_directory": "/home/duweiyue25/tgppo-transfer/scip/airwiring_compare/artifacts/model-79d9d56696efe1ba2709",
+  "manifest_sha256": "370c67090f04b5e37c65f94756bb1f9968194ea0bcb9a6c987c7cf405f87715a",
+  "original_sources_unchanged": true,
+  "original_build_model_verbatim": true,
+  "model_readback": {
+    "variables": 258164,
+    "binary_variables": 5736,
+    "constraints": 162800
+  },
+  "production_parameters": {
+    "numerics/feastol": 1e-06,
+    "numerics/dualfeastol": 1e-06,
+    "limits/time": 1e+20,
+    "limits/softtime": -1.0,
+    "limits/nodes": -1,
+    "limits/totalnodes": -1,
+    "limits/stallnodes": -1,
+    "limits/solutions": -1,
+    "limits/bestsol": -1,
+    "limits/restarts": -1,
+    "limits/memory": 8796093022207.0,
+    "limits/gap": 0.0,
+    "limits/absgap": 0.0,
+    "parallel/maxnthreads": 1,
+    "lp/threads": 1,
+    "randomization/randomseedshift": 0,
+    "randomization/permutationseed": 0,
+    "randomization/lpseed": 0,
+    "display/verblevel": 4,
+    "display/freq": 100,
+    "timing/clocktype": 2
+  },
+  "compact_csv_normalization": "passed",
+  "invalid_pair_rejected": true,
+  "smoke_results": [
+    {
+      "path": "runs/aviation-k4-seed0/smoke-45de7170/result.json",
+      "method": "sssp",
+      "branches": null,
+      "solutions": 50,
+      "solution_checked": true
+    },
+    {
+      "path": "runs/aviation-k4-seed0/smoke-b0ecdb61/result.json",
+      "method": "tgppo",
+      "branches": 30,
+      "solutions": 0,
+      "solution_checked": false
+    },
+    {
+      "path": "runs/aviation-k4-seed0/smoke-b6ce7a1f/result.json",
+      "method": "sssp",
+      "branches": null,
+      "solutions": 50,
+      "solution_checked": true
+    }
+  ],
+  "duplicate_lock_rejected": true,
+  "summary_rejects_mismatched_settings": true,
+  "aviation_optimization_performed": false,
+  "mamba_cuda_check": "pending: current node has no CUDA; auto-check in GPU Custom job",
+  "actor_torch_port": {
+    "original": "1.13.1+cu117",
+    "deployment": "2.2.2+cu118",
+    "candidate_counts": [
+      1,
+      7,
+      31
+    ],
+    "actions_identical": false,
+    "action_comparison": [
+      {
+        "candidates": 1,
+        "original_action": 0,
+        "deployment_action": 0,
+        "original_top2_probability_margin": null
+      },
+      {
+        "candidates": 7,
+        "original_action": 0,
+        "deployment_action": 0,
+        "original_top2_probability_margin": 0.0
+      },
+      {
+        "candidates": 31,
+        "original_action": 2,
+        "deployment_action": 0,
+        "original_top2_probability_margin": 0.0
+      }
+    ],
+    "max_absolute_probability_error": 1.4901161193847656e-08,
+    "interpretation": "FP32-close probabilities do not guarantee the same argmax near ties; this is a common-stack deployment comparison, not an exact replay."
+  }
+}

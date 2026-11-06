@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-11-05T10:46:14.488318+00:00",
+  "identity": {
+    "source_sha256": "03f11554a25af0458cf73f45c8eeeffd2acfcbac9ffd45fc55f263836b1f612d",
+    "edges_sha256": "9128c7cde659b0a5c6488efe813c31114a1330064208aca41512e049867ccdb9",
+    "pairs_sha256": "23b276bbf10de8f4f91cefe770a5e0def2c54a4c851e0c5eb6492fcf7b48ffb4",
+    "k": 4,
+    "exporter_sha256": "88df68583675116e2de68b450d11eb20ccfbcfd3c3c4edc898cb71b19cee8f31",
+    "libscip_sha256": "5524e92770f25c1baa6c1469528a71fadcc25aeb0db585b0938030ec857281ee",
+    "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0",
+    "flags": [
+      "-O2",
+      "-std=c++17"
+    ]
+  },
+  "input_counts": {
+    "edges": 641,
+    "nodes": 546,
+    "pairs": 246,
+    "pair_layouts": [
+      "compact: u=3,v=4,density=5"
+    ]
+  },
+  "files": {
+    "sssp_0923.original.cpp": "03f11554a25af0458cf73f45c8eeeffd2acfcbac9ffd45fc55f263836b1f612d",
+    "export_model.cpp": "88df68583675116e2de68b450d11eb20ccfbcfd3c3c4edc898cb71b19cee8f31",
+    "edges.csv": "9128c7cde659b0a5c6488efe813c31114a1330064208aca41512e049867ccdb9",
+    "pairs.normalized.csv": "e0d25cf66cea19d6a539d78c4b45caa46007218e1160546dc299f403b178f8e1",
+    "model.cip": "e6a7ee530858449fb60ac6b9d57e8c0112d0bf90423f07c798e05d1b3a21a58a"
+  },
+  "objective_scale": 1000000.0,
+  "optimization_performed": false,
+  "adaptations": [
+    "normalize compact pair columns to legacy layout",
+    "export original SCIP model before solving",
+    "omit unused HiGHS adapter and XLS reporting"
+  ]
+}

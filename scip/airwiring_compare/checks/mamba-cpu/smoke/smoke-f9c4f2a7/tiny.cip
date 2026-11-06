@@ -1,0 +1,54 @@
+STATISTICS
+  Problem name     : model
+  Variables        : 40 (40 binary, 0 integer, 0 implicit integer, 0 continuous)
+  Constraints      : 0 initial, 5 maximal
+OBJECTIVE
+  Sense            : minimize
+VARIABLES
+  [binary] <x0>: obj=-58, original bounds=[0,1]
+  [binary] <x1>: obj=-72, original bounds=[0,1]
+  [binary] <x2>: obj=-60, original bounds=[0,1]
+  [binary] <x3>: obj=-58, original bounds=[0,1]
+  [binary] <x4>: obj=-66, original bounds=[0,1]
+  [binary] <x5>: obj=-76, original bounds=[0,1]
+  [binary] <x6>: obj=-25, original bounds=[0,1]
+  [binary] <x7>: obj=-24, original bounds=[0,1]
+  [binary] <x8>: obj=-66, original bounds=[0,1]
+  [binary] <x9>: obj=-61, original bounds=[0,1]
+  [binary] <x10>: obj=-81, original bounds=[0,1]
+  [binary] <x11>: obj=-79, original bounds=[0,1]
+  [binary] <x12>: obj=-24, original bounds=[0,1]
+  [binary] <x13>: obj=-13, original bounds=[0,1]
+  [binary] <x14>: obj=-58, original bounds=[0,1]
+  [binary] <x15>: obj=-39, original bounds=[0,1]
+  [binary] <x16>: obj=-19, original bounds=[0,1]
+  [binary] <x17>: obj=-12, original bounds=[0,1]
+  [binary] <x18>: obj=-69, original bounds=[0,1]
+  [binary] <x19>: obj=-89, original bounds=[0,1]
+  [binary] <x20>: obj=-82, original bounds=[0,1]
+  [binary] <x21>: obj=-6, original bounds=[0,1]
+  [binary] <x22>: obj=-77, original bounds=[0,1]
+  [binary] <x23>: obj=-51, original bounds=[0,1]
+  [binary] <x24>: obj=-58, original bounds=[0,1]
+  [binary] <x25>: obj=-84, original bounds=[0,1]
+  [binary] <x26>: obj=-95, original bounds=[0,1]
+  [binary] <x27>: obj=-79, original bounds=[0,1]
+  [binary] <x28>: obj=-84, original bounds=[0,1]
+  [binary] <x29>: obj=-21, original bounds=[0,1]
+  [binary] <x30>: obj=-80, original bounds=[0,1]
+  [binary] <x31>: obj=-2, original bounds=[0,1]
+  [binary] <x32>: obj=-68, original bounds=[0,1]
+  [binary] <x33>: obj=-9, original bounds=[0,1]
+  [binary] <x34>: obj=-8, original bounds=[0,1]
+  [binary] <x35>: obj=-5, original bounds=[0,1]
+  [binary] <x36>: obj=-25, original bounds=[0,1]
+  [binary] <x37>: obj=-31, original bounds=[0,1]
+  [binary] <x38>: obj=-77, original bounds=[0,1]
+  [binary] <x39>: obj=-4, original bounds=[0,1]
+CONSTRAINTS
+  [linear] <c1>:  +50<x0>[B] +30<x1>[B] +21<x2>[B] +29<x3>[B] +38<x4>[B] +54<x5>[B] +13<x6>[B] +34<x7>[B] +15<x8>[B] +41<x9>[B] +19<x10>[B] +32<x11>[B] +<x12>[B] +43<x13>[B] +6<x14>[B] +30<x15>[B] +42<x16>[B] +18<x17>[B] +27<x18>[B] +36<x19>[B] +54<x20>[B] +6<x21>[B] +46<x22>[B] +17<x23>[B] +21<x24>[B] +49<x25>[B] +15<x26>[B] +33<x27>[B] +19<x28>[B] +2<x29>[B] +5<x30>[B] +37<x31>[B] +50<x32>[B] +7<x33>[B] +26<x34>[B] +7<x35>[B] +55<x36>[B] +19<x37>[B] +25<x38>[B] +5<x39>[B] <= 398.49;
+  [linear] <c2>:  +2<x0>[B] +55<x1>[B] +44<x2>[B] +<x3>[B] +14<x4>[B] +14<x5>[B] +59<x6>[B] +4<x7>[B] +31<x8>[B] +25<x9>[B] +46<x10>[B] +26<x11>[B] +27<x12>[B] +5<x13>[B] +37<x14>[B] +41<x15>[B] +13<x16>[B] +50<x17>[B] +44<x18>[B] +18<x19>[B] +22<x20>[B] +6<x21>[B] +20<x22>[B] +22<x23>[B] +<x24>[B] +27<x25>[B] +49<x26>[B] +8<x27>[B] +9<x28>[B] +16<x29>[B] +46<x30>[B] +7<x31>[B] +<x32>[B] +4<x33>[B] +30<x34>[B] +52<x35>[B] +32<x36>[B] +12<x37>[B] +44<x38>[B] +36<x39>[B] <= 370;
+  [linear] <c3>:  +13<x0>[B] +29<x1>[B] +33<x2>[B] +13<x3>[B] +47<x4>[B] +50<x5>[B] +9<x6>[B] +27<x7>[B] +42<x8>[B] +25<x9>[B] +8<x10>[B] +26<x11>[B] +27<x12>[B] +14<x13>[B] +<x14>[B] +18<x15>[B] +56<x16>[B] +52<x17>[B] +38<x18>[B] +20<x19>[B] +57<x20>[B] +2<x21>[B] +14<x22>[B] +12<x23>[B] +26<x24>[B] +55<x25>[B] +39<x26>[B] +42<x27>[B] +37<x28>[B] +7<x29>[B] +3<x30>[B] +10<x31>[B] +14<x32>[B] +29<x33>[B] +17<x34>[B] +<x35>[B] +50<x36>[B] +40<x37>[B] +22<x38>[B] +54<x39>[B] <= 399.23;
+  [linear] <c4>:  +19<x0>[B] +25<x1>[B] +5<x2>[B] +5<x3>[B] +6<x4>[B] +14<x5>[B] +38<x6>[B] +41<x7>[B] +16<x8>[B] +<x9>[B] +39<x10>[B] +24<x11>[B] +24<x12>[B] +40<x13>[B] +30<x14>[B] +9<x15>[B] +38<x16>[B] +31<x17>[B] +54<x18>[B] +37<x19>[B] +9<x20>[B] +56<x21>[B] +25<x22>[B] +12<x23>[B] +41<x24>[B] +10<x25>[B] +20<x26>[B] +59<x27>[B] +15<x28>[B] +53<x29>[B] +40<x30>[B] +16<x31>[B] +47<x32>[B] +13<x33>[B] +11<x34>[B] +48<x35>[B] +41<x36>[B] +36<x37>[B] +13<x38>[B] +44<x39>[B] <= 408.85;
+  [linear] <c5>:  +25<x0>[B] +57<x1>[B] +31<x2>[B] +39<x3>[B] +6<x4>[B] +27<x5>[B] +4<x6>[B] +7<x7>[B] +7<x8>[B] +3<x9>[B] +33<x10>[B] +17<x11>[B] +16<x12>[B] +48<x13>[B] +46<x14>[B] +26<x15>[B] +17<x16>[B] +27<x17>[B] +53<x18>[B] +58<x19>[B] +39<x20>[B] +32<x21>[B] +19<x22>[B] +34<x23>[B] +12<x24>[B] +47<x25>[B] +5<x26>[B] +9<x27>[B] +15<x28>[B] +31<x29>[B] +36<x30>[B] +42<x31>[B] +55<x32>[B] +40<x33>[B] +40<x34>[B] +5<x35>[B] +18<x36>[B] +14<x37>[B] +59<x38>[B] +59<x39>[B] <= 428.46;
+END

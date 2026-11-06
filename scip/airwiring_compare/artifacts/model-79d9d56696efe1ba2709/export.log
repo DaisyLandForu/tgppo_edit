@@ -1,0 +1,1714 @@
+>>> 已读取参数：
+File E: /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/artifacts/model-79d9d56696efe1ba2709/edges.csv
+File P: /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/artifacts/model-79d9d56696efe1ba2709/pairs.normalized.csv
+Value k: 4
+Solver: scip
+----------(before simplification)--------------------------
+>>> 图完成统计信息：
+>>> 初始节点数 (Nodes): 546
+>>> 初始边数 (Edges): 641
+>>> 初始点对数 (pairs): 246
+>>> 节点度数分布：
+    度数为 1 的节点数量: 116
+    度数为 2 的节点数量: 232
+    度数为 3 的节点数量: 130
+    度数为 4 的节点数量: 41
+    度数为 5 的节点数量: 17
+    度数为 6 的节点数量: 8
+    度数为 7 的节点数量: 1
+    度数为 8 的节点数量: 1
+------------------------------------
+[INFO] 发现 N1-E-N2 结构: N246 - E1144 - N291
+[INFO] 发现 N1-E-N2 结构: N367 - E1286 - N329
+[INFO] 发现 N1-E-N2 结构: N367 - E1303 - N329
+[INFO] 发现 N1-E-N2 结构: N173 - E1337 - N357
+[INFO] 发现 N1-E-N2 结构: N173 - E1371 - N357
+[INFO] 发现 N1-E-N2 结构: N392 - E1405 - N394
+[INFO] 发现 N1-E-N2 结构: N378 - E1466 - N379
+[INFO] 发现 N1-E-N2 结构: N378 - E1473 - N379
+[INFO] 发现 N1-E-N2 结构: N252 - E1499 - N260
+[INFO] 发现 N1-E-N2 结构: N238 - E1506 - N239
+[INFO] 发现 N1-E-N2 结构: N49 - E1513 - N50
+[INFO] 发现 N1-E-N2 结构: N29 - E1520 - N30
+[INFO] 发现 N1-E-N2 结构: N29 - E1527 - N30
+[INFO] 发现 N1-E-N2 结构: N106 - E1534 - N107
+[INFO] 发现 N1-E-N2 结构: N106 - E1541 - N107
+[INFO] 发现 N1-E-N2 结构: N106 - E1548 - N107
+[INFO] 发现 N1-E-N2 结构: N257 - E1555 - N258
+[INFO] 发现 N1-E-N2 结构: N257 - E1562 - N258
+[INFO] 发现 N1-E-N2 结构: N336 - E1583 - N337
+[INFO] 发现 N1-E-N2 结构: N389 - E1590 - N399
+[INFO] 发现 N1-E-N2 结构: N405 - E1597 - N392
+[INFO] 发现 N1-E-N2 结构: N261 - E162 - N262
+[INFO] 发现 N1-E-N2 结构: N261 - E179 - N262
+[INFO] 发现 N1-E-N2 结构: N104 - E206 - N121
+[INFO] 发现 N1-E-N2 结构: N104 - E223 - N121
+[INFO] 发现 N1-E-N2 结构: N370 - E250 - N343
+[INFO] 发现 N1-E-N2 结构: N370 - E267 - N343
+[INFO] 发现 N1-E-N2 结构: N323 - E311 - N324
+[INFO] 发现 N1-E-N2 结构: N323 - E328 - N324
+[INFO] 发现 N1-E-N2 结构: N75 - E362 - N326
+[INFO] 发现 N1-E-N2 结构: N75 - E379 - N326
+[INFO] 发现 N1-E-N2 结构: N330 - E396 - N331
+[INFO] 发现 N1-E-N2 结构: N330 - E413 - N331
+[INFO] 发现 N1-E-N2 结构: N130 - E450 - N131
+[INFO] 发现 N1-E-N2 结构: N113 - E506 - N315
+[INFO] 发现 N1-E-N2 结构: N313 - E523 - N113
+[INFO] 发现 N1-E-N2 结构: N303 - E560 - N305
+[INFO] 发现 N1-E-N2 结构: N160 - E577 - N322
+[INFO] 发现 N1-E-N2 结构: N263 - E594 - N264
+[INFO] 发现 N1-E-N2 结构: N263 - E611 - N264
+[INFO] 发现 N1-E-N2 结构: N263 - E628 - N264
+[INFO] 发现 N1-E-N2 结构: N263 - E645 - N264
+[INFO] 发现 N1-E-N2 结构: N55 - E730 - N56
+[INFO] 发现 N1-E-N2 结构: N160 - E781 - N322
+[INFO] 发现 N1-E-N2 结构: N128 - E893 - N129
+[INFO] 发现 N1-E-N2 结构: N104 - E957 - N121
+[INFO] 发现 N1-E-N2 结构: N246 - E1144 - N291
+[INFO] 发现 N1-E-N2 结构: N367 - E1286 - N329
+[INFO] 发现 N1-E-N2 结构: N367 - E1303 - N329
+[INFO] 发现 N1-E-N2 结构: N173 - E1337 - N357
+[INFO] 发现 N1-E-N2 结构: N173 - E1371 - N357
+[INFO] 发现 N1-E-N2 结构: N392 - E1405 - N394
+[INFO] 发现 N1-E-N2 结构: N378 - E1466 - N379
+[INFO] 发现 N1-E-N2 结构: N378 - E1473 - N379
+[INFO] 发现 N1-E-N2 结构: N252 - E1499 - N260
+[INFO] 发现 N1-E-N2 结构: N238 - E1506 - N239
+[INFO] 发现 N1-E-N2 结构: N49 - E1513 - N50
+[INFO] 发现 N1-E-N2 结构: N29 - E1520 - N30
+[INFO] 发现 N1-E-N2 结构: N29 - E1527 - N30
+[INFO] 发现 N1-E-N2 结构: N106 - E1534 - N107
+[INFO] 发现 N1-E-N2 结构: N106 - E1541 - N107
+[INFO] 发现 N1-E-N2 结构: N106 - E1548 - N107
+[INFO] 发现 N1-E-N2 结构: N257 - E1555 - N258
+[INFO] 发现 N1-E-N2 结构: N257 - E1562 - N258
+[INFO] 发现 N1-E-N2 结构: N336 - E1583 - N337
+[INFO] 发现 N1-E-N2 结构: N389 - E1590 - N399
+[INFO] 发现 N1-E-N2 结构: N405 - E1597 - N392
+[INFO] 发现 N1-E-N2 结构: N261 - E162 - N262
+[INFO] 发现 N1-E-N2 结构: N261 - E179 - N262
+[INFO] 发现 N1-E-N2 结构: N104 - E206 - N121
+[INFO] 发现 N1-E-N2 结构: N104 - E223 - N121
+[INFO] 发现 N1-E-N2 结构: N370 - E250 - N343
+[INFO] 发现 N1-E-N2 结构: N370 - E267 - N343
+[INFO] 发现 N1-E-N2 结构: N323 - E311 - N324
+[INFO] 发现 N1-E-N2 结构: N323 - E328 - N324
+[INFO] 发现 N1-E-N2 结构: N75 - E362 - N326
+[INFO] 发现 N1-E-N2 结构: N75 - E379 - N326
+[INFO] 发现 N1-E-N2 结构: N330 - E396 - N331
+[INFO] 发现 N1-E-N2 结构: N330 - E413 - N331
+[INFO] 发现 N1-E-N2 结构: N130 - E450 - N131
+[INFO] 发现 N1-E-N2 结构: N113 - E506 - N315
+[INFO] 发现 N1-E-N2 结构: N313 - E523 - N113
+[INFO] 发现 N1-E-N2 结构: N303 - E560 - N305
+[INFO] 发现 N1-E-N2 结构: N160 - E577 - N322
+[INFO] 发现 N1-E-N2 结构: N263 - E594 - N264
+[INFO] 发现 N1-E-N2 结构: N263 - E611 - N264
+[INFO] 发现 N1-E-N2 结构: N263 - E628 - N264
+[INFO] 发现 N1-E-N2 结构: N263 - E645 - N264
+[INFO] 发现 N1-E-N2 结构: N55 - E730 - N56
+[INFO] 发现 N1-E-N2 结构: N160 - E781 - N322
+[INFO] 发现 N1-E-N2 结构: N128 - E893 - N129
+[INFO] 发现 N1-E-N2 结构: N104 - E957 - N121
+[INFO] 同步精简后的图结构至 rawEdges...
+[INFO] 检验点对之间的距离是否保持？ 通过！！！
+[INFO] 同步完成，共保留 261 条边。
+----------(after simplification)--------------------------
+>>> 图精简完成统计信息：
+>>> 剩余节点数 (Nodes): 187
+>>> 所有剩余节点列表：
+    - E1110
+    - E1144
+    - E1249
+    - E1286
+    - E1303
+    - E1320
+    - E1337
+    - E1371
+    - E1388
+    - E1405
+    - E1466
+    - E1473
+    - E1499
+    - E1506
+    - E1513
+    - E1520
+    - E1527
+    - E1534
+    - E1541
+    - E1548
+    - E1555
+    - E1562
+    - E1576
+    - E1583
+    - E1590
+    - E1597
+    - E162
+    - E179
+    - E206
+    - E223
+    - E250
+    - E267
+    - E294
+    - E311
+    - E328
+    - E345
+    - E362
+    - E379
+    - E396
+    - E413
+    - E450
+    - E489
+    - E50
+    - E506
+    - E523
+    - E560
+    - E577
+    - E594
+    - E611
+    - E628
+    - E645
+    - E662
+    - E679
+    - E696
+    - E730
+    - E747
+    - E764
+    - E781
+    - E798
+    - E84
+    - E893
+    - E957
+    - E974
+    - N1
+    - N10
+    - N101
+    - N104
+    - N106
+    - N107
+    - N108
+    - N11
+    - N111
+    - N113
+    - N116
+    - N118
+    - N121
+    - N123
+    - N124
+    - N127
+    - N128
+    - N129
+    - N130
+    - N131
+    - N134
+    - N136
+    - N138
+    - N160
+    - N164
+    - N167
+    - N168
+    - N172
+    - N173
+    - N174
+    - N175
+    - N178
+    - N183
+    - N184
+    - N186
+    - N188
+    - N191
+    - N194
+    - N238
+    - N239
+    - N244
+    - N246
+    - N247
+    - N252
+    - N257
+    - N258
+    - N259
+    - N260
+    - N261
+    - N262
+    - N263
+    - N264
+    - N265
+    - N270
+    - N275
+    - N287
+    - N29
+    - N291
+    - N297
+    - N30
+    - N303
+    - N305
+    - N31
+    - N313
+    - N315
+    - N318
+    - N32
+    - N321
+    - N322
+    - N323
+    - N324
+    - N326
+    - N329
+    - N330
+    - N331
+    - N336
+    - N337
+    - N339
+    - N342
+    - N343
+    - N344
+    - N349
+    - N356
+    - N357
+    - N359
+    - N361
+    - N365
+    - N367
+    - N370
+    - N372
+    - N378
+    - N379
+    - N382
+    - N383
+    - N384
+    - N385
+    - N389
+    - N392
+    - N394
+    - N399
+    - N401
+    - N402
+    - N403
+    - N404
+    - N405
+    - N47
+    - N49
+    - N50
+    - N51
+    - N53
+    - N55
+    - N56
+    - N57
+    - N60
+    - N63
+    - N66
+    - N68
+    - N69
+    - N75
+    - N78
+    - N85
+    - N89
+    - N97
+    - N98
+>>> 剩余边数 (Edges): 261
+>>> 剩余点对数 (pairs): 246
+共发现 34 个连通分量：
+第 1 大分量: 节点数=93, 边数=121
+第 2 大分量: 节点数=5, 边数=4
+第 3 大分量: 节点数=4, 边数=3
+第 4 大分量: 节点数=4, 边数=5
+第 5 大分量: 节点数=3, 边数=2
+第 6 大分量: 节点数=3, 边数=2
+第 7 大分量: 节点数=3, 边数=2
+第 8 大分量: 节点数=3, 边数=2
+第 9 大分量: 节点数=3, 边数=2
+第 10 大分量: 节点数=2, 边数=1
+第 11 大分量: 节点数=1, 边数=0
+第 12 大分量: 节点数=1, 边数=0
+第 13 大分量: 节点数=1, 边数=0
+第 14 大分量: 节点数=1, 边数=0
+第 15 大分量: 节点数=1, 边数=0
+第 16 大分量: 节点数=1, 边数=0
+第 17 大分量: 节点数=1, 边数=0
+第 18 大分量: 节点数=1, 边数=0
+第 19 大分量: 节点数=1, 边数=0
+第 20 大分量: 节点数=1, 边数=0
+第 21 大分量: 节点数=1, 边数=0
+第 22 大分量: 节点数=1, 边数=0
+第 23 大分量: 节点数=1, 边数=0
+第 24 大分量: 节点数=1, 边数=0
+第 25 大分量: 节点数=1, 边数=0
+第 26 大分量: 节点数=1, 边数=0
+第 27 大分量: 节点数=1, 边数=0
+第 28 大分量: 节点数=1, 边数=0
+第 29 大分量: 节点数=1, 边数=0
+第 30 大分量: 节点数=1, 边数=0
+第 31 大分量: 节点数=1, 边数=0
+第 32 大分量: 节点数=1, 边数=0
+第 33 大分量: 节点数=1, 边数=0
+第 34 大分量: 节点数=1, 边数=0
+最大的连通分量包含 93 个节点。
+共有 121 条边。
+>>> 节点度数分布：
+    度数为 1 的节点数量: 17
+    度数为 2 的节点数量: 61
+    度数为 3 的节点数量: 74
+    度数为 4 的节点数量: 19
+    度数为 5 的节点数量: 12
+    度数为 6 的节点数量: 3
+    度数为 7 的节点数量: 1
+------------------------------------
+根据点对获取图数据
+
+======================================================================
+============         1. 独立集选定点及路由边检查          ============
+======================================================================
+
+======================================================================
+============               2. 全局网络缩减报告            ============
+======================================================================
+ 【全局网络原始总边数】 : 261 条
+ --------------------------------------------------------------------
+ 【被成功过滤的无关边】 : 0 条
+   ➔ 边 Key 列表: (无)
+
+======================================================================
+
+========================================
+ [Group 1] 原始点对 -> 化简后点对映射表
+========================================
+ID      Orig U         Orig V         Mapped U       Mapped V       
+--------------------------------------------------------------------
+0       B01-X01        T201-X01       E50            E1506          
+1       B01-X01        T201-X02       E50            E84            
+2       B01-X01        T201-X03       E50            E84            
+3       B01-X01        C01-X01        E50            E1499          
+4       B01-X01        C01-X02        E50            E1499          
+5       B01-X01        C01-X03        E50            E1499          
+6       B01-X01        T202-X01       E50            E162           
+7       B01-X01        T202-X02       E50            E179           
+8       B01-X01        T202-X03       E50            E179           
+9       B01-X01        T203-X01       E50            E206           
+10      B01-X01        T203-X02       E50            E223           
+11      B01-X01        T203-X03       E50            E223           
+12      B01-X01        T506-X01       E50            E250           
+13      B01-X01        T506-X02       E50            E267           
+14      B01-X01        T506-X03       E50            E250           
+15      B01-X01        T253-X01       E50            E294           
+16      B01-X01        T253-X02       E50            E311           
+17      B01-X01        T253-X03       E50            E328           
+18      B01-X01        T254-X01       E50            E345           
+19      B01-X01        T254-X02       E50            E362           
+20      B01-X01        T254-X03       E50            E379           
+21      B01-X01        F01-X01        E50            E396           
+22      B01-X01        F01-X02        E50            E413           
+23      B01-X01        F01-X03        E50            E396           
+24      B01-X01        F01-X04        E50            E413           
+25      T204-X01       T201-X01       E450           E1506          
+26      T204-X01       T201-X02       E450           E84            
+27      T204-X01       T201-X03       E450           E84            
+28      T204-X01       C01-X01        E450           E1499          
+29      T204-X01       C01-X02        E450           E1499          
+30      T204-X01       C01-X03        E450           E1499          
+31      T204-X01       T202-X01       E450           E162           
+32      T204-X01       T202-X02       E450           E179           
+33      T204-X01       T202-X03       E450           E179           
+34      T204-X01       T203-X01       E450           E206           
+35      T204-X01       T203-X02       E450           E223           
+36      T204-X01       T203-X03       E450           E223           
+37      T204-X01       T506-X01       E450           E250           
+38      T204-X01       T506-X02       E450           E267           
+39      T204-X01       T506-X03       E450           E250           
+40      T204-X01       T253-X01       E450           E294           
+41      T204-X01       T253-X02       E450           E311           
+42      T204-X01       T253-X03       E450           E328           
+43      T204-X01       T254-X01       E450           E345           
+44      T204-X01       T254-X02       E450           E362           
+45      T204-X01       T254-X03       E450           E379           
+46      T204-X01       F01-X01        E450           E396           
+47      T204-X01       F01-X02        E450           E413           
+48      T204-X01       F01-X03        E450           E396           
+49      T204-X01       F01-X04        E450           E413           
+50      T201-X01       T503-X01       E1506          E1466          
+51      T201-X01       T503-X02       E1506          E1473          
+52      T503-X02       B01-X01        E1473          E50            
+53      T253-X01       T505-X01       E294           E489           
+54      T253-X02       T505-X01       E311           E489           
+55      T253-X03       T505-X01       E328           E489           
+56      T505-X01       B01-X01        E489           E50            
+57      T203-X01       T507-X05       E206           E506           
+58      T507-X05       T204-X01       E506           E450           
+59      C01-X01        C02-X06        E1499          E523           
+60      C01-X01        C02-X07        E1499          E523           
+61      C01-X01        C02-X08        E1499          E523           
+62      C01-X01        T251-X03       E1499          E560           
+63      C01-X01        T252-X03       E1499          E577           
+64      C01-X01        T253-X03       E1499          E328           
+65      C02-X06        B02-X01        E523           E594           
+66      C02-X06        B02-X02        E523           E611           
+67      C02-X06        B02-X03        E523           E628           
+68      T254-X01       B02-X13        E345           E645           
+69      T254-X01       T501-X05G      E345           E662           
+70      T254-X01       T502-X06G      E345           E679           
+71      T254-X01       T503-X01       E345           E1466          
+72      T254-X01       T201-X01       E345           E1506          
+73      T254-X01       T202-X01       E345           E162           
+74      T254-X01       T202-X02       E345           E179           
+75      T254-X01       T203-X01       E345           E206           
+76      T254-X01       T203-X02       E345           E223           
+77      T254-X01       T401-X01       E345           E696           
+78      T503-X01       B01-X01        E1466          E50            
+79      T501-X05G      B01-X01        E662           E50            
+80      T502-X06G      B01-X01        E679           E50            
+81      T201-X01       T402-X01       E1506          E1513          
+82      T202-X01       T403-X01       E162           E730           
+83      T202-X01       T251-X02       E162           E747           
+84      T202-X01       T251-X03       E162           E560           
+85      T202-X01       T252-X01       E162           E764           
+86      T202-X01       T252-X02       E162           E781           
+87      T202-X01       T253-X01       E162           E294           
+88      T202-X01       T253-X02       E162           E311           
+89      T402-X01       T254-X01       E1513          E345           
+90      T402-X01       T254-X02       E1513          E362           
+91      T402-X01       T255-X01       E1513          E798           
+92      T402-X01       T255-X02       E1513          E1520          
+93      T402-X01       T301-X01       E1513          E1541          
+94      T402-X01       T301-X02       E1513          E1534          
+95      T402-X01       T301-X03       E1513          E1548          
+96      T402-X01       B01-X01        E1513          E50            
+97      T402-X01       B01-X02        E1513          E50            
+98      B01-X01        B02-X01        E50            E594           
+99      B01-X01        B02-X02        E50            E611           
+100     B01-X01        B02-X03        E50            E628           
+101     B01-X01        T401-X01       E50            E696           
+102     T204-X06       C01-X02        E893           E1499          
+103     T204-X06       C01-X03        E893           E1499          
+104     B01-X01        C01-X04        E50            E1499          
+105     C01-X04        C02-X01        E1499          E523           
+106     C01-X04        C02-X02        E1499          E523           
+107     C01-X04        C02-X03        E1499          E523           
+108     C01-X04        T203-X09       E1499          E957           
+109     C01-X04        T401-X01       E1499          E696           
+110     C01-X04        T251-X01       E1499          E974           
+111     C01-X04        C03-X01        E1499          E1562          
+112     C01-X04        C03-X02        E1499          E1562          
+113     C01-X04        C03-X03        E1499          E1562          
+114     C01-X04        C03-X04        E1499          E1555          
+115     C03-X01        C04-X01        E1562          E1576          
+116     C03-X01        C04-X02        E1562          E1576          
+117     C03-X01        C04-X03        E1562          E1110          
+118     C03-X01        C04-X04        E1562          E1110          
+119     C03-X01        C04-X05        E1562          E1110          
+120     C03-X01        C05-X01        E1562          E1144          
+121     C03-X01        C05-X02        E1562          E1144          
+122     C03-X01        C05-X03        E1562          E1144          
+123     C03-X01        C06-X01        E1562          E1590          
+124     C03-X01        C06-X02        E1562          E1590          
+125     C03-X01        C06-X03        E1562          E1583          
+126     C03-X01        C06-X04        E1562          E1583          
+127     C03-X01        D01-X01        E1562          E1249          
+128     C03-X01        D01-X02        E1562          E1249          
+129     C03-X01        D01-X03        E1562          E1249          
+130     C03-X01        F03-X01        E1562          E1286          
+131     C03-X01        F03-X02        E1562          E1303          
+132     F03-X01        T506-X01       E1286          E250           
+133     F03-X01        T506-X02       E1286          E267           
+134     F03-X01        T506-X03       E1286          E250           
+135     F03-X01        T507-X01       E1286          E1320          
+136     T507-X01       T256-X01       E1320          E1337          
+137     T507-X01       T256-X02       E1320          E1597          
+138     T507-X01       T256-X03       E1320          E1371          
+139     T507-X01       D02-X10        E1320          E1388          
+140     T507-X01       C07-X01        E1320          E1405          
+141     T507-X01       C04-X04        E1320          E1110          
+142     T507-X01       C04-X05        E1320          E1110          
+143     C03-X02        T506-X01       E1562          E250           
+144     C03-X02        T506-X02       E1562          E267           
+145     C03-X02        T506-X03       E1562          E250           
+146     C03-X02        C05-X03        E1562          E1144          
+147     B02-X02        T506-X01       E611           E250           
+148     B02-X02        T506-X02       E611           E267           
+149     B02-X02        T506-X03       E611           E250           
+150     B02-X02        C05-X03        E611           E1144          
+151     B01-X01        C03-X01        E50            E1562          
+152     B02-X03        C02-X07        E628           E523           
+153     T203-X02       T402-X01       E223           E1513          
+154     C03-X03        T507-X01       E1562          E1320          
+155     T253-X02       C05-X02        E311           E1144          
+156     T402-X01       C04-X05        E1513          E1110          
+157     F03-X02        D01-X03        E1303          E1249          
+158     C04-X03        T255-X02       E1110          E1520          
+159     B02-X03        T301-X02       E628           E1534          
+160     T506-X03       C06-X04        E250           E1583          
+161     T255-X01       T252-X02       E798           E781           
+162     C05-X01        C04-X01        E1144          E1576          
+163     T204-X01       C03-X04        E450           E1555          
+164     T503-X01       D01-X01        E1466          E1249          
+165     T301-X03       C02-X08        E1548          E523           
+166     T252-X03       T254-X02       E577           E362           
+167     C02-X01        T203-X09       E523           E957           
+168     D01-X02        B02-X01        E1249          E594           
+169     C06-X02        T507-X01       E1590          E1320          
+170     T401-X01       T301-X01       E696           E1541          
+171     B02-X02        C05-X01        E611           E1144          
+172     T506-X02       C07-X01        E267           E1405          
+173     C04-X04        T256-X02       E1110          E1597          
+174     T254-X03       C03-X02        E379           E1562          
+175     T505-X01       D02-X10        E489           E1388          
+176     T507-X05       C05-X03        E506           E1144          
+177     C03-X04        C06-X03        E1555          E1583          
+178     T202-X03       T251-X01       E179           E974           
+179     T256-X03       B02-X03        E1371          E628           
+180     C02-X03        T401-X01       E523           E696           
+181     T503-X02       C04-X02        E1473          E1576          
+182     T252-X01       C06-X01        E764           E1590          
+183     B01-X02        T255-X01       E50            E798           
+184     C05-X03        C03-X03        E1144          E1562          
+185     T203-X09       F03-X02        E957           E1303          
+186     T501-X05G      C04-X03        E662           E1110          
+187     T301-X02       T253-X03       E1534          E328           
+188     C06-X01        T507-X05       E1590          E506           
+189     D02-X10        B01-X02        E1388          E50            
+190     T255-X02       C02-X02        E1520          E523           
+191     C07-X01        T254-X01       E1405          E345           
+192     T251-X03       C05-X03        E560           E1144          
+193     C04-X05        T256-X01       E1110          E1337          
+194     T256-X01       D01-X02        E1337          E1249          
+195     T202-X02       C03-X04        E179           E1555          
+196     C02-X07        T203-X02       E523           E223           
+197     T253-X01       C05-X01        E294           E1144          
+198     T301-X01       T252-X03       E1541          E577           
+199     C06-X03        B02-X02        E1583          E611           
+200     T252-X02       C04-X04        E781           E1110          
+201     T254-X02       T503-X01       E362           E1466          
+202     C04-X02        D01-X03        E1576          E1249          
+203     T255-X01       C06-X04        E798           E1583          
+204     B02-X01        C03-X02        E594           E1562          
+205     C05-X02        T507-X05       E1144          E506           
+206     C03-X02        T301-X03       E1562          E1548          
+207     T203-X03       C02-X01        E223           E523           
+208     T507-X05       C04-X05        E506           E1110          
+209     C06-X04        T252-X01       E1583          E764           
+210     D01-X01        T255-X02       E1249          E1520          
+211     T502-X06G      T301-X02       E679           E1534          
+212     T251-X01       B02-X03        E974           E628           
+213     T301-X03       T253-X01       E1548          E294           
+214     C02-X08        C06-X03        E523           E1583          
+215     T252-X03       T254-X03       E577           E379           
+216     C03-X03        C05-X02        E1562          E1144          
+217     T505-X01       C04-X02        E489           E1576          
+218     T507-X01       D01-X01        E1320          E1249          
+219     C05-X03        T256-X03       E1144          E1371          
+220     T256-X03       C06-X01        E1371          E1590          
+221     T203-X09       T402-X01       E957           E1513          
+222     C06-X02        T507-X05       E1590          E506           
+223     T402-X01       C04-X04        E1513          E1110          
+224     C04-X03        T255-X01       E1110          E798           
+225     B02-X03        C03-X04        E628           E1555          
+226     T253-X02       C05-X03        E311           E1144          
+227     T301-X02       T252-X02       E1534          E781           
+228     C02-X07        D01-X02        E523           E1249          
+229     T255-X02       C06-X04        E1520          E1583          
+230     C07-X01        B02-X01        E1405          E594           
+231     T252-X01       C04-X01        E764           E1576          
+232     T507-X05       C05-X01        E506           E1144          
+233     C03-X04        T301-X01       E1555          E1541          
+234     T203-X02       C02-X03        E223           E523           
+235     T254-X03       T503-X02       E379           E1473          
+236     C05-X01        T256-X02       E1144          E1597          
+237     T256-X01       C07-X01        E1337          E1405          
+238     D01-X03        B02-X02        E1249          E611           
+239     C04-X05        T255-X03       E1110          E1527          
+240     T301-X01       T253-X03       E1541          E328           
+241     C06-X03        C03-X02        E1583          E1562          
+242     T252-X03       T254-X01       E577           E345           
+243     T254-X02       C04-X05        E362           E1110          
+244     T507-X03       C03-X05        E1320          E1555          
+245     B02-X04        T256-X03       E645           E1371          
+
+[LOG] 开始执行 findIndependentSet...
+[INFO] Minimum Vertex Cover Selection Completed. Selected 31 unique nodes, and assigned 246 pairs.
+[LOG] findIndependentSet 执行完毕。选中的点数量: 31
+
+========================================
+ [Group 2] 选中的点集合及管辖的原始点对统计
+========================================
+Selected Node            Managed Orig Pairs Count 
+--------------------------------------------------
+E1110                    8                        
+E1144                    13                       
+E1249                    4                        
+E1303                    2                        
+E1320                    10                       
+E1371                    3                        
+E1405                    3                        
+E1466                    4                        
+E1473                    4                        
+E1499                    18                       
+E1513                    14                       
+E1534                    3                        
+E1541                    4                        
+E1548                    2                        
+E1562                    26                       
+E1576                    2                        
+E1583                    6                        
+E1590                    4                        
+E162                     7                        
+E179                     2                        
+E206                     1                        
+E250                     5                        
+E267                     3                        
+E345                     10                       
+E450                     27                       
+E489                     6                        
+E50                      35                       
+E523                     11                       
+E577                     3                        
+E628                     4                        
+E781                     2                        
+
+---------------- [校验统计信息] ----------------
+  -> 选中的点集合总数 (Nodes Count): 31
+  -> 实际管辖的原始点对总数: 246
+  -> 输入的全局原始点对总数 (pairs.size): 246
+------------------------------------------------
+[INFO] 节点 E1110 负责管理 8 个点对。
+[INFO] 节点 E1144 负责管理 13 个点对。
+[INFO] 节点 E1249 负责管理 4 个点对。
+[INFO] 节点 E1303 负责管理 2 个点对。
+[INFO] 节点 E1320 负责管理 10 个点对。
+[INFO] 节点 E1371 负责管理 3 个点对。
+[INFO] 节点 E1405 负责管理 3 个点对。
+[INFO] 节点 E1466 负责管理 4 个点对。
+[INFO] 节点 E1473 负责管理 4 个点对。
+[INFO] 节点 E1499 负责管理 18 个点对。
+[INFO] 节点 E1513 负责管理 14 个点对。
+[INFO] 节点 E1534 负责管理 3 个点对。
+[INFO] 节点 E1541 负责管理 4 个点对。
+[INFO] 节点 E1548 负责管理 2 个点对。
+[INFO] 节点 E1562 负责管理 26 个点对。
+[INFO] 节点 E1576 负责管理 2 个点对。
+[INFO] 节点 E1583 负责管理 6 个点对。
+[INFO] 节点 E1590 负责管理 4 个点对。
+[INFO] 节点 E162 负责管理 7 个点对。
+[INFO] 节点 E179 负责管理 2 个点对。
+[INFO] 节点 E206 负责管理 1 个点对。
+[INFO] 节点 E250 负责管理 5 个点对。
+[INFO] 节点 E267 负责管理 3 个点对。
+[INFO] 节点 E345 负责管理 10 个点对。
+[INFO] 节点 E450 负责管理 27 个点对。
+[INFO] 节点 E489 负责管理 6 个点对。
+[INFO] 节点 E50 负责管理 35 个点对。
+[INFO] 节点 E523 负责管理 11 个点对。
+[INFO] 节点 E577 负责管理 3 个点对。
+[INFO] 节点 E628 负责管理 4 个点对。
+[INFO] 节点 E781 负责管理 2 个点对。
+=========================================
+[SUMMARY] node_to_managed_pairs 总共覆盖的点对数: 246
+Initializing node mapping...
+
+--- 生成唯一标识 (基于映射节点及密度) ---
+节点: E50 | 密度: 1e-06 -> 生成唯一标识: E50@D0
+节点: E450 | 密度: 1e-06 -> 生成唯一标识: E450@D0
+节点: E450 | 密度: 2e-06 -> 生成唯一标识: E450@D1
+节点: E1466 | 密度: 2e-06 -> 生成唯一标识: E1466@D1
+节点: E1473 | 密度: 2e-06 -> 生成唯一标识: E1473@D1
+节点: E489 | 密度: 2e-06 -> 生成唯一标识: E489@D1
+节点: E206 | 密度: 2e-06 -> 生成唯一标识: E206@D1
+节点: E1499 | 密度: 2e-06 -> 生成唯一标识: E1499@D1
+节点: E523 | 密度: 2e-06 -> 生成唯一标识: E523@D1
+节点: E345 | 密度: 2e-06 -> 生成唯一标识: E345@D1
+节点: E345 | 密度: 3e-06 -> 生成唯一标识: E345@D2
+节点: E1466 | 密度: 3e-06 -> 生成唯一标识: E1466@D2
+节点: E50 | 密度: 3e-06 -> 生成唯一标识: E50@D2
+节点: E1513 | 密度: 3e-06 -> 生成唯一标识: E1513@D2
+节点: E162 | 密度: 3e-06 -> 生成唯一标识: E162@D2
+节点: E1499 | 密度: 3e-06 -> 生成唯一标识: E1499@D2
+节点: E1499 | 密度: 1e-06 -> 生成唯一标识: E1499@D0
+节点: E1562 | 密度: 1e-06 -> 生成唯一标识: E1562@D0
+节点: E250 | 密度: 1e-06 -> 生成唯一标识: E250@D0
+节点: E267 | 密度: 1e-06 -> 生成唯一标识: E267@D0
+节点: E1320 | 密度: 1e-06 -> 生成唯一标识: E1320@D0
+节点: E1562 | 密度: 2e-06 -> 生成唯一标识: E1562@D1
+节点: E250 | 密度: 2e-06 -> 生成唯一标识: E250@D1
+节点: E267 | 密度: 2e-06 -> 生成唯一标识: E267@D1
+节点: E1144 | 密度: 2e-06 -> 生成唯一标识: E1144@D1
+节点: E50 | 密度: 2e-06 -> 生成唯一标识: E50@D1
+节点: E628 | 密度: 2e-06 -> 生成唯一标识: E628@D1
+节点: E1513 | 密度: 2e-06 -> 生成唯一标识: E1513@D1
+节点: E1303 | 密度: 2e-06 -> 生成唯一标识: E1303@D1
+节点: E1110 | 密度: 2e-06 -> 生成唯一标识: E1110@D1
+节点: E781 | 密度: 2e-06 -> 生成唯一标识: E781@D1
+节点: E1548 | 密度: 2e-06 -> 生成唯一标识: E1548@D1
+节点: E577 | 密度: 2e-06 -> 生成唯一标识: E577@D1
+节点: E1249 | 密度: 2e-06 -> 生成唯一标识: E1249@D1
+节点: E1590 | 密度: 2e-06 -> 生成唯一标识: E1590@D1
+节点: E1541 | 密度: 2e-06 -> 生成唯一标识: E1541@D1
+节点: E1583 | 密度: 2e-06 -> 生成唯一标识: E1583@D1
+节点: E179 | 密度: 2e-06 -> 生成唯一标识: E179@D1
+节点: E1371 | 密度: 2e-06 -> 生成唯一标识: E1371@D1
+节点: E1534 | 密度: 2e-06 -> 生成唯一标识: E1534@D1
+节点: E1405 | 密度: 2e-06 -> 生成唯一标识: E1405@D1
+节点: E1576 | 密度: 2e-06 -> 生成唯一标识: E1576@D1
+节点: E1320 | 密度: 2e-06 -> 生成唯一标识: E1320@D1
+uniqueSources: 43
+input: E1110@D1
+node: E1110, denseIdx: 1
+[DEBUG] 解析 uniqueSource: E1110@D1 -> node: E1110, denseIndex: 1
+[LOG] 初始 initX: E1110
+[LOG] 更新后的 initX (邻居): N287
+[LOG] 映射表构建完成，选中的节点总数: 31
+[LOG] 开始打印 chosen_node_set 内容:
+  - 枢纽(映射ID): E1110 | 密度索引: D1  | 覆盖邻居数: 8
+      邻居列表: E1337 E1520 E1527 E1597 E362 E506 E662 E798 
+  - 枢纽(映射ID): E1144 | 密度索引: D1  | 覆盖邻居数: 9
+      邻居列表: E1371 E1562 E1576 E1597 E294 E311 E506 E560 E611 
+  - 枢纽(映射ID): E1249 | 密度索引: D1  | 覆盖邻居数: 4
+      邻居列表: E1337 E1520 E594 E611 
+  - 枢纽(映射ID): E1303 | 密度索引: D1  | 覆盖邻居数: 2
+      邻居列表: E1249 E957 
+  - 枢纽(映射ID): E1320 | 密度索引: D0 D1  | 覆盖邻居数: 9
+      邻居列表: E1110 E1249 E1286 E1337 E1371 E1388 E1405 E1555 E1597 
+  - 枢纽(映射ID): E1371 | 密度索引: D1  | 覆盖邻居数: 3
+      邻居列表: E1590 E628 E645 
+  - 枢纽(映射ID): E1405 | 密度索引: D1  | 覆盖邻居数: 3
+      邻居列表: E1337 E345 E594 
+  - 枢纽(映射ID): E1466 | 密度索引: D1 D2  | 覆盖邻居数: 4
+      邻居列表: E1249 E1506 E362 E50 
+  - 枢纽(映射ID): E1473 | 密度索引: D1  | 覆盖邻居数: 4
+      邻居列表: E1506 E1576 E379 E50 
+  - 枢纽(映射ID): E1499 | 密度索引: D0 D1 D2  | 覆盖邻居数: 10
+      邻居列表: E1555 E1562 E328 E523 E560 E577 E696 E893 E957 E974 
+  - 枢纽(映射ID): E1513 | 密度索引: D1 D2  | 覆盖邻居数: 12
+      邻居列表: E1110 E1506 E1520 E1534 E1541 E1548 E223 E345 E362 E50 E798 E957 
+  - 枢纽(映射ID): E1534 | 密度索引: D1  | 覆盖邻居数: 3
+      邻居列表: E328 E679 E781 
+  - 枢纽(映射ID): E1541 | 密度索引: D1  | 覆盖邻居数: 4
+      邻居列表: E1555 E328 E577 E696 
+  - 枢纽(映射ID): E1548 | 密度索引: D1  | 覆盖邻居数: 2
+      邻居列表: E294 E523 
+  - 枢纽(映射ID): E1562 | 密度索引: D0 D1  | 覆盖邻居数: 14
+      邻居列表: E1110 E1144 E1249 E1286 E1303 E1320 E1548 E1576 E1583 E1590 E250 E267 E379 E594 
+  - 枢纽(映射ID): E1576 | 密度索引: D1  | 覆盖邻居数: 2
+      邻居列表: E1249 E764 
+  - 枢纽(映射ID): E1583 | 密度索引: D1  | 覆盖邻居数: 6
+      邻居列表: E1520 E1555 E1562 E611 E764 E798 
+  - 枢纽(映射ID): E1590 | 密度索引: D1  | 覆盖邻居数: 3
+      邻居列表: E1320 E506 E764 
+  - 枢纽(映射ID): E162 | 密度索引: D2  | 覆盖邻居数: 7
+      邻居列表: E294 E311 E560 E730 E747 E764 E781 
+  - 枢纽(映射ID): E179 | 密度索引: D1  | 覆盖邻居数: 2
+      邻居列表: E1555 E974 
+  - 枢纽(映射ID): E206 | 密度索引: D1  | 覆盖邻居数: 1
+      邻居列表: E506 
+  - 枢纽(映射ID): E250 | 密度索引: D0 D1  | 覆盖邻居数: 3
+      邻居列表: E1286 E1583 E611 
+  - 枢纽(映射ID): E267 | 密度索引: D0 D1  | 覆盖邻居数: 3
+      邻居列表: E1286 E1405 E611 
+  - 枢纽(映射ID): E345 | 密度索引: D1 D2  | 覆盖邻居数: 10
+      邻居列表: E1466 E1506 E162 E179 E206 E223 E645 E662 E679 E696 
+  - 枢纽(映射ID): E450 | 密度索引: D0 D1  | 覆盖邻居数: 19
+      邻居列表: E1499 E1506 E1555 E162 E179 E206 E223 E250 E267 E294 E311 E328 E345 E362 E379 E396 E413 E506 E84 
+  - 枢纽(映射ID): E489 | 密度索引: D1  | 覆盖邻居数: 6
+      邻居列表: E1388 E1576 E294 E311 E328 E50 
+  - 枢纽(映射ID): E50 | 密度索引: D0 D1 D2  | 覆盖邻居数: 26
+      邻居列表: E1388 E1499 E1506 E1562 E162 E179 E206 E223 E250 E267 E294 E311 E328 E345 E362 E379 E396 E413 E594 E611 E628 E662 E679 E696 E798 E84 
+  - 枢纽(映射ID): E523 | 密度索引: D1  | 覆盖邻居数: 9
+      邻居列表: E1249 E1520 E1583 E223 E594 E611 E628 E696 E957 
+  - 枢纽(映射ID): E577 | 密度索引: D1  | 覆盖邻居数: 3
+      邻居列表: E345 E362 E379 
+  - 枢纽(映射ID): E628 | 密度索引: D1  | 覆盖邻居数: 4
+      邻居列表: E1534 E1555 E523 E974 
+  - 枢纽(映射ID): E781 | 密度索引: D1  | 覆盖邻居数: 2
+      邻居列表: E1110 E798 
+[LOG] 总覆盖边数 (TotalEdges): 197
+[LOG] 节点内容打印完成。
+[INFO] 集合构建完成。ActNodes size: 63, srcNodes size: 56, destNodes size: 63
+[SUMMARY] ActNodes 总数: 63, DestNodes 总数: 63, SrcNodes 总数: 56
+destNodes size: 63
+ActNodes size: 63
+Select Initial: N287
+Unique sources identified: 43
+[LOG] 初始邻居激活后节点数: 62, allow: 187, 调整后上限: 187
+allowedMultiLayerNodes: 187
+Successfully activated node: E1110
+Successfully activated node: E1144
+Successfully activated node: E1249
+Successfully activated node: E1286
+Successfully activated node: E1303
+Successfully activated node: E1320
+Successfully activated node: E1337
+Successfully activated node: E1371
+Successfully activated node: E1388
+Successfully activated node: E1405
+Successfully activated node: E1466
+Successfully activated node: E1473
+Successfully activated node: E1499
+Successfully activated node: E1506
+Successfully activated node: E1513
+Successfully activated node: E1520
+Successfully activated node: E1527
+Successfully activated node: E1534
+Successfully activated node: E1541
+Successfully activated node: E1548
+Successfully activated node: E1555
+Successfully activated node: E1562
+Successfully activated node: E1576
+Successfully activated node: E1583
+Successfully activated node: E1590
+Successfully activated node: E1597
+Successfully activated node: E162
+Successfully activated node: E179
+Successfully activated node: E206
+Successfully activated node: E223
+Successfully activated node: E250
+Successfully activated node: E267
+Successfully activated node: E294
+Successfully activated node: E311
+Successfully activated node: E328
+Successfully activated node: E345
+Successfully activated node: E362
+Successfully activated node: E379
+Successfully activated node: E396
+Successfully activated node: E413
+Successfully activated node: E450
+Successfully activated node: E489
+Successfully activated node: E50
+Successfully activated node: E506
+Successfully activated node: E523
+Successfully activated node: E560
+Successfully activated node: E577
+Successfully activated node: E594
+Successfully activated node: E611
+Successfully activated node: E628
+Successfully activated node: E645
+Successfully activated node: E662
+Successfully activated node: E679
+Successfully activated node: E696
+Successfully activated node: E730
+Successfully activated node: E747
+Successfully activated node: E764
+Successfully activated node: E781
+Successfully activated node: E798
+Successfully activated node: E84
+Successfully activated node: E893
+Successfully activated node: E957
+Successfully activated node: E974
+Successfully activated node: N1
+Successfully activated node: N10
+Successfully activated node: N101
+Successfully activated node: N104
+Successfully activated node: N106
+Successfully activated node: N107
+Successfully activated node: N108
+Successfully activated node: N11
+Successfully activated node: N111
+Successfully activated node: N113
+Successfully activated node: N116
+Successfully activated node: N118
+Successfully activated node: N121
+Successfully activated node: N123
+Successfully activated node: N124
+Successfully activated node: N127
+Successfully activated node: N128
+Successfully activated node: N129
+Successfully activated node: N130
+Successfully activated node: N131
+Successfully activated node: N134
+Successfully activated node: N136
+Successfully activated node: N138
+Successfully activated node: N160
+Successfully activated node: N164
+Successfully activated node: N167
+Successfully activated node: N168
+Successfully activated node: N172
+Successfully activated node: N173
+Successfully activated node: N174
+Successfully activated node: N175
+Successfully activated node: N178
+Successfully activated node: N183
+Successfully activated node: N184
+Successfully activated node: N186
+Successfully activated node: N188
+Successfully activated node: N191
+Successfully activated node: N194
+Successfully activated node: N238
+Successfully activated node: N239
+Successfully activated node: N244
+Successfully activated node: N246
+Successfully activated node: N247
+Successfully activated node: N252
+Successfully activated node: N257
+Successfully activated node: N258
+Successfully activated node: N259
+Successfully activated node: N260
+Successfully activated node: N261
+Successfully activated node: N262
+Successfully activated node: N263
+Successfully activated node: N264
+Successfully activated node: N265
+Successfully activated node: N270
+Successfully activated node: N275
+Successfully activated node: N287
+Successfully activated node: N29
+Successfully activated node: N291
+Successfully activated node: N297
+Successfully activated node: N30
+Successfully activated node: N303
+Successfully activated node: N305
+Successfully activated node: N31
+Successfully activated node: N313
+Successfully activated node: N315
+Successfully activated node: N318
+Successfully activated node: N32
+Successfully activated node: N321
+Successfully activated node: N322
+Successfully activated node: N323
+Successfully activated node: N324
+Successfully activated node: N326
+Successfully activated node: N329
+Successfully activated node: N330
+Successfully activated node: N331
+Successfully activated node: N336
+Successfully activated node: N337
+Successfully activated node: N339
+Successfully activated node: N342
+Successfully activated node: N343
+Successfully activated node: N344
+Successfully activated node: N349
+Successfully activated node: N356
+Successfully activated node: N357
+Successfully activated node: N359
+Successfully activated node: N361
+Successfully activated node: N365
+Successfully activated node: N367
+Successfully activated node: N370
+Successfully activated node: N372
+Successfully activated node: N378
+Successfully activated node: N379
+Successfully activated node: N382
+Successfully activated node: N383
+Successfully activated node: N384
+Successfully activated node: N385
+Successfully activated node: N389
+Successfully activated node: N392
+Successfully activated node: N394
+Successfully activated node: N399
+Successfully activated node: N401
+Successfully activated node: N402
+Successfully activated node: N403
+Successfully activated node: N404
+Successfully activated node: N405
+Successfully activated node: N47
+Successfully activated node: N49
+Successfully activated node: N50
+Successfully activated node: N51
+Successfully activated node: N53
+Successfully activated node: N55
+Successfully activated node: N56
+Successfully activated node: N57
+Successfully activated node: N60
+Successfully activated node: N63
+Successfully activated node: N66
+Successfully activated node: N68
+Successfully activated node: N69
+Successfully activated node: N75
+Successfully activated node: N78
+Successfully activated node: N85
+Successfully activated node: N89
+Successfully activated node: N97
+Successfully activated node: N98
+input: E1110@D1
+node: E1110, denseIdx: 1
+input: E1144@D1
+node: E1144, denseIdx: 1
+input: E1249@D1
+node: E1249, denseIdx: 1
+input: E1303@D1
+node: E1303, denseIdx: 1
+input: E1320@D0
+node: E1320, denseIdx: 0
+input: E1320@D1
+node: E1320, denseIdx: 1
+input: E1371@D1
+node: E1371, denseIdx: 1
+input: E1405@D1
+node: E1405, denseIdx: 1
+input: E1466@D1
+node: E1466, denseIdx: 1
+input: E1466@D2
+node: E1466, denseIdx: 2
+input: E1473@D1
+node: E1473, denseIdx: 1
+input: E1499@D0
+node: E1499, denseIdx: 0
+input: E1499@D1
+node: E1499, denseIdx: 1
+input: E1499@D2
+node: E1499, denseIdx: 2
+input: E1513@D1
+node: E1513, denseIdx: 1
+input: E1513@D2
+node: E1513, denseIdx: 2
+input: E1534@D1
+node: E1534, denseIdx: 1
+input: E1541@D1
+node: E1541, denseIdx: 1
+input: E1548@D1
+node: E1548, denseIdx: 1
+input: E1562@D0
+node: E1562, denseIdx: 0
+input: E1562@D1
+node: E1562, denseIdx: 1
+input: E1576@D1
+node: E1576, denseIdx: 1
+input: E1583@D1
+node: E1583, denseIdx: 1
+input: E1590@D1
+node: E1590, denseIdx: 1
+input: E162@D2
+node: E162, denseIdx: 2
+input: E179@D1
+node: E179, denseIdx: 1
+input: E206@D1
+node: E206, denseIdx: 1
+input: E250@D0
+node: E250, denseIdx: 0
+input: E250@D1
+node: E250, denseIdx: 1
+input: E267@D0
+node: E267, denseIdx: 0
+input: E267@D1
+node: E267, denseIdx: 1
+input: E345@D1
+node: E345, denseIdx: 1
+input: E345@D2
+node: E345, denseIdx: 2
+input: E450@D0
+node: E450, denseIdx: 0
+input: E450@D1
+node: E450, denseIdx: 1
+input: E489@D1
+node: E489, denseIdx: 1
+input: E50@D0
+node: E50, denseIdx: 0
+input: E50@D1
+node: E50, denseIdx: 1
+input: E50@D2
+node: E50, denseIdx: 2
+input: E523@D1
+node: E523, denseIdx: 1
+input: E577@D1
+node: E577, denseIdx: 1
+input: E628@D1
+node: E628, denseIdx: 1
+input: E781@D1
+node: E781, denseIdx: 1
+--- Distribution Analysis (Filtered Total Edges: 11223) ---
+[10^0 - 10^1): 43 items, Max in bucket: 0.00533016
+[10^1 - 10^2): 0 items, Max in bucket: 0
+[10^2 - 10^3): 235 items, Max in bucket: 998.185
+[10^3 - 10^4): 6592 items, Max in bucket: 9987.99
+[10^4 - 10^5): 4262 items, Max in bucket: 78589.3
+[10^5 - 10^6): 91 items, Max in bucket: 329451
+[10^6 - 10^7): 0 items, Max in bucket: 0
+[10^7 - 10^8): 0 items, Max in bucket: 0
+[10^8 - 10^9): 0 items, Max in bucket: 0
+[10^9 - 10^10): 0 items, Max in bucket: 0
+
+Analysis Summary:
+Max Coefficient: 329451
+1% of Max Coefficient: 3294.51
+99th Percentile Threshold: 100000
+Max coefficient for normalization: 1
+两端距离总和结果: 0.141806
+input: E1110@D1
+node: E1110, denseIdx: 1
+input: E1144@D1
+node: E1144, denseIdx: 1
+input: E1249@D1
+node: E1249, denseIdx: 1
+input: E1303@D1
+node: E1303, denseIdx: 1
+input: E1320@D0
+node: E1320, denseIdx: 0
+input: E1320@D1
+node: E1320, denseIdx: 1
+input: E1371@D1
+node: E1371, denseIdx: 1
+input: E1405@D1
+node: E1405, denseIdx: 1
+input: E1466@D1
+node: E1466, denseIdx: 1
+input: E1466@D2
+node: E1466, denseIdx: 2
+input: E1473@D1
+node: E1473, denseIdx: 1
+input: E1499@D0
+node: E1499, denseIdx: 0
+input: E1499@D1
+node: E1499, denseIdx: 1
+input: E1499@D2
+node: E1499, denseIdx: 2
+input: E1513@D1
+node: E1513, denseIdx: 1
+input: E1513@D2
+node: E1513, denseIdx: 2
+input: E1534@D1
+node: E1534, denseIdx: 1
+input: E1541@D1
+node: E1541, denseIdx: 1
+input: E1548@D1
+node: E1548, denseIdx: 1
+input: E1562@D0
+node: E1562, denseIdx: 0
+input: E1562@D1
+node: E1562, denseIdx: 1
+input: E1576@D1
+node: E1576, denseIdx: 1
+input: E1583@D1
+node: E1583, denseIdx: 1
+input: E1590@D1
+node: E1590, denseIdx: 1
+input: E162@D2
+node: E162, denseIdx: 2
+input: E179@D1
+node: E179, denseIdx: 1
+input: E206@D1
+node: E206, denseIdx: 1
+input: E250@D0
+node: E250, denseIdx: 0
+input: E250@D1
+node: E250, denseIdx: 1
+input: E267@D0
+node: E267, denseIdx: 0
+input: E267@D1
+node: E267, denseIdx: 1
+input: E345@D1
+node: E345, denseIdx: 1
+input: E345@D2
+node: E345, denseIdx: 2
+input: E450@D0
+node: E450, denseIdx: 0
+input: E450@D1
+node: E450, denseIdx: 1
+input: E489@D1
+node: E489, denseIdx: 1
+input: E50@D0
+node: E50, denseIdx: 0
+input: E50@D1
+node: E50, denseIdx: 1
+input: E50@D2
+node: E50, denseIdx: 2
+input: E523@D1
+node: E523, denseIdx: 1
+input: E577@D1
+node: E577, denseIdx: 1
+input: E628@D1
+node: E628, denseIdx: 1
+input: E781@D1
+node: E781, denseIdx: 1
+Root 变量权限约束已生成，正在构建节点层面和边层面的约束...
+input: E1110@D1
+node: E1110, denseIdx: 1
+src: E1110, layer: 0
+[DEBUG] 源点 E1110 在层级 0 下的唯一目标数: 8
+[DEBUG] 源点 E1110 的目标 E362 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E798 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E1527 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E506 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E1337 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E662 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E1597 出现次数: 1
+[DEBUG] 源点 E1110 的目标 E1520 出现次数: 1
+[DEBUG] 源点 E1110 在层级 0 下的总计数: 8
+Source 'E1110' (0) has 8 unique destinations, total frequency: 8.
+[INFO] 累计 totalDestCount: 8
+input: E1144@D1
+node: E1144, denseIdx: 1
+src: E1144, layer: 0
+[DEBUG] 源点 E1144 在层级 0 下的唯一目标数: 9
+[DEBUG] 源点 E1144 的目标 E1371 出现次数: 1
+[DEBUG] 源点 E1144 的目标 E294 出现次数: 1
+[DEBUG] 源点 E1144 的目标 E560 出现次数: 1
+[DEBUG] 源点 E1144 的目标 E1562 出现次数: 1
+[DEBUG] 源点 E1144 的目标 E506 出现次数: 3
+[DEBUG] 源点 E1144 的目标 E1597 出现次数: 1
+[DEBUG] 源点 E1144 的目标 E1576 出现次数: 1
+[DEBUG] 源点 E1144 的目标 E311 出现次数: 2
+[DEBUG] 源点 E1144 的目标 E611 出现次数: 2
+[DEBUG] 源点 E1144 在层级 0 下的总计数: 13
+Source 'E1144' (0) has 9 unique destinations, total frequency: 13.
+[INFO] 累计 totalDestCount: 21
+input: E1249@D1
+node: E1249, denseIdx: 1
+src: E1249, layer: 0
+[DEBUG] 源点 E1249 在层级 0 下的唯一目标数: 4
+[DEBUG] 源点 E1249 的目标 E1520 出现次数: 1
+[DEBUG] 源点 E1249 的目标 E611 出现次数: 1
+[DEBUG] 源点 E1249 的目标 E1337 出现次数: 1
+[DEBUG] 源点 E1249 的目标 E594 出现次数: 1
+[DEBUG] 源点 E1249 在层级 0 下的总计数: 4
+Source 'E1249' (0) has 4 unique destinations, total frequency: 4.
+[INFO] 累计 totalDestCount: 25
+input: E1303@D1
+node: E1303, denseIdx: 1
+src: E1303, layer: 0
+[DEBUG] 源点 E1303 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E1303 的目标 E957 出现次数: 1
+[DEBUG] 源点 E1303 的目标 E1249 出现次数: 1
+[DEBUG] 源点 E1303 在层级 0 下的总计数: 2
+Source 'E1303' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 27
+input: E1320@D0
+node: E1320, denseIdx: 0
+src: E1320, layer: 0
+[DEBUG] 源点 E1320 在层级 0 下的唯一目标数: 7
+[DEBUG] 源点 E1320 的目标 E1405 出现次数: 1
+[DEBUG] 源点 E1320 的目标 E1388 出现次数: 1
+[DEBUG] 源点 E1320 的目标 E1110 出现次数: 2
+[DEBUG] 源点 E1320 的目标 E1371 出现次数: 1
+[DEBUG] 源点 E1320 的目标 E1597 出现次数: 1
+[DEBUG] 源点 E1320 的目标 E1337 出现次数: 1
+[DEBUG] 源点 E1320 的目标 E1286 出现次数: 1
+[DEBUG] 源点 E1320 在层级 0 下的总计数: 8
+Source 'E1320' (0) has 7 unique destinations, total frequency: 8.
+[INFO] 累计 totalDestCount: 35
+input: E1320@D1
+node: E1320, denseIdx: 1
+src: E1320, layer: 0
+[DEBUG] 源点 E1320 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E1320 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E1320 的目标 E1249 出现次数: 1
+[DEBUG] 源点 E1320 在层级 0 下的总计数: 2
+Source 'E1320' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 37
+input: E1371@D1
+node: E1371, denseIdx: 1
+src: E1371, layer: 0
+[DEBUG] 源点 E1371 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E1371 的目标 E645 出现次数: 1
+[DEBUG] 源点 E1371 的目标 E1590 出现次数: 1
+[DEBUG] 源点 E1371 的目标 E628 出现次数: 1
+[DEBUG] 源点 E1371 在层级 0 下的总计数: 3
+Source 'E1371' (0) has 3 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 40
+input: E1405@D1
+node: E1405, denseIdx: 1
+src: E1405, layer: 0
+[DEBUG] 源点 E1405 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E1405 的目标 E1337 出现次数: 1
+[DEBUG] 源点 E1405 的目标 E594 出现次数: 1
+[DEBUG] 源点 E1405 的目标 E345 出现次数: 1
+[DEBUG] 源点 E1405 在层级 0 下的总计数: 3
+Source 'E1405' (0) has 3 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 43
+input: E1466@D1
+node: E1466, denseIdx: 1
+src: E1466, layer: 0
+[DEBUG] 源点 E1466 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E1466 的目标 E362 出现次数: 1
+[DEBUG] 源点 E1466 的目标 E1249 出现次数: 1
+[DEBUG] 源点 E1466 的目标 E1506 出现次数: 1
+[DEBUG] 源点 E1466 在层级 0 下的总计数: 3
+Source 'E1466' (0) has 3 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 46
+input: E1466@D2
+node: E1466, denseIdx: 2
+src: E1466, layer: 0
+[DEBUG] 源点 E1466 在层级 0 下的唯一目标数: 1
+[DEBUG] 源点 E1466 的目标 E50 出现次数: 1
+[DEBUG] 源点 E1466 在层级 0 下的总计数: 1
+Source 'E1466' (0) has 1 unique destinations, total frequency: 1.
+[INFO] 累计 totalDestCount: 47
+input: E1473@D1
+node: E1473, denseIdx: 1
+src: E1473, layer: 0
+[DEBUG] 源点 E1473 在层级 0 下的唯一目标数: 4
+[DEBUG] 源点 E1473 的目标 E1576 出现次数: 1
+[DEBUG] 源点 E1473 的目标 E379 出现次数: 1
+[DEBUG] 源点 E1473 的目标 E50 出现次数: 1
+[DEBUG] 源点 E1473 的目标 E1506 出现次数: 1
+[DEBUG] 源点 E1473 在层级 0 下的总计数: 4
+Source 'E1473' (0) has 4 unique destinations, total frequency: 4.
+[INFO] 累计 totalDestCount: 51
+input: E1499@D0
+node: E1499, denseIdx: 0
+src: E1499, layer: 0
+[DEBUG] 源点 E1499 在层级 0 下的唯一目标数: 5
+[DEBUG] 源点 E1499 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E1499 的目标 E1562 出现次数: 3
+[DEBUG] 源点 E1499 的目标 E974 出现次数: 1
+[DEBUG] 源点 E1499 的目标 E696 出现次数: 1
+[DEBUG] 源点 E1499 的目标 E957 出现次数: 1
+[DEBUG] 源点 E1499 在层级 0 下的总计数: 7
+Source 'E1499' (0) has 5 unique destinations, total frequency: 7.
+[INFO] 累计 totalDestCount: 58
+input: E1499@D1
+node: E1499, denseIdx: 1
+src: E1499, layer: 0
+[DEBUG] 源点 E1499 在层级 0 下的唯一目标数: 4
+[DEBUG] 源点 E1499 的目标 E577 出现次数: 1
+[DEBUG] 源点 E1499 的目标 E560 出现次数: 1
+[DEBUG] 源点 E1499 的目标 E328 出现次数: 1
+[DEBUG] 源点 E1499 的目标 E523 出现次数: 3
+[DEBUG] 源点 E1499 在层级 0 下的总计数: 6
+Source 'E1499' (0) has 4 unique destinations, total frequency: 6.
+[INFO] 累计 totalDestCount: 64
+input: E1499@D2
+node: E1499, denseIdx: 2
+src: E1499, layer: 0
+[DEBUG] 源点 E1499 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E1499 的目标 E523 出现次数: 3
+[DEBUG] 源点 E1499 的目标 E893 出现次数: 2
+[DEBUG] 源点 E1499 在层级 0 下的总计数: 5
+Source 'E1499' (0) has 2 unique destinations, total frequency: 5.
+[INFO] 累计 totalDestCount: 69
+input: E1513@D1
+node: E1513, denseIdx: 1
+src: E1513, layer: 0
+[DEBUG] 源点 E1513 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E1513 的目标 E957 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E1110 出现次数: 2
+[DEBUG] 源点 E1513 的目标 E223 出现次数: 1
+[DEBUG] 源点 E1513 在层级 0 下的总计数: 4
+Source 'E1513' (0) has 3 unique destinations, total frequency: 4.
+[INFO] 累计 totalDestCount: 73
+input: E1513@D2
+node: E1513, denseIdx: 2
+src: E1513, layer: 0
+[DEBUG] 源点 E1513 在层级 0 下的唯一目标数: 9
+[DEBUG] 源点 E1513 的目标 E1534 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E1520 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E798 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E50 出现次数: 2
+[DEBUG] 源点 E1513 的目标 E362 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E345 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E1548 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E1541 出现次数: 1
+[DEBUG] 源点 E1513 的目标 E1506 出现次数: 1
+[DEBUG] 源点 E1513 在层级 0 下的总计数: 10
+Source 'E1513' (0) has 9 unique destinations, total frequency: 10.
+[INFO] 累计 totalDestCount: 83
+input: E1534@D1
+node: E1534, denseIdx: 1
+src: E1534, layer: 0
+[DEBUG] 源点 E1534 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E1534 的目标 E781 出现次数: 1
+[DEBUG] 源点 E1534 的目标 E679 出现次数: 1
+[DEBUG] 源点 E1534 的目标 E328 出现次数: 1
+[DEBUG] 源点 E1534 在层级 0 下的总计数: 3
+Source 'E1534' (0) has 3 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 86
+input: E1541@D1
+node: E1541, denseIdx: 1
+src: E1541, layer: 0
+[DEBUG] 源点 E1541 在层级 0 下的唯一目标数: 4
+[DEBUG] 源点 E1541 的目标 E328 出现次数: 1
+[DEBUG] 源点 E1541 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E1541 的目标 E577 出现次数: 1
+[DEBUG] 源点 E1541 的目标 E696 出现次数: 1
+[DEBUG] 源点 E1541 在层级 0 下的总计数: 4
+Source 'E1541' (0) has 4 unique destinations, total frequency: 4.
+[INFO] 累计 totalDestCount: 90
+input: E1548@D1
+node: E1548, denseIdx: 1
+src: E1548, layer: 0
+[DEBUG] 源点 E1548 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E1548 的目标 E294 出现次数: 1
+[DEBUG] 源点 E1548 的目标 E523 出现次数: 1
+[DEBUG] 源点 E1548 在层级 0 下的总计数: 2
+Source 'E1548' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 92
+input: E1562@D0
+node: E1562, denseIdx: 0
+src: E1562, layer: 0
+[DEBUG] 源点 E1562 在层级 0 下的唯一目标数: 9
+[DEBUG] 源点 E1562 的目标 E250 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E1303 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E1249 出现次数: 3
+[DEBUG] 源点 E1562 的目标 E1286 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E1583 出现次数: 2
+[DEBUG] 源点 E1562 的目标 E1590 出现次数: 2
+[DEBUG] 源点 E1562 的目标 E1144 出现次数: 3
+[DEBUG] 源点 E1562 的目标 E1110 出现次数: 3
+[DEBUG] 源点 E1562 的目标 E1576 出现次数: 2
+[DEBUG] 源点 E1562 在层级 0 下的总计数: 18
+Source 'E1562' (0) has 9 unique destinations, total frequency: 18.
+[INFO] 累计 totalDestCount: 110
+input: E1562@D1
+node: E1562, denseIdx: 1
+src: E1562, layer: 0
+[DEBUG] 源点 E1562 在层级 0 下的唯一目标数: 7
+[DEBUG] 源点 E1562 的目标 E594 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E379 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E1320 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E1144 出现次数: 2
+[DEBUG] 源点 E1562 的目标 E250 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E1548 出现次数: 1
+[DEBUG] 源点 E1562 的目标 E267 出现次数: 1
+[DEBUG] 源点 E1562 在层级 0 下的总计数: 8
+Source 'E1562' (0) has 7 unique destinations, total frequency: 8.
+[INFO] 累计 totalDestCount: 118
+input: E1576@D1
+node: E1576, denseIdx: 1
+src: E1576, layer: 0
+[DEBUG] 源点 E1576 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E1576 的目标 E764 出现次数: 1
+[DEBUG] 源点 E1576 的目标 E1249 出现次数: 1
+[DEBUG] 源点 E1576 在层级 0 下的总计数: 2
+Source 'E1576' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 120
+input: E1583@D1
+node: E1583, denseIdx: 1
+src: E1583, layer: 0
+[DEBUG] 源点 E1583 在层级 0 下的唯一目标数: 6
+[DEBUG] 源点 E1583 的目标 E1520 出现次数: 1
+[DEBUG] 源点 E1583 的目标 E1562 出现次数: 1
+[DEBUG] 源点 E1583 的目标 E764 出现次数: 1
+[DEBUG] 源点 E1583 的目标 E798 出现次数: 1
+[DEBUG] 源点 E1583 的目标 E611 出现次数: 1
+[DEBUG] 源点 E1583 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E1583 在层级 0 下的总计数: 6
+Source 'E1583' (0) has 6 unique destinations, total frequency: 6.
+[INFO] 累计 totalDestCount: 126
+input: E1590@D1
+node: E1590, denseIdx: 1
+src: E1590, layer: 0
+[DEBUG] 源点 E1590 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E1590 的目标 E506 出现次数: 2
+[DEBUG] 源点 E1590 的目标 E764 出现次数: 1
+[DEBUG] 源点 E1590 的目标 E1320 出现次数: 1
+[DEBUG] 源点 E1590 在层级 0 下的总计数: 4
+Source 'E1590' (0) has 3 unique destinations, total frequency: 4.
+[INFO] 累计 totalDestCount: 130
+input: E162@D2
+node: E162, denseIdx: 2
+src: E162, layer: 0
+[DEBUG] 源点 E162 在层级 0 下的唯一目标数: 7
+[DEBUG] 源点 E162 的目标 E311 出现次数: 1
+[DEBUG] 源点 E162 的目标 E294 出现次数: 1
+[DEBUG] 源点 E162 的目标 E764 出现次数: 1
+[DEBUG] 源点 E162 的目标 E560 出现次数: 1
+[DEBUG] 源点 E162 的目标 E747 出现次数: 1
+[DEBUG] 源点 E162 的目标 E781 出现次数: 1
+[DEBUG] 源点 E162 的目标 E730 出现次数: 1
+[DEBUG] 源点 E162 在层级 0 下的总计数: 7
+Source 'E162' (0) has 7 unique destinations, total frequency: 7.
+[INFO] 累计 totalDestCount: 137
+input: E179@D1
+node: E179, denseIdx: 1
+src: E179, layer: 0
+[DEBUG] 源点 E179 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E179 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E179 的目标 E974 出现次数: 1
+[DEBUG] 源点 E179 在层级 0 下的总计数: 2
+Source 'E179' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 139
+input: E206@D1
+node: E206, denseIdx: 1
+src: E206, layer: 0
+[DEBUG] 源点 E206 在层级 0 下的唯一目标数: 1
+[DEBUG] 源点 E206 的目标 E506 出现次数: 1
+[DEBUG] 源点 E206 在层级 0 下的总计数: 1
+Source 'E206' (0) has 1 unique destinations, total frequency: 1.
+[INFO] 累计 totalDestCount: 140
+input: E250@D0
+node: E250, denseIdx: 0
+src: E250, layer: 0
+[DEBUG] 源点 E250 在层级 0 下的唯一目标数: 1
+[DEBUG] 源点 E250 的目标 E1286 出现次数: 2
+[DEBUG] 源点 E250 在层级 0 下的总计数: 2
+Source 'E250' (0) has 1 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 142
+input: E250@D1
+node: E250, denseIdx: 1
+src: E250, layer: 0
+[DEBUG] 源点 E250 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E250 的目标 E1583 出现次数: 1
+[DEBUG] 源点 E250 的目标 E611 出现次数: 2
+[DEBUG] 源点 E250 在层级 0 下的总计数: 3
+Source 'E250' (0) has 2 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 145
+input: E267@D0
+node: E267, denseIdx: 0
+src: E267, layer: 0
+[DEBUG] 源点 E267 在层级 0 下的唯一目标数: 1
+[DEBUG] 源点 E267 的目标 E1286 出现次数: 1
+[DEBUG] 源点 E267 在层级 0 下的总计数: 1
+Source 'E267' (0) has 1 unique destinations, total frequency: 1.
+[INFO] 累计 totalDestCount: 146
+input: E267@D1
+node: E267, denseIdx: 1
+src: E267, layer: 0
+[DEBUG] 源点 E267 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E267 的目标 E1405 出现次数: 1
+[DEBUG] 源点 E267 的目标 E611 出现次数: 1
+[DEBUG] 源点 E267 在层级 0 下的总计数: 2
+Source 'E267' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 148
+input: E345@D1
+node: E345, denseIdx: 1
+src: E345, layer: 0
+[DEBUG] 源点 E345 在层级 0 下的唯一目标数: 5
+[DEBUG] 源点 E345 的目标 E1506 出现次数: 1
+[DEBUG] 源点 E345 的目标 E662 出现次数: 1
+[DEBUG] 源点 E345 的目标 E1466 出现次数: 1
+[DEBUG] 源点 E345 的目标 E679 出现次数: 1
+[DEBUG] 源点 E345 的目标 E645 出现次数: 1
+[DEBUG] 源点 E345 在层级 0 下的总计数: 5
+Source 'E345' (0) has 5 unique destinations, total frequency: 5.
+[INFO] 累计 totalDestCount: 153
+input: E345@D2
+node: E345, denseIdx: 2
+src: E345, layer: 0
+[DEBUG] 源点 E345 在层级 0 下的唯一目标数: 5
+[DEBUG] 源点 E345 的目标 E696 出现次数: 1
+[DEBUG] 源点 E345 的目标 E223 出现次数: 1
+[DEBUG] 源点 E345 的目标 E206 出现次数: 1
+[DEBUG] 源点 E345 的目标 E179 出现次数: 1
+[DEBUG] 源点 E345 的目标 E162 出现次数: 1
+[DEBUG] 源点 E345 在层级 0 下的总计数: 5
+Source 'E345' (0) has 5 unique destinations, total frequency: 5.
+[INFO] 累计 totalDestCount: 158
+input: E450@D0
+node: E450, denseIdx: 0
+src: E450, layer: 0
+[DEBUG] 源点 E450 在层级 0 下的唯一目标数: 6
+[DEBUG] 源点 E450 的目标 E1499 出现次数: 3
+[DEBUG] 源点 E450 的目标 E206 出现次数: 1
+[DEBUG] 源点 E450 的目标 E179 出现次数: 2
+[DEBUG] 源点 E450 的目标 E162 出现次数: 1
+[DEBUG] 源点 E450 的目标 E84 出现次数: 2
+[DEBUG] 源点 E450 的目标 E1506 出现次数: 1
+[DEBUG] 源点 E450 在层级 0 下的总计数: 10
+Source 'E450' (0) has 6 unique destinations, total frequency: 10.
+[INFO] 累计 totalDestCount: 168
+input: E450@D1
+node: E450, denseIdx: 1
+src: E450, layer: 0
+[DEBUG] 源点 E450 在层级 0 下的唯一目标数: 13
+[DEBUG] 源点 E450 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E450 的目标 E413 出现次数: 2
+[DEBUG] 源点 E450 的目标 E396 出现次数: 2
+[DEBUG] 源点 E450 的目标 E379 出现次数: 1
+[DEBUG] 源点 E450 的目标 E362 出现次数: 1
+[DEBUG] 源点 E450 的目标 E311 出现次数: 1
+[DEBUG] 源点 E450 的目标 E328 出现次数: 1
+[DEBUG] 源点 E450 的目标 E294 出现次数: 1
+[DEBUG] 源点 E450 的目标 E506 出现次数: 1
+[DEBUG] 源点 E450 的目标 E267 出现次数: 1
+[DEBUG] 源点 E450 的目标 E250 出现次数: 2
+[DEBUG] 源点 E450 的目标 E345 出现次数: 1
+[DEBUG] 源点 E450 的目标 E223 出现次数: 2
+[DEBUG] 源点 E450 在层级 0 下的总计数: 17
+Source 'E450' (0) has 13 unique destinations, total frequency: 17.
+[INFO] 累计 totalDestCount: 185
+input: E489@D1
+node: E489, denseIdx: 1
+src: E489, layer: 0
+[DEBUG] 源点 E489 在层级 0 下的唯一目标数: 6
+[DEBUG] 源点 E489 的目标 E1388 出现次数: 1
+[DEBUG] 源点 E489 的目标 E50 出现次数: 1
+[DEBUG] 源点 E489 的目标 E1576 出现次数: 1
+[DEBUG] 源点 E489 的目标 E311 出现次数: 1
+[DEBUG] 源点 E489 的目标 E328 出现次数: 1
+[DEBUG] 源点 E489 的目标 E294 出现次数: 1
+[DEBUG] 源点 E489 在层级 0 下的总计数: 6
+Source 'E489' (0) has 6 unique destinations, total frequency: 6.
+[INFO] 累计 totalDestCount: 191
+input: E50@D0
+node: E50, denseIdx: 0
+src: E50, layer: 0
+[DEBUG] 源点 E50 在层级 0 下的唯一目标数: 17
+[DEBUG] 源点 E50 的目标 E396 出现次数: 2
+[DEBUG] 源点 E50 的目标 E379 出现次数: 1
+[DEBUG] 源点 E50 的目标 E362 出现次数: 1
+[DEBUG] 源点 E50 的目标 E267 出现次数: 1
+[DEBUG] 源点 E50 的目标 E1506 出现次数: 1
+[DEBUG] 源点 E50 的目标 E84 出现次数: 2
+[DEBUG] 源点 E50 的目标 E162 出现次数: 1
+[DEBUG] 源点 E50 的目标 E179 出现次数: 2
+[DEBUG] 源点 E50 的目标 E206 出现次数: 1
+[DEBUG] 源点 E50 的目标 E1499 出现次数: 3
+[DEBUG] 源点 E50 的目标 E250 出现次数: 2
+[DEBUG] 源点 E50 的目标 E223 出现次数: 2
+[DEBUG] 源点 E50 的目标 E345 出现次数: 1
+[DEBUG] 源点 E50 的目标 E294 出现次数: 1
+[DEBUG] 源点 E50 的目标 E413 出现次数: 2
+[DEBUG] 源点 E50 的目标 E328 出现次数: 1
+[DEBUG] 源点 E50 的目标 E311 出现次数: 1
+[DEBUG] 源点 E50 在层级 0 下的总计数: 25
+Source 'E50' (0) has 17 unique destinations, total frequency: 25.
+[INFO] 累计 totalDestCount: 216
+input: E50@D1
+node: E50, denseIdx: 1
+src: E50, layer: 0
+[DEBUG] 源点 E50 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E50 的目标 E1388 出现次数: 1
+[DEBUG] 源点 E50 的目标 E798 出现次数: 1
+[DEBUG] 源点 E50 的目标 E1562 出现次数: 1
+[DEBUG] 源点 E50 在层级 0 下的总计数: 3
+Source 'E50' (0) has 3 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 219
+input: E50@D2
+node: E50, denseIdx: 2
+src: E50, layer: 0
+[DEBUG] 源点 E50 在层级 0 下的唯一目标数: 7
+[DEBUG] 源点 E50 的目标 E1499 出现次数: 1
+[DEBUG] 源点 E50 的目标 E696 出现次数: 1
+[DEBUG] 源点 E50 的目标 E611 出现次数: 1
+[DEBUG] 源点 E50 的目标 E594 出现次数: 1
+[DEBUG] 源点 E50 的目标 E679 出现次数: 1
+[DEBUG] 源点 E50 的目标 E628 出现次数: 1
+[DEBUG] 源点 E50 的目标 E662 出现次数: 1
+[DEBUG] 源点 E50 在层级 0 下的总计数: 7
+Source 'E50' (0) has 7 unique destinations, total frequency: 7.
+[INFO] 累计 totalDestCount: 226
+input: E523@D1
+node: E523, denseIdx: 1
+src: E523, layer: 0
+[DEBUG] 源点 E523 在层级 0 下的唯一目标数: 9
+[DEBUG] 源点 E523 的目标 E1249 出现次数: 1
+[DEBUG] 源点 E523 的目标 E1583 出现次数: 1
+[DEBUG] 源点 E523 的目标 E223 出现次数: 3
+[DEBUG] 源点 E523 的目标 E1520 出现次数: 1
+[DEBUG] 源点 E523 的目标 E696 出现次数: 1
+[DEBUG] 源点 E523 的目标 E957 出现次数: 1
+[DEBUG] 源点 E523 的目标 E628 出现次数: 1
+[DEBUG] 源点 E523 的目标 E611 出现次数: 1
+[DEBUG] 源点 E523 的目标 E594 出现次数: 1
+[DEBUG] 源点 E523 在层级 0 下的总计数: 11
+Source 'E523' (0) has 9 unique destinations, total frequency: 11.
+[INFO] 累计 totalDestCount: 237
+input: E577@D1
+node: E577, denseIdx: 1
+src: E577, layer: 0
+[DEBUG] 源点 E577 在层级 0 下的唯一目标数: 3
+[DEBUG] 源点 E577 的目标 E345 出现次数: 1
+[DEBUG] 源点 E577 的目标 E379 出现次数: 1
+[DEBUG] 源点 E577 的目标 E362 出现次数: 1
+[DEBUG] 源点 E577 在层级 0 下的总计数: 3
+Source 'E577' (0) has 3 unique destinations, total frequency: 3.
+[INFO] 累计 totalDestCount: 240
+input: E628@D1
+node: E628, denseIdx: 1
+src: E628, layer: 0
+[DEBUG] 源点 E628 在层级 0 下的唯一目标数: 4
+[DEBUG] 源点 E628 的目标 E1555 出现次数: 1
+[DEBUG] 源点 E628 的目标 E974 出现次数: 1
+[DEBUG] 源点 E628 的目标 E1534 出现次数: 1
+[DEBUG] 源点 E628 的目标 E523 出现次数: 1
+[DEBUG] 源点 E628 在层级 0 下的总计数: 4
+Source 'E628' (0) has 4 unique destinations, total frequency: 4.
+[INFO] 累计 totalDestCount: 244
+input: E781@D1
+node: E781, denseIdx: 1
+src: E781, layer: 0
+[DEBUG] 源点 E781 在层级 0 下的唯一目标数: 2
+[DEBUG] 源点 E781 的目标 E1110 出现次数: 1
+[DEBUG] 源点 E781 的目标 E798 出现次数: 1
+[DEBUG] 源点 E781 在层级 0 下的总计数: 2
+Source 'E781' (0) has 2 unique destinations, total frequency: 2.
+[INFO] 累计 totalDestCount: 246
+[DEBUG] 节点 N287_L0 是源点，RHS 设置为 -63
+业务对锚定约束已生成，正在构建起点电位初始化约束...
+起点电位初始化约束已生成，正在构建终点可达性约束...
+层级顺序约束已生成，正在构建内存模型...
+number of Edges: 261
+Binary X variables registered directly: 5736
+Model has been built in solver-independent memory with 258164 variables and 162800 constraints.

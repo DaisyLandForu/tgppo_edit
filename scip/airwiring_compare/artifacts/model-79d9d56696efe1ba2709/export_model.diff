@@ -1,0 +1,923 @@
+--- sssp_0923.original.cpp
++++ export_model.cpp
+@@ -10,7 +10,7 @@
+ #include <iomanip>
+ #include <cmath>
+ #include <limits>
+-#include <Highs.h>
++constexpr double kHighsInf = std::numeric_limits<double>::infinity();
+ #include <scip/scip.h>
+ #include <scip/scipdefplugins.h>
+ #include <scip/cons_linear.h>
+@@ -21,7 +21,6 @@
+ #include <stdexcept>
+ #include <cstdlib>
+ #include <cctype>
+-#include <xlslib.h>
+ #include <filesystem>
+ 
+ using namespace std;
+@@ -1189,51 +1188,6 @@
+         rows.push_back({std::move(coeffs), lower, upper, name});
+     }
+ 
+-    HighsStatus passToHighs(Highs& highs) const {
+-        HighsModel model;
+-        HighsLp& lp = model.lp_;
+-
+-        lp.num_col_ = static_cast<HighsInt>(varNames.size());
+-        lp.num_row_ = static_cast<HighsInt>(rows.size());
+-        lp.col_cost_ = colCost;
+-        lp.col_lower_ = colLower;
+-        lp.col_upper_ = colUpper;
+-        lp.row_lower_.resize(lp.num_row_);
+-        lp.row_upper_.resize(lp.num_row_);
+-        lp.col_names_ = varNames;
+-        lp.sense_ = ObjSense::kMinimize;
+-        lp.offset_ = 0.0;
+-        lp.integrality_.resize(varNames.size(), HighsVarType::kContinuous);
+-        for (size_t i = 0; i < isBinaryVar.size(); ++i) {
+-            if (isBinaryVar[i]) lp.integrality_[i] = HighsVarType::kInteger;
+-        }
+-
+-        lp.a_matrix_.format_ = MatrixFormat::kRowwise;
+-        lp.a_matrix_.start_.clear();
+-        lp.a_matrix_.index_.clear();
+-        lp.a_matrix_.value_.clear();
+-        lp.a_matrix_.start_.reserve(lp.num_row_ + 1);
+-        lp.a_matrix_.start_.push_back(0);
+-
+-        for (HighsInt r = 0; r < lp.num_row_; ++r) {
+-            lp.row_lower_[r] = rows[r].lower;
+-            lp.row_upper_[r] = rows[r].upper;
+-
+-            for (const auto& [varName, coeff] : rows[r].coeffs) {
+-                auto it = varIndex.find(varName);
+-                if (it == varIndex.end()) {
+-                    throw std::runtime_error("内部建模错误：未注册变量 " + varName);
+-                }
+-                lp.a_matrix_.index_.push_back(static_cast<HighsInt>(it->second));
+-                lp.a_matrix_.value_.push_back(coeff);
+-            }
+-            lp.a_matrix_.start_.push_back(
+-                static_cast<HighsInt>(lp.a_matrix_.index_.size()));
+-        }
+-
+-        return highs.passModel(std::move(model));
+-    }
+-
+     size_t numRows() const { return rows.size(); }
+     size_t numCols() const { return varNames.size(); }
+ 
+@@ -1896,72 +1850,6 @@
+          << modelBuilder.numRows() << " constraints." << endl;
+ }
+ 
+-struct SolverResult {
+-    std::string solver;
+-    std::string status;
+-    int statusCode = -1;
+-    bool optimal = false;
+-    bool hasSolution = false;
+-    double objective = std::numeric_limits<double>::quiet_NaN();
+-    std::unordered_map<std::string, double> varValues;
+-};
+-
+-SolverResult solveWithHighs(const DirectModelBuilder& modelBuilder) {
+-    Highs highs;
+-    HighsStatus buildStatus = modelBuilder.passToHighs(highs);
+-    if (buildStatus != HighsStatus::kOk) {
+-        throw std::runtime_error("HiGHS 直接内存模型构建失败");
+-    }
+-
+-    // 保留原来的 HiGHS 参数设置。
+-    highs.setOptionValue("primal_feasibility_tolerance", 1e-6);
+-    highs.setOptionValue("dual_feasibility_tolerance", 1e-6);
+-    highs.setOptionValue("mip_feasibility_tolerance", 1e-6);
+-    highs.setOptionValue("mip_rel_gap", 0.05);
+-    highs.setOptionValue("mip_abs_gap", 0.05);
+-    highs.setOptionValue("threads", 1);
+-    highs.setOptionValue("time_limit", 1800);
+-    highs.setOptionValue("clique_strategy", 2);
+-    highs.setOptionValue("flow_cover_strategy", 2);
+-    highs.setOptionValue("gomory_strategy", 2);
+-    highs.setOptionValue("mip_strategy_cuts", 2);
+-    highs.setOptionValue("mip_strategy_heuristic_effort", 1.0);
+-    highs.setOptionValue("presolve", "on");
+-    highs.setOptionValue("mip_strategy_branching", 1);
+-    highs.setOptionValue("mip_strategy_branching_score_strategy", 1);
+-    highs.setOptionValue("simplex_strategy", 1);
+-    highs.setOptionValue("simplex_dual_edge_weight_strategy", 2);
+-    highs.setOptionValue("mip_strategy_presolve_aggr", true);
+-
+-    HighsStatus runStatus = highs.run();
+-    if (runStatus == HighsStatus::kError) {
+-        throw std::runtime_error("HiGHS 求解失败");
+-    }
+-
+-    SolverResult result;
+-    result.solver = "highs";
+-    HighsModelStatus modelStatus = highs.getModelStatus();
+-    result.statusCode = static_cast<int>(modelStatus);
+-    result.status = highs.modelStatusToString(modelStatus);
+-    result.optimal = (modelStatus == HighsModelStatus::kOptimal);
+-
+-    const HighsSolution& sol = highs.getSolution();
+-    const HighsLp& lp = highs.getLp();
+-    result.hasSolution = sol.value_valid &&
+-                         (sol.col_value.size() == static_cast<size_t>(lp.num_col_));
+-    if (result.hasSolution) {
+-        result.objective = highs.getObjectiveValue();
+-        for (HighsInt i = 0; i < lp.num_col_; ++i) {
+-            const std::string name =
+-                (lp.col_names_.size() == static_cast<size_t>(lp.num_col_))
+-                    ? lp.col_names_[i]
+-                    : ("var_" + std::to_string(i));
+-            result.varValues[name] = sol.col_value[i];
+-        }
+-    }
+-    return result;
+-}
+-
+ static void checkScip(SCIP_RETCODE rc, const char* action) {
+     if (rc != SCIP_OKAY) {
+         throw std::runtime_error(std::string("SCIP 调用失败: ") + action +
+@@ -1969,28 +1857,7 @@
+     }
+ }
+ 
+-static std::string scipStatusToString(SCIP_STATUS status) {
+-    switch (status) {
+-        case SCIP_STATUS_UNKNOWN: return "Unknown";
+-        case SCIP_STATUS_USERINTERRUPT: return "User interrupt";
+-        case SCIP_STATUS_NODELIMIT: return "Node limit";
+-        case SCIP_STATUS_TOTALNODELIMIT: return "Total node limit";
+-        case SCIP_STATUS_STALLNODELIMIT: return "Stall node limit";
+-        case SCIP_STATUS_TIMELIMIT: return "Time limit";
+-        case SCIP_STATUS_MEMLIMIT: return "Memory limit";
+-        case SCIP_STATUS_GAPLIMIT: return "Gap limit";
+-        case SCIP_STATUS_SOLLIMIT: return "Solution limit";
+-        case SCIP_STATUS_BESTSOLLIMIT: return "Best solution limit";
+-        case SCIP_STATUS_RESTARTLIMIT: return "Restart limit";
+-        case SCIP_STATUS_OPTIMAL: return "Optimal";
+-        case SCIP_STATUS_INFEASIBLE: return "Infeasible";
+-        case SCIP_STATUS_UNBOUNDED: return "Unbounded";
+-        case SCIP_STATUS_INFORUNBD: return "Infeasible or unbounded";
+-        default: return "SCIP status " + std::to_string(static_cast<int>(status));
+-    }
+-}
+-
+-SolverResult solveWithScip(const DirectModelBuilder& modelBuilder) {
++void exportModel(const DirectModelBuilder& modelBuilder, const std::string& output) {
+     SCIP* scip = nullptr;
+     std::vector<SCIP_VAR*> scipVars;
+ 
+@@ -2056,622 +1923,17 @@
+             checkScip(SCIPreleaseCons(scip, &cons), "SCIPreleaseCons");
+         }
+ 
+-        // 与原 HiGHS 设置对应的通用求解限制；其余 SCIP 策略使用 SCIP 默认值。
+-        checkScip(SCIPsetRealParam(scip, "numerics/feastol", 1e-6), "set numerics/feastol");
+-        checkScip(SCIPsetRealParam(scip, "numerics/dualfeastol", 1e-6), "set numerics/dualfeastol");
+-        checkScip(SCIPsetRealParam(scip, "limits/gap", 0.05), "set limits/gap");
+-        checkScip(SCIPsetRealParam(scip, "limits/absgap", 0.05), "set limits/absgap");
+-        checkScip(SCIPsetRealParam(scip, "limits/time", 1800.0), "set limits/time");
+-        checkScip(SCIPsetIntParam(scip, "parallel/maxnthreads", 1), "set parallel/maxnthreads");
+-
+-        checkScip(SCIPsolve(scip), "SCIPsolve");
+-
+-        SolverResult result;
+-        result.solver = "scip";
+-        SCIP_STATUS status = SCIPgetStatus(scip);
+-        result.statusCode = static_cast<int>(status);
+-        result.status = scipStatusToString(status);
+-        result.optimal = (status == SCIP_STATUS_OPTIMAL);
+-
+-        SCIP_SOL* sol = SCIPgetBestSol(scip);
+-        result.hasSolution = (sol != nullptr);
+-        if (sol != nullptr) {
+-            result.objective = SCIPgetSolOrigObj(scip, sol);
+-            for (size_t i = 0; i < names.size(); ++i) {
+-                result.varValues[names[i]] = SCIPgetSolVal(scip, sol, scipVars[i]);
+-            }
+-        }
+-
+-        for (auto& var : scipVars) {
+-            if (var != nullptr) checkScip(SCIPreleaseVar(scip, &var), "SCIPreleaseVar");
+-        }
+-        checkScip(SCIPfree(&scip), "SCIPfree");
+-        return result;
++        checkScip(SCIPwriteOrigProblem(scip, output.c_str(), "cip", FALSE), "write CIP");
++        for (auto& var : scipVars) checkScip(SCIPreleaseVar(scip, &var), "release var");
++        checkScip(SCIPfree(&scip), "free SCIP");
+     } catch (...) {
+         if (scip != nullptr) {
+-            for (auto& var : scipVars) {
+-                if (var != nullptr) SCIPreleaseVar(scip, &var);
+-            }
++            for (auto& var : scipVars) if (var != nullptr) SCIPreleaseVar(scip, &var);
+             SCIPfree(&scip);
+         }
+         throw;
+     }
+ }
+-
+-SolverResult solveModel(const DirectModelBuilder& modelBuilder,
+-                        const std::string& solverName) {
+-    if (solverName == "highs") return solveWithHighs(modelBuilder);
+-    if (solverName == "scip") return solveWithScip(modelBuilder);
+-    throw std::invalid_argument("不支持的求解器: " + solverName +
+-                                "，可选值为 highs 或 scip");
+-}
+-
+-struct Edge {
+-    std::string u, v;
+-    double cost;
+-    std::string key;
+-};
+-
+-WeightedGraph build_graph_from_csv(const std::string& csv_path) {
+-    WeightedGraph graph;
+-    std::ifstream file(csv_path);
+-    printf("Reading graph from CSV: %s\n", csv_path.c_str());
+-    if (!file.is_open()) return graph;
+-
+-    std::string line;
+-    getline(file, line);
+-    while (getline(file, line)) {
+-        std::stringstream ss(line);
+-        std::vector<std::string> row;
+-        std::string col;
+-        while(getline(ss, col, ',')) row.push_back(col);
+-
+-        if(row.size() >= 5) {
+-            std::string u = safeName(row[2]);
+-            std::string v = safeName(row[3]);
+-            double d = std::stod(row[4]);
+-
+-            graph[u][v] = d;
+-            graph[v][u] = d;
+-        }
+-    }
+-    return graph;
+-}
+-
+-using AdjMap = std::map<std::string, std::vector<std::pair<std::string, double>>>;
+-
+-WeightedGraph parse_solution_to_adj(const std::unordered_map<std::string, double>& var_values,
+-                                    const WeightedGraph& full_graph) {
+-    WeightedGraph adj;
+-
+-    std::regex x_pattern(R"(^X_(.+)_L(\d+)_L(\d+)_(fwd|rev)$)");
+-
+-    std::regex f_pattern(R"(^f_src(.+?)_(\d+)_(\d+)_(.+?)_L(\d+)_L(\d+)_(fwd|rev)$)");
+-
+-    std::smatch x_match;
+-    for (const auto& [var_name, val] : var_values) {
+-
+-        if (std::regex_match(var_name, x_match, x_pattern)) {
+-            if (val <= 0.5) continue;
+-
+-            std::string x_node_pair = x_match[1];
+-            std::string l1 = x_match[2];
+-            std::string l2 = x_match[3];
+-
+-            bool f_matched = false;
+-            for (const auto& [f_name, f_val] : var_values) {
+-                std::smatch f_match;
+-                if (std::regex_match(f_name, f_match, f_pattern)) {
+-
+-                    if (f_match[4] == x_node_pair && f_match[5] == l1 && f_match[6] == l2) {
+-                        if (f_val >= 0.5) {
+-
+-                            f_matched = true;
+-                            break;
+-                        }
+-                    }
+-                }
+-            }
+-            if (!f_matched) continue;
+-
+-            std::smatch match;
+-            if (std::regex_match(var_name, match, x_pattern)) {
+-                std::string full_key = match[1].str();
+-                size_t to_pos = full_key.find("_to_");
+-                if (to_pos != std::string::npos) {
+-                    std::string u_raw = safeName(full_key.substr(0, to_pos));
+-                    std::string v_raw = safeName(full_key.substr(to_pos + 4));
+-
+-                    std::string u_node = u_raw + "_L" + match[2].str();
+-                    std::string v_node = v_raw + "_L" + match[3].str();
+-
+-                    double dist = get_shortest_distance_weighted(full_graph, u_raw, v_raw);
+-
+-                    std::cout << "Parsed: " << u_node << " <-> " << v_node
+-                              << " | Distance: " << dist << std::endl;
+-
+-                    adj[u_node][v_node] = dist;
+-                    adj[v_node][u_node] = dist;
+-                }
+-            }
+-        }
+-    }
+-    return adj;
+-}
+-
+-bool find_cycle_undirected(const std::string& u,
+-                           const std::string& parent,
+-                           const WeightedGraph& graph,
+-                           std::unordered_map<std::string, bool>& visited,
+-                           std::vector<std::string>& path,
+-                           std::vector<std::string>& cycle) {
+-
+-    if (u.empty() || (u[0] != 'N')) {
+-        return false;
+-    }
+-
+-    visited[u] = true;
+-    path.push_back(u);
+-
+-    if (graph.count(u)) {
+-        for (auto const& [v, weight] : graph.at(u)) {
+-
+-            if (v.empty() || (v[0] != 'N')) {
+-                continue;
+-            }
+-
+-            if (v == parent) continue;
+-
+-            if (visited[v]) {
+-
+-                cycle.clear();
+-                auto it = std::find(path.begin(), path.end(), v);
+-                if (it != path.end()) {
+-                    cycle.assign(it, path.end());
+-                    cycle.push_back(v);
+-                    return true;
+-                }
+-            } else {
+-
+-                if (find_cycle_undirected(v, u, graph, visited, path, cycle)) {
+-                    return true;
+-                }
+-            }
+-        }
+-    }
+-
+-    path.pop_back();
+-    return false;
+-}
+-
+-void detect_and_print_undirected_cycle(const WeightedGraph& graph) {
+-    std::unordered_map<std::string, bool> visited;
+-    std::vector<std::string> path;
+-    std::vector<std::string> cycle;
+-
+-    for (auto const& [node, neighbors] : graph) {
+-        if (!visited[node]) {
+-
+-            if (find_cycle_undirected(node, "", graph, visited, path, cycle)) {
+-                std::cout << "检测到环: ";
+-                for (size_t i = 0; i < cycle.size(); ++i) {
+-                    std::cout << cycle[i] << (i == cycle.size() - 1 ? "" : " - ");
+-                }
+-                std::cout << " - " << cycle[0] << std::endl;
+-                return;
+-            }
+-        }
+-    }
+-    std::cout << "图中不存在环。" << std::endl;
+-}
+-
+-std::string get_base_node(const std::string& s) {
+-    size_t pos = s.find_last_of("_L");
+-    if (pos != std::string::npos) {
+-        return s.substr(0, pos - 1);
+-    }
+-    return s;
+-}
+-
+-double find_weight_in_adjmap(const WeightedGraph& full_graph, const std::string& u, const std::string& v) {
+-
+-    auto it = full_graph.find(u);
+-    if (it != full_graph.end()) {
+-        for (const auto& neighbor : it->second) {
+-            if (neighbor.first == v) {
+-                return neighbor.second;
+-            }
+-        }
+-    }
+-
+-    double dist = get_shortest_distance_weighted(full_graph, u, v);
+-
+-    if (dist >= 1e17) {
+-
+-        return 1.0;
+-    }
+-
+-    return dist;
+-}
+-
+-void add_path_to_graph(WeightedGraph& graph,
+-                       const std::vector<std::string>& path,
+-                       const WeightedGraph& full_graph) {
+-    if (path.size() < 2) return;
+-
+-    for (size_t i = 0; i < path.size() - 1; ++i) {
+-        const std::string& u = path[i];
+-        const std::string& v = path[i + 1];
+-
+-        std::string base_u = get_base_node(u);
+-        std::string base_v = get_base_node(v);
+-
+-        double weight = find_weight_in_adjmap(full_graph, base_u, base_v);
+-
+-        graph[u][v] = weight;
+-        graph[v][u] = weight;
+-    }
+-}
+-
+-std::vector<std::string> get_shortest_path_nodes(
+-    const std::string& start,
+-    const std::string& end,
+-    const WeightedGraph& full_graph) {
+-
+-    std::map<std::string, double> dist;
+-    std::map<std::string, std::string> parent;
+-
+-    for (auto const& [node, neighbors] : full_graph) dist[node] = 1e18;
+-    dist[start] = 0.0;
+-
+-    std::priority_queue<std::pair<double, std::string>, std::vector<std::pair<double, std::string>>, std::greater<>> pq;
+-    pq.push({0.0, start});
+-
+-    while (!pq.empty()) {
+-        auto [d, u] = pq.top(); pq.pop();
+-        if (d > dist[u]) continue;
+-        if (u == end) break;
+-
+-        if (full_graph.count(u)) {
+-            for (auto const& edge : full_graph.at(u)) {
+-                std::string v = edge.first;
+-                double w = edge.second;
+-                if (dist[u] + w < dist[v]) {
+-                    dist[v] = dist[u] + w;
+-                    parent[v] = u;
+-                    pq.push({dist[v], v});
+-                }
+-            }
+-        }
+-    }
+-
+-    std::vector<std::string> path;
+-    for (std::string at = end; at != ""; at = parent[at]) {
+-        path.push_back(at);
+-        if (at == start) break;
+-    }
+-    std::reverse(path.begin(), path.end());
+-    return path;
+-}
+-
+-static std::map<std::pair<std::string, std::string>, std::vector<std::string>> path_shape_cache;
+-
+-static std::map<std::pair<std::string, std::string>, std::vector<std::string>> logical_path_cache;
+-
+-bool split_layered_node(const std::string& node, std::string& base, int& layer) {
+-    static const std::regex pattern(R"(^(.*)_L(\d+)$)");
+-    std::smatch match;
+-    if (!std::regex_match(node, match, pattern)) {
+-        base = node;
+-        layer = 0;
+-        return false;
+-    }
+-    base = match[1].str();
+-    layer = std::stoi(match[2].str());
+-    return true;
+-}
+-
+-std::string remove_suffix(const std::string& node) {
+-    std::string base;
+-    int layer = 0;
+-    split_layered_node(node, base, layer);
+-    return base;
+-}
+-
+-bool has_edge(const WeightedGraph& graph, const std::string& u, const std::string& v) {
+-
+-    auto it_u = graph.find(u);
+-    if (it_u != graph.end() && it_u->second.find(v) != it_u->second.end()) {
+-        return true;
+-    }
+-
+-    auto it_v = graph.find(v);
+-    if (it_v != graph.end() && it_v->second.find(u) != it_v->second.end()) {
+-        return true;
+-    }
+-
+-    return false;
+-}
+-
+-std::string get_suffix(const std::string& node) {
+-    std::string base;
+-    int layer = 0;
+-    if (!split_layered_node(node, base, layer)) return "";
+-    return "_L" + std::to_string(layer);
+-}
+-
+-std::vector<std::string> expand_path(const std::vector<std::string>& compressed_path, const WeightedGraph& full_graph) {
+-    if (compressed_path.size() < 2) return compressed_path;
+-
+-    std::vector<std::string> expanded;
+-    expanded.push_back(compressed_path[0]);
+-
+-    for (size_t i = 0; i < compressed_path.size() - 1; ++i) {
+-        const std::string& u_orig = compressed_path[i];
+-        const std::string& v_orig = compressed_path[i + 1];
+-
+-        if (has_edge(full_graph, remove_suffix(u_orig), remove_suffix(v_orig))) {
+-            expanded.push_back(v_orig);
+-        } else {
+-
+-            bool is_reversed = (u_orig > v_orig);
+-            std::pair<std::string, std::string> logical_key = is_reversed ?
+-                              std::make_pair(v_orig, u_orig) : std::make_pair(u_orig, v_orig);
+-
+-            if (logical_path_cache.find(logical_key) == logical_path_cache.end()) {
+-
+-                std::string u = remove_suffix(logical_key.first);
+-                std::string v = remove_suffix(logical_key.second);
+-                std::pair<std::string, std::string> shape_key = {std::min(u, v), std::max(u, v)};
+-
+-                if (path_shape_cache.find(shape_key) == path_shape_cache.end()) {
+-                    path_shape_cache[shape_key] = get_shortest_path_nodes(shape_key.first, shape_key.second, full_graph);
+-                }
+-
+-                std::vector<std::string> raw = path_shape_cache[shape_key];
+-
+-                if (logical_key.first > logical_key.second) std::reverse(raw.begin(), raw.end());
+-
+-                std::string s_first = get_suffix(logical_key.first);
+-                std::string s_second = get_suffix(logical_key.second);
+-
+-                std::vector<std::string> labeled_sub;
+-                for (size_t k = 0; k < raw.size(); ++k) {
+-                    std::string node = remove_suffix(raw[k]);
+-                    if (k > 0 && k < raw.size() - 1) labeled_sub.push_back(node + s_first);
+-                    else if (k == raw.size() - 1) labeled_sub.push_back(node + s_second);
+-                    else labeled_sub.push_back(raw[k]);
+-                }
+-                logical_path_cache[logical_key] = labeled_sub;
+-            }
+-
+-            std::vector<std::string> path_to_add = logical_path_cache[logical_key];
+-            if (is_reversed) {
+-                std::reverse(path_to_add.begin(), path_to_add.end());
+-
+-            }
+-
+-            for (size_t k = 1; k < path_to_add.size() - 1; ++k) {
+-                expanded.push_back(path_to_add[k]);
+-            }
+-            expanded.push_back(v_orig);
+-        }
+-    }
+-    return expanded;
+-}
+-
+-using NodePair = std::pair<std::string, std::string>;
+-
+-struct PairPathOutputRow {
+-    std::string harness_id;
+-    std::string circuit_id;
+-    std::string start;
+-    std::string end;
+-    double density = 0.0;
+-    std::vector<std::string> path;
+-};
+-
+-std::vector<std::string> exportedPairPathNodes(const std::vector<std::string>& path) {
+-    std::vector<std::string> tokens;
+-    if (path.empty()) return tokens;
+-    tokens.reserve(path.size());
+-
+-    for (std::size_t i = 0; i < path.size(); ++i) {
+-        std::string base;
+-        int layer = 0;
+-        bool layered = split_layered_node(path[i], base, layer);
+-        if (i == 0 || i + 1 == path.size()) {
+-            tokens.push_back(base);
+-        } else if (layered) {
+-            tokens.push_back(base + "_" + std::to_string(layer + 1));
+-        } else {
+-            tokens.push_back(base);
+-        }
+-    }
+-
+-    std::vector<std::string> filtered;
+-    filtered.reserve(tokens.size());
+-    for (std::size_t i = 0; i < tokens.size(); ++i) {
+-        bool skip_entry = i > 0 && i + 1 < tokens.size() &&
+-                          !tokens[i].empty() && tokens[i].front() == 'E' &&
+-                          !tokens[i - 1].empty() && tokens[i - 1].front() == 'N' &&
+-                          !tokens[i + 1].empty() && tokens[i + 1].front() == 'N';
+-        if (!skip_entry) filtered.push_back(tokens[i]);
+-    }
+-    return filtered;
+-}
+-
+-std::string formatPairPath(const std::vector<std::string>& path) {
+-    const auto nodes = exportedPairPathNodes(path);
+-    std::ostringstream out;
+-    for (std::size_t i = 0; i < nodes.size(); ++i) {
+-        if (i) out << ';';
+-        out << nodes[i];
+-    }
+-    return out.str();
+-}
+-
+-int writePairPathXls(const std::vector<PairPathOutputRow>& rows,
+-                     const std::string& output_file) {
+-    if (output_file.empty()) return 1;
+-
+-    std::filesystem::path output_path(output_file);
+-    if (output_path.has_parent_path()) {
+-        std::error_code ec;
+-        std::filesystem::create_directories(output_path.parent_path(), ec);
+-        if (ec) return 1;
+-    }
+-
+-    xlslib_core::workbook workbook;
+-    xlslib_core::worksheet* worksheet = workbook.sheet("Sheet1");
+-    worksheet->label(0, 0, "id");
+-    worksheet->label(0, 1, "harness_id");
+-    worksheet->label(0, 2, "circuit_id");
+-    worksheet->label(0, 3, "start");
+-    worksheet->label(0, 4, "end");
+-    worksheet->label(0, 5, "path");
+-
+-    for (std::size_t i = 0; i < rows.size(); ++i) {
+-        const int row = static_cast<int>(i) + 1;
+-        const std::string path = formatPairPath(rows[i].path);
+-        worksheet->number(row, 0, row);
+-        worksheet->label(row, 1, rows[i].harness_id.c_str());
+-        worksheet->label(row, 2, rows[i].circuit_id.c_str());
+-        worksheet->label(row, 3, rows[i].start.c_str());
+-        worksheet->label(row, 4, rows[i].end.c_str());
+-        worksheet->label(row, 5, path.c_str());
+-    }
+-
+-    return workbook.Dump(output_file);
+-}
+-
+-int processNetworkFlows(const std::string& edgesFile,
+-                         const std::string& pairsFile,
+-                         const std::map<std::string, std::pair<std::string, double>>& neighborIndex,
+-                         const WeightedGraph& milp_adj,
+-                         const std::string& output_file) {
+-
+-    WeightedGraph full_graph = build_graph_from_csv(edgesFile);
+-
+-    std::string line;
+-
+-    std::ifstream fPairs(pairsFile);
+-    if (!fPairs.is_open()) {
+-        std::cerr << "[ERROR] 无法打开 pairsFile: " << pairsFile << std::endl;
+-        return 1;
+-    }
+-
+-    std::vector<PairPathOutputRow> output_rows;
+-    std::getline(fPairs, line);
+-    while (std::getline(fPairs, line)) {
+-        if (line.empty()) continue;
+-        std::stringstream ss(line);
+-        std::vector<std::string> c;
+-        std::string col;
+-        while (std::getline(ss, col, ',')) c.push_back(col);
+-        if (c.size() < 10) {
+-            std::cerr << "[ERROR] pairs 行列数不足: " << line << std::endl;
+-            return 1;
+-        }
+-
+-        PairPathOutputRow row;
+-        row.harness_id = c[1];
+-        row.circuit_id = c[2];
+-        row.start = c[3];
+-        row.end = c[5];
+-        try {
+-            row.density = std::stod(c[9]);
+-        } catch (const std::exception&) {
+-            std::cerr << "[ERROR] density 无法解析: " << c[9] << std::endl;
+-            return 1;
+-        }
+-        output_rows.push_back(std::move(row));
+-    }
+-
+-    for (std::size_t pair_id = 0; pair_id < output_rows.size(); ++pair_id) {
+-        auto& row = output_rows[pair_id];
+-        std::string u_raw = safeName(row.start);
+-        std::string v_raw = safeName(row.end);
+-        int k_val = 0;
+-
+-        std::vector<std::string> path1;
+-        std::vector<std::string> path2;
+-        std::vector<std::string> path3;
+-
+-        std::string mapped_u = u_raw;
+-        std::string mapped_v = v_raw;
+-
+-        auto uit = neighborIndex.find(row.start);
+-        if (uit == neighborIndex.end()) uit = neighborIndex.find(u_raw);
+-        if (uit != neighborIndex.end()) mapped_u = safeName(uit->second.first);
+-
+-        auto vit = neighborIndex.find(row.end);
+-        if (vit == neighborIndex.end()) vit = neighborIndex.find(v_raw);
+-        if (vit != neighborIndex.end()) mapped_v = safeName(vit->second.first);
+-
+-        path1 = findPathInOriginal(u_raw, mapped_u, full_graph);
+-        path2 = findPathInOriginal(mapped_v, v_raw, full_graph);
+-
+-        if (u_raw == mapped_u && path1.empty()) path1 = {u_raw};
+-        if (mapped_v == v_raw && path2.empty()) path2 = {v_raw};
+-
+-        std::string u_Lk = mapped_u + "_L" + std::to_string(k_val);
+-        std::string v_Lk = mapped_v + "_L" + std::to_string(k_val);
+-
+-        if (u_Lk == v_Lk) {
+-            path3 = {u_Lk};
+-        } else {
+-            path3 = findPathInOriginal(u_Lk, v_Lk, milp_adj);
+-        }
+-
+-        if (!path3.empty()) {
+-            path3 = expand_path(path3, full_graph);
+-        }
+-
+-        if (path1.empty() || path2.empty() || path3.empty()) {
+-            std::cerr << "[WARNING] pair " << (pair_id + 1)
+-                      << " 无法重组完整路径: " << row.start << " -> " << row.end
+-                      << std::endl;
+-            continue;
+-        }
+-
+-        auto add_suffix = [k_val](std::vector<std::string> path) {
+-            std::transform(path.begin(), path.end(), path.begin(),
+-                           [k_val](const std::string& s) {
+-                               return s + "_L" + std::to_string(k_val);
+-                           });
+-            return path;
+-        };
+-
+-        std::vector<std::string> p1_modified = add_suffix(path1);
+-        std::vector<std::string> p2_modified = add_suffix(path2);
+-
+-        std::vector<std::string> final_path = p1_modified;
+-        if (path3.size() > 1)
+-            final_path.insert(final_path.end(), path3.begin() + 1, path3.end());
+-        if (p2_modified.size() > 1)
+-            final_path.insert(final_path.end(), p2_modified.begin() + 1, p2_modified.end());
+-
+-        std::vector<std::string> deduplicated;
+-        deduplicated.reserve(final_path.size());
+-        for (const auto& node : final_path) {
+-            if (deduplicated.empty() || deduplicated.back() != node)
+-                deduplicated.push_back(node);
+-        }
+-
+-        row.path = std::move(deduplicated);
+-    }
+-
+-    const int write_rc = writePairPathXls(output_rows, output_file);
+-    if (write_rc != 0) {
+-        std::cerr << "[ERROR] 路径文件写入失败: " << output_file << std::endl;
+-        return 1;
+-    }
+-
+-    std::cout << "Pair paths saved to: " << output_file << std::endl;
+-    return 0;
+-}
+-
+ int main(int argc, char* argv[]) {
+ 
+     if (argc < 5) {
+@@ -2753,7 +2015,7 @@
+     while (getline(fp, line)) {
+         stringstream ss(line); vector<string> c;
+         while (getline(ss, col, ',')) c.push_back(col);
+-        if (c.size() >= 6) pairs.push_back({c[3], c[5], stod(c[9]), (int)pairs.size()});
++        if (c.size() >= 10) pairs.push_back({c[3], c[5], stod(c[9]), (int)pairs.size()});
+     }
+ 
+     cout << "----------(before simplification)--------------------------" << endl;
+@@ -2924,111 +2186,6 @@
+     DirectModelBuilder modelBuilder;
+     buildModel(modelBuilder, rawEdges, pairs, allNodes, chosen_node_set, node_to_managed_pairs);
+ 
+-    SolverResult solveResult;
+-    try {
+-        solveResult = solveModel(modelBuilder, solverName);
+-    } catch (const std::exception& e) {
+-        std::cerr << "[ERROR] 求解失败: " << e.what() << std::endl;
+-        return 2;
+-    }
+-
+-    cout << "\n========================================" << endl;
+-    cout << "求解器: " << solveResult.solver << endl;
+-    cout << "求解状态: " << solveResult.status << endl;
+-    cout << "状态码: " << solveResult.statusCode << endl;
+-    if (solveResult.hasSolution) {
+-        cout << "最终目标值 (Real): " << std::fixed << std::setprecision(6)
+-             << (solveResult.objective / SCALE) << endl;
+-    } else {
+-        cout << "未获得可用解。" << endl;
+-    }
+-    cout << "========================================\n" << endl;
+-
+-    if (!solveResult.hasSolution) {
+-        std::cerr << "[ERROR] 当前求解状态下没有可用于后处理的解。" << std::endl;
+-        return 2;
+-    }
+-
+-    std::unordered_map<std::string, double> cost_lookup;
+-    for (const auto& edge : rawEdges) {
+-        cost_lookup[edge.key] = edge.cost;
+-    }
+-
+-    long double manual_obj = 0.0;
+-    double eps = 1e-7;
+-
+-    for (const auto& [var_name, value] : solveResult.varValues) {
+-        if (value > (1.0 - eps)) {
+-            auto it = cost_lookup.find(var_name);
+-            if (it != cost_lookup.end()) {
+-                manual_obj += static_cast<long double>(it->second);
+-            }
+-        }
+-    }
+-
+-    cout << std::fixed << std::setprecision(10);
+-    cout << "Manual Objective (6+ decimal): " << (double)manual_obj << endl;
+-    cout << solveResult.solver << " Objective: " << solveResult.objective << endl;
+-
+-    WeightedGraph full_graph = build_graph_from_csv(fileE);
+-
+-    auto MILP_edges = parse_solution_to_adj(solveResult.varValues, full_graph);
+-
+-    std::cout << std::left << std::setw(20) << "起点 (带层)"
+-              << std::setw(20) << "终点 (带层)"
+-              << "计算所得最短距离" << std::endl;
+-    std::cout << std::string(60, '-') << std::endl;
+-
+-    for (const auto& [u, neighbors] : MILP_edges) {
+-        for (const auto& edge : neighbors) {
+-            std::cout << std::left << std::setw(20) << u
+-                      << std::setw(20) << edge.first
+-                      << std::fixed << std::setprecision(4) << edge.second
+-                      << std::endl;
+-        }
+-    }
+-
+-    detect_and_print_undirected_cycle(MILP_edges);
+-
+-    WeightedGraph adj_orig;
+-    loadOriginalGraph(fileE, NUM_K, adj_orig);
+-
+-    std::cout << "\n" << std::string(60, '=') << std::endl;
+-    std::cout << "流还原分析报告" << std::endl;
+-    std::cout << std::string(60, '=') << std::endl;
+-
+-    for (const auto& [u_node, neighbors] : MILP_edges) {
+-        for (const auto& [v_node, flow_value] : neighbors) {
+-
+-            if (flow_value > 1e-6) {
+-
+-                std::string start_orig = u_node;
+-                std::string end_orig = v_node;
+-
+-                std::vector<std::string> path = findPathInOriginal(start_orig, end_orig, adj_orig);
+-
+-                if (path.empty()) {
+-                    std::cout << "  >> [警告] 未找到还原路径！" << std::endl;
+-                } else {
+-                    std::cout << "  >> 路径: ";
+-                    for(size_t i = 0; i < path.size(); ++i) {
+-                        std::cout << path[i] << (i == path.size() - 1 ? "" : " -> ");
+-                    }
+-                    std::cout << std::endl;
+-                }
+-                std::cout << std::string(60, '-') << std::endl;
+-            }
+-        }
+-    }
+-
+-    if (processNetworkFlows(
+-            fileE,
+-            fileP,
+-            global_pair_neighbor_index,
+-            MILP_edges,
+-            outputFile) != 0) {
+-        return 1;
+-    }
+-
++    exportModel(modelBuilder, outputFile);
+     return 0;
+ }

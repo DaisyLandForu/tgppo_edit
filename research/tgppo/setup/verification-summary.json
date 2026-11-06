@@ -1,0 +1,34 @@
+{
+  "environment_ready": true,
+  "dataset_instances": {
+    "train": 25,
+    "test": 66,
+    "hash_and_scip_parse_checked": 91,
+    "cutoffs_available": 91
+  },
+  "dataset_bytes": 187317027,
+  "upstream_python_modified": false,
+  "dependency_check": "pip check passed",
+  "cuda_test": "RTX 3090 torch matrix multiplication passed",
+  "custom_solver_interfaces": [
+    "getCandsState",
+    "getNodeState",
+    "getMIPState",
+    "getPrimalDualIntegral"
+  ],
+  "training_and_evaluation_smoke": {
+    "passed": true,
+    "purpose": "Environment validation only; not paper results",
+    "num_trajectories": 1,
+    "ppo_updates": 31,
+    "evaluation_runs": 1,
+    "model_tensors_finite": true
+  },
+  "smoke_artifacts": "/root/research/tgppo/runs/smoke-20261021-121153-1VZR",
+  "train_test_tune_cli_imports": "all passed",
+  "formal_training_guard": "refuses to run without complete baseline metadata",
+  "full_paper_experiments_started": false,
+  "platform_disk_retention_setting_verified": false,
+  "independent_backup_configured": false,
+  "unmounted_data_disk_modified": false
+}

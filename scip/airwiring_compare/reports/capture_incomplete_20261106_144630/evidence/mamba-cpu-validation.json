@@ -1,0 +1,157 @@
+{
+  "status": "passed",
+  "checked_utc": "2026-11-05T15:05:18.700166+00:00",
+  "elapsed_seconds": 33.49001385085285,
+  "checkpoint_sha256": "c1d1761e1085f8e7c92947a40d765d0d05e5a471bca618aa3fdc38e725ac2a74",
+  "backend_sha256": "e6dd7c93da7712a5ca306e174e2dc0b1949762eb4af473076caafee6fb889223",
+  "driver_sha256": "58deb4ccd5fc383c22fccb3838dbaf6137538dfc7b71d1f3590c4311883e39b7",
+  "torch_version": "2.2.2+cu118",
+  "hardware": {
+    "host": "jpt-duweiyue25-261105-c54ef-default0-0",
+    "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "python": "3.10.20 | packaged by conda-forge | (main, Mar  5 2026, 16:42:22) [GCC 14.3.0]",
+    "executable": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+    "affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "cuda_visible_devices": null,
+    "slurm_job_id": null
+  },
+  "upstream_source_sha256": {
+    "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/mamba_ssm/modules/mamba_simple.py": "a17e4c51b582dc0d4d690a649eba521cd0c1ee3dc8f0473a0967cdc9ec0874e3",
+    "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py": "fe606b4c7e81b47bb091cf59dc474aece1112a6ca01eb6f22309090e56030bc4"
+  },
+  "cuda_initialized": false,
+  "cuda_initialization_and_scan_forbidden_during_checks": true,
+  "scan_reference_cases": [
+    {
+      "batch": 1,
+      "tokens": 1,
+      "max_absolute_error": 3.5762786865234375e-07
+    },
+    {
+      "batch": 2,
+      "tokens": 3,
+      "max_absolute_error": 5.7220458984375e-06
+    },
+    {
+      "batch": 1,
+      "tokens": 17,
+      "max_absolute_error": 3.814697265625e-06
+    },
+    {
+      "batch": 2,
+      "tokens": 257,
+      "max_absolute_error": 1.52587890625e-05
+    }
+  ],
+  "frozen_network_reference_cases": [
+    {
+      "batch": 1,
+      "history_groups": 1,
+      "tokens": 1,
+      "current_candidates": 1,
+      "cpu_seconds": 0.0009207730181515217,
+      "max_absolute_error": 0.0,
+      "actions_identical": true
+    },
+    {
+      "batch": 2,
+      "history_groups": 1,
+      "tokens": 3,
+      "current_candidates": 3,
+      "cpu_seconds": 0.0010745772160589695,
+      "max_absolute_error": 2.384185791015625e-07,
+      "actions_identical": true
+    },
+    {
+      "batch": 1,
+      "history_groups": 3,
+      "tokens": 39,
+      "current_candidates": 7,
+      "cpu_seconds": 0.0026506739668548107,
+      "max_absolute_error": 3.814697265625e-06,
+      "actions_identical": true
+    },
+    {
+      "batch": 1,
+      "history_groups": 3,
+      "tokens": 259,
+      "current_candidates": 257,
+      "cpu_seconds": 0.012572797015309334,
+      "max_absolute_error": 2.288818359375e-05,
+      "actions_identical": true
+    },
+    {
+      "batch": 1,
+      "history_groups": 49,
+      "tokens": 689,
+      "current_candidates": 257,
+      "cpu_seconds": 0.03275839611887932,
+      "max_absolute_error": 6.103515625e-05,
+      "actions_identical": true
+    }
+  ],
+  "long_synthetic_history": {
+    "groups": 49,
+    "tokens": 143424,
+    "current_candidates": 5736,
+    "cpu_seconds": 6.798319709021598,
+    "finite": true,
+    "causal_prefix_check": true
+  },
+  "process_peak_rss_mib": 571.984375,
+  "smoke_result": "/home/duweiyue25/tgppo-transfer/scip/airwiring_compare/checks/mamba-cpu/smoke/smoke-f9c4f2a7/result.json",
+  "smoke_branches": 29,
+  "protected_inputs_unchanged": 16,
+  "original_weights_unchanged": true,
+  "aviation_optimization_performed": false,
+  "cuda_numerical_parity": "not checked: no GPU; CPU matches upstream CPU reference, near-tie actions can differ across devices"
+}
