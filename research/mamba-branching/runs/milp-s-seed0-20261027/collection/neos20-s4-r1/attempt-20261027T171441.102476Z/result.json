@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "task": {
+    "id": "neos20-s4-r1",
+    "instance": "neos20",
+    "solver_seed": 4,
+    "random_prefix_steps": 1,
+    "split": "valid"
+  },
+  "hardware": {
+    "host": "sg-duweiyue25-261028-01ee8-default0-0",
+    "cpu": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "cgroup": {
+      "cpu.max": "201000 100000",
+      "memory.max": "8590983168"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "started_utc": "20261027T171441.412501Z",
+  "samples": 590,
+  "eligible_states": 590,
+  "solver": {
+    "solver_status": "optimal",
+    "nodes": 1068,
+    "fair_nodes": 1940,
+    "nodes_left": 0,
+    "gap": 0.0,
+    "primal_bound": -434.0,
+    "dual_bound": -434.0,
+    "solutions": 8,
+    "primal_dual_integral": 1086.627264892837,
+    "scip_seconds": 40.740356,
+    "wall_seconds": 40.74041399592534
+  },
+  "cutoff": null,
+  "primal_heuristics": false,
+  "trajectory": "collection/neos20-s4-r1/attempt-20261027T171441.102476Z/trajectory.h5"
+}
