@@ -1,7 +1,29 @@
-# Large original artifacts are retained in the complete GitHub Release snapshot.
+# Large training state and raw trajectories stay on the experiment machine.
 *.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
 *.pkl
-
-# Download/restore into independent directories; do not commit duplicate archives.
-/snapshot-download/
-/restored-research/
+*.pickle
+*.h5
+*.hdf5
+*.whl
+*.pyc
+*.pyo
+*.o
+*.a
+*.so
+*.so.*
+*.lock
+*.pid
+*.swp
+__pycache__/
+.pytest_cache/
+.venv/
+node_modules/
+build/
+dist/
+/.env
+/github-upload-*/
+/tgppo_research_handoff_*.tar.gz*

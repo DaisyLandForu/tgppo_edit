@@ -1,1 +1,0 @@
-../../../check/check_cluster.sh

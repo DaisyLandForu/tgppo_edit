@@ -1,1 +1,0 @@
-../../../check/configuration_cluster.sh
