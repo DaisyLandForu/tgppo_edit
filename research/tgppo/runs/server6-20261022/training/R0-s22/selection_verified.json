@@ -1,0 +1,25 @@
+{
+  "best": {
+    "episode": 500,
+    "mean_pdi": 3541.148418462463,
+    "mean_pdi_lower": 3540.72057512913,
+    "mean_pdi_upper": 3541.576261795796
+  },
+  "exports": {
+    "best": {
+      "episode": 500,
+      "path": "tgppo/runs/server6-20261022/training/R0-s22/actor_best.pt",
+      "sha256": "44de0e6311757ff1f9264210890bbb847e8b89e9b51df7fb71e25ad48d518a30"
+    },
+    "final": {
+      "episode": 500,
+      "path": "tgppo/runs/server6-20261022/training/R0-s22/actor_final.pt",
+      "sha256": "addf8f851ff5f6527a7a42623dcb2bac620ea28ab3475e647f58cc15e55bbe50"
+    }
+  },
+  "group": "R0",
+  "seed": 22,
+  "selection_path": "tgppo/runs/server6-20261022/training/R0-s22/selection.json",
+  "selection_sha256": "f70146779f3964bb9e92f28ebbb0120bd715377c6355a51ad404ce2d4f11e516",
+  "verified_at_utc": "2026-10-23T03:16:37.155392+00:00"
+}
