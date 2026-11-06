@@ -1,0 +1,5 @@
+{
+  "cpu_seconds": 2.035572,
+  "error": "Traceback (most recent call last):\n  File \"/root/research/tgppo/experiments/stage4/code/stage4.py\", line 358, in main\n    globals()[args.command]()\n  File \"/root/research/tgppo/experiments/stage4/code/stage4.py\", line 198, in cache\n    torch.testing.assert_close(predicted, expected)\n  File \"/root/anaconda3/envs/tgppo/lib/python3.8/site-packages/torch/testing/_comparison.py\", line 1342, in assert_close\n    assert_equal(\n  File \"/root/anaconda3/envs/tgppo/lib/python3.8/site-packages/torch/testing/_comparison.py\", line 1093, in assert_equal\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 8 / 8 (100.0%)\nGreatest absolute difference: 0.0034929513931274414 at index (1,) (up to 1e-05 allowed)\nGreatest relative difference: 0.010975684208342178 at index (4,) (up to 1.3e-06 allowed)\n",
+  "failed": true
+}

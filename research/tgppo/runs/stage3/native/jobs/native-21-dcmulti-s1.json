@@ -1,0 +1,200 @@
+{
+  "bounds_trace": [
+    {
+      "dual": -1e+20,
+      "native_last_update_time": 0.0,
+      "native_previous_percent_gap": 100.0,
+      "native_raw": 0.0,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 0.001969
+    },
+    {
+      "dual": 187279.86437974407,
+      "native_last_update_time": 0.618333,
+      "native_previous_percent_gap": 0.4793952770487748,
+      "native_raw": 2.354859143830711,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 0.637381
+    },
+    {
+      "dual": 187637.8366689983,
+      "native_last_update_time": 0.867124,
+      "native_previous_percent_gap": 0.2891686404659882,
+      "native_raw": 2.467161616755017,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 0.8672059999999999
+    },
+    {
+      "dual": 187684.52635462448,
+      "native_last_update_time": 0.911751,
+      "native_previous_percent_gap": 0.26435772038532784,
+      "native_raw": 2.4800663456730927,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 0.913515
+    },
+    {
+      "dual": 187918.200289058,
+      "native_last_update_time": 1.407244,
+      "native_previous_percent_gap": 0.14018328583073605,
+      "native_raw": 2.5757559894927136,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 1.444267
+    },
+    {
+      "dual": 188017.93324876385,
+      "native_last_update_time": 1.575734,
+      "native_previous_percent_gap": 0.08718514588863666,
+      "native_raw": 2.5993754713223343,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 1.6044809999999998
+    },
+    {
+      "dual": 188081.62635211737,
+      "native_last_update_time": 1.6940819999999999,
+      "native_previous_percent_gap": 0.0533386019293196,
+      "native_raw": 2.6096936589679625,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 1.694347
+    },
+    {
+      "dual": 188150.03461735303,
+      "native_last_update_time": 1.700342,
+      "native_previous_percent_gap": 0.016986418811030284,
+      "native_raw": 2.61002755861604,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 1.7008459999999999
+    },
+    {
+      "dual": 188171.85849774117,
+      "native_last_update_time": 1.702735,
+      "native_previous_percent_gap": 0.005389198891941577,
+      "native_raw": 2.610068207116255,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 1.703008
+    },
+    {
+      "dual": 188182.0,
+      "native_last_update_time": 1.705765,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 2.6100843304070773,
+      "primal": 188182.0,
+      "reason": "event",
+      "time": 1.705778
+    },
+    {
+      "dual": 188182.0,
+      "native_last_update_time": 1.705841,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 2.6100843304070773,
+      "primal": 188182.0,
+      "reason": "stop",
+      "time": 1.705854
+    }
+  ],
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cutoff_applied": true,
+  "cutoff_proof": true,
+  "cutoff_verified": true,
+  "dual_bound": 188182.0,
+  "dual_bound_finite": true,
+  "environment_wall_seconds_before_free": 1.7108670410016202,
+  "episode_ended": true,
+  "episode_id": "native-21-dcmulti-s1",
+  "gap": 0.0,
+  "gap_finite": true,
+  "has_feasible_solution": false,
+  "identity": {
+    "cutoff": 188182.0,
+    "cutoff_provenance": {
+      "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+      "source": "miplib2017.solu",
+      "status": "optimal",
+      "verified": true
+    },
+    "instance_sha256": "83627542fa87eb04e4eb22ce805d3bcde64e2a58f3caa3eafac7004816c470df",
+    "integral_snapshot_protocol": "read-only-stat-v1",
+    "limits": {
+      "node_limit": -1,
+      "time_limit": 120.0
+    },
+    "params": {
+      "checksol": false,
+      "conflict_usesb": false,
+      "cutoff": true,
+      "heuristics": false,
+      "probing_bounds": false,
+      "reevalage": 0
+    },
+    "protocol_version": "stage3-measured-pdi-v1",
+    "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+    "solver_seed": 1,
+    "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+  },
+  "instance_name": "dcmulti",
+  "integral_snapshot": {
+    "integral": 2.6100843304070773,
+    "last_dual_bound": 1e+20,
+    "last_primal_bound": 188182.0,
+    "last_update_time": 1.705841,
+    "previous_percent_gap": 0.0,
+    "solving_time": 1.705854
+  },
+  "job_id": "native-21-dcmulti-s1",
+  "load_wall_seconds": 0.004903181001282064,
+  "measurement_callback_seconds": 0.0004560109955491498,
+  "measurement_event_calls": 86,
+  "measurement_version": "native-pdi-snapshot-horizon-v2",
+  "mode": "native",
+  "nnodes": 13,
+  "num_stored_solutions": 0,
+  "objective": null,
+  "optimize_wall_seconds": 1.7059382740008004,
+  "original_optimal": false,
+  "pdi_extension_basis": "verified_proof_certificate",
+  "pdi_horizon_exact": true,
+  "pdi_horizon_lower": 2.6100843304070773,
+  "pdi_horizon_midpoint": 2.6100843304070773,
+  "pdi_horizon_normalized_midpoint": 0.00021750702753392312,
+  "pdi_horizon_seconds": 120.0,
+  "pdi_horizon_uncertainty": 0.0,
+  "pdi_horizon_upper": 2.6100843304070773,
+  "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+  "pdi_native_complete_at_stop": 2.6100843304070773,
+  "pdi_native_final_percent_gap": 0.0,
+  "pdi_native_raw_before_flush": 2.6100843304070773,
+  "pdi_semantics": "native_raw_until_actual_stop",
+  "pdi_tail_completed_readonly": 0.0,
+  "peak_rss_kib": 349636,
+  "primalDualIntegral": 2.6100843304070773,
+  "primalDualIntegral_finite": true,
+  "primal_bound": 188182.0,
+  "primal_bound_finite": true,
+  "proof_completed": true,
+  "reward_version": "upstream_h3_t120",
+  "sampling_seed": 590889164,
+  "scip_infinity": 1e+20,
+  "scip_solve_time": 1.705854,
+  "scip_time_overshoot_seconds": 0.0,
+  "solver_seed": 1,
+  "status": "infeasible",
+  "task_terminal": true,
+  "time_limit_seconds": 120.0,
+  "valid": true,
+  "worker_cpu_complete": true,
+  "worker_cpu_seconds": 2.920123,
+  "worker_wall_seconds": 1.7849941899985424
+}

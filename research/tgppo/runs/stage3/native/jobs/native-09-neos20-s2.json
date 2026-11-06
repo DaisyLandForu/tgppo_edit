@@ -1,0 +1,209 @@
+{
+  "bounds_trace": [
+    {
+      "dual": -1e+20,
+      "native_last_update_time": 0.0,
+      "native_previous_percent_gap": 100.0,
+      "native_raw": 0.0,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 0.009164
+    },
+    {
+      "dual": -474.7030803637662,
+      "native_last_update_time": 0.748373,
+      "native_previous_percent_gap": 8.574429374373418,
+      "native_raw": 16.13504952705615,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 0.760942
+    },
+    {
+      "dual": -473.9872517700833,
+      "native_last_update_time": 0.8124279999999999,
+      "native_previous_percent_gap": 8.436355961210507,
+      "native_raw": 16.682927894086756,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 0.829387
+    },
+    {
+      "dual": -473.3200955677075,
+      "native_last_update_time": 1.035716,
+      "native_previous_percent_gap": 8.307294774912599,
+      "native_raw": 18.56666494395353,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 1.035873
+    },
+    {
+      "dual": -473.312853309231,
+      "native_last_update_time": 1.105323,
+      "native_previous_percent_gap": 8.305891765746452,
+      "native_raw": 19.144910811350872,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 1.105398
+    },
+    {
+      "dual": -472.8083333333334,
+      "native_last_update_time": 1.331026,
+      "native_previous_percent_gap": 8.208047658494468,
+      "native_raw": 21.019575500555142,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 1.3341509999999999
+    },
+    {
+      "dual": -472.7069469906775,
+      "native_last_update_time": 1.4465189999999999,
+      "native_previous_percent_gap": 8.188360090134424,
+      "native_raw": 21.96754754877764,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 1.460494
+    },
+    {
+      "dual": -465.8703703703704,
+      "native_last_update_time": 3.562544,
+      "native_previous_percent_gap": 6.8410382796040885,
+      "native_raw": 39.293508116709475,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 3.562599
+    },
+    {
+      "dual": -460.0,
+      "native_last_update_time": 3.929296,
+      "native_previous_percent_gap": 5.6521739130434785,
+      "native_raw": 41.802472587830835,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 3.933141
+    },
+    {
+      "dual": -440.2625,
+      "native_last_update_time": 3.953643,
+      "native_previous_percent_gap": 1.4224468356946114,
+      "native_raw": 41.9400860660917,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 3.954425
+    },
+    {
+      "dual": -434.0,
+      "native_last_update_time": 4.002277,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 42.009265345498875,
+      "primal": -434.0,
+      "reason": "event",
+      "time": 4.002314
+    },
+    {
+      "dual": -434.0,
+      "native_last_update_time": 4.002327,
+      "native_previous_percent_gap": 0.0,
+      "native_raw": 42.009265345498875,
+      "primal": -434.0,
+      "reason": "stop",
+      "time": 4.002699
+    }
+  ],
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cutoff_applied": true,
+  "cutoff_proof": true,
+  "cutoff_verified": true,
+  "dual_bound": -434.0,
+  "dual_bound_finite": true,
+  "environment_wall_seconds_before_free": 4.012425242999598,
+  "episode_ended": true,
+  "episode_id": "native-09-neos20-s2",
+  "gap": 0.0,
+  "gap_finite": true,
+  "has_feasible_solution": false,
+  "identity": {
+    "cutoff": -434.0,
+    "cutoff_provenance": {
+      "record_sha256": "1162b51cbd430387da8fdefa6a7e559d26b456e84b3a81530d4a077cf8e45987",
+      "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+      "status": "optimal",
+      "verified": true
+    },
+    "instance_sha256": "1018bb7c4c89c2e1482a2dd1b2d6cf3bcdd11c1fa7a5344739d5813f5a4a92e2",
+    "integral_snapshot_protocol": "read-only-stat-v1",
+    "limits": {
+      "node_limit": -1,
+      "time_limit": 120.0
+    },
+    "params": {
+      "checksol": false,
+      "conflict_usesb": false,
+      "cutoff": true,
+      "heuristics": false,
+      "probing_bounds": false,
+      "reevalage": 0
+    },
+    "protocol_version": "stage3-measured-pdi-v1",
+    "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+    "solver_seed": 2,
+    "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+  },
+  "instance_name": "neos20",
+  "integral_snapshot": {
+    "integral": 42.009265345498875,
+    "last_dual_bound": 1e+20,
+    "last_primal_bound": -434.0,
+    "last_update_time": 4.002327,
+    "previous_percent_gap": 0.0,
+    "solving_time": 4.002699
+  },
+  "job_id": "native-09-neos20-s2",
+  "load_wall_seconds": 0.009572437000315404,
+  "measurement_callback_seconds": 0.0022960560127103236,
+  "measurement_event_calls": 155,
+  "measurement_version": "native-pdi-snapshot-horizon-v2",
+  "mode": "native",
+  "nnodes": 15,
+  "num_stored_solutions": 0,
+  "objective": null,
+  "optimize_wall_seconds": 4.002820636997058,
+  "original_optimal": false,
+  "pdi_extension_basis": "verified_proof_certificate",
+  "pdi_horizon_exact": true,
+  "pdi_horizon_lower": 42.009265345498875,
+  "pdi_horizon_midpoint": 42.009265345498875,
+  "pdi_horizon_normalized_midpoint": 0.0035007721121249062,
+  "pdi_horizon_seconds": 120.0,
+  "pdi_horizon_uncertainty": 0.0,
+  "pdi_horizon_upper": 42.009265345498875,
+  "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+  "pdi_native_complete_at_stop": 42.009265345498875,
+  "pdi_native_final_percent_gap": 0.0,
+  "pdi_native_raw_before_flush": 42.009265345498875,
+  "pdi_semantics": "native_raw_until_actual_stop",
+  "pdi_tail_completed_readonly": 0.0,
+  "peak_rss_kib": 359592,
+  "primalDualIntegral": 42.009265345498875,
+  "primalDualIntegral_finite": true,
+  "primal_bound": -434.0,
+  "primal_bound_finite": true,
+  "proof_completed": true,
+  "reward_version": "upstream_h3_t120",
+  "sampling_seed": 3400911830,
+  "scip_infinity": 1e+20,
+  "scip_solve_time": 4.002699,
+  "scip_time_overshoot_seconds": 0.0,
+  "solver_seed": 2,
+  "status": "infeasible",
+  "task_terminal": true,
+  "time_limit_seconds": 120.0,
+  "valid": true,
+  "worker_cpu_complete": true,
+  "worker_cpu_seconds": 5.3142700000000005,
+  "worker_wall_seconds": 4.073066030003247
+}

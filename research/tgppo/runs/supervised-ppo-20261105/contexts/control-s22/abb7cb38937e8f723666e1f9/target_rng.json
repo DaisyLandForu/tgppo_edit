@@ -1,0 +1,43 @@
+{
+  "actual_cuda_checked": true,
+  "passed": true,
+  "scip_solves": 0,
+  "states": [
+    {
+      "actor": "0c9b97a9a586953c18de9cd9ac5d042674acd090a02713ac1983a024b15fc502",
+      "critic": "7491d7713a630166226d24ce61991e423aec32b34711cd46469a9ab6e0dde342",
+      "kind": "b0",
+      "rng": {
+        "cpu": "56b0877b441ffa1883dac373a75fcbd53f9a713699fd5c2b2cc860f39b356f2b",
+        "cuda": [
+          "72768ec69022f9501b182a983df5c46b97ef61fc9a89603ea26566ea6014c56f"
+        ]
+      },
+      "weight": 0.0
+    },
+    {
+      "actor": "5208cfda1fb0439473551975bbdd72990b9dd7cd9889b86d05e42a75ae1bcfe9",
+      "critic": "7491d7713a630166226d24ce61991e423aec32b34711cd46469a9ab6e0dde342",
+      "kind": "mlp",
+      "rng": {
+        "cpu": "56b0877b441ffa1883dac373a75fcbd53f9a713699fd5c2b2cc860f39b356f2b",
+        "cuda": [
+          "72768ec69022f9501b182a983df5c46b97ef61fc9a89603ea26566ea6014c56f"
+        ]
+      },
+      "weight": 0.0
+    },
+    {
+      "actor": "5208cfda1fb0439473551975bbdd72990b9dd7cd9889b86d05e42a75ae1bcfe9",
+      "critic": "7491d7713a630166226d24ce61991e423aec32b34711cd46469a9ab6e0dde342",
+      "kind": "mlp",
+      "rng": {
+        "cpu": "56b0877b441ffa1883dac373a75fcbd53f9a713699fd5c2b2cc860f39b356f2b",
+        "cuda": [
+          "72768ec69022f9501b182a983df5c46b97ef61fc9a89603ea26566ea6014c56f"
+        ]
+      },
+      "weight": 0.01
+    }
+  ]
+}
