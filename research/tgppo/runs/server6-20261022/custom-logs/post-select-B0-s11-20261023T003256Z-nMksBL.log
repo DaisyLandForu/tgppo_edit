@@ -1,0 +1,13 @@
+Started 2026-10-23T00:32:56+00:00 host=sg-duweiyue25-261023-43bda-default0-0 mode=select log=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/custom-logs/post-select-B0-s11-20261023T003256Z-nMksBL.log
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_training.py", line 413, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_training.py", line 405, in main
+    elif args.command=='select':select(root,c,run,post,args.method,args.seed)
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_training.py", line 327, in select
+    target_cpu(root,c,audited)
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_training.py", line 245, in target_cpu
+    require(info['stack'] == audited['stack'], 'CPU/software differs from training: expected '+
+  File "/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_training.py", line 35, in require
+    raise ValueError(message)
+ValueError: CPU/software differs from training: expected Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz, got Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz. Use a matching Crater node; do not reselect on the development container.

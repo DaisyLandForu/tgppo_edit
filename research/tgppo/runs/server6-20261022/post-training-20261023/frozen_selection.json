@@ -1,0 +1,152 @@
+{
+  "frozen_at_utc": "2026-10-23T03:16:43.410213+00:00",
+  "models": [
+    {
+      "best": {
+        "episode": 100,
+        "mean_pdi": 3534.3565976485347,
+        "mean_pdi_lower": 3534.214644315201,
+        "mean_pdi_upper": 3534.4985509818675
+      },
+      "exports": {
+        "best": {
+          "episode": 100,
+          "path": "tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt",
+          "sha256": "8b605db5be6bc4a70d8f8ab7c7fa84552f8542b0676a4365a19041a101875397"
+        },
+        "final": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/B0-s11/actor_final.pt",
+          "sha256": "e23c7379e6d7a74d0e8e43ca464b79e92530d674aa89a5428c68db0abc36c194"
+        }
+      },
+      "group": "B0",
+      "seed": 11,
+      "selection_path": "tgppo/runs/server6-20261022/training/B0-s11/selection.json",
+      "selection_sha256": "3aaa2bd2426275f8201c0289c5f02903d4b66a757450514b13f480cea2bfe10d"
+    },
+    {
+      "best": {
+        "episode": 100,
+        "mean_pdi": 3543.3141838581096,
+        "mean_pdi_lower": 3543.1848238581097,
+        "mean_pdi_upper": 3543.44354385811
+      },
+      "exports": {
+        "best": {
+          "episode": 100,
+          "path": "tgppo/runs/server6-20261022/training/B0-s22/actor_best.pt",
+          "sha256": "2606fac3faede6271a6a3cdff53305f38d8c22ba0a11aaf3f00014c141c6be07"
+        },
+        "final": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/B0-s22/actor_final.pt",
+          "sha256": "ee72b51ca762c1e154a2d93392c1619f3ad63f09654ca9da368b08a31e54fca5"
+        }
+      },
+      "group": "B0",
+      "seed": 22,
+      "selection_path": "tgppo/runs/server6-20261022/training/B0-s22/selection.json",
+      "selection_sha256": "69fb27418329cd7465b89c80d547e9a64f3b7b73bc59f1a63c51b07852659b20"
+    },
+    {
+      "best": {
+        "episode": 300,
+        "mean_pdi": 3531.4286757795635,
+        "mean_pdi_lower": 3531.2570457795623,
+        "mean_pdi_upper": 3531.600305779563
+      },
+      "exports": {
+        "best": {
+          "episode": 300,
+          "path": "tgppo/runs/server6-20261022/training/R0-s11/actor_best.pt",
+          "sha256": "83e34415f613f3641c6b3295e466175240a6870af2516000cfd659b39e5e13a5"
+        },
+        "final": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/R0-s11/actor_final.pt",
+          "sha256": "2b9afd2d48b109d4b3971c6320188ad487f8120b54983c0d70c8ee554e6655bc"
+        }
+      },
+      "group": "R0",
+      "seed": 11,
+      "selection_path": "tgppo/runs/server6-20261022/training/R0-s11/selection.json",
+      "selection_sha256": "b2253e80b04e252ba754494b8300ca79dc3441766e150819ce7ac02edea26ce9"
+    },
+    {
+      "best": {
+        "episode": 500,
+        "mean_pdi": 3541.148418462463,
+        "mean_pdi_lower": 3540.72057512913,
+        "mean_pdi_upper": 3541.576261795796
+      },
+      "exports": {
+        "best": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/R0-s22/actor_best.pt",
+          "sha256": "44de0e6311757ff1f9264210890bbb847e8b89e9b51df7fb71e25ad48d518a30"
+        },
+        "final": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/R0-s22/actor_final.pt",
+          "sha256": "addf8f851ff5f6527a7a42623dcb2bac620ea28ab3475e647f58cc15e55bbe50"
+        }
+      },
+      "group": "R0",
+      "seed": 22,
+      "selection_path": "tgppo/runs/server6-20261022/training/R0-s22/selection.json",
+      "selection_sha256": "f70146779f3964bb9e92f28ebbb0120bd715377c6355a51ad404ce2d4f11e516"
+    },
+    {
+      "best": {
+        "episode": 100,
+        "mean_pdi": 3534.8248521040077,
+        "mean_pdi_lower": 3534.7345821040085,
+        "mean_pdi_upper": 3534.9151221040083
+      },
+      "exports": {
+        "best": {
+          "episode": 100,
+          "path": "tgppo/runs/server6-20261022/training/Rjoint-s11/actor_best.pt",
+          "sha256": "d3fd616871780b188eca3a3aff65b7dde12b302eb92dcec9a8d940877e6d49ab"
+        },
+        "final": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/Rjoint-s11/actor_final.pt",
+          "sha256": "b10cc24b496227cb066ca7271f96fe2e8ff245bc6ff5b53907c303b762172d85"
+        }
+      },
+      "group": "Rjoint",
+      "seed": 11,
+      "selection_path": "tgppo/runs/server6-20261022/training/Rjoint-s11/selection.json",
+      "selection_sha256": "a7246f2457fc4a4ae24e84b4038565824d643e535761ec5d18c747052c7c7cd1"
+    },
+    {
+      "best": {
+        "episode": 400,
+        "mean_pdi": 3530.10159054473,
+        "mean_pdi_lower": 3529.8819438780633,
+        "mean_pdi_upper": 3530.3212372113967
+      },
+      "exports": {
+        "best": {
+          "episode": 400,
+          "path": "tgppo/runs/server6-20261022/training/Rjoint-s22/actor_best.pt",
+          "sha256": "70eebc1b1d3436660ca9feb6b18117a5a9ba3d6193bc51bad14cf7c8cd385b33"
+        },
+        "final": {
+          "episode": 500,
+          "path": "tgppo/runs/server6-20261022/training/Rjoint-s22/actor_final.pt",
+          "sha256": "ec89aa76018d8a7163bab8f66453e9c65af5e4d415f642682e8de29a38a662cd"
+        }
+      },
+      "group": "Rjoint",
+      "seed": 22,
+      "selection_path": "tgppo/runs/server6-20261022/training/Rjoint-s22/selection.json",
+      "selection_sha256": "56a01b05081059ce74c6d4a77a9c2af9c610943a77c7ee4aa574b83a8f707768"
+    }
+  ],
+  "protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "rule": "development instance-equal mean 120s PDI; same three solver seeds for all five checkpoints; exact ties earlier checkpoint",
+  "training_audit_sha256": "200f1d89461d7a0062ebb0ae5a445ae70dcc8c4005e1a6c82f660f2677a7e70c"
+}

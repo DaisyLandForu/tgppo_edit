@@ -1,0 +1,646 @@
+--- a/migration/2026-10-22/server-run/CRATER.md
++++ b/migration/2026-10-22/server-run/CRATER.md
+@@ -1,4 +1,6 @@
+ # Crater Custom 作业操作单（2026-10-22）
++
++**2026-10-23 训练后更新：六个正式训练均已完成并通过检查点审计；开发集选模尚未执行。新增的六路选模与七路 Actor-only/原生测试 Custom 命令见 [POST_TRAINING.md](./POST_TRAINING.md)。请先完成该文档的开发集选模与全局冻结，再提交测试作业。下方保留准备和训练操作记录。**
+ 
+ 用户已确认：当前无 GPU 容器用于开发；正式训练另行申请 Crater Custom 作业。作业容器共享 `/home/duweiyue25`，可访问本项目与 Conda。当前镜像为 `scip (user-duweiyue25/envd:11260740-c4da)`，Custom 作业也选择此镜像。GPU 选择策略和作业最长时限仍需在创建作业时核对。这里没有 Slurm 客户端，不填写虚构的分区、账户或作业 ID。
+ 
+--- /dev/null
++++ b/migration/2026-10-22/server-run/post_training.py
+@@ -0,0 +1,416 @@
++#!/usr/bin/env python3
++"""Audit completed training, select on development, freeze, then evaluate Actors.
++
++This entrypoint deliberately lives outside the hashed training runtime. It uses
++the frozen server implementation without changing its algorithm or protocol.
++"""
++import argparse
++from contextlib import ExitStack, contextmanager
++import datetime
++import fcntl
++import hashlib
++import json
++import math
++from pathlib import Path
++import socket
++import sys
++
++ROOT = Path(__file__).resolve().parents[3]
++sys.path[:0] = [str(ROOT/'tgppo/experiments/stage4/metrics_binding/src'),
++                str(ROOT/'tgppo/experiments/server-20261022/code')]
++import torch
++import server
++from project.runtime import read_checkpoint, load_actor
++from project.utils.protocol import fingerprint, sha256, write_json
++
++MATRIX = [(g, s) for g in ('B0', 'R0', 'Rjoint') for s in (11, 22)]
++
++
++class Pending(RuntimeError):
++    pass
++
++
++def require(condition, message):
++    if not condition:
++        raise ValueError(message)
++
++
++def read(path):
++    return json.loads(Path(path).read_text())
++
++
++def now():
++    return datetime.datetime.now(datetime.timezone.utc).isoformat()
++
++
++@contextmanager
++def lock(path, shared=False):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open('a') as handle:
++        try:
++            fcntl.flock(handle, (fcntl.LOCK_SH if shared else fcntl.LOCK_EX) | fcntl.LOCK_NB)
++        except BlockingIOError:
++            raise Pending('Another job owns '+str(path))
++        yield
++
++
++def tensor_digest(state, exclude_extra=False):
++    digest = hashlib.sha256()
++    for key, value in sorted(state.items()):
++        if exclude_extra and key.startswith(('extra.', 'extra_projection.', 'time_projection.',
++                                            'target_mean', 'target_std', 'return_')):
++            continue
++        digest.update(key.encode())
++        digest.update(value.detach().cpu().numpy().tobytes())
++    return digest.hexdigest()
++
++
++def finite_tree(value):
++    if isinstance(value, torch.Tensor):
++        return bool(torch.isfinite(value).all())
++    if isinstance(value, dict):
++        return all(finite_tree(v) for v in value.values())
++    if isinstance(value, (list, tuple)):
++        return all(finite_tree(v) for v in value)
++    return not isinstance(value, float) or math.isfinite(value)
++
++
++def check_collection_history(c, seed, order, batches, history):
++    require(order == server.schedule(seed, c), 'Training task schedule changed')
++    require(len(history) == c['max_episodes']//c['batch_episodes'], 'Missing collection/update batches')
++    buffered = 0
++    version = 0
++    transitions = 0
++    skipped = []
++    rows = []
++    for index, metrics in enumerate(history):
++        begin = index*c['batch_episodes']
++        batch = batches[begin]
++        require(len(batch) == c['batch_episodes'], 'Incomplete collection batch')
++        expected_ids = {'e{:05d}-{}-s{}'.format(i, order[i], c['solver_seeds'][(i//len(c['train']))%len(c['solver_seeds'])])
++                        for i in range(begin, begin+c['batch_episodes'])}
++        require({r['job_id'] for r in batch} == expected_ids, 'Episode coverage or solver seeds differ')
++        require(all(r.get('valid') and r.get('task_terminal') and r.get('worker_cpu_complete')
++                    and not r.get('cuda_initialized') and r['policy_version'] == version for r in batch),
++                'Invalid, incomplete, CUDA, or stale-policy collection')
++        count = sum(r['num_transitions'] for r in batch)
++        buffered += count
++        transitions += count
++        require(metrics['episodes_seen'] == begin+c['batch_episodes'] and finite_tree(metrics), 'Malformed update metrics')
++        require(metrics['num_samples'] == buffered, 'Collected transitions were lost or duplicated')
++        if metrics['updated']:
++            require(buffered >= 256 and metrics['num_updates'] > 0, 'Invalid effective PPO update')
++            buffered = 0
++            version += 1
++        else:
++            require(buffered < 256, 'Skipped a complete logical batch')
++            skipped.append(dict(episode=metrics['episodes_seen'], retained_transitions=buffered))
++        require(metrics['policy_version'] == version, 'Policy version mismatch')
++        rows += batch
++    return dict(episodes=len(rows), transitions=transitions, complete_ppo_updates=version,
++                pending_transitions=buffered, skipped_batches=skipped,
++                worker_cpu_seconds=sum(r['worker_cpu_seconds'] for r in rows),
++                workers_cpu_only=True, all_finite_tasks=True)
++
++
++def dataset_manifest(root, c):
++    downloads = {r['name']: r for r in read(root/'tgppo/datasets/download_manifest.json')}
++    names = read(Path(__file__).with_name('test66.json'))
++    require(len(names) == 66 and len(set(names)) == 66, 'Test manifest must contain 66 unique instances')
++    cutoffs = read(root/'tgppo/datasets/cutoffs.json')
++    result = {}
++    for split, items in [('train', c['train']), ('development', c['development']), ('test66', names)]:
++        directory = 'test_instances' if split == 'test66' else 'train_instances'
++        result[split] = {}
++        for name in items:
++            digest = sha256(root/'tgppo/datasets'/directory/(name+'.mps.gz'))
++            require(digest == downloads[name]['sha256'], 'Dataset SHA mismatch: '+name)
++            if split != 'test66':
++                require(digest == c['instance_hashes'][name], 'Frozen split SHA mismatch: '+name)
++            record = cutoffs[name]
++            require(record.get('status') == 'optimal' and record.get('source') and
++                    isinstance(record.get('cutoff'), (int, float)) and math.isfinite(record['cutoff']),
++                    'Missing compatible verified cutoff: '+name)
++            result[split][name] = dict(sha256=digest, cutoff=record)
++    seen = set()
++    for split in ('train', 'development', 'test66'):
++        hashes = {r['sha256'] for r in result[split].values()}
++        require(not seen & hashes, 'Dataset split content overlap')
++        seen |= hashes
++    return result
++
++
++def audit(root, c, run, post):
++    destination = post/'training_audit.json'
++    if destination.exists():
++        previous = load_audit(c, post)
++        for row in previous['jobs']:
++            validate_training_files(root, row)
++        print('Existing training audit remains valid:', destination, flush=True)
++        return previous
++    with lock(post/'.audit.lock'):
++        dataset = dataset_manifest(root, c)
++        baseline = read(run/'normalization/baselines.json')
++        require(baseline['protocol_sha256'] == fingerprint(c), 'Normalization protocol differs')
++        expected_stack = baseline['stack']
++        rows = []
++        initializations = {}
++        for group, seed in MATRIX:
++            out = server.group_dir(run, group, seed)
++            with lock(out/'.train.lock', shared=True):
++                summary = read(out/'summary.json')
++                execution = read(out/'preflight.json')
++                require(execution['stack'] == expected_stack and 'V100' in execution['gpu'], 'Training hardware/software differs')
++                require(summary['status'] == 'training_complete' and summary['episodes_seen'] == 500 and
++                        summary['trained_episodes'] == 500 and summary['pending_transitions'] == 0 and
++                        summary['protocol_sha256'] == fingerprint(c), 'Training not complete under frozen protocol')
++                history = read(out/'updates.json')
++                batches = {begin: read(out/'collection'/('e{:05d}'.format(begin))/'selected_results.json')
++                           for begin in range(0, 500, 4)}
++                collection = check_collection_history(c, seed, read(out/'task_schedule.json'), batches, history)
++                require(collection['complete_ppo_updates'] == summary['complete_ppo_updates'] and
++                        collection['pending_transitions'] == 0, 'Final update/memory mismatch')
++                initial = read(out/'initialization.json')
++                initializations[(group, seed)] = initial
++                files = {}
++                checkpoints = {}
++                for label, episode in [('latest', 500)]+[('episode-{:04d}'.format(n), n) for n in c['milestones']]:
++                    path = out/(label+'.pt')
++                    digest = sha256(path)
++                    payload = read_checkpoint(path)
++                    progress = payload['progress']
++                    require(payload['config'] == server.params(root, c, group, seed, 'cuda'), 'Checkpoint config differs')
++                    require(progress['phase'] == 'ready' and progress['next_episode'] == episode and
++                            len(progress['history']) == episode//4, 'Milestone is not a stable complete boundary')
++                    require(finite_tree({k: payload[k] for k in ('actor','critic','actor_optimizer','critic_optimizer')}),
++                            'Nonfinite model or optimizer')
++                    require(payload['actor_optimizer']['state'] and payload['critic_optimizer']['state'] and
++                            len(payload['rng'].get('cuda', [])) == 1, 'Missing optimizer/CUDA RNG recovery state')
++                    actor_digest = tensor_digest(payload['actor'])
++                    critic_digest = tensor_digest(payload['critic'], exclude_extra=True)
++                    require(actor_digest != initial['actor_fingerprint'] and
++                            critic_digest != initial['common_critic_fingerprint'], 'Model parameters did not change')
++                    if episode == 500:
++                        require(progress['trained_episodes'] == 500 and payload['memory']['num_transitions'] == 0 and
++                                payload['policy_version'] == summary['complete_ppo_updates'] and
++                                progress['optimizer_steps'] == summary['optimizer_steps'], 'Final committed state differs')
++                    if label == 'latest':
++                        require(digest == summary['final_checkpoint_sha256'], 'Final checkpoint SHA mismatch')
++                    files[str(path.relative_to(root))] = digest
++                    checkpoints[str(episode) if label != 'latest' else label] = dict(
++                        sha256=digest, actor_digest=actor_digest, policy_version=payload['policy_version'])
++                    del payload
++                require(checkpoints['latest']['actor_digest'] == checkpoints['500']['actor_digest'], 'Latest and final Actor differ')
++                for name in ('summary.json','preflight.json','updates.json','task_schedule.json','initialization.json'):
++                    files[str((out/name).relative_to(root))] = sha256(out/name)
++                attempts = [read(p) for p in sorted((out/'attempts').glob('*.json'))]
++                require(all(a.get('training_finished') and not a.get('error') for a in attempts), 'Interrupted training attempt needs cost review')
++                row = dict(group=group, seed=seed, **collection, optimizer_steps=summary['optimizer_steps'],
++                           wall_seconds=sum(a['attempt_wall_seconds'] for a in attempts),
++                           learner_update_wall_seconds=sum(m['learning_wall_seconds'] for m in history),
++                           peak_cuda_allocated_bytes=max(m['peak_cuda_allocated_bytes'] for m in history),
++                           peak_cuda_reserved_bytes=max(m['peak_cuda_reserved_bytes'] for m in history),
++                           host=execution['host'], files=files, checkpoints=checkpoints)
++                rows.append(row)
++                print('Audited {}-s{}: 500 episodes, {} PPO updates, five milestones verified'.format(
++                    group, seed, collection['complete_ppo_updates']), flush=True)
++        for seed in (11, 22):
++            for field in ('actor_fingerprint','public_torch_rng_sha256','public_cuda_rng_sha256'):
++                require(len({initializations[(group, seed)][field] for group in c['groups']}) == 1, 'Paired initialization differs')
++        result = dict(passed=True, observed_at_utc=now(), protocol_sha256=fingerprint(c),
++                      stack=expected_stack, jobs=rows, datasets=dataset, selection_complete=False,
++                      additional_compatible_dataset=None,
++                      scope='training audit and input verification; development selection and held-out tests remain separate')
++        write_json(destination, result)
++        return result
++
++
++def load_audit(c, post):
++    path = post/'training_audit.json'
++    if not path.exists():
++        raise Pending('Run post_job.sh audit first')
++    result = read(path)
++    require(result.get('passed') and result['protocol_sha256'] == fingerprint(c), 'Audit or frozen runtime changed')
++    require({(r['group'], r['seed']) for r in result['jobs']} == set(MATRIX), 'Audit matrix incomplete')
++    return result
++
++
++def validate_training_files(root, row):
++    for relative, digest in row['files'].items():
++        require(sha256(root/relative) == digest, 'Audited training file changed: '+relative)
++
++
++def target_cpu(root, c, audited):
++    info = server.preflight(root, c, 'cpu')
++    require(info['stack'] == audited['stack'], 'CPU/software differs from training: expected '+
++            audited['stack']['cpu_model']+', got '+info['stack']['cpu_model']+
++            '. Use a matching Crater node; do not reselect on the development container.')
++    require(info['memory_limit_bytes'] is None or info['memory_limit_bytes'] >= 16*1024**3, 'Request at least 16 GiB RAM')
++    print('Target CPU preflight: '+json.dumps(info,sort_keys=True),flush=True)
++    return info
++
++
++def validate_dataset(root, audited, split):
++    directory = root/'tgppo/datasets'/('test_instances' if split == 'test66' else 'train_instances')
++    cutoffs = read(root/'tgppo/datasets/cutoffs.json')
++    for name, record in audited['datasets'][split].items():
++        require(sha256(directory/(name+'.mps.gz')) == record['sha256'] and cutoffs[name] == record['cutoff'],
++                'Instance/cutoff changed after audit: '+name)
++
++
++def selected_record(root, c, run, audited, group, seed):
++    out = server.group_dir(run, group, seed)
++    if not all((out/n).exists() for n in ('selection.json','actor_best.pt','actor_final.pt')):
++        raise Pending('Development selection not complete: {}-s{}'.format(group, seed))
++    row = next(r for r in audited['jobs'] if (r['group'], r['seed']) == (group, seed))
++    selection = read(out/'selection.json')
++    require(selection['protocol_sha256'] == fingerprint(c) and selection['stack'] == audited['stack'] and
++            selection['training_seed'] == seed and selection['selection_instances'] == c['development'] and
++            selection['solver_seeds'] == c['solver_seeds'], 'Selection identity differs')
++    allrows = {}
++    for episode in c['milestones']:
++        base = out/'development'/('episode-{:04d}'.format(episode))
++        identity = read(base/'identity.json')
++        require(identity == dict(checkpoint_sha256=row['checkpoints'][str(episode)]['sha256'],
++                                 stack=audited['stack'], protocol=fingerprint(c)), 'Development cache identity differs')
++        allrows[episode] = read(base/'selected_results.json')
++        require(all(r.get('task_terminal') and not r.get('cuda_initialized') and
++                    r.get('callback_seconds',{}).get('critic',0.) == 0. and
++                    r.get('search_extraction_wall_seconds',0.) == 0. for r in allrows[episode]),
++                'Development deployment used Critic/search features or incomplete tasks')
++    best, scores = server.selection(allrows, c['development'], c['solver_seeds'])
++    require(selection['best'] == best and selection['all_checkpoints'] == scores and
++            selection['checkpoint_sha256'] == row['checkpoints'][str(best['episode'])]['sha256'], 'Selected checkpoint violates frozen rule')
++    exports = {}
++    for kind, episode in [('best',best['episode']), ('final',500)]:
++        path = out/('actor_'+kind+'.pt')
++        policy, payload = load_actor(path)
++        require(payload['schema_version'] == 'actor-only-v1' and 'critic' not in payload and
++                'actor_optimizer' not in payload and not hasattr(policy,'critic_network') and
++                payload['provenance']['checkpoint_sha256'] == row['checkpoints'][str(episode)]['sha256'] and
++                tensor_digest(payload['actor']) == row['checkpoints'][str(episode)]['actor_digest'], 'Actor-only export differs')
++        exports[kind] = dict(path=str(path.relative_to(root)), sha256=sha256(path), episode=episode)
++    return dict(group=group,seed=seed,selection_path=str((out/'selection.json').relative_to(root)),
++                selection_sha256=sha256(out/'selection.json'),best=best,exports=exports)
++
++
++def freeze(root, c, run, post):
++    audited = load_audit(c, post)
++    destination = post/'frozen_selection.json'
++    with lock(post/'.freeze.lock'):
++        if destination.exists():
++            result = read(destination)
++            require(result['protocol_sha256'] == fingerprint(c) and
++                    result['training_audit_sha256'] == sha256(post/'training_audit.json'), 'Frozen selection identity changed')
++            require({(r['group'],r['seed']) for r in result['models']} == set(MATRIX), 'Frozen selection matrix differs')
++            for row in result['models']:
++                require(sha256(root/row['selection_path']) == row['selection_sha256'], 'Frozen selection changed')
++                require(set(row['exports']) == {'best','final'}, 'Frozen Actor exports incomplete')
++                for record in row['exports'].values():
++                    require(sha256(root/record['path']) == record['sha256'], 'Frozen Actor changed')
++            return result
++        with ExitStack() as stack:
++            for group, seed in MATRIX:
++                stack.enter_context(lock(server.group_dir(run,group,seed)/'.selection.lock',shared=True))
++            models = [selected_record(root,c,run,audited,g,s) for g,s in MATRIX]
++            result = dict(frozen_at_utc=now(),protocol_sha256=fingerprint(c),
++                          training_audit_sha256=sha256(post/'training_audit.json'),
++                          rule=c['selection'],models=models)
++            write_json(destination,result)
++        print('All six development selections frozen:',destination,flush=True)
++        return result
++
++
++def select(root, c, run, post, group, seed):
++    audited = load_audit(c, post)
++    require((group,seed) in MATRIX, 'Outside authorized six-job matrix')
++    target_cpu(root,c,audited)
++    validate_dataset(root,audited,'development')
++    if (post/'frozen_selection.json').exists():
++        freeze(root,c,run,post)
++        print('Selection already frozen; keeping existing weights',flush=True)
++        return
++    out = server.group_dir(run,group,seed)
++    with lock(out/'.selection.lock'):
++        row = next(r for r in audited['jobs'] if (r['group'],r['seed']) == (group,seed))
++        validate_training_files(root,row)
++        server.baseline_bundle(root,c,run)
++        server.select(root,c,run,group,seed)
++        result = selected_record(root,c,run,audited,group,seed)
++        write_json(out/'selection_verified.json',dict(verified_at_utc=now(),**result))
++        print(json.dumps(result,indent=2),flush=True)
++    try:
++        freeze(root,c,run,post)
++    except Pending as exc:
++        print('This selection passed; other selections still pending:',exc,flush=True)
++
++
++def evaluate(root, c, run, post, method, seed):
++    audited = load_audit(c, post)
++    target_cpu(root,c,audited)
++    frozen = freeze(root,c,run,post)  # Never touch held-out outcomes before all six selections freeze.
++    native = method == 'native'
++    require(native or (method,seed) in MATRIX,'Outside authorized evaluation matrix')
++    actor = None
++    if not native:
++        row = next(r for r in frozen['models'] if (r['group'],r['seed']) == (method,seed))
++        actor = root/row['exports']['best']['path']
++    names = list(audited['datasets']['test66'])
++    instances = root/'tgppo/datasets/test_instances'
++    validate_dataset(root,audited,'test66')
++    with lock(post/('.evaluate-{}-s{}.lock'.format(method,seed))):
++        server.evaluate(root,c,run,actor,instances,names,'official66-best',seed,native)
++        key = 'relpscost-native' if native else sha256(actor)
++        directory = run/'test/official66-best'/key[:16]
++        rows = read(directory/'selected_results.json')
++        require(len(rows) == 198 and {(r['instance_name'],r['solver_seed']) for r in rows} ==
++                {(n,s) for n in names for s in c['solver_seeds']} and all(r.get('valid') and
++                r.get('task_terminal') and not r.get('cuda_initialized') and
++                r.get('callback_seconds',{}).get('critic',0.) == 0. and
++                r.get('search_extraction_wall_seconds',0.) == 0. for r in rows), 'Held-out evaluation invalid')
++        write_json(post/'evaluation'/('{}-s{}.json'.format(method,seed)),dict(
++            finished_at_utc=now(),method=method,training_seed=None if native else seed,runs=198,
++            frozen_selection_sha256=sha256(post/'frozen_selection.json'),
++            selected_results_path=str((directory/'selected_results.json').relative_to(root)),
++            selected_results_sha256=sha256(directory/'selected_results.json'),stack=audited['stack']))
++
++
++def status(c,run,post):
++    result = dict(training_audit=(post/'training_audit.json').exists(),
++                  selection_frozen=(post/'frozen_selection.json').exists(),selections=[])
++    for group,seed in MATRIX:
++        out=server.group_dir(run,group,seed)
++        row=dict(group=group,seed=seed,verified=(out/'selection_verified.json').exists())
++        row['completed_development_checkpoints']=len(list(out.glob('development/episode-*/selected_results.json')))
++        if row['verified']:
++            row['best']=read(out/'selection_verified.json')['best']
++        result['selections'].append(row)
++    result['evaluation_receipts']=[p.name for p in (post/'evaluation').glob('*.json')]
++    print(json.dumps(result,indent=2),flush=True)
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--root',type=Path,default=ROOT)
++    parser.add_argument('--config',type=Path,default=Path(__file__).with_name('protocol.json'))
++    parser.add_argument('--run-root',type=Path)
++    parser.add_argument('command',choices=['audit','select','freeze','evaluate','status'])
++    parser.add_argument('method',nargs='?',choices=['B0','R0','Rjoint','native'])
++    parser.add_argument('seed',nargs='?',type=int,choices=[11,22],default=11)
++    args=parser.parse_args();torch.set_num_threads(1)
++    root=args.root.resolve();c=server.plan(root,args.config)
++    run=(args.run_root or root/c['run_directory']).resolve();post=run/'post-training-20261023'
++    post.mkdir(parents=True,exist_ok=True)
++    if args.command=='audit':audit(root,c,run,post)
++    elif args.command=='select':select(root,c,run,post,args.method,args.seed)
++    elif args.command=='freeze':freeze(root,c,run,post)
++    elif args.command=='evaluate':evaluate(root,c,run,post,args.method,args.seed)
++    else:status(c,run,post)
++
++
++if __name__=='__main__':
++    try:
++        main()
++    except Pending as exc:
++        print('PENDING: '+str(exc),file=sys.stderr,flush=True)
++        sys.exit(75)
+--- /dev/null
++++ b/migration/2026-10-22/server-run/post_job.sh
+@@ -0,0 +1,26 @@
++#!/usr/bin/env bash
++# Parse once; shared-file edits cannot change the tail of a running job.
++{
++set -euo pipefail
++launch_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++export TGPPO_PYTHON=${TGPPO_PYTHON:-/home/duweiyue25/conda/envs/tgppo/bin/python}
++source "$launch_dir/env.sh"
++mode=${1:-}
++case "$mode" in
++    audit|freeze|status) [[ $# == 1 ]] || exit 2 ;;
++    select|evaluate)
++        if [[ "$mode" == evaluate && ${2:-} == native && $# == 2 ]]; then :
++        else
++            [[ $# == 3 ]] || { echo 'Usage: post_job.sh select|evaluate GROUP 11|22'; exit 2; }
++            case "$2/$3" in B0/11|B0/22|R0/11|R0/22|Rjoint/11|Rjoint/22) ;; *) exit 2;; esac
++        fi ;;
++    *) echo 'Usage: post_job.sh audit|freeze|status OR select|evaluate GROUP SEED OR evaluate native'; exit 2 ;;
++esac
++cd "$RESEARCH_ROOT"
++mkdir -p "$SERVER_RUN_ROOT/custom-logs"
++log_file=$(mktemp "$SERVER_RUN_ROOT/custom-logs/post-${mode}-${2:-all}-s${3:-none}-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX.log")
++exec > >(tee "$log_file") 2>&1
++printf 'Started %s host=%s mode=%s log=%s\n' "$(date -Iseconds)" "$(hostname)" "$mode" "$log_file"
++exec "$TGPPO_PYTHON" "$launch_dir/post_training.py" --root "$RESEARCH_ROOT" \
++    --config "$SERVER_CONFIG" --run-root "$SERVER_RUN_ROOT" "$@"
++}
+--- /dev/null
++++ b/migration/2026-10-22/server-run/POST_TRAINING.md
+@@ -0,0 +1,96 @@
++# 六作业训练后的选模与 Crater 评测操作单
++
++2026-10-23。六个正式训练均已核验：各 500 个完整 episode、五个稳定里程碑、最终空缓存、Actor/Critic 更新、有限模型与优化器状态、CUDA RNG 和最终 SHA 均通过。训练事实及原始日志保留。本文件对应阶段 5；阶段 6 未启动。
++
++**当前尚未完成开发集选模。** 选模必须实际运行 450 次开发集求解，随后才能冻结六份 `actor_best.pt`。当前开发容器 CPU 为 E5-2680 v4，与训练及原生基线的 Gold 6148 不一致，不能在本容器直接执行正式选模。可在此运行审计、状态查询和冻结检查。
++
++新入口：`post_job.sh` / `post_training.py`。没有改动训练运行时代码，协议指纹仍为 `32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80`。旧 `custom_job.sh` 的训练、准备入口继续保留；本次后处理请使用下列新入口，以获得训练审计、CPU、选模冻结和实例/cutoff 校验。
++
++## 已核实的训练结果
++
++| 组别 | 训练种子 | 完整 episode | 完整 PPO 更新 | 逻辑优化步 | 训练耗时小时 |
++|---|---:|---:|---:|---:|---:|
++| B0 | 11 | 500 | 125 | 3807 | 7.04 |
++| B0 | 22 | 500 | 123 | 3786 | 7.22 |
++| R0 | 11 | 500 | 125 | 3768 | 7.21 |
++| R0 | 22 | 500 | 123 | 3714 | 7.14 |
++| Rjoint | 11 | 500 | 125 | 3741 | 7.16 |
++| Rjoint | 22 | 500 | 123 | 3723 | 7.24 |
++
++六作业累计约 43.00 GPU 占用小时；这是训练进程记录的墙钟和，不是平台精确计费，不含准备、排队、历史提前启动失败、选模或测试。seed 22 各有两批在 episode 244/396 因累计决策不足 256 暂缓更新；已核实缓存保留并被后续批次消费，最终没有未更新转移。相同训练种子三组的初始 Actor 与 CPU/CUDA 随机流配对一致。
++
++证据：`tgppo/runs/server6-20261022/post-training-20261023/training_audit.json`。它记录全部六个 latest、30 个里程碑的哈希、参数更新、所有 3000 个完整采样任务和更新缓存守恒。25 个训练/开发、66 个保留测试实例的内容 SHA 与已记录最优 cutoff 也已核对；没有运行保留测试集求解。
++
++## 一、先创建六个开发集选模 Custom 作业
++
++统一镜像：`scip (user-duweiyue25/envd:11260740-c4da)`。Shell：bash。工作目录：`/home/duweiyue25/tgppo-transfer/research`。用户空间挂载点：`/home/duweiyue25`。
++
++用户已确认 CPU-only 无法指定节点，因此本轮统一继续申请原先的 **8 CPU / 32 GiB / 1 V100**，时限 **4 小时**。实际 CPU 须为 **Intel Xeon Gold 6148**；本入口仍只使用 CPU。资源预检会明确拒绝不同 CPU/软件身份，不会自动放宽冻结协议。选模与七个正式测试作业使用同一配置。
++
++以下六行分别填写到六个独立作业的启动命令框，可同时运行。不要把六行放入同一个作业。
++
++```bash
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh select B0 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh select B0 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh select R0 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh select R0 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh select Rjoint 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh select Rjoint 22
++```
++
++每作业在 **100/200/300/400/500** 五个里程碑上，使用相同 **5 个开发实例 × 求解器种子 0/1/2**，共 75 次完整求解。按实例等权平均 120 秒 PDI 最低选择，精确同分取较早里程碑。每个“组 × 训练种子”单独选，不从两个训练种子中挑赢家。评估加载 Actor，不构建 Critic，不提取额外前沿信息。
++
++输出在原训练目录 `training/GROUP-sSEED/`：
++
++- `development/episode-*/`：完整开发评估和失败/重试记录。
++- `selection.json`：五个分数与选中里程碑。
++- `actor_best.pt` / `actor_final.pt`：开发集最佳与固定 500 episode 的纯 Actor 权重。
++- `selection_verified.json`：重新核对开发集覆盖、规则、源模型与导出哈希之后的记录。
++
++中断后用同一命令创建续跑作业；按同一身份复用有效开发结果，保留旧尝试。不要删除任何缓存或锁文件，不重跑训练。
++
++最后一个选模作业完成后自动冻结全部六份权重到：
++
++`tgppo/runs/server6-20261022/post-training-20261023/frozen_selection.json`
++
++若其他选模仍在运行，单个已完成作业可正常退出，但会说明尚未全局冻结。全部完成后，可在开发容器再次执行下列命令核验并补做冻结，不运行任何求解：
++
++```bash
++bash migration/2026-10-22/server-run/post_job.sh freeze
++```
++
++冻结后选模入口只核对并保留原权重，不再重新选择。任何模型、选择记录、训练协议或软件身份变化都会拒绝继续。
++
++## 二、六份选模冻结后，再创建七个测试 Custom 作业
++
++使用与选模一致的镜像、挂载、CPU 型号和资源配置：**8 CPU / 32 GiB / 1 V100 / 4 小时**。选模和测试程序均只使用 CPU；申请 V100 是为了获得与训练一致的节点 CPU，不能把 GPU 空闲误判为程序没有工作。
++
++以下七行分别对应六份最佳 Actor 和一次原生 relpscost，可同时运行。每份 Actor 评估 **66 个保留实例 × 3 个求解器种子 = 198 次求解**；原生参照也为相同 198 次，总计 **1386 次**。每个任务 120 秒，四 worker 并行；单作业最坏求解时限合计约 99 分钟，另加加载、进程与保存开销，4 小时时限留有余量。
++
++```bash
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate B0 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate B0 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate R0 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate R0 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate Rjoint 11
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate Rjoint 22
++bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate native
++```
++
++入口会先核验全局冻结文件，缺少任意一份选模或导出时以 75 退出；**不会先运行测试再补选模型**。它还核对实例与 cutoff 未改变、CPU/软件身份一致、每个实例三个求解器种子覆盖完整、CPU worker 未初始化 CUDA，以及 Critic/额外搜索特征开销为零。两个训练种子的六份模型均保留并评价。
++
++原始结果与缓存：`tgppo/runs/server6-20261022/test/official66-best/`，按模型哈希分目录，原生参照目录以 `relpscost-native` 开头。完成记录：`post-training-20261023/evaluation/`。中断后同一命令恢复，仅重试缺失/无效任务；全部历史尝试保留。记录 Crater 的真实作业 ID、资源与实际节点，脚本无法代替平台计费记录。
++
++## 三、查看状态与结果边界
++
++开发容器可执行：
++
++```bash
++bash migration/2026-10-22/server-run/post_job.sh status
++```
++
++所有作业日志：`tgppo/runs/server6-20261022/custom-logs/post-*.log`。
++
++当前脚本覆盖包内 66 个保留实例。额外兼容评测集尚无独立实例清单及核实的 cutoff，因此没有加入新数据或混称已完成；补充时需冻结独立清单、排除训练/开发内容重合，并增加同设置原生对照。本次保留 `actor_final.pt`，主表先按冻结规则评价 `actor_best.pt`；若另测 final，须单列另加的 1188 次求解成本，不根据 best 测试结果再挑选。
++
++训练检查通过只说明实验链路和预算完整，方法优劣仍需测试结果。B0 是 120 秒 / Adam / 四任务批更新参照；本轮没有 Rprod，结论不能单独归因于联合关联收益。阶段 5 实测交付后等待用户验收，阶段 6 未启动。
+--- /dev/null
++++ b/migration/2026-10-22/server-run/tests/test_post_training.py
+@@ -0,0 +1,87 @@
++import copy
++import importlib.util
++import json
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++
++LAUNCH=Path(__file__).resolve().parents[1]
++spec=importlib.util.spec_from_file_location('post_training',LAUNCH/'post_training.py')
++post=importlib.util.module_from_spec(spec);spec.loader.exec_module(post)
++
++
++class PostTrainingTests(unittest.TestCase):
++    def setUp(self):
++        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
++        self.root=Path(self.temp.name);self.run=self.root/'runs';self.work=self.run/'post'
++        self.work.mkdir(parents=True)
++        self.c=dict(train=['a','b'],solver_seeds=[0,1,2],max_episodes=8,batch_episodes=4)
++
++    def collection(self):
++        order=post.server.schedule(11,self.c);batches={}
++        for begin,count in [(0,5),(4,70)]:
++            batches[begin]=[dict(job_id='e{:05d}-{}-s{}'.format(i,order[i],self.c['solver_seeds'][(i//2)%3]),
++                valid=True,task_terminal=True,worker_cpu_complete=True,cuda_initialized=False,
++                policy_version=0,num_transitions=count,worker_cpu_seconds=1.) for i in range(begin,begin+4)]
++        metrics=[dict(episodes_seen=4,num_samples=20,updated=False,policy_version=0),
++                 dict(episodes_seen=8,num_samples=300,updated=True,num_updates=6,policy_version=1)]
++        return order,batches,metrics
++
++    def audited(self):
++        value=dict(passed=True,protocol_sha256=post.fingerprint(self.c),stack={'cpu_model':'Gold 6148'},
++                   jobs=[dict(group=g,seed=s) for g,s in post.MATRIX])
++        post.write_json(self.work/'training_audit.json',value)
++        return value
++
++    def test_small_batch_is_retained_until_the_next_update(self):
++        order,batches,metrics=self.collection()
++        result=post.check_collection_history(self.c,11,order,batches,metrics)
++        self.assertEqual(result['episodes'],8)
++        self.assertEqual(result['transitions'],300)
++        self.assertEqual(result['pending_transitions'],0)
++        self.assertEqual(result['complete_ppo_updates'],1)
++
++    def test_dropped_or_duplicated_retained_samples_are_rejected(self):
++        for n in [280,320]:
++            order,batches,metrics=self.collection();metrics[-1]['num_samples']=n
++            with self.assertRaisesRegex(ValueError,'lost or duplicated'):
++                post.check_collection_history(self.c,11,order,batches,metrics)
++
++    def test_cpu_mismatch_is_rejected_before_selection_runs(self):
++        audited=self.audited()
++        with patch.object(post.server,'preflight',return_value=dict(stack={'cpu_model':'E5'})):
++            with self.assertRaisesRegex(ValueError,'CPU/software differs'):
++                post.target_cpu(self.root,self.c,audited)
++
++    def test_held_out_jobs_never_start_before_six_models_are_selected(self):
++        self.audited()
++        with patch.object(post,'target_cpu'),patch.object(post.server,'evaluate') as execute:
++            with self.assertRaises(post.Pending):
++                post.evaluate(self.root,self.c,self.run,self.work,'B0',11)
++            execute.assert_not_called()
++        self.assertFalse((self.work/'frozen_selection.json').exists())
++
++    def test_changed_frozen_actor_is_rejected(self):
++        self.audited()
++        actor=self.root/'actor.pt';actor.write_bytes(b'original fixture actor')
++        selection=self.root/'selection.json';selection.write_text('{}')
++        rows=[dict(group=g,seed=s,selection_path='selection.json',selection_sha256=post.sha256(selection),
++                   exports={kind:dict(path='actor.pt',sha256=post.sha256(actor)) for kind in ('best','final')}) for g,s in post.MATRIX]
++        post.write_json(self.work/'frozen_selection.json',dict(protocol_sha256=post.fingerprint(self.c),
++            training_audit_sha256=post.sha256(self.work/'training_audit.json'),models=rows))
++        actor.write_bytes(b'changed fixture actor')
++        with self.assertRaisesRegex(ValueError,'Frozen Actor changed'):
++            post.freeze(self.root,self.c,self.run,self.work)
++
++    def test_changed_development_cutoff_is_rejected(self):
++        directory=self.root/'tgppo/datasets/train_instances';directory.mkdir(parents=True)
++        instance=directory/'a.mps.gz';instance.write_bytes(b'fixture instance')
++        original=dict(cutoff=5.,status='optimal',source='fixture source')
++        audited=dict(datasets={'development':{'a':dict(sha256=post.sha256(instance),cutoff=original)}})
++        post.write_json(directory.parent/'cutoffs.json',{'a':dict(original,cutoff=6.)})
++        with self.assertRaisesRegex(ValueError,'Instance/cutoff changed'):
++            post.validate_dataset(self.root,audited,'development')
++
++
++if __name__=='__main__':unittest.main(verbosity=2)

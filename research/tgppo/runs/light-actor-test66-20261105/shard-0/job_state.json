@@ -1,0 +1,42 @@
+{
+  "started_epoch": 1793894493.1689832,
+  "budget_seconds": 14400,
+  "workers": 4,
+  "training_steps": 0,
+  "gpu": false,
+  "automatic_retry": false,
+  "requested_tasks": 324,
+  "shard": 0,
+  "authorization": "User approved complete66 CPU evaluation in4 parallel jobs; total128GiB RAM; serial mspp16 inside shard3",
+  "queue_time_excluded": true,
+  "scope": "new independent evaluation budget; no old training deadline reused",
+  "status": "complete",
+  "supervisor_pid": 16,
+  "host": "sg-duweiyue25-261106-05d40-default0-0",
+  "input_verification": {
+    "package_files": 15,
+    "original_files": 57,
+    "external_inputs": 9,
+    "protected_sources": 41,
+    "frozen_actors": 8,
+    "instance_hashes": 18,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "engine_pid": 19,
+  "final_input_verification": {
+    "package_files": 15,
+    "original_files": 57,
+    "external_inputs": 9,
+    "protected_sources": 41,
+    "frozen_actors": 8,
+    "instance_hashes": 18,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "engine_complete": true,
+  "persistent_rows": 324,
+  "error": null,
+  "charged_wall_seconds": 8584.799335476942,
+  "analysis_exit_code": 0
+}

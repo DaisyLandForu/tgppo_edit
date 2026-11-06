@@ -1,0 +1,17 @@
+{
+  "schema": "aux-synthetic-training-v1",
+  "formal_experiment": false,
+  "task": "fit a synthetic teacher MLP; no MILP instances, TGPPO models or formal metrics",
+  "device": "cuda",
+  "gpu": "Tesla V100-PCIE-32GB",
+  "cpu_model": "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+  "host": "sg-duweiyue25-261023-4af1e-default0-0",
+  "seed": 11,
+  "minutes": 30.0,
+  "step_cap": 0,
+  "batch_size": 512,
+  "width": 1024,
+  "samples": 8192,
+  "torch_version": "1.13.1+cu117",
+  "output_directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/aux-gpu-training/20261023T042344Z-sg-duweiyue25-261023-4af1e-default0-0-2d26f6c175"
+}

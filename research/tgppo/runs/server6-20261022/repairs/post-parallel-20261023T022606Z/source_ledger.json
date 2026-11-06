@@ -1,0 +1,44 @@
+{
+  "observed_at_utc": "2026-10-23T02:36:06.918247+00:00",
+  "scope": "One read-only Custom node preflight; active default remains six selectors and seven evaluators",
+  "training_runtime_changed": false,
+  "files": {
+    "migration/2026-10-22/server-run/README.md": {
+      "before_sha256": "7c391f930109891aee86bc0366d3e8ee6a52e6e01b7355e01884d2ea1fbb4a98",
+      "sha256": "d16255819938edd1ea5beecccadc143f5489baef65ea5da0fa0b0de9a54b7063"
+    },
+    "migration/2026-10-22/server-run/POST_TRAINING.md": {
+      "before_sha256": "4c6b2491aa2943e36291df09823a0eb2da91484e3d3a0e25d977ae55c4dcfdae",
+      "sha256": "5a7759152044395219b992a4ce5c054cd114b5f744187e4e5aec9d38ecadcce2"
+    },
+    "migration/2026-10-22/server-run/CRATER.md": {
+      "before_sha256": "f1d1194eb0557eb521dae0efa1c28c0c61ee7c6c934aed245a32c2f0511f0222",
+      "sha256": "6dcb6a70f90057902d68f831d7a592eea4ae30eaf7e2fc03448b9abe79bb6966"
+    },
+    "migration/2026-10-22/server-run/post_training.py": {
+      "before_sha256": "85e2dab27d07c2447434fd9bbb107f513f61419811b1d8736a9882a15717bff5",
+      "sha256": "e0b434dbfd8f2fb64ffbfbed80a3c8bd8f3e9da1c62ea872bbacd164ce90ef4a"
+    },
+    "migration/2026-10-22/server-run/post_job.sh": {
+      "before_sha256": "389e3b7615885c9a38c73dee2c396289853b465912a94e9fde3d378cc42a7574",
+      "sha256": "9d91152dc3d789632cd11b29f35c066000f369bc52d74d75dd89b6185df70831"
+    },
+    "migration/2026-10-22/server-run/tests/test_post_training.py": {
+      "before_sha256": "212480145773014336ec841019910f53b06750f9535fe33fcbf2a846f46e21af",
+      "sha256": "56d09bca6ef8a72e76e08d7523a40adf91b012d275b5d1a55be7041501230929"
+    }
+  },
+  "archived_unused_draft": {
+    "optional-draft/parallel_job.sh": "5b65822a89fe269420f6472d310ba4bba21c0770c90fa9cb2bde5395802744f7",
+    "optional-draft/parallel_post.py": "0c030608f459647aa73a876871113468f3618e73ecfc0fcd31f27a558804ce5a",
+    "optional-draft/test_parallel_post.py": "416ce9bd81e622696aeb043c23175b2b199be240845fc11cd3b38f0fe108b097"
+  },
+  "tests": {
+    "active_passed": 18,
+    "log_sha256": "1facca82ee1c616634ebe64d6e7a247b2e815d4f6a0c150a8e225e8b303d27a2"
+  },
+  "local_preflight": {
+    "expected_failure": "E5 vs Gold CPU mismatch, zero solves",
+    "log": "tgppo/runs/server6-20261022/custom-logs/post-preflight-all-snone-20261023T023446Z-0DRtAj.log"
+  }
+}

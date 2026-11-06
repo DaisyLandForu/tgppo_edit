@@ -1,0 +1,176 @@
+test_changed_original_result_is_rejected (test_recover.RecoveryTests) ... ok
+test_cpu_mismatch_blocks_recovery_before_solver (test_recover.RecoveryTests) ... ok
+test_no_recovery_without_global_selection_freeze (test_recover.RecoveryTests) ... ok
+test_other_instance_failures_are_never_silently_excluded (test_recover.RecoveryTests) ... ok
+test_report_stays_on_common_65_until_every_model_has_three_recovered_rows (test_recover.RecoveryTests) ... COMPARISON_REPORT=/tmp/tmptubw84yw/runs/test/mspp16-recovery-20261023/reports/20261023T060638497679Z
+{
+  "complete66": false,
+  "instances": 65,
+  "recovered_models": [
+    "B0-s11",
+    "B0-s22",
+    "R0-s11",
+    "R0-s22",
+    "Rjoint-s11",
+    "Rjoint-s22"
+  ],
+  "combined_training_seeds": [
+    {
+      "method": "native",
+      "instances": 65,
+      "runs": 195,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.89999999999992,
+      "mean_pdi_upper": 100.1000000000001,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 23400.0,
+      "valid_worker_wall_seconds_sum": 23595.0,
+      "actor_callback_seconds": 19.500000000000007,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "B0",
+      "instances": 65,
+      "runs": 390,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.8999999999999,
+      "mean_pdi_upper": 100.1000000000001,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 46800.0,
+      "valid_worker_wall_seconds_sum": 47190.0,
+      "actor_callback_seconds": 39.000000000000284,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "R0",
+      "instances": 65,
+      "runs": 390,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.8999999999999,
+      "mean_pdi_upper": 100.1000000000001,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 46800.0,
+      "valid_worker_wall_seconds_sum": 47190.0,
+      "actor_callback_seconds": 39.000000000000284,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "Rjoint",
+      "instances": 65,
+      "runs": 390,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.8999999999999,
+      "mean_pdi_upper": 100.1000000000001,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 46800.0,
+      "valid_worker_wall_seconds_sum": 47190.0,
+      "actor_callback_seconds": 39.000000000000284,
+      "pdi_improvement_percent_vs_B0": 0.0
+    }
+  ]
+}
+COMPARISON_REPORT=/tmp/tmptubw84yw/runs/test/mspp16-recovery-20261023/reports/20261023T060638648310Z
+{
+  "complete66": true,
+  "instances": 66,
+  "recovered_models": [
+    "B0-s11",
+    "B0-s22",
+    "R0-s11",
+    "R0-s22",
+    "Rjoint-s11",
+    "Rjoint-s22",
+    "native"
+  ],
+  "combined_training_seeds": [
+    {
+      "method": "native",
+      "instances": 66,
+      "runs": 198,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.8999999999999,
+      "mean_pdi_upper": 100.10000000000011,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 23760.0,
+      "valid_worker_wall_seconds_sum": 23958.0,
+      "actor_callback_seconds": 19.80000000000001,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "B0",
+      "instances": 66,
+      "runs": 396,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.89999999999989,
+      "mean_pdi_upper": 100.10000000000011,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 47520.0,
+      "valid_worker_wall_seconds_sum": 47916.0,
+      "actor_callback_seconds": 39.60000000000029,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "R0",
+      "instances": 66,
+      "runs": 396,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.89999999999989,
+      "mean_pdi_upper": 100.10000000000011,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 47520.0,
+      "valid_worker_wall_seconds_sum": 47916.0,
+      "actor_callback_seconds": 39.60000000000029,
+      "pdi_improvement_percent_vs_B0": 0.0
+    },
+    {
+      "method": "Rjoint",
+      "instances": 66,
+      "runs": 396,
+      "mean_pdi": 100.0,
+      "mean_pdi_lower": 99.89999999999989,
+      "mean_pdi_upper": 100.10000000000011,
+      "mean_par2": 240.0,
+      "mean_nodes": 10.0,
+      "proof_count": 0,
+      "proof_rate": 0.0,
+      "valid_worker_cpu_seconds": 47520.0,
+      "valid_worker_wall_seconds_sum": 47916.0,
+      "actor_callback_seconds": 39.60000000000029,
+      "pdi_improvement_percent_vs_B0": 0.0
+    }
+  ]
+}
+ok
+test_retry_changes_only_address_space_not_rng_or_solver_budget (test_recover.RecoveryTests) ... ok
+test_retry_rejects_different_instance_or_increased_time_budget (test_recover.RecoveryTests) ... ok
+test_retry_runs_only_three_tasks_with_one_worker_and_no_gpu_requirement (test_recover.RecoveryTests) ... MSPP16_RECOVERED B0-s11: 3/3 valid, original 195 untouched
+This recovery passed; other models still pending. Full66 report waits for all seven.
+ok
+test_running_original_job_blocks_snapshot (test_recover.RecoveryTests) ... ok
+test_snapshot_preserves_195_sources_and_exactly_three_failed_jobs (test_recover.RecoveryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.001s
+
+OK

@@ -1,0 +1,27 @@
+Started 2026-10-23T02:42:56+00:00 host=sg-duweiyue25-261023-8f3b7-default0-0 mode=select log=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/custom-logs/post-select-Rjoint-s22-20261023T024256Z-0k5O5d.log
+Node preflight: {"allowed_cpus": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79], "device": "cpu", "effective_cpu_count": 8.01, "gpu": null, "gpu_properties": null, "host": "sg-duweiyue25-261023-8f3b7-default0-0", "memory_limit_bytes": 34360786944, "platform_job_metadata": {}, "slurm_array_task_id": null, "slurm_job_id": null, "stack": {"binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3", "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz", "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613", "machine": "x86_64", "python_abi": "3.8", "scip_version": 6.01, "torch_cuda_runtime": "11.7", "torch_version": "1.13.1+cu117"}}
+{
+  "group": "Rjoint",
+  "seed": 22,
+  "selection_path": "tgppo/runs/server6-20261022/training/Rjoint-s22/selection.json",
+  "selection_sha256": "56a01b05081059ce74c6d4a77a9c2af9c610943a77c7ee4aa574b83a8f707768",
+  "best": {
+    "episode": 400,
+    "mean_pdi": 3530.10159054473,
+    "mean_pdi_lower": 3529.8819438780633,
+    "mean_pdi_upper": 3530.3212372113967
+  },
+  "exports": {
+    "best": {
+      "path": "tgppo/runs/server6-20261022/training/Rjoint-s22/actor_best.pt",
+      "sha256": "70eebc1b1d3436660ca9feb6b18117a5a9ba3d6193bc51bad14cf7c8cd385b33",
+      "episode": 400
+    },
+    "final": {
+      "path": "tgppo/runs/server6-20261022/training/Rjoint-s22/actor_final.pt",
+      "sha256": "ec89aa76018d8a7163bab8f66453e9c65af5e4d415f642682e8de29a38a662cd",
+      "episode": 500
+    }
+  }
+}
+This selection passed; other selections still pending: Another job owns /home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/training/R0-s11/.selection.lock

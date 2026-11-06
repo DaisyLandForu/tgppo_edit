@@ -1,0 +1,37 @@
+{
+  "complete": true,
+  "paired_results": [
+    {
+      "seed": 11,
+      "steps": 20,
+      "original_surrogate_change": 0.0,
+      "linear_surrogate_change": -1.483038067817688e-05,
+      "original_train_tv": 0.0,
+      "linear_train_tv": 5.811075110155606e-05,
+      "original_monitor_tv": 0.0,
+      "linear_monitor_tv": 5.7283287826256305e-05,
+      "original_parameters": 241315,
+      "linear_parameters": 257
+    },
+    {
+      "seed": 22,
+      "steps": 20,
+      "original_surrogate_change": 0.0,
+      "linear_surrogate_change": -9.704381227493286e-05,
+      "original_train_tv": 0.0,
+      "linear_train_tv": 0.0004975621861973006,
+      "original_monitor_tv": 0.0,
+      "linear_monitor_tv": 1.7947069222833123e-05,
+      "original_parameters": 241315,
+      "linear_parameters": 257
+    }
+  ],
+  "interpretation": "Conditional scoring-head fit on two fixed real-advantage batches. No solver/quality/generalization claim.",
+  "caveats": [
+    "two source training seeds, not four independent repeats",
+    "shared uniform readout and fresh Adam differ from historical continuation",
+    "original nonlinear intermediate weights retained; linear comparator has fewer parameters",
+    "same batch reused for 20 steps",
+    "monitor instances are training instances"
+  ]
+}

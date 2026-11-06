@@ -1,0 +1,34 @@
+{
+  "observed_at_utc": "2026-10-23T00:15:10.613301+00:00",
+  "scope": "Training audit, gated development selection and Actor-only Crater evaluation launchers",
+  "resolved_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "training_runtime_unchanged": true,
+  "files": {
+    "migration/2026-10-22/server-run/CRATER.md": {
+      "sha256": "f1d1194eb0557eb521dae0efa1c28c0c61ee7c6c934aed245a32c2f0511f0222",
+      "before_sha256": "26814e3ef4b0f0d8754c5786ee28c58e59734bfad3bec92eddd407f37e967181"
+    },
+    "migration/2026-10-22/server-run/post_training.py": {
+      "sha256": "85e2dab27d07c2447434fd9bbb107f513f61419811b1d8736a9882a15717bff5",
+      "before_sha256": null
+    },
+    "migration/2026-10-22/server-run/post_job.sh": {
+      "sha256": "389e3b7615885c9a38c73dee2c396289853b465912a94e9fde3d378cc42a7574",
+      "before_sha256": null
+    },
+    "migration/2026-10-22/server-run/POST_TRAINING.md": {
+      "sha256": "4c6b2491aa2943e36291df09823a0eb2da91484e3d3a0e25d977ae55c4dcfdae",
+      "before_sha256": null
+    },
+    "migration/2026-10-22/server-run/tests/test_post_training.py": {
+      "sha256": "212480145773014336ec841019910f53b06750f9535fe33fcbf2a846f46e21af",
+      "before_sha256": null
+    }
+  },
+  "artifacts": {
+    "tgppo/runs/server6-20261022/post-training-20261023/training_audit.json": "200f1d89461d7a0062ebb0ae5a445ae70dcc8c4005e1a6c82f660f2677a7e70c",
+    "tgppo/runs/server6-20261022/post-training-20261023/local_preselection_check.json": "0136d51f8ffbf3af74cd11fa55ef7fde758d2b99501c0e79daebb6510503850b",
+    "tgppo/runs/server6-20261022/post-training-20261023/tests-20261023-final.log": "223af927b9e1633c370ee159d865343f33fbfb9ab8f0af045acbf4a17b71e10d",
+    "tgppo/runs/server6-20261022/post-training-20261023/REPORT.md": "c0d5e094685dc135dbf948c793d3f4cd31ffdbe0f8571b9e6011bb5a5212aeb1"
+  }
+}

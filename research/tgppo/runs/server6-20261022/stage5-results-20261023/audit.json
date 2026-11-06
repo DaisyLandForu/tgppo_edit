@@ -1,0 +1,136 @@
+{
+  "observed_at_utc": "2026-10-23T07:06:16.091994+00:00",
+  "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "frozen_selection_sha256": "a8489c97fa042f980fc6f2b770ad1e1597524b4b38d8b91f721f25df1c32bd1a",
+  "recovery_policy_sha256": "aad85046036b1a4c3806d098183e5f9ba7812f4d25a37d56d11ca44dd9ee0c9e",
+  "checks": {
+    "valid_unique_final_test_records": 1386,
+    "original_valid_records": 1365,
+    "recovered_valid_records": 21,
+    "preserved_original_failed_records": 21,
+    "instances": 66,
+    "solver_seeds": [
+      0,
+      1,
+      2
+    ],
+    "training_seeds": [
+      11,
+      22
+    ],
+    "groups": [
+      "B0",
+      "R0",
+      "Rjoint"
+    ],
+    "same_gold_software_stack": true,
+    "same_cutoffs_and_action_seeds": true,
+    "source_hashes_checked": true,
+    "actor_best_and_final_hashes_checked": true,
+    "training_audit_files_hashes_checked": true,
+    "frozen_before_all_final_task_result_files": true,
+    "all_critics_disabled": true,
+    "all_search_extensions_disabled": true,
+    "all_cuda_disabled_in_evaluation": true,
+    "all_actor_fallback_action_counts_zero": true,
+    "solver_limit_seconds": 120,
+    "valid_development_records": 450,
+    "independent_compatible_dataset_supplied": false
+  },
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  },
+  "resource_exception": {
+    "actor_device": "cpu",
+    "address_space_limit_bytes": 25769803776,
+    "container_memory_min_bytes": 34359738368,
+    "cpu_quota_min": 8,
+    "cuda_required": false,
+    "instance": "mspp16",
+    "solver_time_limit_seconds": 120.0,
+    "watchdog_seconds": 300.0,
+    "workers": 1
+  },
+  "recovery_receipts": [
+    {
+      "model": "B0-s11",
+      "finished_at_utc": "2026-10-23T06:25:44.434391+00:00",
+      "host": "sg-duweiyue25-261023-a160d-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    },
+    {
+      "model": "B0-s22",
+      "finished_at_utc": "2026-10-23T06:41:11.201578+00:00",
+      "host": "sg-duweiyue25-261023-9bd82-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    },
+    {
+      "model": "R0-s11",
+      "finished_at_utc": "2026-10-23T06:29:59.518484+00:00",
+      "host": "sg-duweiyue25-261023-68c10-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    },
+    {
+      "model": "R0-s22",
+      "finished_at_utc": "2026-10-23T06:41:42.588317+00:00",
+      "host": "sg-duweiyue25-261023-11de1-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    },
+    {
+      "model": "Rjoint-s11",
+      "finished_at_utc": "2026-10-23T06:28:11.912255+00:00",
+      "host": "sg-duweiyue25-261023-da6c3-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    },
+    {
+      "model": "Rjoint-s22",
+      "finished_at_utc": "2026-10-23T06:42:35.744912+00:00",
+      "host": "sg-duweiyue25-261023-e1c76-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    },
+    {
+      "model": "native",
+      "finished_at_utc": "2026-10-23T06:30:31.062814+00:00",
+      "host": "sg-duweiyue25-261023-5ae5f-default0-0",
+      "cpu": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "effective_cpu_count": 8.01,
+      "container_memory_bytes": 34360786944
+    }
+  ],
+  "final_test_status_counts": {
+    "timelimit": 1050,
+    "optimal": 63,
+    "infeasible": 273
+  },
+  "old_failure_status_counts": {
+    "worker_exit_error": 21
+  },
+  "bootstrap": {
+    "unit": "paired instance; both fixed training seeds and three solver seeds averaged within instance",
+    "instances": 66,
+    "resamples": 20000,
+    "numpy_random_state_seed": 20261023,
+    "limitation": "Conditional on six trained and dev-selected Actors; does not estimate variability over new training seeds. Exploratory percentile interval on PDI midpoints; distinct from deterministic measurement bounds."
+  },
+  "stage5_status": "Authorized six-model test matrix complete with disclosed resource exception; delivery awaits user acceptance.",
+  "stage6_started": false
+}

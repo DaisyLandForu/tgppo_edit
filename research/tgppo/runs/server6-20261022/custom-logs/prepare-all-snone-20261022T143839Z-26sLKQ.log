@@ -1,0 +1,499 @@
+Started 2026-10-22T14:38:39+00:00 host=sg-duweiyue25-261022-e3d32-default0-0 pid=15 log=/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/custom-logs/prepare-all-snone-20261022T143839Z-26sLKQ.log
+{
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "gpu": "Tesla V100-SXM2-32GB",
+  "gpu_properties": {
+    "total_memory_bytes": 34072559616,
+    "compute_capability": [
+      7,
+      0
+    ],
+    "visible_device_count": 1
+  },
+  "device": "cuda",
+  "allowed_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79
+  ],
+  "effective_cpu_count": 8.01,
+  "memory_limit_bytes": 34360786944,
+  "host": "sg-duweiyue25-261022-e3d32-default0-0",
+  "platform_job_metadata": {},
+  "slurm_job_id": null,
+  "slurm_array_task_id": null
+}
+test_hl_prior_initialization_is_common_and_train_only (test_calibration.CalibrationChecks) ... ok
+test_mse_all_groups_start_at_same_raw_train_mean (test_calibration.CalibrationChecks) ... ok
+test_parameter_matching_and_gradient_reaches_encoder_boundary (test_calibration.CalibrationChecks) ... ok
+test_raw_decoder_roundtrip_and_negative_values (test_calibration.CalibrationChecks) ... ok
+test_state_restore_retains_raw_value_units (test_calibration.CalibrationChecks) ... ok
+test_statistics_are_instance_balanced (test_calibration.CalibrationChecks) ... ok
+test_actor_only_actions_match_collection_and_old_eval_mode (test_correctness.CorrectnessTests) ... ok
+test_actual_upstream_choose_action_matches_actor_only (test_correctness.CorrectnessTests) ... ok
+test_buffer_roundtrip_empty_duplicate_and_stale_policy (test_correctness.CorrectnessTests) ... ok
+test_checkpoint_architecture_rng_optimizer_buffer_and_exact_next_update (test_correctness.CorrectnessTests) ... ok
+test_finalize_then_free_is_idempotent_and_zero_actions_not_invented (test_correctness.CorrectnessTests) ... ok
+test_gae_terminal_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_gae_truncation_hand_calculation (test_correctness.CorrectnessTests) ... ok
+test_independent_parameters_and_gradients (test_correctness.CorrectnessTests) ... ok
+test_invalid_transition_and_incomplete_episode_rejected (test_correctness.CorrectnessTests) ... ok
+test_original_branchfree_already_idempotent (test_correctness.CorrectnessTests) ... ok
+test_padding_ratio_and_real_actor_update (test_correctness.CorrectnessTests) ... ok
+test_reward_and_solver_receive_120_and_3600_and_baseline_mismatch_rejected (test_correctness.CorrectnessTests) ... ok
+test_scip_sentinel_timeout_and_cutoff_semantics (test_correctness.CorrectnessTests) ... SIMULATED_SENTINEL_EVIDENCE={"cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -5.0, "dual_bound_finite": true, "episode_ended": true, "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "nnodes": 10, "num_stored_solutions": 0, "objective": null, "original_optimal": false, "pdi_semantics": "native_raw_until_actual_stop", "primalDualIntegral": 4.0, "primalDualIntegral_finite": true, "primal_bound": 1e+20, "primal_bound_finite": false, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 120.0, "status": "timelimit", "task_terminal": true, "valid": true}
+ok
+test_truncation_needs_actual_tail_and_uses_critic (test_correctness.CorrectnessTests) ... ok
+test_two_episodes_do_not_contaminate_each_other (test_correctness.CorrectnessTests) ... ok
+test_unchanged_networks_reward_settings_and_original_repository (test_correctness.CorrectnessTests) ... ok
+test_worker_failure_watchdog_and_order_are_explicit (test_correctness.CorrectnessTests) ... ok
+test_real_air04_timeout_retains_nonzero_raw_gap (test_correctness.RealSolverTests) ... WARNING: LP solver reached time limit, but SCIP time limit is not exceeded yet; you might consider switching the clock type of SCIP
+REAL_AIR04_TIMEOUT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 56137.0, "reason": "event", "time": 0.09269899999999999}, {"dual": -80692.0, "native_last_update_time": 0.9940859999999999, "native_previous_percent_gap": 100.0, "native_raw": 99.40859999999999, "primal": 56137.0, "reason": "stop", "time": 0.994091}], "cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -80692.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 1.1611889290506952, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/air04.mps.gz:0", "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "integral_snapshot": {"integral": 99.40859999999999, "last_dual_bound": -80692.0, "last_primal_bound": 56137.0, "last_update_time": 0.9940859999999999, "previous_percent_gap": 100.0, "solving_time": 0.994091}, "load_wall_seconds": 0.1666754290345125, "measurement_callback_seconds": 0.00031103420769795775, "measurement_event_calls": 34, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 1, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.9944037940003909, "original_optimal": false, "pdi_extension_basis": "hold_final_native_bound_gap", "pdi_horizon_exact": true, "pdi_horizon_lower": 100.0, "pdi_horizon_midpoint": 100.0, "pdi_horizon_normalized_midpoint": 1.0, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 100.0, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 99.4091, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 99.40859999999999, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 0.0005000000000023874, "primalDualIntegral": 99.40859999999999, "primalDualIntegral_finite": true, "primal_bound": 56137.0, "primal_bound_finite": true, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 0.994091, "scip_time_overshoot_seconds": 0.0, "status": "timelimit", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+ok
+test_real_eval_never_calls_critic_reward_or_memory_and_preserves_weights (test_correctness.RealSolverTests) ... ok
+test_real_policy_exception_interrupts_and_is_invalid (test_correctness.RealSolverTests) ... ok
+test_early_proof_zero_extension_and_timeout_hold_extension (test_measurement.MeasurementTests) ... ok
+test_overshoot_is_an_interval_not_fabricated_exact_integral (test_measurement.MeasurementTests) ... ok
+test_percent_gap_is_not_scip_relative_gap (test_measurement.MeasurementTests) ... ok
+test_real_solved_presolve_and_timeout_flush (test_measurement.MeasurementTests) ... MEASUREMENT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 2.0, "reason": "event", "time": 0.002448}, {"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 2.0, "reason": "stop", "time": 0.0037949999999999998}], "cutoff_applied": true, "cutoff_proof": true, "cutoff_verified": true, "dual_bound": -1e+20, "dual_bound_finite": false, "environment_wall_seconds_before_free": 0.031109827978070825, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/misc03.mps.gz:0", "gap": 0.0, "gap_finite": true, "has_feasible_solution": false, "integral_snapshot": {"integral": 0.0, "last_dual_bound": 1e+98, "last_primal_bound": 1e+98, "last_update_time": 0.0, "previous_percent_gap": 100.0, "solving_time": 0.0037949999999999998}, "load_wall_seconds": 0.027232369990088046, "measurement_callback_seconds": 2.8695038054138422e-05, "measurement_event_calls": 3, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 0, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.0038487209822051227, "original_optimal": false, "pdi_extension_basis": "verified_proof_certificate", "pdi_horizon_exact": true, "pdi_horizon_lower": 0.37949999999999995, "pdi_horizon_midpoint": 0.37949999999999995, "pdi_horizon_normalized_midpoint": 0.0037949999999999993, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 0.37949999999999995, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 0.37949999999999995, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 0.0, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 0.37949999999999995, "primalDualIntegral": 0.0, "primalDualIntegral_finite": true, "primal_bound": 2.0, "primal_bound_finite": true, "proof_completed": true, "scip_infinity": 1e+20, "scip_solve_time": 0.0037949999999999998, "scip_time_overshoot_seconds": 0.0, "status": "infeasible", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+MEASUREMENT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 1120.0, "reason": "event", "time": 0.000819}, {"dual": 1054.81931523013, "native_last_update_time": 0.11970299999999999, "native_previous_percent_gap": 5.819703997309814, "native_raw": 1.484602837016217, "primal": 1120.0, "reason": "event", "time": 0.121696}, {"dual": 1065.0899926292109, "native_last_update_time": 0.142623, "native_previous_percent_gap": 4.902679229534742, "native_raw": 1.617990452634558, "primal": 1120.0, "reason": "event", "time": 0.144068}, {"dual": 1075.8189677147245, "native_last_update_time": 0.268554, "native_previous_percent_gap": 3.944735025471025, "native_raw": 2.1650157702633352, "primal": 1120.0, "reason": "event", "time": 0.271514}, {"dual": 1077.5230419931106, "native_last_update_time": 0.292093, "native_previous_percent_gap": 3.7925855363294096, "native_raw": 2.2578708880278975, "primal": 1120.0, "reason": "event", "time": 0.293582}, {"dual": 1078.4810217539016, "native_last_update_time": 0.434739, "native_previous_percent_gap": 3.70705162911593, "native_raw": 2.795528165432297, "primal": 1120.0, "reason": "event", "time": 0.440123}, {"dual": 1078.6498068588558, "native_last_update_time": 0.46675999999999995, "native_previous_percent_gap": 3.6919815304593078, "native_raw": 2.9142316656482183, "primal": 1120.0, "reason": "event", "time": 0.47295899999999996}, {"dual": 1078.90704700975, "native_last_update_time": 0.480575, "native_previous_percent_gap": 3.669013659843756, "native_raw": 2.9652363904915138, "primal": 1120.0, "reason": "event", "time": 0.480604}, {"dual": 1079.1652549062103, "native_last_update_time": 0.49213199999999996, "native_previous_percent_gap": 3.645959383374081, "native_raw": 3.007639181358328, "primal": 1120.0, "reason": "event", "time": 0.492151}, {"dual": 1079.3213286366863, "native_last_update_time": 0.5380429999999999, "native_previous_percent_gap": 3.6320242288672944, "native_raw": 3.175028822608416, "primal": 1120.0, "reason": "event", "time": 0.538064}, {"dual": 1079.9464455627408, "native_last_update_time": 0.571421, "native_previous_percent_gap": 3.5762102176124295, "native_raw": 3.2962585273195484, "primal": 1120.0, "reason": "event", "time": 0.57144}, {"dual": 1081.465038506235, "native_last_update_time": 0.615705, "native_previous_percent_gap": 3.4406215619433005, "native_raw": 3.4546274205962972, "primal": 1120.0, "reason": "event", "time": 0.615892}, {"dual": 1082.1572671196914, "native_last_update_time": 0.651797, "native_previous_percent_gap": 3.378815435741842, "native_raw": 3.578806334009955, "primal": 1120.0, "reason": "event", "time": 0.652011}, {"dual": 1083.0601155303975, "native_last_update_time": 0.675759, "native_previous_percent_gap": 3.298203970500221, "native_raw": 3.659769509481201, "primal": 1120.0, "reason": "event", "time": 0.675944}, {"dual": 1083.0731191183222, "native_last_update_time": 0.676829, "native_previous_percent_gap": 3.2970429358640883, "native_raw": 3.6632985877296362, "primal": 1120.0, "reason": "event", "time": 0.676854}, {"dual": 1084.3752079699439, "native_last_update_time": 0.691525, "native_previous_percent_gap": 3.180785002683584, "native_raw": 3.711751930715095, "primal": 1120.0, "reason": "event", "time": 0.691719}, {"dual": 1085.914297207938, "native_last_update_time": 0.861359, "native_previous_percent_gap": 3.0433663207198185, "native_raw": 4.2519573708608585, "primal": 1120.0, "reason": "event", "time": 0.8613909999999999}, {"dual": 1091.6241662519756, "native_last_update_time": 0.87744, "native_previous_percent_gap": 2.5335565846450385, "native_raw": 4.300897744664354, "primal": 1120.0, "reason": "event", "time": 0.877632}, {"dual": 1092.427865950001, "native_last_update_time": 0.8791589999999999, "native_previous_percent_gap": 2.461797683035627, "native_raw": 4.305252928433359, "primal": 1120.0, "reason": "event", "time": 0.8793409999999999}, {"dual": 1092.494339845088, "native_last_update_time": 0.8800859999999999, "native_previous_percent_gap": 2.455862513831428, "native_raw": 4.307535014885533, "primal": 1120.0, "reason": "event", "time": 0.880135}, {"dual": 1094.6513355658542, "native_last_update_time": 0.881493, "native_previous_percent_gap": 2.2632736101915896, "native_raw": 4.310990413442494, "primal": 1120.0, "reason": "event", "time": 0.881674}, {"dual": 1094.8805253922433, "native_last_update_time": 0.882409, "native_previous_percent_gap": 2.242810232835422, "native_raw": 4.31306357206943, "primal": 1120.0, "reason": "event", "time": 0.8824569999999999}, {"dual": 1099.6908331706925, "native_last_update_time": 0.887346, "native_previous_percent_gap": 1.8133184669024567, "native_raw": 4.324136326188938, "primal": 1120.0, "reason": "event", "time": 0.8936449999999999}, {"dual": 1103.441523982367, "native_last_update_time": 0.8950159999999999, "native_previous_percent_gap": 1.4784353587172308, "native_raw": 4.3380444788300805, "primal": 1120.0, "reason": "event", "time": 0.895045}, {"dual": 1104.0422958907407, "native_last_update_time": 0.8952509999999999, "native_previous_percent_gap": 1.4247950097552982, "native_raw": 4.338391911139379, "primal": 1120.0, "reason": "event", "time": 0.895258}, {"dual": 1106.7258720903055, "native_last_update_time": 0.8955639999999999, "native_previous_percent_gap": 1.1851899919370064, "native_raw": 4.338837871977432, "primal": 1120.0, "reason": "event", "time": 0.895593}, {"dual": 1107.7136368534134, "native_last_update_time": 0.896268, "native_previous_percent_gap": 1.0969967095166615, "native_raw": 4.339672245731756, "primal": 1120.0, "reason": "event", "time": 0.896296}, {"dual": 1110.6610066707094, "native_last_update_time": 0.89927, "native_previous_percent_gap": 0.833838690115231, "native_raw": 4.3429654298537255, "primal": 1120.0, "reason": "event", "time": 0.899299}, {"dual": 1111.1181953480673, "native_last_update_time": 0.89927, "native_previous_percent_gap": 0.833838690115231, "native_raw": 4.3429654298537255, "primal": 1120.0, "reason": "event", "time": 0.8997999999999999}, {"dual": 1111.5172881355934, "native_last_update_time": 0.89927, "native_previous_percent_gap": 0.833838690115231, "native_raw": 4.3429654298537255, "primal": 1120.0, "reason": "event", "time": 0.899972}, {"dual": 1120.0, "native_last_update_time": 0.89927, "native_previous_percent_gap": 0.833838690115231, "native_raw": 4.3429654298537255, "primal": 1120.0, "reason": "event", "time": 0.9004139999999999}, {"dual": 1120.0, "native_last_update_time": 0.900419, "native_previous_percent_gap": 0.833838690115231, "native_raw": 4.3439235105086675, "primal": 1120.0, "reason": "stop", "time": 0.9005289999999999}], "cutoff_applied": true, "cutoff_proof": true, "cutoff_verified": true, "dual_bound": 1120.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 0.9101677659782581, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/lseu.mps.gz:0", "gap": 0.0, "gap_finite": true, "has_feasible_solution": false, "integral_snapshot": {"integral": 4.3439235105086675, "last_dual_bound": 1110.6610066707094, "last_primal_bound": 1120.0, "last_update_time": 0.900419, "previous_percent_gap": 0.833838690115231, "solving_time": 0.9005289999999999}, "load_wall_seconds": 0.009551480994559824, "measurement_callback_seconds": 0.00500577554339543, "measurement_event_calls": 919, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 282, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.9005845719948411, "original_optimal": false, "pdi_extension_basis": "verified_proof_certificate", "pdi_horizon_exact": true, "pdi_horizon_lower": 4.34401523276458, "pdi_horizon_midpoint": 4.34401523276458, "pdi_horizon_normalized_midpoint": 0.043440152327645795, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 4.34401523276458, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 4.34401523276458, "pdi_native_final_percent_gap": 0.833838690115231, "pdi_native_raw_before_flush": 4.3439235105086675, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 9.172225591225214e-05, "primalDualIntegral": 4.3439235105086675, "primalDualIntegral_finite": true, "primal_bound": 1120.0, "primal_bound_finite": true, "proof_completed": true, "scip_infinity": 1e+20, "scip_solve_time": 0.9005289999999999, "scip_time_overshoot_seconds": 0.0, "status": "infeasible", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+WARNING: LP solver reached time limit, but SCIP time limit is not exceeded yet; you might consider switching the clock type of SCIP
+MEASUREMENT_EVIDENCE={"bounds_trace": [{"dual": -1e+20, "native_last_update_time": 0.0, "native_previous_percent_gap": 100.0, "native_raw": 0.0, "primal": 56137.0, "reason": "event", "time": 0.083937}, {"dual": -80692.0, "native_last_update_time": 0.997261, "native_previous_percent_gap": 100.0, "native_raw": 99.72609999999999, "primal": 56137.0, "reason": "stop", "time": 0.997265}], "cutoff_applied": true, "cutoff_proof": false, "cutoff_verified": true, "dual_bound": -80692.0, "dual_bound_finite": true, "environment_wall_seconds_before_free": 1.0806168139679357, "episode_ended": true, "episode_id": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/air04.mps.gz:0", "gap": 1e+20, "gap_finite": false, "has_feasible_solution": false, "integral_snapshot": {"integral": 99.72609999999999, "last_dual_bound": -80692.0, "last_primal_bound": 56137.0, "last_update_time": 0.997261, "previous_percent_gap": 100.0, "solving_time": 0.997265}, "load_wall_seconds": 0.08311886095907539, "measurement_callback_seconds": 0.0003438440035097301, "measurement_event_calls": 34, "measurement_version": "native-pdi-snapshot-horizon-v2", "mode": "native", "nnodes": 1, "num_stored_solutions": 0, "objective": null, "optimize_wall_seconds": 0.9974243569886312, "original_optimal": false, "pdi_extension_basis": "hold_final_native_bound_gap", "pdi_horizon_exact": true, "pdi_horizon_lower": 99.99999999999999, "pdi_horizon_midpoint": 99.99999999999999, "pdi_horizon_normalized_midpoint": 0.9999999999999999, "pdi_horizon_seconds": 1.0, "pdi_horizon_uncertainty": 0.0, "pdi_horizon_upper": 99.99999999999999, "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval", "pdi_native_complete_at_stop": 99.72649999999999, "pdi_native_final_percent_gap": 100.0, "pdi_native_raw_before_flush": 99.72609999999999, "pdi_semantics": "native_raw_until_actual_stop", "pdi_tail_completed_readonly": 0.00039999999999906777, "primalDualIntegral": 99.72609999999999, "primalDualIntegral_finite": true, "primal_bound": 56137.0, "primal_bound_finite": true, "proof_completed": false, "scip_infinity": 1e+20, "scip_solve_time": 0.997265, "scip_time_overshoot_seconds": 0.0, "status": "timelimit", "task_terminal": true, "time_limit_seconds": 1.0, "valid": true}
+ok
+test_same_logical_batch_gradient_without_dropout (test_microbatch.MicrobatchTests) ... ok
+test_context_roundtrip_minibatch_and_reject_corruption (test_online.OnlineTests) ... ok
+test_full_update_restore_rng_optimizer_and_actor_only (test_online.OnlineTests) ... ok
+test_online_microbatch_equivalence (test_online.OnlineTests) ... ok
+test_pairing_public_weights_rng_and_extra_shapes (test_online.OnlineTests) ... ok
+test_raw_value_gae_and_only_loss_standardized (test_online.OnlineTests) ... ok
+test_native_search_read_only_and_internal_objective_direction (test_search_features.RealFrontierChecks) ... ok
+test_cached_and_full_forward_preserve_base_value_and_gradients (test_search_features.SearchChecks) ... ok
+test_count_nan_and_negative_depth_rejected (test_search_features.SearchChecks) ... ok
+test_empty_degenerate_and_infinities (test_search_features.SearchChecks) ... ok
+test_gpu_cached_fit_and_trainable_adapter_restore (test_search_features.SearchChecks) ... ok
+test_hl_gauss_normalization_and_expectation (test_search_features.SearchChecks) ... ok
+test_identical_marginals_different_association (test_search_features.SearchChecks) ... ok
+test_parameter_matching_and_common_initialization (test_search_features.SearchChecks) ... ok
+test_return_labels_have_terminal_boundary (test_search_features.SearchChecks) ... ok
+test_sidecar_alignment_and_action_before_branch (test_search_features.SearchChecks) ... ok
+test_complete_update_restore_and_actor_export_all_groups (test_server.ServerTests) ... ok
+test_container_quota_is_checked_even_with_large_affinity (test_server.ServerTests) ... ok
+test_dev_selection_coverage_ties_and_failure (test_server.ServerTests) ... ok
+test_extra_critic_initialization_preserves_cuda_rng_pairing (test_server.ServerTests) ... ok
+test_formal_training_requires_matching_bridge_and_pilot (test_server.ServerTests) ... ok
+test_real_collection_interrupted_update_resumes_without_lost_or_duplicate_tasks (test_server.ServerTests) ... {"actor_loss": 0.0007809112154829659, "critic_loss": 3.572365159659009, "entropy": 2.5387890997685885, "clip_fraction": 0.0, "updated": true, "num_updates": 19, "num_samples": 292, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 1.5517640113830566, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 1.7830060000000003, "learning_wall_seconds": 1.7827239220496267, "gpu_event_seconds": null, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0}
+{"actor_loss": 0.014022379231296088, "critic_loss": 0.4556535090270795, "entropy": 2.522547259142524, "clip_fraction": 0.0, "updated": true, "num_updates": 19, "num_samples": 291, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 1.7603846788406372, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 1.8103049999999996, "learning_wall_seconds": 1.810091814957559, "gpu_event_seconds": null, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0}
+{"actor_loss": 0.0017337843726883512, "critic_loss": 0.4725468629672203, "entropy": 2.5390689464998832, "clip_fraction": 0.0, "updated": true, "num_updates": 18, "num_samples": 281, "initial_ratio_max_error": 0.0, "advantage_std_before_normalization": 1.7370232343673706, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 1.7729209999999966, "learning_wall_seconds": 1.7723959989962168, "gpu_event_seconds": null, "peak_cuda_allocated_bytes": 0, "peak_cuda_reserved_bytes": 0}
+ok
+test_three_groups_public_actor_pairing_and_cpu_worker (test_server.ServerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 157.047s
+
+OK
+{
+  "timestamp_utc": "2026-10-22T14:42:19.482889+00:00",
+  "scope": "engineering checks on this node; not formal training or target throughput evidence",
+  "host": "sg-duweiyue25-261022-e3d32-default0-0",
+  "cuda_available": true,
+  "tests_run": 53,
+  "skipped": 0,
+  "errors": 0,
+  "failures": 0,
+  "passed": true,
+  "wall_seconds": 165.17617567401612,
+  "self_cpu_seconds": 35.454933,
+  "children_cpu_seconds": 158.744672,
+  "self_peak_rss_kib": 1961764,
+  "children_max_process_rss_kib": 1669648,
+  "skip_reasons": []
+}
+{"actor_loss": -0.0057924535650793795, "critic_loss": 9.607936880973446, "entropy": 2.528855709624618, "clip_fraction": 0.0, "updated": true, "num_updates": 9, "num_samples": 738, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 1.78288733959198, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 11.806270000000005, "learning_wall_seconds": 11.83393848396372, "gpu_event_seconds": 11.8336064453125, "peak_cuda_allocated_bytes": 301657600, "peak_cuda_reserved_bytes": 331350016}
+{"actor_loss": -0.005691103139162365, "critic_loss": 0.10640811720256757, "entropy": 2.528855709859051, "clip_fraction": 0.0, "updated": true, "num_updates": 9, "num_samples": 738, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.416480779647827, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 11.982434000000005, "learning_wall_seconds": 12.004912416974548, "gpu_event_seconds": 12.00474609375, "peak_cuda_allocated_bytes": 301737472, "peak_cuda_reserved_bytes": 331350016}
+{"actor_loss": -0.005702921102256606, "critic_loss": 0.10615380655691636, "entropy": 2.528855709624618, "clip_fraction": 0.0, "updated": true, "num_updates": 9, "num_samples": 738, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.420255184173584, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 12.799504999999996, "learning_wall_seconds": 12.841802250011824, "gpu_event_seconds": 12.8415751953125, "peak_cuda_allocated_bytes": 302096896, "peak_cuda_reserved_bytes": 333447168}
+{
+  "passed": true,
+  "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "gpu": "Tesla V100-SXM2-32GB",
+  "checks": {
+    "B0_interrupted_state_uncommitted": true,
+    "B0_resume_actor_matches": true,
+    "B0_resume_critic_matches": true,
+    "B0_resume_cuda_rng_matches": true,
+    "B0_resume_optimizers_match": true,
+    "B0_resume_reuses_collection": true,
+    "B0_cuda_rng_recovery": true,
+    "B0_full_cuda_critic": true,
+    "B0_optimizers_recovered": true,
+    "B0_real_update": true,
+    "B0_ratio_cpu_rollout_vs_cuda_update": true,
+    "B0_actor_changed": true,
+    "B0_critic_changed": true,
+    "B0_actor_only_cpu": true,
+    "B0_workers_cpu_only": true,
+    "R0_interrupted_state_uncommitted": true,
+    "R0_resume_actor_matches": true,
+    "R0_resume_critic_matches": true,
+    "R0_resume_cuda_rng_matches": true,
+    "R0_resume_optimizers_match": true,
+    "R0_resume_reuses_collection": true,
+    "R0_cuda_rng_recovery": true,
+    "R0_full_cuda_critic": true,
+    "R0_optimizers_recovered": true,
+    "R0_real_update": true,
+    "R0_ratio_cpu_rollout_vs_cuda_update": true,
+    "R0_actor_changed": true,
+    "R0_critic_changed": true,
+    "R0_actor_only_cpu": true,
+    "R0_workers_cpu_only": true,
+    "R0_raw_unit_decode": true,
+    "Rjoint_interrupted_state_uncommitted": true,
+    "Rjoint_resume_actor_matches": true,
+    "Rjoint_resume_critic_matches": true,
+    "Rjoint_resume_cuda_rng_matches": true,
+    "Rjoint_resume_optimizers_match": true,
+    "Rjoint_resume_reuses_collection": true,
+    "Rjoint_cuda_rng_recovery": true,
+    "Rjoint_full_cuda_critic": true,
+    "Rjoint_optimizers_recovered": true,
+    "Rjoint_real_update": true,
+    "Rjoint_ratio_cpu_rollout_vs_cuda_update": true,
+    "Rjoint_actor_changed": true,
+    "Rjoint_critic_changed": true,
+    "Rjoint_actor_only_cpu": true,
+    "Rjoint_workers_cpu_only": true,
+    "Rjoint_raw_unit_decode": true,
+    "paired_initial_actor": true,
+    "paired_initial_cpu_rng": true,
+    "paired_initial_cuda_rng": true
+  },
+  "rows": [
+    {
+      "group": "B0",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "metrics": [
+        {
+          "actor_loss": -0.0057924535650793795,
+          "critic_loss": 9.607936880973446,
+          "entropy": 2.528855709624618,
+          "clip_fraction": 0.0,
+          "updated": true,
+          "num_updates": 9,
+          "num_samples": 738,
+          "initial_ratio_max_error": 2.384185791015625e-07,
+          "advantage_std_before_normalization": 1.78288733959198,
+          "update_step": 1,
+          "policy_version": 1,
+          "episodes_seen": 4,
+          "learning_cpu_seconds": 11.806270000000005,
+          "learning_wall_seconds": 11.83393848396372,
+          "gpu_event_seconds": 11.8336064453125,
+          "peak_cuda_allocated_bytes": 301657600,
+          "peak_cuda_reserved_bytes": 331350016
+        }
+      ],
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/gpu-bridge/a2189062f0bb4f52a39f8f361d3d5dc7/training/B0-s11"
+    },
+    {
+      "group": "R0",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "metrics": [
+        {
+          "actor_loss": -0.005691103139162365,
+          "critic_loss": 0.10640811720256757,
+          "entropy": 2.528855709859051,
+          "clip_fraction": 0.0,
+          "updated": true,
+          "num_updates": 9,
+          "num_samples": 738,
+          "initial_ratio_max_error": 2.384185791015625e-07,
+          "advantage_std_before_normalization": 2.416480779647827,
+          "update_step": 1,
+          "policy_version": 1,
+          "episodes_seen": 4,
+          "learning_cpu_seconds": 11.982434000000005,
+          "learning_wall_seconds": 12.004912416974548,
+          "gpu_event_seconds": 12.00474609375,
+          "peak_cuda_allocated_bytes": 301737472,
+          "peak_cuda_reserved_bytes": 331350016
+        }
+      ],
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/gpu-bridge/a2189062f0bb4f52a39f8f361d3d5dc7/training/R0-s11"
+    },
+    {
+      "group": "Rjoint",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "metrics": [
+        {
+          "actor_loss": -0.005702921102256606,
+          "critic_loss": 0.10615380655691636,
+          "entropy": 2.528855709624618,
+          "clip_fraction": 0.0,
+          "updated": true,
+          "num_updates": 9,
+          "num_samples": 738,
+          "initial_ratio_max_error": 2.384185791015625e-07,
+          "advantage_std_before_normalization": 2.420255184173584,
+          "update_step": 1,
+          "policy_version": 1,
+          "episodes_seen": 4,
+          "learning_cpu_seconds": 12.799504999999996,
+          "learning_wall_seconds": 12.841802250011824,
+          "gpu_event_seconds": 12.8415751953125,
+          "peak_cuda_allocated_bytes": 302096896,
+          "peak_cuda_reserved_bytes": 333447168
+        }
+      ],
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/gpu-bridge/a2189062f0bb4f52a39f8f361d3d5dc7/training/Rjoint-s11"
+    }
+  ],
+  "scope": "GPU bridge only, not full training or performance validation"
+}
+{"actor_loss": -0.008863024592140728, "critic_loss": 40.17687484017209, "entropy": 3.9405839294277687, "clip_fraction": 0.0, "updated": true, "num_updates": 42, "num_samples": 3371, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 3.0412118434906006, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 52.24296, "learning_wall_seconds": 52.31854964001104, "gpu_event_seconds": 52.315453125, "peak_cuda_allocated_bytes": 4249867776, "peak_cuda_reserved_bytes": 5762973696}
+{"actor_loss": -0.01225234548511, "critic_loss": 16.00813297308333, "entropy": 3.944659126203734, "clip_fraction": 0.0, "updated": true, "num_updates": 21, "num_samples": 1768, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 1.7426217794418335, "update_step": 2, "policy_version": 2, "episodes_seen": 8, "learning_cpu_seconds": 27.972354999999986, "learning_wall_seconds": 28.094548639957793, "gpu_event_seconds": 28.0941640625, "peak_cuda_allocated_bytes": 4249867776, "peak_cuda_reserved_bytes": 5762973696}
+{"actor_loss": -0.013699916104127692, "critic_loss": 50.77505793174107, "entropy": 3.3750865114314004, "clip_fraction": 0.0, "updated": true, "num_updates": 12, "num_samples": 889, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 0.5727131962776184, "update_step": 3, "policy_version": 3, "episodes_seen": 12, "learning_cpu_seconds": 13.556966000000003, "learning_wall_seconds": 13.58297547098482, "gpu_event_seconds": 13.5824658203125, "peak_cuda_allocated_bytes": 4249867776, "peak_cuda_reserved_bytes": 5762973696}
+{"actor_loss": -0.01650172292023132, "critic_loss": 43.4590886187441, "entropy": 4.611513541665794, "clip_fraction": 0.0, "updated": true, "num_updates": 24, "num_samples": 1845, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 1.790665864944458, "update_step": 4, "policy_version": 4, "episodes_seen": 16, "learning_cpu_seconds": 30.771290999999977, "learning_wall_seconds": 30.80238664901117, "gpu_event_seconds": 30.801783203125, "peak_cuda_allocated_bytes": 4249867776, "peak_cuda_reserved_bytes": 5762973696}
+{"actor_loss": -0.02612620493449618, "critic_loss": 21.49611936538827, "entropy": 2.4476612826772763, "clip_fraction": 0.0, "updated": true, "num_updates": 51, "num_samples": 4097, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.1248698234558105, "update_step": 5, "policy_version": 5, "episodes_seen": 20, "learning_cpu_seconds": 61.491601, "learning_wall_seconds": 61.62640830804594, "gpu_event_seconds": 61.6260703125, "peak_cuda_allocated_bytes": 4249867776, "peak_cuda_reserved_bytes": 5762973696}
+{"actor_loss": -0.010459087222898891, "critic_loss": 0.1685747958829426, "entropy": 3.9342243887731354, "clip_fraction": 0.0, "updated": true, "num_updates": 42, "num_samples": 3394, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 3.208984375, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 54.97184099999998, "learning_wall_seconds": 55.11477336304961, "gpu_event_seconds": 55.1143828125, "peak_cuda_allocated_bytes": 4249526272, "peak_cuda_reserved_bytes": 5769265152}
+{"actor_loss": -0.011747778819425294, "critic_loss": 0.05883215407187431, "entropy": 3.9510658619709353, "clip_fraction": 0.0, "updated": true, "num_updates": 21, "num_samples": 1777, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 2.13639235496521, "update_step": 2, "policy_version": 2, "episodes_seen": 8, "learning_cpu_seconds": 28.661053000000038, "learning_wall_seconds": 29.015728858008515, "gpu_event_seconds": 29.015060546875, "peak_cuda_allocated_bytes": 4249526272, "peak_cuda_reserved_bytes": 5769265152}
+{"actor_loss": -0.007359388342790045, "critic_loss": 0.15527160822345717, "entropy": 3.379330288315934, "clip_fraction": 0.0, "updated": true, "num_updates": 12, "num_samples": 891, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 1.4846264123916626, "update_step": 3, "policy_version": 3, "episodes_seen": 12, "learning_cpu_seconds": 13.053930999999977, "learning_wall_seconds": 13.104871632007416, "gpu_event_seconds": 13.1044814453125, "peak_cuda_allocated_bytes": 4249526272, "peak_cuda_reserved_bytes": 5769265152}
+{"actor_loss": -0.016193536066957778, "critic_loss": 0.13482805510847679, "entropy": 4.613586361780362, "clip_fraction": 0.0, "updated": true, "num_updates": 24, "num_samples": 1854, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 2.22735595703125, "update_step": 4, "policy_version": 4, "episodes_seen": 16, "learning_cpu_seconds": 29.593687999999986, "learning_wall_seconds": 29.672539266000967, "gpu_event_seconds": 29.67225390625, "peak_cuda_allocated_bytes": 4249526272, "peak_cuda_reserved_bytes": 5769265152}
+{"actor_loss": -0.007344226770789872, "critic_loss": 0.06966222710977822, "entropy": 2.4436353318827613, "clip_fraction": 0.0, "updated": true, "num_updates": 48, "num_samples": 4093, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.3179705142974854, "update_step": 5, "policy_version": 5, "episodes_seen": 20, "learning_cpu_seconds": 65.94074500000005, "learning_wall_seconds": 66.14758292300394, "gpu_event_seconds": 66.14728125, "peak_cuda_allocated_bytes": 4249526272, "peak_cuda_reserved_bytes": 5769265152}
+{"actor_loss": -0.006215528169551939, "critic_loss": 0.16825009872153904, "entropy": 3.9284627506775514, "clip_fraction": 0.0, "updated": true, "num_updates": 42, "num_samples": 3369, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 3.2157809734344482, "update_step": 1, "policy_version": 1, "episodes_seen": 4, "learning_cpu_seconds": 54.876667, "learning_wall_seconds": 55.16820563102374, "gpu_event_seconds": 55.168015625, "peak_cuda_allocated_bytes": 4250163200, "peak_cuda_reserved_bytes": 5777653760}
+{"actor_loss": -0.011905141245146826, "critic_loss": 0.05977635435719121, "entropy": 3.9500361310998393, "clip_fraction": 0.0, "updated": true, "num_updates": 21, "num_samples": 1769, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 2.135246753692627, "update_step": 2, "policy_version": 2, "episodes_seen": 8, "learning_cpu_seconds": 28.619805000000042, "learning_wall_seconds": 28.65081039001234, "gpu_event_seconds": 28.650537109375, "peak_cuda_allocated_bytes": 4250163200, "peak_cuda_reserved_bytes": 5777653760}
+{"actor_loss": -0.013766587149709285, "critic_loss": 0.15447802042309702, "entropy": 3.3807291546003615, "clip_fraction": 0.0, "updated": true, "num_updates": 12, "num_samples": 891, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 1.4827290773391724, "update_step": 3, "policy_version": 3, "episodes_seen": 12, "learning_cpu_seconds": 14.951926000000014, "learning_wall_seconds": 15.00030465394957, "gpu_event_seconds": 14.999916015625, "peak_cuda_allocated_bytes": 4250163200, "peak_cuda_reserved_bytes": 5777653760}
+{"actor_loss": -0.01125436783674569, "critic_loss": 0.1342103680120811, "entropy": 4.61336165421439, "clip_fraction": 0.0, "updated": true, "num_updates": 24, "num_samples": 1850, "initial_ratio_max_error": 4.76837158203125e-07, "advantage_std_before_normalization": 2.2257697582244873, "update_step": 4, "policy_version": 4, "episodes_seen": 16, "learning_cpu_seconds": 29.04763300000002, "learning_wall_seconds": 29.124278765986674, "gpu_event_seconds": 29.124001953125, "peak_cuda_allocated_bytes": 4250163200, "peak_cuda_reserved_bytes": 5777653760}
+{"actor_loss": -0.007327146698322525, "critic_loss": 0.06975436735830443, "entropy": 2.4439735379703103, "clip_fraction": 0.0, "updated": true, "num_updates": 48, "num_samples": 4095, "initial_ratio_max_error": 2.384185791015625e-07, "advantage_std_before_normalization": 2.319617748260498, "update_step": 5, "policy_version": 5, "episodes_seen": 20, "learning_cpu_seconds": 61.13326899999993, "learning_wall_seconds": 61.20886931696441, "gpu_event_seconds": 61.20829296875, "peak_cuda_allocated_bytes": 4250163200, "peak_cuda_reserved_bytes": 5777653760}
+{
+  "parent_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "stack": {
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "machine": "x86_64",
+    "scip_version": 6.01,
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "torch_version": "1.13.1+cu117",
+    "torch_cuda_runtime": "11.7",
+    "python_abi": "3.8"
+  },
+  "gpu": "Tesla V100-SXM2-32GB",
+  "passed": true,
+  "rows": [
+    {
+      "group": "B0",
+      "passed": true,
+      "episodes_seen": 20,
+      "trained_episodes": 20,
+      "instances": [
+        "30n20b8",
+        "air04",
+        "air05",
+        "cod105",
+        "comp21-2idx",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "misc03",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "supportcase7",
+        "swath1"
+      ],
+      "complete_ppo_updates": 5,
+      "optimizer_steps": 150,
+      "observed_attempt_wall_seconds": 1038.2475839200197,
+      "worker_cpu_seconds": 1822.108412,
+      "learner_update_wall_seconds": 186.42486870801076,
+      "peak_cuda_allocated_bytes": 4249867776,
+      "peak_cuda_reserved_bytes": 5762973696,
+      "peak_worker_rss_kib": 1854488,
+      "estimated_100_episode_seconds": 5191.237919600098,
+      "estimated_500_episode_seconds": 25956.189598000492,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/throughput/training/B0-s11"
+    },
+    {
+      "group": "R0",
+      "passed": true,
+      "episodes_seen": 20,
+      "trained_episodes": 20,
+      "instances": [
+        "30n20b8",
+        "air04",
+        "air05",
+        "cod105",
+        "comp21-2idx",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "misc03",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "supportcase7",
+        "swath1"
+      ],
+      "complete_ppo_updates": 5,
+      "optimizer_steps": 147,
+      "observed_attempt_wall_seconds": 1021.7011498380452,
+      "worker_cpu_seconds": 1823.3304259999998,
+      "learner_update_wall_seconds": 193.05549604207044,
+      "peak_cuda_allocated_bytes": 4249526272,
+      "peak_cuda_reserved_bytes": 5769265152,
+      "peak_worker_rss_kib": 1864140,
+      "estimated_100_episode_seconds": 5108.505749190226,
+      "estimated_500_episode_seconds": 25542.52874595113,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/throughput/training/R0-s11"
+    },
+    {
+      "group": "Rjoint",
+      "passed": true,
+      "episodes_seen": 20,
+      "trained_episodes": 20,
+      "instances": [
+        "30n20b8",
+        "air04",
+        "air05",
+        "cod105",
+        "comp21-2idx",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "misc03",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "supportcase7",
+        "swath1"
+      ],
+      "complete_ppo_updates": 5,
+      "optimizer_steps": 147,
+      "observed_attempt_wall_seconds": 1034.2675940070185,
+      "worker_cpu_seconds": 1835.09603,
+      "learner_update_wall_seconds": 189.15246875793673,
+      "peak_cuda_allocated_bytes": 4250163200,
+      "peak_cuda_reserved_bytes": 5777653760,
+      "peak_worker_rss_kib": 1877148,
+      "estimated_100_episode_seconds": 5171.337970035092,
+      "estimated_500_episode_seconds": 25856.689850175462,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/server6-20261022/throughput/training/Rjoint-s11"
+    }
+  ],
+  "scope": "separate engineering pilot, not any part of the six formal 500-episode budgets",
+  "estimate_limit": "initial-policy twenty-instance cycle, includes restart overhead; later decision counts and queue delays can differ"
+}
+/home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/custom_job.sh: line 44: e: command not found

@@ -1,0 +1,116 @@
+--- a/migration/2026-10-22/server-run/custom_job.sh
++++ b/migration/2026-10-22/server-run/custom_job.sh
+@@ -1,5 +1,8 @@
+ #!/usr/bin/env bash
+ # Entry for Crater Custom jobs; one process in the foreground, persistent logs.
++# Parse the entire block before starting work, then exit from the parsed block.
++# A shared script edited during a long job must never be reread at its old offset.
++{
+ set -euo pipefail
+ launch_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+ export TGPPO_PYTHON=${TGPPO_PYTHON:-/home/duweiyue25/conda/envs/tgppo/bin/python}
+@@ -34,6 +37,8 @@
+         "$launch_dir/run.sh" baselines
+         "$launch_dir/gpu_bridge.sh"
+         pilot
++        "$TGPPO_PYTHON" "$launch_dir/check_preparation.py" --run-root "$SERVER_RUN_ROOT"
++        printf 'Preparation completed: all three evidence stages passed.\n'
+         ;;
+     baselines) exec "$launch_dir/run.sh" baselines ;;
+     bridge) exec "$launch_dir/gpu_bridge.sh" ;;
+@@ -44,3 +49,5 @@
+         ;;
+     select) exec "$launch_dir/run.sh" select --group "$2" --seed "$3" ;;
+ esac
++exit 0
++}
+--- a/migration/2026-10-22/server-run/CRATER.md
++++ b/migration/2026-10-22/server-run/CRATER.md
+@@ -10,7 +10,7 @@
+ 
+ 本轮仍是 B0/R0/Rjoint × 11/22，各 500 个完整 episode，每 100 保存，4 个单线程 SCIP worker，CUDA FP32 PPO、Adam、120 秒任务。`protocol.json` 的旧授权文字记录的是打包时状态；当前用户已明确授权此前置检查通过后的六作业，不改冻结数值。阶段 5 未完成，阶段 6 未启动。
+ 
+-界面统一填写：Shell 为 bash、工作目录为项目根、用户空间挂载点为 `/home/duweiyue25`，保留普通用户。镜像选择 `scip (user-duweiyue25/envd:11260740-c4da)`，已知该开发容器为 Ubuntu 22.04 x86_64。Conda、重建的 solver 和代码都在共享用户目录，无需先保存新镜像；若保存镜像，新作业仍使用这些共享路径。GPU 作业需使用平台支持 GPU 驱动注入的运行时。Torch 使用环境内 CUDA 11.7 运行库，不使用源机 `.so`；GPU 导入和实际 CUDA 运算尚待目标作业检查。截图中的 Python 3.11/3.10/3.9 公共镜像不作为此次启动首选，冻结入口使用绝对路径的 Python 3.8 环境。
++界面统一填写：Shell 为 bash、工作目录为项目根、用户空间挂载点为 `/home/duweiyue25`，保留普通用户。镜像选择 `scip (user-duweiyue25/envd:11260740-c4da)`，已知该开发容器为 Ubuntu 22.04 x86_64。Conda、重建的 solver 和代码都在共享用户目录，无需先保存新镜像；若保存镜像，新作业仍使用这些共享路径。GPU 作业需使用平台支持 GPU 驱动注入的运行时。Torch 使用环境内 CUDA 11.7 运行库，不使用源机 `.so`；2026-10-22 的目标准备作业已在 Tesla V100-SXM2-32GB 上通过实际 CUDA 更新、恢复及三组吞吐检查。截图中的 Python 3.11/3.10/3.9 公共镜像不作为此次启动首选，冻结入口使用绝对路径的 Python 3.8 环境。
+ 
+ | 用途 | CPU | 内存 GiB | GPU | 数量 | 建议名称 |
+ |---|---:|---:|---:|---:|---|
+@@ -33,6 +33,8 @@
+ - `normalization/baselines.json`：75 条有效原生任务和目标软硬件指纹。
+ - `gpu-bridge/verification.json`：`passed=true`，完整 CUDA 更新与恢复证据。
+ - `throughput/verification.json`：`passed=true`，三组 20 实例覆盖、更新耗时、显存分配峰值、worker RSS、100/500 episode 墙钟估算。估算不含未来排队，初始策略之后决策数可能变化；实际峰值还应结合 Crater GPU/容器监控。
++
++2026-10-23 00:04 核查：上述三项证据均通过，`check_preparation.py` 返回 `ready=true`；三组各 20/20 个 episode、5 轮完整更新、最终 checkpoint 哈希均已验证。首次准备作业在所有计算结束后，因运行期间原地修改共享启动脚本，Bash 从旧偏移续读新文件，出现 `line 44: e: command not found` 并返回 127。原失败状态及日志保留，不改成正常退出；计算证据仍有效，**无需重跑准备，可直接按下文创建六个正式训练作业**。修复入口为开始工作前一次解析完整代码块，并在块内明确退出；新增覆盖运行期间修改脚本和真实阶段失败的检查，10/10 通过。诊断、复现及哈希台账见 `tgppo/runs/server6-20261022/repairs/launcher-tail-20261022T160236Z/REPORT.md`。此修复没有改动训练运行时代码或协议。
+ 
+ 准备作业中断后，用同一命令创建新的 Custom 作业。原生任务按不可变身份复用有效结果；桥接每次保留独立目录；吞吐试跑通过 `latest.pt` 显式恢复。若 CPU 型号、二进制、协议发生变化，先检查错误和证据，不删除旧目录解锁。
+ 
+--- a/migration/2026-10-22/server-run/tests/test_preparation_gate.py
++++ b/migration/2026-10-22/server-run/tests/test_preparation_gate.py
+@@ -3,9 +3,12 @@
+ import json
+ import os
+ from pathlib import Path
++import shutil
++import signal
+ import subprocess
+ import sys
+ import tempfile
++import time
+ import unittest
+ 
+ LAUNCH=Path(__file__).resolve().parents[1]
+@@ -83,5 +86,54 @@
+         self.assertNotIn('Traceback',result.stdout+result.stderr)
+         self.assertFalse((self.run/'training').exists())
+ 
++    def run_preparation_during_edit(self,source,replacement,pilot_exit=0):
++        """Exercise the real shell entrypoint with CPU-only fixture commands."""
++        self.complete()
++        launch=self.run/'launch';launch.mkdir()
++        script=launch/'custom_job.sh';script.write_text(source)
++        for name in ['env.sh','check_preparation.py']:
++            shutil.copy2(LAUNCH/name,launch/name)
++        for name in ['run.sh','gpu_bridge.sh']:
++            helper=launch/name;helper.write_text('#!/usr/bin/env bash\nexit 0\n');helper.chmod(0o755)
++        (launch/'verify_environment.py').write_text('# fixture environment checks\n')
++        pilot=self.run/'tgppo/experiments/server-20261022/code/server_pilot.py'
++        pilot.parent.mkdir(parents=True)
++        pilot.write_text("import os\nfrom pathlib import Path\n"
++            "fd=os.open(os.environ['PROBE_RELEASE'],os.O_RDWR)\n"
++            "Path(os.environ['PROBE_READY']).write_text('ready')\n"
++            "os.read(fd,1)\nos.close(fd)\n"
++            "raise SystemExit(int(os.environ['PROBE_PILOT_EXIT']))\n")
++        ready=self.run/'probe-ready';release=self.run/'probe-release';os.mkfifo(release)
++        env=dict(os.environ,RESEARCH_ROOT=str(self.run),SERVER_RUN_ROOT=str(self.run),
++                 TGPPO_PYTHON=sys.executable,PROBE_READY=str(ready),PROBE_RELEASE=str(release),
++                 PROBE_PILOT_EXIT=str(pilot_exit))
++        process=subprocess.Popen(['bash',str(script),'prepare'],env=env,stdout=subprocess.PIPE,
++                                 stderr=subprocess.PIPE,text=True,start_new_session=True)
++        try:
++            deadline=time.monotonic()+8
++            while not ready.exists() and process.poll() is None and time.monotonic()<deadline:
++                time.sleep(.01)
++            self.assertTrue(ready.exists(),'Fixture pilot did not start')
++            script.write_text(replacement)
++            with release.open('w') as handle:handle.write('x')
++            stdout,stderr=process.communicate(timeout=8)
++            return process.returncode,stdout+stderr
++        finally:
++            if process.poll() is None:
++                os.killpg(process.pid,signal.SIGKILL);process.communicate(timeout=8)
++
++    def test_prepare_finishes_without_rereading_an_edited_launcher(self):
++        source=(LAUNCH/'custom_job.sh').read_text()
++        code,output=self.run_preparation_during_edit(source,source+'\nthis_must_not_execute_after_the_job\n')
++        self.assertEqual(code,0,output)
++        self.assertIn('Preparation completed: all three evidence stages passed.',output)
++        self.assertNotIn('command not found',output)
++
++    def test_prepare_preserves_a_real_stage_failure_during_launcher_edit(self):
++        source=(LAUNCH/'custom_job.sh').read_text()
++        code,output=self.run_preparation_during_edit(source,source+'\nthis_must_not_execute_after_the_job\n',pilot_exit=23)
++        self.assertEqual(code,23,output)
++        self.assertNotIn('Preparation completed:',output)
++
+ 
+ if __name__=='__main__':unittest.main(verbosity=2)

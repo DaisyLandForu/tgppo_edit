@@ -1,0 +1,124 @@
+{
+  "observed_at_utc": "2026-10-23T03:20:25.297788+00:00",
+  "passed": true,
+  "development_runs": 450,
+  "frozen_at_utc": "2026-10-23T03:16:43.410213+00:00",
+  "frozen_selection_sha256": "a8489c97fa042f980fc6f2b770ad1e1597524b4b38d8b91f721f25df1c32bd1a",
+  "protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "models": [
+    {
+      "group": "B0",
+      "training_seed": 11,
+      "selected_episode": 100,
+      "development_mean_pdi": 3534.3565976485347,
+      "actor_best": {
+        "episode": 100,
+        "path": "tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt",
+        "sha256": "8b605db5be6bc4a70d8f8ab7c7fa84552f8542b0676a4365a19041a101875397"
+      },
+      "actor_final": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/B0-s11/actor_final.pt",
+        "sha256": "e23c7379e6d7a74d0e8e43ca464b79e92530d674aa89a5428c68db0abc36c194"
+      }
+    },
+    {
+      "group": "B0",
+      "training_seed": 22,
+      "selected_episode": 100,
+      "development_mean_pdi": 3543.3141838581096,
+      "actor_best": {
+        "episode": 100,
+        "path": "tgppo/runs/server6-20261022/training/B0-s22/actor_best.pt",
+        "sha256": "2606fac3faede6271a6a3cdff53305f38d8c22ba0a11aaf3f00014c141c6be07"
+      },
+      "actor_final": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/B0-s22/actor_final.pt",
+        "sha256": "ee72b51ca762c1e154a2d93392c1619f3ad63f09654ca9da368b08a31e54fca5"
+      }
+    },
+    {
+      "group": "R0",
+      "training_seed": 11,
+      "selected_episode": 300,
+      "development_mean_pdi": 3531.4286757795635,
+      "actor_best": {
+        "episode": 300,
+        "path": "tgppo/runs/server6-20261022/training/R0-s11/actor_best.pt",
+        "sha256": "83e34415f613f3641c6b3295e466175240a6870af2516000cfd659b39e5e13a5"
+      },
+      "actor_final": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/R0-s11/actor_final.pt",
+        "sha256": "2b9afd2d48b109d4b3971c6320188ad487f8120b54983c0d70c8ee554e6655bc"
+      }
+    },
+    {
+      "group": "R0",
+      "training_seed": 22,
+      "selected_episode": 500,
+      "development_mean_pdi": 3541.148418462463,
+      "actor_best": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/R0-s22/actor_best.pt",
+        "sha256": "44de0e6311757ff1f9264210890bbb847e8b89e9b51df7fb71e25ad48d518a30"
+      },
+      "actor_final": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/R0-s22/actor_final.pt",
+        "sha256": "addf8f851ff5f6527a7a42623dcb2bac620ea28ab3475e647f58cc15e55bbe50"
+      }
+    },
+    {
+      "group": "Rjoint",
+      "training_seed": 11,
+      "selected_episode": 100,
+      "development_mean_pdi": 3534.8248521040077,
+      "actor_best": {
+        "episode": 100,
+        "path": "tgppo/runs/server6-20261022/training/Rjoint-s11/actor_best.pt",
+        "sha256": "d3fd616871780b188eca3a3aff65b7dde12b302eb92dcec9a8d940877e6d49ab"
+      },
+      "actor_final": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/Rjoint-s11/actor_final.pt",
+        "sha256": "b10cc24b496227cb066ca7271f96fe2e8ff245bc6ff5b53907c303b762172d85"
+      }
+    },
+    {
+      "group": "Rjoint",
+      "training_seed": 22,
+      "selected_episode": 400,
+      "development_mean_pdi": 3530.10159054473,
+      "actor_best": {
+        "episode": 400,
+        "path": "tgppo/runs/server6-20261022/training/Rjoint-s22/actor_best.pt",
+        "sha256": "70eebc1b1d3436660ca9feb6b18117a5a9ba3d6193bc51bad14cf7c8cd385b33"
+      },
+      "actor_final": {
+        "episode": 500,
+        "path": "tgppo/runs/server6-20261022/training/Rjoint-s22/actor_final.pt",
+        "sha256": "ec89aa76018d8a7163bab8f66453e9c65af5e4d415f642682e8de29a38a662cd"
+      }
+    }
+  ],
+  "test_instances": 66,
+  "solver_seeds": [
+    0,
+    1,
+    2
+  ],
+  "runs_per_test_job": 198,
+  "test_jobs": 7,
+  "total_test_solves": 1386,
+  "test_results_present_at_review": false,
+  "runtime_files": {
+    "migration/2026-10-22/server-run/post_training.py": "e0b434dbfd8f2fb64ffbfbed80a3c8bd8f3e9da1c62ea872bbacd164ce90ef4a",
+    "migration/2026-10-22/server-run/post_job.sh": "9d91152dc3d789632cd11b29f35c066000f369bc52d74d75dd89b6185df70831",
+    "tgppo/experiments/server-20261022/code/server.py": "23954d3db8c28704fd204858535c20c92c55b9564507369fda30b7a85a06bceb",
+    "tgppo/experiments/server-20261022/code/project/runtime.py": "d8c21123dadef8f09ff5abd65c3e25e34f1db2f76a70c3488748b6e2e8fecfe3"
+  },
+  "stage5_complete": false,
+  "stage6_started": false
+}

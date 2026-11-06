@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-10-22T16:06:03.449389+00:00",
+  "preparation_evidence_unchanged": true,
+  "resolved_protocol_sha256": "32bed3e2cce3dd36e30e5bde1d3c95321b322081ce123296f00b92e3cdf18b80",
+  "files": {
+    "migration/2026-10-22/server-run/custom_job.sh": {
+      "sha256": "1e6da0a022cd8a5b849ceccf4fe5ce3b3af3f5e162fa1da107dcc6f6ce094302",
+      "before_sha256": "a0876dd2c00d527e7dde336a8c8c1c249a032c9c6e1fd368a3ab02f401b9b13c"
+    },
+    "migration/2026-10-22/server-run/CRATER.md": {
+      "sha256": "26814e3ef4b0f0d8754c5786ee28c58e59734bfad3bec92eddd407f37e967181",
+      "before_sha256": "94133a85b218a99aba1469cd3ce76594c7e64054adb04b296e8eaacb4de6a020"
+    },
+    "migration/2026-10-22/server-run/tests/test_preparation_gate.py": {
+      "sha256": "7515acd45d8618ce7cc945db0ff7700d57577b1e1690900a4ebbd3c9cce63ba8",
+      "before_sha256": "28469665992bd1da4cc9d29e97b3476815ce3d45f63590206a486ecaf760ba1f"
+    }
+  }
+}

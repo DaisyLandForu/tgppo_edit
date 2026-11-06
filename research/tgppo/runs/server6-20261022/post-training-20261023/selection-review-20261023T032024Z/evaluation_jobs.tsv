@@ -1,0 +1,8 @@
+job_name	cpu_cores	memory_gib	gpu_count	gpu_type	walltime_hours	startup_command
+test-B0-s11	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate B0 11
+test-B0-s22	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate B0 22
+test-R0-s11	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate R0 11
+test-R0-s22	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate R0 22
+test-Rjoint-s11	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate Rjoint 11
+test-Rjoint-s22	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate Rjoint 22
+test-relpscost	8	32	1	V100	4	bash /home/duweiyue25/tgppo-transfer/research/migration/2026-10-22/server-run/post_job.sh evaluate native
