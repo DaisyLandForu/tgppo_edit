@@ -1,0 +1,2918 @@
+{
+  "rows": [
+    {
+      "candidate_range": [
+        5,
+        473
+      ],
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "swath1"
+      ],
+      "layer_candidate_span": {
+        "BiMatching": {
+          "max": 0.17099589109420776,
+          "median": 0.008293897844851017
+        },
+        "head_layer_0": {
+          "max": 0.21841812133789062,
+          "median": 0.013001203536987305
+        },
+        "head_layer_1": {
+          "max": 0.13376693427562714,
+          "median": 0.00896841287612915
+        },
+        "head_layer_2": {
+          "max": 0.08677732944488525,
+          "median": 0.00506327860057354
+        },
+        "head_layer_3": {
+          "max": 0.04345637559890747,
+          "median": 0.002266019582748413
+        },
+        "head_layer_4": {
+          "max": 0.01869189739227295,
+          "median": 0.0006126705557107925
+        },
+        "head_layer_5": {
+          "max": 0.0065331608057022095,
+          "median": 0.00027896463871002197
+        },
+        "head_layer_6": {
+          "max": 6.556510925292969e-07,
+          "median": 4.76837158203125e-07
+        },
+        "head_layer_7": {
+          "max": 1.7881393432617188e-07,
+          "median": 1.1920928955078125e-07
+        },
+        "head_norm_0": {
+          "max": 0.25837522745132446,
+          "median": 0.014053195714950562
+        },
+        "head_norm_1": {
+          "max": 0.2364690899848938,
+          "median": 0.01149287074804306
+        },
+        "head_norm_2": {
+          "max": 0.08677732944488525,
+          "median": 0.0057841092348098755
+        },
+        "head_norm_3": {
+          "max": 0.04345637559890747,
+          "median": 0.0027693361043930054
+        },
+        "head_norm_4": {
+          "max": 0.023851841688156128,
+          "median": 0.0011976882815361023
+        },
+        "head_norm_5": {
+          "max": 0.0065331608057022095,
+          "median": 0.00028949230909347534
+        },
+        "head_norm_6": {
+          "max": 6.556510925292969e-07,
+          "median": 4.76837158203125e-07
+        }
+      },
+      "max_total_variation_from_uniform": 6.30971044475459e-08,
+      "mean_total_variation_from_uniform": 2.6988814901955048e-08,
+      "min_normalized_entropy": 0.9999998955896516,
+      "per_state": [
+        {
+          "candidates": 38,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999675858421,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.4900624617796296e-08
+        },
+        {
+          "candidates": 24,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999744690198,
+          "probability_span_relative_to_uniform": 8.940696716308594e-08,
+          "total_variation_from_uniform": 2.607703207535561e-08
+        },
+        {
+          "candidates": 28,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999687121043,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.8737953711166497e-08
+        },
+        {
+          "candidates": 79,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999942545729,
+          "probability_span_relative_to_uniform": 1.471489667892456e-07,
+          "total_variation_from_uniform": 1.804879571926793e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999704788594,
+          "probability_span_relative_to_uniform": 7.078051567077637e-08,
+          "total_variation_from_uniform": 2.4312420882077745e-08
+        },
+        {
+          "candidates": 47,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999779382436,
+          "probability_span_relative_to_uniform": 1.7508864402770996e-07,
+          "total_variation_from_uniform": 1.7279006054096713e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.999999965558669,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.803771118053966e-08
+        },
+        {
+          "candidates": 9,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999715822724,
+          "probability_span_relative_to_uniform": 1.341104507446289e-07,
+          "total_variation_from_uniform": 2.7732716650907818e-08
+        },
+        {
+          "candidates": 7,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999927565201,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.6609216413620018e-08
+        },
+        {
+          "candidates": 250,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999492838174,
+          "probability_span_relative_to_uniform": 1.1641532182693481e-07,
+          "total_variation_from_uniform": 3.3816322693447365e-08
+        },
+        {
+          "candidates": 211,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999731157064,
+          "probability_span_relative_to_uniform": 9.825453162193298e-08,
+          "total_variation_from_uniform": 2.7124218270752065e-08
+        },
+        {
+          "candidates": 194,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999369968133,
+          "probability_span_relative_to_uniform": 9.033828973770142e-08,
+          "total_variation_from_uniform": 3.888271748065525e-08
+        },
+        {
+          "candidates": 27,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999610751716,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 3.069915152642544e-08
+        },
+        {
+          "candidates": 16,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999785649172,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 1.6763806343078613e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999863625592,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.5503910511259775e-08
+        },
+        {
+          "candidates": 26,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999896724173,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.4644228130421553e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999818167455,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.6363592892097998e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999734853106,
+          "probability_span_relative_to_uniform": 6.332993507385254e-08,
+          "total_variation_from_uniform": 2.1584770255878016e-08
+        },
+        {
+          "candidates": 328,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999998955896516,
+          "probability_span_relative_to_uniform": 1.5273690223693848e-07,
+          "total_variation_from_uniform": 6.30971044475459e-08
+        },
+        {
+          "candidates": 296,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999677584547,
+          "probability_span_relative_to_uniform": 1.3783574104309082e-07,
+          "total_variation_from_uniform": 2.3729847510589597e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999132362648,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 5.331821735943959e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 0.9999999847768762,
+          "probability_span_relative_to_uniform": 8.568167686462402e-08,
+          "total_variation_from_uniform": 2.0894019500672378e-08
+        },
+        {
+          "candidates": 10,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 0.9999999704961572,
+          "probability_span_relative_to_uniform": 1.4901161193847656e-07,
+          "total_variation_from_uniform": 2.9057264344656275e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 0.9999999863625592,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.5503910511259775e-08
+        },
+        {
+          "candidates": 66,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999829832423,
+          "probability_span_relative_to_uniform": 1.2293457984924316e-07,
+          "total_variation_from_uniform": 1.9303777007428913e-08
+        },
+        {
+          "candidates": 62,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999675394479,
+          "probability_span_relative_to_uniform": 1.1548399925231934e-07,
+          "total_variation_from_uniform": 2.1420419202278218e-08
+        },
+        {
+          "candidates": 60,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999619917234,
+          "probability_span_relative_to_uniform": 1.1175870895385742e-07,
+          "total_variation_from_uniform": 2.949188152370774e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999686644577,
+          "probability_span_relative_to_uniform": 1.2665987014770508e-07,
+          "total_variation_from_uniform": 2.5090925830084654e-08
+        },
+        {
+          "candidates": 5,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999943574504,
+          "probability_span_relative_to_uniform": 7.450580596923828e-08,
+          "total_variation_from_uniform": 1.6391277307681307e-08
+        },
+        {
+          "candidates": 8,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999845295648,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 1.4901161193847656e-08
+        },
+        {
+          "candidates": 473,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999884933535,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 6.868504008822676e-09
+        },
+        {
+          "candidates": 453,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999739020433,
+          "probability_span_relative_to_uniform": 1.0547228157520294e-07,
+          "total_variation_from_uniform": 1.5599653124375584e-08
+        },
+        {
+          "candidates": 430,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999679184343,
+          "probability_span_relative_to_uniform": 1.0011717677116394e-07,
+          "total_variation_from_uniform": 1.920852809450535e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999003543127,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 6.123445924367116e-08
+        },
+        {
+          "candidates": 152,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999410704667,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 3.757151331718056e-08
+        },
+        {
+          "candidates": 145,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999746976326,
+          "probability_span_relative_to_uniform": 6.752088665962219e-08,
+          "total_variation_from_uniform": 1.583248376152424e-08
+        },
+        {
+          "candidates": 52,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.0000000027824756,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.2495022178325996e-08
+        },
+        {
+          "candidates": 35,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999544826481,
+          "probability_span_relative_to_uniform": 1.30385160446167e-07,
+          "total_variation_from_uniform": 3.1984278120109066e-08
+        },
+        {
+          "candidates": 28,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999817487273,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.7407492900199948e-08
+        },
+        {
+          "candidates": 54,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999623161561,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 2.8319104949936502e-08
+        },
+        {
+          "candidates": 59,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999381430933,
+          "probability_span_relative_to_uniform": 1.0989606380462646e-07,
+          "total_variation_from_uniform": 4.142017687690236e-08
+        },
+        {
+          "candidates": 65,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999504247004,
+          "probability_span_relative_to_uniform": 1.210719347000122e-07,
+          "total_variation_from_uniform": 3.275389856560729e-08
+        },
+        {
+          "candidates": 38,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.999999970287022,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.303797946856534e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999847768762,
+          "probability_span_relative_to_uniform": 8.568167686462402e-08,
+          "total_variation_from_uniform": 2.0894019500672378e-08
+        },
+        {
+          "candidates": 18,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999829450015,
+          "probability_span_relative_to_uniform": 6.705522537231445e-08,
+          "total_variation_from_uniform": 1.6763806343078613e-08
+        },
+        {
+          "candidates": 218,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999719407244,
+          "probability_span_relative_to_uniform": 1.0151416063308716e-07,
+          "total_variation_from_uniform": 2.207405389031969e-08
+        },
+        {
+          "candidates": 99,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.999999956281232,
+          "probability_span_relative_to_uniform": 9.220093488693237e-08,
+          "total_variation_from_uniform": 2.793967728096508e-08
+        },
+        {
+          "candidates": 153,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999466477646,
+          "probability_span_relative_to_uniform": 1.424923539161682e-07,
+          "total_variation_from_uniform": 3.474046252104415e-08
+        }
+      ],
+      "samples": 48,
+      "seed": 11,
+      "source": "own last 20 training episodes",
+      "states_tv_above_1e_3": 0,
+      "variant": "transformer"
+    },
+    {
+      "candidate_range": [
+        6,
+        473
+      ],
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "swath1"
+      ],
+      "layer_candidate_span": {
+        "BiMatching": {
+          "max": 0.0020207464694976807,
+          "median": 0.0001177261583507061
+        },
+        "head_layer_0": {
+          "max": 0.0019894689321517944,
+          "median": 7.993914186954498e-05
+        },
+        "head_layer_1": {
+          "max": 0.0010684728622436523,
+          "median": 4.9114227294921875e-05
+        },
+        "head_layer_2": {
+          "max": 0.000680968165397644,
+          "median": 4.1365623474121094e-05
+        },
+        "head_layer_3": {
+          "max": 0.0004273653030395508,
+          "median": 1.4007091522216797e-05
+        },
+        "head_layer_4": {
+          "max": 0.0002662539482116699,
+          "median": 1.0266900062561035e-05
+        },
+        "head_layer_5": {
+          "max": 0.0001367330551147461,
+          "median": 2.652406692504883e-06
+        },
+        "head_layer_6": {
+          "max": 9.5367431640625e-07,
+          "median": 1.1920928955078125e-07
+        },
+        "head_layer_7": {
+          "max": 1.7881393432617188e-07,
+          "median": 2.9802322387695312e-08
+        },
+        "head_norm_0": {
+          "max": 0.0019894689321517944,
+          "median": 0.00010186433792114258
+        },
+        "head_norm_1": {
+          "max": 0.0010684728622436523,
+          "median": 4.9114227294921875e-05
+        },
+        "head_norm_2": {
+          "max": 0.0010697320103645325,
+          "median": 4.1365623474121094e-05
+        },
+        "head_norm_3": {
+          "max": 0.0004273653030395508,
+          "median": 1.9550323486328125e-05
+        },
+        "head_norm_4": {
+          "max": 0.0002662539482116699,
+          "median": 1.0266900062561035e-05
+        },
+        "head_norm_5": {
+          "max": 0.0001367330551147461,
+          "median": 2.652406692504883e-06
+        },
+        "head_norm_6": {
+          "max": 1.1920928955078125e-06,
+          "median": 1.1920928955078125e-07
+        }
+      },
+      "max_total_variation_from_uniform": 3.4623286300494716e-08,
+      "mean_total_variation_from_uniform": 1.2639124918253456e-08,
+      "min_normalized_entropy": 0.9999999472169089,
+      "per_state": [
+        {
+          "candidates": 328,
+          "episode": "e00481-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999472169089,
+          "probability_span_relative_to_uniform": 7.636845111846924e-08,
+          "total_variation_from_uniform": 3.1897798197927374e-08
+        },
+        {
+          "candidates": 248,
+          "episode": "e00481-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999756030834,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 318,
+          "episode": "e00481-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999617078132,
+          "probability_span_relative_to_uniform": 7.404014468193054e-08,
+          "total_variation_from_uniform": 2.3166649070448242e-08
+        },
+        {
+          "candidates": 250,
+          "episode": "e00483-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999858909867,
+          "probability_span_relative_to_uniform": 1.1641532182693481e-07,
+          "total_variation_from_uniform": 2.9703602195951806e-08
+        },
+        {
+          "candidates": 168,
+          "episode": "e00483-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 1.000000014991287,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 9.31322577391036e-09
+        },
+        {
+          "candidates": 222,
+          "episode": "e00483-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 1.0000000197324632,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.210719347433803e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00484-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999566123255,
+          "probability_span_relative_to_uniform": 1.8998980522155762e-07,
+          "total_variation_from_uniform": 3.4623286300494716e-08
+        },
+        {
+          "candidates": 7,
+          "episode": "e00484-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 1.0000000217304372,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.235174181852706e-08
+        },
+        {
+          "candidates": 11,
+          "episode": "e00484-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 1.0000000173737884,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 26,
+          "episode": "e00485-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.0000000258189559,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451464553995e-08
+        },
+        {
+          "candidates": 8,
+          "episode": "e00485-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.0,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 0.0
+        },
+        {
+          "candidates": 13,
+          "episode": "e00485-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.000000004545813,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.2065180987906885e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00486-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999742360965,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.583248373116658e-08
+        },
+        {
+          "candidates": 154,
+          "episode": "e00486-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999992535757,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 4.656613202674853e-10
+        },
+        {
+          "candidates": 148,
+          "episode": "e00486-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 1.000000019368808,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.2107193442245645e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00488-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.000000012685936,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 9.313225760032573e-09
+        },
+        {
+          "candidates": 9,
+          "episode": "e00488-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000040596753,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 11,
+          "episode": "e00488-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000173737884,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 79,
+          "episode": "e00489-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 1.000000019390815,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.2572854765115216e-08
+        },
+        {
+          "candidates": 33,
+          "episode": "e00489-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 1.000000021278868,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 45,
+          "episode": "e00489-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999876400004,
+          "probability_span_relative_to_uniform": 8.381903171539307e-08,
+          "total_variation_from_uniform": 2.075814538489429e-08
+        },
+        {
+          "candidates": 473,
+          "episode": "e00490-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999884933535,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 6.868504008822676e-09
+        },
+        {
+          "candidates": 443,
+          "episode": "e00490-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 1.0000000198513832,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.1874362868197555e-08
+        },
+        {
+          "candidates": 410,
+          "episode": "e00490-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 1.000000000776519,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 4.656612877414201e-10
+        },
+        {
+          "candidates": 19,
+          "episode": "e00491-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999901596196,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 1.3332617926353763e-08
+        },
+        {
+          "candidates": 6,
+          "episode": "e00491-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.0000000131693294,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161221603232e-08
+        },
+        {
+          "candidates": 10,
+          "episode": "e00491-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.000000008429669,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 7.4505805691682525e-09
+        },
+        {
+          "candidates": 52,
+          "episode": "e00492-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.0000000278247565,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451464553995e-08
+        },
+        {
+          "candidates": 35,
+          "episode": "e00492-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.0000000040162371,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.793967739458947e-09
+        },
+        {
+          "candidates": 34,
+          "episode": "e00492-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.000000002668878,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.862645156169851e-09
+        },
+        {
+          "candidates": 54,
+          "episode": "e00493-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999916258124,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 1.1658778914513945e-08
+        },
+        {
+          "candidates": 44,
+          "episode": "e00493-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 1.000000021926839,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 59,
+          "episode": "e00493-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 1.0000000014058388,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 9.31322576350202e-10
+        },
+        {
+          "candidates": 27,
+          "episode": "e00494-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 1.0000000051899771,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 12,
+          "episode": "e00494-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 1.0000000178089854,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161221603232e-08
+        },
+        {
+          "candidates": 8,
+          "episode": "e00494-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 1.0,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 0.0
+        },
+        {
+          "candidates": 66,
+          "episode": "e00495-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999907825897,
+          "probability_span_relative_to_uniform": 6.146728992462158e-08,
+          "total_variation_from_uniform": 1.5536153863404678e-08
+        },
+        {
+          "candidates": 63,
+          "episode": "e00495-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 1.000000043805209,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.887099984083541e-08
+        },
+        {
+          "candidates": 62,
+          "episode": "e00495-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999774187465,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 218,
+          "episode": "e00496-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999651154952,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.142041924391158e-08
+        },
+        {
+          "candidates": 123,
+          "episode": "e00496-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999704884677,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451545218636e-08
+        },
+        {
+          "candidates": 174,
+          "episode": "e00496-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999969967974,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451422920631e-09
+        },
+        {
+          "candidates": 38,
+          "episode": "e00497-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999959482301,
+          "probability_span_relative_to_uniform": 7.078051567077637e-08,
+          "total_variation_from_uniform": 8.872072965182554e-09
+        },
+        {
+          "candidates": 16,
+          "episode": "e00497-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999976183241,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 1.862645149230957e-09
+        },
+        {
+          "candidates": 17,
+          "episode": "e00497-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 1.0000000024104263,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.862645156169851e-09
+        },
+        {
+          "candidates": 38,
+          "episode": "e00498-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000054023594,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 27,
+          "episode": "e00498-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000051899771,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 28,
+          "episode": "e00498-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.000000026073246,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.288392614291368e-08
+        }
+      ],
+      "samples": 48,
+      "seed": 22,
+      "source": "own last 20 training episodes",
+      "states_tv_above_1e_3": 0,
+      "variant": "transformer"
+    },
+    {
+      "candidate_range": [
+        5,
+        473
+      ],
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "swath1"
+      ],
+      "layer_candidate_span": {
+        "BiMatching": {
+          "max": 0.866121232509613,
+          "median": 0.17307129502296448
+        },
+        "head_layer_0": {
+          "max": 0.8561674356460571,
+          "median": 0.22524350881576538
+        },
+        "head_layer_1": {
+          "max": 0.6199807524681091,
+          "median": 0.15553677082061768
+        },
+        "head_layer_2": {
+          "max": 0.46117907762527466,
+          "median": 0.11115056276321411
+        },
+        "head_layer_3": {
+          "max": 0.2274121344089508,
+          "median": 0.050893962383270264
+        },
+        "head_layer_4": {
+          "max": 0.1604236364364624,
+          "median": 0.030040323734283447
+        },
+        "head_layer_5": {
+          "max": 0.011323213577270508,
+          "median": 0.0010104775428771973
+        },
+        "head_layer_6": {
+          "max": 1.3113021850585938e-06,
+          "median": 5.364418029785156e-07
+        },
+        "head_layer_7": {
+          "max": 3.5762786865234375e-07,
+          "median": 1.341104507446289e-07
+        },
+        "head_norm_0": {
+          "max": 1.0762810707092285,
+          "median": 0.2619699239730835
+        },
+        "head_norm_1": {
+          "max": 0.6984550952911377,
+          "median": 0.16429376602172852
+        },
+        "head_norm_2": {
+          "max": 0.46117907762527466,
+          "median": 0.11696958541870117
+        },
+        "head_norm_3": {
+          "max": 0.2274121344089508,
+          "median": 0.06227463483810425
+        },
+        "head_norm_4": {
+          "max": 0.1604236364364624,
+          "median": 0.030040323734283447
+        },
+        "head_norm_5": {
+          "max": 0.13804495334625244,
+          "median": 0.02046772837638855
+        },
+        "head_norm_6": {
+          "max": 1.3113021850585938e-06,
+          "median": 5.960464477539062e-07
+        }
+      },
+      "max_total_variation_from_uniform": 8.626375349110593e-08,
+      "mean_total_variation_from_uniform": 2.8085553883713918e-08,
+      "min_normalized_entropy": 0.9999998572544864,
+      "per_state": [
+        {
+          "candidates": 38,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999810917413,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 1.7548077990703348e-08
+        },
+        {
+          "candidates": 24,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999744690198,
+          "probability_span_relative_to_uniform": 1.7881393432617188e-07,
+          "total_variation_from_uniform": 2.7318795510489213e-08
+        },
+        {
+          "candidates": 22,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999798391891,
+          "probability_span_relative_to_uniform": 8.195638656616211e-08,
+          "total_variation_from_uniform": 2.3029067305890827e-08
+        },
+        {
+          "candidates": 79,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999719910437,
+          "probability_span_relative_to_uniform": 1.471489667892456e-07,
+          "total_variation_from_uniform": 2.643659333372711e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999901596198,
+          "probability_span_relative_to_uniform": 7.078051567077637e-08,
+          "total_variation_from_uniform": 1.2548346278729028e-08
+        },
+        {
+          "candidates": 47,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999393301693,
+          "probability_span_relative_to_uniform": 8.754432201385498e-08,
+          "total_variation_from_uniform": 4.097819327093799e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999901596189,
+          "probability_span_relative_to_uniform": 2.8312206268310547e-07,
+          "total_variation_from_uniform": 2.921411865197676e-08
+        },
+        {
+          "candidates": 9,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999797016229,
+          "probability_span_relative_to_uniform": 1.341104507446289e-07,
+          "total_variation_from_uniform": 2.2765662938128983e-08
+        },
+        {
+          "candidates": 8,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.0,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 0.0
+        },
+        {
+          "candidates": 250,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999782644932,
+          "probability_span_relative_to_uniform": 2.3283064365386963e-07,
+          "total_variation_from_uniform": 3.094039857653996e-08
+        },
+        {
+          "candidates": 162,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999502403708,
+          "probability_span_relative_to_uniform": 1.5087425708770752e-07,
+          "total_variation_from_uniform": 3.165634415713825e-08
+        },
+        {
+          "candidates": 146,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 1.0000000480167246,
+          "probability_span_relative_to_uniform": 1.3597309589385986e-07,
+          "total_variation_from_uniform": 3.0239278553390037e-08
+        },
+        {
+          "candidates": 27,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999636701602,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 2.9112453808766148e-08
+        },
+        {
+          "candidates": 16,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999857099444,
+          "probability_span_relative_to_uniform": 1.7881393432617188e-07,
+          "total_variation_from_uniform": 1.862645149230957e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999909083727,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.4644228130421553e-08
+        },
+        {
+          "candidates": 26,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999664353566,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.8512798844193554e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999909083723,
+          "probability_span_relative_to_uniform": 1.9371509552001953e-07,
+          "total_variation_from_uniform": 2.7509836048045244e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999951791471,
+          "probability_span_relative_to_uniform": 1.8998980522155762e-07,
+          "total_variation_from_uniform": 7.2314458796074454e-09
+        },
+        {
+          "candidates": 328,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999998572544864,
+          "probability_span_relative_to_uniform": 1.5273690223693848e-07,
+          "total_variation_from_uniform": 8.626375349110593e-08
+        },
+        {
+          "candidates": 52,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999568716263,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.9587401820241332e-08
+        },
+        {
+          "candidates": 72,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999571867468,
+          "probability_span_relative_to_uniform": 1.341104507446289e-07,
+          "total_variation_from_uniform": 2.9181440645842383e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000735784278,
+          "probability_span_relative_to_uniform": 8.568167686462402e-08,
+          "total_variation_from_uniform": 5.401670934157554e-08
+        },
+        {
+          "candidates": 10,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000084296687,
+          "probability_span_relative_to_uniform": 1.4901161193847656e-07,
+          "total_variation_from_uniform": 1.341104505225843e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 0.9999999954541863,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.378454574958333e-08
+        },
+        {
+          "candidates": 66,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 1.000000009926442,
+          "probability_span_relative_to_uniform": 6.146728992462158e-08,
+          "total_variation_from_uniform": 1.5155158253343792e-08
+        },
+        {
+          "candidates": 62,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999181429549,
+          "probability_span_relative_to_uniform": 1.1548399925231934e-07,
+          "total_variation_from_uniform": 5.4016709313819966e-08
+        },
+        {
+          "candidates": 60,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999746611488,
+          "probability_span_relative_to_uniform": 1.1175870895385742e-07,
+          "total_variation_from_uniform": 2.8933087981020122e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999686644577,
+          "probability_span_relative_to_uniform": 1.2665987014770508e-07,
+          "total_variation_from_uniform": 2.531006055433993e-08
+        },
+        {
+          "candidates": 5,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999887149009,
+          "probability_span_relative_to_uniform": 7.450580596923828e-08,
+          "total_variation_from_uniform": 2.0861625676937834e-08
+        },
+        {
+          "candidates": 8,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999806619553,
+          "probability_span_relative_to_uniform": 1.7881393432617188e-07,
+          "total_variation_from_uniform": 3.3527612686157227e-08
+        },
+        {
+          "candidates": 473,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999884933535,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 6.868504008822676e-09
+        },
+        {
+          "candidates": 448,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999690440268,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.8189138626642796e-08
+        },
+        {
+          "candidates": 434,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999791893268,
+          "probability_span_relative_to_uniform": 1.0104849934577942e-07,
+          "total_variation_from_uniform": 1.2456439435048344e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999998965655033,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 6.356276568020985e-08
+        },
+        {
+          "candidates": 164,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999082835724,
+          "probability_span_relative_to_uniform": 3.0547380447387695e-07,
+          "total_variation_from_uniform": 5.7043507712545294e-08
+        },
+        {
+          "candidates": 200,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999799780432,
+          "probability_span_relative_to_uniform": 3.725290298461914e-07,
+          "total_variation_from_uniform": 1.2340024124063431e-08
+        },
+        {
+          "candidates": 52,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.999999997217524,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.335470455916422e-08
+        },
+        {
+          "candidates": 20,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999776641787,
+          "probability_span_relative_to_uniform": 1.4901161193847656e-07,
+          "total_variation_from_uniform": 2.4959444996919267e-08
+        },
+        {
+          "candidates": 31,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.999999923426632,
+          "probability_span_relative_to_uniform": 1.1548399925231934e-07,
+          "total_variation_from_uniform": 5.4016709313819966e-08
+        },
+        {
+          "candidates": 54,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999720860415,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 2.2765662938128983e-08
+        },
+        {
+          "candidates": 50,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999847483715,
+          "probability_span_relative_to_uniform": 9.313225746154785e-08,
+          "total_variation_from_uniform": 1.1660158644177798e-08
+        },
+        {
+          "candidates": 73,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999914289481,
+          "probability_span_relative_to_uniform": 6.798654794692993e-08,
+          "total_variation_from_uniform": 5.5879354199372955e-09
+        },
+        {
+          "candidates": 38,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999689364318,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.5341777426524104e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 1.0000000101487485,
+          "probability_span_relative_to_uniform": 2.5704503059387207e-07,
+          "total_variation_from_uniform": 1.4091315489461742e-08
+        },
+        {
+          "candidates": 18,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999731992875,
+          "probability_span_relative_to_uniform": 2.682209014892578e-07,
+          "total_variation_from_uniform": 2.3800465792644943e-08
+        },
+        {
+          "candidates": 218,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999495691394,
+          "probability_span_relative_to_uniform": 1.0151416063308716e-07,
+          "total_variation_from_uniform": 3.0966475633720236e-08
+        },
+        {
+          "candidates": 134,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999998995710684,
+          "probability_span_relative_to_uniform": 1.2479722499847412e-07,
+          "total_variation_from_uniform": 6.309710442065769e-08
+        },
+        {
+          "candidates": 117,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 1.000000022808432,
+          "probability_span_relative_to_uniform": 1.0896474123001099e-07,
+          "total_variation_from_uniform": 2.5643210858558585e-08
+        }
+      ],
+      "samples": 48,
+      "seed": 11,
+      "source": "own last 20 training episodes",
+      "states_tv_above_1e_3": 0,
+      "variant": "bimatching"
+    },
+    {
+      "candidate_range": [
+        4,
+        511
+      ],
+      "instances": [
+        "30n20b8",
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "swath1"
+      ],
+      "layer_candidate_span": {
+        "BiMatching": {
+          "max": 1.1908032894134521,
+          "median": 0.09913892298936844
+        },
+        "head_layer_0": {
+          "max": 2.7181453704833984,
+          "median": 0.5591254830360413
+        },
+        "head_layer_1": {
+          "max": 2.2922496795654297,
+          "median": 0.47815990447998047
+        },
+        "head_layer_2": {
+          "max": 1.7092729806900024,
+          "median": 0.40142977237701416
+        },
+        "head_layer_3": {
+          "max": 0.6592682003974915,
+          "median": 0.1181870847940445
+        },
+        "head_layer_4": {
+          "max": 0.3884335160255432,
+          "median": 0.06536954641342163
+        },
+        "head_layer_5": {
+          "max": 0.20677822828292847,
+          "median": 0.01421588659286499
+        },
+        "head_layer_6": {
+          "max": 3.159046173095703e-05,
+          "median": 1.7881393432617188e-06
+        },
+        "head_layer_7": {
+          "max": 8.940696716308594e-06,
+          "median": 5.066394805908203e-07
+        },
+        "head_norm_0": {
+          "max": 2.7181453704833984,
+          "median": 0.5591254830360413
+        },
+        "head_norm_1": {
+          "max": 2.4118897914886475,
+          "median": 0.47815990447998047
+        },
+        "head_norm_2": {
+          "max": 1.7092729806900024,
+          "median": 0.40142977237701416
+        },
+        "head_norm_3": {
+          "max": 0.8999117612838745,
+          "median": 0.19961148500442505
+        },
+        "head_norm_4": {
+          "max": 0.3884335160255432,
+          "median": 0.06536954641342163
+        },
+        "head_norm_5": {
+          "max": 0.20677822828292847,
+          "median": 0.014918923377990723
+        },
+        "head_norm_6": {
+          "max": 3.1948089599609375e-05,
+          "median": 1.7881393432617188e-06
+        }
+      },
+      "max_total_variation_from_uniform": 6.982258387855378e-07,
+      "mean_total_variation_from_uniform": 1.177725476709236e-07,
+      "min_normalized_entropy": 0.9999997998117599,
+      "per_state": [
+        {
+          "candidates": 511,
+          "episode": "e00480-30n20b8-s0",
+          "instance": "30n20b8",
+          "normalized_entropy": 0.9999997998117599,
+          "probability_span_relative_to_uniform": 4.164176061749458e-06,
+          "total_variation_from_uniform": 1.3268430607005222e-07
+        },
+        {
+          "candidates": 328,
+          "episode": "e00481-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999300720364,
+          "probability_span_relative_to_uniform": 7.636845111846924e-08,
+          "total_variation_from_uniform": 4.225876184052457e-08
+        },
+        {
+          "candidates": 141,
+          "episode": "e00481-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999542975356,
+          "probability_span_relative_to_uniform": 1.2475065886974335e-06,
+          "total_variation_from_uniform": 6.001911633836399e-08
+        },
+        {
+          "candidates": 300,
+          "episode": "e00481-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.999999982911087,
+          "probability_span_relative_to_uniform": 1.257285475730896e-06,
+          "total_variation_from_uniform": 2.5234185177178126e-08
+        },
+        {
+          "candidates": 250,
+          "episode": "e00483-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 1.0000000347005455,
+          "probability_span_relative_to_uniform": 1.1641532182693481e-07,
+          "total_variation_from_uniform": 2.4219974865957727e-08
+        },
+        {
+          "candidates": 182,
+          "episode": "e00483-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999548584009,
+          "probability_span_relative_to_uniform": 3.390014171600342e-07,
+          "total_variation_from_uniform": 3.729384026509436e-08
+        },
+        {
+          "candidates": 172,
+          "episode": "e00483-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 1.0000000829186653,
+          "probability_span_relative_to_uniform": 3.123655915260315e-06,
+          "total_variation_from_uniform": 5.145557225444408e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00484-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 1.0000000168729757,
+          "probability_span_relative_to_uniform": 5.066394805908203e-07,
+          "total_variation_from_uniform": 1.0113067486910987e-07
+        },
+        {
+          "candidates": 7,
+          "episode": "e00484-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 1.0000000144863164,
+          "probability_span_relative_to_uniform": 3.9637088775634766e-06,
+          "total_variation_from_uniform": 6.982258387855378e-07
+        },
+        {
+          "candidates": 11,
+          "episode": "e00484-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999913127384,
+          "probability_span_relative_to_uniform": 4.425644874572754e-06,
+          "total_variation_from_uniform": 4.7480518168552255e-07
+        },
+        {
+          "candidates": 26,
+          "episode": "e00485-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.0000000438922094,
+          "probability_span_relative_to_uniform": 6.780028343200684e-07,
+          "total_variation_from_uniform": 1.5087425708770752e-07
+        },
+        {
+          "candidates": 4,
+          "episode": "e00485-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999916953867,
+          "probability_span_relative_to_uniform": 1.3709068298339844e-06,
+          "total_variation_from_uniform": 2.8312206268310547e-07
+        },
+        {
+          "candidates": 10,
+          "episode": "e00485-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.000000004214597,
+          "probability_span_relative_to_uniform": 3.5017728805541992e-06,
+          "total_variation_from_uniform": 3.106892109139281e-07
+        },
+        {
+          "candidates": 214,
+          "episode": "e00486-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.99999997158393,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 1.7462298236743667e-08
+        },
+        {
+          "candidates": 128,
+          "episode": "e00486-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 1.0000001197791728,
+          "probability_span_relative_to_uniform": 1.7881393432617188e-06,
+          "total_variation_from_uniform": 7.543712854385376e-08
+        },
+        {
+          "candidates": 159,
+          "episode": "e00486-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 1.0000000063545118,
+          "probability_span_relative_to_uniform": 1.4067627489566803e-06,
+          "total_variation_from_uniform": 3.299898463943879e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00488-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000101487379,
+          "probability_span_relative_to_uniform": 8.568167686462402e-07,
+          "total_variation_from_uniform": 1.1240658552569283e-07
+        },
+        {
+          "candidates": 9,
+          "episode": "e00488-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000243580311,
+          "probability_span_relative_to_uniform": 9.387731552124023e-07,
+          "total_variation_from_uniform": 7.53336482361977e-08
+        },
+        {
+          "candidates": 11,
+          "episode": "e00488-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000173736934,
+          "probability_span_relative_to_uniform": 2.376735210418701e-06,
+          "total_variation_from_uniform": 1.8152323637277146e-07
+        },
+        {
+          "candidates": 79,
+          "episode": "e00489-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999712727518,
+          "probability_span_relative_to_uniform": 8.976086974143982e-06,
+          "total_variation_from_uniform": 1.2977213798438109e-07
+        },
+        {
+          "candidates": 33,
+          "episode": "e00489-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 1.0000000226087973,
+          "probability_span_relative_to_uniform": 6.146728992462158e-08,
+          "total_variation_from_uniform": 1.5832483754585347e-08
+        },
+        {
+          "candidates": 45,
+          "episode": "e00489-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999601733345,
+          "probability_span_relative_to_uniform": 8.381903171539307e-08,
+          "total_variation_from_uniform": 2.8622647143053404e-08
+        },
+        {
+          "candidates": 473,
+          "episode": "e00490-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999884933535,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 6.868504008822676e-09
+        },
+        {
+          "candidates": 443,
+          "episode": "e00490-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 1.0000000198513832,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.1874362868197555e-08
+        },
+        {
+          "candidates": 410,
+          "episode": "e00490-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 1.000000000776519,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 4.656612877414201e-10
+        },
+        {
+          "candidates": 19,
+          "episode": "e00491-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.0000000688826567,
+          "probability_span_relative_to_uniform": 4.246830940246582e-07,
+          "total_variation_from_uniform": 7.372153434936912e-08
+        },
+        {
+          "candidates": 12,
+          "episode": "e00491-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999999995248,
+          "probability_span_relative_to_uniform": 4.380941390991211e-06,
+          "total_variation_from_uniform": 5.712111790789898e-07
+        },
+        {
+          "candidates": 9,
+          "episode": "e00491-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999959399345,
+          "probability_span_relative_to_uniform": 4.2244791984558105e-06,
+          "total_variation_from_uniform": 4.143350653962319e-07
+        },
+        {
+          "candidates": 52,
+          "episode": "e00492-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.0000000278247565,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451464553995e-08
+        },
+        {
+          "candidates": 31,
+          "episode": "e00492-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999498312419,
+          "probability_span_relative_to_uniform": 1.1548399925231934e-07,
+          "total_variation_from_uniform": 3.5390257821510396e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00492-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999974628124,
+          "probability_span_relative_to_uniform": 8.568167686462402e-08,
+          "total_variation_from_uniform": 1.5630022345836103e-08
+        },
+        {
+          "candidates": 54,
+          "episode": "e00493-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999371935937,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 4.259938440887012e-08
+        },
+        {
+          "candidates": 28,
+          "episode": "e00493-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999947853101,
+          "probability_span_relative_to_uniform": 1.8775463104248047e-06,
+          "total_variation_from_uniform": 1.8998980520767983e-07
+        },
+        {
+          "candidates": 64,
+          "episode": "e00493-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 1.0000000084886163,
+          "probability_span_relative_to_uniform": 2.9206275939941406e-06,
+          "total_variation_from_uniform": 1.1175870895385742e-07
+        },
+        {
+          "candidates": 27,
+          "episode": "e00494-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 1.0000000467097914,
+          "probability_span_relative_to_uniform": 4.023313522338867e-07,
+          "total_variation_from_uniform": 4.04262984476933e-08
+        },
+        {
+          "candidates": 12,
+          "episode": "e00494-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999910953119,
+          "probability_span_relative_to_uniform": 3.5762786865234375e-06,
+          "total_variation_from_uniform": 2.7815500892869327e-07
+        },
+        {
+          "candidates": 8,
+          "episode": "e00494-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999999995891,
+          "probability_span_relative_to_uniform": 3.993511199951172e-06,
+          "total_variation_from_uniform": 4.3213367462158203e-07
+        },
+        {
+          "candidates": 66,
+          "episode": "e00495-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 1.00000002268901,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 63,
+          "episode": "e00495-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 1.000000043805209,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.887099984083541e-08
+        },
+        {
+          "candidates": 62,
+          "episode": "e00495-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999774187465,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161179969868e-08
+        },
+        {
+          "candidates": 218,
+          "episode": "e00496-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999651154952,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.142041924391158e-08
+        },
+        {
+          "candidates": 124,
+          "episode": "e00496-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999998981403475,
+          "probability_span_relative_to_uniform": 2.3096799850463867e-07,
+          "total_variation_from_uniform": 6.702518269563473e-08
+        },
+        {
+          "candidates": 171,
+          "episode": "e00496-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999456112221,
+          "probability_span_relative_to_uniform": 7.962808012962341e-08,
+          "total_variation_from_uniform": 3.419614977295815e-08
+        },
+        {
+          "candidates": 38,
+          "episode": "e00497-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 1.0000000445694575,
+          "probability_span_relative_to_uniform": 7.7858567237854e-07,
+          "total_variation_from_uniform": 8.847564458847046e-08
+        },
+        {
+          "candidates": 16,
+          "episode": "e00497-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999952366421,
+          "probability_span_relative_to_uniform": 8.344650268554688e-07,
+          "total_variation_from_uniform": 4.842877388000488e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00497-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 1.0000000096416715,
+          "probability_span_relative_to_uniform": 1.8998980522155762e-06,
+          "total_variation_from_uniform": 1.0890995754547772e-07
+        },
+        {
+          "candidates": 38,
+          "episode": "e00498-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000054023594,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 19,
+          "episode": "e00498-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.00000000492019,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 7.058444800867036e-09
+        },
+        {
+          "candidates": 18,
+          "episode": "e00498-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999634535749,
+          "probability_span_relative_to_uniform": 6.705522537231445e-08,
+          "total_variation_from_uniform": 2.835359835806628e-08
+        }
+      ],
+      "samples": 49,
+      "seed": 22,
+      "source": "own last 20 training episodes",
+      "states_tv_above_1e_3": 0,
+      "variant": "bimatching"
+    },
+    {
+      "candidate_range": [
+        5,
+        473
+      ],
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "swath1"
+      ],
+      "layer_candidate_span": {
+        "BiMatching": {
+          "max": 0.1612425446510315,
+          "median": 0.004757938906550407
+        },
+        "head_layer_0": {
+          "max": 0.3705989122390747,
+          "median": 0.00923454761505127
+        },
+        "head_layer_1": {
+          "max": 0.2199840545654297,
+          "median": 0.005437478423118591
+        },
+        "head_layer_2": {
+          "max": 0.1751035451889038,
+          "median": 0.0036599934101104736
+        },
+        "head_layer_3": {
+          "max": 0.05607503652572632,
+          "median": 0.001132202334702015
+        },
+        "head_layer_4": {
+          "max": 0.019550949335098267,
+          "median": 0.0004876963794231415
+        },
+        "head_layer_5": {
+          "max": 0.015476897358894348,
+          "median": 4.4286251068115234e-05
+        },
+        "head_layer_6": {
+          "max": 7.152557373046875e-07,
+          "median": 4.76837158203125e-07
+        },
+        "head_layer_7": {
+          "max": 1.4901161193847656e-07,
+          "median": 8.940696716308594e-08
+        },
+        "head_norm_0": {
+          "max": 0.3705989122390747,
+          "median": 0.009600862860679626
+        },
+        "head_norm_1": {
+          "max": 0.29097747802734375,
+          "median": 0.007368698716163635
+        },
+        "head_norm_2": {
+          "max": 0.1751035451889038,
+          "median": 0.0038077831268310547
+        },
+        "head_norm_3": {
+          "max": 0.08095598220825195,
+          "median": 0.001965045928955078
+        },
+        "head_norm_4": {
+          "max": 0.02123185247182846,
+          "median": 0.0007243901491165161
+        },
+        "head_norm_5": {
+          "max": 0.015476897358894348,
+          "median": 0.00014606118202209473
+        },
+        "head_norm_6": {
+          "max": 7.152557373046875e-07,
+          "median": 4.76837158203125e-07
+        }
+      },
+      "max_total_variation_from_uniform": 5.669426174706449e-08,
+      "mean_total_variation_from_uniform": 2.5441913283455588e-08,
+      "min_normalized_entropy": 0.9999999061847976,
+      "per_state": [
+        {
+          "candidates": 38,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000054023594,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 24,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000178716857,
+          "probability_span_relative_to_uniform": 8.940696716308594e-08,
+          "total_variation_from_uniform": 1.5522042935700586e-08
+        },
+        {
+          "candidates": 28,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000078219735,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.474657127826685e-08
+        },
+        {
+          "candidates": 79,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999691183304,
+          "probability_span_relative_to_uniform": 1.471489667892456e-07,
+          "total_variation_from_uniform": 2.5434537397235613e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.999999968018764,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.6175066031308702e-08
+        },
+        {
+          "candidates": 47,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999365724499,
+          "probability_span_relative_to_uniform": 8.754432201385498e-08,
+          "total_variation_from_uniform": 4.284083842016895e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999680187641,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.6175066031308702e-08
+        },
+        {
+          "candidates": 9,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999837612987,
+          "probability_span_relative_to_uniform": 6.705522537231445e-08,
+          "total_variation_from_uniform": 1.821253034495207e-08
+        },
+        {
+          "candidates": 7,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 0.9999999999999996,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.554484776484678e-08
+        },
+        {
+          "candidates": 250,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999523344146,
+          "probability_span_relative_to_uniform": 1.1641532182693481e-07,
+          "total_variation_from_uniform": 3.3473595985322735e-08
+        },
+        {
+          "candidates": 211,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999984853915,
+          "probability_span_relative_to_uniform": 9.825453162193298e-08,
+          "total_variation_from_uniform": 2.3353685974641936e-08
+        },
+        {
+          "candidates": 194,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999253016111,
+          "probability_span_relative_to_uniform": 9.033828973770142e-08,
+          "total_variation_from_uniform": 4.610046743392521e-08
+        },
+        {
+          "candidates": 27,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999714551256,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 2.4352360655788274e-08
+        },
+        {
+          "candidates": 16,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999714198895,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 2.2351741790771484e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999909083727,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.4644228130421553e-08
+        },
+        {
+          "candidates": 26,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.0000000103275821,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.1205498607068662e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.0000000136374403,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.034581622623044e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999686644576,
+          "probability_span_relative_to_uniform": 1.2665987014770508e-07,
+          "total_variation_from_uniform": 2.5529195278595207e-08
+        },
+        {
+          "candidates": 328,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999061847976,
+          "probability_span_relative_to_uniform": 1.5273690223693848e-07,
+          "total_variation_from_uniform": 5.669426174706449e-08
+        },
+        {
+          "candidates": 296,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999687180243,
+          "probability_span_relative_to_uniform": 1.3783574104309082e-07,
+          "total_variation_from_uniform": 2.5111099567765027e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999280126212,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 4.4237822256938675e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 0.9999999873140636,
+          "probability_span_relative_to_uniform": 8.568167686462402e-08,
+          "total_variation_from_uniform": 1.9841220069705123e-08
+        },
+        {
+          "candidates": 10,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.0000000042148343,
+          "probability_span_relative_to_uniform": 7.450580596923828e-08,
+          "total_variation_from_uniform": 9.685754753796516e-09
+        },
+        {
+          "candidates": 13,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 0.9999999772709321,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.722327527293622e-08
+        },
+        {
+          "candidates": 66,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999766019579,
+          "probability_span_relative_to_uniform": 1.2293457984924316e-07,
+          "total_variation_from_uniform": 2.1236976899263738e-08
+        },
+        {
+          "candidates": 62,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999251995968,
+          "probability_span_relative_to_uniform": 1.1548399925231934e-07,
+          "total_variation_from_uniform": 4.9360096440742574e-08
+        },
+        {
+          "candidates": 60,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999662148652,
+          "probability_span_relative_to_uniform": 1.1175870895385742e-07,
+          "total_variation_from_uniform": 2.9305617009478535e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999783061633,
+          "probability_span_relative_to_uniform": 6.332993507385254e-08,
+          "total_variation_from_uniform": 1.8297749405926655e-08
+        },
+        {
+          "candidates": 5,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999999999998,
+          "probability_span_relative_to_uniform": 7.450580596923828e-08,
+          "total_variation_from_uniform": 1.192092893842478e-08
+        },
+        {
+          "candidates": 8,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999883971736,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 1.1175870895385742e-08
+        },
+        {
+          "candidates": 473,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999884933535,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 6.868504008822676e-09
+        },
+        {
+          "candidates": 453,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999918200434,
+          "probability_span_relative_to_uniform": 1.0547228157520294e-07,
+          "total_variation_from_uniform": 4.889443516297581e-09
+        },
+        {
+          "candidates": 430,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999241708449,
+          "probability_span_relative_to_uniform": 1.0011717677116394e-07,
+          "total_variation_from_uniform": 4.5401975505565684e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999393790497,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 3.7252902947322586e-08
+        },
+        {
+          "candidates": 152,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999623298554,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 2.5378540144394002e-08
+        },
+        {
+          "candidates": 145,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999352557067,
+          "probability_span_relative_to_uniform": 1.3504177331924438e-07,
+          "total_variation_from_uniform": 4.051253198883442e-08
+        },
+        {
+          "candidates": 52,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.0000000278247565,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451464553995e-08
+        },
+        {
+          "candidates": 35,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.999999995983763,
+          "probability_span_relative_to_uniform": 6.51925802230835e-08,
+          "total_variation_from_uniform": 7.423971390765893e-09
+        },
+        {
+          "candidates": 28,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999999999998,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.554484776484678e-08
+        },
+        {
+          "candidates": 54,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 1.0000000027913958,
+          "probability_span_relative_to_uniform": 1.0058283805847168e-07,
+          "total_variation_from_uniform": 5.311988043876781e-09
+        },
+        {
+          "candidates": 59,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999592306753,
+          "probability_span_relative_to_uniform": 1.0989606380462646e-07,
+          "total_variation_from_uniform": 2.792389211005164e-08
+        },
+        {
+          "candidates": 65,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999702548203,
+          "probability_span_relative_to_uniform": 1.210719347000122e-07,
+          "total_variation_from_uniform": 1.9915975063566904e-08
+        },
+        {
+          "candidates": 38,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999905458706,
+          "probability_span_relative_to_uniform": 7.078051567077637e-08,
+          "total_variation_from_uniform": 1.1813091616019733e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999720909399,
+          "probability_span_relative_to_uniform": 8.568167686462402e-08,
+          "total_variation_from_uniform": 2.6158016655508654e-08
+        },
+        {
+          "candidates": 18,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.999999973199288,
+          "probability_span_relative_to_uniform": 1.341104507446289e-07,
+          "total_variation_from_uniform": 2.2972623497929945e-08
+        },
+        {
+          "candidates": 218,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999089969424,
+          "probability_span_relative_to_uniform": 1.0151416063308716e-07,
+          "total_variation_from_uniform": 5.5879354504684287e-08
+        },
+        {
+          "candidates": 99,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999358791403,
+          "probability_span_relative_to_uniform": 9.220093488693237e-08,
+          "total_variation_from_uniform": 4.097819332558178e-08
+        },
+        {
+          "candidates": 153,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999660485773,
+          "probability_span_relative_to_uniform": 1.424923539161682e-07,
+          "total_variation_from_uniform": 2.4535480187045516e-08
+        }
+      ],
+      "samples": 48,
+      "seed": 11,
+      "source": "new Transformer/s11 last 20 episode states; legacy dev-selected weights",
+      "states_tv_above_1e_3": 0,
+      "variant": "legacy-B0"
+    },
+    {
+      "candidate_range": [
+        5,
+        473
+      ],
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "swath1"
+      ],
+      "layer_candidate_span": {
+        "BiMatching": {
+          "max": 0.13526886701583862,
+          "median": 0.003160044550895691
+        },
+        "head_layer_0": {
+          "max": 0.1005450189113617,
+          "median": 0.002180159091949463
+        },
+        "head_layer_1": {
+          "max": 0.058882176876068115,
+          "median": 0.0016227662563323975
+        },
+        "head_layer_2": {
+          "max": 0.036171793937683105,
+          "median": 0.0008979588747024536
+        },
+        "head_layer_3": {
+          "max": 0.00776064395904541,
+          "median": 0.00020927190780639648
+        },
+        "head_layer_4": {
+          "max": 0.002012968063354492,
+          "median": 0.0001055598258972168
+        },
+        "head_layer_5": {
+          "max": 0.00119096040725708,
+          "median": 3.820657730102539e-05
+        },
+        "head_layer_6": {
+          "max": 9.47713851928711e-06,
+          "median": 2.384185791015625e-07
+        },
+        "head_layer_7": {
+          "max": 2.473592758178711e-06,
+          "median": 4.470348358154297e-08
+        },
+        "head_norm_0": {
+          "max": 0.1005450189113617,
+          "median": 0.002180159091949463
+        },
+        "head_norm_1": {
+          "max": 0.058882176876068115,
+          "median": 0.0017284750938415527
+        },
+        "head_norm_2": {
+          "max": 0.036171793937683105,
+          "median": 0.0008979588747024536
+        },
+        "head_norm_3": {
+          "max": 0.029604613780975342,
+          "median": 0.0007432401180267334
+        },
+        "head_norm_4": {
+          "max": 0.003302335739135742,
+          "median": 0.0001087486743927002
+        },
+        "head_norm_5": {
+          "max": 0.00119096040725708,
+          "median": 3.984570503234863e-05
+        },
+        "head_norm_6": {
+          "max": 1.0251998901367188e-05,
+          "median": 2.384185791015625e-07
+        }
+      },
+      "max_total_variation_from_uniform": 4.932722624598207e-07,
+      "mean_total_variation_from_uniform": 3.896452936881573e-08,
+      "min_normalized_entropy": 0.9999998992176699,
+      "per_state": [
+        {
+          "candidates": 38,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 0.9999999675858423,
+          "probability_span_relative_to_uniform": 7.078051567077637e-08,
+          "total_variation_from_uniform": 2.4312420882077745e-08
+        },
+        {
+          "candidates": 24,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.0000000204247836,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.4901161221603232e-08
+        },
+        {
+          "candidates": 28,
+          "episode": "e00480-rmatr100-p5-s0",
+          "instance": "rmatr100-p5",
+          "normalized_entropy": 1.000000005214649,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.501266344046016e-08
+        },
+        {
+          "candidates": 79,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 1.0000000825904716,
+          "probability_span_relative_to_uniform": 2.4279579520225525e-06,
+          "total_variation_from_uniform": 2.540919128097077e-07
+        },
+        {
+          "candidates": 19,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 1.00000000492019,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 47,
+          "episode": "e00481-neos648910-s0",
+          "instance": "neos648910",
+          "normalized_entropy": 0.9999999765593839,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.583248375632007e-08
+        },
+        {
+          "candidates": 19,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.0000000713427215,
+          "probability_span_relative_to_uniform": 9.909272193908691e-07,
+          "total_variation_from_uniform": 2.1930195784336526e-07
+        },
+        {
+          "candidates": 9,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.0000000040596753,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 7,
+          "episode": "e00483-istanbul-no-cutoff-s0",
+          "instance": "istanbul-no-cutoff",
+          "normalized_entropy": 1.0000000217304372,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.235174181852706e-08
+        },
+        {
+          "candidates": 250,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999813150905,
+          "probability_span_relative_to_uniform": 1.1641532182693481e-07,
+          "total_variation_from_uniform": 3.021769225813875e-08
+        },
+        {
+          "candidates": 211,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 1.0000000302921606,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451454145654e-08
+        },
+        {
+          "candidates": 194,
+          "episode": "e00484-air05-s0",
+          "instance": "air05",
+          "normalized_entropy": 0.9999999388831362,
+          "probability_span_relative_to_uniform": 9.033828973770142e-08,
+          "total_variation_from_uniform": 3.77185642623859e-08
+        },
+        {
+          "candidates": 27,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999455052401,
+          "probability_span_relative_to_uniform": 2.0116567611694336e-07,
+          "total_variation_from_uniform": 4.049528526395285e-08
+        },
+        {
+          "candidates": 16,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 0.9999999976183241,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 1.862645149230957e-09
+        },
+        {
+          "candidates": 13,
+          "episode": "e00485-stein27-s0",
+          "instance": "stein27",
+          "normalized_entropy": 1.000000004545813,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.2065180987906885e-08
+        },
+        {
+          "candidates": 26,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 0.9999999664353566,
+          "probability_span_relative_to_uniform": 1.9371509552001953e-07,
+          "total_variation_from_uniform": 3.1378406761817246e-08
+        },
+        {
+          "candidates": 13,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.000000022729067,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451464553995e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00488-sp150x300d-s0",
+          "instance": "sp150x300d",
+          "normalized_entropy": 1.0000000024104263,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.862645156169851e-09
+        },
+        {
+          "candidates": 328,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999524181625,
+          "probability_span_relative_to_uniform": 7.636845111846924e-08,
+          "total_variation_from_uniform": 2.8754584508600134e-08
+        },
+        {
+          "candidates": 296,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 1.0000000128582351,
+          "probability_span_relative_to_uniform": 6.891787052154541e-08,
+          "total_variation_from_uniform": 1.3387761989280822e-08
+        },
+        {
+          "candidates": 214,
+          "episode": "e00489-air04-s0",
+          "instance": "air04",
+          "normalized_entropy": 0.9999999412734544,
+          "probability_span_relative_to_uniform": 9.96515154838562e-08,
+          "total_variation_from_uniform": 3.608874972905324e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.000000017760303,
+          "probability_span_relative_to_uniform": 7.711350917816162e-07,
+          "total_variation_from_uniform": 8.138949457447975e-08
+        },
+        {
+          "candidates": 10,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.000000008429669,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 7.4505805691682525e-09
+        },
+        {
+          "candidates": 13,
+          "episode": "e00490-lseu-s0",
+          "instance": "lseu",
+          "normalized_entropy": 1.000000022729067,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451464553995e-08
+        },
+        {
+          "candidates": 66,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 1.0000000205619155,
+          "probability_span_relative_to_uniform": 6.146728992462158e-08,
+          "total_variation_from_uniform": 1.494349402553219e-08
+        },
+        {
+          "candidates": 62,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 0.9999999379015522,
+          "probability_span_relative_to_uniform": 1.1548399925231934e-07,
+          "total_variation_from_uniform": 4.097819326920327e-08
+        },
+        {
+          "candidates": 60,
+          "episode": "e00491-rmatr200-p5-s0",
+          "instance": "rmatr200-p5",
+          "normalized_entropy": 1.00000003941599,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 2.6077032096172292e-08
+        },
+        {
+          "candidates": 17,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999710747084,
+          "probability_span_relative_to_uniform": 2.216547727584839e-06,
+          "total_variation_from_uniform": 4.932722624598207e-07
+        },
+        {
+          "candidates": 5,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 1.000000005642549,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 7.4505805691682525e-09
+        },
+        {
+          "candidates": 8,
+          "episode": "e00492-swath1-s0",
+          "instance": "swath1",
+          "normalized_entropy": 0.9999999922647825,
+          "probability_span_relative_to_uniform": 5.960464477539063e-08,
+          "total_variation_from_uniform": 7.450580596923828e-09
+        },
+        {
+          "candidates": 473,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999884933535,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 6.868504008822676e-09
+        },
+        {
+          "candidates": 453,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999419612607,
+          "probability_span_relative_to_uniform": 1.0547228157520294e-07,
+          "total_variation_from_uniform": 3.4691765903992894e-08
+        },
+        {
+          "candidates": 430,
+          "episode": "e00493-cod105-s0",
+          "instance": "cod105",
+          "normalized_entropy": 0.9999999968890599,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451422920631e-09
+        },
+        {
+          "candidates": 214,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999998992176699,
+          "probability_span_relative_to_uniform": 1.993030309677124e-07,
+          "total_variation_from_uniform": 6.193295117463277e-08
+        },
+        {
+          "candidates": 152,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 1.0000000044756605,
+          "probability_span_relative_to_uniform": 7.078051567077637e-08,
+          "total_variation_from_uniform": 4.4605449889267845e-09
+        },
+        {
+          "candidates": 145,
+          "episode": "e00494-neos20-s0",
+          "instance": "neos20",
+          "normalized_entropy": 0.9999999970232509,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 1.8626451422920631e-09
+        },
+        {
+          "candidates": 52,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999874788591,
+          "probability_span_relative_to_uniform": 9.685754776000977e-08,
+          "total_variation_from_uniform": 2.4859148725631108e-08
+        },
+        {
+          "candidates": 35,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 1.0000000013387458,
+          "probability_span_relative_to_uniform": 6.51925802230835e-08,
+          "total_variation_from_uniform": 4.337302289894596e-09
+        },
+        {
+          "candidates": 28,
+          "episode": "e00496-rmatr100-p10-s0",
+          "instance": "rmatr100-p10",
+          "normalized_entropy": 0.9999999608901303,
+          "probability_span_relative_to_uniform": 1.043081283569336e-07,
+          "total_variation_from_uniform": 2.9536230197746427e-08
+        },
+        {
+          "candidates": 54,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999511505727,
+          "probability_span_relative_to_uniform": 2.0116567611694336e-07,
+          "total_variation_from_uniform": 3.5217790683717e-08
+        },
+        {
+          "candidates": 59,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 0.9999999789124182,
+          "probability_span_relative_to_uniform": 1.0989606380462646e-07,
+          "total_variation_from_uniform": 1.532735966099097e-08
+        },
+        {
+          "candidates": 65,
+          "episode": "e00497-l152lav-s0",
+          "instance": "l152lav",
+          "normalized_entropy": 1.0000000007082186,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 4.6566125955216364e-10
+        },
+        {
+          "candidates": 38,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 0.9999999797411514,
+          "probability_span_relative_to_uniform": 1.4156103134155273e-07,
+          "total_variation_from_uniform": 1.8283332653412643e-08
+        },
+        {
+          "candidates": 23,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 1.000000012685936,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 9.313225760032573e-09
+        },
+        {
+          "candidates": 18,
+          "episode": "e00498-pp08aCUTS-s0",
+          "instance": "pp08aCUTS",
+          "normalized_entropy": 1.0000000048728563,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 3.72529032621749e-09
+        },
+        {
+          "candidates": 218,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.9999999207515042,
+          "probability_span_relative_to_uniform": 1.0151416063308716e-07,
+          "total_variation_from_uniform": 4.866160455141433e-08
+        },
+        {
+          "candidates": 99,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 0.999999999271354,
+          "probability_span_relative_to_uniform": 0.0,
+          "total_variation_from_uniform": 4.656613298084644e-10
+        },
+        {
+          "candidates": 153,
+          "episode": "e00499-neos21-s0",
+          "instance": "neos21",
+          "normalized_entropy": 1.0000000078349431,
+          "probability_span_relative_to_uniform": 7.12461769580841e-08,
+          "total_variation_from_uniform": 6.447734869022975e-09
+        }
+      ],
+      "samples": 48,
+      "seed": 22,
+      "source": "new Transformer/s11 last 20 episode states; legacy dev-selected weights",
+      "states_tv_above_1e_3": 0,
+      "variant": "legacy-B0"
+    }
+  ],
+  "scope": "Offline diagnostics on real late training states with 2..512 candidates; not held-out performance evaluation. No model changes."
+}

@@ -1,0 +1,18 @@
+{
+  "checked_at_beijing": "2026-10-28T08:52:03.954384+08:00",
+  "training_integrity_passed": true,
+  "completed_models": 4,
+  "completed_seeds": [
+    11,
+    22
+  ],
+  "missing_seed_33": true,
+  "uniform_policy_observed_on_all_late_probes": true,
+  "late_probed_states": 193,
+  "legacy_b0_uniform_on_same_probes": true,
+  "method_quality_claim_supported": false,
+  "no_training_or_checkpoint_edits": true,
+  "formal_evaluation_executed": false,
+  "scripts_runtime_or_config_changed": false,
+  "recommendation": "Investigate shared Actor output head before interpreting architecture quality or launching the full held-out comparison."
+}

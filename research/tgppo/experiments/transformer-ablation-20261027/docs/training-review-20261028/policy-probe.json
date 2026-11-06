@@ -1,0 +1,1433 @@
+{
+  "rows": [
+    {
+      "actor_parameter_delta_l2": 1.9200218994894933,
+      "actor_tensor_count": 116,
+      "candidate_count_range": [
+        2,
+        250
+      ],
+      "changed_actor_tensors": 116,
+      "final_policy_max_logit_span": 1.4901161193847656e-07,
+      "final_policy_max_probability_span_relative_to_uniform": 1.4901161193847656e-07,
+      "final_policy_mean_normalized_entropy": 0.9999999947964919,
+      "final_policy_min_normalized_entropy": 0.9999997487070467,
+      "initial_to_final_max_total_variation": 2.3096799850463867e-07,
+      "initial_to_final_mean_total_variation": 4.8964284360408786e-08,
+      "initialization_matches": true,
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "swath1"
+      ],
+      "per_state": [
+        {
+          "instance": "cod105",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 204,
+          "normalized_entropy": 0.9999999120112384,
+          "relative_probability_span": 9.499490261077881e-08,
+          "total_variation": 1.816079020500183e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 19,
+          "normalized_entropy": 0.9999999037987034,
+          "relative_probability_span": 1.4156103134155273e-07,
+          "total_variation": 1.862645149230957e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "n": 12,
+          "normalized_entropy": 1.000000105461497,
+          "relative_probability_span": 8.940696716308594e-08,
+          "total_variation": 2.3096799850463867e-07
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "n": 10,
+          "normalized_entropy": 0.9999999103428824,
+          "relative_probability_span": 7.450580596923828e-08,
+          "total_variation": 2.2351741790771484e-08
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 8.940696716308594e-08,
+          "n": 218,
+          "normalized_entropy": 0.9999998592008912,
+          "relative_probability_span": 1.0151416063308716e-07,
+          "total_variation": 2.2351741790771484e-08
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 160,
+          "normalized_entropy": 0.9999999138466741,
+          "relative_probability_span": 1.4901161193847656e-07,
+          "total_variation": 6.379559636116028e-08
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 176,
+          "normalized_entropy": 1.0000001059491779,
+          "relative_probability_span": 8.195638656616211e-08,
+          "total_variation": 5.820766091346741e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 5.960464477539063e-08,
+          "n": 54,
+          "normalized_entropy": 1.0000001349326217,
+          "relative_probability_span": 1.0058283805847168e-07,
+          "total_variation": 1.601874828338623e-07
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 8.940696716308594e-08,
+          "n": 36,
+          "normalized_entropy": 0.9999998790686803,
+          "relative_probability_span": 6.705522537231445e-08,
+          "total_variation": 1.043081283569336e-07
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 56,
+          "normalized_entropy": 0.9999999586664383,
+          "relative_probability_span": 1.043081283569336e-07,
+          "total_variation": 2.1420419216156006e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 7.078051567077637e-08,
+          "total_variation": 1.862645149230957e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 8.940696716308594e-08,
+          "n": 31,
+          "normalized_entropy": 0.999999981412386,
+          "relative_probability_span": 1.1548399925231934e-07,
+          "total_variation": 2.60770320892334e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 26,
+          "normalized_entropy": 0.9999999749873059,
+          "relative_probability_span": 9.685754776000977e-08,
+          "total_variation": 2.421438694000244e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 17,
+          "normalized_entropy": 0.9999999106457654,
+          "relative_probability_span": 1.2665987014770508e-07,
+          "total_variation": 1.1548399925231934e-07
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 7,
+          "normalized_entropy": 1.0000001566059324,
+          "relative_probability_span": 0.0,
+          "total_variation": 5.960464477539063e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0,
+          "n": 2,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 0.0,
+          "total_variation": 0.0
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 66,
+          "normalized_entropy": 0.9999997926839143,
+          "relative_probability_span": 1.2293457984924316e-07,
+          "total_variation": 1.0244548320770264e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 43,
+          "normalized_entropy": 1.0000000196471577,
+          "relative_probability_span": 8.009374141693115e-08,
+          "total_variation": 1.7695128917694092e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "n": 62,
+          "normalized_entropy": 0.9999998694585438,
+          "relative_probability_span": 1.1548399925231934e-07,
+          "total_variation": 2.1420419216156006e-08
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 214,
+          "normalized_entropy": 1.0000002370995744,
+          "relative_probability_span": 9.96515154838562e-08,
+          "total_variation": 2.1653249859809875e-08
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 173,
+          "normalized_entropy": 0.9999999283827777,
+          "relative_probability_span": 8.055940270423889e-08,
+          "total_variation": 8.149072527885437e-08
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 197,
+          "normalized_entropy": 1.00000006623563,
+          "relative_probability_span": 9.173527359962463e-08,
+          "total_variation": 1.257285475730896e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "n": 79,
+          "normalized_entropy": 0.9999997487070467,
+          "relative_probability_span": 7.35744833946228e-08,
+          "total_variation": 1.816079020500183e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 44,
+          "normalized_entropy": 1.0000000177480697,
+          "relative_probability_span": 8.195638656616211e-08,
+          "total_variation": 1.4994293451309204e-07
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 25,
+          "normalized_entropy": 1.0000000186840277,
+          "relative_probability_span": 9.313225746154785e-08,
+          "total_variation": 1.993030309677124e-07
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 250,
+          "normalized_entropy": 1.0000000166834473,
+          "relative_probability_span": 1.1641532182693481e-07,
+          "total_variation": 7.846392691135406e-08
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 194,
+          "normalized_entropy": 0.9999999751983711,
+          "relative_probability_span": 9.033828973770142e-08,
+          "total_variation": 1.7229467630386353e-08
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 154,
+          "normalized_entropy": 0.9999998841212371,
+          "relative_probability_span": 1.434236764907837e-07,
+          "total_variation": 3.3760443329811096e-08
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 23,
+          "normalized_entropy": 1.0000000051821447,
+          "relative_probability_span": 8.568167686462402e-08,
+          "total_variation": 1.862645149230957e-08
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 8.940696716308594e-08,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 6.705522537231445e-08,
+          "total_variation": 4.0978193283081055e-08
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 1.341104507446289e-07,
+          "total_variation": 4.0978193283081055e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 8.940696716308594e-08,
+          "n": 231,
+          "normalized_entropy": 1.0000000712785997,
+          "relative_probability_span": 1.0756775736808777e-07,
+          "total_variation": 3.725290298461914e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 236,
+          "normalized_entropy": 0.9999999303945493,
+          "relative_probability_span": 1.0989606380462646e-07,
+          "total_variation": 2.8172507882118225e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 8.940696716308594e-08,
+          "n": 239,
+          "normalized_entropy": 1.000000131401203,
+          "relative_probability_span": 1.1129304766654968e-07,
+          "total_variation": 2.9336661100387573e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 8.940696716308594e-08,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 7.078051567077637e-08,
+          "total_variation": 2.0489096641540527e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.960464477539063e-08,
+          "n": 7,
+          "normalized_entropy": 1.00000003408302,
+          "relative_probability_span": 1.043081283569336e-07,
+          "total_variation": 2.9802322387695312e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 8.940696716308594e-08,
+          "n": 21,
+          "normalized_entropy": 1.0000001849202138,
+          "relative_probability_span": 7.82310962677002e-08,
+          "total_variation": 3.166496753692627e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 8.940696716308594e-08,
+          "n": 52,
+          "normalized_entropy": 0.9999999798571985,
+          "relative_probability_span": 9.685754776000977e-08,
+          "total_variation": 2.0489096641540527e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 35,
+          "normalized_entropy": 0.9999998929939138,
+          "relative_probability_span": 1.30385160446167e-07,
+          "total_variation": 1.955777406692505e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 8.940696716308594e-08,
+          "n": 32,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 5.960464477539063e-08,
+          "total_variation": 1.4901161193847656e-08
+        }
+      ],
+      "samples": 40,
+      "seed": 11,
+      "variant": "transformer"
+    },
+    {
+      "actor_parameter_delta_l2": 11.069743904688512,
+      "actor_tensor_count": 116,
+      "candidate_count_range": [
+        2,
+        250
+      ],
+      "changed_actor_tensors": 116,
+      "final_policy_max_logit_span": 1.1920928955078125e-07,
+      "final_policy_max_probability_span_relative_to_uniform": 1.4156103134155273e-07,
+      "final_policy_mean_normalized_entropy": 1.0000000317632545,
+      "final_policy_min_normalized_entropy": 0.9999997926839143,
+      "initial_to_final_max_total_variation": 0.00044738873839378357,
+      "initial_to_final_mean_total_variation": 1.991604804061353e-05,
+      "initialization_matches": true,
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "swath1"
+      ],
+      "per_state": [
+        {
+          "instance": "cod105",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 204,
+          "normalized_entropy": 1.000000180999429,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.753680408000946e-06
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 19,
+          "normalized_entropy": 0.9999999037987034,
+          "relative_probability_span": 1.4156103134155273e-07,
+          "total_variation": 0.00044738873839378357
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 12,
+          "normalized_entropy": 1.000000105461497,
+          "relative_probability_span": 0.0,
+          "total_variation": 9.670853614807129e-06
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 10,
+          "normalized_entropy": 1.0000000138867557,
+          "relative_probability_span": 0.0,
+          "total_variation": 3.5315752029418945e-06
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 5.960464477539063e-08,
+          "n": 218,
+          "normalized_entropy": 0.9999998592008912,
+          "relative_probability_span": 1.0151416063308716e-07,
+          "total_variation": 2.9033981263637543e-07
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 160,
+          "normalized_entropy": 1.000000007801517,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.2088567018508911e-05
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 176,
+          "normalized_entropy": 1.000000198172103,
+          "relative_probability_span": 0.0,
+          "total_variation": 9.427778422832489e-06
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 54,
+          "normalized_entropy": 1.0000001349326217,
+          "relative_probability_span": 0.0,
+          "total_variation": 8.530914783477783e-07
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 4.470348358154297e-08,
+          "n": 36,
+          "normalized_entropy": 0.9999998790686803,
+          "relative_probability_span": 6.705522537231445e-08,
+          "total_variation": 6.9160014390945435e-06
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 56,
+          "normalized_entropy": 1.000000077124947,
+          "relative_probability_span": 0.0,
+          "total_variation": 2.012588083744049e-06
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 7.078051567077637e-08,
+          "total_variation": 1.8347054719924927e-07
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 31,
+          "normalized_entropy": 0.999999981412386,
+          "relative_probability_span": 0.0,
+          "total_variation": 2.9802322387695312e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 0.0,
+          "n": 26,
+          "normalized_entropy": 0.9999999749873059,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.4901161193847656e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 17,
+          "normalized_entropy": 0.9999999106457654,
+          "relative_probability_span": 1.2665987014770508e-07,
+          "total_variation": 4.460662603378296e-05
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 7,
+          "normalized_entropy": 1.0000001566059324,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.879781484603882e-05
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 2,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 0.0,
+          "total_variation": 0.00014753639698028564
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "n": 66,
+          "normalized_entropy": 0.9999997926839143,
+          "relative_probability_span": 6.146728992462158e-08,
+          "total_variation": 2.891756594181061e-07
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 43,
+          "normalized_entropy": 1.0000000196471577,
+          "relative_probability_span": 0.0,
+          "total_variation": 2.2817403078079224e-07
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 0.0,
+          "n": 62,
+          "normalized_entropy": 0.9999998694585438,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.2200325727462769e-07
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 5.960464477539063e-08,
+          "n": 214,
+          "normalized_entropy": 1.0000002370995744,
+          "relative_probability_span": 9.96515154838562e-08,
+          "total_variation": 1.6694189980626106e-05
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 4.470348358154297e-08,
+          "n": 173,
+          "normalized_entropy": 0.9999999283827777,
+          "relative_probability_span": 8.055940270423889e-08,
+          "total_variation": 3.6838464438915253e-06
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 197,
+          "normalized_entropy": 1.00000006623563,
+          "relative_probability_span": 0.0,
+          "total_variation": 4.901085048913956e-07
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 0.0,
+          "n": 79,
+          "normalized_entropy": 0.9999998578368897,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.8116086721420288e-05
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 5.960464477539063e-08,
+          "n": 44,
+          "normalized_entropy": 1.0000000177480697,
+          "relative_probability_span": 8.195638656616211e-08,
+          "total_variation": 1.5189871191978455e-06
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 5.960464477539063e-08,
+          "n": 25,
+          "normalized_entropy": 1.0000000186840277,
+          "relative_probability_span": 9.313225746154785e-08,
+          "total_variation": 3.6749988794326782e-06
+        },
+        {
+          "instance": "air05",
+          "logit_span": 5.960464477539063e-08,
+          "n": 250,
+          "normalized_entropy": 1.0000001030441343,
+          "relative_probability_span": 1.1641532182693481e-07,
+          "total_variation": 3.3993273973464966e-07
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 194,
+          "normalized_entropy": 0.9999999751983711,
+          "relative_probability_span": 0.0,
+          "total_variation": 4.277098923921585e-07
+        },
+        {
+          "instance": "air05",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 154,
+          "normalized_entropy": 0.9999998841212371,
+          "relative_probability_span": 0.0,
+          "total_variation": 4.157889634370804e-06
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 23,
+          "normalized_entropy": 1.0000000051821447,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.993030309677124e-07
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.035258173942566e-05
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 0.0,
+          "total_variation": 5.867332220077515e-06
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 231,
+          "normalized_entropy": 1.0000002465085007,
+          "relative_probability_span": 0.0,
+          "total_variation": 4.6659260988235474e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 236,
+          "normalized_entropy": 0.9999999303945493,
+          "relative_probability_span": 0.0,
+          "total_variation": 2.15345062315464e-06
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 239,
+          "normalized_entropy": 1.0000003055417424,
+          "relative_probability_span": 0.0,
+          "total_variation": 3.5106204450130463e-06
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.960464477539063e-08,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 7.078051567077637e-08,
+          "total_variation": 3.6191195249557495e-06
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 7,
+          "normalized_entropy": 1.0000001566059324,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.3083219528198242e-05
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 21,
+          "normalized_entropy": 1.0000001849202138,
+          "relative_probability_span": 0.0,
+          "total_variation": 2.3301690816879272e-06
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "n": 52,
+          "normalized_entropy": 0.9999999798571985,
+          "relative_probability_span": 9.685754776000977e-08,
+          "total_variation": 8.288770914077759e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.4901161193847656e-08,
+          "n": 35,
+          "normalized_entropy": 1.0000000271121914,
+          "relative_probability_span": 0.0,
+          "total_variation": 4.0978193283081055e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 32,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 0.0,
+          "total_variation": 9.033828973770142e-08
+        }
+      ],
+      "samples": 40,
+      "seed": 22,
+      "variant": "transformer"
+    },
+    {
+      "actor_parameter_delta_l2": 3.2230743833463174,
+      "actor_tensor_count": 56,
+      "candidate_count_range": [
+        2,
+        250
+      ],
+      "changed_actor_tensors": 56,
+      "final_policy_max_logit_span": 3.2782554626464844e-07,
+      "final_policy_max_probability_span_relative_to_uniform": 3.129243850708008e-07,
+      "final_policy_mean_normalized_entropy": 1.0000000087932022,
+      "final_policy_min_normalized_entropy": 0.9999997487070467,
+      "initial_to_final_max_total_variation": 3.7178397178649902e-06,
+      "initial_to_final_mean_total_variation": 1.5929690562188624e-07,
+      "initialization_matches": true,
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "swath1"
+      ],
+      "per_state": [
+        {
+          "instance": "cod105",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 204,
+          "normalized_entropy": 0.9999999120112384,
+          "relative_probability_span": 9.499490261077881e-08,
+          "total_variation": 1.862645149230957e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 3.2782554626464844e-07,
+          "n": 19,
+          "normalized_entropy": 0.9999999037987034,
+          "relative_probability_span": 2.8312206268310547e-07,
+          "total_variation": 4.209578037261963e-07
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 12,
+          "normalized_entropy": 1.000000105461497,
+          "relative_probability_span": 8.940696716308594e-08,
+          "total_variation": 1.862645149230957e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 10,
+          "normalized_entropy": 0.9999999103428824,
+          "relative_probability_span": 1.4901161193847656e-07,
+          "total_variation": 4.0978193283081055e-08
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 218,
+          "normalized_entropy": 0.9999999477583422,
+          "relative_probability_span": 2.0302832126617432e-07,
+          "total_variation": 4.7730281949043274e-08
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 160,
+          "normalized_entropy": 0.9999999138466741,
+          "relative_probability_span": 1.4901161193847656e-07,
+          "total_variation": 3.91155481338501e-08
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 8.940696716308594e-08,
+          "n": 176,
+          "normalized_entropy": 1.0000001059491779,
+          "relative_probability_span": 8.195638656616211e-08,
+          "total_variation": 3.119930624961853e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 54,
+          "normalized_entropy": 1.0000001349326217,
+          "relative_probability_span": 1.0058283805847168e-07,
+          "total_variation": 5.494803190231323e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 8.940696716308594e-08,
+          "n": 36,
+          "normalized_entropy": 0.9999999456006516,
+          "relative_probability_span": 6.705522537231445e-08,
+          "total_variation": 1.0896474123001099e-07
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 8.940696716308594e-08,
+          "n": 56,
+          "normalized_entropy": 0.9999999586664383,
+          "relative_probability_span": 1.043081283569336e-07,
+          "total_variation": 4.284083843231201e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 7.078051567077637e-08,
+          "total_variation": 1.5832483768463135e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 31,
+          "normalized_entropy": 0.999999981412386,
+          "relative_probability_span": 1.1548399925231934e-07,
+          "total_variation": 2.60770320892334e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 26,
+          "normalized_entropy": 0.9999999749873059,
+          "relative_probability_span": 9.685754776000977e-08,
+          "total_variation": 3.725290298461914e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 17,
+          "normalized_entropy": 0.9999999106457654,
+          "relative_probability_span": 1.8998980522155762e-07,
+          "total_variation": 3.7178397178649902e-06
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0,
+          "n": 7,
+          "normalized_entropy": 1.0000001566059324,
+          "relative_probability_span": 0.0,
+          "total_variation": 6.705522537231445e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 8.940696716308594e-08,
+          "n": 2,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 5.960464477539063e-08,
+          "total_variation": 2.384185791015625e-07
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "n": 66,
+          "normalized_entropy": 0.9999997926839143,
+          "relative_probability_span": 6.146728992462158e-08,
+          "total_variation": 1.6763806343078613e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "n": 43,
+          "normalized_entropy": 1.0000000196471577,
+          "relative_probability_span": 8.009374141693115e-08,
+          "total_variation": 1.955777406692505e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 62,
+          "normalized_entropy": 0.9999998694585438,
+          "relative_probability_span": 1.1548399925231934e-07,
+          "total_variation": 3.259629011154175e-08
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 214,
+          "normalized_entropy": 1.0000002370995744,
+          "relative_probability_span": 9.96515154838562e-08,
+          "total_variation": 2.421438694000244e-07
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 2.086162567138672e-07,
+          "n": 173,
+          "normalized_entropy": 0.9999999283827777,
+          "relative_probability_span": 1.6111880540847778e-07,
+          "total_variation": 3.9814040064811707e-08
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 197,
+          "normalized_entropy": 1.00000006623563,
+          "relative_probability_span": 1.8347054719924927e-07,
+          "total_variation": 1.1641532182693481e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 79,
+          "normalized_entropy": 0.9999997487070467,
+          "relative_probability_span": 1.471489667892456e-07,
+          "total_variation": 8.149072527885437e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 44,
+          "normalized_entropy": 1.0000000177480697,
+          "relative_probability_span": 1.6391277313232422e-07,
+          "total_variation": 2.7008354663848877e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 2.086162567138672e-07,
+          "n": 25,
+          "normalized_entropy": 1.00000016682182,
+          "relative_probability_span": 1.862645149230957e-07,
+          "total_variation": 6.891787052154541e-08
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 250,
+          "normalized_entropy": 1.0000000166834473,
+          "relative_probability_span": 1.1641532182693481e-07,
+          "total_variation": 2.2584572434425354e-08
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 194,
+          "normalized_entropy": 0.9999999751983711,
+          "relative_probability_span": 9.033828973770142e-08,
+          "total_variation": 2.0489096641540527e-08
+        },
+        {
+          "instance": "air05",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 154,
+          "normalized_entropy": 0.9999998841212371,
+          "relative_probability_span": 1.434236764907837e-07,
+          "total_variation": 3.562308847904205e-08
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 23,
+          "normalized_entropy": 1.0000000051821447,
+          "relative_probability_span": 8.568167686462402e-08,
+          "total_variation": 2.421438694000244e-08
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 8.940696716308594e-08,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 6.705522537231445e-08,
+          "total_variation": 9.313225746154785e-08
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 1.341104507446289e-07,
+          "total_variation": 3.0174851417541504e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-07,
+          "n": 231,
+          "normalized_entropy": 1.0000000712785997,
+          "relative_probability_span": 1.0756775736808777e-07,
+          "total_variation": 2.1886080503463745e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 236,
+          "normalized_entropy": 0.9999999303945493,
+          "relative_probability_span": 1.0989606380462646e-07,
+          "total_variation": 1.3504177331924438e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 239,
+          "normalized_entropy": 1.000000131401203,
+          "relative_probability_span": 1.1129304766654968e-07,
+          "total_variation": 2.0256265997886658e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.1920928955078125e-07,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 1.4156103134155273e-07,
+          "total_variation": 1.1548399925231934e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 3.2782554626464844e-07,
+          "n": 7,
+          "normalized_entropy": 1.0000001566059324,
+          "relative_probability_span": 3.129243850708008e-07,
+          "total_variation": 1.1920928955078125e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 21,
+          "normalized_entropy": 1.0000001849202138,
+          "relative_probability_span": 1.564621925354004e-07,
+          "total_variation": 4.284083843231201e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 8.940696716308594e-08,
+          "n": 52,
+          "normalized_entropy": 0.9999999798571985,
+          "relative_probability_span": 9.685754776000977e-08,
+          "total_variation": 2.421438694000244e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 35,
+          "normalized_entropy": 1.0000000271121914,
+          "relative_probability_span": 1.955777406692505e-07,
+          "total_variation": 2.60770320892334e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.7881393432617188e-07,
+          "n": 32,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 1.7881393432617188e-07,
+          "total_variation": 2.421438694000244e-08
+        }
+      ],
+      "samples": 40,
+      "seed": 11,
+      "variant": "bimatching"
+    },
+    {
+      "actor_parameter_delta_l2": 3.07758990402713,
+      "actor_tensor_count": 56,
+      "candidate_count_range": [
+        2,
+        250
+      ],
+      "changed_actor_tensors": 56,
+      "final_policy_max_logit_span": 8.910894393920898e-06,
+      "final_policy_max_probability_span_relative_to_uniform": 8.902512490749359e-06,
+      "final_policy_mean_normalized_entropy": 1.000000004028015,
+      "final_policy_min_normalized_entropy": 0.9999997052144144,
+      "initial_to_final_max_total_variation": 0.00032351352274417877,
+      "initial_to_final_mean_total_variation": 2.3756123846396803e-05,
+      "initialization_matches": true,
+      "instances": [
+        "air04",
+        "air05",
+        "cod105",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "swath1"
+      ],
+      "per_state": [
+        {
+          "instance": "cod105",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 204,
+          "normalized_entropy": 1.000000180999429,
+          "relative_probability_span": 0.0,
+          "total_variation": 5.851034075021744e-07
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.066394805908203e-07,
+          "n": 19,
+          "normalized_entropy": 0.9999999037987034,
+          "relative_probability_span": 4.954636096954346e-07,
+          "total_variation": 9.482540190219879e-05
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 4.410743713378906e-06,
+          "n": 12,
+          "normalized_entropy": 1.0000000095148025,
+          "relative_probability_span": 4.380941390991211e-06,
+          "total_variation": 5.214288830757141e-05
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 4.589557647705078e-06,
+          "n": 10,
+          "normalized_entropy": 1.0000000138867557,
+          "relative_probability_span": 4.6193599700927734e-06,
+          "total_variation": 2.6017427444458008e-05
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 218,
+          "normalized_entropy": 0.9999999477583422,
+          "relative_probability_span": 0.0,
+          "total_variation": 8.923932909965515e-06
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 5.364418029785156e-07,
+          "n": 160,
+          "normalized_entropy": 0.9999999138466741,
+          "relative_probability_span": 5.21540641784668e-07,
+          "total_variation": 6.3297338783741e-06
+        },
+        {
+          "instance": "neos21",
+          "logit_span": 3.8743019104003906e-07,
+          "n": 176,
+          "normalized_entropy": 0.9999999215033276,
+          "relative_probability_span": 3.2782554626464844e-07,
+          "total_variation": 2.537621185183525e-06
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 8.940696716308594e-08,
+          "n": 54,
+          "normalized_entropy": 1.0000001349326217,
+          "relative_probability_span": 1.0058283805847168e-07,
+          "total_variation": 1.8803402781486511e-06
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.2798776626586914e-06,
+          "n": 36,
+          "normalized_entropy": 1.000000012132623,
+          "relative_probability_span": 2.2798776626586914e-06,
+          "total_variation": 1.5208497643470764e-06
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.771615982055664e-06,
+          "n": 56,
+          "normalized_entropy": 0.9999999586664383,
+          "relative_probability_span": 2.7120113372802734e-06,
+          "total_variation": 1.4416873455047607e-06
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 0.0,
+          "total_variation": 9.96515154838562e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 31,
+          "normalized_entropy": 0.999999981412386,
+          "relative_probability_span": 0.0,
+          "total_variation": 9.12696123123169e-08
+        },
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 26,
+          "normalized_entropy": 0.9999999749873059,
+          "relative_probability_span": 0.0,
+          "total_variation": 7.636845111846924e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 4.76837158203125e-07,
+          "n": 17,
+          "normalized_entropy": 0.9999999947970629,
+          "relative_probability_span": 5.066394805908203e-07,
+          "total_variation": 0.00032351352274417877
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 3.6507844924926758e-06,
+          "n": 7,
+          "normalized_entropy": 1.0000000953444763,
+          "relative_probability_span": 3.6507844924926758e-06,
+          "total_variation": 0.0001500248908996582
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 3.814697265625e-06,
+          "n": 2,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 3.814697265625e-06,
+          "total_variation": 0.00017465651035308838
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "n": 66,
+          "normalized_entropy": 0.9999997926839143,
+          "relative_probability_span": 6.146728992462158e-08,
+          "total_variation": 2.9010698199272156e-07
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "n": 43,
+          "normalized_entropy": 1.0000000196471577,
+          "relative_probability_span": 8.009374141693115e-08,
+          "total_variation": 4.116445779800415e-07
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "n": 62,
+          "normalized_entropy": 0.9999998694585438,
+          "relative_probability_span": 1.1548399925231934e-07,
+          "total_variation": 1.5459954738616943e-07
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 2.9802322387695312e-08,
+          "n": 214,
+          "normalized_entropy": 1.0000002370995744,
+          "relative_probability_span": 0.0,
+          "total_variation": 1.6756122931838036e-05
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 9.685754776000977e-07,
+          "n": 173,
+          "normalized_entropy": 0.9999998358521787,
+          "relative_probability_span": 9.667128324508667e-07,
+          "total_variation": 2.0086299628019333e-06
+        },
+        {
+          "instance": "neos20",
+          "logit_span": 8.493661880493164e-07,
+          "n": 197,
+          "normalized_entropy": 0.9999997052144144,
+          "relative_probability_span": 8.256174623966217e-07,
+          "total_variation": 2.7942005544900894e-06
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.910894393920898e-06,
+          "n": 79,
+          "normalized_entropy": 0.9999998578368897,
+          "relative_probability_span": 8.902512490749359e-06,
+          "total_variation": 6.5159983932971954e-06
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 5.960464477539063e-08,
+          "n": 44,
+          "normalized_entropy": 0.999999954744203,
+          "relative_probability_span": 8.195638656616211e-08,
+          "total_variation": 3.31830233335495e-06
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "n": 25,
+          "normalized_entropy": 0.9999998705462354,
+          "relative_probability_span": 9.313225746154785e-08,
+          "total_variation": 3.7997961044311523e-07
+        },
+        {
+          "instance": "air05",
+          "logit_span": 5.960464477539063e-08,
+          "n": 250,
+          "normalized_entropy": 1.0000001030441343,
+          "relative_probability_span": 1.1641532182693481e-07,
+          "total_variation": 2.4382025003433228e-06
+        },
+        {
+          "instance": "air05",
+          "logit_span": 4.917383193969727e-07,
+          "n": 194,
+          "normalized_entropy": 0.9999999751983711,
+          "relative_probability_span": 4.516914486885071e-07,
+          "total_variation": 2.650078386068344e-06
+        },
+        {
+          "instance": "air05",
+          "logit_span": 4.023313522338867e-07,
+          "n": 154,
+          "normalized_entropy": 0.9999998841212371,
+          "relative_probability_span": 4.302710294723511e-07,
+          "total_variation": 7.573980838060379e-07
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 9.5367431640625e-07,
+          "n": 23,
+          "normalized_entropy": 1.0000000051821447,
+          "relative_probability_span": 9.424984455108643e-07,
+          "total_variation": 8.102506399154663e-07
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 1.9818544387817383e-06,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 1.944601535797119e-06,
+          "total_variation": 3.184378147125244e-05
+        },
+        {
+          "instance": "lseu",
+          "logit_span": 2.7865171432495117e-06,
+          "n": 9,
+          "normalized_entropy": 1.0000000180537645,
+          "relative_probability_span": 2.816319465637207e-06,
+          "total_variation": 1.5575438737869263e-05
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.087784767150879e-06,
+          "n": 231,
+          "normalized_entropy": 1.0000002465085007,
+          "relative_probability_span": 1.0756775736808777e-06,
+          "total_variation": 1.1650845408439636e-06
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.385807991027832e-06,
+          "n": 236,
+          "normalized_entropy": 1.0000002794808134,
+          "relative_probability_span": 1.3187527656555176e-06,
+          "total_variation": 1.986045390367508e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.8775463104248047e-06,
+          "n": 239,
+          "normalized_entropy": 1.000000131401203,
+          "relative_probability_span": 1.8919818103313446e-06,
+          "total_variation": 1.0668300092220306e-06
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 8.642673492431641e-07,
+          "n": 38,
+          "normalized_entropy": 1.0000001192828225,
+          "relative_probability_span": 8.493661880493164e-07,
+          "total_variation": 2.7315691113471985e-06
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 8.195638656616211e-07,
+          "n": 7,
+          "normalized_entropy": 1.00000003408302,
+          "relative_probability_span": 8.344650268554688e-07,
+          "total_variation": 1.0609626770019531e-05
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.7881393432617188e-06,
+          "n": 21,
+          "normalized_entropy": 1.0000000282988821,
+          "relative_probability_span": 1.7993152141571045e-06,
+          "total_variation": 2.950429916381836e-06
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "n": 52,
+          "normalized_entropy": 0.9999999798571985,
+          "relative_probability_span": 9.685754776000977e-08,
+          "total_variation": 9.12696123123169e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 8.940696716308594e-08,
+          "n": 35,
+          "normalized_entropy": 1.0000000271121914,
+          "relative_probability_span": 6.51925802230835e-08,
+          "total_variation": 3.818422555923462e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "n": 32,
+          "normalized_entropy": 1.0000000027478353,
+          "relative_probability_span": 5.960464477539063e-08,
+          "total_variation": 2.1420419216156006e-08
+        }
+      ],
+      "samples": 40,
+      "seed": 22,
+      "variant": "bimatching"
+    }
+  ],
+  "scope": "fixed real training states from the first 20 Transformer/s11 episodes; excludes candidates outside [2,256]; no quality evaluation"
+}

@@ -1,0 +1,50 @@
+{"variant": "transformer", "seed": 11, "checks": {"current_config_matches": true, "protocol_matches": true, "formal_budget_complete": true, "task_schedule_matches": true, "all125_collection_batches": true, "finite_update_metrics": true, "probability_recompute_consistent": true, "complete_on_policy_coverage_and_backlog": true, "all500_valid_cpu_workers": true, "all20_instances_25_times": true, "same120s_reward_horizon": true, "transition_counts_accounted": true, "terminal_transition_counts": true, "no_invalid_solver_attempts": true, "normal_training_exit": true, "summary_update_counts_match": true, "finite_rewards": true, "latest_hash_matches": true, "latest_config_and_progress": true, "latest_complete_finite_state": true, "correct_transformer_architecture": true, "five_readable_stable_milestones": true}, "stack": {"binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3", "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz", "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613", "machine": "x86_64", "python_abi": "3.8", "scip_version": 6.01, "torch_cuda_runtime": "11.7", "torch_version": "1.13.1+cu117"}, "gpu": "Tesla V100-SXM2-32GB", "formal_protocol": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260", "config_sha256": "fcdf93d1a18c0d4be699b633913d7ec4f4c8cd0f9d5fcf5f67d21bd6277e249b", "collection_batches": 125, "episodes": 500, "transitions": 307947, "effective_updates": 125, "optimizer_steps": 3810, "skipped_backlog": [], "training_wall_hours": 6.747664199666954, "learning_wall_hours": 1.1091908932360173, "worker_cpu_hours": 12.680204805555558, "peak_gpu_allocated_gib": 3.9604806900024414, "peak_gpu_reserved_gib": 5.375, "max_probability_recompute_error": 4.76837158203125e-07, "clipping_nonzero_updates": 0, "zero_decision_episodes": 93, "reward_first100_mean": -290.7755133034248, "reward_last100_mean": -359.3580265251354, "verified": true}
+{"variant": "transformer", "seed": 22, "checks": {"current_config_matches": true, "protocol_matches": true, "formal_budget_complete": true, "task_schedule_matches": true, "all125_collection_batches": true, "finite_update_metrics": true, "probability_recompute_consistent": true, "complete_on_policy_coverage_and_backlog": true, "all500_valid_cpu_workers": true, "all20_instances_25_times": true, "same120s_reward_horizon": true, "transition_counts_accounted": true, "terminal_transition_counts": true, "no_invalid_solver_attempts": true, "normal_training_exit": true, "summary_update_counts_match": true, "finite_rewards": true, "latest_hash_matches": true, "latest_config_and_progress": true, "latest_complete_finite_state": true, "correct_transformer_architecture": true, "five_readable_stable_milestones": true}, "stack": {"binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3", "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz", "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613", "machine": "x86_64", "python_abi": "3.8", "scip_version": 6.01, "torch_cuda_runtime": "11.7", "torch_version": "1.13.1+cu117"}, "gpu": "Tesla V100-SXM2-32GB", "formal_protocol": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260", "config_sha256": "9604758ecfd1371b162074b0d88aded5fa4f0f809784898e191ca7bf43c1391e", "collection_batches": 125, "episodes": 500, "transitions": 303320, "effective_updates": 123, "optimizer_steps": 3735, "skipped_backlog": [{"episodes_seen": 244, "pending_transitions": 14}, {"episodes_seen": 396, "pending_transitions": 197}], "training_wall_hours": 7.05877928370445, "learning_wall_hours": 1.3738487590887882, "worker_cpu_hours": 12.759979841388885, "peak_gpu_allocated_gib": 3.9608163833618164, "peak_gpu_reserved_gib": 6.3125, "max_probability_recompute_error": 8.285045623779297e-06, "clipping_nonzero_updates": 0, "zero_decision_episodes": 97, "reward_first100_mean": -297.9110836790444, "reward_last100_mean": -356.2423153571808, "verified": true}
+{"variant": "bimatching", "seed": 11, "checks": {"current_config_matches": true, "protocol_matches": true, "formal_budget_complete": true, "task_schedule_matches": true, "all125_collection_batches": true, "finite_update_metrics": true, "probability_recompute_consistent": true, "complete_on_policy_coverage_and_backlog": true, "all500_valid_cpu_workers": true, "all20_instances_25_times": true, "same120s_reward_horizon": true, "transition_counts_accounted": true, "terminal_transition_counts": true, "no_invalid_solver_attempts": true, "normal_training_exit": true, "summary_update_counts_match": true, "finite_rewards": true, "latest_hash_matches": true, "latest_config_and_progress": true, "latest_complete_finite_state": true, "correct_transformer_architecture": true, "five_readable_stable_milestones": true}, "stack": {"binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3", "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz", "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613", "machine": "x86_64", "python_abi": "3.8", "scip_version": 6.01, "torch_cuda_runtime": "11.7", "torch_version": "1.13.1+cu117"}, "gpu": "Tesla V100-SXM2-32GB", "formal_protocol": "10e1c793ea3b4a7008a91990c2040739ea75b7a38eda26d75016728d496baec9", "config_sha256": "4879c53a6dcd2f4353fd7cecc666877e028c0a44a536b113edc2e63031ec3a5e", "collection_batches": 125, "episodes": 500, "transitions": 445830, "effective_updates": 125, "optimizer_steps": 5409, "skipped_backlog": [], "training_wall_hours": 5.987035860546651, "learning_wall_hours": 1.1951770046662487, "worker_cpu_hours": 12.035636916388887, "peak_gpu_allocated_gib": 0.19166994094848633, "peak_gpu_reserved_gib": 0.28515625, "max_probability_recompute_error": 1.9073486328125e-06, "clipping_nonzero_updates": 1, "zero_decision_episodes": 97, "reward_first100_mean": -463.6942938986329, "reward_last100_mean": -575.3282717125753, "verified": true}
+{"variant": "bimatching", "seed": 22, "checks": {"current_config_matches": true, "protocol_matches": true, "formal_budget_complete": true, "task_schedule_matches": true, "all125_collection_batches": true, "finite_update_metrics": true, "probability_recompute_consistent": true, "complete_on_policy_coverage_and_backlog": true, "all500_valid_cpu_workers": true, "all20_instances_25_times": true, "same120s_reward_horizon": true, "transition_counts_accounted": true, "terminal_transition_counts": true, "no_invalid_solver_attempts": true, "normal_training_exit": true, "summary_update_counts_match": true, "finite_rewards": true, "latest_hash_matches": true, "latest_config_and_progress": true, "latest_complete_finite_state": true, "correct_transformer_architecture": true, "five_readable_stable_milestones": true}, "stack": {"binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3", "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz", "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613", "machine": "x86_64", "python_abi": "3.8", "scip_version": 6.01, "torch_cuda_runtime": "11.7", "torch_version": "1.13.1+cu117"}, "gpu": "Tesla V100-SXM2-32GB", "formal_protocol": "10e1c793ea3b4a7008a91990c2040739ea75b7a38eda26d75016728d496baec9", "config_sha256": "03b7db120a6c54a0afa0f62e74f42877a0872b53d62f3a444e21fb25c2d44355", "collection_batches": 125, "episodes": 500, "transitions": 451376, "effective_updates": 123, "optimizer_steps": 5472, "skipped_backlog": [{"episodes_seen": 244, "pending_transitions": 14}, {"episodes_seen": 396, "pending_transitions": 198}], "training_wall_hours": 6.07365172218056, "learning_wall_hours": 1.2355772687459508, "worker_cpu_hours": 12.045419390000008, "peak_gpu_allocated_gib": 0.19202136993408203, "peak_gpu_reserved_gib": 0.29296875, "max_probability_recompute_error": 5.245208740234375e-06, "clipping_nonzero_updates": 2, "zero_decision_episodes": 96, "reward_first100_mean": -487.57429947048394, "reward_last100_mean": -605.2423064864827, "verified": true}
+{
+  "audited_at_beijing": "2026-10-28T08:48:55.421582+08:00",
+  "complete_models": 4,
+  "all_four_training_verified": true,
+  "expected_original_models": 6,
+  "completed_training_seeds": [
+    11,
+    22
+  ],
+  "missing_training_seeds": [
+    33
+  ],
+  "selection_started": false,
+  "scope": "Training integrity and costs only; no development selection or held-out quality evaluation executed",
+  "same_target_stack": true,
+  "comparison": {
+    "training_wall_hours": {
+      "transformer_mean": 6.903221741685702,
+      "transformer_sample_sd": 0.21999158565233548,
+      "bimatching_mean": 6.030343791363606,
+      "bimatching_sample_sd": 0.061246663119652295,
+      "relative_percent": -12.64450111824087
+    },
+    "learning_wall_hours": {
+      "transformer_mean": 1.2415198261624028,
+      "transformer_sample_sd": 0.18714137163885397,
+      "bimatching_mean": 1.2153771367060997,
+      "bimatching_sample_sd": 0.028567300692484646,
+      "relative_percent": -2.1057005216832736
+    },
+    "transitions": {
+      "transformer_mean": 305633.5,
+      "transformer_sample_sd": 3271.7830765501553,
+      "bimatching_mean": 448603,
+      "bimatching_sample_sd": 3921.6142084605926,
+      "relative_percent": 46.77808551745799
+    },
+    "peak_gpu_allocated_gib": {
+      "transformer_mean": 3.960648536682129,
+      "transformer_sample_sd": 0.00023737105081335518,
+      "bimatching_mean": 0.19184565544128418,
+      "bimatching_sample_sd": 0.0002484978188202312,
+      "relative_percent": -95.15620601867403
+    }
+  }
+}

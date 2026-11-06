@@ -1,0 +1,8 @@
+# One command per GPU Custom: 1GPU + 4CPU + 32GiB, platform3h, internal140min.
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/custom_job.sh run --variant control --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/custom_job.sh run --variant expert --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/custom_job.sh run --variant control --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/custom_job.sh run --variant expert --seed 22
+
+# After all4 training jobs complete: separate4CPU + 32GiB + 0GPU, platform1h, internal50min.
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/supervised-ppo-20261105/custom_cpu.sh run

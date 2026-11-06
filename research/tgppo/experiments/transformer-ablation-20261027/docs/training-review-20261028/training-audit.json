@@ -1,0 +1,646 @@
+{
+  "all_four_training_verified": true,
+  "audited_at_beijing": "2026-10-28T08:48:55.421582+08:00",
+  "comparison": {
+    "learning_wall_hours": {
+      "bimatching_mean": 1.2153771367060997,
+      "bimatching_sample_sd": 0.028567300692484646,
+      "relative_percent": -2.1057005216832736,
+      "transformer_mean": 1.2415198261624028,
+      "transformer_sample_sd": 0.18714137163885397
+    },
+    "peak_gpu_allocated_gib": {
+      "bimatching_mean": 0.19184565544128418,
+      "bimatching_sample_sd": 0.0002484978188202312,
+      "relative_percent": -95.15620601867403,
+      "transformer_mean": 3.960648536682129,
+      "transformer_sample_sd": 0.00023737105081335518
+    },
+    "training_wall_hours": {
+      "bimatching_mean": 6.030343791363606,
+      "bimatching_sample_sd": 0.061246663119652295,
+      "relative_percent": -12.64450111824087,
+      "transformer_mean": 6.903221741685702,
+      "transformer_sample_sd": 0.21999158565233548
+    },
+    "transitions": {
+      "bimatching_mean": 448603,
+      "bimatching_sample_sd": 3921.6142084605926,
+      "relative_percent": 46.77808551745799,
+      "transformer_mean": 305633.5,
+      "transformer_sample_sd": 3271.7830765501553
+    }
+  },
+  "complete_models": 4,
+  "completed_training_seeds": [
+    11,
+    22
+  ],
+  "expected_original_models": 6,
+  "missing_training_seeds": [
+    33
+  ],
+  "rows": [
+    {
+      "checks": {
+        "all125_collection_batches": true,
+        "all20_instances_25_times": true,
+        "all500_valid_cpu_workers": true,
+        "complete_on_policy_coverage_and_backlog": true,
+        "correct_transformer_architecture": true,
+        "current_config_matches": true,
+        "finite_rewards": true,
+        "finite_update_metrics": true,
+        "five_readable_stable_milestones": true,
+        "formal_budget_complete": true,
+        "latest_complete_finite_state": true,
+        "latest_config_and_progress": true,
+        "latest_hash_matches": true,
+        "no_invalid_solver_attempts": true,
+        "normal_training_exit": true,
+        "probability_recompute_consistent": true,
+        "protocol_matches": true,
+        "same120s_reward_horizon": true,
+        "summary_update_counts_match": true,
+        "task_schedule_matches": true,
+        "terminal_transition_counts": true,
+        "transition_counts_accounted": true
+      },
+      "clipping_nonzero_updates": 0,
+      "collection_batches": 125,
+      "config_sha256": "fcdf93d1a18c0d4be699b633913d7ec4f4c8cd0f9d5fcf5f67d21bd6277e249b",
+      "effective_updates": 125,
+      "episodes": 500,
+      "formal_protocol": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "learning_wall_hours": 1.1091908932360173,
+      "loss_stats": {
+        "actor_loss": {
+          "first20_mean": -0.018422244960790715,
+          "last20_mean": -0.014827307288855687,
+          "max": 0.08216905531056302,
+          "min": -0.12655882736726198
+        },
+        "critic_loss": {
+          "first20_mean": 28.827354551502392,
+          "last20_mean": 26.00720346564198,
+          "max": 54.72322908854696,
+          "min": 3.2074776099325764
+        },
+        "entropy": {
+          "first20_mean": 3.658632596305502,
+          "last20_mean": 3.5198954146085653,
+          "max": 5.189220048222669,
+          "min": 1.848435236225087
+        }
+      },
+      "max_probability_recompute_error": 4.76837158203125e-07,
+      "milestones": [
+        {
+          "episode": 100,
+          "policy_version": 25,
+          "sha256": "277707603bd0e2946a1ccf88a6c06d49eaf7473d413e866f3ccba002e65f7fb0",
+          "valid": true
+        },
+        {
+          "episode": 200,
+          "policy_version": 50,
+          "sha256": "a91da87d87b5a53ddfe470f5ef4aaf9162d501c19bd4eb2c5a5bae1cf55ebf2c",
+          "valid": true
+        },
+        {
+          "episode": 300,
+          "policy_version": 75,
+          "sha256": "9517f4785e54a8e830ca13b59c4f2a6be51f74a85c4b8e0ae4b7d3671bc5f741",
+          "valid": true
+        },
+        {
+          "episode": 400,
+          "policy_version": 100,
+          "sha256": "d6332c5d70914f7ae4b61b467a50518ea44fec34f942dbd8d9d27c21b6bdebb2",
+          "valid": true
+        },
+        {
+          "episode": 500,
+          "policy_version": 125,
+          "sha256": "27e20a44d833966bf9fc6bfe1002b3410f90ea5de38ea41be07d2b1f64f4db15",
+          "valid": true
+        }
+      ],
+      "optimizer_steps": 3810,
+      "peak_gpu_allocated_gib": 3.9604806900024414,
+      "peak_gpu_reserved_gib": 5.375,
+      "per_instance_coverage": {
+        "30n20b8": 25,
+        "air04": 25,
+        "air05": 25,
+        "cod105": 25,
+        "comp21-2idx": 25,
+        "istanbul-no-cutoff": 25,
+        "l152lav": 25,
+        "lseu": 25,
+        "misc03": 25,
+        "neos20": 25,
+        "neos21": 25,
+        "neos648910": 25,
+        "pp08aCUTS": 25,
+        "rmatr100-p10": 25,
+        "rmatr100-p5": 25,
+        "rmatr200-p5": 25,
+        "sp150x300d": 25,
+        "stein27": 25,
+        "supportcase7": 25,
+        "swath1": 25
+      },
+      "reward_first100_mean": -290.7755133034248,
+      "reward_last100_mean": -359.3580265251354,
+      "seed": 11,
+      "skipped_backlog": [],
+      "stack": {
+        "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+        "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+        "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+        "machine": "x86_64",
+        "python_abi": "3.8",
+        "scip_version": 6.01,
+        "torch_cuda_runtime": "11.7",
+        "torch_version": "1.13.1+cu117"
+      },
+      "summary": {
+        "complete_ppo_updates": 125,
+        "episodes_seen": 500,
+        "final_checkpoint_sha256": "00054389ad838214a8c98525d867c1c4a1d5bfaf11de14e218e73260ce82e2c5",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "group": "B0",
+        "optimizer_steps": 3810,
+        "pending_transitions": 0,
+        "protocol_sha256": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260",
+        "seed": 11,
+        "status": "training_complete",
+        "trained_episodes": 500
+      },
+      "training_wall_hours": 6.747664199666954,
+      "transitions": 307947,
+      "variant": "transformer",
+      "verified": true,
+      "worker_cpu_hours": 12.680204805555558,
+      "zero_decision_episodes": 93
+    },
+    {
+      "checks": {
+        "all125_collection_batches": true,
+        "all20_instances_25_times": true,
+        "all500_valid_cpu_workers": true,
+        "complete_on_policy_coverage_and_backlog": true,
+        "correct_transformer_architecture": true,
+        "current_config_matches": true,
+        "finite_rewards": true,
+        "finite_update_metrics": true,
+        "five_readable_stable_milestones": true,
+        "formal_budget_complete": true,
+        "latest_complete_finite_state": true,
+        "latest_config_and_progress": true,
+        "latest_hash_matches": true,
+        "no_invalid_solver_attempts": true,
+        "normal_training_exit": true,
+        "probability_recompute_consistent": true,
+        "protocol_matches": true,
+        "same120s_reward_horizon": true,
+        "summary_update_counts_match": true,
+        "task_schedule_matches": true,
+        "terminal_transition_counts": true,
+        "transition_counts_accounted": true
+      },
+      "clipping_nonzero_updates": 0,
+      "collection_batches": 125,
+      "config_sha256": "9604758ecfd1371b162074b0d88aded5fa4f0f809784898e191ca7bf43c1391e",
+      "effective_updates": 123,
+      "episodes": 500,
+      "formal_protocol": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "learning_wall_hours": 1.3738487590887882,
+      "loss_stats": {
+        "actor_loss": {
+          "first20_mean": -0.007013091510380009,
+          "last20_mean": -0.011904772620926473,
+          "max": 0.0841151540807914,
+          "min": -0.0993021647251832
+        },
+        "critic_loss": {
+          "first20_mean": 24.47015040876139,
+          "last20_mean": 23.37144851639382,
+          "max": 52.38659355516745,
+          "min": 2.8612489805867276
+        },
+        "entropy": {
+          "first20_mean": 3.5081813876198438,
+          "last20_mean": 3.441516001892734,
+          "max": 5.261104659536914,
+          "min": 1.7846918507851395
+        }
+      },
+      "max_probability_recompute_error": 8.285045623779297e-06,
+      "milestones": [
+        {
+          "episode": 100,
+          "policy_version": 25,
+          "sha256": "0a90018b7edf2d9c3ac5c3c688dd11a013a1fe0fb32f755cf9bc292852a81972",
+          "valid": true
+        },
+        {
+          "episode": 200,
+          "policy_version": 50,
+          "sha256": "eb24a221dff23ef78deea24110add95c24747b18bee2ff92ce8b96cb30d3f165",
+          "valid": true
+        },
+        {
+          "episode": 300,
+          "policy_version": 74,
+          "sha256": "5fe8c7e3970230f43d495f1f3d1786b4ed70ab1143cb6237c666148a3909ee57",
+          "valid": true
+        },
+        {
+          "episode": 400,
+          "policy_version": 98,
+          "sha256": "08aafec1a97fd925abbb4ed950a3898537b9b66aac1e6ef51b0d74771937ef22",
+          "valid": true
+        },
+        {
+          "episode": 500,
+          "policy_version": 123,
+          "sha256": "54ed20e40ea6434744039a3a05964f432f859569bfa7433285ca7747a1ba641b",
+          "valid": true
+        }
+      ],
+      "optimizer_steps": 3735,
+      "peak_gpu_allocated_gib": 3.9608163833618164,
+      "peak_gpu_reserved_gib": 6.3125,
+      "per_instance_coverage": {
+        "30n20b8": 25,
+        "air04": 25,
+        "air05": 25,
+        "cod105": 25,
+        "comp21-2idx": 25,
+        "istanbul-no-cutoff": 25,
+        "l152lav": 25,
+        "lseu": 25,
+        "misc03": 25,
+        "neos20": 25,
+        "neos21": 25,
+        "neos648910": 25,
+        "pp08aCUTS": 25,
+        "rmatr100-p10": 25,
+        "rmatr100-p5": 25,
+        "rmatr200-p5": 25,
+        "sp150x300d": 25,
+        "stein27": 25,
+        "supportcase7": 25,
+        "swath1": 25
+      },
+      "reward_first100_mean": -297.9110836790444,
+      "reward_last100_mean": -356.2423153571808,
+      "seed": 22,
+      "skipped_backlog": [
+        {
+          "episodes_seen": 244,
+          "pending_transitions": 14
+        },
+        {
+          "episodes_seen": 396,
+          "pending_transitions": 197
+        }
+      ],
+      "stack": {
+        "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+        "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+        "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+        "machine": "x86_64",
+        "python_abi": "3.8",
+        "scip_version": 6.01,
+        "torch_cuda_runtime": "11.7",
+        "torch_version": "1.13.1+cu117"
+      },
+      "summary": {
+        "complete_ppo_updates": 123,
+        "episodes_seen": 500,
+        "final_checkpoint_sha256": "42c5a2c9c0bbf4f72dfeb5b00a310a8d2a9f4c2464b2f02ae8e94d6042b4a4ad",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "group": "B0",
+        "optimizer_steps": 3735,
+        "pending_transitions": 0,
+        "protocol_sha256": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260",
+        "seed": 22,
+        "status": "training_complete",
+        "trained_episodes": 500
+      },
+      "training_wall_hours": 7.05877928370445,
+      "transitions": 303320,
+      "variant": "transformer",
+      "verified": true,
+      "worker_cpu_hours": 12.759979841388885,
+      "zero_decision_episodes": 97
+    },
+    {
+      "checks": {
+        "all125_collection_batches": true,
+        "all20_instances_25_times": true,
+        "all500_valid_cpu_workers": true,
+        "complete_on_policy_coverage_and_backlog": true,
+        "correct_transformer_architecture": true,
+        "current_config_matches": true,
+        "finite_rewards": true,
+        "finite_update_metrics": true,
+        "five_readable_stable_milestones": true,
+        "formal_budget_complete": true,
+        "latest_complete_finite_state": true,
+        "latest_config_and_progress": true,
+        "latest_hash_matches": true,
+        "no_invalid_solver_attempts": true,
+        "normal_training_exit": true,
+        "probability_recompute_consistent": true,
+        "protocol_matches": true,
+        "same120s_reward_horizon": true,
+        "summary_update_counts_match": true,
+        "task_schedule_matches": true,
+        "terminal_transition_counts": true,
+        "transition_counts_accounted": true
+      },
+      "clipping_nonzero_updates": 1,
+      "collection_batches": 125,
+      "config_sha256": "4879c53a6dcd2f4353fd7cecc666877e028c0a44a536b113edc2e63031ec3a5e",
+      "effective_updates": 125,
+      "episodes": 500,
+      "formal_protocol": "10e1c793ea3b4a7008a91990c2040739ea75b7a38eda26d75016728d496baec9",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "learning_wall_hours": 1.1951770046662487,
+      "loss_stats": {
+        "actor_loss": {
+          "first20_mean": -0.010355297688098598,
+          "last20_mean": -0.012089656382395323,
+          "max": 0.014862333127530292,
+          "min": -0.026227571179218118
+        },
+        "critic_loss": {
+          "first20_mean": 32.73099068230721,
+          "last20_mean": 28.691050423667296,
+          "max": 55.225633293084606,
+          "min": 3.4635658115148553
+        },
+        "entropy": {
+          "first20_mean": 3.871739952573605,
+          "last20_mean": 3.67009237073837,
+          "max": 5.225178621124986,
+          "min": 1.8579921751808959
+        }
+      },
+      "max_probability_recompute_error": 1.9073486328125e-06,
+      "milestones": [
+        {
+          "episode": 100,
+          "policy_version": 25,
+          "sha256": "3efc918f35776516678ec1f13306bd6c0e9e2fab889ee28c3c10a5bcef9d235b",
+          "valid": true
+        },
+        {
+          "episode": 200,
+          "policy_version": 50,
+          "sha256": "f983036307688c4069e1bc2f5f3fda7fc3000b80c309cbf2f666aeb013ab78d2",
+          "valid": true
+        },
+        {
+          "episode": 300,
+          "policy_version": 75,
+          "sha256": "78aa9e1ed8f1054867fb21088250c9caf7605bf257518a9c946e38356856a31d",
+          "valid": true
+        },
+        {
+          "episode": 400,
+          "policy_version": 100,
+          "sha256": "8dfe18569d4070d05ba6be6c15c7cdf2abab9273bd781b37221592a786a87eaf",
+          "valid": true
+        },
+        {
+          "episode": 500,
+          "policy_version": 125,
+          "sha256": "fab2cceaaebd1df2370deb20a6169a97a2200a4006f4b5e949362f385cb6abf1",
+          "valid": true
+        }
+      ],
+      "optimizer_steps": 5409,
+      "peak_gpu_allocated_gib": 0.19166994094848633,
+      "peak_gpu_reserved_gib": 0.28515625,
+      "per_instance_coverage": {
+        "30n20b8": 25,
+        "air04": 25,
+        "air05": 25,
+        "cod105": 25,
+        "comp21-2idx": 25,
+        "istanbul-no-cutoff": 25,
+        "l152lav": 25,
+        "lseu": 25,
+        "misc03": 25,
+        "neos20": 25,
+        "neos21": 25,
+        "neos648910": 25,
+        "pp08aCUTS": 25,
+        "rmatr100-p10": 25,
+        "rmatr100-p5": 25,
+        "rmatr200-p5": 25,
+        "sp150x300d": 25,
+        "stein27": 25,
+        "supportcase7": 25,
+        "swath1": 25
+      },
+      "reward_first100_mean": -463.6942938986329,
+      "reward_last100_mean": -575.3282717125753,
+      "seed": 11,
+      "skipped_backlog": [],
+      "stack": {
+        "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+        "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+        "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+        "machine": "x86_64",
+        "python_abi": "3.8",
+        "scip_version": 6.01,
+        "torch_cuda_runtime": "11.7",
+        "torch_version": "1.13.1+cu117"
+      },
+      "summary": {
+        "complete_ppo_updates": 125,
+        "episodes_seen": 500,
+        "final_checkpoint_sha256": "ef30ee38bcb1e5e60c4eac90815813fb6db1ee3c4443bb619f75f09c15b3d29a",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "group": "B0",
+        "optimizer_steps": 5409,
+        "pending_transitions": 0,
+        "protocol_sha256": "10e1c793ea3b4a7008a91990c2040739ea75b7a38eda26d75016728d496baec9",
+        "seed": 11,
+        "status": "training_complete",
+        "trained_episodes": 500
+      },
+      "training_wall_hours": 5.987035860546651,
+      "transitions": 445830,
+      "variant": "bimatching",
+      "verified": true,
+      "worker_cpu_hours": 12.035636916388887,
+      "zero_decision_episodes": 97
+    },
+    {
+      "checks": {
+        "all125_collection_batches": true,
+        "all20_instances_25_times": true,
+        "all500_valid_cpu_workers": true,
+        "complete_on_policy_coverage_and_backlog": true,
+        "correct_transformer_architecture": true,
+        "current_config_matches": true,
+        "finite_rewards": true,
+        "finite_update_metrics": true,
+        "five_readable_stable_milestones": true,
+        "formal_budget_complete": true,
+        "latest_complete_finite_state": true,
+        "latest_config_and_progress": true,
+        "latest_hash_matches": true,
+        "no_invalid_solver_attempts": true,
+        "normal_training_exit": true,
+        "probability_recompute_consistent": true,
+        "protocol_matches": true,
+        "same120s_reward_horizon": true,
+        "summary_update_counts_match": true,
+        "task_schedule_matches": true,
+        "terminal_transition_counts": true,
+        "transition_counts_accounted": true
+      },
+      "clipping_nonzero_updates": 2,
+      "collection_batches": 125,
+      "config_sha256": "03b7db120a6c54a0afa0f62e74f42877a0872b53d62f3a444e21fb25c2d44355",
+      "effective_updates": 123,
+      "episodes": 500,
+      "formal_protocol": "10e1c793ea3b4a7008a91990c2040739ea75b7a38eda26d75016728d496baec9",
+      "gpu": "Tesla V100-SXM2-32GB",
+      "learning_wall_hours": 1.2355772687459508,
+      "loss_stats": {
+        "actor_loss": {
+          "first20_mean": -0.009767075085377533,
+          "last20_mean": -0.010353394316044288,
+          "max": 0.13611123842484732,
+          "min": -0.031063887811540507
+        },
+        "critic_loss": {
+          "first20_mean": 27.62000863531248,
+          "last20_mean": 23.051356545647206,
+          "max": 51.09837816727589,
+          "min": 2.897321875007831
+        },
+        "entropy": {
+          "first20_mean": 3.6822033637477123,
+          "last20_mean": 3.568446311710673,
+          "max": 5.274000982343315,
+          "min": 1.7651623183536147
+        }
+      },
+      "max_probability_recompute_error": 5.245208740234375e-06,
+      "milestones": [
+        {
+          "episode": 100,
+          "policy_version": 25,
+          "sha256": "7c13a776d1eed727df6740e7260278d6c601708971caacf6d6a5c6123b0c3b7e",
+          "valid": true
+        },
+        {
+          "episode": 200,
+          "policy_version": 50,
+          "sha256": "1072ccf65c5bb4a3c9b760a0c6bc77f21c558924d37a6f9ab32c2d1521902d0d",
+          "valid": true
+        },
+        {
+          "episode": 300,
+          "policy_version": 74,
+          "sha256": "f839e433237be49e211c5fc02c632a6a03b58dcc01c20f3a1a62e2931e2b3654",
+          "valid": true
+        },
+        {
+          "episode": 400,
+          "policy_version": 98,
+          "sha256": "8995d3467bf9ef73e372d5719b3b7212e4963a3e6f3589309aeb7863a25f2ec0",
+          "valid": true
+        },
+        {
+          "episode": 500,
+          "policy_version": 123,
+          "sha256": "72552133bfacb9cbb186c12e18172216e1da42d2a4c11a14db21738ba27498af",
+          "valid": true
+        }
+      ],
+      "optimizer_steps": 5472,
+      "peak_gpu_allocated_gib": 0.19202136993408203,
+      "peak_gpu_reserved_gib": 0.29296875,
+      "per_instance_coverage": {
+        "30n20b8": 25,
+        "air04": 25,
+        "air05": 25,
+        "cod105": 25,
+        "comp21-2idx": 25,
+        "istanbul-no-cutoff": 25,
+        "l152lav": 25,
+        "lseu": 25,
+        "misc03": 25,
+        "neos20": 25,
+        "neos21": 25,
+        "neos648910": 25,
+        "pp08aCUTS": 25,
+        "rmatr100-p10": 25,
+        "rmatr100-p5": 25,
+        "rmatr200-p5": 25,
+        "sp150x300d": 25,
+        "stein27": 25,
+        "supportcase7": 25,
+        "swath1": 25
+      },
+      "reward_first100_mean": -487.57429947048394,
+      "reward_last100_mean": -605.2423064864827,
+      "seed": 22,
+      "skipped_backlog": [
+        {
+          "episodes_seen": 244,
+          "pending_transitions": 14
+        },
+        {
+          "episodes_seen": 396,
+          "pending_transitions": 198
+        }
+      ],
+      "stack": {
+        "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+        "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+        "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+        "machine": "x86_64",
+        "python_abi": "3.8",
+        "scip_version": 6.01,
+        "torch_cuda_runtime": "11.7",
+        "torch_version": "1.13.1+cu117"
+      },
+      "summary": {
+        "complete_ppo_updates": 123,
+        "episodes_seen": 500,
+        "final_checkpoint_sha256": "4ae9ffdbb85ca0fb28a55eae989c9583f4955181917c29af6791c82992bb5057",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "group": "B0",
+        "optimizer_steps": 5472,
+        "pending_transitions": 0,
+        "protocol_sha256": "10e1c793ea3b4a7008a91990c2040739ea75b7a38eda26d75016728d496baec9",
+        "seed": 22,
+        "status": "training_complete",
+        "trained_episodes": 500
+      },
+      "training_wall_hours": 6.07365172218056,
+      "transitions": 451376,
+      "variant": "bimatching",
+      "verified": true,
+      "worker_cpu_hours": 12.045419390000008,
+      "zero_decision_episodes": 96
+    }
+  ],
+  "same_target_stack": true,
+  "scope": "Training integrity and costs only; no development selection or held-out quality evaluation executed",
+  "selection_started": false
+}

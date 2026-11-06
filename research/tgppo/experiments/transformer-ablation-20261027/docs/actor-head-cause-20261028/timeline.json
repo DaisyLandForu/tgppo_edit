@@ -1,0 +1,2909 @@
+{
+  "checks": {
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0100.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0200.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0300.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0400.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0500.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0100.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0200.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0300.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0400.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0500.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0100.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0200.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0300.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0400.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0500.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0100.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0200.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0300.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0400.pt_unchanged": true,
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0500.pt_unchanged": true,
+    "bimatching11_initial_digest": true,
+    "bimatching22_initial_digest": true,
+    "transformer11_initial_digest": true,
+    "transformer22_initial_digest": true
+  },
+  "protected_checkpoint_sha256": {
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0100.pt": "3efc918f35776516678ec1f13306bd6c0e9e2fab889ee28c3c10a5bcef9d235b",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0200.pt": "f983036307688c4069e1bc2f5f3fda7fc3000b80c309cbf2f666aeb013ab78d2",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0300.pt": "78aa9e1ed8f1054867fb21088250c9caf7605bf257518a9c946e38356856a31d",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0400.pt": "8dfe18569d4070d05ba6be6c15c7cdf2abab9273bd781b37221592a786a87eaf",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s11/episode-0500.pt": "fab2cceaaebd1df2370deb20a6169a97a2200a4006f4b5e949362f385cb6abf1",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0100.pt": "7c13a776d1eed727df6740e7260278d6c601708971caacf6d6a5c6123b0c3b7e",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0200.pt": "1072ccf65c5bb4a3c9b760a0c6bc77f21c558924d37a6f9ab32c2d1521902d0d",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0300.pt": "f839e433237be49e211c5fc02c632a6a03b58dcc01c20f3a1a62e2931e2b3654",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0400.pt": "8995d3467bf9ef73e372d5719b3b7212e4963a3e6f3589309aeb7863a25f2ec0",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/bimatching/training/B0-s22/episode-0500.pt": "72552133bfacb9cbb186c12e18172216e1da42d2a4c11a14db21738ba27498af",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0100.pt": "277707603bd0e2946a1ccf88a6c06d49eaf7473d413e866f3ccba002e65f7fb0",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0200.pt": "a91da87d87b5a53ddfe470f5ef4aaf9162d501c19bd4eb2c5a5bae1cf55ebf2c",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0300.pt": "9517f4785e54a8e830ca13b59c4f2a6be51f74a85c4b8e0ae4b7d3671bc5f741",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0400.pt": "d6332c5d70914f7ae4b61b467a50518ea44fec34f942dbd8d9d27c21b6bdebb2",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s11/episode-0500.pt": "27e20a44d833966bf9fc6bfe1002b3410f90ea5de38ea41be07d2b1f64f4db15",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0100.pt": "0a90018b7edf2d9c3ac5c3c688dd11a013a1fe0fb32f755cf9bc292852a81972",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0200.pt": "eb24a221dff23ef78deea24110add95c24747b18bee2ff92ce8b96cb30d3f165",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0300.pt": "5fe8c7e3970230f43d495f1f3d1786b4ed70ab1143cb6237c666148a3909ee57",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0400.pt": "08aafec1a97fd925abbb4ed950a3898537b9b66aac1e6ef51b0d74771937ef22",
+    "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/training/B0-s22/episode-0500.pt": "54ed20e40ea6434744039a3a05964f432f859569bfa7433285ca7747a1ba641b"
+  },
+  "records": [
+    {
+      "episode": 0,
+      "logit_span_median": 1.9371509552001953e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.38803213834762573,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.1867268152540578e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.4007091522216797e-06,
+          "min_abs_channel_difference": 0.3246319890022278,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999473,
+          "same_channel_order": true,
+          "tv_uniform": 2.6062589164252414e-07
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 4.470348358154297e-07,
+          "min_abs_channel_difference": 0.3896108567714691,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999927,
+          "same_channel_order": true,
+          "tv_uniform": 7.785096274581793e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.35630881786346436,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 8.952961177977059e-09
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 2.980232238769531e-07,
+          "min_abs_channel_difference": 0.38872286677360535,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999982,
+          "same_channel_order": true,
+          "tv_uniform": 4.285186181590683e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.086162567138672e-07,
+          "min_abs_channel_difference": 0.38842353224754333,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999996,
+          "same_channel_order": true,
+          "tv_uniform": 1.6053010783081273e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3893148601055145,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.0577224640422045e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.7881393432617188e-07,
+          "min_abs_channel_difference": 0.4016733765602112,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999984,
+          "same_channel_order": true,
+          "tv_uniform": 2.861023104538951e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.7881393432617188e-07,
+          "min_abs_channel_difference": 0.20688295364379883,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.8002279006477245e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3876456618309021,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.0305166909044261e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.086162567138672e-07,
+          "min_abs_channel_difference": 0.3950604796409607,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999996,
+          "same_channel_order": true,
+          "tv_uniform": 2.7524983290880267e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 3.5762786865234375e-07,
+          "min_abs_channel_difference": 0.39896388351917267,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999981,
+          "same_channel_order": true,
+          "tv_uniform": 4.50714126264129e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 2.6062589164252414e-07,
+      "variant": "transformer"
+    },
+    {
+      "episode": 100,
+      "logit_span_median": 5.960464477539063e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.39385345578193665,
+          "n": 38,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.7881393432617188e-07,
+          "min_abs_channel_difference": 0.38134460151195526,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.8409744832748043e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.39568373560905457,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.4597055938980752e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 2.384185791015625e-07,
+          "min_abs_channel_difference": 0.3380626440048218,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999996,
+          "same_channel_order": true,
+          "tv_uniform": 2.1830507478115546e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40151602029800415,
+          "n": 13,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.1462431719067023e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3978780210018158,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.3474038924096016e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.3944595754146576,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 6.2943380577107355e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.405040442943573,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.0728836138951259e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.37800823152065277,
+          "n": 430,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.4538504688327292e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.39315955340862274,
+          "n": 52,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 5.587935407794231e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.4063095450401306,
+          "n": 59,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.1395257308935425e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.40480610728263855,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.0026089892339884e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 2.1830507478115546e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 200,
+      "logit_span_median": 5.960464477539063e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.39420372247695923,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.756248456374123e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.38132452964782715,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.5024993537532394e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.39627423882484436,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 8.514949287330431e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.33483242988586426,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.4676315131939566e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40225377678871155,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 7.053804214340875e-09
+        },
+        {
+          "instance": "air04",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3984520584344864,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000007,
+          "same_channel_order": true,
+          "tv_uniform": 1.1898542708402293e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.39482325315475464,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 8.381047861792668e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40571261942386627,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 9.536743145188709e-09
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.37863628566265106,
+          "n": 430,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 7.319862992648252e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3934824466705322,
+          "n": 52,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 8.61886690316227e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.4070153832435608,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 6.909070478927637e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.4055643081665039,
+          "n": 18,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.3153494043960379e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 1.5024993537532394e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 300,
+      "logit_span_median": 7.450580596923828e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.401872456073761,
+          "n": 38,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.1165551434821896e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3940505087375641,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 7.842716535227945e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4060225188732147,
+          "n": 7,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.6492640298479984e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.38602009415626526,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.0302037285747634e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.41162340342998505,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.2873192539730738e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40838849544525146,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 6.604589344611639e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.4028722792863846,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.0919308205022127e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.4146876335144043,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.4305114648394124e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3881817162036896,
+          "n": 430,
+          "normalized_entropy": 1.000000000000001,
+          "same_channel_order": true,
+          "tv_uniform": 9.224052303869953e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40096235275268555,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 9.36833358458622e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.41669198870658875,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 8.9210055419231e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.4157375991344452,
+          "n": 18,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.0026090031117763e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 1.4305114648394124e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 400,
+      "logit_span_median": 8.940696716308594e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3866451680660248,
+          "n": 38,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.3043675684693001e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3810805082321167,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.073213812957663e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.38952186703681946,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 4.257474622848534e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40331852436065674,
+          "n": 27,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.1037898060839435e-09
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.39518630504608154,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 9.875325786279365e-09
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3914717733860016,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 6.854481955555908e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.38724303245544434,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 8.449464719041677e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3982151746749878,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.0728836138951259e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3723110556602478,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 1.1993943816422659e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3859684467315674,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.5209764912815782e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.39948780834674835,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.0992870303275226e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.398288756608963,
+          "n": 18,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 7.726527868900934e-09
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 1.5209764912815782e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 500,
+      "logit_span_median": 1.043081283569336e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3845926821231842,
+          "n": 38,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.2259404127273887e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.37325115501880646,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 8.915930337777267e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.38753384351730347,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 9.731370625987168e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.4060448408126831,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.0138513036050956e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.39267878234386444,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.904527123508526e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3895353078842163,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.4953222160496438e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.38520170748233795,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.0283032594697594e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3959008455276489,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.4305114648394124e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3707319647073746,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 1.2479259037375887e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3839404284954071,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.2399265027912554e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.39720389246940613,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.1506556133258905e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3959942162036896,
+          "n": 18,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.4073318899132659e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 1.904527123508526e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 0,
+      "logit_span_median": 4.939734935760498e-05,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.7881393432617188e-06,
+          "min_abs_channel_difference": 0.012027204036712646,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999766,
+          "same_channel_order": true,
+          "tv_uniform": 1.6554322313996894e-07
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 0.00011429190635681152,
+          "min_abs_channel_difference": 0.03623083233833313,
+          "n": 19,
+          "normalized_entropy": 0.9999999998850053,
+          "same_channel_order": true,
+          "tv_uniform": 8.029730712649785e-06
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 6.794929504394531e-06,
+          "min_abs_channel_difference": 0.029576003551483154,
+          "n": 7,
+          "normalized_entropy": 0.9999999999983827,
+          "same_channel_order": true,
+          "tv_uniform": 1.1604661883657386e-06
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 2.384185791015625e-07,
+          "min_abs_channel_difference": 0.05013665556907654,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999994,
+          "same_channel_order": true,
+          "tv_uniform": 1.9868215291735103e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 0.00041553378105163574,
+          "min_abs_channel_difference": 0.010711312294006348,
+          "n": 13,
+          "normalized_entropy": 0.999999994319487,
+          "same_channel_order": true,
+          "tv_uniform": 8.140469373857373e-05
+        },
+        {
+          "instance": "air04",
+          "logit_span": 4.9948692321777344e-05,
+          "min_abs_channel_difference": 0.03145882487297058,
+          "n": 214,
+          "normalized_entropy": 0.9999999999885127,
+          "same_channel_order": true,
+          "tv_uniform": 3.857089927333714e-06
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 3.4570693969726562e-06,
+          "min_abs_channel_difference": 0.008165061473846436,
+          "n": 66,
+          "normalized_entropy": 0.9999999999999474,
+          "same_channel_order": true,
+          "tv_uniform": 2.703828613920267e-07
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0002262592315673828,
+          "min_abs_channel_difference": 0.031662166118621826,
+          "n": 5,
+          "normalized_entropy": 0.9999999963947301,
+          "same_channel_order": true,
+          "tv_uniform": 5.267862904369258e-05
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 4.9501657485961914e-05,
+          "min_abs_channel_difference": 0.010578930377960205,
+          "n": 430,
+          "normalized_entropy": 0.9999999999953356,
+          "same_channel_order": true,
+          "tv_uniform": 2.0273556011226983e-06
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 8.642673492431641e-07,
+          "min_abs_channel_difference": 0.014941632747650146,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999951,
+          "same_channel_order": true,
+          "tv_uniform": 8.200046973036446e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 4.929304122924805e-05,
+          "min_abs_channel_difference": 0.036620140075683594,
+          "n": 59,
+          "normalized_entropy": 0.9999999999842316,
+          "same_channel_order": true,
+          "tv_uniform": 4.630290512409527e-06
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 6.0617923736572266e-05,
+          "min_abs_channel_difference": 0.04096856713294983,
+          "n": 18,
+          "normalized_entropy": 0.9999999999540887,
+          "same_channel_order": true,
+          "tv_uniform": 6.524002454266764e-06
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 8.140469373857373e-05,
+      "variant": "transformer"
+    },
+    {
+      "episode": 100,
+      "logit_span_median": 1.1175870895385742e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.1963360607624054,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 8.420600817321544e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.27094566822052,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 8.007826304834431e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 2.682209014892578e-07,
+          "min_abs_channel_difference": 0.240688294172287,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999979,
+          "same_channel_order": true,
+          "tv_uniform": 4.3182956571685693e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.47082124650478363,
+          "n": 27,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.4717196305386038e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 3.2782554626464844e-07,
+          "min_abs_channel_difference": 0.20893415808677673,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999974,
+          "same_channel_order": true,
+          "tv_uniform": 4.7701353027285176e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.341104507446289e-07,
+          "min_abs_channel_difference": 0.22998619079589844,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.3255057476103949e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.16688111424446106,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.4778011142926872e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 2.2351741790771484e-06,
+          "min_abs_channel_difference": 0.16836410760879517,
+          "n": 5,
+          "normalized_entropy": 0.9999999999997281,
+          "same_channel_order": true,
+          "tv_uniform": 4.5180311736281453e-07
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.277340292930603,
+          "n": 430,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 5.3430615836683876e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.22047802805900574,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 7.152557373046875e-07,
+          "min_abs_channel_difference": 0.2100270688533783,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999966,
+          "same_channel_order": true,
+          "tv_uniform": 6.407799638813438e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.662441253662109e-07,
+          "min_abs_channel_difference": 0.285860151052475,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999927,
+          "same_channel_order": true,
+          "tv_uniform": 8.913102641019965e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 4.5180311736281453e-07,
+      "variant": "transformer"
+    },
+    {
+      "episode": 200,
+      "logit_span_median": 2.9802322387695312e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.09801088273525238,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 7.822077775429537e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.30806174874305725,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 7.2648320449675285e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.47215208411216736,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.48836006224155426,
+          "n": 27,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.761061209001104e-09
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4240514934062958,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 4.408627567176193e-09
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.47507235407829285,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.429518689868072e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.05774199962615967,
+          "n": 66,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.3854385147796244e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.43252092599868774,
+          "n": 5,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.46370211243629456,
+          "n": 430,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 2.1682035836884106e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.13106019794940948,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 9.456506066055081e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.4648015797138214,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 5.650540859866715e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.5129865109920502,
+          "n": 18,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 5.794896042188302e-09
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.3854385147796244e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 300,
+      "logit_span_median": 2.9802322387695312e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.09745699167251587,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 4.9532945731178835e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.3083404302597046,
+          "n": 19,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 7.429941856207378e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.47224822640419006,
+          "n": 7,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.041053298069585e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.48824574053287506,
+          "n": 27,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.42426279187202454,
+          "n": 13,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 4.76131779142408e-09
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4752849042415619,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 7.2156553310512295e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.05716085433959961,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 6.841671800275617e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.43268275260925293,
+          "n": 5,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 2.3841857654804954e-09
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4638974368572235,
+          "n": 430,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.1382585618415625e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.13048195838928223,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.3225882717141091e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.46493449807167053,
+          "n": 59,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.5581794396424264e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.5130309164524078,
+          "n": 18,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 5.79489601096328e-09
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.3225882717141091e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 400,
+      "logit_span_median": 2.9802322387695312e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.09800203144550323,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 4.210300396517708e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.3080669045448303,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 2.806866912508088e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.4721168577671051,
+          "n": 7,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.649263974336847e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4881938397884369,
+          "n": 27,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 2.0440550189959605e-09
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.42395123839378357,
+          "n": 13,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.879592216926575e-09
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.4751391112804413,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.8950206135195935e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.057782769203186035,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.7152071363907284e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.4324704706668854,
+          "n": 5,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.4637574255466461,
+          "n": 430,
+          "normalized_entropy": 0.9999999999999996,
+          "same_channel_order": true,
+          "tv_uniform": 2.0502196468319411e-10
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.13096001744270325,
+          "n": 52,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 2.8105000791922574e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.4647773802280426,
+          "n": 59,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 2.26021635088558e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.5129526555538177,
+          "n": 18,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 4.875071266813302e-09
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.7152071363907284e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 500,
+      "logit_span_median": 2.9802322387695312e-08,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.0977637767791748,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 4.623075004414612e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3081272840499878,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 2.971976720278491e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4722001254558563,
+          "n": 7,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 4.561579947104377e-09
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.48819202184677124,
+          "n": 27,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.4240473210811615,
+          "n": 13,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 3.526902069006521e-09
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.47522756457328796,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.2488132919256933e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.05754724144935608,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.2725509576649863e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.4901161193847656e-08,
+          "min_abs_channel_difference": 0.4325803518295288,
+          "n": 5,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.5762787037318944e-09
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.46382126212120056,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.798869289885903e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.1307307779788971,
+          "n": 52,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 2.1161411858927615e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 4.470348358154297e-08,
+          "min_abs_channel_difference": 0.4648638665676117,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 5.034118136237886e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.5130025446414948,
+          "n": 18,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 5.702913537242171e-09
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.2725509576649863e-08,
+      "variant": "transformer"
+    },
+    {
+      "episode": 0,
+      "logit_span_median": 1.341104507446289e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.29215383529663086,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.3126230614599055e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-07,
+          "min_abs_channel_difference": 0.3726298213005066,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999831,
+          "same_channel_order": true,
+          "tv_uniform": 1.4504898807748967e-07
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.37637265026569366,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.4597055966736328e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.38581791520118713,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 6.6227383715977695e-09
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 5.7220458984375e-06,
+          "min_abs_channel_difference": 0.3550415337085724,
+          "n": 13,
+          "normalized_entropy": 0.9999999999992975,
+          "same_channel_order": true,
+          "tv_uniform": 8.48396958880171e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3857535421848297,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.231698304373502e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.290824294090271,
+          "n": 66,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.3395993448198085e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.5795230865478516e-06,
+          "min_abs_channel_difference": 0.37432152032852173,
+          "n": 5,
+          "normalized_entropy": 0.9999999999998918,
+          "same_channel_order": true,
+          "tv_uniform": 2.3484240350979402e-07
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.37429091334342957,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 5.857953466704632e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.29758086800575256,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.21237257039164e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 5.066394805908203e-07,
+          "min_abs_channel_difference": 0.3817065954208374,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999987,
+          "same_channel_order": true,
+          "tv_uniform": 3.452822758959195e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.341104507446289e-06,
+          "min_abs_channel_difference": 0.37548312544822693,
+          "n": 18,
+          "normalized_entropy": 0.999999999999982,
+          "same_channel_order": true,
+          "tv_uniform": 1.197612053867314e-07
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 8.48396958880171e-07,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 100,
+      "logit_span_median": 1.4901161193847656e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3221941292285919,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.9482958794891925e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3751600682735443,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.543776778287209e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3436097502708435,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.2164213164522764e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3903658986091614,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.1773757014471586e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 2.384185791015625e-07,
+          "min_abs_channel_difference": 0.3602730482816696,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999991,
+          "same_channel_order": true,
+          "tv_uniform": 2.7157145539302707e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3430090844631195,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999993,
+          "same_channel_order": true,
+          "tv_uniform": 3.416503029270157e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3194255232810974,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.39433271673442e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 3.8743019104003906e-07,
+          "min_abs_channel_difference": 0.3379383683204651,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999938,
+          "same_channel_order": true,
+          "tv_uniform": 5.48362757840648e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3441060781478882,
+          "n": 430,
+          "normalized_entropy": 1.000000000000001,
+          "same_channel_order": true,
+          "tv_uniform": 1.4722895491734583e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.32397542893886566,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 6.7231570987508205e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3538728654384613,
+          "n": 59,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.48968790948667e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 2.980232238769531e-07,
+          "min_abs_channel_difference": 0.3691812604665756,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999991,
+          "same_channel_order": true,
+          "tv_uniform": 2.023614673052343e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 5.48362757840648e-08,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 200,
+      "logit_span_median": 8.493661880493164e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.2938230633735657,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.2465791350557698e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3753773868083954,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.1557687289859286e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 3.606081008911133e-06,
+          "min_abs_channel_difference": 0.31666597723960876,
+          "n": 7,
+          "normalized_entropy": 0.9999999999996081,
+          "same_channel_order": true,
+          "tv_uniform": 4.3000547550464674e-07
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.39134010672569275,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.4880720825699578e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.9073486328125e-06,
+          "min_abs_channel_difference": 0.3396017551422119,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999507,
+          "same_channel_order": true,
+          "tv_uniform": 1.461901847077396e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 3.0994415283203125e-06,
+          "min_abs_channel_difference": 0.31545841693878174,
+          "n": 214,
+          "normalized_entropy": 0.999999999999996,
+          "same_channel_order": true,
+          "tv_uniform": 2.0914226368535377e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.2908596396446228,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.3026543156657855e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 5.5730342864990234e-06,
+          "min_abs_channel_difference": 0.30222147703170776,
+          "n": 5,
+          "normalized_entropy": 0.9999999999986394,
+          "same_channel_order": true,
+          "tv_uniform": 8.225453514282277e-07
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3348817974328995,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000007,
+          "same_channel_order": true,
+          "tv_uniform": 1.1909323919612538e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.29675379395484924,
+          "n": 52,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.3137710115976309e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 4.082918167114258e-06,
+          "min_abs_channel_difference": 0.32352226972579956,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999662,
+          "same_channel_order": true,
+          "tv_uniform": 6.80206601304939e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.5497207641601562e-06,
+          "min_abs_channel_difference": 0.3555750250816345,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999789,
+          "same_channel_order": true,
+          "tv_uniform": 9.133864342994458e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 8.225453514282277e-07,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 300,
+      "logit_span_median": 3.427267074584961e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.7881393432617188e-07,
+          "min_abs_channel_difference": 0.31781329214572906,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.5313935765315367e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3738819658756256,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.4529664183610125e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.3709068298339844e-06,
+          "min_abs_channel_difference": 0.3363645076751709,
+          "n": 7,
+          "normalized_entropy": 0.999999999999949,
+          "same_channel_order": true,
+          "tv_uniform": 1.53269154520852e-07
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3896646499633789,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.4880720662635571e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 5.960464477539062e-07,
+          "min_abs_channel_difference": 0.3594442158937454,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999959,
+          "same_channel_order": true,
+          "tv_uniform": 4.126476139953983e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.0728836059570312e-06,
+          "min_abs_channel_difference": 0.33792561292648315,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 1.2549307647300584e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.31593307852745056,
+          "n": 66,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.0755108048945972e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.5497207641601562e-06,
+          "min_abs_channel_difference": 0.3334093540906906,
+          "n": 5,
+          "normalized_entropy": 0.9999999999998993,
+          "same_channel_order": true,
+          "tv_uniform": 2.1696099221368836e-07
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3410269767045975,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000007,
+          "same_channel_order": true,
+          "tv_uniform": 1.2572099301931886e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.086162567138672e-07,
+          "min_abs_channel_difference": 0.31947895884513855,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.586003753675791e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 7.152557373046875e-07,
+          "min_abs_channel_difference": 0.3486274480819702,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999989,
+          "same_channel_order": true,
+          "tv_uniform": 1.1917508570269408e-08
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 4.76837158203125e-07,
+          "min_abs_channel_difference": 0.3668738305568695,
+          "n": 18,
+          "normalized_entropy": 0.999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 3.237783473275524e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 2.1696099221368836e-07,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 400,
+      "logit_span_median": 1.4901161193847656e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3321587145328522,
+          "n": 38,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.358028260504962e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.371482789516449,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.4034334486212607e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 2.086162567138672e-07,
+          "min_abs_channel_difference": 0.3493626117706299,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999988,
+          "same_channel_order": true,
+          "tv_uniform": 2.9802322012995042e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3880448639392853,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 9.361771961813314e-09
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.365032434463501,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.1462431628861403e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 2.682209014892578e-07,
+          "min_abs_channel_difference": 0.35165341198444366,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.124257434153772e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.330500066280365,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 1.408016055831629e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 3.5762786865234375e-07,
+          "min_abs_channel_difference": 0.3498517721891403,
+          "n": 5,
+          "normalized_entropy": 0.9999999999999948,
+          "same_channel_order": true,
+          "tv_uniform": 5.006790615436074e-08
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.342514768242836,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000007,
+          "same_channel_order": true,
+          "tv_uniform": 1.1741373668683677e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.33346623182296753,
+          "n": 52,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.1771035680896436e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.086162567138672e-07,
+          "min_abs_channel_difference": 0.3619779348373413,
+          "n": 59,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 4.314958739273789e-09
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 2.682209014892578e-07,
+          "min_abs_channel_difference": 0.372894287109375,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999993,
+          "same_channel_order": true,
+          "tv_uniform": 2.1707863652464798e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 5.006790615436074e-08,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 500,
+      "logit_span_median": 1.1920928955078125e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.3455570638179779,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.609820703823983e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.3713623881340027,
+          "n": 19,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.0732138198965568e-08
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.3563362956047058,
+          "n": 7,
+          "normalized_entropy": 0.9999999999999994,
+          "same_channel_order": true,
+          "tv_uniform": 2.067916198000841e-08
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.3879740685224533,
+          "n": 27,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.111965931485659e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.7881393432617188e-07,
+          "min_abs_channel_difference": 0.36983339488506317,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999994,
+          "same_channel_order": true,
+          "tv_uniform": 1.6929129105502927e-08
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.35955649614334106,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000009,
+          "same_channel_order": true,
+          "tv_uniform": 5.282890166557336e-09
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.34496232867240906,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.372439361810307e-08
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.3603518009185791,
+          "n": 5,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.7881393432617188e-07,
+          "min_abs_channel_difference": 0.3472248613834381,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000013,
+          "same_channel_order": true,
+          "tv_uniform": 1.9771076686415923e-08
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 1.1920928955078125e-07,
+          "min_abs_channel_difference": 0.34600669145584106,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.2344157068050476e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.37031225860118866,
+          "n": 59,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 9.76002443794921e-10
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.4901161193847656e-07,
+          "min_abs_channel_difference": 0.37699267268180847,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 1.1957721580274638e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 11,
+      "states": 12,
+      "tv_uniform_max": 2.067916198000841e-08,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 0,
+      "logit_span_median": 1.4521181583404541e-05,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 8.344650268554688e-07,
+          "min_abs_channel_difference": 0.010532408952713013,
+          "n": 38,
+          "normalized_entropy": 0.9999999999999951,
+          "same_channel_order": true,
+          "tv_uniform": 7.301981997526186e-08
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 9.268522262573242e-06,
+          "min_abs_channel_difference": 0.035358309745788574,
+          "n": 19,
+          "normalized_entropy": 0.9999999999990331,
+          "same_channel_order": true,
+          "tv_uniform": 9.967686139915333e-07
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 0.00027683377265930176,
+          "min_abs_channel_difference": 0.028834253549575806,
+          "n": 7,
+          "normalized_entropy": 0.9999999979449788,
+          "same_channel_order": true,
+          "tv_uniform": 3.5888903252734305e-05
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 3.37064266204834e-05,
+          "min_abs_channel_difference": 0.06260278820991516,
+          "n": 27,
+          "normalized_entropy": 0.9999999999925832,
+          "same_channel_order": true,
+          "tv_uniform": 2.512543796295841e-06
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 0.00098341703414917,
+          "min_abs_channel_difference": 0.011656641960144043,
+          "n": 13,
+          "normalized_entropy": 0.9999999833987818,
+          "same_channel_order": true,
+          "tv_uniform": 0.00011718223419385915
+        },
+        {
+          "instance": "air04",
+          "logit_span": 1.755356788635254e-05,
+          "min_abs_channel_difference": 0.026247859001159668,
+          "n": 214,
+          "normalized_entropy": 0.9999999999994079,
+          "same_channel_order": true,
+          "tv_uniform": 1.0311679825465714e-06
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 3.9637088775634766e-06,
+          "min_abs_channel_difference": 0.0067112743854522705,
+          "n": 66,
+          "normalized_entropy": 0.9999999999999403,
+          "same_channel_order": true,
+          "tv_uniform": 2.8419275248121184e-07
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 0.0008936524391174316,
+          "min_abs_channel_difference": 0.02657848596572876,
+          "n": 5,
+          "normalized_entropy": 0.99999996715437,
+          "same_channel_order": true,
+          "tv_uniform": 0.00012599099866016095
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 1.1488795280456543e-05,
+          "min_abs_channel_difference": 0.00589945912361145,
+          "n": 430,
+          "normalized_entropy": 0.999999999999713,
+          "same_channel_order": true,
+          "tv_uniform": 5.598832704173298e-07
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 7.450580596923828e-07,
+          "min_abs_channel_difference": 0.013186901807785034,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999961,
+          "same_channel_order": true,
+          "tv_uniform": 7.152998148830803e-08
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 6.9141387939453125e-06,
+          "min_abs_channel_difference": 0.03406617045402527,
+          "n": 59,
+          "normalized_entropy": 0.9999999999995193,
+          "same_channel_order": true,
+          "tv_uniform": 8.647636566029571e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 6.699562072753906e-05,
+          "min_abs_channel_difference": 0.042752236127853394,
+          "n": 18,
+          "normalized_entropy": 0.9999999999599565,
+          "same_channel_order": true,
+          "tv_uniform": 4.886723107219021e-06
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 0.00012599099866016095,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 100,
+      "logit_span_median": 5.21540641784668e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.2677231729030609,
+          "n": 38,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 4.767546057590777e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.48236966133117676,
+          "n": 19,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 6.765127182006836e-06,
+          "min_abs_channel_difference": 0.350208580493927,
+          "n": 7,
+          "normalized_entropy": 0.999999999997991,
+          "same_channel_order": true,
+          "tv_uniform": 1.331373665189317e-06
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 5.066394805908203e-07,
+          "min_abs_channel_difference": 0.10262450575828552,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999973,
+          "same_channel_order": true,
+          "tv_uniform": 5.2981909123839266e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.0132789611816406e-06,
+          "min_abs_channel_difference": 0.473704993724823,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999762,
+          "same_channel_order": true,
+          "tv_uniform": 1.5782888377474658e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 5.364418029785156e-07,
+          "min_abs_channel_difference": 0.36909693479537964,
+          "n": 214,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 1.8995760154086327e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.26067280769348145,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 6.766413402671534e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 7.68899917602539e-06,
+          "min_abs_channel_difference": 0.34455832839012146,
+          "n": 5,
+          "normalized_entropy": 0.9999999999970726,
+          "same_channel_order": true,
+          "tv_uniform": 1.2278585092007077e-06
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.4062733054161072,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 5.351362504816756e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.2729351222515106,
+          "n": 52,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 9.25811773772045e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.5795230865478516e-06,
+          "min_abs_channel_difference": 0.36317434906959534,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999778,
+          "same_channel_order": true,
+          "tv_uniform": 1.425221085385453e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 3.6656856536865234e-06,
+          "min_abs_channel_difference": 0.3370186388492584,
+          "n": 18,
+          "normalized_entropy": 0.9999999999998799,
+          "same_channel_order": true,
+          "tv_uniform": 1.9086394725462141e-07
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.331373665189317e-06,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 200,
+      "logit_span_median": 7.897615432739258e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.26767498254776,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 7.636327854776415e-10
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 0.0,
+          "min_abs_channel_difference": 0.4825732111930847,
+          "n": 19,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 0.0
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 6.616115570068359e-06,
+          "min_abs_channel_difference": 0.35161036252975464,
+          "n": 7,
+          "normalized_entropy": 0.9999999999981753,
+          "same_channel_order": true,
+          "tv_uniform": 1.254130897063166e-06
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.043081283569336e-06,
+          "min_abs_channel_difference": 0.10558351874351501,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999941,
+          "same_channel_order": true,
+          "tv_uniform": 6.177135182527937e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.1026859283447266e-06,
+          "min_abs_channel_difference": 0.47500133514404297,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999728,
+          "same_channel_order": true,
+          "tv_uniform": 1.6893862770511747e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 5.364418029785156e-07,
+          "min_abs_channel_difference": 0.3701784908771515,
+          "n": 214,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.7629158612520596e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.2605714201927185,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 6.294338050771842e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 7.420778274536133e-06,
+          "min_abs_channel_difference": 0.34589794278144836,
+          "n": 5,
+          "normalized_entropy": 0.9999999999972683,
+          "same_channel_order": true,
+          "tv_uniform": 1.1861350690117733e-06
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40760987997055054,
+          "n": 430,
+          "normalized_entropy": 1.000000000000001,
+          "same_channel_order": true,
+          "tv_uniform": 3.868337661912941e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.27291905879974365,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 2.700284383247431e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.5795230865478516e-06,
+          "min_abs_channel_difference": 0.36462828516960144,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999785,
+          "same_channel_order": true,
+          "tv_uniform": 1.397567673082356e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 3.635883331298828e-06,
+          "min_abs_channel_difference": 0.33829429745674133,
+          "n": 18,
+          "normalized_entropy": 0.9999999999998814,
+          "same_channel_order": true,
+          "tv_uniform": 1.8930024015331726e-07
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.254130897063166e-06,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 300,
+      "logit_span_median": 1.1175870895385742e-06,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.26771798729896545,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 7.718884075316734e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.48145782947540283,
+          "n": 19,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.4859883046280942e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 8.732080459594727e-06,
+          "min_abs_channel_difference": 0.3427796959877014,
+          "n": 7,
+          "normalized_entropy": 0.9999999999968271,
+          "same_channel_order": true,
+          "tv_uniform": 1.6537257088167223e-06
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.430511474609375e-06,
+          "min_abs_channel_difference": 0.10449936985969543,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999885,
+          "same_channel_order": true,
+          "tv_uniform": 8.221191433177566e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.519918441772461e-06,
+          "min_abs_channel_difference": 0.4681929349899292,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999472,
+          "same_channel_order": true,
+          "tv_uniform": 2.3065943394878774e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 8.046627044677734e-07,
+          "min_abs_channel_difference": 0.36714839935302734,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 2.4990586106141827e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.26060712337493896,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 2.825610439204096e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 1.043081283569336e-05,
+          "min_abs_channel_difference": 0.3342457413673401,
+          "n": 5,
+          "normalized_entropy": 0.9999999999946073,
+          "same_channel_order": true,
+          "tv_uniform": 1.6665510755020652e-06
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.40223050117492676,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 3.726660300013354e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.2729717195034027,
+          "n": 52,
+          "normalized_entropy": 0.9999999999999999,
+          "same_channel_order": true,
+          "tv_uniform": 4.629058938249164e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.3543834686279297e-06,
+          "min_abs_channel_difference": 0.35844868421554565,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999545,
+          "same_channel_order": true,
+          "tv_uniform": 1.9719543434097708e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 5.0067901611328125e-06,
+          "min_abs_channel_difference": 0.3288544714450836,
+          "n": 18,
+          "normalized_entropy": 0.9999999999997747,
+          "same_channel_order": true,
+          "tv_uniform": 2.6123081125692393e-07
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.6665510755020652e-06,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 400,
+      "logit_span_median": 8.493661880493164e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.26834216713905334,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 7.801438949711637e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.4824284315109253,
+          "n": 19,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.4859883046280942e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 6.4373016357421875e-06,
+          "min_abs_channel_difference": 0.3545091152191162,
+          "n": 7,
+          "normalized_entropy": 0.9999999999984601,
+          "same_channel_order": true,
+          "tv_uniform": 1.1209327933497937e-06
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 1.0728836059570312e-06,
+          "min_abs_channel_difference": 0.10556992888450623,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999941,
+          "same_channel_order": true,
+          "tv_uniform": 5.2613986386423894e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 1.430511474609375e-06,
+          "min_abs_channel_difference": 0.4754853844642639,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999499,
+          "same_channel_order": true,
+          "tv_uniform": 2.2131314231926824e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 6.258487701416016e-07,
+          "min_abs_channel_difference": 0.37504059076309204,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 1.9953683009707457e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.26114127039909363,
+          "n": 66,
+          "normalized_entropy": 1.0000000000000004,
+          "same_channel_order": true,
+          "tv_uniform": 6.2259213704646266e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 6.943941116333008e-06,
+          "min_abs_channel_difference": 0.3490072786808014,
+          "n": 5,
+          "normalized_entropy": 0.9999999999976084,
+          "same_channel_order": true,
+          "tv_uniform": 1.1098407952242484e-06
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.40924084186553955,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000007,
+          "same_channel_order": true,
+          "tv_uniform": 6.4543224172382285e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.2736220359802246,
+          "n": 52,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 6.7452002143475465e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 2.086162567138672e-06,
+          "min_abs_channel_difference": 0.36690106987953186,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999719,
+          "same_channel_order": true,
+          "tv_uniform": 1.5094656954928176e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 3.039836883544922e-06,
+          "min_abs_channel_difference": 0.34191587567329407,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999168,
+          "same_channel_order": true,
+          "tv_uniform": 1.584860196690574e-07
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 1.1209327933497937e-06,
+      "variant": "bimatching"
+    },
+    {
+      "episode": 500,
+      "logit_span_median": 3.427267074584961e-07,
+      "per_state": [
+        {
+          "instance": "rmatr100-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.26950186491012573,
+          "n": 38,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 1.4859884017726088e-09
+        },
+        {
+          "instance": "neos648910",
+          "logit_span": 8.940696716308594e-08,
+          "min_abs_channel_difference": 0.48429378867149353,
+          "n": 19,
+          "normalized_entropy": 0.9999999999999997,
+          "same_channel_order": true,
+          "tv_uniform": 4.4579652747067655e-09
+        },
+        {
+          "instance": "istanbul-no-cutoff",
+          "logit_span": 3.874301910400391e-06,
+          "min_abs_channel_difference": 0.3664015829563141,
+          "n": 7,
+          "normalized_entropy": 0.9999999999992334,
+          "same_channel_order": true,
+          "tv_uniform": 8.375062751503348e-07
+        },
+        {
+          "instance": "stein27",
+          "logit_span": 2.980232238769531e-07,
+          "min_abs_channel_difference": 0.10868167877197266,
+          "n": 27,
+          "normalized_entropy": 0.9999999999999998,
+          "same_channel_order": true,
+          "tv_uniform": 1.8764425811779173e-08
+        },
+        {
+          "instance": "sp150x300d",
+          "logit_span": 9.5367431640625e-07,
+          "min_abs_channel_difference": 0.48263344168663025,
+          "n": 13,
+          "normalized_entropy": 0.9999999999999756,
+          "same_channel_order": true,
+          "tv_uniform": 1.5112777290715584e-07
+        },
+        {
+          "instance": "air04",
+          "logit_span": 3.8743019104003906e-07,
+          "min_abs_channel_difference": 0.37904271483421326,
+          "n": 214,
+          "normalized_entropy": 0.9999999999999996,
+          "same_channel_order": true,
+          "tv_uniform": 1.8346298794828103e-08
+        },
+        {
+          "instance": "rmatr200-p5",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.26219651103019714,
+          "n": 66,
+          "normalized_entropy": 1.0,
+          "same_channel_order": true,
+          "tv_uniform": 7.279538822430043e-09
+        },
+        {
+          "instance": "swath1",
+          "logit_span": 4.246830940246582e-06,
+          "min_abs_channel_difference": 0.3612637519836426,
+          "n": 5,
+          "normalized_entropy": 0.999999999999113,
+          "same_channel_order": true,
+          "tv_uniform": 6.759175283505003e-07
+        },
+        {
+          "instance": "cod105",
+          "logit_span": 5.960464477539063e-08,
+          "min_abs_channel_difference": 0.4161641299724579,
+          "n": 430,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 2.5295706935352102e-09
+        },
+        {
+          "instance": "rmatr100-p10",
+          "logit_span": 2.9802322387695312e-08,
+          "min_abs_channel_difference": 0.27482083439826965,
+          "n": 52,
+          "normalized_entropy": 1.0000000000000002,
+          "same_channel_order": true,
+          "tv_uniform": 6.557833510598132e-09
+        },
+        {
+          "instance": "l152lav",
+          "logit_span": 1.296401023864746e-06,
+          "min_abs_channel_difference": 0.3727807104587555,
+          "n": 59,
+          "normalized_entropy": 0.9999999999999846,
+          "same_channel_order": true,
+          "tv_uniform": 1.18348906471763e-07
+        },
+        {
+          "instance": "pp08aCUTS",
+          "logit_span": 1.385807991027832e-06,
+          "min_abs_channel_difference": 0.35438016057014465,
+          "n": 18,
+          "normalized_entropy": 0.9999999999999828,
+          "same_channel_order": true,
+          "tv_uniform": 7.524170643480321e-08
+        }
+      ],
+      "same_channel_order_count": 12,
+      "seed": 22,
+      "states": 12,
+      "tv_uniform_max": 8.375062751503348e-07,
+      "variant": "bimatching"
+    }
+  ],
+  "scope": "Shared 12 real training states; initialization reconstruction and checkpoints; no optimization or test-instance use."
+}

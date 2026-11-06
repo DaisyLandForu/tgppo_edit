@@ -1,0 +1,19 @@
+test_actor_critic_finite_nonzero_gradients_independently (test_ablation.AblationTests) ... ok
+test_candidate_permutation_and_original_index_correspondence (test_ablation.AblationTests) ... ok
+test_config_bool_checkpoint_and_actor_only_roundtrip (test_ablation.AblationTests) ... ok
+test_empty_all_padding_nonfinite_rejected_by_policy (test_ablation.AblationTests) ... ok
+test_legacy_b0_export_loads_with_default_true (test_ablation.AblationTests) ... ok
+test_padding_does_not_change_valid_outputs (test_ablation.AblationTests) ... ok
+test_retained_weights_and_rng_are_paired_no_removed_parameters (test_ablation.AblationTests) ... ok
+test_shapes_logits_probabilities_and_bimatching_interface (test_ablation.AblationTests) ... ok
+test_true_matches_original_parameters_and_forward_exactly (test_ablation.AblationTests) ... ok
+test_confounded_config_is_rejected (test_ablation_protocol.ProtocolTests) ... ok
+test_missing_freeze_and_changed_frozen_model_are_rejected (test_ablation_protocol.ProtocolTests) ... ok
+test_mspp16_resource_repair_is_serial_and_keeps_solver_budget (test_ablation_protocol.ProtocolTests) ... ok
+test_only_architecture_flag_and_output_labels_differ (test_ablation_protocol.ProtocolTests) ... ok
+test_timeouts_unknown_gaps_and_all_solver_seed_proof_count_are_preserved (test_ablation_protocol.ProtocolTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 3.121s
+
+OK

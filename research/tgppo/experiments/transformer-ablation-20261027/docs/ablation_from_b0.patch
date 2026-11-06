@@ -1,0 +1,1254 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..7a60b85
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++__pycache__/
++*.pyc
+diff --git a/code/ablation.py b/code/ablation.py
+new file mode 100644
+index 0000000..5e8315b
+--- /dev/null
++++ b/code/ablation.py
+@@ -0,0 +1,388 @@
++"""Thin experiment commands around the verified B0 server trainer/evaluator."""
++import argparse
++import copy
++import csv
++import fcntl
++import json
++from pathlib import Path
++import statistics
++import time
++import uuid
++import numpy as np
++import torch
++import server
++from project.runtime import (seed_all, build_agent, load_actor, action_seed)
++from project.agent.agent import ActorPolicy
++from project.environment import Environment
++from project.utils.settings import state_dims
++from project.utils.protocol import write_json, fingerprint, sha256
++
++HERE = Path(__file__).resolve().parents[1]
++ROOT = server.DEFAULT_ROOT
++VARIANTS = ('transformer', 'bimatching')
++
++
++def protocol(variant, smoke=False):
++    c = server.plan(ROOT,HERE/'configs'/(variant+('-smoke' if smoke else '')+'.json'))
++    if c['groups'] != ['B0'] or c['use_transformer'] != (variant == 'transformer'):
++        raise ValueError('Only the paired original B0 architecture ablation is allowed')
++    if smoke:
++        c.update(train=['lseu','stein27','misc03','pp08aCUTS'],development=['vpm2','dcmulti'])
++    return c, ROOT/c['run_directory']
++
++
++def check_pair():
++    a, _ = protocol('transformer'); b, _ = protocol('bimatching')
++    allowed = {'use_transformer','variant','run_directory'}
++    changed = {k for k in set(a)|set(b) if a.get(k) != b.get(k)}
++    if changed != allowed:
++        raise ValueError('Unexpected experimental variables: '+str(changed))
++    if a['training_seeds'] != [11,22,33]:
++        raise ValueError('Formal comparison requires the three frozen training seeds')
++
++
++def baseline_pair(smoke=False):
++    """Native results are architecture-independent; reuse only exact job identities."""
++    check_pair()
++    first, run = protocol('transformer',smoke)
++    server.baseline(ROOT,first,run)
++    original = server.read(run/'normalization/baselines.json')
++    other, target = protocol('bimatching',smoke)
++    signature = server.stack(ROOT)
++    if original['stack'] != signature:
++        raise ValueError('Native normalization machine/software changed')
++    cutoffs = server.read(ROOT/'tgppo/datasets/cutoffs.json')
++    for name in other['train']+other['development']:
++        for ss in other['solver_seeds']:
++            job = server.bound_job(ROOT,other,cutoffs,name,ss,11,'native')
++            identity = server.job_identity(job)
++            server.validate_baseline(original['baselines'][fingerprint(identity)],identity)
++    write_json(target/'normalization/baselines.json',dict(original,
++        protocol_sha256=fingerprint(other),source=str(run/'normalization/baselines.json'),
++        source_sha256=sha256(run/'normalization/baselines.json')))
++
++
++def smoke():
++    """Run this on a GPU Custom job: two real batches and dev evaluation per arm."""
++    if not torch.cuda.is_available():
++        raise RuntimeError('Run smoke on a GPU Custom job; local MILP training is disabled')
++    baseline_pair(smoke=True)
++    checks = {}
++    for variant in VARIANTS:
++        c,run = protocol(variant,True)
++        state = server.train(ROOT,c,run,'B0',11,True,'cuda')
++        checks[variant+'_two_updates'] = sum(bool(m['updated']) for m in state['history']) >= 2
++        checks[variant+'_finite_losses'] = all(np.isfinite(m.get('actor_loss',np.nan)) and
++            np.isfinite(m.get('critic_loss',np.nan)) for m in state['history'])
++        if not all(checks.values()):
++            raise RuntimeError('Smoke needs two complete finite updates: '+str(checks))
++        server.select(ROOT,c,run,'B0',11)
++        out = server.group_dir(run,'B0',11)
++        rows = [r for f in out.glob('development/*/selected_results.json') for r in server.read(f)]
++        checks[variant+'_actor_only_online'] = (bool(rows) and all(
++            r['valid'] and r['callback_seconds']['critic']==0 and r['fallback_action_count']==0 for r in rows))
++    evidence = dict(passed=all(checks.values()),checks=checks,scope='GPU short training; no performance conclusion')
++    evidence.update(protocols={v:fingerprint(protocol(v,True)[0]) for v in VARIANTS},
++                    stack=server.stack(ROOT),gpu=torch.cuda.get_device_name(0))
++    write_json(ROOT/'tgppo/runs/transformer-ablation-20261027-smoke/verification.json',evidence)
++    if not evidence['passed']:raise RuntimeError('Smoke failed')
++
++
++def prepare():
++    """One GPU Custom job before the six parallel formal training jobs."""
++    from server_bridge import bridge
++    from server_pilot import pilot
++    check_pair()
++    for variant in VARIANTS:
++        c,_ = protocol(variant);server.preflight(ROOT,c,'cuda')
++    smoke_path=ROOT/'tgppo/runs/transformer-ablation-20261027-smoke/verification.json'
++    if not smoke_path.exists():smoke()
++    evidence=server.read(smoke_path)
++    if (not evidence['passed'] or evidence['protocols']!={v:fingerprint(protocol(v,True)[0]) for v in VARIANTS}
++        or evidence['stack']!=server.stack(ROOT) or evidence['gpu']!=torch.cuda.get_device_name(0)):
++        raise RuntimeError('Short training proof does not match this code/protocol/hardware')
++    baseline_pair()
++    for variant in VARIANTS:
++        c,run = protocol(variant)
++        bridge(ROOT,c,run)
++        pilot(ROOT,c,run)
++
++
++def online_check():
++    """Untrained policies test SCIP integration only. Never a quality comparison."""
++    check_pair(); base = HERE/'docs'/'online-check'
++    directory = base/('attempt-'+uuid.uuid4().hex)
++    directory.mkdir(parents=True,exist_ok=False)
++    cutoffs = server.read(ROOT/'tgppo/datasets/cutoffs.json');rows=[]
++    for variant in VARIANTS:
++        c,_ = protocol(variant);c=copy.deepcopy(c);c['time_limit']=2.
++        cfg=server.params(ROOT,c,'B0',11,'cpu');seed_all(11)
++        agent=build_agent(cfg,training=False)
++        policy=ActorPolicy(agent.actor_network)
++        j=server.bound_job(ROOT,c,cutoffs,'lseu',0,11,'eval')
++        seed_all(action_seed(11,'online-lseu-s0'))
++        env=Environment('cpu',policy,state_dims,j['limits'],j['params'],0,mode='eval')
++        env.reset(j['instance'],j['cutoff'],None,j['cutoff_provenance'])
++        _,row,_=env.run_episode()
++        row.update(variant=variant,trained=False,scope='untrained callback integration only')
++        write_json(directory/(variant+'.json'),row);rows.append(row)
++        if not row['valid'] or row.get('branch_count',0)==0 or row['fallback_action_count']:
++            raise RuntimeError('Online integration failed: '+str(directory))
++    # Additionally verify the actual existing trained B0 export in the new loader.
++    policy,_=load_actor(ROOT/'tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt')
++    seed_all(action_seed(11,'legacy-lseu-s0'))
++    env=Environment('cpu',policy,state_dims,j['limits'],j['params'],0,mode='eval')
++    env.reset(j['instance'],j['cutoff'],None,j['cutoff_provenance'])
++    _,row,_=env.run_episode();write_json(directory/'legacy-b0.json',row)
++    if not row['valid'] or row.get('branch_count',0)==0:raise RuntimeError('Legacy B0 integration failed')
++    write_json(base/'verification.json',dict(passed=True,training_executed=False,directory=str(directory),
++        stack=server.stack(ROOT),scope='online callback compatibility, not ablation performance'))
++
++
++def benchmark(device,repeats):
++    """Paired fixed-input forward benchmark; initialization only, no trained quality claims."""
++    check_pair();torch.set_num_threads(1)
++    if device.startswith('cuda') and not torch.cuda.is_available():raise RuntimeError('CUDA unavailable')
++    seed_all(13)
++    data={length:(torch.randn(1,length,25,device=device),torch.randn(1,8,device=device),
++                  torch.randn(1,53,device=device)) for length in (1,8,32,128,512)}
++    models={};counts={}
++    for variant in VARIANTS:
++        c,_=protocol(variant);cfg=server.params(ROOT,c,'B0',11,'cpu');seed_all(11)
++        a=build_agent(cfg,training=False)
++        counts[variant]=dict(actor=sum(p.numel() for p in a.actor_network.parameters()),
++            critic=sum(p.numel() for p in a.critic_network.parameters()))
++        models[variant]=a.actor_network.to(device).eval()
++    if device.startswith('cuda'):torch.cuda.reset_peak_memory_stats()
++    rows=[]
++    with torch.no_grad():
++        for length,args in data.items():
++            samples={v:[] for v in VARIANTS}
++            for v in VARIANTS:
++                for _ in range(10):models[v](*args)
++            for i in range(repeats):
++                # Alternate order to reduce drift bias.
++                for v in VARIANTS[::1 if i%2==0 else -1]:
++                    if device.startswith('cuda'):torch.cuda.synchronize()
++                    start=time.perf_counter();models[v](*args)
++                    if device.startswith('cuda'):torch.cuda.synchronize()
++                    samples[v].append(1000*(time.perf_counter()-start))
++            for v,times in samples.items():
++                rows.append(dict(variant=v,candidates=length,mean_ms=float(np.mean(times)),
++                    p50_ms=float(np.percentile(times,50)),p95_ms=float(np.percentile(times,95)),samples_ms=times))
++    result=dict(scope='untrained fixed synthetic inputs; no solve-quality or end-to-end conclusion',
++        device=device,repeats=repeats,batch_size=1,warmup=10,parameters=counts,rows=rows,
++        stack=server.stack(ROOT),resources=server.resource_limits(),
++        cuda_peak_allocated_combined_models_bytes=torch.cuda.max_memory_allocated() if device.startswith('cuda') else None)
++    write_json(HERE/'docs'/('benchmark-'+device.replace(':','-')+'.json'),result)
++    print(json.dumps(dict(parameters=counts,rows=[{k:v for k,v in r.items() if k!='samples_ms'} for r in rows]),indent=2))
++
++
++def model_rows(variant,seed):
++    c,run=protocol(variant);out=server.group_dir(run,'B0',seed)
++    actor=out/'actor_best.pt'
++    if not actor.exists():raise FileNotFoundError(actor)
++    path=run/'test'/'official66'/sha256(actor)[:16]/'selected_results.json'
++    rows=server.read(path)
++    names=server.read(ROOT/'migration/2026-10-22/server-run/test66.json')
++    expected={(n,s) for n in names for s in c['solver_seeds']}
++    if len(rows)!=len(expected) or {(r['instance_name'],r['solver_seed']) for r in rows}!=expected:
++        raise ValueError('Incomplete/duplicate final test coverage: '+str(path))
++    if any(not r.get('valid') for r in rows):raise ValueError('Failed runs must be resolved/reported, not dropped')
++    summary=server.read(out/'summary.json')
++    if summary['protocol_sha256']!=fingerprint(c) or summary['episodes_seen']!=c['max_episodes']:
++        raise ValueError('Training budget/protocol mismatch')
++    return rows,out
++
++
++def selection_manifest():
++    records=[];stacks=[]
++    for variant in VARIANTS:
++        c,run=protocol(variant)
++        for seed in c['training_seeds']:
++            out=server.group_dir(run,'B0',seed)
++            chosen=server.read(out/'selection.json');summary=server.read(out/'summary.json')
++            actor=out/'actor_best.pt';policy,payload=load_actor(actor)
++            if (payload['config']['server_protocol_sha256']!=fingerprint(c) or
++                payload['config']['use_transformer']!=c['use_transformer'] or
++                payload['config']['server_training_seed']!=seed or
++                summary['episodes_seen']!=c['max_episodes'] or
++                summary['protocol_sha256']!=fingerprint(c) or
++                chosen['protocol_sha256']!=fingerprint(c) or
++                payload['provenance']['checkpoint_sha256']!=chosen['checkpoint_sha256']):
++                raise ValueError('Selection/model/protocol mismatch: '+str(out))
++            records.append(dict(variant=variant,seed=seed,actor_sha256=sha256(actor),
++                selection_sha256=sha256(out/'selection.json'),protocol_sha256=fingerprint(c),
++                selected_episode=chosen['best']['episode']))
++            stacks.append(chosen['stack'])
++    if any(s!=stacks[0] for s in stacks):raise ValueError('Selections used different CPU/software')
++    return dict(models=records,stack=stacks[0])
++
++
++def freeze(verify=False):
++    path=ROOT/'tgppo/runs/transformer-ablation-20261027/frozen_selections.json'
++    current=selection_manifest()
++    if path.exists():
++        if server.read(path)!=current:raise ValueError('Frozen selections were modified')
++    elif verify:raise FileNotFoundError('Run freeze after all six development selections: '+str(path))
++    else:write_json(path,current)
++    return current
++
++
++def aggregate(rows,horizon):
++    times=[t*1000 for r in rows for t in r.get('inference_seconds',[])]
++    names={r['instance_name'] for r in rows}
++    return dict(solve_time=float(np.mean([r['end_to_end_wall_seconds'] for r in rows])),
++        worker_wall_seconds=float(np.mean([r.get('worker_wall_seconds',r['end_to_end_wall_seconds']) for r in rows])),
++        nodes=float(np.mean([r['nnodes'] for r in rows])),
++        fair_nodes=float(np.mean([r['fair_nodes'] for r in rows])),
++        pdi=float(np.mean([r['pdi_horizon_midpoint'] for r in rows])),
++        pdi_lower=float(np.mean([r['pdi_horizon_lower'] for r in rows])),
++        pdi_upper=float(np.mean([r['pdi_horizon_upper'] for r in rows])),
++        final_gap=float(np.mean([r['gap'] for r in rows])),
++        gap_unknown_count=sum(not r['gap_finite'] for r in rows),
++        solved=sum(bool(r['proof_completed']) and r['scip_solve_time']<=horizon for r in rows),
++        solved_instances=sum(all(r['proof_completed'] and r['scip_solve_time']<=horizon
++            for r in rows if r['instance_name']==n) for n in names),
++        timeouts=sum(r['status']=='timelimit' for r in rows),
++        inference_mean_ms=float(np.mean(times)) if times else None,
++        inference_p50_ms=float(np.percentile(times,50)) if times else None,
++        inference_p95_ms=float(np.percentile(times,95)) if times else None,
++        feature_seconds=float(np.mean([r['callback_seconds']['features'] for r in rows])),
++        callback_seconds=float(np.mean([r['callback_seconds']['callback'] for r in rows])))
++
++
++def report():
++    check_pair(); destination=HERE/'docs'; benchmark_path=destination/'benchmark-cpu.json'
++    counts=server.read(benchmark_path)['parameters'] if benchmark_path.exists() else None
++    records=[];missing=[];flat=[];stacks=[];history=[];stability=[]
++    for variant in VARIANTS:
++        c,run=protocol(variant)
++        for seed in c['training_seeds']:
++            try:
++                rows,out=model_rows(variant,seed)
++                stacks.append(server.read(out/'selection.json')['stack'])
++                records.append(dict(variant=variant,seed=seed,**aggregate(rows,c['time_limit'])))
++                flat.extend(dict(variant=variant,training_seed=seed,**r) for r in rows)
++                updates=server.read(out/'updates.json')
++                history.extend(dict(variant=variant,seed=seed,**u) for u in updates)
++                actual=[u for u in updates if u.get('updated')]
++                stability.append(dict(variant=variant,seed=seed,effective_updates=len(actual),
++                    finite_losses=all(np.isfinite(u[k]) for u in actual for k in ('actor_loss','critic_loss','entropy')),
++                    peak_gpu_allocated_bytes=max((u.get('peak_cuda_allocated_bytes',0) for u in updates),default=0),
++                    peak_gpu_reserved_bytes=max((u.get('peak_cuda_reserved_bytes',0) for u in updates),default=0)))
++            except FileNotFoundError as exc:missing.append(str(exc.filename or exc))
++    if stacks and any(s!=stacks[0] for s in stacks):raise ValueError('CPU/software differs across evaluated models')
++    summary=dict(complete=len(records)==6,completed_models=len(records),missing=missing,per_seed=records,
++                 parameters=counts,training_updates=history,training_stability=stability,paired_test_rows=flat)
++    if summary['complete']:
++        freeze(verify=True)
++        names=sorted({r['instance_name'] for r in flat});paired={};rng=np.random.RandomState(20261027)
++        for key,field in [('solve_time','end_to_end_wall_seconds'),('nodes','nnodes'),
++                          ('fair_nodes','fair_nodes'),('pdi','pdi_horizon_midpoint')]:
++            values={v:np.array([np.mean([r[field] for r in flat if r['variant']==v and r['instance_name']==n])
++                                for n in names]) for v in VARIANTS}
++            deltas=values['bimatching']-values['transformer']
++            boots=deltas[rng.randint(0,len(names),size=(5000,len(names)))].mean(1)
++            paired[key]=dict(mean_delta=float(deltas.mean()),bootstrap_95_low=float(np.percentile(boots,2.5)),
++                bootstrap_95_high=float(np.percentile(boots,97.5)),instances=len(names),
++                scope='instance-resampled paired interval conditional on these three training seeds')
++        summary['paired_instance_comparison']=paired
++    write_json(destination/'comparison.json',summary)
++    labels=[('Parameters (Actor)','actor'),('Parameters (Actor+Critic)','total'),
++        ('Inference Latency (ms)','inference_mean_ms'),('Inference P50 (ms)','inference_p50_ms'),
++        ('Inference P95 (ms)','inference_p95_ms'),('Solve Time (s)','solve_time'),
++        ('Worker wall incl. checkpoint load (s)','worker_wall_seconds'),('Nodes','nodes'),
++        ('Fair Nodes','fair_nodes'),('Primal-Dual Integral','pdi'),('Final Gap','final_gap'),
++        ('Solved Instances (all solver seeds; /66)','solved_instances'),
++        ('Solved runs (/198)','solved'),('Timeout runs','timeouts'),
++        ('Feature extraction per instance (s)','feature_seconds'),('Branch callback per instance (s)','callback_seconds')]
++    lines=['# Transformer 消融结果','',
++        '正式对照完成。' if summary['complete'] else '正式对照尚未完成；未测量项不能用于推断性能。',
++        '', '| Metric | Transformer + BiMatching | BiMatching Only | Relative Change |',
++        '|---|---:|---:|---:|']
++    for label,key in labels:
++        values=[]
++        for variant in VARIANTS:
++            if key in ('actor','total') and counts:
++                values.append(counts[variant]['actor'] if key=='actor' else sum(counts[variant].values()))
++            elif summary['complete']:
++                vals=[r[key] for r in records if r['variant']==variant]
++                values.append(float(np.mean(vals)) if all(v is not None for v in vals) else None)
++            else:values.append(None)
++        delta=100*(values[1]/values[0]-1) if None not in values and values[0]!=0 else None
++        fmt=lambda v:'未测量' if v is None else '{:.6g}'.format(v)
++        lines.append('| {} | {} | {} | {} |'.format(label,fmt(values[0]),fmt(values[1]),
++            '未测量' if delta is None else '{:+.2f}%'.format(delta)))
++    lines+=['','以实例为统计单位，先平均求解器种子，再按训练种子报告均值/样本标准差。',
++        'Solved Instances 为三个求解器种子都在时限内证明完成的不同实例数，Solved runs 为198次任务中的完成数。',
++        '超时全部保留；Final Gap 保留 SCIP sentinel，并同时报告未知 gap 数。PDI 为 percent-seconds，保留上下界。',
++        '纯网络延迟跨调用汇总，实际访问候选集合可能不同；固定输入微基准另见 benchmark-cpu.json。','']
++    if records:
++        lines+=['| Variant | Metric | Mean | SD across training seeds |','|---|---|---:|---:|']
++        for variant in VARIANTS:
++            for key in ('solve_time','nodes','fair_nodes','pdi','final_gap','solved','timeouts','inference_mean_ms','gap_unknown_count'):
++                values=[r[key] for r in records if r['variant']==variant and r[key] is not None]
++                if values:lines.append('| {} | {} | {:.6g} | {} |'.format(variant,key,np.mean(values),
++                    '{:.6g}'.format(statistics.stdev(values)) if len(values)>1 else '未测量'))
++    if summary['complete']:
++        lines+=['','| Paired metric (BM minus Transformer) | Mean delta | Instance bootstrap 95% interval |',
++                '|---|---:|---:|']
++        for key,r in summary['paired_instance_comparison'].items():
++            lines.append('| {} | {:.6g} | [{:.6g}, {:.6g}] |'.format(key,r['mean_delta'],r['bootstrap_95_low'],r['bootstrap_95_high']))
++        lines+=['','节点数必须结合超时、Gap/PDI和吞吐判断；相同时限下节点更少本身不等于策略更优。',
++            '本实验同时移除 Actor/Critic Transformer，参数容量及 encoder 内部归一化也减少；不能仅凭总结果归因于交互机制。']
++    if stability:
++        lines+=['','| Variant | Seed | Effective PPO updates | Finite losses | Peak GPU allocated (GiB) |',
++                '|---|---:|---:|---|---:|']
++        for row in stability:
++            lines.append('| {} | {} | {} | {} | {:.6g} |'.format(row['variant'],row['seed'],row['effective_updates'],
++                row['finite_losses'],row['peak_gpu_allocated_bytes']/1024**3))
++    (destination/'RESULTS.md').write_text('\n'.join(lines)+'\n')
++    if flat:
++        fields=['variant','training_seed','instance_name','solver_seed','status','valid','proof_completed',
++                'end_to_end_wall_seconds','nnodes','fair_nodes','pdi_horizon_midpoint','gap','gap_finite','inference_mean_ms']
++        with (destination/'per_instance.csv').open('w',newline='') as f:
++            writer=csv.DictWriter(f,fields,extrasaction='ignore');writer.writeheader();writer.writerows(flat)
++    print(json.dumps(dict(complete=summary['complete'],completed_models=len(records),missing=missing),indent=2))
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('command',choices=['preflight','online-check','benchmark','smoke','prepare','train','select','freeze','evaluate','report'])
++    parser.add_argument('variant',nargs='?',choices=VARIANTS)
++    parser.add_argument('seed',nargs='?',type=int,choices=[11,22,33])
++    parser.add_argument('--device',default='cpu');parser.add_argument('--repeats',type=int,default=30)
++    args=parser.parse_args();check_pair()
++    if args.command=='online-check':online_check();return
++    if args.command=='benchmark':benchmark(args.device,args.repeats);return
++    if args.command=='report':report();return
++    if args.command=='freeze':freeze();return
++    if args.command in ('prepare','smoke'):
++        lock_path=ROOT/'tgppo/runs/transformer-ablation-20261027'/('.'+args.command+'.lock')
++        lock_path.parent.mkdir(parents=True,exist_ok=True)
++        with lock_path.open('a') as lock:
++            fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
++            (prepare if args.command=='prepare' else smoke)()
++        return
++    if args.variant is None:parser.error('variant required')
++    c,run=protocol(args.variant)
++    if args.command=='preflight':
++        print(json.dumps(server.preflight(ROOT,c,args.device),indent=2));return
++    if args.seed is None:parser.error('training seed required')
++    # Both selection and evaluation use the same CPU/SCIP/software as normalization.
++    server.baseline_bundle(ROOT,c,run)
++    if args.command=='train':server.train(ROOT,c,run,'B0',args.seed,True,'cuda')
++    elif args.command=='select':
++        if (ROOT/'tgppo/runs/transformer-ablation-20261027/frozen_selections.json').exists():
++            freeze(verify=True)
++        else:server.select(ROOT,c,run,'B0',args.seed)
++    elif args.command=='evaluate':
++        freeze(verify=True)
++        out=server.group_dir(run,'B0',args.seed)
++        names=server.read(ROOT/'migration/2026-10-22/server-run/test66.json')
++        server.evaluate(ROOT,c,run,out/'actor_best.pt',ROOT/'tgppo/datasets/test_instances',
++                        names,'official66',args.seed)
++
++
++if __name__=='__main__':main()
+diff --git a/code/project/agent/agent.py b/code/project/agent/agent.py
+index 7086140..e160509 100644
+--- a/code/project/agent/agent.py
++++ b/code/project/agent/agent.py
+@@ -14,6 +14,7 @@ class ActorPolicy:
+         self.actor_network = actor_network.to(device)
+         self.device = device
+         self.last_actor_seconds = self.last_critic_seconds = 0.0
++        self.last_inference_seconds = 0.0
+ 
+     def _inputs(self, cands_state, mip_state, node_state, padding_mask=None):
+         cands, mip, node = [torch.as_tensor(x, dtype=torch.float32, device=self.device)
+@@ -38,7 +39,15 @@ class ActorPolicy:
+     def _act(self, inputs, deterministic):
+         cands, mip, node, mask = inputs
+         self.actor_network.eval()  # Also used during differentiable PPO recomputation.
++        # Forward-only latency, excluding feature conversion and action sampling.
++        # CUDA is asynchronous: host timers need synchronization on both sides.
++        if str(self.device).startswith('cuda'):
++            torch.cuda.synchronize(self.device)
++        forward_start = time.perf_counter()
+         probs = self.actor_network(cands, node, mip, mask)
++        if str(self.device).startswith('cuda'):
++            torch.cuda.synchronize(self.device)
++        self.last_inference_seconds = time.perf_counter() - forward_start
+         if not torch.isfinite(probs).all():
+             raise ValueError('Nonfinite action distribution')
+         dist = Categorical(probs)
+diff --git a/code/project/brancher/brancher.py b/code/project/brancher/brancher.py
+index 476cabf..8a16749 100644
+--- a/code/project/brancher/brancher.py
++++ b/code/project/brancher/brancher.py
+@@ -19,6 +19,8 @@ class Brancher(scip.Branchrule):
+         self.error = None
+         self.branch_count = self.callback_count = self.didnotrun_count = 0
+         self.episode_rewards = []
++        self.inference_samples = []
++        self.candidate_counts = []
+         self.times = {k: 0. for k in ('features', 'actor', 'critic', 'branch', 'callback')}
+ 
+     def _store_previous(self, terminal):
+@@ -72,6 +74,8 @@ class Brancher(scip.Branchrule):
+                 action, log_prob = self.agent.act(**state, deterministic=self.deterministic)
+             self.times['actor'] += self.agent.last_actor_seconds
+             self.times['critic'] += self.agent.last_critic_seconds
++            self.inference_samples.append(self.agent.last_inference_seconds)
++            self.candidate_counts.append(len(cands))
+             if not 0 <= action < len(cands):
+                 raise ValueError('Policy action out of range; no action-0 fallback')
+             begin = time.perf_counter()
+@@ -108,4 +112,12 @@ class Brancher(scip.Branchrule):
+                     didnotrun_count=self.didnotrun_count, fallback_action_count=0,
+                     native_fallback_possible=self.didnotrun_count > 0,
+                     reward_count=len(self.episode_rewards),
+-                    total_reward=sum(self.episode_rewards), callback_seconds=self.times.copy())
++                    total_reward=sum(self.episode_rewards), callback_seconds=self.times.copy(),
++                    inference_seconds=self.inference_samples.copy(),
++                    candidate_counts=self.candidate_counts.copy(),
++                    inference_mean_ms=(1000 * float(np.mean(self.inference_samples))
++                                       if self.inference_samples else None),
++                    inference_p50_ms=(1000 * float(np.percentile(self.inference_samples, 50))
++                                      if self.inference_samples else None),
++                    inference_p95_ms=(1000 * float(np.percentile(self.inference_samples, 95))
++                                      if self.inference_samples else None))
+diff --git a/code/project/environment/environment.py b/code/project/environment/environment.py
+index 25322ef..69ba8ce 100644
+--- a/code/project/environment/environment.py
++++ b/code/project/environment/environment.py
+@@ -81,6 +81,10 @@ class Environment:
+                     'Stage2 original features', priority=999999, maxdepth=-1, maxbounddist=1)
+             self.model.optimize()
+             info = solver_stats(self.model, self.cutoff_applied, self.cutoff_verified)
++            # The named rule has been registered in both native and policy modes.
++            # The custom binding dereferences it; never call with an absent name.
++            info['fair_nodes'] = int(self.model.getFairNNodes(
++                b'relpscost' if self.mode == 'native' else b'TreeGatePPO_Brancher'))
+             info.update(optimize_wall_seconds=time.perf_counter() - start,
+                         load_wall_seconds=self.load_wall_seconds, episode_id=self.episode_id,
+                         time_limit_seconds=self.scip_limits['time_limit'], mode=self.mode)
+@@ -111,4 +115,5 @@ class Environment:
+                 self.model.freeProb()
+             finally:
+                 self.model = self.brancher = None
++            info['end_to_end_wall_seconds'] = time.perf_counter() - start + self.load_wall_seconds
+         return info['valid'], info, info.get('total_reward', 0.)
+diff --git a/code/project/policy/actor.py b/code/project/policy/actor.py
+index 11f6965..654c73d 100644
+--- a/code/project/policy/actor.py
++++ b/code/project/policy/actor.py
+@@ -8,10 +8,11 @@ from .modules import BiMatchingNet, TreeGateBranchingNet
+ class Actor(nn.Module):
+     """Actor network for PPO that outputs action probabilities over candidate variables."""
+ 
+-    def __init__(self, var_dim, node_dim, mip_dim, hidden_dim, num_heads, num_layers, dropout):
++    def __init__(self, var_dim, node_dim, mip_dim, hidden_dim, num_heads, num_layers, dropout, use_transformer=True):
+         super().__init__()
+ 
+         self.hidden_dim = hidden_dim
++        self.use_transformer = use_transformer
+ 
+         self.var_embedding = nn.Sequential(
+             nn.LayerNorm(var_dim),
+@@ -44,6 +45,10 @@ class Actor(nn.Module):
+             depth=2,
+             hidden_size=hidden_dim,
+         )
++        # Consume exactly the upstream initialization RNG, keeping all retained
++        # weights paired across variants. Removed parameters are never optimized.
++        if not use_transformer:
++            self.transformer = None
+ 
+     def forward(self, cands_state_mat, node_state, mip_state, padding_mask=None):
+         batch_size, num_candidates, _ = cands_state_mat.shape
+@@ -63,7 +68,8 @@ class Actor(nn.Module):
+         else:
+             src_key_padding_mask = torch.zeros((batch_size, num_candidates), dtype=torch.bool, device=cands_state_mat.device)
+ 
+-        transformed_features = self.transformer(var_features, src_key_padding_mask=src_key_padding_mask)
++        transformed_features = (self.transformer(var_features, src_key_padding_mask=src_key_padding_mask)
++                                if self.use_transformer else var_features)
+         transformed_features = transformed_features.transpose(0, 1)  # [B, L, H]
+ 
+         refined_features = self.tree_refinement(tree_features, transformed_features, src_key_padding_mask)
+@@ -81,4 +87,4 @@ class Actor(nn.Module):
+         dist = Categorical(action_probs)
+         action = dist.sample()
+         log_prob = dist.log_prob(action)
+-        return action, log_prob, dist.entropy()
+\ No newline at end of file
++        return action, log_prob, dist.entropy()
+diff --git a/code/project/policy/critic.py b/code/project/policy/critic.py
+index fa682cb..5823f9f 100644
+--- a/code/project/policy/critic.py
++++ b/code/project/policy/critic.py
+@@ -8,9 +8,10 @@ from .modules import BiMatchingNet, TreeGateBranchingNet
+ class Critic(nn.Module):
+     """Critic network for PPO that estimates state values."""
+ 
+-    def __init__(self, var_dim, node_dim, mip_dim, hidden_dim, num_heads, num_layers, dropout):
++    def __init__(self, var_dim, node_dim, mip_dim, hidden_dim, num_heads, num_layers, dropout, use_transformer=True):
+         super().__init__()
+         self.hidden_dim = hidden_dim
++        self.use_transformer = use_transformer
+ 
+         self.var_embedding = nn.Sequential(
+             nn.LayerNorm(var_dim),
+@@ -48,6 +49,9 @@ class Critic(nn.Module):
+             depth=2,
+             hidden_size=hidden_dim,
+         )
++        # Keep retained initialization and subsequent PPO RNG paired with B0.
++        if not use_transformer:
++            self.transformer = None
+ 
+     def forward(self, cands_state_mat, node_state, mip_state, padding_mask=None):
+         batch_size, num_candidates, _ = cands_state_mat.shape
+@@ -60,7 +64,8 @@ class Critic(nn.Module):
+         else:
+             src_key_padding_mask = torch.zeros((batch_size, num_candidates), dtype=torch.bool, device=cands_state_mat.device)
+ 
+-        transformed_features = self.transformer(var_features, src_key_padding_mask=src_key_padding_mask)
++        transformed_features = (self.transformer(var_features, src_key_padding_mask=src_key_padding_mask)
++                                if self.use_transformer else var_features)
+         transformed_features = transformed_features.transpose(0, 1)  # [B, L, H]
+ 
+         tree_state = torch.cat([node_state, mip_state], dim=-1)
+diff --git a/code/project/runtime.py b/code/project/runtime.py
+index a5303d1..1ee0677 100644
+--- a/code/project/runtime.py
++++ b/code/project/runtime.py
+@@ -20,11 +20,17 @@ from project.utils.settings import state_dims, settings
+ from project.utils.protocol import (PROTOCOL_VERSION, baseline_identity, fingerprint,
+                                     validate_baseline, write_json)
+ 
+-DEFAULT_CONFIG = dict(hidden_dim=256, num_layers=5, num_heads=8, dropout=.05,
++DEFAULT_CONFIG = dict(hidden_dim=256, num_layers=5, num_heads=8, dropout=.05, use_transformer=True,
+     actor_lr=.00024, critic_lr=.00012, policy_clip=.16, entropy_weight=.003,
+     gamma=.97, gae_lambda=.92, batch_size=256, n_epochs=3,
+     reward_function='reward_h3')
+-ARCH_KEYS = ('hidden_dim', 'num_layers', 'num_heads', 'dropout')
++ARCH_KEYS = ('hidden_dim', 'num_layers', 'num_heads', 'dropout', 'use_transformer')
++
++
++def architecture(config):
++    # Old B0 checkpoints retain their exact serialized config/hash.
++    return dict(config['state_dims'], **{k: config.get(k, True) if k == 'use_transformer'
++                                        else config[k] for k in ARCH_KEYS})
+ PPO_KEYS = ('policy_clip', 'entropy_weight', 'gamma', 'gae_lambda', 'batch_size', 'n_epochs')
+ 
+ 
+@@ -46,6 +52,8 @@ def action_seed(training_seed, job_id):
+ 
+ def config_with_protocol(config):
+     result = dict(DEFAULT_CONFIG, **config)
++    if type(result['use_transformer']) is not bool:
++        raise ValueError('use_transformer must be a JSON boolean')
+     if result['reward_function'] != 'reward_h3':
+         raise ValueError('Stage2 freezes upstream H3')
+     result.update(state_dims=state_dims.copy(), protocol_version=PROTOCOL_VERSION,
+@@ -58,7 +66,7 @@ def build_agent(config, training=True, device=None):
+     device = device or (config.get("learner_device", "cpu") if training else "cpu")
+     if str(device).startswith("cuda") and not torch.cuda.is_available():
+         raise RuntimeError("CUDA learner requested but no CUDA device is available")
+-    arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
++    arch = architecture(config)
+     actor, critic = Actor(**arch), Critic(**arch)
+     agent_type = Agent
+     if 'online_group' in config:
+@@ -150,7 +158,7 @@ def load_agent(path, training=True, restore_random_state=True, device=None):
+ def load_actor(path):
+     payload = read_checkpoint(path, allow_actor_only=True)
+     config = payload['config']
+-    arch = dict(config['state_dims'], **{k: config[k] for k in ARCH_KEYS})
++    arch = architecture(config)
+     actor = Actor(**arch)  # This path never constructs a Critic or optimizer.
+     actor.load_state_dict(payload['actor'])
+     return ActorPolicy(actor), payload
+diff --git a/code/server.py b/code/server.py
+index 02b7523..4532f39 100644
+--- a/code/server.py
++++ b/code/server.py
+@@ -66,6 +66,8 @@ def stack(root):
+ def params(root,c,group,seed,device):
+     p=read(root/'tgppo/configs/paper_hparams.json')
+     if c.get('engineering_mode'):p.update(c.get('model_overrides',{}))
++    if 'use_transformer' in c:
++        p['use_transformer'] = c['use_transformer']
+     stats_path=root/'tgppo/runs/stage4-calibration/final_train_only_statistics.json'
+     stats=read(stats_path)
+     p.update(learner_device=device,server_group=group,server_training_seed=seed,
+@@ -380,7 +382,7 @@ def select(root,c,run,group,seed):
+         allrows[episode]=[r for r,_ in pairs]
+     best,scores=selection(allrows,c['development'],c['solver_seeds'])
+     chosen=out/('episode-{:04d}.pt'.format(best['episode']))
+-    write_json(out/'selection.json',dict(rule='minimum instance-equal dev mean 120s PDI; exact ties favor earlier episode',
++    write_json(out/'selection.json',dict(rule='minimum instance-equal dev mean {:g}s PDI; exact ties favor earlier episode'.format(c['time_limit']),
+         best=best,all_checkpoints=scores,selection_set='frozen development only',
+         selection_instances=c['development'],solver_seeds=c['solver_seeds'],training_seed=seed,
+         checkpoint_sha256=sha256(chosen),protocol_sha256=fingerprint(c),stack=stack_signature))
+@@ -411,7 +413,28 @@ def evaluate(root,c,run,actor,instances,names,label,training_seed,native=False):
+             j['sampling_seed']=action_seed(training_seed,'test-{}-s{}'.format(name,ss));jobs.append(j)
+     identity=dict(actor_sha256='relpscost-native' if native else sha256(actor),stack=stack(root),protocol=fingerprint(c),
+                   names=names,instance_hashes=hashes)
+-    pairs=cached_jobs(jobs,run/'test'/label/identity['actor_sha256'][:16],identity,c['workers'],c['watchdog'])
++    base=run/'test'/label/identity['actor_sha256'][:16]
++    exceptions=c.get('evaluation_resource_exceptions',{})
++    if exceptions:
++        # Preserve the previously diagnosed mspp16 resource repair in BOTH arms.
++        # Large instances run alone after ordinary jobs; solver time is unchanged.
++        pairs=[]
++        ordinary=[j for j in jobs if j['instance_name'] not in exceptions]
++        if ordinary:pairs+=cached_jobs(ordinary,base/'regular',identity,c['workers'],c['watchdog'])
++        for name,resource in exceptions.items():
++            selected=[dict(j,address_space_limit_bytes=resource['address_space_limit_bytes'])
++                      for j in jobs if j['instance_name']==name]
++            if not selected:continue
++            memory=resource_limits()['memory_limit_bytes']
++            if memory is not None and memory<resource['container_memory_min_bytes']:
++                raise RuntimeError('Container memory too small for '+name)
++            pairs+=cached_jobs(selected,base/name,dict(identity,resource_exception=resource),
++                               resource['workers'],resource['watchdog_seconds'])
++        pairs.sort(key=lambda pair:pair[0]['job_id'])
++        write_json(base/'identity.json',identity)
++        write_json(base/'selected_results.json',[row for row,_ in pairs])
++    else:
++        pairs=cached_jobs(jobs,base,identity,c['workers'],c['watchdog'])
+     write_json(run/'test'/label/(identity['actor_sha256'][:16]+'-summary.json'),dict(runs=len(pairs),
+         mean_pdi=float(np.mean([r['pdi_horizon_midpoint'] for r,_ in pairs])),
+         valid=sum(r['valid'] for r,_ in pairs),actor_sha256=identity['actor_sha256'],stack=identity['stack'],
+diff --git a/configs/bimatching-smoke.json b/configs/bimatching-smoke.json
+new file mode 100644
+index 0000000..3b6b0b5
+--- /dev/null
++++ b/configs/bimatching-smoke.json
+@@ -0,0 +1,51 @@
++{
++  "schema": "server-six-jobs-v1",
++  "date": "2026-10-27",
++  "authorization": "Independent Transformer ablation; user will launch Custom training jobs. No local MILP training.",
++  "groups": [
++    "B0"
++  ],
++  "training_seeds": [
++    11,
++    22,
++    33
++  ],
++  "max_episodes": 8,
++  "milestones": [
++    4,
++    8
++  ],
++  "batch_episodes": 4,
++  "workers": 2,
++  "solver_seeds": [
++    0
++  ],
++  "time_limit": 5.0,
++  "watchdog": 120.0,
++  "microbatch_size": 16,
++  "worker_address_space_bytes": 8589934592,
++  "learner_device": "cuda",
++  "expected_gpu": "V100",
++  "engineering_mode": true,
++  "run_directory": "tgppo/runs/transformer-ablation-20261027-smoke/bimatching",
++  "selection": "same five milestones; instance-equal development PDI; exact tie earliest",
++  "public_optimizer": "Adam (unchanged from accepted corrected mainline; not full AdamW paper reproduction)",
++  "baseline_label": "corrected original architecture under common 120s training protocol; not paper-scale performance reproduction",
++  "cpu_allocation_per_training_job": 8,
++  "ram_gib_per_training_job": 32,
++  "gpus_per_training_job": 1,
++  "slurm_walltime_template_hours": 24,
++  "validation_requirement": "target V100 bridge and representative cost pilot before six full jobs",
++  "stage6_started": false,
++  "use_transformer": false,
++  "experiment": "transformer-ablation-20261027",
++  "variant": "bimatching",
++  "evaluation_resource_exceptions": {
++    "mspp16": {
++      "address_space_limit_bytes": 25769803776,
++      "workers": 1,
++      "container_memory_min_bytes": 34359738368,
++      "watchdog_seconds": 300.0
++    }
++  }
++}
+diff --git a/configs/bimatching.json b/configs/bimatching.json
+new file mode 100644
+index 0000000..e4d9831
+--- /dev/null
++++ b/configs/bimatching.json
+@@ -0,0 +1,56 @@
++{
++  "schema": "server-six-jobs-v1",
++  "date": "2026-10-27",
++  "authorization": "Independent Transformer ablation; user will launch Custom training jobs. No local MILP training.",
++  "groups": [
++    "B0"
++  ],
++  "training_seeds": [
++    11,
++    22,
++    33
++  ],
++  "max_episodes": 500,
++  "milestones": [
++    100,
++    200,
++    300,
++    400,
++    500
++  ],
++  "batch_episodes": 4,
++  "workers": 4,
++  "solver_seeds": [
++    0,
++    1,
++    2
++  ],
++  "time_limit": 120.0,
++  "watchdog": 180.0,
++  "microbatch_size": 16,
++  "worker_address_space_bytes": 8589934592,
++  "learner_device": "cuda",
++  "expected_gpu": "V100",
++  "engineering_mode": false,
++  "run_directory": "tgppo/runs/transformer-ablation-20261027/bimatching",
++  "selection": "same five milestones; instance-equal development PDI; exact tie earliest",
++  "public_optimizer": "Adam (unchanged from accepted corrected mainline; not full AdamW paper reproduction)",
++  "baseline_label": "corrected original architecture under common 120s training protocol; not paper-scale performance reproduction",
++  "cpu_allocation_per_training_job": 8,
++  "ram_gib_per_training_job": 32,
++  "gpus_per_training_job": 1,
++  "slurm_walltime_template_hours": 24,
++  "validation_requirement": "target V100 bridge and representative cost pilot before six full jobs",
++  "stage6_started": false,
++  "use_transformer": false,
++  "experiment": "transformer-ablation-20261027",
++  "variant": "bimatching",
++  "evaluation_resource_exceptions": {
++    "mspp16": {
++      "address_space_limit_bytes": 25769803776,
++      "workers": 1,
++      "container_memory_min_bytes": 34359738368,
++      "watchdog_seconds": 300.0
++    }
++  }
++}
+diff --git a/configs/transformer-smoke.json b/configs/transformer-smoke.json
+new file mode 100644
+index 0000000..068e355
+--- /dev/null
++++ b/configs/transformer-smoke.json
+@@ -0,0 +1,51 @@
++{
++  "schema": "server-six-jobs-v1",
++  "date": "2026-10-27",
++  "authorization": "Independent Transformer ablation; user will launch Custom training jobs. No local MILP training.",
++  "groups": [
++    "B0"
++  ],
++  "training_seeds": [
++    11,
++    22,
++    33
++  ],
++  "max_episodes": 8,
++  "milestones": [
++    4,
++    8
++  ],
++  "batch_episodes": 4,
++  "workers": 2,
++  "solver_seeds": [
++    0
++  ],
++  "time_limit": 5.0,
++  "watchdog": 120.0,
++  "microbatch_size": 16,
++  "worker_address_space_bytes": 8589934592,
++  "learner_device": "cuda",
++  "expected_gpu": "V100",
++  "engineering_mode": true,
++  "run_directory": "tgppo/runs/transformer-ablation-20261027-smoke/transformer",
++  "selection": "same five milestones; instance-equal development PDI; exact tie earliest",
++  "public_optimizer": "Adam (unchanged from accepted corrected mainline; not full AdamW paper reproduction)",
++  "baseline_label": "corrected original architecture under common 120s training protocol; not paper-scale performance reproduction",
++  "cpu_allocation_per_training_job": 8,
++  "ram_gib_per_training_job": 32,
++  "gpus_per_training_job": 1,
++  "slurm_walltime_template_hours": 24,
++  "validation_requirement": "target V100 bridge and representative cost pilot before six full jobs",
++  "stage6_started": false,
++  "use_transformer": true,
++  "experiment": "transformer-ablation-20261027",
++  "variant": "transformer",
++  "evaluation_resource_exceptions": {
++    "mspp16": {
++      "address_space_limit_bytes": 25769803776,
++      "workers": 1,
++      "container_memory_min_bytes": 34359738368,
++      "watchdog_seconds": 300.0
++    }
++  }
++}
+diff --git a/configs/transformer.json b/configs/transformer.json
+new file mode 100644
+index 0000000..09888f5
+--- /dev/null
++++ b/configs/transformer.json
+@@ -0,0 +1,56 @@
++{
++  "schema": "server-six-jobs-v1",
++  "date": "2026-10-27",
++  "authorization": "Independent Transformer ablation; user will launch Custom training jobs. No local MILP training.",
++  "groups": [
++    "B0"
++  ],
++  "training_seeds": [
++    11,
++    22,
++    33
++  ],
++  "max_episodes": 500,
++  "milestones": [
++    100,
++    200,
++    300,
++    400,
++    500
++  ],
++  "batch_episodes": 4,
++  "workers": 4,
++  "solver_seeds": [
++    0,
++    1,
++    2
++  ],
++  "time_limit": 120.0,
++  "watchdog": 180.0,
++  "microbatch_size": 16,
++  "worker_address_space_bytes": 8589934592,
++  "learner_device": "cuda",
++  "expected_gpu": "V100",
++  "engineering_mode": false,
++  "run_directory": "tgppo/runs/transformer-ablation-20261027/transformer",
++  "selection": "same five milestones; instance-equal development PDI; exact tie earliest",
++  "public_optimizer": "Adam (unchanged from accepted corrected mainline; not full AdamW paper reproduction)",
++  "baseline_label": "corrected original architecture under common 120s training protocol; not paper-scale performance reproduction",
++  "cpu_allocation_per_training_job": 8,
++  "ram_gib_per_training_job": 32,
++  "gpus_per_training_job": 1,
++  "slurm_walltime_template_hours": 24,
++  "validation_requirement": "target V100 bridge and representative cost pilot before six full jobs",
++  "stage6_started": false,
++  "use_transformer": true,
++  "experiment": "transformer-ablation-20261027",
++  "variant": "transformer",
++  "evaluation_resource_exceptions": {
++    "mspp16": {
++      "address_space_limit_bytes": 25769803776,
++      "workers": 1,
++      "container_memory_min_bytes": 34359738368,
++      "watchdog_seconds": 300.0
++    }
++  }
++}
+diff --git a/custom_job.sh b/custom_job.sh
+new file mode 100644
+index 0000000..2853735
+--- /dev/null
++++ b/custom_job.sh
+@@ -0,0 +1,18 @@
++#!/usr/bin/env bash
++# Launch one command per Crater Custom job. All paths are on the shared volume.
++{
++set -euo pipefail
++ablation_launch_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++source "$ablation_launch_dir/env.sh"
++ablation_log_dir="$RESEARCH_ROOT/tgppo/runs/transformer-ablation-20261027/launcher-logs"
++mkdir -p "$ablation_log_dir"
++ablation_log_path=$(mktemp "$ablation_log_dir/$(date +%Y%m%dT%H%M%S)-XXXXXX.log")
++exec > >(tee -a "$ablation_log_path") 2>&1
++printf 'Command:'
++printf ' %q' "$@"
++printf '\nLog: %s\n' "$ablation_log_path"
++if [[ "${1:-}" == tests ]]; then
++  exec "$TGPPO_PYTHON" -m unittest discover -s "$ablation_launch_dir/tests" -p 'test_ablation*.py' -v
++fi
++exec "$TGPPO_PYTHON" "$ablation_launch_dir/code/ablation.py" "$@"
++}
+diff --git a/env.sh b/env.sh
+new file mode 100644
+index 0000000..07f3f80
+--- /dev/null
++++ b/env.sh
+@@ -0,0 +1,9 @@
++#!/usr/bin/env bash
++ablation_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++export RESEARCH_ROOT=${RESEARCH_ROOT:-$(cd -- "$ablation_dir/../../.." && pwd)}
++export TGPPO_PYTHON=${TGPPO_PYTHON:-/home/duweiyue25/conda/envs/tgppo/bin/python}
++export SCIPOPTDIR="$RESEARCH_ROOT/tgppo/solver"
++export LD_LIBRARY_PATH="$SCIPOPTDIR/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
++export PYTHONPATH="$RESEARCH_ROOT/tgppo/experiments/stage4/metrics_binding/src:$ablation_dir/code"
++export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
++export PYTHONUNBUFFERED=1 TZ=Asia/Shanghai
+diff --git a/plot_results.py b/plot_results.py
+new file mode 100644
+index 0000000..4a4c2b6
+--- /dev/null
++++ b/plot_results.py
+@@ -0,0 +1,43 @@
++"""Plot actual loss/reward histories with the separate reporting environment."""
++import argparse
++import json
++from pathlib import Path
++
++
++def main():
++    p=argparse.ArgumentParser(description=__doc__)
++    p.add_argument('--run-root',type=Path,default=Path(__file__).resolve().parents[2]/'runs/transformer-ablation-20261027')
++    p.add_argument('--output',type=Path,default=Path(__file__).resolve().parent/'docs/training-curves')
++    args=p.parse_args()
++    series=[]
++    for variant in ('transformer','bimatching'):
++        for seed in (11,22,33):
++            out=args.run_root/variant/'training'/('B0-s'+str(seed))
++            if not (out/'updates.json').exists():continue
++            updates=json.loads((out/'updates.json').read_text())
++            rows=[r for f in sorted(out.glob('collection/*/selected_results.json')) for r in json.loads(f.read_text())]
++            if any(not r.get('valid') for r in rows):raise ValueError('Invalid training episode')
++            series.append((variant,seed,updates,rows))
++    if not series:raise SystemExit('No actual training histories; no curves fabricated.')
++    import matplotlib
++    matplotlib.use('Agg')
++    import matplotlib.pyplot as plt
++    fig,axes=plt.subplots(2,3,figsize=(15,8),constrained_layout=True)
++    for variant,seed,updates,rows in series:
++        label=variant+'/s'+str(seed);style='-' if variant=='transformer' else '--'
++        color={11:'tab:blue',22:'tab:orange',33:'tab:green'}[seed]
++        for axis,key in zip(axes.flat[:4],('actor_loss','critic_loss','entropy','clip_fraction')):
++            samples=[u for u in updates if u.get('updated')]
++            axis.plot([u['episodes_seen'] for u in samples],[u[key] for u in samples],style,color=color,label=label)
++            axis.set_title(key);axis.set_xlabel('Completed episodes');axis.grid(alpha=.2)
++        axes.flat[4].plot(range(1,len(rows)+1),[r['total_reward'] for r in rows],style,color=color,label=label)
++        axes.flat[5].plot(range(1,len(rows)+1),[r['num_transitions'] for r in rows],style,color=color,label=label)
++    axes.flat[4].set_title('Episode total H3 reward');axes.flat[5].set_title('Episode transitions')
++    for axis in axes.flat[4:]:axis.set_xlabel('Completed episodes');axis.grid(alpha=.2)
++    axes.flat[0].legend(fontsize=8)
++    args.output.parent.mkdir(parents=True,exist_ok=True)
++    for suffix in ('.png','.pdf','.svg'):fig.savefig(args.output.with_suffix(suffix),dpi=180)
++    plt.close(fig)
++
++
++if __name__=='__main__':main()
+diff --git a/tests/test_ablation.py b/tests/test_ablation.py
+new file mode 100644
+index 0000000..c488ac0
+--- /dev/null
++++ b/tests/test_ablation.py
+@@ -0,0 +1,160 @@
++"""Architecture/gradient tests only; no MILP training jobs are launched."""
++import importlib.util
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++import numpy as np
++import torch
++from project.policy import Actor, Critic
++from project.agent.agent import ActorPolicy
++from project.runtime import (build_agent, config_with_protocol, seed_all,
++                             save_checkpoint, load_agent, load_actor)
++from project.utils.settings import state_dims
++import server
++
++ROOT = Path(__file__).resolve().parents[4]
++
++
++def config(flag=True, **extra):
++    return config_with_protocol(dict(use_transformer=flag, **extra))
++
++
++def inputs():
++    seed_all(19)
++    return (torch.randn(3, 7, 25), torch.randn(3, 8), torch.randn(3, 53),
++            torch.arange(7)[None, :] >= torch.tensor([1, 3, 7])[:, None])
++
++
++class AblationTests(unittest.TestCase):
++    def test_true_matches_original_parameters_and_forward_exactly(self):
++        c, n, m, mask = inputs()
++        for cls, name in ((Actor, 'actor'), (Critic, 'critic')):
++            spec = importlib.util.spec_from_file_location('project.policy.original_'+name,
++                ROOT / ('tgppo/repo/code/project/policy/'+name+'.py'))
++            module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
++            args = dict(state_dims, hidden_dim=256, num_heads=8, num_layers=5, dropout=.05)
++            seed_all(11); original = getattr(module, cls.__name__)(**args).eval()
++            seed_all(11); actual = cls(**args, use_transformer=True).eval()
++            self.assertEqual(original.state_dict().keys(), actual.state_dict().keys())
++            for key, value in original.state_dict().items():
++                self.assertTrue(torch.equal(value, actual.state_dict()[key]), key)
++            with torch.no_grad():
++                self.assertTrue(torch.equal(original(c,n,m,mask), actual(c,n,m,mask)))
++
++    def test_retained_weights_and_rng_are_paired_no_removed_parameters(self):
++        seed_all(11); a = build_agent(config(True)); rng = torch.get_rng_state()
++        seed_all(11); b = build_agent(config(False))
++        self.assertTrue(torch.equal(rng, torch.get_rng_state()))
++        for x, y in ((a.actor_network,b.actor_network),(a.critic_network,b.critic_network)):
++            self.assertIsNone(y.transformer)
++            self.assertFalse(any(isinstance(t, torch.nn.TransformerEncoder) for t in y.modules()))
++            self.assertFalse(any(k.startswith('transformer.') for k in y.state_dict()))
++            for key, value in y.state_dict().items():
++                self.assertTrue(torch.equal(value, x.state_dict()[key]), key)
++            self.assertLess(sum(p.numel() for p in y.parameters()), sum(p.numel() for p in x.parameters()))
++
++    def test_shapes_logits_probabilities_and_bimatching_interface(self):
++        c,n,m,mask = inputs()
++        for flag in (True,False):
++            a = build_agent(config(flag), training=False)
++            a.actor_network.eval(); a.critic_network.eval()
++            seen = {}
++            def raw_logits(module, args, output): seen['logits'] = output.detach()
++            def bm_input(module,args): seen['bm'] = args[1].detach()
++            handles = [a.actor_network.output_layer.register_forward_hook(raw_logits),
++                       a.actor_network.tree_refinement.register_forward_pre_hook(bm_input)]
++            with torch.no_grad():
++                p = a.actor_network(c,n,m,mask); v = a.critic_network(c,n,m,mask)
++                self.assertEqual(tuple(p.shape),(3,7)); self.assertEqual(tuple(v.shape),(3,1))
++                self.assertEqual(tuple(seen['logits'].shape),(3,7))
++                self.assertEqual(tuple(seen['bm'].shape),(3,7,256))
++                expected = torch.softmax(seen['logits'].masked_fill(mask,float('-inf')),dim=-1)
++                torch.testing.assert_close(p, expected)
++                torch.testing.assert_close(p.sum(-1), torch.ones(3))
++                self.assertTrue(torch.isfinite(p).all() and torch.isfinite(v).all())
++                self.assertTrue((p[mask]==0).all())
++                if not flag:
++                    actor = a.actor_network
++                    tree = actor.tree_embedding(torch.cat([n,m],-1))
++                    embedded = actor.global_embedding(torch.cat([
++                        actor.var_embedding(c),tree[:,None,:].expand(-1,7,-1)],-1))
++                    self.assertTrue(torch.equal(embedded,seen['bm']))
++            for h in handles:h.remove()
++
++    def test_padding_does_not_change_valid_outputs(self):
++        c,n,m,mask = inputs()
++        for flag in (True,False):
++            a = build_agent(config(flag), training=False)
++            for net in (a.actor_network,a.critic_network):
++                net.eval()
++                with torch.no_grad():
++                    batched = net(c,n,m,mask)
++                    altered = c.clone(); altered[mask] = 1e3
++                    torch.testing.assert_close(batched,net(altered,n,m,mask),rtol=2e-5,atol=2e-6)
++                    for i,length in enumerate([1,3,7]):
++                        single = net(c[i:i+1,:length],n[i:i+1],m[i:i+1])
++                        expected = batched[i:i+1,:length] if net is a.actor_network else batched[i:i+1]
++                        torch.testing.assert_close(single,expected,rtol=2e-5,atol=2e-6)
++
++    def test_candidate_permutation_and_original_index_correspondence(self):
++        c,n,m,mask = inputs(); permutation = torch.tensor([4,0,6,2,1,5,3])
++        a = build_agent(config(False), training=False)
++        for net in (a.actor_network,a.critic_network):
++            net.eval()
++            with torch.no_grad():
++                old = net(c,n,m,mask); new = net(c[:,permutation],n,m,mask[:,permutation])
++                expected = old[:,permutation] if net is a.actor_network else old
++                torch.testing.assert_close(new,expected,rtol=2e-5,atol=2e-6)
++                if net is a.actor_network:
++                    # Exclude ties from deterministic argmax correspondence.
++                    for row in (1,2):
++                        original_candidates = ['SCIP-variable-'+str(i) for i in range(7)]
++                        reordered = [original_candidates[i] for i in permutation]
++                        self.assertEqual(original_candidates[old[row].argmax()],reordered[new[row].argmax()])
++
++    def test_actor_critic_finite_nonzero_gradients_independently(self):
++        c,n,m,mask = inputs()
++        a = build_agent(config(False))
++        p = a.actor_network(c,n,m,mask)
++        (-p[1,0].log()-p[2,1].log()).backward()
++        self.assertTrue(all(p.grad is None for p in a.critic_network.parameters()))
++        for name in ('var_embedding','tree_embedding','global_embedding','tree_refinement','output_layer'):
++            gradients = [p.grad for p in getattr(a.actor_network,name).parameters()]
++            self.assertTrue(all(g is not None and torch.isfinite(g).all() for g in gradients),name)
++            self.assertGreater(sum(g.abs().sum().item() for g in gradients),0,name)
++        a.critic_network(c,n,m,mask).square().sum().backward()
++        for name in ('var_embedding','tree_embedding','tree_refinement','aggregation','value_head'):
++            gradients = [p.grad for p in getattr(a.critic_network,name).parameters()]
++            self.assertTrue(all(g is not None and torch.isfinite(g).all() for g in gradients),name)
++            self.assertGreater(sum(g.abs().sum().item() for g in gradients),0,name)
++
++    def test_empty_all_padding_nonfinite_rejected_by_policy(self):
++        policy = ActorPolicy(build_agent(config(False),training=False).actor_network)
++        s = dict(cands_state=np.zeros((3,25),np.float32),node_state=np.zeros(8,np.float32),mip_state=np.zeros(53,np.float32))
++        with self.assertRaisesRegex(ValueError,'Empty'):policy.act(**s,padding_mask=[True]*3)
++        with self.assertRaisesRegex(ValueError,'Empty'):policy.act(**dict(s,cands_state=np.zeros((0,25))))
++        with self.assertRaisesRegex(ValueError,'Nonfinite'):policy.act(**dict(s,cands_state=np.full((3,25),np.nan)))
++
++    def test_config_bool_checkpoint_and_actor_only_roundtrip(self):
++        with self.assertRaisesRegex(ValueError,'boolean'):config('false')
++        for flag in (True,False):
++            c = config(flag); seed_all(11); a = build_agent(c)
++            with tempfile.TemporaryDirectory() as d:
++                p = Path(d)/'checkpoint.pt'; save_checkpoint(p,a,c)
++                b, payload = load_agent(p)
++                self.assertEqual(b.actor_network.use_transformer,flag)
++                self.assertEqual(server.digest_actor(a.actor_network),server.digest_actor(b.actor_network))
++                with patch('project.runtime.Critic',side_effect=AssertionError('Critic constructed')):
++                    policy,_ = load_actor(p)
++                self.assertEqual(policy.actor_network.use_transformer,flag)
++                self.assertFalse(hasattr(policy,'critic_network'))
++
++    def test_legacy_b0_export_loads_with_default_true(self):
++        path = ROOT/'tgppo/runs/server6-20261022/training/B0-s11/actor_best.pt'
++        policy,payload = load_actor(path)
++        self.assertNotIn('use_transformer',payload['config'])
++        self.assertTrue(policy.actor_network.use_transformer)
++
++
++if __name__ == '__main__': unittest.main(verbosity=2)
+diff --git a/tests/test_ablation_protocol.py b/tests/test_ablation_protocol.py
+new file mode 100644
+index 0000000..df68815
+--- /dev/null
++++ b/tests/test_ablation_protocol.py
+@@ -0,0 +1,85 @@
++"""Protocol/summary checks; no solver collection or training."""
++import copy
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++import ablation
++import server
++from project.utils.protocol import write_json
++
++
++class ProtocolTests(unittest.TestCase):
++    def test_only_architecture_flag_and_output_labels_differ(self):
++        ablation.check_pair()
++        for variant in ablation.VARIANTS:
++            c,_=ablation.protocol(variant)
++            p=server.params(ablation.ROOT,c,'B0',11,'cpu')
++            self.assertNotIn('online_group',p)
++            self.assertEqual(p['hidden_dim'],256);self.assertEqual(p['batch_size'],256)
++            self.assertEqual(p['use_transformer'],variant=='transformer')
++        left,_=ablation.protocol('transformer');right,_=ablation.protocol('bimatching')
++        for seed in (11,22,33):self.assertEqual(server.schedule(seed,left),server.schedule(seed,right))
++
++    def test_confounded_config_is_rejected(self):
++        original=ablation.protocol
++        def changed(variant,smoke=False):
++            c,r=original(variant,smoke)
++            if variant=='bimatching':c['time_limit']=42.
++            return c,r
++        with patch.object(ablation,'protocol',changed):
++            with self.assertRaisesRegex(ValueError,'Unexpected experimental'):ablation.check_pair()
++
++    def test_timeouts_unknown_gaps_and_all_solver_seed_proof_count_are_preserved(self):
++        rows=[]
++        for name in ('a','b'):
++            for seed in (0,1,2):
++                solved=name=='a' or seed==0
++                rows.append(dict(instance_name=name,solver_seed=seed,proof_completed=solved,
++                    scip_solve_time=5. if solved else 120.1,status='infeasible' if solved else 'timelimit',
++                    inference_seconds=[.001,.003],end_to_end_wall_seconds=6. if solved else 121.,
++                    nnodes=100,fair_nodes=100,pdi_horizon_midpoint=10,pdi_horizon_lower=9,pdi_horizon_upper=11,
++                    gap=0. if solved else 1e20,gap_finite=solved,callback_seconds=dict(features=.1,callback=.3)))
++        result=ablation.aggregate(rows,120.)
++        self.assertEqual(result['solved_instances'],1)
++        self.assertEqual(result['solved'],4);self.assertEqual(result['timeouts'],2)
++        self.assertEqual(result['gap_unknown_count'],2)
++        self.assertGreater(result['solve_time'],40.)
++        self.assertGreater(result['final_gap'],1e19)
++        self.assertEqual(result['inference_mean_ms'],2.)
++
++    def test_missing_freeze_and_changed_frozen_model_are_rejected(self):
++        with tempfile.TemporaryDirectory() as d,patch.object(ablation,'ROOT',Path(d)):
++            current=dict(models=[dict(actor_sha256='original')],stack={})
++            with patch.object(ablation,'selection_manifest',return_value=current):
++                with self.assertRaises(FileNotFoundError):ablation.freeze(verify=True)
++                ablation.freeze();ablation.freeze(verify=True)
++            with patch.object(ablation,'selection_manifest',return_value=dict(current,models=[])):
++                with self.assertRaisesRegex(ValueError,'modified'):ablation.freeze(verify=True)
++
++    def test_mspp16_resource_repair_is_serial_and_keeps_solver_budget(self):
++        c,_=ablation.protocol('bimatching')
++        c.update(train=[],development=[],instance_hashes={})
++        calls=[]
++        def cached(jobs,base,identity,workers,watchdog):
++            calls.append((jobs,workers,watchdog))
++            return [(dict(job_id=j['job_id'],instance_name=j['instance_name'],solver_seed=j['solver_seed'],
++                valid=True,pdi_horizon_midpoint=1.,proof_completed=False,scip_solve_time=120.,nnodes=1,
++                callback_seconds=dict(critic=0.)),None) for j in jobs]
++        with tempfile.TemporaryDirectory() as d:
++            path=Path(d);actor=path/'actor.pt';actor.write_bytes(b'placeholder, loading is mocked')
++            for name in ('lseu','mspp16'):(path/(name+'.mps.gz')).write_bytes(name.encode())
++            with patch.object(server,'load_actor',return_value=(object(),dict(config=dict(server_training_seed=11,server_group='B0')))),\
++                 patch.object(server,'stack',return_value={'cpu':'same'}),\
++                 patch.object(server,'resource_limits',return_value=dict(memory_limit_bytes=32*1024**3)),\
++                 patch.object(server,'cached_jobs',side_effect=cached):
++                server.evaluate(ablation.ROOT,c,path/'run',actor,path,['lseu','mspp16'],'resources',11)
++            self.assertEqual([call[1] for call in calls],[4,1])
++            self.assertEqual([call[2] for call in calls],[180.,300.])
++            for job in calls[1][0]:
++                self.assertEqual(job['address_space_limit_bytes'],24*1024**3)
++                self.assertEqual(job['limits']['time_limit'],120.)
++            self.assertEqual(len(list((path/'run/test/resources').glob('*/selected_results.json'))),1)
++
++
++if __name__=='__main__':unittest.main(verbosity=2)
