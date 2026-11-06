@@ -1,0 +1,10 @@
+Command: train bimatching 33
+Log: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/launcher-logs/20261027T123344-tqR2mi.log
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/transformer-ablation-20261027/code/ablation.py", line 388, in <module>
+    if __name__=='__main__':main()
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/transformer-ablation-20261027/code/ablation.py", line 374, in main
+    server.baseline_bundle(ROOT,c,run)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/transformer-ablation-20261027/code/server.py", line 146, in baseline_bundle
+    raise ValueError('Baseline provenance differs from this CPU/software/protocol; remeasure on target')
+ValueError: Baseline provenance differs from this CPU/software/protocol; remeasure on target

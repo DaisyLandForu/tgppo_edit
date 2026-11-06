@@ -1,0 +1,58 @@
+{
+  "estimate_limit": "initial-policy twenty-instance cycle, includes restart overhead; later decision counts and queue delays can differ",
+  "gpu": "Tesla V100-SXM2-32GB",
+  "parent_protocol_sha256": "6c8ddaf875725c30e7e19ec4dca7ddd17ac1923e047b59aeadeb6254d1796260",
+  "passed": true,
+  "rows": [
+    {
+      "complete_ppo_updates": 5,
+      "episodes_seen": 20,
+      "estimated_100_episode_seconds": 4896.3393232098315,
+      "estimated_500_episode_seconds": 24481.696616049157,
+      "group": "B0",
+      "instances": [
+        "30n20b8",
+        "air04",
+        "air05",
+        "cod105",
+        "comp21-2idx",
+        "istanbul-no-cutoff",
+        "l152lav",
+        "lseu",
+        "misc03",
+        "neos20",
+        "neos21",
+        "neos648910",
+        "pp08aCUTS",
+        "rmatr100-p10",
+        "rmatr100-p5",
+        "rmatr200-p5",
+        "sp150x300d",
+        "stein27",
+        "supportcase7",
+        "swath1"
+      ],
+      "learner_update_wall_seconds": 157.59116822015494,
+      "observed_attempt_wall_seconds": 979.2678646419663,
+      "optimizer_steps": 147,
+      "passed": true,
+      "peak_cuda_allocated_bytes": 4249488384,
+      "peak_cuda_reserved_bytes": 5771362304,
+      "peak_worker_rss_kib": 1986888,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027/transformer/throughput/training/B0-s11",
+      "trained_episodes": 20,
+      "worker_cpu_seconds": 1819.6270029999998
+    }
+  ],
+  "scope": "separate engineering pilot, not any part of the six formal 500-episode budgets",
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  }
+}
