@@ -1,0 +1,11 @@
+{
+  "authorized": true,
+  "user_instruction": "CPU资源容易申请；同意拆成4个CPU作业，要求启动脚本",
+  "shards": 4,
+  "tasks_per_shard": 72,
+  "budget_seconds_per_shard": 3000,
+  "total_solver_tasks": 288,
+  "new_training": false,
+  "gpu": false,
+  "source_proposal_sha256": "e1ddf9f51c1d4b6eb10c4100238e9df86d224b150ac9a3f33abcfd9f7650ac35"
+}

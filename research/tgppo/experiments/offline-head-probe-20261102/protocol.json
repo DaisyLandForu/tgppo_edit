@@ -1,0 +1,47 @@
+{
+  "schema": "tgppo-offline-head-probe-v1",
+  "date": "2026-11-02",
+  "variants": [
+    "original",
+    "linear"
+  ],
+  "seeds": [
+    11,
+    22
+  ],
+  "source_checkpoint_episode": 100,
+  "logical_batch_size": 256,
+  "microbatch_size": 16,
+  "max_actor_steps": 20,
+  "actor_lr": 0.00024,
+  "ppo_clip": 0.16,
+  "entropy_weight": 0.003,
+  "gradient_clip": 0.5,
+  "head_initialization": "original intermediate head weights from ep100; zero final readout in both arms",
+  "optimizer_initialization": "fresh Adam in both arms; original full-Actor Adam moments are intentionally not reused",
+  "frozen_modules": [
+    "var_embedding",
+    "tree_embedding",
+    "global_embedding",
+    "transformer",
+    "tree_refinement",
+    "critic"
+  ],
+  "monitor_states": 164,
+  "initial_behavior_ratio_max_error": 0.0001,
+  "initial_pair_probability_atol": 1e-07,
+  "numerical_tv_screen": 1e-06,
+  "visible_nonuniform_context_only": 0.01,
+  "mean_training_kl_stop": 0.02,
+  "device": "cpu",
+  "torch_threads": 1,
+  "job_wall_seconds": 600,
+  "prepare_wall_seconds": 600,
+  "run_directory": "tgppo/runs/offline-head-probe-20261102",
+  "training_data": "accepted replay frozen batch, real complete-episode GAE; fixed batch reused for 20 head-only steps",
+  "selection": "no checkpoint selection; report all steps and fixed terminal step or explicit early stop",
+  "solver_tasks": 0,
+  "full_actor_updates": 0,
+  "critic_updates": 0,
+  "claim": "conditional head learnability, no candidate correctness/PDI/generalization claim"
+}

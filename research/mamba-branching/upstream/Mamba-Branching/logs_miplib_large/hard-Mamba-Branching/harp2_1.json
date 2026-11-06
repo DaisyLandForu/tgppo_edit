@@ -1,0 +1,20 @@
+{
+    "name": "harp2",
+    "policy": "TreeGate",
+    "llm": "mamba",
+    "seed": 1,
+    "nnodes": 330288,
+    "fair_nnodes": 330294,
+    "nnodes_left": 14445,
+    "nLP_iterations": 1680658,
+    "max_depth": 66,
+    "status": "timelimit",
+    "gap": 0.00012589947325714445,
+    "primal_bound": -73899798.0,
+    "dual_bound": -73909101.94564201,
+    "primaldualintegral": 46.30732414645542,
+    "scip_solve_time": 3600.055993,
+    "scip_presolve_time": 0.12336399999999999,
+    "opt_time_process": 3601.076554565,
+    "opt_time_wallclock": 3600.0560393333435
+}

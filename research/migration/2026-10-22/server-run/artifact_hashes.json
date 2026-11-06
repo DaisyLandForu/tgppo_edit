@@ -1,0 +1,266 @@
+{
+  "schema": 1,
+  "scope": "server preparation; no full training",
+  "files": {
+    "migration/2026-10-22/server-run/README.md": {
+      "sha256": "7aa9b9412967db6efcc4df999d6a5a683d5df35ddb70327fe9c6ba4eff5d0555",
+      "bytes": 10843
+    },
+    "migration/2026-10-22/server-run/baselines.sbatch": {
+      "sha256": "a9e7e39fd72ad97b3b205bfe7f9ba9b379309eaefd40c07ae3baca90b2fefbc8",
+      "bytes": 371
+    },
+    "migration/2026-10-22/server-run/bridge.sbatch": {
+      "sha256": "1f135fc1f8a1c14a58a45ea8c2e5298d94fdf6ed07e9322cceabc4d2404fbca0",
+      "bytes": 389
+    },
+    "migration/2026-10-22/server-run/env.sh": {
+      "sha256": "491498849c03258e4e7697306e41b86682b35b01bf89b656f23d08a067d658af",
+      "bytes": 822
+    },
+    "migration/2026-10-22/server-run/evaluate.sbatch": {
+      "sha256": "ef63a23f6b0f673466175d775443519b01fd99c6639aaeb2e2cfc8a8a44d8f1d",
+      "bytes": 1083
+    },
+    "migration/2026-10-22/server-run/gpu_bridge.sh": {
+      "sha256": "2542fbcdde451ef435ed7ee47f1ea00e2965489c769cdab11de618e4d652fb8c",
+      "bytes": 262
+    },
+    "migration/2026-10-22/server-run/local_cpu_preflight.json": {
+      "sha256": "a7a4fefc8eaaebda8a91211495c605cca5ffc03f25cac293790c5ad94ecdfcd9",
+      "bytes": 627
+    },
+    "migration/2026-10-22/server-run/protocol.json": {
+      "sha256": "6e1b13e97c103496cbed1d502f4d8ecc7c6bdfe7ef7d5741aea2aef02aedf13a",
+      "bytes": 1403
+    },
+    "migration/2026-10-22/server-run/run.sh": {
+      "sha256": "0750d929b9edefb0ac7433c23f7e79aa5e073b8f7c6e4e84283a2a9fc1c23af9",
+      "bytes": 260
+    },
+    "migration/2026-10-22/server-run/select.sbatch": {
+      "sha256": "9399bb9f9883149f052ddf9645c205bf12bfcbda279a90c3d9cf79d6b279fec1",
+      "bytes": 638
+    },
+    "migration/2026-10-22/server-run/server-tests-final.log": {
+      "sha256": "5e8b4992e12466286f69482812fc9172890dc4ef5c49b0531530440059c07c07",
+      "bytes": 1947
+    },
+    "migration/2026-10-22/server-run/server_complete.patch": {
+      "sha256": "3e36cf3553eda1dfb9d3a37966139ed9e737c80ad5b5f44a79369102d4f3cff7",
+      "bytes": 329918
+    },
+    "migration/2026-10-22/server-run/server_from_stage5.patch": {
+      "sha256": "f3d9f4ff02b39641e998df3db215eff9f18f39d19b33163d5cfb58a489cd2dce",
+      "bytes": 45467
+    },
+    "migration/2026-10-22/server-run/submit.sh": {
+      "sha256": "35eb517c9424d0bf1090cb3a6d2877a3287f2bf0dbe7adbcadafd4dca09bcf44",
+      "bytes": 692
+    },
+    "migration/2026-10-22/server-run/test66.json": {
+      "sha256": "6bde27223dd0fbb89d8f9d456678abed5fb1d03971da1229157fa42493b176d6",
+      "bytes": 972
+    },
+    "migration/2026-10-22/server-run/tests-final.log": {
+      "sha256": "42c6e815ae86f9928c5be5c5e7fa0ab1a0c9dd65fb63dacebf47b4876dd81121",
+      "bytes": 22233
+    },
+    "migration/2026-10-22/server-run/tests.log": {
+      "sha256": "3c7bdf9082e0091560508ae68a7b7a37d1e428c3764577254fd7ecf11ecb4eb1",
+      "bytes": 22553
+    },
+    "migration/2026-10-22/server-run/train.sbatch": {
+      "sha256": "497bbcd9670cf8638ad023bd1d89f14e974338b0c412898cbde43d0a8c538b6d",
+      "bytes": 729
+    },
+    "migration/2026-10-22/server-run/verification.json": {
+      "sha256": "469ab89b6bb0cf84348f151bff3f08618bc33b36570acf8e3511c827674caa85",
+      "bytes": 959
+    },
+    "tgppo/experiments/server-20261022/SERVER_TRAINING.md": {
+      "sha256": "65a0ce7ce9ddf2d15c1ee63f2b69fabcbd718a1281ac8e27e9e14aac3f795201",
+      "bytes": 1515
+    },
+    "tgppo/experiments/server-20261022/code/calibrate.py": {
+      "sha256": "7d4252b580081dff543635e26d201dafb201e806a2520f1f938d36224192caa2",
+      "bytes": 14685
+    },
+    "tgppo/experiments/server-20261022/code/experiment.py": {
+      "sha256": "8bd2cfa73509e3041e909c980fd23e012898c3adc48189c1f8dcf263a21a266f",
+      "bytes": 7432
+    },
+    "tgppo/experiments/server-20261022/code/prepare_baselines.py": {
+      "sha256": "ba647a34e8ba7220fec2c98b83122adb51e1d618bac8af8bc54a95d2e031c0a5",
+      "bytes": 160
+    },
+    "tgppo/experiments/server-20261022/code/project/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "tgppo/experiments/server-20261022/code/project/agent/__init__.py": {
+      "sha256": "3febf1777f68550ff6b9e3306e4a78055af83a88b9cf96b69e83dd97da688529",
+      "bytes": 24
+    },
+    "tgppo/experiments/server-20261022/code/project/agent/agent.py": {
+      "sha256": "06807c4a100205590268c138c94cabaee609cf717e6129761432bcd73bc54098",
+      "bytes": 12654
+    },
+    "tgppo/experiments/server-20261022/code/project/brancher/__init__.py": {
+      "sha256": "e9388adf1405b97bdcee03e6268f70bd90ea7d01c066c1a69b1081759241044d",
+      "bytes": 30
+    },
+    "tgppo/experiments/server-20261022/code/project/brancher/brancher.py": {
+      "sha256": "b33158f5654fb633cd4f7f69f6d46ad39c305b41b6627048b20b14207e34fb5f",
+      "bytes": 5535
+    },
+    "tgppo/experiments/server-20261022/code/project/environment/__init__.py": {
+      "sha256": "7121c60504d8910f7d0407a4f1ac4eb8ac902f844d991c93341eb9f619eb033e",
+      "bytes": 36
+    },
+    "tgppo/experiments/server-20261022/code/project/environment/environment.py": {
+      "sha256": "2031eaacdefa6c300b4e452c7d1a5b0a2585fc1c6d419c4707266c5828d5dba0",
+      "bytes": 6260
+    },
+    "tgppo/experiments/server-20261022/code/project/measurement.py": {
+      "sha256": "71e4376828dd17a9539f95527a59cfda428fdc3093d5f44a05f595ba92cb92df",
+      "bytes": 5623
+    },
+    "tgppo/experiments/server-20261022/code/project/memory/__init__.py": {
+      "sha256": "cecf700498408b25ac6654c03777507849ce86f626a92df785e524ccd62e855f",
+      "bytes": 26
+    },
+    "tgppo/experiments/server-20261022/code/project/memory/memory.py": {
+      "sha256": "36ccd7ba5eb3a19d9fc95d33d17976d8504d0b86ab57cff299c9310912fada25",
+      "bytes": 7339
+    },
+    "tgppo/experiments/server-20261022/code/project/online.py": {
+      "sha256": "425b7499fe9bcac01158e341f03e27b20512b58d1de63b8e7e5811405be763b9",
+      "bytes": 4146
+    },
+    "tgppo/experiments/server-20261022/code/project/policy/__init__.py": {
+      "sha256": "607d957ba97939c5793df6b8b103eea6c4cbeb735a369d63c9d1c4b43fa5b6bd",
+      "bytes": 51
+    },
+    "tgppo/experiments/server-20261022/code/project/policy/actor.py": {
+      "sha256": "463759ed2fa321c7ed509a8f624bcee96f9ae2c2dc8ab757a80be59a733db5d6",
+      "bytes": 3296
+    },
+    "tgppo/experiments/server-20261022/code/project/policy/calibrated_critic.py": {
+      "sha256": "6c609eaa57bbd8743a77439f2d7f26d4c14d5a1551e465b9a2d21dc29a3f2cfc",
+      "bytes": 2955
+    },
+    "tgppo/experiments/server-20261022/code/project/policy/critic.py": {
+      "sha256": "d1d8ecd86392f2b0c3a171be759e26f835aeeeaf06dd3d18da6a61cbd694a874",
+      "bytes": 2959
+    },
+    "tgppo/experiments/server-20261022/code/project/policy/modules.py": {
+      "sha256": "959605658df62563d6d8145eda28838c61eb0c592188a85caa275450b55344aa",
+      "bytes": 5412
+    },
+    "tgppo/experiments/server-20261022/code/project/policy/search_critic.py": {
+      "sha256": "7b9d7eb4d77ede08439f22aedc3ead8efab1b42e52b136f5076c3dac659832b9",
+      "bytes": 4764
+    },
+    "tgppo/experiments/server-20261022/code/project/reward/__init__.py": {
+      "sha256": "027265b8c99858416a57d6866ea0037c293d3c922a0354dddd5f5f7877b3e6ad",
+      "bytes": 48
+    },
+    "tgppo/experiments/server-20261022/code/project/reward/reward.py": {
+      "sha256": "51091ae1683367c8d2fdfb2c8cc202f4b5901795674b2327d16587a5f9dc9cd6",
+      "bytes": 11370
+    },
+    "tgppo/experiments/server-20261022/code/project/runtime.py": {
+      "sha256": "f58a9b7dab0a7a3def6d5cb3a543f6d5af0970d3142844d84e525484500f6dbc",
+      "bytes": 16797
+    },
+    "tgppo/experiments/server-20261022/code/project/search_features.py": {
+      "sha256": "62e6fa7f25ff7669921ea05941c77aca51cbe7eb36ad5d02699639d4d29da07b",
+      "bytes": 4176
+    },
+    "tgppo/experiments/server-20261022/code/project/utils/__init__.py": {
+      "sha256": "78c1d47b04755f9606bcdfbab65616ec194757cf3b5e3f944c31a5892d8cd61a",
+      "bytes": 259
+    },
+    "tgppo/experiments/server-20261022/code/project/utils/functions.py": {
+      "sha256": "e045c68b96d6e94ab7cd42ef5a21d583cb336f4e2cbb25ff41898993549bc9b5",
+      "bytes": 2834
+    },
+    "tgppo/experiments/server-20261022/code/project/utils/loggers.py": {
+      "sha256": "8a5970947ae351bb08c87269e84d5aa5d015e81020f8585fa61c7c8564a9689b",
+      "bytes": 4863
+    },
+    "tgppo/experiments/server-20261022/code/project/utils/protocol.py": {
+      "sha256": "9b0b2c9ff9112b8198557ccf8f761d56b1180b9fa0ebaaacbcccc062d2ddc07c",
+      "bytes": 3946
+    },
+    "tgppo/experiments/server-20261022/code/project/utils/settings.py": {
+      "sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+      "bytes": 5894
+    },
+    "tgppo/experiments/server-20261022/code/repair_pilot.py": {
+      "sha256": "76e207b62f8fd9019de2b9e0a3683fc89788a2fadb15bade587b0246ff3f2afe",
+      "bytes": 4225
+    },
+    "tgppo/experiments/server-20261022/code/server.py": {
+      "sha256": "cb70decb98d04b9d5c27fd578213a2fbb867ecc62b08d1b92cdd253900cf32e5",
+      "bytes": 23855
+    },
+    "tgppo/experiments/server-20261022/code/server_bridge.py": {
+      "sha256": "4ece640ad270069e70d76572418901b19c6bf11bbd8f5a34c407da18af9e4fe9",
+      "bytes": 3649
+    },
+    "tgppo/experiments/server-20261022/code/stage3.py": {
+      "sha256": "81028be2bd38ad7a527851b066316ec1926e5148432cdc2c59f5745e4367ead9",
+      "bytes": 13977
+    },
+    "tgppo/experiments/server-20261022/code/stage4.py": {
+      "sha256": "1ed83b4d2e2d03842104bcd43fde0647fbc14c8da42b3bd245652026607d3b5f",
+      "bytes": 21120
+    },
+    "tgppo/experiments/server-20261022/code/stage5.py": {
+      "sha256": "758c3e262bd9110953eb3c651e4823edcf96521fd00f27a1e7ebeee9a0e87642",
+      "bytes": 17361
+    },
+    "tgppo/experiments/server-20261022/code/test.py": {
+      "sha256": "b7f8f15a244ae2279b5d834a3b21b6e3ab05338004e046cc22a77bb6335e40df",
+      "bytes": 152
+    },
+    "tgppo/experiments/server-20261022/code/train.py": {
+      "sha256": "8734b6c5b61217d76cd200c8e657aec2533af94b919a02bb8d368725b440a735",
+      "bytes": 163
+    },
+    "tgppo/experiments/server-20261022/code/tune.py": {
+      "sha256": "4aa743f810c66310b3f92037ea06d6e355d37614d1e815b771b561d416de90d0",
+      "bytes": 29956
+    },
+    "tgppo/experiments/server-20261022/tests/test_calibration.py": {
+      "sha256": "9828120c1b01980b6900571462403b92d4aaacf1e73e5fea18bf0ec2c6d3d5cd",
+      "bytes": 3818
+    },
+    "tgppo/experiments/server-20261022/tests/test_correctness.py": {
+      "sha256": "21a4d5f2a857640c851b70d87bb2b76b675ba6129a20c4fa17dfd0982f37a74a",
+      "bytes": 18529
+    },
+    "tgppo/experiments/server-20261022/tests/test_measurement.py": {
+      "sha256": "769b0b5a11ea8726d01148f4b85214da4ee194aa2aa261f4fe747f1ff69f0a56",
+      "bytes": 2898
+    },
+    "tgppo/experiments/server-20261022/tests/test_microbatch.py": {
+      "sha256": "9197979edaf7a4bb48f6e9b9d77dcdbc3a5f9524881f7b8f8a2b25c379ce3792",
+      "bytes": 1756
+    },
+    "tgppo/experiments/server-20261022/tests/test_online.py": {
+      "sha256": "13c6a97794a827c28d5efbb18f9a61c752711382efb96409fae9c0b81450bc2c",
+      "bytes": 6410
+    },
+    "tgppo/experiments/server-20261022/tests/test_search_features.py": {
+      "sha256": "3fba1ed3408ffe64be5eb5a291c296ac940f3de4b7ce4f622e76bd749065f615",
+      "bytes": 9127
+    },
+    "tgppo/experiments/server-20261022/tests/test_server.py": {
+      "sha256": "48c4b0c09e26fa295ccfe8c28c814e0daae3040d14ad78e2b1348e6ee7841e87",
+      "bytes": 7591
+    }
+  }
+}

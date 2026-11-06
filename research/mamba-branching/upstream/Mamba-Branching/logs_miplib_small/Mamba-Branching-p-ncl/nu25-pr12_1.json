@@ -1,0 +1,20 @@
+{
+    "name": "nu25-pr12",
+    "policy": "TreeGate",
+    "llm": "mamba",
+    "seed": 1,
+    "nnodes": 1462,
+    "fair_nnodes": 1462,
+    "nnodes_left": 0,
+    "nLP_iterations": 25795,
+    "max_depth": 24,
+    "status": "infeasible",
+    "gap": 0.0,
+    "primal_bound": 53905.0,
+    "dual_bound": 1e+20,
+    "primaldualintegral": 38.03408694605257,
+    "scip_solve_time": 30.059169,
+    "scip_presolve_time": 0.291909,
+    "opt_time_process": 30.066433083999982,
+    "opt_time_wallclock": 30.05923557281494
+}

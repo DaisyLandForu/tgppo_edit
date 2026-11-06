@@ -1,0 +1,97 @@
+{
+  "status": "proposal_only_no_training_started",
+  "superseded_for_current_run_by": "migration/2026-10-22/server-run/protocol.json (B0/R0/Rjoint x seeds 11/22, six GPU jobs)",
+  "date": "2026-10-22",
+  "server_reported": {
+    "gpu": "multiple NVIDIA V100; count and VRAM not yet specified",
+    "cpu_and_ram": "requestable but prefer modest per-job allocations"
+  },
+  "observations": [
+    {
+      "group": "R0",
+      "episodes": 16,
+      "complete_ppo_updates": 4,
+      "trained_decisions": 12227,
+      "learner_update_cpu_seconds": 3258.655097,
+      "worker_cpu_seconds": 1175.807595,
+      "checkpoint_total_cpu_seconds": 4441.469197,
+      "projected_500_episode_total_cpu_core_hours": 38.554420112847225,
+      "projected_500_episode_update_cpu_hours": 28.286936605902778
+    },
+    {
+      "group": "Rprod",
+      "episodes": 16,
+      "complete_ppo_updates": 4,
+      "trained_decisions": 11391,
+      "learner_update_cpu_seconds": 2998.2214430000004,
+      "worker_cpu_seconds": 1177.838342,
+      "checkpoint_total_cpu_seconds": 4183.020101,
+      "projected_500_episode_total_cpu_core_hours": 36.31093837673611,
+      "projected_500_episode_update_cpu_hours": 26.02622780381945
+    }
+  ],
+  "scenario_assumptions": {
+    "episodes": 500,
+    "time_limit_seconds": 120,
+    "collection_batch_episodes": 4,
+    "collector_workers": 4,
+    "all_tasks_hit_solver_limit": true,
+    "gpu_update_speedups_are_unmeasured_hypotheses": [
+      2,
+      5,
+      10
+    ],
+    "same_per_episode_cpu_learning_work_as_first_16": true,
+    "excluded": "environment build, queue wait, baseline remeasurement, evaluation, variable trajectory growth, startup and stop-time overshoot"
+  },
+  "gpu_scenarios": [
+    {
+      "assumed_update_speedup": 2,
+      "solver_time_allowance_wall_hours": 4.166666666666667,
+      "update_wall_hours": 13.578291102430557,
+      "sum_hours_before_overheads": 17.744957769097223
+    },
+    {
+      "assumed_update_speedup": 5,
+      "solver_time_allowance_wall_hours": 4.166666666666667,
+      "update_wall_hours": 5.431316440972223,
+      "sum_hours_before_overheads": 9.597983107638889
+    },
+    {
+      "assumed_update_speedup": 10,
+      "solver_time_allowance_wall_hours": 4.166666666666667,
+      "update_wall_hours": 2.7156582204861115,
+      "sum_hours_before_overheads": 6.8823248871527785
+    }
+  ],
+  "proposed_training_targets": {
+    "checkpoints_episodes": [
+      100,
+      200,
+      300,
+      400,
+      500
+    ],
+    "complete_updates_at_500_if_four_nonempty_enough_episodes_per_update": 125,
+    "epochs_per_update": 3,
+    "baseline_and_groups": [
+      "B0",
+      "R0",
+      "Rprod",
+      "Rjoint"
+    ],
+    "training_seeds": [
+      11,
+      22,
+      33
+    ],
+    "jobs": 12,
+    "cpu_cores_per_job": 8,
+    "ram_gib_per_job": 32,
+    "gpu_per_job": 1,
+    "recommended_initial_max_concurrent_jobs": 4,
+    "unchanged_initial_time_limit_seconds": 120,
+    "paper_aligned_3600s_is_separate_protocol": true,
+    "gpu_path_not_implemented_or_verified": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "authorized": true,
+  "user_instruction": "全66实例；改为4个并行作业，平台仅剩160GB内存，单作业上限可提高",
+  "shards": 4,
+  "total_instances": 66,
+  "total_solver_tasks": 1188,
+  "model_tasks": 1056,
+  "native_tasks": 132,
+  "budget_seconds_per_shard": 14400,
+  "total_job_wall_cap_seconds": 57600,
+  "new_training": false,
+  "gpu": false,
+  "selection_sha256": "c38a3ba292e93af1e07fde7dd6f6ca23bf4e2bd4e472fef7e574f135cb146109",
+  "supersedes_unsubmitted_test16": true,
+  "aggregate_ram_gib": 128
+}

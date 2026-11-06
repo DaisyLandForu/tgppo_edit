@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "fixture_only": true,
+  "checks": [
+    "1188 unique tasks/four shards covering exactly66 instances",
+    "same-instance full method/native pairing",
+    "partial shards cannot rank models",
+    "complete matrix auto aggregation",
+    "native optional callback fields",
+    "zero-reference PDI ratios safe",
+    "common/no Actor split",
+    "heterogeneous CPU cohort reporting",
+    "missing/duplicate/action-RNG mismatch fail closed",
+    "negative method result remains complete",
+    "terminal supervisor required for final global report",
+    "concurrent duplicate lock",
+    "completed never restarts",
+    "mspp16 all18 tasks24GiB/single CPU and exceptions cannot leak",
+    "budget overrun cannot pass complete",
+    "incomplete reanalysis removes stale complete ranking",
+    "actual phase dispatcher serializes mspp16 and restores CPU affinity"
+  ],
+  "elapsed_seconds": 7.727970282081515,
+  "fixture_directory": "/tmp/tgppo-test66-check-372taixt",
+  "solver_tasks_executed": 0,
+  "real_training_episodes": 0,
+  "torch_imported": false
+}

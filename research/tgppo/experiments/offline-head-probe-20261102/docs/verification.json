@@ -1,0 +1,150 @@
+{
+  "schema": "tgppo-offline-head-probe-preparation-verification-v1",
+  "verified_at_utc": "2026-11-02T14:51:25.276212+00:00",
+  "status": "passed",
+  "scope": "scripts/configuration/cache preparation only; no four real fitting jobs launched or submitted",
+  "synthetic_tests": {
+    "count": 13,
+    "status": "passed",
+    "log": "docs/unit-tests.log",
+    "actual_source_updates": 0
+  },
+  "syntax": {
+    "bash": "passed",
+    "python_ast_files": 6,
+    "local_markdown_links": 20
+  },
+  "source_protection": {
+    "current_input_hashes_matched": 66,
+    "accepted_delivery_seals_matched": {
+      "docs/diagnostics/tgppo_20261102_ppo_replay/delivery_manifest.json": 49,
+      "docs/diagnostics/tgppo_20261102_signal_localization/delivery_manifest.json": 51
+    },
+    "frozen_model_copies_byte_identical": 2
+  },
+  "runtime_fingerprint": {
+    "files_matched": 12,
+    "protocol_canonical_sha256": "16f242b81abd4e43b942aa550d45c2a666dc2f058dd4e4a80f080e83a18b8629",
+    "prepared_manifest_sha256": "9db7bae43bf3605ec9d08d63e99b40da6ecb617f04b6fd18e096d1f5d6ded28b"
+  },
+  "preparation": {
+    "budget": {
+      "status": "completed",
+      "exit_code": 0,
+      "elapsed_seconds": 34.72178154531866,
+      "limit_seconds": 600,
+      "finished_at_utc": "2026-11-02T14:43:24.043055+00:00",
+      "job_id": null
+    },
+    "optimizer_steps": 0,
+    "new_solver_tasks": 0,
+    "cuda_initialized": false,
+    "repeat_command": "verified and skipped without recomputation",
+    "repeat_log": "launcher-logs/prepare-all-20261102T144934-ljgUEG.log",
+    "torch_version": "1.13.1+cu117",
+    "numpy_version": "1.24.4",
+    "caches": {
+      "11": {
+        "path": "prepared/seed-11.pt",
+        "sha256": "8a650a3e7050e6f4ed9d0af6e77fe2a14210cd031429a13a37d4c0e09f426c04",
+        "train_states": 256,
+        "monitor_states": 164,
+        "source_checkpoint_sha256": "e96c8afbb8af63607c0989e2b41972d84d0bf559a8fc047f2322803fc30600fa",
+        "paired_initialization_verified": true
+      },
+      "22": {
+        "path": "prepared/seed-22.pt",
+        "sha256": "9c7cd03c9c716937416b792c6ec20bb51a74b38951892f6a5e08a71e206d27fd",
+        "train_states": 256,
+        "monitor_states": 164,
+        "source_checkpoint_sha256": "49bb6916e2910da54e4120728a48b78895673bce663793d02cc5105c57c8016a",
+        "paired_initialization_verified": true
+      }
+    },
+    "initialization_checks": [
+      {
+        "seed": 11,
+        "variant": "original",
+        "source_ratio_max_error": 4.768372718899627e-07,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "trainable_parameters": 241315,
+        "initial_uniform_max_tv": 0.0
+      },
+      {
+        "seed": 11,
+        "variant": "linear",
+        "source_ratio_max_error": 4.768372718899627e-07,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "trainable_parameters": 257,
+        "initial_uniform_max_tv": 0.0
+      },
+      {
+        "seed": 22,
+        "variant": "original",
+        "source_ratio_max_error": 2.3841855067985307e-07,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "trainable_parameters": 241315,
+        "initial_uniform_max_tv": 0.0
+      },
+      {
+        "seed": 22,
+        "variant": "linear",
+        "source_ratio_max_error": 2.3841855067985307e-07,
+        "initial_ratio_max_error": 4.76837158203125e-07,
+        "trainable_parameters": 257,
+        "initial_uniform_max_tv": 0.0
+      }
+    ]
+  },
+  "preflight": {
+    "status": "passed",
+    "log": "launcher-logs/preflight-all-20261102T144725-cPFT0X.log"
+  },
+  "real_experiment_jobs": {
+    "status": {
+      "original-s11": {
+        "recorded_status": "not_started",
+        "live_lock_owned": false,
+        "committed_steps": 0,
+        "sealed": false
+      },
+      "linear-s11": {
+        "recorded_status": "not_started",
+        "live_lock_owned": false,
+        "committed_steps": 0,
+        "sealed": false
+      },
+      "original-s22": {
+        "recorded_status": "not_started",
+        "live_lock_owned": false,
+        "committed_steps": 0,
+        "sealed": false
+      },
+      "linear-s22": {
+        "recorded_status": "not_started",
+        "live_lock_owned": false,
+        "committed_steps": 0,
+        "sealed": false
+      }
+    },
+    "status_log": "launcher-logs/status-all-20261102T144725-YJ0WZb.log",
+    "job_directories_present": false,
+    "committed_optimizer_steps": 0,
+    "platform_jobs_submitted": 0
+  },
+  "custom_job_config": {
+    "jobs": 4,
+    "cpu_per_job": 1,
+    "memory_gib_per_job": 8,
+    "gpu_per_job": 0,
+    "max_head_steps_per_job": 20,
+    "wall_seconds_per_job": 600,
+    "platform_environment_verified": false
+  },
+  "limitations": [
+    "Target Custom execution and runtime not yet verified",
+    "Head-only standardized initialization and fresh Adam; not untouched B0 continuation",
+    "Linear head has fewer parameters; cannot uniquely attribute differences to LN2",
+    "No action-quality, solver performance or generalization results"
+  ]
+}

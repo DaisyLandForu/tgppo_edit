@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "status": "prepared_not_submitted",
+  "files": {
+    "CHECKS.json": "07c569f2c049d5bd62d890c322651fb3d55cedf3dace67580138316744a23b4f",
+    "analyze.py": "25ec72f923b3003b714484affe1029f11ad68c586fbd8aefadb4694e1d50f8c9",
+    "authorization.json": "e88b4fbfc74b7bbd83fbcb5278829060aab463b927fb39304d4a5138887fa00b",
+    "common.py": "9ed7e0c58c564a86f9069c0651d09897331cbcbcd584757e13a372d366a8f2f2",
+    "custom_job.sh": "03f2108798d996ee264bffe9b82ccfe73d5b0b0c389c98bf68300b073f9172cd",
+    "docs/CUSTOM_JOBS.md": "d6011d76e2cc7ac9156c58b66dd45161995a689ec9ea31c36679e0fb4e07254d",
+    "docs/PROTOCOL.md": "0a5e4062ac952d0290bb54890f50f24f63c0492218ca51e7147cff8210351885",
+    "docs/commands.txt": "959ca3ff868346cf00b402abb9b974331867b407591f4618a42df631f068cc8e",
+    "job.py": "e209ed2a6baa1dd19381b5d3cb05c5835546766407c403a97950ed0038971446",
+    "run.py": "315abd96cb156afb3ee8e8d1c462faef7a6875af78409446f2a9b11b879c2e76",
+    "selection.json": "e1ddf9f51c1d4b6eb10c4100238e9df86d224b150ac9a3f33abcfd9f7650ac35",
+    "tests/test_dispatch.py": "fe1c5ff872faca25a1359ef2221aa624ef6bbf61377ba740279f5469745690c1",
+    "worker.sh": "9617e9bfca96ed5ac6a84f2c7a17126e0f33c977e6649acb1f5083f2f3c3b8a1"
+  },
+  "external_inputs": {
+    "docs/methods/tgppo_light_actor_20261105/meeting_ready_20261106/CPU_EVAL_PROPOSAL.json": "e1ddf9f51c1d4b6eb10c4100238e9df86d224b150ac9a3f33abcfd9f7650ac35",
+    "docs/methods/tgppo_light_actor_20261105/meeting_ready_20261106/proposed_cpu_tasks.csv": "ad8562b599e4b1c4874ff1a1524447dbdd80ffa49b225cae68b3334fbb03c5ce",
+    "tgppo/experiments/light-actor-20261105/docs/release.json": "e340a2b50fe53f97bdb8ad5ea413f0efbbc419ff9d1c13b9c82346ae92d6de41",
+    "tgppo/runs/light-actor-20261105/cross-instance-8/manifest.json": "eb934fd9ff30e87f70988bc0ff21414d0995a2a2e44ef7eca576dcc54998cdec",
+    "docs/methods/tgppo_light_actor_20261105/continuation/cpu_refinalize_cached.py": "d0488512b457952226d100d12bdd37049419ae5066a990d84ded1859cddf074c",
+    "tgppo/experiments/candidate-residual-20261104/docs/protected_sources.json": "d4156ceb8526e595e1554b7ee9a16a7ee3e77a2487d6a317a3fe27725376bbc8",
+    "tgppo/datasets/cutoffs.json": "74de41414a15c7563c5a5332786385fccd0ba7207a016ace2706fe6a66f8d455"
+  },
+  "checks": "CHECKS.json;13 stdlib-only fixture checks;AST/bash syntax and approved288-grid equality",
+  "new_solver_tasks": 0,
+  "training_episodes": 0,
+  "gpu": false
+}

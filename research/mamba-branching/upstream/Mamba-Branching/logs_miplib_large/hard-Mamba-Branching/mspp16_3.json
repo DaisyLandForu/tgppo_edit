@@ -1,0 +1,20 @@
+{
+    "name": "mspp16",
+    "policy": "TreeGate",
+    "llm": "mamba",
+    "seed": 3,
+    "nnodes": 1752,
+    "fair_nnodes": 1752,
+    "nnodes_left": 268,
+    "nLP_iterations": 16371,
+    "max_depth": 54,
+    "status": "timelimit",
+    "gap": 0.05359179019384267,
+    "primal_bound": 363.0,
+    "dual_bound": 344.5357142857143,
+    "primaldualintegral": 43799.12941937878,
+    "scip_solve_time": 3600.128129,
+    "scip_presolve_time": 243.414194,
+    "opt_time_process": 3601.732480258999,
+    "opt_time_wallclock": 3600.1282517910004
+}

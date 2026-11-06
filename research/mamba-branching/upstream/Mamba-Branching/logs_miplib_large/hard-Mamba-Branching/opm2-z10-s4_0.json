@@ -1,0 +1,20 @@
+{
+    "name": "opm2-z10-s4",
+    "policy": "TreeGate",
+    "llm": "mamba",
+    "seed": 0,
+    "nnodes": 289,
+    "fair_nnodes": 289,
+    "nnodes_left": 177,
+    "nLP_iterations": 784499,
+    "max_depth": 84,
+    "status": "timelimit",
+    "gap": 0.39158289356190706,
+    "primal_bound": -33269.0,
+    "dual_bound": -46296.571285911086,
+    "primaldualintegral": 114450.98021970179,
+    "scip_solve_time": 3600.004535,
+    "scip_presolve_time": 38.767402,
+    "opt_time_process": 3601.7518565210003,
+    "opt_time_wallclock": 3600.004601240158
+}

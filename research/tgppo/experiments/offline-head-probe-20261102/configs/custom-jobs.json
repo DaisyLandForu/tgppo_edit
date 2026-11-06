@@ -1,0 +1,77 @@
+{
+  "kind": "manual Custom UI checklist; not a submission API",
+  "image": "existing scip image",
+  "shell": "bash",
+  "persistent_mount": "/home/duweiyue25",
+  "working_directory": "/home/duweiyue25/tgppo-transfer",
+  "prepare": {
+    "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh prepare",
+    "cpu": 1,
+    "memory_gib": 8,
+    "gpu": 0,
+    "platform_wall_minutes": 15
+  },
+  "preflight": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh preflight",
+  "jobs": [
+    {
+      "job_id": "original-s11",
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh run original-s11",
+      "cpu": 1,
+      "memory_gib": 8,
+      "gpu": 0,
+      "platform_wall_minutes": 15,
+      "compute_wall_limit_seconds": 600,
+      "head_step_limit": 20,
+      "depends_on": [
+        "prepare/preflight"
+      ]
+    },
+    {
+      "job_id": "linear-s11",
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh run linear-s11",
+      "cpu": 1,
+      "memory_gib": 8,
+      "gpu": 0,
+      "platform_wall_minutes": 15,
+      "compute_wall_limit_seconds": 600,
+      "head_step_limit": 20,
+      "depends_on": [
+        "prepare/preflight"
+      ]
+    },
+    {
+      "job_id": "original-s22",
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh run original-s22",
+      "cpu": 1,
+      "memory_gib": 8,
+      "gpu": 0,
+      "platform_wall_minutes": 15,
+      "compute_wall_limit_seconds": 600,
+      "head_step_limit": 20,
+      "depends_on": [
+        "prepare/preflight"
+      ]
+    },
+    {
+      "job_id": "linear-s22",
+      "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh run linear-s22",
+      "cpu": 1,
+      "memory_gib": 8,
+      "gpu": 0,
+      "platform_wall_minutes": 15,
+      "compute_wall_limit_seconds": 600,
+      "head_step_limit": 20,
+      "depends_on": [
+        "prepare/preflight"
+      ]
+    }
+  ],
+  "status": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh status",
+  "summarize": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/custom_job.sh summarize",
+  "parallel_resources": {
+    "cpu": 4,
+    "memory_gib": 32,
+    "gpu": 0
+  },
+  "note": "Only user submits these four head-only jobs. No SCIP/online/full-Actor training. Existing input cache must pass preflight."
+}

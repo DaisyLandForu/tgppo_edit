@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "fixture_directory": "/tmp/tgppo-curve-check-9t2yec1x",
+  "fixture_is_not_an_experiment": true,
+  "checks": [
+    "70-task canonical development matrix",
+    "complete aggregation from persistent JSON without raw/tmp",
+    "native fields optional",
+    "common-Actor/no-Actor separation",
+    "descriptive minimum checkpoint selection",
+    "missing-task fail-closed",
+    "duplicate-result fail-closed",
+    "concurrent Custom lock blocks worker launch",
+    "completed-attempt blocks worker launch"
+  ],
+  "training_steps": 0,
+  "solver_tasks_executed": 0,
+  "gpu": false,
+  "torch_imported": false
+}

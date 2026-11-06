@@ -1,0 +1,28 @@
+Mode=preflight Job=none Log=/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/offline-head-probe-20261102/launcher-logs/preflight-all-20261102T144725-cPFT0X.log
+{
+  "status": "passed",
+  "jobs": 4,
+  "device": "cpu",
+  "torch": "1.13.1+cu117",
+  "prepared_caches": {
+    "11": {
+      "path": "prepared/seed-11.pt",
+      "sha256": "8a650a3e7050e6f4ed9d0af6e77fe2a14210cd031429a13a37d4c0e09f426c04",
+      "train_states": 256,
+      "monitor_states": 164,
+      "source_checkpoint_sha256": "e96c8afbb8af63607c0989e2b41972d84d0bf559a8fc047f2322803fc30600fa",
+      "paired_initialization_verified": true
+    },
+    "22": {
+      "path": "prepared/seed-22.pt",
+      "sha256": "9c7cd03c9c716937416b792c6ec20bb51a74b38951892f6a5e08a71e206d27fd",
+      "train_states": 256,
+      "monitor_states": 164,
+      "source_checkpoint_sha256": "49bb6916e2910da54e4120728a48b78895673bce663793d02cc5105c57c8016a",
+      "paired_initialization_verified": true
+    }
+  },
+  "solver_tasks": 0,
+  "max_head_steps_per_job": 20,
+  "wall_limit_per_job": 600
+}

@@ -1,0 +1,36 @@
+Log: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/candidate-residual-20261104/launcher-logs/20261104T085944-cpu-flex-sSsVkj.log
+test_cpu_model_and_v100_variant_allowed_but_software_not_relaxed (test_cpu_flex.CpuFlexTests) ... ok
+test_cross_cpu_collection_cache_separation (test_cpu_flex.CpuFlexTests) ... ok
+test_existing_checkpoint_is_not_automatically_restarted (test_cpu_flex.CpuFlexTests) ... ok
+test_preflight_failure_retry_archives_failure_and_preserves_spent_budget (test_cpu_flex.CpuFlexTests) ... {
+  "status": "failed",
+  "variant": "candidate",
+  "seed": 11,
+  "attempts": [
+    {
+      "id": "old-attempt",
+      "started_epoch": 1.0,
+      "wall_seconds": 12.0
+    },
+    {
+      "id": "72dc6b5efd914a588490b945f21aad7b",
+      "started_epoch": 1793782787.0601702,
+      "wall_seconds": 0.0019431114196777344
+    }
+  ],
+  "protocol_sha256": "3773d9ed477234513ff3689633a6e7b46eb6eb58a076daf663b898264c884e8e",
+  "budget_seconds": 8400,
+  "error": "RuntimeError('test GPU unavailable')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/candidate-residual-20261104/code/experiment.py\", line 197, in run\n    info = server.preflight(ROOT, c, 'cuda')\n  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py\", line 1081, in __call__\n    return self._mock_call(*args, **kwargs)\n  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py\", line 1085, in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py\", line 1140, in _execute_mock_call\n    raise effect\nRuntimeError: test GPU unavailable\n",
+  "charged_wall_seconds": 12.001943111419678
+}
+Other GPU jobs pending; finalization will run after all six terminate.
+ok
+test_prepare_isolates_cpu_normalizers_and_keeps_canonical_checkpoints (test_cpu_flex.CpuFlexTests) ... ok
+test_training_package_and_checkpoint_protocol_stay_compatible (test_cpu_flex.CpuFlexTests) ... ok
+test_training_uses_context_without_relabeling_config_or_resetting_resume (test_cpu_flex.CpuFlexTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.061s
+
+OK

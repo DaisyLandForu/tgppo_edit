@@ -1,0 +1,28 @@
+{
+  "local_checks_passed": true,
+  "checks": {
+    "complete_patch_applies_to_pristine": true,
+    "incremental_patch_applies_to_stage5": true,
+    "all_50_local_tests_passed": true,
+    "all_shell_templates_parse": true,
+    "original_stage5_training_sources_preserved": true,
+    "upstream_network_reward_settings_preserved": true,
+    "pristine_repo_clean": true
+  },
+  "changed_source_files": [
+    "SERVER_TRAINING.md",
+    "code/project/agent/agent.py",
+    "code/project/runtime.py",
+    "code/server.py",
+    "code/server_bridge.py",
+    "tests/test_correctness.py",
+    "tests/test_measurement.py",
+    "tests/test_search_features.py",
+    "tests/test_server.py"
+  ],
+  "target_v100_verified": false,
+  "target_slurm_verified": false,
+  "formal_training_started": false,
+  "old_matrix_not_completed": true,
+  "deployment_scope": "Actor-only path under frozen controlled cutoff benchmark; extra datasets need compatible features and cutoff records"
+}

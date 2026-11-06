@@ -1,0 +1,22 @@
+test_aggregate_refuses_missing_jobs (test_head_probe.HeadProbeTests) ... ok
+test_corrupt_cache_rejected (test_head_probe.HeadProbeTests) ... ok
+test_duplicate_completed_job_does_not_launch (test_head_probe.HeadProbeTests) ... Already completed and verified; no new computation.
+ok
+test_failed_job_does_not_silently_reset_budget (test_head_probe.HeadProbeTests) ... ok
+test_four_configs_are_paired (test_head_probe.HeadProbeTests) ... ok
+test_fp64_adam_accumulation_equivalence (test_head_probe.HeadProbeTests) ... ok
+test_full_actor_cache_exact (test_head_probe.HeadProbeTests) ... ok
+test_guardian_enforces_timeout_and_reaps_child (test_head_probe.HeadProbeTests) ... ok
+test_guardian_forwards_platform_sigterm (test_head_probe.HeadProbeTests) ... ok
+test_microbatch_gradient_equivalence_fp32 (test_head_probe.HeadProbeTests) ... ok
+test_nonuniform_permutation_padding_and_mask (test_head_probe.HeadProbeTests) ... ok
+test_only_head_changes_and_checkpoint_step_cap (test_head_probe.HeadProbeTests) ... {"step": 0, "surrogate": -0.059999965131282806, "train_tv": 0.0, "monitor_tv": 0.0, "train_kl": 0.0}
+{"step": 1, "surrogate": -0.06074788421392441, "train_tv": 0.0003251358818242567, "monitor_tv": 0.00045291185593843153, "train_kl": 3.8201905580370424e-07}
+{"step": 2, "surrogate": -0.06149578094482422, "train_tv": 0.0006503090553123814, "monitor_tv": 0.000905860970293354, "train_kl": 1.528116056748977e-06}
+ok
+test_paired_uniform_initial_policy (test_head_probe.HeadProbeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.368s
+
+OK

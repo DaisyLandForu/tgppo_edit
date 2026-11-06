@@ -1,0 +1,27 @@
+{
+  "schema": "tgppo-offline-head-probe-package-v1",
+  "created_at_utc": "2026-11-02T14:51:25.287365+00:00",
+  "scope": "static scripts/configs/tests/docs; excludes mutable launcher logs and this manifest; prepared data has its own manifest",
+  "files": {
+    "README.md": "b2e8a5c868924f7cefff74f2d9522b1185db4a93e356e57969381332f9d32b78",
+    "code/common.py": "15b3671ac047c81b47a5118defd297824b5fc51bca10acc8b05192d5304b8fee",
+    "code/frozen_model/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code/frozen_model/actor.py": "463759ed2fa321c7ed509a8f624bcee96f9ae2c2dc8ab757a80be59a733db5d6",
+    "code/frozen_model/modules.py": "959605658df62563d6d8145eda28838c61eb0c592188a85caa275450b55344aa",
+    "code/runner.py": "1799944f61f74971c090ec5e17652916c5e2bcb98e45151aecad845e24bc9ffc",
+    "configs/custom-jobs.json": "0dd39eeafe3fd253a183049ba3b7b5e9693816f1bf816de7ef27c6d33065f042",
+    "configs/linear-s11.json": "b2e71cfec13588c6ade1a0b9bbd902c867ada14ea16e554b013634c175960be1",
+    "configs/linear-s22.json": "d4c2fdc1658213316945e0d7f5cb006b0d88191136124571c5520c78b67fb41c",
+    "configs/original-s11.json": "8ad1def75a244963e4565fb72360e2262bbbfca4f92ef6ac7c7739f5e6ec4a6a",
+    "configs/original-s22.json": "6ef6866a51fc29a63313163f76f60501f4766148003231628063f4223c447d6b",
+    "custom_job.sh": "0d77de74b34c704d344b1cdced5d6efb8905a39dd8b7c4dcf36c40a271439641",
+    "docs/CUSTOM_JOBS.md": "7486609b03bdfe52fe9ae0b7e86ec72e76594fa2c715936f7a7b983bbb7dbcfd",
+    "docs/NUMERICS.md": "c8470170c182b4e7493dfb5ecaa9c249ee4ddf24d488f07dab77a5df232c9354",
+    "docs/PREPARATION.md": "bba6a35a63c8cd00134f2a1e54f591e4e774bb95f7563a098a09b679ef32439c",
+    "docs/PROTOCOL.md": "8f94cce5d29c8321fdd19f2cd50348887fd1f1e0820a9ac72adb6f4ccf2cdf74",
+    "docs/unit-tests.log": "4631c92dd32190a5aaf13c80bad7afeb7512873ee3ef3be52108039808071941",
+    "docs/verification.json": "4c98e35e9eae0e001aa4373156b3d5403dad6e4876b53e9f77c7e256910fffef",
+    "protocol.json": "6bfe7fe3c38c08eb271c056011e780d3e9981c448a6d9c6ae22a8594a3781d79",
+    "tests/test_head_probe.py": "5d015d9e7670ff0115f01a5426eced6a63599b01cf1091f97caed00ce207b31c"
+  }
+}

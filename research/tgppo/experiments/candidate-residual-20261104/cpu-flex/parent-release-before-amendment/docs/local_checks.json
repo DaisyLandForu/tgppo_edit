@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "bundle_sha256": "e2067f6b725b7250b3cc204739ae712d1796c9c5cbb9ec89ea883c2256be3568",
+  "external_inputs": {
+    "tgppo/configs/paper_hparams.json": "1e30e28160e51c22d7afae1641e081738307bf3ed4f6cc240deb4d9823685edc",
+    "docs/stage1/protocol_draft.json": "761aa0f905a9a7a22f2aa53602e709e60e5879c7e47fa22925ad840086663eed",
+    "tgppo/datasets/cutoffs.json": "74de41414a15c7563c5a5332786385fccd0ba7207a016ace2706fe6a66f8d455",
+    "tgppo/runs/stage4-calibration/final_train_only_statistics.json": "6dd908c0de200f25837ee8c60e947bc2316a529f3c9bddd193d9ce06cb94295a"
+  },
+  "protected_sources_checked": 41,
+  "local_test_count": 11,
+  "final_test_run_wall_seconds": 9.267693908885121,
+  "gpu_training_executed": false,
+  "new_scip_solves": 0,
+  "paired_initialization_seeds": [
+    11,
+    22
+  ],
+  "scope": "production-size method equivalence, nonuniform invariance, CPU PPO/resume/export, automation and reporting fixtures; not method performance"
+}

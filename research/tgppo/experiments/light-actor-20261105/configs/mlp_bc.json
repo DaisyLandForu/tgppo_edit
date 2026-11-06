@@ -1,0 +1,71 @@
+{
+  "schema": "server-six-jobs-v1",
+  "date": "2026-11-05",
+  "authorization": "User requested three lightweight Actors with independent BC/PPO controls and manual parallel Custom submission.",
+  "groups": [
+    "B0"
+  ],
+  "training_seeds": [
+    11,
+    22
+  ],
+  "max_episodes": 100,
+  "milestones": [
+    20,
+    100
+  ],
+  "batch_episodes": 4,
+  "workers": 4,
+  "solver_seeds": [
+    0,
+    1,
+    2
+  ],
+  "time_limit": 120.0,
+  "watchdog": 180.0,
+  "microbatch_size": 16,
+  "worker_address_space_bytes": 8589934592,
+  "learner_device": "cuda",
+  "expected_gpu": null,
+  "engineering_mode": false,
+  "run_directory": "tgppo/runs/light-actor-20261105/mlp_bc",
+  "selection": "PPO fixed episode100; common20 only if all chosen jobs have20; BC internal heldout minimum macro normalized NLL",
+  "public_optimizer": "Adam (unchanged from accepted corrected mainline; not full AdamW paper reproduction)",
+  "baseline_label": "corrected original architecture under common 120s training protocol; not paper-scale performance reproduction",
+  "cpu_allocation_per_training_job": 4,
+  "ram_gib_per_training_job": 32,
+  "gpus_per_training_job": 1,
+  "slurm_walltime_template_hours": 4.25,
+  "validation_requirement": "CPU offline BC and latency; target synthetic CPU/CUDA PPO recovery; no extra online pilot",
+  "stage6_started": false,
+  "experiment": "light-actor-20261105",
+  "evaluation_solver_seeds": [
+    0,
+    1
+  ],
+  "gpu_job_budget_seconds": 8400,
+  "finalization_budget_seconds": 5400,
+  "local_preparation_compute_cap_seconds": 600,
+  "matrix_wall_budget_seconds": 140400,
+  "freeze_deadline": "2026-11-05T22:00:00+08:00",
+  "actor_width": 64,
+  "inducing_points": 8,
+  "expert_dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+  "bc_steps": 1000,
+  "bc_batch_size": 16,
+  "bc_lr": 0.001,
+  "bc_selection_milestones": [
+    0,
+    100,
+    200,
+    400,
+    600,
+    800,
+    1000
+  ],
+  "cpu_model_restriction": null,
+  "offline_gate_amendment": "400-step probes learn labels and improve top1 but all fail proposed normalized-NLL<=0.90. All three enter user-requested exploratory PPO; no generalization claim. Formal BC uses identical1000-step budget and predefined heldout selection.",
+  "actor_kind": "mlp",
+  "expert_pretraining": "bc",
+  "variant": "mlp_bc"
+}

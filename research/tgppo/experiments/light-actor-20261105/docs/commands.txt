@@ -1,0 +1,19 @@
+# Each non-comment line is ONE separate Custom job. 8 jobs per training seed.
+# training seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor b0 --pretrain none --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor b0 --pretrain bc --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor mlp --pretrain none --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor mlp --pretrain bc --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor set --pretrain none --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor set --pretrain bc --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor isab --pretrain none --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor isab --pretrain bc --seed 11
+# training seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor b0 --pretrain none --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor b0 --pretrain bc --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor mlp --pretrain none --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor mlp --pretrain bc --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor set --pretrain none --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor set --pretrain bc --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor isab --pretrain none --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/light-actor-20261105/custom_job.sh run --actor isab --pretrain bc --seed 22

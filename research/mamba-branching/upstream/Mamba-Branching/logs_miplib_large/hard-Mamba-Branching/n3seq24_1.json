@@ -1,0 +1,20 @@
+{
+    "name": "n3seq24",
+    "policy": "TreeGate",
+    "llm": "mamba",
+    "seed": 1,
+    "nnodes": 15894,
+    "fair_nnodes": 15894,
+    "nnodes_left": 4736,
+    "nLP_iterations": 2029828,
+    "max_depth": 289,
+    "status": "timelimit",
+    "gap": 0.0038461538461538464,
+    "primal_bound": 52200.0,
+    "dual_bound": 52000.0,
+    "primaldualintegral": 8717.520681992337,
+    "scip_solve_time": 3600.002466,
+    "scip_presolve_time": 27.721001,
+    "opt_time_process": 3600.983884337,
+    "opt_time_wallclock": 3600.002517223358
+}

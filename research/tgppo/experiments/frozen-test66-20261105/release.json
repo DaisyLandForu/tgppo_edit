@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "status": "prepared_not_submitted",
+  "files": {
+    "CHECKS.json": "6fdf68092eb94d5ae4b4b5dc16e88df6943492665443f3b982041cf574d4fa45",
+    "analyze.py": "f35eb8e2a69d643bd008d549f1ff3c8387e2020b21127c266d38016a17955558",
+    "authorization.json": "7d7841dbf1c9684050e9d495648da0b4f5412401e7f24e14ab665ec63dbd0dd5",
+    "common.py": "b766a1e8d8b85f74fc2b26163200000794382a220f4b82761e3161d158d887a3",
+    "custom_job.sh": "af6d9a7b5fa75154a636050e8c888a30c1665e7fd1ba3183b2ea739b399f23db",
+    "docs/CUSTOM_JOBS.md": "12bd9c19d67122a7f97d0c06619ede4d43f9773d536b7799faafa9b5b449f91c",
+    "docs/PROTOCOL.md": "a911665f2821cda37688d6521ddf749cf23844810639bee62f352f128a8ce37e",
+    "docs/commands.txt": "174ffe38a054c81a585f738feef566726dd249db4f961c064f0db665cec1fb0a",
+    "docs/shards.csv": "03824f68c96123b566390349919b452eec1878e3e67f482277a91b7e911ce9bf",
+    "docs/tasks.csv": "294e23dbafe81e27ce3a573ec164db2a2bbef64413ef501817dae14efec28bf2",
+    "job.py": "152fbd5fd9a963b1950d1ce6e1d38cee01365ccdaf39e328e9882d2a30092773",
+    "run.py": "17d227cd0d759c0d2adf69e6f4e0cab958b210a3206f4ff7f25d923ac2609286",
+    "selection.json": "c38a3ba292e93af1e07fde7dd6f6ca23bf4e2bd4e472fef7e574f135cb146109",
+    "tests/test_dispatch.py": "66639ad1bf8c0c36392e0eef0d56536b09cba5e046771b13a8592e7f3314f3a2",
+    "worker.sh": "26338dc5d4480211159e24de6d4ae71c172365205716555926e3eaa3e2ec9cc8"
+  },
+  "external_inputs": {
+    "migration/2026-10-22/server-run/test66.json": "6bde27223dd0fbb89d8f9d456678abed5fb1d03971da1229157fa42493b176d6",
+    "migration/2026-10-22/server-run/mspp16-recovery/README.md": "a48f06011c22933b7bf17d0862217a041e992022957d53075d29e7a1738914af",
+    "tgppo/experiments/light-actor-20261105/docs/release.json": "e340a2b50fe53f97bdb8ad5ea413f0efbbc419ff9d1c13b9c82346ae92d6de41",
+    "tgppo/runs/light-actor-20261105/cross-instance-8/manifest.json": "eb934fd9ff30e87f70988bc0ff21414d0995a2a2e44ef7eca576dcc54998cdec",
+    "docs/methods/tgppo_light_actor_20261105/continuation/cpu_refinalize_cached.py": "d0488512b457952226d100d12bdd37049419ae5066a990d84ded1859cddf074c",
+    "tgppo/experiments/candidate-residual-20261104/docs/protected_sources.json": "d4156ceb8526e595e1554b7ee9a16a7ee3e77a2487d6a317a3fe27725376bbc8",
+    "tgppo/datasets/cutoffs.json": "74de41414a15c7563c5a5332786385fccd0ba7207a016ace2706fe6a66f8d455",
+    "tgppo/experiments/frozen-test16-20261105/custom_job.sh": "28bc0dd806da2e405665983e96d3d9a13512c3eec9f26ab7d3211df161190bf3",
+    "tgppo/experiments/frozen-test16-20261105/docs/CUSTOM_JOBS.md": "7c893ad3d0cde27a0ac859e1e23ce140c2e4470185adf97d399df717ec7d0d06"
+  },
+  "checks": "CHECKS.json;17 fixture groups incl actual serial-phase dispatcher;AST/bash syntax;exact66/no train-dev overlap/cutoffs;1188 paired identities;4 commands;128GiB allocation",
+  "new_solver_tasks": 0,
+  "training_episodes": 0,
+  "gpu": false
+}
