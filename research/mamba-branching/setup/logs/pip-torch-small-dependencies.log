@@ -1,0 +1,19 @@
+Collecting sympy==1.12
+  Downloading sympy-1.12-py3-none-any.whl.metadata (12 kB)
+Collecting networkx==3.2.1
+  Downloading networkx-3.2.1-py3-none-any.whl.metadata (5.2 kB)
+Collecting jinja2==3.1.4
+  Downloading jinja2-3.1.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting mpmath>=0.19 (from sympy==1.12)
+  Downloading mpmath-1.4.1-py3-none-any.whl.metadata (9.1 kB)
+Requirement already satisfied: MarkupSafe>=2.0 in /home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages (from jinja2==3.1.4) (3.0.4)
+Downloading sympy-1.12-py3-none-any.whl (5.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.7/5.7 MB 114.6 kB/s  0:00:46
+Downloading networkx-3.2.1-py3-none-any.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 130.0 kB/s  0:00:12
+Downloading jinja2-3.1.4-py3-none-any.whl (133 kB)
+Downloading mpmath-1.4.1-py3-none-any.whl (567 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 567.8/567.8 kB 144.6 kB/s  0:00:04
+Installing collected packages: networkx, mpmath, jinja2, sympy
+
+Successfully installed jinja2-3.1.4 mpmath-1.4.1 networkx-3.2.1 sympy-1.12

@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "task": {
+    "id": "mine-166-5-s1",
+    "instance": "mine-166-5",
+    "solver_seed": 1
+  },
+  "hardware": {
+    "host": "sg-duweiyue25-261029-a6299-default0-0",
+    "cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+    "cgroup": {
+      "cpu.max": "401000 100000",
+      "memory.max": "17180917760"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+    "gpu": "NVIDIA A100-SXM4-40GB"
+  },
+  "started_utc": "20261029T083221.745439Z",
+  "selection_sha256": "d9615596fb7c2e49d4381025dccfded90411f72102f2b9b29be59b290649a3bf",
+  "cutoff": -566395707.9,
+  "policies": {
+    "relpscost": {
+      "solver_status": "infeasible",
+      "nodes": 13,
+      "fair_nodes": 185,
+      "nodes_left": 0,
+      "gap": 0.0,
+      "primal_bound": -566395707.9,
+      "dual_bound": 1e+20,
+      "solutions": 0,
+      "primal_dual_integral": 602.7100477656426,
+      "scip_seconds": 28.480593,
+      "wall_seconds": 28.481060298043303,
+      "cutoff_proof_without_incumbent": true
+    },
+    "mamba": {
+      "solver_status": "infeasible",
+      "nodes": 45,
+      "fair_nodes": 161,
+      "nodes_left": 0,
+      "gap": 0.0,
+      "primal_bound": -566395707.9,
+      "dual_bound": 1e+20,
+      "solutions": 0,
+      "primal_dual_integral": 605.3056292404412,
+      "scip_seconds": 29.281911,
+      "wall_seconds": 29.28212878399063,
+      "cutoff_proof_without_incumbent": true,
+      "branch_calls": 38,
+      "branch_count": 22
+    }
+  }
+}

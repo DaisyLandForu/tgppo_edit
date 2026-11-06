@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_torch_dependencies.py", line 86, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_torch_dependencies.py", line 26, in main
+    metadata = json.load(response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+                 ^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 495, in read
+    s = self._safe_read(self.length)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 642, in _safe_read
+    data = self.fp.read(amt)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 1251, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 1103, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out

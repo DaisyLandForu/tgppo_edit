@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "profile": "formal",
+  "description": "MILP-S, single training seed 0; full 475 expert trajectories",
+  "instances": [
+    "air04",
+    "air05",
+    "dcmulti",
+    "eil33-2",
+    "istanbul-no-cutoff",
+    "l152lav",
+    "lseu",
+    "misc03",
+    "neos20",
+    "neos21",
+    "neos-476283",
+    "neos648910",
+    "pp08aCUTS",
+    "rmatr100-p10",
+    "rmatr100-p5",
+    "sp150x300d",
+    "stein27",
+    "swath1",
+    "vpm2"
+  ],
+  "solver_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "prefixes": [
+    0,
+    1,
+    5,
+    10,
+    15
+  ],
+  "collection": {
+    "time_limit_seconds": 3600,
+    "node_limit": -1
+  },
+  "training": {
+    "seed": 0,
+    "cl_epochs": 50,
+    "il_epochs": 50,
+    "batch_size": 32,
+    "sequence_states": 100,
+    "cl_microbatch": 32,
+    "il_microbatch": 1,
+    "gradient_clip": 1.0,
+    "checkpoint_every_updates": 25,
+    "epoch_provenance": "CL50/IL50 are official main.py defaults, not fully specified by the paper",
+    "selection": "minimum seed-4 validation CL loss; then minimum seed-4 trajectory-sum IL NLL; ties keep earliest epoch",
+    "cl_sample_cap": null,
+    "cl_sample_cap_provenance": "All collected eligible training states; upstream default max_clip_samples=200000 was not specified in the paper",
+    "phase_initialization": "seed 0 for CL; seed 100000 for IL; sampler has a separate saved NumPy generator",
+    "gradient_clip_provenance": "global norm 1.0 in upstream main.py; applied after logical-batch gradient accumulation"
+  },
+  "evaluation": {
+    "instances": [
+      "map18",
+      "mine-166-5",
+      "neos11",
+      "neos18",
+      "ns1830653",
+      "nu25-pr12",
+      "rail507",
+      "seymour1"
+    ],
+    "solver_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "time_limit_seconds": 3600,
+    "node_limit": -1,
+    "cutoff": true
+  }
+}

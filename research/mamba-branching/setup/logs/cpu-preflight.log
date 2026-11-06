@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/preflight.py", line 56, in branchexeclp
+    candidates, positions, features = self.model.getCandsState(25, len(evidence) + 1)
+  File "src/pyscipopt/scip.pyx", line 5341, in pyscipopt.scip.Model.getCandsState
+TypeError: only length-1 arrays can be converted to Python scalars
+Exception ignored in: 'pyscipopt.scip.PyBranchruleExeclp'
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/preflight.py", line 56, in branchexeclp
+    candidates, positions, features = self.model.getCandsState(25, len(evidence) + 1)
+  File "src/pyscipopt/scip.pyx", line 5341, in pyscipopt.scip.Model.getCandsState
+TypeError: only length-1 arrays can be converted to Python scalars
+[branch.c:1590] ERROR: Error <0> in function call
+[branch.c:2569] ERROR: Error <0> in function call
+[scip_branch.c:1241] ERROR: Error <0> in function call
+[cons_integral.c:106] ERROR: Error <0> in function call
+[cons.c:3454] ERROR: Error <0> in function call
+[solve.c:3404] ERROR: Error <0> in function call
+[solve.c:4311] ERROR: Error <0> in function call
+[solve.c:4993] ERROR: Error <0> in function call
+[scip_solve.c:2782] ERROR: Error <0> in function call
+{
+  "status": "failed",
+  "report": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/preflight/cpu-20261027T120641.599191Z.json",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/preflight.py\", line 168, in main\n    report[\"checks\"] = cpu_check() if args.mode == \"cpu\" else gpu_check()\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/preflight.py\", line 80, in cpu_check\n    model.optimize()\n  File \"src/pyscipopt/scip.pyx\", line 3244, in pyscipopt.scip.Model.optimize\n  File \"src/pyscipopt/scip.pyx\", line 237, in pyscipopt.scip.PY_SCIP_CALL\nException: SCIP: unspecified error!\n"
+}

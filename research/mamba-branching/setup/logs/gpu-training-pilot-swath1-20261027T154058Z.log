@@ -1,0 +1,12 @@
+{"check": "source", "result": {"trajectory": "runs/collection-pilot/20261027T153907.790810Z/data.pkl", "sha256": "9ffd04d05c29204c134bb34f28c33ad53849a05d2a2b098f4bd2d62d83c890e3", "samples": 264, "instance": "swath1", "solver_seed": 0}}
+Creating an h5 file...
+	Processing data.pkl, 1 of 1...
+finished!
+{"check": "hdf5_pipeline", "result": {"raw_states": 264, "eligible_states": 264, "upstream_single_candidate_filter": 0, "sequence_lengths": [100, 100, 64], "hdf5_sha256": "7c249482bb42006c4e8ffb67b87702c22392efb4d0ed0cbecd3cdea9e9c682a2"}}
+{"check": "cl_padding_invariance", "result": {"passed": true, "loss_difference": 0.0}}
+{"check": "contrastive_update", "result": {"loss": -0.11739517003297806, "gradient_tensors_checked": 14, "seconds": 0.048317639040760696, "peak_allocated_mib": 18.3427734375, "peak_reserved_mib": 24.0}}
+{
+  "status": "failed",
+  "report": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/gpu-training-pilot/20261027T154100.815683Z/report.json",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 265, in main\n    torch.testing.assert_close(a, b, rtol=1e-4, atol=1e-6)\n  File \"/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/torch/testing/_comparison.py\", line 1520, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 1 / 2048 (0.0%)\nGreatest absolute difference: 2.86102294921875e-06 at index (7, 14) (up to 1e-06 allowed)\nGreatest relative difference: 0.0010662875138223171 at index (7, 14) (up to 0.0001 allowed)\n"
+}

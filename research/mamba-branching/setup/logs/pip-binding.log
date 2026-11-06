@@ -1,0 +1,57 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Processing ./research/mamba-branching/setup/PySCIPOpt-4.3.0-features
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [38 lines of output]
+      warning: src/pyscipopt/scip.pyx:3194:8: Unreachable code
+      
+      Error compiling Cython file:
+      ------------------------------------------------------------
+      ...
+          def getFairNNodes(self, brancher_name):
+              """Returns the number of fair nodes for the specified branching rule.
+      
+              :param brancher_name: str, name of the branching rule
+              """
+              brancher = SCIPfindBranchrule(self._scip, brancher_name.encode('utf-8') if isinstance(brancher_name, str) else brancher_name)
+                                                       ^
+      ------------------------------------------------------------
+      
+      src/pyscipopt/scip.pyx:5085:50: Unsafe C derivative of temporary Python reference used in conditional expression
+      warning: src/pyscipopt/scip.pyx:5253:38: Index should be typed for more efficient access
+      Using include path /usr/local/scip-8.0.4/include.
+      Using SCIP library scip at /usr/local/scip-8.0.4/lib.
+      
+      Compiling src/pyscipopt/scip.pyx because it changed.
+      [1/1] Cythonizing src/pyscipopt/scip.pyx
+      Traceback (most recent call last):
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 389, in <module>
+          main()
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 373, in main
+          json_out["return_val"] = hook(**hook_input["kwargs"])
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 175, in prepare_metadata_for_build_wheel
+          return hook(metadata_directory, config_settings)
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/setuptools/build_meta.py", line 366, in prepare_metadata_for_build_wheel
+          self.run_setup()
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/setuptools/build_meta.py", line 311, in run_setup
+          exec(code, locals())
+        File "<string>", line 104, in <module>
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/Cython/Build/Dependencies.py", line 1115, in cythonize
+          cythonize_one(*args)
+        File "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/Cython/Build/Dependencies.py", line 1238, in cythonize_one
+          raise CompileError(None, pyx_file)
+      Cython.Compiler.Errors.CompileError: src/pyscipopt/scip.pyx
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> from file:///home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/PySCIPOpt-4.3.0-features
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.

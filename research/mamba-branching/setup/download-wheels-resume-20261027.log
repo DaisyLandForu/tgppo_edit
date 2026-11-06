@@ -1,0 +1,57 @@
+Downloading torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 819181811 bytes
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 8 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 16 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 24 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 32 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 40 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 48 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 49 / 49
+Ready torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl
+Traceback (most recent call last):
+  File "/home/duweiyue25/miniforge3/lib/python3.12/urllib/request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 1338, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 1384, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 1093, in _send_output
+    self.send(msg)
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 1037, in send
+    self.connect()
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 1479, in connect
+    self.sock = self._context.wrap_socket(self.sock,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 1041, in _create
+    self.do_handshake()
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1010)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_wheels.py", line 82, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_wheels.py", line 25, in main
+    with opener.open(urllib.request.Request(url, method="HEAD"), timeout=30) as response:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/urllib/request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/urllib/request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/urllib/request.py", line 1392, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/urllib/request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1010)>

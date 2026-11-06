@@ -1,0 +1,13 @@
+{"check": "source", "result": {"trajectory": "runs/collection-pilot/20261027T153211.404250Z/data.pkl", "sha256": "968233b111aea3d709c4d5b779f7eddde3d08e3eccd5e214370548a5b9385cd2", "samples": 145, "instance": "lseu", "solver_seed": 0}}
+{"check": "cl_padding_invariance", "result": {"passed": true, "loss_difference": 0.0}}
+{"check": "contrastive_update", "result": {"loss": -0.03626321256160736, "gradient_tensors_checked": 14, "seconds": 0.04988362698350102, "peak_allocated_mib": 18.44580078125, "peak_reserved_mib": 24.0}}
+{"check": "il_padding_invariance", "result": {"passed": true, "candidate_padding": 7, "unequal_state_lengths": [8, 3], "solo_vs_batch": "passed"}}
+{"check": "capacity_shape", "result": {"batch_size": 32, "states_per_sequence": 100, "unique_windows": 1, "repeated_for_memory_test": true, "candidate_min": 1, "candidate_max": 21, "tokens_per_sequence": 889, "dtype": "float32", "candidate_truncation": false}}
+{"check": "full_batch_update", "result": {"loss": 1.861777901649475, "gradient_tensors_checked": 24, "seconds": 0.11425086401868612, "peak_allocated_mib": 172.71728515625, "peak_reserved_mib": 194.0}}
+{"check": "fixed_data_resume", "result": {"passed": true, "next_loss": 2.383723020553589, "checkpoint_loaded_exactly": true, "embedding_after_update": {"bitwise_equal": false, "max_absolute_difference": 2.9802322387695312e-08, "rtol": 1e-05, "atol": 1e-07}, "sequence_after_update": {"bitwise_equal": false, "max_absolute_difference": 1.4901161193847656e-08, "rtol": 1e-05, "atol": 1e-07}, "optimizer_after_update": {"bitwise_equal": false, "max_absolute_difference": 2.9103830456733704e-11, "rtol": 1e-05, "atol": 1e-07}, "rng_draws_and_next_window": "exact", "checkpoint_sha256": "ad9108865af60ab8a4305d0f653e3ac3c5b0c74244f614dae304ee2f8629198d", "scope": "controlled pilot replay, not full formal multi-epoch resume"}}
+{"check": "scip_gpu_inference", "result": {"instance": "misc03", "split": "train", "cutoff": null, "root_relpscost_steps": 1, "history_steps": 24, "deque_groups": 49, "neural_calls": 23, "max_position_id": 23, "max_tokens": 727, "branch_count": 24, "nodes": 46, "status": "optimal", "gap": 0.0, "primal_bound": 3360.0, "dual_bound": 3360.0, "seconds": 0.8667236850596964, "peak_allocated_mib": 27.1201171875, "peak_reserved_mib": 194.0}}
+{
+  "status": "passed",
+  "report": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/gpu-training-pilot/20261027T153514.460877Z/report.json",
+  "error": null
+}

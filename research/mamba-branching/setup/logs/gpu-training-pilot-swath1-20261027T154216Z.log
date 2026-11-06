@@ -1,0 +1,16 @@
+{"check": "source", "result": {"trajectory": "runs/collection-pilot/20261027T153907.790810Z/data.pkl", "sha256": "9ffd04d05c29204c134bb34f28c33ad53849a05d2a2b098f4bd2d62d83c890e3", "samples": 264, "instance": "swath1", "solver_seed": 0}}
+Creating an h5 file...
+	Processing data.pkl, 1 of 1...
+finished!
+{"check": "hdf5_pipeline", "result": {"raw_states": 264, "eligible_states": 264, "upstream_single_candidate_filter": 0, "sequence_lengths": [100, 100, 64], "hdf5_sha256": "7c249482bb42006c4e8ffb67b87702c22392efb4d0ed0cbecd3cdea9e9c682a2"}}
+{"check": "cl_padding_invariance", "result": {"passed": true, "loss_difference": 0.0}}
+{"check": "contrastive_update", "result": {"loss": -0.11739517003297806, "gradient_tensors_checked": 14, "seconds": 0.04285844799596816, "peak_allocated_mib": 18.3427734375, "peak_reserved_mib": 24.0}}
+{"check": "il_padding_invariance", "result": {"passed": true, "candidate_padding": 7, "unequal_state_lengths": [8, 3], "solo_vs_batch": "passed", "loss_difference": 0.0, "gradient_max_abs_difference": 6.103515625e-05, "gradient_comparison": "per-state scale; rtol=1e-4, atol=1e-6"}}
+{"check": "causality", "result": {"passed": true, "changed_action_step": 3, "current_and_prior_logits_unchanged": true}}
+{"check": "capacity_shape", "result": {"batch_size": 32, "states_per_sequence": 100, "unique_windows": 1, "repeated_for_memory_test": true, "candidate_min": 2, "candidate_max": 27, "tokens_per_sequence": 932, "dtype": "float32", "candidate_truncation": false}}
+{"check": "full_batch_update", "result": {"loss": 2455.9658203125, "gradient_tensors_checked": 24, "seconds": 0.0563386760186404, "peak_allocated_mib": 194.63134765625, "peak_reserved_mib": 262.0}}
+{
+  "status": "failed",
+  "report": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/gpu-training-pilot/20261027T154219.034976Z/report.json",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 345, in main\n    optimizer_diff = compare_state(optimizer.state_dict(), optimizer2.state_dict())\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 88, in compare_state\n    visit(left, right)\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 81, in visit\n    visit(a[key], b[key])\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 81, in visit\n    visit(a[key], b[key])\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 81, in visit\n    visit(a[key], b[key])\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 76, in visit\n    torch.testing.assert_close(a, b, rtol=rtol, atol=atol)\n  File \"/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/torch/testing/_comparison.py\", line 1520, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 2 / 3904 (0.1%)\nGreatest absolute difference: 1.1920928955078125e-07 at index (2, 45) (up to 1e-07 allowed)\nGreatest relative difference: 0.000194889769772999 at index (2, 45) (up to 1e-05 allowed)\n"
+}

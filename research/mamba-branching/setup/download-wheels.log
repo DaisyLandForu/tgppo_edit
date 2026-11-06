@@ -1,0 +1,37 @@
+Downloading torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 819181811 bytes
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 8 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 16 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 24 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 32 / 49
+torch-2.2.2+cu118-cp310-cp310-linux_x86_64.whl 40 / 49
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_wheels.py", line 77, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_wheels.py", line 57, in main
+    future.result()
+  File "/home/duweiyue25/miniforge3/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/duweiyue25/miniforge3/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_wheels.py", line 45, in fetch
+    shutil.copyfileobj(response, stream, 1024 * 1024)
+  File "/home/duweiyue25/miniforge3/lib/python3.12/shutil.py", line 203, in copyfileobj
+    while buf := fsrc_read(length):
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/http/client.py", line 479, in read
+    s = self.fp.read(amt)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 1251, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/duweiyue25/miniforge3/lib/python3.12/ssl.py", line 1103, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: The read operation timed out

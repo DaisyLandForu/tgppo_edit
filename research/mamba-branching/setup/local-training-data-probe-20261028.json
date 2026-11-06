@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "timestamp_utc": "20261028T113405.912314Z",
+  "hardware": {
+    "host": "jpt-duweiyue25-261026-d5979-default0-0",
+    "cpu": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+    "cgroup": {
+      "cpu.max": "401000 100000",
+      "memory.max": "34360786944"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "canonical_run": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/entry-check-20261027-final/continuous",
+  "local_view": "/tmp/mamba-local-check-20261028/8b7adf40db672b886216",
+  "probes": {
+    "train-cl": {
+      "samples": 128,
+      "inputs_exactly_equal": true,
+      "shared_seconds": 1.113023438025266,
+      "local_seconds": 0.080361173953861,
+      "sampled_read_speedup": 13.850263544734965
+    },
+    "train-il": {
+      "samples": 4,
+      "inputs_exactly_equal": true,
+      "shared_seconds": 0.21966336434707046,
+      "local_seconds": 0.12268830509856343,
+      "sampled_read_speedup": 1.7904181182599328
+    },
+    "valid-cl": {
+      "samples": 128,
+      "inputs_exactly_equal": true,
+      "shared_seconds": 0.32179026678204536,
+      "local_seconds": 0.080992316827178,
+      "sampled_read_speedup": 3.973096206998051
+    },
+    "valid-il": {
+      "samples": 4,
+      "inputs_exactly_equal": true,
+      "shared_seconds": 0.16151304030790925,
+      "local_seconds": 0.12915539415553212,
+      "sampled_read_speedup": 1.2505326731720647
+    }
+  },
+  "scope": "CPU input equivalence and sampled I/O only; no CUDA/resume/throughput claim",
+  "script_sha256": "327f16992a65a4ce853c047776b23b2260e13da95723a2c2e4ac228f2fe846d2"
+}

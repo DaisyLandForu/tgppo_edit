@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "scope": "stdlib cache/provenance/locking checks; actual CPU data probe stored separately; no CUDA execution",
+  "checks": {
+    "copy-and-digest-all-inputs": true,
+    "idempotent-cache-reuse": true,
+    "repair-corrupt-cache-from-committed-source": true,
+    "training-output-persists-in-canonical-run": true,
+    "same-lock-through-local-view": true,
+    "canonical-config-change-rejected-even-with-valid-cache": true,
+    "corrupt-source-rejected": true,
+    "symlink-input-rejected": true,
+    "wrong-training-destination-rejected": true,
+    "same-filesystem-cache-rejected": true,
+    "exec-unchanged-trainer-with-resume-and-forwarded-stage": true,
+    "invalid-relative-path-.": true,
+    "invalid-relative-path-..": true,
+    "invalid-relative-path-/tmp/absolute": true,
+    "formal-frozen-sources-unchanged": true
+  },
+  "launcher_sha256": "463e17a2d9803b2a2364dc7e366bc65cdc07f0e8a7ce0a1c52a1f86978a49ad5",
+  "shell_sha256": "757725c2e483237615ea9ad81577dfc5e9edcdf3b8124c6573765e7f6da7939f",
+  "boundary_fixture": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/local-cache-check-20261028/fixture",
+  "formal_training_interrupted": false,
+  "timestamp_utc": "2026-10-28T11:35:33.652904+00:00",
+  "data_probe_report": "setup/local-training-data-probe-20261028.json",
+  "data_probe_sha256": "93c7249b6efa71672e17e6799a807e1295bf7ef6869fb240dd760642c9f214d3",
+  "cpu_sample_equivalence": {
+    "cl_samples": 256,
+    "il_windows": 8,
+    "exact": true
+  },
+  "cuda_training_validated": false,
+  "formal_custom_training_speedup_measured": false
+}

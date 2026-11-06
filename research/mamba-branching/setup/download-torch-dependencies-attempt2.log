@@ -1,0 +1,8 @@
+Metadata nvidia-cuda-nvrtc-cu11 11.8.89
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_torch_dependencies.py", line 102, in <module>
+    main()
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/download_torch_dependencies.py", line 44, in main
+    assert len(options) == 1, (name, [item["filename"] for item in options])
+           ^^^^^^^^^^^^^^^^^
+AssertionError: ('nvidia-cuda-nvrtc-cu11', ['nvidia_cuda_nvrtc_cu11-11.8.89-py3-none-manylinux1_x86_64.whl', 'nvidia_cuda_nvrtc_cu11-11.8.89-py3-none-manylinux2014_x86_64.whl'])

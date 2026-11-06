@@ -1,0 +1,134 @@
+Collecting numpy==1.26.4 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 2))
+  Downloading numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting scipy==1.13.1 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 3))
+  Downloading scipy-1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+Collecting h5py==3.11.0 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 4))
+  Downloading h5py-3.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.5 kB)
+Collecting Cython==0.29.37 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 5))
+  Downloading Cython-0.29.37-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl.metadata (3.1 kB)
+Collecting setuptools==69.5.1 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 6))
+  Downloading setuptools-69.5.1-py3-none-any.whl.metadata (6.2 kB)
+Collecting wheel==0.43.0 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 7))
+  Downloading wheel-0.43.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting packaging==24.2 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 8))
+  Downloading packaging-24.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting ninja==1.11.1.3 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 9))
+  Downloading ninja-1.11.1.3-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (5.3 kB)
+Collecting einops==0.8.0 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 10))
+  Downloading einops-0.8.0-py3-none-any.whl.metadata (12 kB)
+Collecting transformers==4.44.2 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading transformers-4.44.2-py3-none-any.whl.metadata (43 kB)
+Collecting tensorboard==2.17.1 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading tensorboard-2.17.1-py3-none-any.whl.metadata (1.6 kB)
+Collecting nvidia-ml-py==12.560.30 (from -r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 13))
+  Downloading nvidia_ml_py-12.560.30-py3-none-any.whl.metadata (8.6 kB)
+Collecting filelock (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading filelock-4.1.0-py3-none-any.whl.metadata (2.0 kB)
+Collecting huggingface-hub<1.0,>=0.23.2 (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)
+Collecting pyyaml>=5.1 (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting regex!=2019.12.17 (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading regex-2026.9.29-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting requests (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting safetensors>=0.4.1 (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting tokenizers<0.20,>=0.19 (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading tokenizers-0.19.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)
+Collecting tqdm>=4.27 (from transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting absl-py>=0.4 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading absl_py-2.5.1-py3-none-any.whl.metadata (3.3 kB)
+Collecting grpcio>=1.48.2 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading grpcio-1.85.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.8 kB)
+Collecting markdown>=2.6.8 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading markdown-3.10.3-py3-none-any.whl.metadata (5.1 kB)
+Collecting protobuf!=4.24.0,>=3.19.6 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Collecting six>1.9 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub<1.0,>=0.23.2->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting hf-xet<2.0.0,>=1.1.3 (from huggingface-hub<1.0,>=0.23.2->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting typing-extensions>=3.7.4.3 (from huggingface-hub<1.0,>=0.23.2->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting markupsafe>=2.1.1 (from werkzeug>=1.0.1->tensorboard==2.17.1->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 12))
+  Downloading markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting charset_normalizer<4,>=2 (from requests->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading charset_normalizer-3.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+Collecting idna<4,>=2.5 (from requests->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting urllib3<3,>=1.26 (from requests->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting certifi>=2023.5.7 (from requests->transformers==4.44.2->-r /home/duweiyue25/tgppo-transfer/research/mamba-branching/setup/requirements-base.txt (line 11))
+  Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+Downloading numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.2/18.2 MB 568.5 kB/s  0:00:57
+Downloading scipy-1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (38.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 38.6/38.6 MB 688.5 kB/s  0:00:55
+Downloading h5py-3.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 857.4 kB/s  0:00:06
+Downloading Cython-0.29.37-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 827.7 kB/s  0:00:03
+Downloading setuptools-69.5.1-py3-none-any.whl (894 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 894.6/894.6 kB 686.9 kB/s  0:00:01
+Downloading wheel-0.43.0-py3-none-any.whl (65 kB)
+Downloading packaging-24.2-py3-none-any.whl (65 kB)
+Downloading ninja-1.11.1.3-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (422 kB)
+Downloading einops-0.8.0-py3-none-any.whl (43 kB)
+Downloading transformers-4.44.2-py3-none-any.whl (9.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.5/9.5 MB 848.1 kB/s  0:00:11
+Downloading tensorboard-2.17.1-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 182.4 kB/s  0:00:43
+Downloading nvidia_ml_py-12.560.30-py3-none-any.whl (40 kB)
+Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 845.3 kB/s  0:00:00
+Downloading hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 750.1 kB/s  0:00:05
+Downloading tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 633.5 kB/s  0:00:10
+Downloading tokenizers-0.19.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 620.1 kB/s  0:00:05
+Downloading absl_py-2.5.1-py3-none-any.whl (137 kB)
+Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Downloading grpcio-1.85.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (7.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.4/7.4 MB 804.4 kB/s  0:00:09
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading markdown-3.10.3-py3-none-any.whl (110 kB)
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 724.6 kB/s  0:00:00
+Downloading regex-2026.9.29-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (797 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 797.6/797.6 kB 732.7 kB/s  0:00:00
+Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Downloading markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Downloading filelock-4.1.0-py3-none-any.whl (133 kB)
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (271 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+Installing collected packages: nvidia-ml-py, wheel, urllib3, typing-extensions, tqdm, tensorboard-data-server, six, setuptools, safetensors, regex, pyyaml, protobuf, packaging, numpy, ninja, markupsafe, markdown, idna, hf-xet, fsspec, filelock, einops, Cython, charset_normalizer, certifi, absl-py, werkzeug, scipy, requests, h5py, grpcio, tensorboard, huggingface-hub, tokenizers, transformers
+  Attempting uninstall: wheel
+    Found existing installation: wheel 0.47.0
+    Uninstalling wheel-0.47.0:
+      Successfully uninstalled wheel-0.47.0
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 82.0.1
+    Uninstalling setuptools-82.0.1:
+      Successfully uninstalled setuptools-82.0.1
+  Attempting uninstall: packaging
+    Found existing installation: packaging 26.2
+    Uninstalling packaging-26.2:
+      Successfully uninstalled packaging-26.2
+
+Successfully installed Cython-0.29.37 absl-py-2.5.1 certifi-2026.10.23 charset_normalizer-3.5.2 einops-0.8.0 filelock-4.1.0 fsspec-2026.9.0 grpcio-1.85.0 h5py-3.11.0 hf-xet-1.7.0 huggingface-hub-0.36.2 idna-3.20 markdown-3.10.3 markupsafe-3.0.4 ninja-1.11.1.3 numpy-1.26.4 nvidia-ml-py-12.560.30 packaging-24.2 protobuf-7.36.2 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 scipy-1.13.1 setuptools-69.5.1 six-1.17.0 tensorboard-2.17.1 tensorboard-data-server-0.7.2 tokenizers-0.19.1 tqdm-4.70.1 transformers-4.44.2 typing-extensions-4.16.0 urllib3-2.8.0 werkzeug-3.1.9 wheel-0.43.0

@@ -1,0 +1,60 @@
+{
+  "status": "cpu_checks_passed_gpu_gate_pending",
+  "updated_utc": "2026-10-28T12:03:43.689611+00:00",
+  "source_sha256": {
+    "train_fast.sh": "16f251b4858705228e71614c180225d7528e2920b7946791fa23aaafa2024761",
+    "scripts/fast_launch.py": "75745a434bc7f2c790da9a6c919567f6d44ab2308a7a4216e974281a1e634ee8",
+    "scripts/fast_train.py": "b737da9ea3551005140fea862304a37872ad08bc4e6c6bbbc95e4782869cb3f1",
+    "scripts/fast_data.py": "7988b256bdc0d1a4e64156fe180ec1288f67626def6bad23f5148505326df04d",
+    "scripts/fast_ops.py": "5591dbf18222cce954df560bd3efc5c5af4950d5cc6528e6b0e2142946e8f5d1",
+    "scripts/check_fast_training.py": "8ebefc09c1f05906668ad441ddf9dc61179d9df883ee95bdc67a5a28f84ca3ca"
+  },
+  "cpu_control": {
+    "status": "passed",
+    "scope": "CPU checks of inputs, prefetch and checkpoint migration; GPU gate runs on Custom.\n\nControl-flow tests use the real TreeGate and a causal GRU stand-in for Mamba,\nexplicitly not a test of CUDA/Mamba kernels or formal training performance.\n",
+    "checks": {
+      "ram_preload_bytes": 684660,
+      "train-cl-data-and-collator-exact": true,
+      "train-il-data-and-collator-exact": true,
+      "valid-cl-data-and-collator-exact": true,
+      "valid-il-data-and-collator-exact": true,
+      "prefetch-order-and-abandoned-lookahead-resume": true,
+      "prefetch-does-not-consume-training-rng": true,
+      "prefetch-failure-propagates": true,
+      "baseline-checkpoint-migration-and-fast-il-stop-resume": true,
+      "cl-continuous-vs-migrated-model-optimizer-rng-cursor": {
+        "max_scaled_error": 0.0
+      },
+      "il-continuous-vs-migrated-model-optimizer-rng-cursor": {
+        "max_scaled_error": 2.5779008865356445e-06
+      }
+    },
+    "cuda_validated": false,
+    "script_sha256": "8ebefc09c1f05906668ad441ddf9dc61179d9df883ee95bdc67a5a28f84ca3ca"
+  },
+  "formal_data": {
+    "status": "passed",
+    "scope": "CPU checks of inputs, prefetch and checkpoint migration; GPU gate runs on Custom.\n\nControl-flow tests use the real TreeGate and a causal GRU stand-in for Mamba,\nexplicitly not a test of CUDA/Mamba kernels or formal training performance.\n",
+    "checks": {
+      "ram_preload_bytes": 1260069532,
+      "train-cl-data-and-collator-exact": true,
+      "train-il-data-and-collator-exact": true,
+      "valid-cl-data-and-collator-exact": true,
+      "valid-il-data-and-collator-exact": true,
+      "prefetch-order-and-abandoned-lookahead-resume": true,
+      "prefetch-does-not-consume-training-rng": true,
+      "prefetch-failure-propagates": true
+    },
+    "cuda_validated": false,
+    "script_sha256": "8ebefc09c1f05906668ad441ddf9dc61179d9df883ee95bdc67a5a28f84ca3ca"
+  },
+  "baseline_frozen_sources_unchanged": true,
+  "baseline_config_sha256": "462271511033b74bb0505dccfaf202f779e4ff9c7cb566d7717365a1b76518cc",
+  "resume_checkpoint": {
+    "checkpoint": "training/cl/checkpoints/step-000102875-e480f6da8ed9472ca72f4ba0805c67ea.pt",
+    "sha256": "9d9cacc52a98e8b2788bacee2e23630f5d2b43b5251561cb6f64446a05f8861e"
+  },
+  "formal_fast_training_started_by_agent": false,
+  "real_mamba_cuda_gate_executed": false,
+  "formal_gpu_speedup_measured": false
+}

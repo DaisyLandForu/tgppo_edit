@@ -1,0 +1,39 @@
+{
+  "mode": "gpu",
+  "timestamp_utc": "20261027T153116.611802Z",
+  "host": "jpt-duweiyue25-261027-d3082-default0-0",
+  "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+  "status": "passed",
+  "training_started": false,
+  "fingerprints": {
+    "configs/paper-milp-s.json": "42b4678bd4959735c96da4731798a6521e73fc65b8030891748ec6130cebac3d",
+    "setup/source-lock.json": "ea720485200931e792b113ed57ce920d9e44ebbf06da2868c276db6e44b5f7a6",
+    "data/milp-s/manifest.json": "008f082e1426416c64b796b5130ae20f0b51d59608b99af4dc98c1753fa66cbb"
+  },
+  "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+  "cgroup_limits": {
+    "cpu.max": "801000 100000",
+    "memory.max": "34360786944"
+  },
+  "versions": {
+    "numpy": "1.26.4",
+    "torch": "2.2.2+cu118",
+    "pyscipopt": "4.3.0",
+    "mamba-ssm": "2.2.2",
+    "causal-conv1d": "1.4.0"
+  },
+  "checks": {
+    "gpu": "Tesla V100-PCIE-32GB",
+    "compute_capability": [
+      7,
+      0
+    ],
+    "total_vram_gib": 31.7325439453125,
+    "torch": "2.2.2+cu118",
+    "cuda_runtime": "11.8",
+    "loss": 0.001856435090303421,
+    "peak_allocated_mib": 17.07177734375,
+    "forward_backward_update_checkpoint": "passed",
+    "scope": "synthetic kernel probe; full 100-state batch and MILP loop still required"
+  }
+}

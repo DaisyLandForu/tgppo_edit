@@ -1,0 +1,11 @@
+{"check": "source", "result": {"trajectory": "runs/collection-pilot/20261027T153211.404250Z/data.pkl", "sha256": "968233b111aea3d709c4d5b779f7eddde3d08e3eccd5e214370548a5b9385cd2", "samples": 145, "instance": "lseu", "solver_seed": 0}}
+{"check": "cl_padding_invariance", "result": {"passed": true, "loss_difference": 0.0}}
+{"check": "contrastive_update", "result": {"loss": -0.03626321256160736, "gradient_tensors_checked": 14, "seconds": 0.07056691707111895, "peak_allocated_mib": 18.44580078125, "peak_reserved_mib": 24.0}}
+{"check": "il_padding_invariance", "result": {"passed": true, "candidate_padding": 7, "unequal_state_lengths": [8, 3], "solo_vs_batch": "passed"}}
+{"check": "capacity_shape", "result": {"batch_size": 32, "states_per_sequence": 100, "unique_windows": 1, "repeated_for_memory_test": true, "candidate_min": 1, "candidate_max": 21, "tokens_per_sequence": 889, "dtype": "float32", "candidate_truncation": false}}
+{"check": "full_batch_update", "result": {"loss": 1.861777901649475, "gradient_tensors_checked": 24, "seconds": 0.2939925189130008, "peak_allocated_mib": 172.71728515625, "peak_reserved_mib": 194.0}}
+{
+  "status": "failed",
+  "report": "/home/duweiyue25/tgppo-transfer/research/mamba-branching/runs/gpu-training-pilot/20261027T153427.542320Z/report.json",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 264, in main\n    assert equal_state(embedding.state_dict(), embedding2.state_dict())\nAssertionError\n"
+}

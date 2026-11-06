@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "kind": "evaluation",
+  "shard_index": 0,
+  "num_shards": 4,
+  "workers": 1,
+  "started_utc": "20261029T070442.563371Z",
+  "hardware": {
+    "host": "sg-duweiyue25-261029-23e9c-default0-0",
+    "cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+    "cgroup": {
+      "cpu.max": "401000 100000",
+      "memory.max": "17180917760"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "results": [
+    {
+      "id": "map18-s0",
+      "status": "committed",
+      "attempt": "evaluation/map18-s0/attempt-20261029T070442.668791Z"
+    },
+    {
+      "id": "map18-s4",
+      "status": "committed",
+      "attempt": "evaluation/map18-s4/attempt-20261029T071123.735289Z"
+    },
+    {
+      "id": "mine-166-5-s3",
+      "status": "committed",
+      "attempt": "evaluation/mine-166-5-s3/attempt-20261029T071610.486887Z"
+    },
+    {
+      "id": "neos11-s2",
+      "status": "committed",
+      "attempt": "evaluation/neos11-s2/attempt-20261029T071659.631942Z"
+    },
+    {
+      "id": "neos18-s1",
+      "status": "committed",
+      "attempt": "evaluation/neos18-s1/attempt-20261029T072226.103548Z"
+    },
+    {
+      "id": "ns1830653-s0",
+      "status": "committed",
+      "attempt": "evaluation/ns1830653-s0/attempt-20261029T072323.665899Z"
+    },
+    {
+      "id": "ns1830653-s4",
+      "status": "committed",
+      "attempt": "evaluation/ns1830653-s4/attempt-20261029T073407.799142Z"
+    },
+    {
+      "id": "nu25-pr12-s3",
+      "status": "committed",
+      "attempt": "evaluation/nu25-pr12-s3/attempt-20261029T074124.909194Z"
+    },
+    {
+      "id": "rail507-s2",
+      "status": "committed",
+      "attempt": "evaluation/rail507-s2/attempt-20261029T074329.394822Z"
+    },
+    {
+      "id": "seymour1-s1",
+      "status": "committed",
+      "attempt": "evaluation/seymour1-s1/attempt-20261029T075113.591693Z"
+    }
+  ],
+  "finished_utc": "20261029T075254.004517Z"
+}

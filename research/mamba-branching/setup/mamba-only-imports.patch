@@ -1,0 +1,73 @@
+--- upstream/convert_pkl_to_h5.py
++++ code/convert_pkl_to_h5.py
+@@ -7,7 +7,6 @@
+ import os
+ import glob
+ import torch
+-from sklearn.model_selection import train_test_split
+ from pathlib import Path
+ 
+ def convert_files(pkl_paths, args, type):    
+--- upstream/evaluate_all.py
++++ code/evaluate_all.py
+@@ -1,9 +1,6 @@
+-from transformers import AutoModelForSeq2SeqLM, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+ import torch
+ from network import TreeGateNet, GroupedMamba
+ import pyscipopt
+-import ecole
+-from observation import TreeFeature
+ import numpy as np
+ import torch.nn.functional as F
+ import random
+--- upstream/get_samples.py
++++ code/get_samples.py
+@@ -1,15 +1,11 @@
+ import random
+ import pyscipopt
+-import ecole.observation
+ import torch
+-import torch_geometric
+ import numpy as np
+ import gzip
+ import pickle
+ from pathlib import Path
+-import ecole
+ 
+-from observation import ExploreThenStrongBranch, TreeFeature
+ import os
+ 
+ from torch.utils.data import Dataset, DataLoader
+--- upstream/main.py
++++ code/main.py
+@@ -11,12 +11,7 @@
+ import torch.nn.functional as F
+ import os
+ 
+-from peft import LoraConfig, TaskType
+-from peft import get_peft_model, PeftModel
+-
+-from transformers import AutoModelForSeq2SeqLM, AutoModelForCausalLM, AutoTokenizer
+-from transformers import Trainer,TrainingArguments, DataCollatorForLanguageModeling
+-from datasets import load_dataset
++
+ import numpy as np
+ # import bitsandbytes as bnb
+ 
+@@ -24,7 +19,6 @@
+ 
+ from network import OutputNet
+ 
+-from transformers import get_linear_schedule_with_warmup
+ import sys
+ from torch.nn import DataParallel
+ 
+@@ -56,7 +50,7 @@
+ 
+ 
+ def finetune_process_large(
+-    batch, clip_model: TreeGateNet, model: PeftModel, args,
++    batch, clip_model: TreeGateNet, model: torch.nn.Module, args,
+     # output_tree_model: OutputNet, output_var_model: OutputNet
+ ):
+     # llm需要大改：要把所有的candidate mat加进来

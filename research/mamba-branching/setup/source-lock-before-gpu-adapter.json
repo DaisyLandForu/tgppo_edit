@@ -1,0 +1,52 @@
+{
+  "url": "https://github.com/doctor-watson626/Mamba-Branching",
+  "commit": "66ab2d6572eaf83c279a07c21445272e8e3cc34f",
+  "files": {
+    "convert_pkl_to_h5.py": {
+      "upstream_sha256": "02af63377457b1efa95a728f2e2f3acb62c180601a4e013c6f73fc1478d29bea",
+      "working_sha256": "973ea4a6c9f0d4798d925f95c44f2d7a87cab66f55aa0dadcf8afcbd71bfbe9e"
+    },
+    "dataset_scip.py": {
+      "upstream_sha256": "73c7c40922e11f7d851152cb859df1558562bde64deaf982b27ce95582accf86",
+      "working_sha256": "d8f1f018043d116af2f1fece9bd9e5ccf06cb48b79344581592e83ae7e08dad3"
+    },
+    "env.py": {
+      "upstream_sha256": "2b3dd9ebb905f6eaf9cd0b46bfdaddfa53991f051af9494667bb047b7af1ff27",
+      "working_sha256": "2b3dd9ebb905f6eaf9cd0b46bfdaddfa53991f051af9494667bb047b7af1ff27"
+    },
+    "evaluate_all.py": {
+      "upstream_sha256": "a911864fa13232736433a5f3ca8a014169f8c60d36bc0274457e873c1d9dd6e7",
+      "working_sha256": "250c3ee361af312f53a51e632d6436c3bb06477a3a00f6fa56b7bf27c4e3e44b"
+    },
+    "evaluate_print.py": {
+      "upstream_sha256": "3686bf10534ecb0f539817093c7065bd17010a4f5f9e6013e8291c66eac1f1c7",
+      "working_sha256": "3686bf10534ecb0f539817093c7065bd17010a4f5f9e6013e8291c66eac1f1c7"
+    },
+    "get_samples.py": {
+      "upstream_sha256": "898244e8d4af80a328ff02a8b015e26ed3565d54a853f84a120dd41c4aa86647",
+      "working_sha256": "af7592c9b93e3a84d52d1f44ac98c5465555ee86028d89f5beb268d97cd69b6c"
+    },
+    "main.py": {
+      "upstream_sha256": "124c3f79ae812aaf5ce9ba8ba2273a8c3bcfe194be129fba10e978a642c80bc1",
+      "working_sha256": "ccbacd57e711a718d0ccd15c8db030693485ccce8fd3526d184765fb392dfca3"
+    },
+    "network.py": {
+      "upstream_sha256": "48b7b7e5715f16d62a8a5aa08a273e3bebb974cfb5d0aad495942877b85cc7a5",
+      "working_sha256": "48b7b7e5715f16d62a8a5aa08a273e3bebb974cfb5d0aad495942877b85cc7a5"
+    },
+    "observation.py": {
+      "upstream_sha256": "bb0ea4e55ec6644fed116e46f54081d78100bf675c1478264f57628ed92f2ade",
+      "working_sha256": "bb0ea4e55ec6644fed116e46f54081d78100bf675c1478264f57628ed92f2ade"
+    },
+    "utils.py": {
+      "upstream_sha256": "e774d366276007b071e74c7b5dee02906f4994248d0541a60283ceedba14c0bd",
+      "working_sha256": "b50465771887310bac17dfd6ffd56ea77eaf2362497ac305c3e618bb9c7c8835"
+    }
+  },
+  "purpose": "Mamba-only imports and explicit paper-protocol fixes; see SOURCE_AUDIT.md",
+  "changes": [
+    "Remove unused dependencies in the Mamba path",
+    "Disable all SCIP-8 primal-heuristic frequencies, including adaptivediving and padm",
+    "Validate HDF5 float-stored action indices and explicitly convert them to integer tensor labels"
+  ]
+}
