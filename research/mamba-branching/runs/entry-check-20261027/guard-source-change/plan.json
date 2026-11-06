@@ -1,0 +1,30 @@
+[
+  {
+    "id": "lseu-s0-r0",
+    "instance": "lseu",
+    "solver_seed": 0,
+    "random_prefix_steps": 0,
+    "split": "train"
+  },
+  {
+    "id": "lseu-s0-r5",
+    "instance": "lseu",
+    "solver_seed": 0,
+    "random_prefix_steps": 5,
+    "split": "train"
+  },
+  {
+    "id": "lseu-s4-r0",
+    "instance": "lseu",
+    "solver_seed": 4,
+    "random_prefix_steps": 0,
+    "split": "valid"
+  },
+  {
+    "id": "lseu-s4-r5",
+    "instance": "lseu",
+    "solver_seed": 4,
+    "random_prefix_steps": 5,
+    "split": "valid"
+  }
+]

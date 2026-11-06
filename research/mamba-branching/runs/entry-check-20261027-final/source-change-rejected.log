@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/formal_train.py", line 343, in <module>
+    raise SystemExit(main())
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/formal_train.py", line 282, in main
+    directory, cfg, provenance = load_run(args.run_dir)
+  File "/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/formal_common.py", line 157, in load_run
+    assert sha(ROOT / relative) == digest, f'Source changed: {relative}; use a new run or audited migration'
+AssertionError: Source changed: code/network.py; use a new run or audited migration

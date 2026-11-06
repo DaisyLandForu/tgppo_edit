@@ -1,0 +1,138 @@
+{
+  "status": "complete",
+  "profile": "diagnostic",
+  "expected_pairs": 2,
+  "completed_pairs": 2,
+  "missing": [],
+  "selection_sha256": "8cf87a0f2ce1b70b64ddeaa5d1c49f96d5b4cddeb60bffbc269c6e4014078631",
+  "rows": [
+    {
+      "status": "passed",
+      "task": {
+        "id": "misc03-s0",
+        "instance": "misc03",
+        "solver_seed": 0
+      },
+      "hardware": {
+        "host": "jpt-duweiyue25-261027-d3082-default0-0",
+        "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+        "cgroup": {
+          "cpu.max": "801000 100000",
+          "memory.max": "34360786944"
+        },
+        "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+        "gpu": "Tesla V100-PCIE-32GB"
+      },
+      "started_utc": "20261027T161324.898908Z",
+      "selection_sha256": "8cf87a0f2ce1b70b64ddeaa5d1c49f96d5b4cddeb60bffbc269c6e4014078631",
+      "cutoff": null,
+      "policies": {
+        "relpscost": {
+          "solver_status": "optimal",
+          "nodes": 25,
+          "fair_nodes": 159,
+          "nodes_left": 0,
+          "gap": 0.0,
+          "primal_bound": 3360.0,
+          "dual_bound": 3360.0,
+          "solutions": 8,
+          "primal_dual_integral": 28.902087926877027,
+          "scip_seconds": 0.597023,
+          "wall_seconds": 0.5973521919222549,
+          "cutoff_proof_without_incumbent": false
+        },
+        "mamba": {
+          "solver_status": "optimal",
+          "nodes": 65,
+          "fair_nodes": 81,
+          "nodes_left": 0,
+          "gap": 0.0,
+          "primal_bound": 3360.0,
+          "dual_bound": 3360.0,
+          "solutions": 3,
+          "primal_dual_integral": 35.560783864573956,
+          "scip_seconds": 0.897478,
+          "wall_seconds": 0.8975916310446337,
+          "cutoff_proof_without_incumbent": false,
+          "branch_calls": 39,
+          "branch_count": 34
+        }
+      }
+    },
+    {
+      "status": "passed",
+      "task": {
+        "id": "lseu-s0",
+        "instance": "lseu",
+        "solver_seed": 0
+      },
+      "hardware": {
+        "host": "jpt-duweiyue25-261027-d3082-default0-0",
+        "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+        "cgroup": {
+          "cpu.max": "801000 100000",
+          "memory.max": "34360786944"
+        },
+        "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+        "gpu": "Tesla V100-PCIE-32GB"
+      },
+      "started_utc": "20261027T161332.268474Z",
+      "selection_sha256": "8cf87a0f2ce1b70b64ddeaa5d1c49f96d5b4cddeb60bffbc269c6e4014078631",
+      "cutoff": null,
+      "policies": {
+        "relpscost": {
+          "solver_status": "optimal",
+          "nodes": 267,
+          "fair_nodes": 423,
+          "nodes_left": 0,
+          "gap": 0.0,
+          "primal_bound": 1120.0,
+          "dual_bound": 1120.0,
+          "solutions": 6,
+          "primal_dual_integral": 7.035479912260543,
+          "scip_seconds": 0.26172799999999996,
+          "wall_seconds": 0.26184855098836124,
+          "cutoff_proof_without_incumbent": false
+        },
+        "mamba": {
+          "solver_status": "optimal",
+          "nodes": 348,
+          "fair_nodes": 348,
+          "nodes_left": 0,
+          "gap": 0.0,
+          "primal_bound": 1120.0,
+          "dual_bound": 1120.0,
+          "solutions": 4,
+          "primal_dual_integral": 20.041581466874923,
+          "scip_seconds": 1.537021,
+          "wall_seconds": 1.5372731320094317,
+          "cutoff_proof_without_incumbent": false,
+          "branch_calls": 207,
+          "branch_count": 207
+        }
+      }
+    }
+  ],
+  "geometric_means": {
+    "relpscost": {
+      "nodes": 81.70067319184093,
+      "fair_nodes": 259.3395457696338,
+      "wall_seconds": 0.3954943816093522,
+      "scip_seconds": 0.395294365940118,
+      "primal_dual_integral": 14.259735587728521,
+      "statuses": {
+        "optimal": 2
+      }
+    },
+    "mamba": {
+      "nodes": 150.39946808416582,
+      "fair_nodes": 167.89282295559863,
+      "wall_seconds": 1.174667398850176,
+      "scip_seconds": 1.1744967147838261,
+      "primal_dual_integral": 26.696335831866328,
+      "statuses": {
+        "optimal": 2
+      }
+    }
+  }
+}

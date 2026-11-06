@@ -1,0 +1,58 @@
+{
+  "status": "failed",
+  "timestamp_utc": "20261027T154100.815683Z",
+  "host": "jpt-duweiyue25-261027-d3082-default0-0",
+  "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+  "formal_training_started": false,
+  "scope": "bounded real-data CL/IL, capacity, fixed-data resume and train-instance SCIP diagnostic",
+  "fingerprints": {
+    "scripts/gpu_training_pilot.py": "346a2ee9463fe164d071d19712f8cdbc198c1535da4941b94eaf6204e4b1138d",
+    "setup/source-lock.json": "332f7bc8050a272e6882796e75a0adc1d337c0bec49a486f81cd71a971781676",
+    "configs/paper-milp-s.json": "b4de98c25626a4c207b3bfd47d11601c5b232fbf5350e381e0d734aab4b70e5f",
+    "code/convert_pkl_to_h5.py": "973ea4a6c9f0d4798d925f95c44f2d7a87cab66f55aa0dadcf8afcbd71bfbe9e",
+    "code/dataset_scip.py": "d8f1f018043d116af2f1fece9bd9e5ccf06cb48b79344581592e83ae7e08dad3",
+    "code/env.py": "2b3dd9ebb905f6eaf9cd0b46bfdaddfa53991f051af9494667bb047b7af1ff27",
+    "code/evaluate_all.py": "250c3ee361af312f53a51e632d6436c3bb06477a3a00f6fa56b7bf27c4e3e44b",
+    "code/evaluate_print.py": "3686bf10534ecb0f539817093c7065bd17010a4f5f9e6013e8291c66eac1f1c7",
+    "code/get_samples.py": "af7592c9b93e3a84d52d1f44ac98c5465555ee86028d89f5beb268d97cd69b6c",
+    "code/main.py": "ccbacd57e711a718d0ccd15c8db030693485ccce8fd3526d184765fb392dfca3",
+    "code/network.py": "48b7b7e5715f16d62a8a5aa08a273e3bebb974cfb5d0aad495942877b85cc7a5",
+    "code/observation.py": "bb0ea4e55ec6644fed116e46f54081d78100bf675c1478264f57628ed92f2ade",
+    "code/paper_training.py": "ba5bd23d91da795596ab3998b7863b48049617a0521c8ab2c546d416b6f1c5ee",
+    "code/utils.py": "b50465771887310bac17dfd6ffd56ea77eaf2362497ac305c3e618bb9c7c8835"
+  },
+  "checks": {
+    "source": {
+      "trajectory": "runs/collection-pilot/20261027T153907.790810Z/data.pkl",
+      "sha256": "9ffd04d05c29204c134bb34f28c33ad53849a05d2a2b098f4bd2d62d83c890e3",
+      "samples": 264,
+      "instance": "swath1",
+      "solver_seed": 0
+    },
+    "hdf5_pipeline": {
+      "raw_states": 264,
+      "eligible_states": 264,
+      "upstream_single_candidate_filter": 0,
+      "sequence_lengths": [
+        100,
+        100,
+        64
+      ],
+      "hdf5_sha256": "7c249482bb42006c4e8ffb67b87702c22392efb4d0ed0cbecd3cdea9e9c682a2"
+    },
+    "cl_padding_invariance": {
+      "passed": true,
+      "loss_difference": 0.0
+    },
+    "contrastive_update": {
+      "loss": -0.11739517003297806,
+      "gradient_tensors_checked": 14,
+      "seconds": 0.048317639040760696,
+      "peak_allocated_mib": 18.3427734375,
+      "peak_reserved_mib": 24.0
+    }
+  },
+  "gpu": "Tesla V100-PCIE-32GB",
+  "torch": "2.2.2+cu118",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 265, in main\n    torch.testing.assert_close(a, b, rtol=1e-4, atol=1e-6)\n  File \"/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/torch/testing/_comparison.py\", line 1520, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 1 / 2048 (0.0%)\nGreatest absolute difference: 2.86102294921875e-06 at index (7, 14) (up to 1e-06 allowed)\nGreatest relative difference: 0.0010662875138223171 at index (7, 14) (up to 0.0001 allowed)\n"
+}

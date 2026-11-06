@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "task": {
+    "id": "lseu-s0-r5",
+    "instance": "lseu",
+    "solver_seed": 0,
+    "random_prefix_steps": 5,
+    "split": "train"
+  },
+  "hardware": {
+    "host": "jpt-duweiyue25-261027-d3082-default0-0",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "cgroup": {
+      "cpu.max": "801000 100000",
+      "memory.max": "34360786944"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "started_utc": "20261027T160937.275979Z",
+  "samples": 125,
+  "eligible_states": 112,
+  "solver": {
+    "solver_status": "optimal",
+    "nodes": 209,
+    "fair_nodes": 291,
+    "nodes_left": 0,
+    "gap": 0.0,
+    "primal_bound": 1120.0,
+    "dual_bound": 1120.0,
+    "solutions": 4,
+    "primal_dual_integral": 11.388917210597352,
+    "scip_seconds": 0.575668,
+    "wall_seconds": 0.5756969370413572
+  },
+  "cutoff": null,
+  "primal_heuristics": false,
+  "trajectory": "collection/lseu-s0-r5/attempt-20261027T160936.997924Z/trajectory.h5"
+}

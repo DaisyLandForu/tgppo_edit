@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "created_utc": "20261027T161516.501855Z",
+  "profile": "diagnostic",
+  "config_sha256": "4f52dc798778165e1f9ef5a4862e87db06a196124f4cc6c7da9472088bbaaf14",
+  "plan_sha256": "65f9c769b01f61910fd16f1902e4de1f34a645285c1a2b1e0d15feee8047dd8b",
+  "sources": {
+    "code/convert_pkl_to_h5.py": "973ea4a6c9f0d4798d925f95c44f2d7a87cab66f55aa0dadcf8afcbd71bfbe9e",
+    "code/dataset_scip.py": "d8f1f018043d116af2f1fece9bd9e5ccf06cb48b79344581592e83ae7e08dad3",
+    "code/env.py": "2b3dd9ebb905f6eaf9cd0b46bfdaddfa53991f051af9494667bb047b7af1ff27",
+    "code/evaluate_all.py": "250c3ee361af312f53a51e632d6436c3bb06477a3a00f6fa56b7bf27c4e3e44b",
+    "code/evaluate_print.py": "3686bf10534ecb0f539817093c7065bd17010a4f5f9e6013e8291c66eac1f1c7",
+    "code/get_samples.py": "af7592c9b93e3a84d52d1f44ac98c5465555ee86028d89f5beb268d97cd69b6c",
+    "code/main.py": "ccbacd57e711a718d0ccd15c8db030693485ccce8fd3526d184765fb392dfca3",
+    "code/network.py": "48b7b7e5715f16d62a8a5aa08a273e3bebb974cfb5d0aad495942877b85cc7a5",
+    "code/observation.py": "bb0ea4e55ec6644fed116e46f54081d78100bf675c1478264f57628ed92f2ade",
+    "code/paper_training.py": "ba5bd23d91da795596ab3998b7863b48049617a0521c8ab2c546d416b6f1c5ee",
+    "code/utils.py": "b50465771887310bac17dfd6ffd56ea77eaf2362497ac305c3e618bb9c7c8835",
+    "scripts/formal_common.py": "4869610f500d2ae583c515b7aed240d1d5dfae7a2bb1c9f8fc0303b7dbff5413",
+    "scripts/formal_jobs.py": "e253cb3c9548e11d57039ccda2348051f0baafa39f199143d181d954b94dc217",
+    "scripts/formal_train.py": "b9e5cd3ef114bf73e47007f5911de21d548064ada85795bddc547a586553af10",
+    "scripts/formal_data.py": "24d4bdc48f7058048df310fb942352d825c0ba45db47f6682d3b6ee4b87f2be1",
+    "scripts/runtime.sh": "30e65b4bf26784ce6f081ccd16b2d0f375b42e0224a85bafea340995d0aebe9c",
+    "custom_job.sh": "b9db5fd6207a351f63ff1a348b2f14afc0649a4ef789c5f7af8d7e2c24d3daaf",
+    "configs/paper-milp-s.json": "b4de98c25626a4c207b3bfd47d11601c5b232fbf5350e381e0d734aab4b70e5f",
+    "data/milp-s/manifest.json": "008f082e1426416c64b796b5130ae20f0b51d59608b99af4dc98c1753fa66cbb",
+    "data/milp-s/cutoffs.json": "44e26b54cfaad410ec1965d5b4c2a3c870e7f9209aa6ac267cc18cd64e5af1f2"
+  },
+  "binding_path": "/home/duweiyue25/conda/envs/mamba-branching/lib/python3.10/site-packages/pyscipopt/scip.cpython-310-x86_64-linux-gnu.so",
+  "binding_sha256": "195a53b27ec10377c7f4bafb27e3d30e2dc172d2f18aa0a5f3e87686bf113519",
+  "versions": {
+    "numpy": "1.26.4",
+    "torch": "2.2.2+cu118",
+    "pyscipopt": "4.3.0",
+    "mamba-ssm": "2.2.2",
+    "causal-conv1d": "1.4.0",
+    "h5py": "3.11.0"
+  },
+  "environment": {
+    "host": "jpt-duweiyue25-261027-d3082-default0-0",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "cgroup": {
+      "cpu.max": "801000 100000",
+      "memory.max": "34360786944"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  }
+}

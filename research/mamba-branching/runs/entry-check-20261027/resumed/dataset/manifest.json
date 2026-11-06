@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "profile": "diagnostic",
+  "run_sha256": "d4ff60ddaca39be19d6bf7c9144b203f41774b9f1bc79b732b433d7d43a17556",
+  "plan_sha256": "65f9c769b01f61910fd16f1902e4de1f34a645285c1a2b1e0d15feee8047dd8b",
+  "trajectories": [
+    {
+      "id": "lseu-s0-r0",
+      "split": "train",
+      "path": "collection/lseu-s0-r0/attempt-20261027T160937.041198Z/trajectory.h5",
+      "sha256": "8fe112b01caba5ddd46450e3c0c26e0c4ed5e57bd024bded11bcbba3aadcbe23",
+      "index": "dataset/indices/lseu-s0-r0.npy",
+      "index_sha256": "eba586c7aab92c00044164df87077f4001896a956957fbea06b06b672bdee662",
+      "raw_states": 145,
+      "eligible_states": 140,
+      "single_candidate_excluded": 5,
+      "windows": 2,
+      "solver_status": "optimal"
+    },
+    {
+      "id": "lseu-s0-r5",
+      "split": "train",
+      "path": "collection/lseu-s0-r5/attempt-20261027T160936.997924Z/trajectory.h5",
+      "sha256": "4f38b70d3e7f61d3bfb989066c77746847e194302ba6845898152dc4fa30cc8c",
+      "index": "dataset/indices/lseu-s0-r5.npy",
+      "index_sha256": "6a8219114c4607039ac5da9f812d1b93d460a652fa0271f9fdb789083bdf84c1",
+      "raw_states": 125,
+      "eligible_states": 112,
+      "single_candidate_excluded": 13,
+      "windows": 2,
+      "solver_status": "optimal"
+    },
+    {
+      "id": "lseu-s4-r0",
+      "split": "valid",
+      "path": "collection/lseu-s4-r0/attempt-20261027T160937.041631Z/trajectory.h5",
+      "sha256": "d85a59786c94a5926ce5a17ab322c98aebad1b56cbdb5a513d04c0cfec8fbf63",
+      "index": "dataset/indices/lseu-s4-r0.npy",
+      "index_sha256": "39e5befa2f8b404bafc5b8e417a2ccc4322104b1faf81b7c0a20f5eac4efe21d",
+      "raw_states": 166,
+      "eligible_states": 155,
+      "single_candidate_excluded": 11,
+      "windows": 2,
+      "solver_status": "optimal"
+    },
+    {
+      "id": "lseu-s4-r5",
+      "split": "valid",
+      "path": "collection/lseu-s4-r5/attempt-20261027T160936.998306Z/trajectory.h5",
+      "sha256": "b92723c4c9c172b30262004144c7dafa72a36b60b90a2a5fb3aa24211aacc978",
+      "index": "dataset/indices/lseu-s4-r5.npy",
+      "index_sha256": "4171a995dab79a1287c791a503be4ac55d1c4509fc5e4db458500b92e4c8e31a",
+      "raw_states": 122,
+      "eligible_states": 120,
+      "single_candidate_excluded": 2,
+      "windows": 2,
+      "solver_status": "optimal"
+    }
+  ],
+  "splits": {
+    "train": {
+      "trajectories": 2,
+      "cl_states": 252,
+      "il_windows": 4
+    },
+    "valid": {
+      "trajectories": 2,
+      "cl_states": 275,
+      "il_windows": 4
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "status": "failed",
+  "timestamp_utc": "20261027T153427.542320Z",
+  "host": "jpt-duweiyue25-261027-d3082-default0-0",
+  "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+  "formal_training_started": false,
+  "scope": "bounded real-data CL/IL, capacity, fixed-data resume and train-instance SCIP diagnostic",
+  "fingerprints": {
+    "scripts/gpu_training_pilot.py": "32bbfe9fcc5fe5ef0a6b76e7a360053d2f37aee49d48c099b507896183724800",
+    "code/paper_training.py": "b43ac64d7b4915ef74cf050642ce4719763a6cde23f3773b75e24f0204269364",
+    "setup/source-lock.json": "ea720485200931e792b113ed57ce920d9e44ebbf06da2868c276db6e44b5f7a6",
+    "configs/paper-milp-s.json": "42b4678bd4959735c96da4731798a6521e73fc65b8030891748ec6130cebac3d"
+  },
+  "checks": {
+    "source": {
+      "trajectory": "runs/collection-pilot/20261027T153211.404250Z/data.pkl",
+      "sha256": "968233b111aea3d709c4d5b779f7eddde3d08e3eccd5e214370548a5b9385cd2",
+      "samples": 145,
+      "instance": "lseu",
+      "solver_seed": 0
+    },
+    "cl_padding_invariance": {
+      "passed": true,
+      "loss_difference": 0.0
+    },
+    "contrastive_update": {
+      "loss": -0.03626321256160736,
+      "gradient_tensors_checked": 14,
+      "seconds": 0.07056691707111895,
+      "peak_allocated_mib": 18.44580078125,
+      "peak_reserved_mib": 24.0
+    },
+    "il_padding_invariance": {
+      "passed": true,
+      "candidate_padding": 7,
+      "unequal_state_lengths": [
+        8,
+        3
+      ],
+      "solo_vs_batch": "passed"
+    },
+    "capacity_shape": {
+      "batch_size": 32,
+      "states_per_sequence": 100,
+      "unique_windows": 1,
+      "repeated_for_memory_test": true,
+      "candidate_min": 1,
+      "candidate_max": 21,
+      "tokens_per_sequence": 889,
+      "dtype": "float32",
+      "candidate_truncation": false
+    },
+    "full_batch_update": {
+      "loss": 1.861777901649475,
+      "gradient_tensors_checked": 24,
+      "seconds": 0.2939925189130008,
+      "peak_allocated_mib": 172.71728515625,
+      "peak_reserved_mib": 194.0
+    }
+  },
+  "gpu": "Tesla V100-PCIE-32GB",
+  "torch": "2.2.2+cu118",
+  "error": "Traceback (most recent call last):\n  File \"/home/duweiyue25/tgppo-transfer/research/mamba-branching/scripts/gpu_training_pilot.py\", line 264, in main\n    assert equal_state(embedding.state_dict(), embedding2.state_dict())\nAssertionError\n"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "kind": "evaluation",
+  "shard_index": 0,
+  "num_shards": 2,
+  "workers": 1,
+  "started_utc": "20261027T161620.180012Z",
+  "hardware": {
+    "host": "jpt-duweiyue25-261027-d3082-default0-0",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "cgroup": {
+      "cpu.max": "801000 100000",
+      "memory.max": "34360786944"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "results": [
+    {
+      "id": "misc03-s0",
+      "status": "committed",
+      "attempt": "evaluation/misc03-s0/attempt-20261027T161620.290810Z"
+    }
+  ],
+  "finished_utc": "20261027T161627.421480Z"
+}

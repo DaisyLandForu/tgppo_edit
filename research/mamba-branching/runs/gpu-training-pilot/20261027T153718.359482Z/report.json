@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "timestamp_utc": "20261027T153718.359482Z",
+  "host": "jpt-duweiyue25-261027-d3082-default0-0",
+  "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python",
+  "formal_training_started": false,
+  "scope": "bounded real-data CL/IL, capacity, fixed-data resume and train-instance SCIP diagnostic",
+  "fingerprints": {
+    "scripts/gpu_training_pilot.py": "7f1e0cf123ac143913c4a4d0f58b18c6817c91ffa4bba0c8079437c59ecb8846",
+    "code/paper_training.py": "b43ac64d7b4915ef74cf050642ce4719763a6cde23f3773b75e24f0204269364",
+    "setup/source-lock.json": "0b0e06dcc944b346e437f7b252452cf942453315a674a715d3407c09a644a82a",
+    "configs/paper-milp-s.json": "42b4678bd4959735c96da4731798a6521e73fc65b8030891748ec6130cebac3d"
+  },
+  "checks": {
+    "source": {
+      "trajectory": "runs/collection-pilot/20261027T153211.404250Z/data.pkl",
+      "sha256": "968233b111aea3d709c4d5b779f7eddde3d08e3eccd5e214370548a5b9385cd2",
+      "samples": 145,
+      "instance": "lseu",
+      "solver_seed": 0
+    },
+    "hdf5_pipeline": {
+      "raw_states": 145,
+      "eligible_states": 140,
+      "upstream_single_candidate_filter": 5,
+      "sequence_lengths": [
+        100,
+        40
+      ],
+      "hdf5_sha256": "50a753c49eefeba62ec356b7234e48b8057338b30834cb730694604c60451fdd"
+    },
+    "cl_padding_invariance": {
+      "passed": true,
+      "loss_difference": 0.0
+    },
+    "contrastive_update": {
+      "loss": -0.03626321256160736,
+      "gradient_tensors_checked": 14,
+      "seconds": 0.0485062210354954,
+      "peak_allocated_mib": 18.44580078125,
+      "peak_reserved_mib": 24.0
+    },
+    "il_padding_invariance": {
+      "passed": true,
+      "candidate_padding": 7,
+      "unequal_state_lengths": [
+        8,
+        3
+      ],
+      "solo_vs_batch": "passed"
+    },
+    "causality": {
+      "passed": true,
+      "changed_action_step": 3,
+      "current_and_prior_logits_unchanged": true
+    },
+    "capacity_shape": {
+      "batch_size": 32,
+      "states_per_sequence": 100,
+      "unique_windows": 1,
+      "repeated_for_memory_test": true,
+      "candidate_min": 2,
+      "candidate_max": 21,
+      "tokens_per_sequence": 924,
+      "dtype": "float32",
+      "candidate_truncation": false
+    },
+    "full_batch_update": {
+      "loss": 1.9624049663543701,
+      "gradient_tensors_checked": 24,
+      "seconds": 0.04112282197456807,
+      "peak_allocated_mib": 174.2314453125,
+      "peak_reserved_mib": 198.0
+    },
+    "fixed_data_resume": {
+      "passed": true,
+      "next_loss": 2.3837473392486572,
+      "checkpoint_loaded_exactly": true,
+      "embedding_after_update": {
+        "bitwise_equal": false,
+        "max_absolute_difference": 2.9802322387695312e-08,
+        "rtol": 1e-05,
+        "atol": 1e-07
+      },
+      "sequence_after_update": {
+        "bitwise_equal": false,
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "rtol": 1e-05,
+        "atol": 1e-07
+      },
+      "optimizer_after_update": {
+        "bitwise_equal": false,
+        "max_absolute_difference": 1.2732925824820995e-11,
+        "rtol": 1e-05,
+        "atol": 1e-07
+      },
+      "next_progress": {
+        "il_updates": 2,
+        "order": [
+          2,
+          0,
+          1,
+          3
+        ],
+        "cursor": 2
+      },
+      "rng_draws_and_next_window": "exact",
+      "checkpoint_sha256": "8d29f9e7bbf2789f68155e651d632d26e3585b70adb2207e237a93ac9413ded8",
+      "scope": "controlled pilot replay, not full formal multi-epoch resume"
+    },
+    "scip_gpu_inference": {
+      "instance": "misc03",
+      "split": "train",
+      "cutoff": null,
+      "root_relpscost_steps": 1,
+      "history_steps": 24,
+      "deque_groups": 49,
+      "neural_calls": 34,
+      "max_position_id": 24,
+      "max_tokens": 565,
+      "branch_count": 35,
+      "nodes": 59,
+      "status": "optimal",
+      "gap": 0.0,
+      "primal_bound": 3360.0,
+      "dual_bound": 3360.0,
+      "seconds": 0.8342380799585953,
+      "peak_allocated_mib": 27.1494140625,
+      "peak_reserved_mib": 198.0
+    },
+    "scip_full_history": {
+      "instance": "lseu",
+      "split": "train",
+      "cutoff": null,
+      "root_relpscost_steps": 1,
+      "history_steps": 24,
+      "deque_groups": 49,
+      "neural_calls": 131,
+      "max_position_id": 24,
+      "max_tokens": 361,
+      "branch_count": 132,
+      "nodes": 244,
+      "status": "optimal",
+      "gap": 0.0,
+      "primal_bound": 1120.0,
+      "dual_bound": 1120.0,
+      "seconds": 0.9386875820346177,
+      "peak_allocated_mib": 27.125,
+      "peak_reserved_mib": 198.0
+    }
+  },
+  "gpu": "Tesla V100-PCIE-32GB",
+  "torch": "2.2.2+cu118"
+}

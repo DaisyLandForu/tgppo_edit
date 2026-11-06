@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "kind": "collection",
+  "shard_index": 1,
+  "num_shards": 2,
+  "workers": 2,
+  "started_utc": "20261027T160936.957128Z",
+  "hardware": {
+    "host": "jpt-duweiyue25-261027-d3082-default0-0",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+    "cgroup": {
+      "cpu.max": "801000 100000",
+      "memory.max": "34360786944"
+    },
+    "python": "/home/duweiyue25/conda/envs/mamba-branching/bin/python"
+  },
+  "results": [
+    {
+      "id": "lseu-s0-r5",
+      "status": "committed",
+      "attempt": "collection/lseu-s0-r5/attempt-20261027T160936.997924Z"
+    },
+    {
+      "id": "lseu-s4-r5",
+      "status": "committed",
+      "attempt": "collection/lseu-s4-r5/attempt-20261027T160936.998306Z"
+    }
+  ],
+  "finished_utc": "20261027T160940.140516Z"
+}

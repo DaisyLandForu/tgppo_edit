@@ -1,0 +1,29 @@
+{
+  "created_utc": "2026-10-29T11:19:33.221169+00:00",
+  "inputs": {
+    "runs/milp-s-seed0-20261027/config.json": "462271511033b74bb0505dccfaf202f779e4ff9c7cb566d7717365a1b76518cc",
+    "runs/milp-s-seed0-20261027/run.json": "8e63a4411842bc82a56cbbdba98beb7a582563682fc3f3153b0ed32385dcaee9",
+    "runs/milp-s-seed0-20261027/dataset/manifest.json": "5d7d55a8878ee2e8dd232214741f47341f6e403adbf6dc16606179f6f7aa836c",
+    "runs/milp-s-seed0-20261027/training/selected.json": "d9615596fb7c2e49d4381025dccfded90411f72102f2b9b29be59b290649a3bf",
+    "runs/milp-s-seed0-20261027/training/fast/execution.json": "eca9bc60f9dae545837a254238a10d79dfd8dfa6279d4fafc0ff1a3dd84fd9e3",
+    "runs/milp-s-seed0-20261027/evaluation/summary.json": "42c58863dd6c3314cc51f19aa0536908fa8cf7413a6a79f6fb3eccf63e189199"
+  },
+  "paper": {
+    "path": "sources/paper.pdf",
+    "sha256": "6506076ac1193c7a8cdec8d8ec82c7e98d32325bc6a43b89c26bf9065b8fdcc5",
+    "table": "Table1, printed page7"
+  },
+  "outputs": {
+    "README.md": "ca577b0df9508f47a12197df83e1233f1f9d1a6ff09756f69bfcbb6975813a21",
+    "plot_results.py": "340a54888b6edce3f4e529512a72e878a8b29f652d21e91eca9e26d3dac97167",
+    "paired_ratios.csv": "700ef57a0b57daae08f7db1f849e1e6526389cd96d49bb0ea307fd1b2122fb95",
+    "per_instance.csv": "a0a009d01ad422d5a9e1d031e1cfb1c075d876405a65e1c8984a11750891fbef",
+    "paired-performance.pdf": "2beb2d7f1807b33359824676b806e7a35d810eba9afe68ac8c78a34931524dd6",
+    "analysis.json": "027a6bf0feaaa39ea8caa710ac03d3584eb0659ae9ebf3b6d94fa2231ed40644",
+    "paired-performance.svg": "f2952ace93e20553e3239131cf78b7696fa46d8d29e57dd6109cb5f4123fce25",
+    "paired-performance.png": "a973c6ede04d36905138cdaf4a67a94d8410f46d98f1169078371b6442d81748",
+    "solver_runs.csv": "63fe0709a2baea8c5bcb718b0ff91e12bbfd8b82f1bca197f53b05e27a4d615a"
+  },
+  "frozen_training_or_solver_code_modified": false,
+  "additional_training_or_solver_jobs_started": false
+}
