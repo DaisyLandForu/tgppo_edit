@@ -1,0 +1,48 @@
+{
+  "limit_seconds": 600.0,
+  "data_preparation_seconds": 12.17275360878557,
+  "attempts": [
+    {
+      "started_epoch": 1793816040.4365635,
+      "allocated_seconds": 587.8272463912144,
+      "elapsed_seconds": 47.881449768319726,
+      "passed": true
+    },
+    {
+      "stage": "readiness_tests",
+      "started_epoch": 1793816576.68827,
+      "allocated_seconds": 539.9457966228947,
+      "elapsed_seconds": 5.575325823388994,
+      "passed": true
+    },
+    {
+      "stage": "readiness_tests_final",
+      "started_epoch": 1793816766.0347865,
+      "allocated_seconds": 534.3704707995057,
+      "elapsed_seconds": 7.929255687631667,
+      "passed": true
+    },
+    {
+      "stage": "release_tests",
+      "started_epoch": 1793816990.6240072,
+      "allocated_seconds": 526.441215111874,
+      "elapsed_seconds": 6.3760837148875,
+      "passed": true
+    },
+    {
+      "stage": "final_package_tests",
+      "started_epoch": 1793817243.486182,
+      "allocated_seconds": 520.0651313969865,
+      "elapsed_seconds": 6.175186375156045,
+      "passed": true
+    },
+    {
+      "stage": "frozen_entry_check",
+      "started_epoch": 1793817355.5491412,
+      "allocated_seconds": 513.8899450218305,
+      "elapsed_seconds": 2.780234985984862,
+      "passed": true
+    }
+  ],
+  "used_seconds": 88.89028996415436
+}

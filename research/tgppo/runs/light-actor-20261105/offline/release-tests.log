@@ -1,0 +1,15 @@
+test_bc_and_structure_pairing_are_separate_and_noactor_is_flagged (test_readiness.Readiness) ... ok
+test_bc_selection_recovery_and_fresh_ppo_optimizer (test_readiness.Readiness) ... ok
+test_budget_timeout (test_readiness.Readiness) ... ok
+test_cpu_model_can_change_but_software_cannot (test_readiness.Readiness) ... ok
+test_dead_attempt_cannot_reset_budget (test_readiness.Readiness) ... ok
+test_existing_export_is_preserved_and_corruption_is_rejected (test_readiness.Readiness) ... ok
+test_full_native_identity_adoption_without_solver (test_readiness.Readiness) ... ok
+test_large_candidate_set_is_not_truncated (test_readiness.Readiness) ... ok
+test_mismatching_native_stack_is_not_reused (test_readiness.Readiness) ... ok
+test_three_original_source_network_files_are_untouched (test_readiness.Readiness) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 3.931s
+
+OK

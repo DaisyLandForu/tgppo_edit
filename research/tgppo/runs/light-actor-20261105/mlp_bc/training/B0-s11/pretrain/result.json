@@ -1,0 +1,483 @@
+{
+  "signature": {
+    "actor_kind": "mlp",
+    "actor_width": 64,
+    "inducing_points": 8,
+    "server_training_seed": 11,
+    "expert_dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+    "bc_steps": 1000,
+    "bc_batch_size": 16,
+    "bc_lr": 0.001,
+    "bc_selection_milestones": [
+      0,
+      100,
+      200,
+      400,
+      600,
+      800,
+      1000
+    ]
+  },
+  "initial": {
+    "train": {
+      "instances": {
+        "air04": {
+          "nll": 4.725902438163757,
+          "normalized_nll": 0.9999876194633543,
+          "accuracy": 0.09375,
+          "uniform_accuracy": 0.017150168733190235
+        },
+        "air05": {
+          "nll": 4.870636787265539,
+          "normalized_nll": 0.9997247229330242,
+          "accuracy": 0.0625,
+          "uniform_accuracy": 0.011261646265152506
+        },
+        "istanbul-no-cutoff": {
+          "nll": 1.9711556727997959,
+          "normalized_nll": 0.9998849658295512,
+          "accuracy": 0.203125,
+          "uniform_accuracy": 0.15864356916625677
+        },
+        "l152lav": {
+          "nll": 3.5731797218322754,
+          "normalized_nll": 1.0001076007882754,
+          "accuracy": 0.125,
+          "uniform_accuracy": 0.035844502781022754
+        },
+        "lseu": {
+          "nll": 2.1153763090260327,
+          "normalized_nll": 0.9998489967547357,
+          "accuracy": 0.1875,
+          "uniform_accuracy": 0.14125784861181762
+        },
+        "misc03": {
+          "nll": 3.1104501555947697,
+          "normalized_nll": 0.9998611527330735,
+          "accuracy": 0.08823529411764706,
+          "uniform_accuracy": 0.05133347405963637
+        },
+        "neos20": {
+          "nll": 4.993697861209512,
+          "normalized_nll": 1.0002104197628796,
+          "accuracy": 0.0234375,
+          "uniform_accuracy": 0.007439019338358213
+        },
+        "neos21": {
+          "nll": 4.839995501562953,
+          "normalized_nll": 0.999975211918354,
+          "accuracy": 0.046875,
+          "uniform_accuracy": 0.009472364875683979
+        },
+        "rmatr100-p10": {
+          "nll": 3.38311299495399,
+          "normalized_nll": 1.0001024533994496,
+          "accuracy": 0.0078125,
+          "uniform_accuracy": 0.03642515811829666
+        },
+        "rmatr100-p5": {
+          "nll": 3.1580987172201276,
+          "normalized_nll": 1.000016643665731,
+          "accuracy": 0.078125,
+          "uniform_accuracy": 0.047359458270838026
+        },
+        "sp150x300d": {
+          "nll": 2.1018372336402535,
+          "normalized_nll": 1.000183014664799,
+          "accuracy": 0.125,
+          "uniform_accuracy": 0.1486061920427823
+        },
+        "stein27": {
+          "nll": 2.6206808034330606,
+          "normalized_nll": 0.9999359650537372,
+          "accuracy": 0.15625,
+          "uniform_accuracy": 0.07459031161110052
+        }
+      },
+      "macro": {
+        "nll": 3.4553436830585054,
+        "normalized_nll": 0.9999865639139137,
+        "accuracy": 0.09980085784313726,
+        "uniform_accuracy": 0.061615309489511334
+      },
+      "states": 1468
+    },
+    "validation": {
+      "instances": {
+        "neos648910": {
+          "nll": 3.9943539748589196,
+          "normalized_nll": 1.0000847273816664,
+          "accuracy": 0.0,
+          "uniform_accuracy": 0.020656811092497597
+        },
+        "pp08aCUTS": {
+          "nll": 2.532225007812182,
+          "normalized_nll": 1.0000314054389794,
+          "accuracy": 0.052083333333333336,
+          "uniform_accuracy": 0.09864498444759713
+        },
+        "swath1": {
+          "nll": 2.2148490672310195,
+          "normalized_nll": 1.0002251317103703,
+          "accuracy": 0.07291666666666667,
+          "uniform_accuracy": 0.13129811202461447
+        }
+      },
+      "macro": {
+        "nll": 2.9138093499673734,
+        "normalized_nll": 1.000113754843672,
+        "accuracy": 0.041666666666666664,
+        "uniform_accuracy": 0.08353330252156972
+      },
+      "states": 288
+    }
+  },
+  "final": {
+    "train": {
+      "instances": {
+        "air04": {
+          "nll": 2.7684290216748195,
+          "normalized_nll": 0.5700048705230074,
+          "accuracy": 0.4375,
+          "uniform_accuracy": 0.017150168733190235
+        },
+        "air05": {
+          "nll": 2.7183547315362375,
+          "normalized_nll": 0.5507222624514725,
+          "accuracy": 0.3515625,
+          "uniform_accuracy": 0.011261646265152506
+        },
+        "istanbul-no-cutoff": {
+          "nll": 1.520272650042898,
+          "normalized_nll": 0.7778970010695048,
+          "accuracy": 0.625,
+          "uniform_accuracy": 0.15864356916625677
+        },
+        "l152lav": {
+          "nll": 2.909766699808339,
+          "normalized_nll": 0.7910423433640972,
+          "accuracy": 0.325,
+          "uniform_accuracy": 0.035844502781022754
+        },
+        "lseu": {
+          "nll": 0.9551206025548709,
+          "normalized_nll": 0.4702703826458219,
+          "accuracy": 0.7421875,
+          "uniform_accuracy": 0.14125784861181762
+        },
+        "misc03": {
+          "nll": 2.495572083794019,
+          "normalized_nll": 0.7785595981952023,
+          "accuracy": 0.3235294117647059,
+          "uniform_accuracy": 0.05133347405963637
+        },
+        "neos20": {
+          "nll": 3.795691035222262,
+          "normalized_nll": 0.7631376407225616,
+          "accuracy": 0.15625,
+          "uniform_accuracy": 0.007439019338358213
+        },
+        "neos21": {
+          "nll": 2.11857126140967,
+          "normalized_nll": 0.4393982019100804,
+          "accuracy": 0.5078125,
+          "uniform_accuracy": 0.009472364875683979
+        },
+        "rmatr100-p10": {
+          "nll": 1.5608978657983243,
+          "normalized_nll": 0.45917628600727767,
+          "accuracy": 0.578125,
+          "uniform_accuracy": 0.03642515811829666
+        },
+        "rmatr100-p5": {
+          "nll": 1.3965851655229926,
+          "normalized_nll": 0.4380468035233207,
+          "accuracy": 0.6484375,
+          "uniform_accuracy": 0.047359458270838026
+        },
+        "sp150x300d": {
+          "nll": 1.4963084902701667,
+          "normalized_nll": 0.7198662028104081,
+          "accuracy": 0.4921875,
+          "uniform_accuracy": 0.1486061920427823
+        },
+        "stein27": {
+          "nll": 1.8270370843820274,
+          "normalized_nll": 0.6992052430287004,
+          "accuracy": 0.5,
+          "uniform_accuracy": 0.07459031161110052
+        }
+      },
+      "macro": {
+        "nll": 2.1302172243347193,
+        "normalized_nll": 0.6214439030209545,
+        "accuracy": 0.4739659926470588,
+        "uniform_accuracy": 0.061615309489511334
+      },
+      "states": 1468
+    },
+    "validation": {
+      "instances": {
+        "neos648910": {
+          "nll": 3.800098936073482,
+          "normalized_nll": 0.9521664308849722,
+          "accuracy": 0.21875,
+          "uniform_accuracy": 0.020656811092497597
+        },
+        "pp08aCUTS": {
+          "nll": 1.7984340093874682,
+          "normalized_nll": 0.7045092815921331,
+          "accuracy": 0.4895833333333333,
+          "uniform_accuracy": 0.09864498444759713
+        },
+        "swath1": {
+          "nll": 1.8960377963958308,
+          "normalized_nll": 0.8426455743950404,
+          "accuracy": 0.4895833333333333,
+          "uniform_accuracy": 0.13129811202461447
+        }
+      },
+      "macro": {
+        "nll": 2.4981902472855935,
+        "normalized_nll": 0.8331070956240486,
+        "accuracy": 0.3993055555555555,
+        "uniform_accuracy": 0.08353330252156972
+      },
+      "states": 288
+    }
+  },
+  "history": [
+    {
+      "step": 100,
+      "loss": 2.1157262325286865,
+      "seconds": 3.1873157100053504,
+      "validation": {
+        "instances": {
+          "neos648910": {
+            "nll": 3.800098936073482,
+            "normalized_nll": 0.9521664308849722,
+            "accuracy": 0.21875,
+            "uniform_accuracy": 0.020656811092497597
+          },
+          "pp08aCUTS": {
+            "nll": 1.7984340093874682,
+            "normalized_nll": 0.7045092815921331,
+            "accuracy": 0.4895833333333333,
+            "uniform_accuracy": 0.09864498444759713
+          },
+          "swath1": {
+            "nll": 1.8960377963958308,
+            "normalized_nll": 0.8426455743950404,
+            "accuracy": 0.4895833333333333,
+            "uniform_accuracy": 0.13129811202461447
+          }
+        },
+        "macro": {
+          "nll": 2.4981902472855935,
+          "normalized_nll": 0.8331070956240486,
+          "accuracy": 0.3993055555555555,
+          "uniform_accuracy": 0.08353330252156972
+        },
+        "states": 288
+      }
+    },
+    {
+      "step": 200,
+      "loss": 3.148519992828369,
+      "seconds": 4.396544918010477,
+      "validation": {
+        "instances": {
+          "neos648910": {
+            "nll": 3.5333451085413494,
+            "normalized_nll": 0.8827449992919961,
+            "accuracy": 0.20833333333333334,
+            "uniform_accuracy": 0.020656811092497597
+          },
+          "pp08aCUTS": {
+            "nll": 2.07992943299026,
+            "normalized_nll": 0.8164534383176942,
+            "accuracy": 0.5104166666666666,
+            "uniform_accuracy": 0.09864498444759713
+          },
+          "swath1": {
+            "nll": 2.014440355778788,
+            "normalized_nll": 0.8957873503774559,
+            "accuracy": 0.5208333333333334,
+            "uniform_accuracy": 0.13129811202461447
+          }
+        },
+        "macro": {
+          "nll": 2.542571632436799,
+          "normalized_nll": 0.864995262662382,
+          "accuracy": 0.4131944444444445,
+          "uniform_accuracy": 0.08353330252156972
+        },
+        "states": 288
+      }
+    },
+    {
+      "step": 300,
+      "loss": 1.5176095962524414,
+      "seconds": 5.703497220994905
+    },
+    {
+      "step": 400,
+      "loss": 1.5372217893600464,
+      "seconds": 6.780661332013551,
+      "validation": {
+        "instances": {
+          "neos648910": {
+            "nll": 3.524654192229112,
+            "normalized_nll": 0.8864796076280376,
+            "accuracy": 0.2708333333333333,
+            "uniform_accuracy": 0.020656811092497597
+          },
+          "pp08aCUTS": {
+            "nll": 2.0611732245693024,
+            "normalized_nll": 0.8134038654974857,
+            "accuracy": 0.5208333333333334,
+            "uniform_accuracy": 0.09864498444759713
+          },
+          "swath1": {
+            "nll": 2.3870999435243143,
+            "normalized_nll": 1.070094294365371,
+            "accuracy": 0.5208333333333334,
+            "uniform_accuracy": 0.13129811202461447
+          }
+        },
+        "macro": {
+          "nll": 2.6576424534409093,
+          "normalized_nll": 0.9233259224969648,
+          "accuracy": 0.4375,
+          "uniform_accuracy": 0.08353330252156972
+        },
+        "states": 288
+      }
+    },
+    {
+      "step": 500,
+      "loss": 2.444301128387451,
+      "seconds": 8.104020611033775
+    },
+    {
+      "step": 600,
+      "loss": 1.5310040712356567,
+      "seconds": 9.418376501009334,
+      "validation": {
+        "instances": {
+          "neos648910": {
+            "nll": 4.326244021455447,
+            "normalized_nll": 1.1033973257678251,
+            "accuracy": 0.3020833333333333,
+            "uniform_accuracy": 0.020656811092497597
+          },
+          "pp08aCUTS": {
+            "nll": 3.0563317670346826,
+            "normalized_nll": 1.1974261002697706,
+            "accuracy": 0.5,
+            "uniform_accuracy": 0.09864498444759713
+          },
+          "swath1": {
+            "nll": 3.0656513003264556,
+            "normalized_nll": 1.3658243041827483,
+            "accuracy": 0.4791666666666667,
+            "uniform_accuracy": 0.13129811202461447
+          }
+        },
+        "macro": {
+          "nll": 3.4827423629388616,
+          "normalized_nll": 1.222215910073448,
+          "accuracy": 0.4270833333333333,
+          "uniform_accuracy": 0.08353330252156972
+        },
+        "states": 288
+      }
+    },
+    {
+      "step": 700,
+      "loss": 1.6258469820022583,
+      "seconds": 10.66773154900875
+    },
+    {
+      "step": 800,
+      "loss": 1.7548763751983643,
+      "seconds": 11.953408788016532,
+      "validation": {
+        "instances": {
+          "neos648910": {
+            "nll": 4.754253149653475,
+            "normalized_nll": 1.2183100229594857,
+            "accuracy": 0.25,
+            "uniform_accuracy": 0.020656811092497597
+          },
+          "pp08aCUTS": {
+            "nll": 3.486341504554332,
+            "normalized_nll": 1.3650029205612924,
+            "accuracy": 0.5,
+            "uniform_accuracy": 0.09864498444759713
+          },
+          "swath1": {
+            "nll": 3.0050458018574653,
+            "normalized_nll": 1.3530984350121524,
+            "accuracy": 0.5416666666666666,
+            "uniform_accuracy": 0.13129811202461447
+          }
+        },
+        "macro": {
+          "nll": 3.7485468186884243,
+          "normalized_nll": 1.3121371261776436,
+          "accuracy": 0.4305555555555555,
+          "uniform_accuracy": 0.08353330252156972
+        },
+        "states": 288
+      }
+    },
+    {
+      "step": 900,
+      "loss": 0.8342568874359131,
+      "seconds": 13.3164534450043
+    },
+    {
+      "step": 1000,
+      "loss": 1.249083161354065,
+      "seconds": 14.619621529011056,
+      "validation": {
+        "instances": {
+          "neos648910": {
+            "nll": 3.4060858477217457,
+            "normalized_nll": 0.8687497335486114,
+            "accuracy": 0.23958333333333334,
+            "uniform_accuracy": 0.020656811092497597
+          },
+          "pp08aCUTS": {
+            "nll": 2.6166940872800857,
+            "normalized_nll": 1.0200185778668949,
+            "accuracy": 0.4375,
+            "uniform_accuracy": 0.09864498444759713
+          },
+          "swath1": {
+            "nll": 2.837978133076829,
+            "normalized_nll": 1.2820793763839877,
+            "accuracy": 0.4895833333333333,
+            "uniform_accuracy": 0.13129811202461447
+          }
+        },
+        "macro": {
+          "nll": 2.9535860226928867,
+          "normalized_nll": 1.056949229266498,
+          "accuracy": 0.3888888888888889,
+          "uniform_accuracy": 0.08353330252156972
+        },
+        "states": 288
+      }
+    }
+  ],
+  "actor_sha256": "78f4c61c6aed01b4890a61d5aad263d4255003886f0aafe26b90b0fa119420d5",
+  "seconds": 15.206220678985119,
+  "device": "cuda",
+  "batch_order_hash_this_attempt": "6306c39140a7eb58af53cd35fc16dbe508c326076bf4ae1ff7275e167381234e",
+  "completed_steps": 1000,
+  "selected_step": 100,
+  "selection": "minimum heldout-instance macro normalized NLL; exact ties favor earlier; fixed training budget completed",
+  "label": "offline native expert transfer; instance heldout within TGPPO train; not solver gains"
+}

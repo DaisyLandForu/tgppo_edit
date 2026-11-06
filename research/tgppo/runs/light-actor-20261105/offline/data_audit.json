@@ -1,0 +1,515 @@
+{
+  "schema": "light-expert-v1",
+  "dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+  "source_manifest_sha256": "5d7d55a8878ee2e8dd232214741f47341f6e403adbf6dc16606179f6f7aa836c",
+  "feature_audit": {
+    "source_sha256": {
+      "tgppo/experiments/stage4/metrics_binding/src/pyscipopt/scip.pyx": "7dc7cc0f9f4789cc71fcb3fa0c224fe930ad0bbeb79bcd6213eb9433b8207486",
+      "mamba-branching/setup/PySCIPOpt-4.3.0-features/src/pyscipopt/scip.pyx": "acedfc4ecfeef6cbb2abc4b483712f50df3a31508758cd2712d3891c11a76c77"
+    },
+    "normalized_source_differences": {
+      "relDistance": [],
+      "relPosition": [
+        "--- SCIP6\n",
+        "+++ SCIP8\n",
+        "@@ -6,3 +6,3 @@\n",
+        " \"\"\"",
+        "-if SCIPisInfinity(self._scip, ub):",
+        "+if SCIPisInfinity(self._scip, ub) or ub == lb:",
+        " return 0."
+      ],
+      "getVarScore": [],
+      "gNormMax": [],
+      "getNodeState": [
+        "--- SCIP6\n",
+        "+++ SCIP8\n",
+        "@@ -4,2 +4,4 @@\n",
+        " \"\"\"",
+        "+if node_dim != 8:",
+        "+raise ValueError(\"getNodeState requires dimension 8\")",
+        " node_state = np.empty(node_dim, dtype=np.double)",
+        "@@ -25,3 +27,3 @@\n",
+        " node_state_view[5] = self.relPosition(node_bound=SCIPgetLPObjval(self._scip), ub=SCIPgetUpperbound(self._scip), lb=SCIPgetLowerbound(self._scip))",
+        "-node_state_view[6] = float(len(self.getLPBranchCands())) / self.getNDiscreteVars()",
+        "+node_state_view[6] = float(self.getNumLPBranchCands()) / self.getNDiscreteVars()",
+        " node_state_view[7] = float(nboundchgs) / SCIPgetNVars(self._scip)"
+      ],
+      "getMIPState": [
+        "--- SCIP6\n",
+        "+++ SCIP8\n",
+        "@@ -4,2 +4,4 @@\n",
+        " \"\"\"",
+        "+if mip_dim != 53:",
+        "+raise ValueError(\"getMIPState requires dimension 53\")",
+        " mip_state = np.empty(mip_dim, dtype=np.double)",
+        "@@ -85,10 +87,10 @@\n",
+        " for i in range(nleaves):",
+        "-open_lowerbounds_view[i] = leaves[i].lowerbound",
+        "-open_depths_view[i] = leaves[i].depth",
+        "+open_lowerbounds_view[i] = SCIPnodeGetLowerbound(leaves[i])",
+        "+open_depths_view[i] = SCIPnodeGetDepth(leaves[i])",
+        " for i in range(nchildren):",
+        "-open_lowerbounds_view[nleaves+i] = children[i].lowerbound",
+        "-open_depths_view[nleaves+i] = children[i].depth",
+        "+open_lowerbounds_view[nleaves+i] = SCIPnodeGetLowerbound(children[i])",
+        "+open_depths_view[nleaves+i] = SCIPnodeGetDepth(children[i])",
+        " for i in range(nsiblings):",
+        "-open_lowerbounds_view[nleaves+nchildren+i] = siblings[i].lowerbound",
+        "-open_depths_view[nleaves+nchildren+i] = siblings[i].depth",
+        "+open_lowerbounds_view[nleaves+nchildren+i] = SCIPnodeGetLowerbound(siblings[i])",
+        "+open_depths_view[nleaves+nchildren+i] = SCIPnodeGetDepth(siblings[i])",
+        " mip_state_view[37] = float(len(np.argwhere(open_lowerbounds == np.min(open_lowerbounds)))) / len(open_lowerbounds)"
+      ],
+      "getCandsState": [
+        "--- SCIP6\n",
+        "+++ SCIP8\n",
+        "@@ -5,2 +5,4 @@\n",
+        " \"\"\"",
+        "+if var_dim != 25:",
+        "+raise ValueError(\"getCandsState requires dimension 25\")",
+        " cdef SCIP_VAR** lpcands"
+      ]
+    },
+    "interpretation": [
+      "25 candidate features have the same formulas and order; SCIP8 adds dimension checks.",
+      "Node candidate-count list length in this SCIP6 binding equals SCIP8 getNumLPBranchCands.",
+      "SCIP8 uses node getter APIs for matching MIP features and guards ub==lb in relPosition.",
+      "Collector stores node[0:8], then mip[0:53]; action is pre-action candidate-relative position.",
+      "Candidate features13/14 use callback count in expert collector vs successful branch count in TGPPO; values are preserved as transfer data, not claimed identical.",
+      "SCIP8/no-cutoff native states differ in distribution from SCIP6/cutoff PPO states; no on-policy equivalence claimed."
+    ]
+  },
+  "legal_instances": [
+    "air04",
+    "air05",
+    "istanbul-no-cutoff",
+    "l152lav",
+    "lseu",
+    "misc03",
+    "neos20",
+    "neos21",
+    "neos648910",
+    "pp08aCUTS",
+    "rmatr100-p10",
+    "rmatr100-p5",
+    "sp150x300d",
+    "stein27",
+    "swath1"
+  ],
+  "excluded_instances": [
+    "dcmulti",
+    "eil33-2",
+    "neos-476283",
+    "vpm2"
+  ],
+  "validation_instances": [
+    "pp08aCUTS",
+    "swath1",
+    "neos648910"
+  ],
+  "train_instances": [
+    "air04",
+    "air05",
+    "istanbul-no-cutoff",
+    "l152lav",
+    "lseu",
+    "misc03",
+    "neos20",
+    "neos21",
+    "rmatr100-p10",
+    "rmatr100-p5",
+    "sp150x300d",
+    "stein27"
+  ],
+  "states_by_instance": {
+    "air04": 128,
+    "air05": 128,
+    "istanbul-no-cutoff": 128,
+    "l152lav": 120,
+    "lseu": 128,
+    "misc03": 68,
+    "neos20": 128,
+    "neos21": 128,
+    "neos648910": 96,
+    "pp08aCUTS": 96,
+    "rmatr100-p10": 128,
+    "rmatr100-p5": 128,
+    "sp150x300d": 128,
+    "stein27": 128,
+    "swath1": 96
+  },
+  "train_states": 1468,
+  "validation_states": 288,
+  "candidate_counts": {
+    "min": 2,
+    "median": 25.0,
+    "max": 256
+  },
+  "source_files": [
+    {
+      "id": "air04-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air04-s0-r0/attempt-20261027T163120.099135Z/trajectory.h5",
+      "sha256": "8489fc3d82b1606c0944ea27830e64129ced8485cda2be2aee1a450cf455b5a0",
+      "selected": 32
+    },
+    {
+      "id": "air04-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air04-s1-r0/attempt-20261027T163719.064978Z/trajectory.h5",
+      "sha256": "ac931d907cc8e3906baeb3e2593c0dc9e4c330d1243a54b72e55b0cc21cacaf3",
+      "selected": 32
+    },
+    {
+      "id": "air04-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air04-s2-r0/attempt-20261027T164954.969990Z/trajectory.h5",
+      "sha256": "7296934b4d71595fbcd8b22fc82a5d4a982a92d0f388789c88176aba8b5061ae",
+      "selected": 32
+    },
+    {
+      "id": "air04-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air04-s3-r0/attempt-20261027T165728.524021Z/trajectory.h5",
+      "sha256": "978346de0edf173264bedffccdc5165151970cda21a21c7c20033b86f0d22266",
+      "selected": 32
+    },
+    {
+      "id": "air05-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air05-s0-r0/attempt-20261027T163126.566255Z/trajectory.h5",
+      "sha256": "83c500564c4ec530034655471cbda423f628604f3bbabbbbb62790b8a144e647",
+      "selected": 32
+    },
+    {
+      "id": "air05-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air05-s1-r0/attempt-20261027T163626.572611Z/trajectory.h5",
+      "sha256": "838b8956d7dc668cf5b784230d2861a24117be7894646b7d2af2a6a960c85fb5",
+      "selected": 32
+    },
+    {
+      "id": "air05-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air05-s2-r0/attempt-20261027T165137.587134Z/trajectory.h5",
+      "sha256": "8b0699f788f1c08b49202486d5e9582a516b12807f5b1605cd3089ef52344a75",
+      "selected": 32
+    },
+    {
+      "id": "air05-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/air05-s3-r0/attempt-20261027T170438.161332Z/trajectory.h5",
+      "sha256": "138efeaf2b93744b26c66f65a22c86ccafe048d86a7f657090a91fe659758987",
+      "selected": 32
+    },
+    {
+      "id": "istanbul-no-cutoff-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/istanbul-no-cutoff-s0-r0/attempt-20261027T163220.588787Z/trajectory.h5",
+      "sha256": "895d35d91d402d36774fe81aeaa40a5c59b22174cd93a487be3118be8efec30c",
+      "selected": 32
+    },
+    {
+      "id": "istanbul-no-cutoff-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/istanbul-no-cutoff-s1-r0/attempt-20261027T163735.295859Z/trajectory.h5",
+      "sha256": "c65cc45aa3a80f53e5867c4c7927ba224c606998ac2b792cd4b299423e29a265",
+      "selected": 32
+    },
+    {
+      "id": "istanbul-no-cutoff-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/istanbul-no-cutoff-s2-r0/attempt-20261027T164850.497742Z/trajectory.h5",
+      "sha256": "8eae6f8a9dc439f0f5f6fdd108ab7c5fca2cdeaa097c0216459b5823f2f02011",
+      "selected": 32
+    },
+    {
+      "id": "istanbul-no-cutoff-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/istanbul-no-cutoff-s3-r0/attempt-20261027T170602.569881Z/trajectory.h5",
+      "sha256": "fca4d744e149d67259c762d507b8780feeb1ca38925633e2279c7ef83ede619d",
+      "selected": 32
+    },
+    {
+      "id": "l152lav-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/l152lav-s0-r0/attempt-20261027T163234.341460Z/trajectory.h5",
+      "sha256": "4e60a17fadab71619e87d82ab265b07088ec631a52f0afe709c040b5ef62c168",
+      "selected": 32
+    },
+    {
+      "id": "l152lav-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/l152lav-s1-r0/attempt-20261027T163838.213974Z/trajectory.h5",
+      "sha256": "bdd6653e8be80cc9534e942b9e336d47c353ff1ef27742a015beb0ff6d9300fe",
+      "selected": 32
+    },
+    {
+      "id": "l152lav-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/l152lav-s2-r0/attempt-20261027T164356.181131Z/trajectory.h5",
+      "sha256": "8400696c3eaae7bad37e209a7c29e1fe74ab28bfd04a72c3812d10fe5a48402e",
+      "selected": 32
+    },
+    {
+      "id": "l152lav-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/l152lav-s3-r0/attempt-20261027T170449.545397Z/trajectory.h5",
+      "sha256": "fd5af5115ccde1c36ed9a0eaca12d86c598b7eb0818ebe3fd52189d765f8e700",
+      "selected": 24
+    },
+    {
+      "id": "lseu-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/lseu-s0-r0/attempt-20261027T163246.620550Z/trajectory.h5",
+      "sha256": "2912e8d0c8a7bb92f76c664c6b45c8ded9e6ec5d7f22c759862c786ed0da83e7",
+      "selected": 32
+    },
+    {
+      "id": "lseu-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/lseu-s1-r0/attempt-20261027T163840.100470Z/trajectory.h5",
+      "sha256": "26f9fc5708373b90acbfacf37c4aa5796c106605f145c4c4c77cd9dd076beaa2",
+      "selected": 32
+    },
+    {
+      "id": "lseu-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/lseu-s2-r0/attempt-20261027T165323.592368Z/trajectory.h5",
+      "sha256": "b9941e062b551f930d42613639f13c8658a603dba65028fa87fe45aa2843812a",
+      "selected": 32
+    },
+    {
+      "id": "lseu-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/lseu-s3-r0/attempt-20261027T165701.821628Z/trajectory.h5",
+      "sha256": "44bf2491fc666091100aa281dce1eadb51246931ba5361de8017d47a8bb4a686",
+      "selected": 32
+    },
+    {
+      "id": "misc03-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/misc03-s0-r0/attempt-20261027T163300.604095Z/trajectory.h5",
+      "sha256": "7b3066605ada84d79106bec0543030767c52cc2f19cae1e21c856818d72ad73d",
+      "selected": 15
+    },
+    {
+      "id": "misc03-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/misc03-s1-r0/attempt-20261027T164517.859791Z/trajectory.h5",
+      "sha256": "a0075641970cf4a96af9d97dd43024b2e737129088859e309407534350500604",
+      "selected": 11
+    },
+    {
+      "id": "misc03-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/misc03-s2-r0/attempt-20261027T165103.181416Z/trajectory.h5",
+      "sha256": "88d2800a0f79306c101e4bc02fef1f1d6e3924a69d89bbe03f365177ef65535d",
+      "selected": 10
+    },
+    {
+      "id": "misc03-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/misc03-s3-r0/attempt-20261027T170830.810358Z/trajectory.h5",
+      "sha256": "8cbdc56cf97d0d8118cafde2bd8e12fad7972070422c25774571e8ffc5e63747",
+      "selected": 32
+    },
+    {
+      "id": "neos20-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos20-s0-r0/attempt-20261027T163120.099266Z/trajectory.h5",
+      "sha256": "023ed2f5ba0601cbbca00a00492d8c6d40de47e3aa084927593d92fd07de996c",
+      "selected": 32
+    },
+    {
+      "id": "neos20-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos20-s1-r0/attempt-20261027T163904.942763Z/trajectory.h5",
+      "sha256": "67f98bfd1661662ee499276b439a3457d1191b5a7b90e79f75576f0fca8971ad",
+      "selected": 32
+    },
+    {
+      "id": "neos20-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos20-s2-r0/attempt-20261027T165258.907082Z/trajectory.h5",
+      "sha256": "a2455fd4c2071ecf55c05c13c51b1e03160de4a8848dcb56b48307f16b732016",
+      "selected": 32
+    },
+    {
+      "id": "neos20-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos20-s3-r0/attempt-20261027T165903.097304Z/trajectory.h5",
+      "sha256": "38ac30f7b71859d36b168be3eeb0890ceed6f4308d154b49a3e2c60cfa50c862",
+      "selected": 32
+    },
+    {
+      "id": "neos21-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos21-s0-r0/attempt-20261027T163126.566363Z/trajectory.h5",
+      "sha256": "bbddd2feb332404bda31d0ee263c7458d7e0fdb5d498de68ca477e0750a65ece",
+      "selected": 32
+    },
+    {
+      "id": "neos21-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos21-s1-r0/attempt-20261027T163733.483281Z/trajectory.h5",
+      "sha256": "0a23dc4e16dd1f2bd01cb1784e4f3102bab785b555bf5037170fe629dd5cf500",
+      "selected": 32
+    },
+    {
+      "id": "neos21-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos21-s2-r0/attempt-20261027T165152.603469Z/trajectory.h5",
+      "sha256": "6c35e23289b52fd037c6264cfc73ca8da1e0968a4923634c5b5985c45ad3564a",
+      "selected": 32
+    },
+    {
+      "id": "neos21-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos21-s3-r0/attempt-20261027T170550.954938Z/trajectory.h5",
+      "sha256": "dbe9bedadcb37cf238c80042677a86de279e28bdcbd43c87f28dba949867bdf2",
+      "selected": 32
+    },
+    {
+      "id": "neos648910-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos648910-s0-r0/attempt-20261027T163209.891910Z/trajectory.h5",
+      "sha256": "964823fcb54631c8347e97952e532f99a471eb2ede9d753d4903d1d9997aea82",
+      "selected": 24
+    },
+    {
+      "id": "neos648910-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos648910-s1-r0/attempt-20261027T163659.066037Z/trajectory.h5",
+      "sha256": "51fb690cccdc86269cb4cd8fedf5f141fd502fc222b0e3a20d4e6df836d1c0c6",
+      "selected": 24
+    },
+    {
+      "id": "neos648910-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos648910-s2-r0/attempt-20261027T165124.552923Z/trajectory.h5",
+      "sha256": "e97bdc8efdaa7df2c8b5d8b72ea55223f5d742889ec73b552dacf3cedcb907bc",
+      "selected": 24
+    },
+    {
+      "id": "neos648910-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/neos648910-s3-r0/attempt-20261027T170425.516003Z/trajectory.h5",
+      "sha256": "87a11083c9479ef285313950e2192724f780cd24aa9bf6bcc0b867e94c2fe707",
+      "selected": 24
+    },
+    {
+      "id": "pp08aCUTS-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/pp08aCUTS-s0-r0/attempt-20261027T163220.588875Z/trajectory.h5",
+      "sha256": "159cb66bf03b7c6fef0400ee569971f4eba8b2cea0f277db779ca9c9160ac4a4",
+      "selected": 24
+    },
+    {
+      "id": "pp08aCUTS-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/pp08aCUTS-s1-r0/attempt-20261027T163809.247591Z/trajectory.h5",
+      "sha256": "a7d17eca210422a146f9e2997dfd38d1b731b8f08d2106b2dad7c429b9a4531b",
+      "selected": 24
+    },
+    {
+      "id": "pp08aCUTS-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/pp08aCUTS-s2-r0/attempt-20261027T165018.103531Z/trajectory.h5",
+      "sha256": "14fde7d127bbd9fe58145dac6cb60cbca2d4799e085a34d4d611a73ab879974a",
+      "selected": 24
+    },
+    {
+      "id": "pp08aCUTS-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/pp08aCUTS-s3-r0/attempt-20261027T170618.545271Z/trajectory.h5",
+      "sha256": "de545e1e09af5a7739c8a6f9265fd7ada31a6ec0ec8dc26c9d79d0c81b2a4a8c",
+      "selected": 24
+    },
+    {
+      "id": "rmatr100-p10-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p10-s0-r0/attempt-20261027T163234.341556Z/trajectory.h5",
+      "sha256": "ebff4e7c497fef83019beee97b0a6311cc4b837d86b67426b73a2a59e0d2ab4c",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p10-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p10-s1-r0/attempt-20261027T163845.747838Z/trajectory.h5",
+      "sha256": "53c7a90ebb9f587d145c2c8a1c906db82a7207e492d5a3586e13ff551eb3dc86",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p10-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p10-s2-r0/attempt-20261027T164403.816554Z/trajectory.h5",
+      "sha256": "e47f3fbcd44270311b101ffc5cde4892ffce008994163b22389f0dc589d05b65",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p10-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p10-s3-r0/attempt-20261027T170455.476464Z/trajectory.h5",
+      "sha256": "041024f1ac08cb621e544ded1fdba0bcaf16ac90d0583f608af8236b7f67288e",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p5-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p5-s0-r0/attempt-20261027T163246.620664Z/trajectory.h5",
+      "sha256": "7fbdd03769d4bea47b80a9160f0af2d2ea4ebc37eb23be0f9d031b2acfa8713f",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p5-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p5-s1-r0/attempt-20261027T163843.776992Z/trajectory.h5",
+      "sha256": "2f1f21c23a8010681a1e2be8146267bb11a1fa00339c79f0a6c25331f3df43f7",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p5-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p5-s2-r0/attempt-20261027T165327.319154Z/trajectory.h5",
+      "sha256": "45d35d727cfa034d2eb1a98bf9e2c023ae14e0a6659bf7fae9b9a5dce3439306",
+      "selected": 32
+    },
+    {
+      "id": "rmatr100-p5-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/rmatr100-p5-s3-r0/attempt-20261027T165704.997731Z/trajectory.h5",
+      "sha256": "86c2bf7044fc4cc7cc2860da6cecf14f7340d15acd237154622e927b1f80c194",
+      "selected": 32
+    },
+    {
+      "id": "sp150x300d-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/sp150x300d-s0-r0/attempt-20261027T163300.604208Z/trajectory.h5",
+      "sha256": "7562ca3767721dc508bbbf4432819c27d9b8c118c64c78142d65d39d8fc33a8f",
+      "selected": 32
+    },
+    {
+      "id": "sp150x300d-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/sp150x300d-s1-r0/attempt-20261027T164521.033901Z/trajectory.h5",
+      "sha256": "5c80cc2388c5470bb46a3bce005d206b85a40be1ba28bc9afcc09563539bbef9",
+      "selected": 32
+    },
+    {
+      "id": "sp150x300d-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/sp150x300d-s2-r0/attempt-20261027T165106.807561Z/trajectory.h5",
+      "sha256": "ed64d164e9ef77ff80796b2a9dfe48815eccd6cf213b6564157d6cd10e0d3011",
+      "selected": 32
+    },
+    {
+      "id": "sp150x300d-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/sp150x300d-s3-r0/attempt-20261027T170834.837756Z/trajectory.h5",
+      "sha256": "0eda2ea9182121d0f6f3e3ade33d072f69944e3c6097e83a1a6b3e342d44aa19",
+      "selected": 32
+    },
+    {
+      "id": "stein27-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/stein27-s0-r0/attempt-20261027T163157.879444Z/trajectory.h5",
+      "sha256": "e9d73b8a6ef6915a338047e65411bde587eae5cf0e3e6199eec439b134bbbe12",
+      "selected": 32
+    },
+    {
+      "id": "stein27-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/stein27-s1-r0/attempt-20261027T163937.401874Z/trajectory.h5",
+      "sha256": "99edf89fd8b8810ef59ae4def788c777c8c45df83aaa0bb0f9e2e545ab8e2acf",
+      "selected": 32
+    },
+    {
+      "id": "stein27-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/stein27-s2-r0/attempt-20261027T165330.606605Z/trajectory.h5",
+      "sha256": "f5c97137f49c9e9e40b7d224453b25b53da51972f3d536b129937f2efdfba33b",
+      "selected": 32
+    },
+    {
+      "id": "stein27-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/stein27-s3-r0/attempt-20261027T165937.312086Z/trajectory.h5",
+      "sha256": "20f16f171c0ecff79063eab3a5d880e8824e18f1fe816da26fc521031c1458f4",
+      "selected": 32
+    },
+    {
+      "id": "swath1-s0-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/swath1-s0-r0/attempt-20261027T163224.745340Z/trajectory.h5",
+      "sha256": "6fdc245d87e57b6defd8d2e5ed820be3ddce61981522d383de5744a1e6e2f8ef",
+      "selected": 24
+    },
+    {
+      "id": "swath1-s1-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/swath1-s1-r0/attempt-20261027T163829.910972Z/trajectory.h5",
+      "sha256": "0e107515caeebc465bf189d4f1c30f27fd903947b0fae959ab8731c42af6d16c",
+      "selected": 24
+    },
+    {
+      "id": "swath1-s2-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/swath1-s2-r0/attempt-20261027T165226.211634Z/trajectory.h5",
+      "sha256": "1e600a642169718996197e41b02d66a69b63513c37c77e52ec7061520e4d52a9",
+      "selected": 24
+    },
+    {
+      "id": "swath1-s3-r0",
+      "path": "mamba-branching/runs/milp-s-seed0-20261027/collection/swath1-s3-r0/attempt-20261027T170633.552112Z/trajectory.h5",
+      "sha256": "c6a9dc08f4bf5cf011ee183b05fd4c6db2da0976b7644853c88955a5a38d13bd",
+      "selected": 24
+    }
+  ],
+  "whole_states_with_L_gt_256_excluded": 346,
+  "sampling": "seed0-3; random-prefix0 only; evenly spaced <=32 train / <=24 validation states per source; no candidate truncation",
+  "domain": "SCIP8 relpscost expert offline transfer only; no PPO replay; no dev/test fitting",
+  "seconds": 12.17275360878557,
+  "new_scip_solves": 0
+}
