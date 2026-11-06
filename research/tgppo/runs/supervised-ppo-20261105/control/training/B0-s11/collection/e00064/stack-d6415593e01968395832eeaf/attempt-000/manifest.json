@@ -1,0 +1,1876 @@
+{
+  "identity": {
+    "policy_fingerprint": "c61e447a3663855cf86f2bc1ab39a012ba77d7c70a3b4be141f3d4a72599a980",
+    "protocol": "76d4a229860838f48f604284941c016b412fce11873229b3b12c7bcc69f59fd1",
+    "training_stack": {
+      "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+      "cpu_model": "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+      "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+      "machine": "x86_64",
+      "python_abi": "3.8",
+      "scip_version": 6.01,
+      "torch_cuda_runtime": "11.7",
+      "torch_version": "1.13.1+cu117"
+    }
+  },
+  "jobs": [
+    {
+      "address_space_limit_bytes": 8589934592,
+      "baseline": {
+        "identity": {
+          "cutoff": -12.0,
+          "cutoff_provenance": {
+            "record_sha256": "7343235c24635ba654ee878f32e6e02a99e7b91316719e177fde0e95c2210880",
+            "source": "miplib2017.solu",
+            "status": "optimal",
+            "verified": true
+          },
+          "instance_sha256": "f0007f47d356d70d1843e371ac75c7dbfdef4a2947785d47059e61821097e15a",
+          "integral_snapshot_protocol": "read-only-stat-v1",
+          "limits": {
+            "node_limit": -1,
+            "time_limit": 120.0
+          },
+          "params": {
+            "checksol": false,
+            "conflict_usesb": false,
+            "cutoff": true,
+            "heuristics": false,
+            "probing_bounds": false,
+            "reevalage": 0
+          },
+          "protocol_version": "stage3-measured-pdi-v1",
+          "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+          "solver_seed": 0,
+          "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+        },
+        "result": {
+          "address_space_limit_bytes": 8589934592,
+          "bounds_trace": [
+            {
+              "dual": -1e+20,
+              "native_last_update_time": 0.0,
+              "native_previous_percent_gap": 100.0,
+              "native_raw": 0.0,
+              "primal": -12.0,
+              "reason": "event",
+              "time": 0.047262
+            },
+            {
+              "dual": -18.285714285714256,
+              "native_last_update_time": 37.374652,
+              "native_previous_percent_gap": 34.37499999999989,
+              "native_raw": 2104.4137000000014,
+              "primal": -12.0,
+              "reason": "event",
+              "time": 98.689804
+            },
+            {
+              "dual": -18.285714285714256,
+              "native_last_update_time": 120.704226,
+              "native_previous_percent_gap": 34.37499999999989,
+              "native_raw": 4968.867806249993,
+              "primal": -12.0,
+              "reason": "stop",
+              "time": 120.70423
+            }
+          ],
+          "cpu_affinity": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "cuda_initialized": false,
+          "cutoff_applied": true,
+          "cutoff_proof": false,
+          "cutoff_verified": true,
+          "dual_bound": -18.285714285714256,
+          "dual_bound_finite": true,
+          "environment_wall_seconds_before_free": 120.74345762911253,
+          "episode_ended": true,
+          "episode_id": "native-cod105-s0",
+          "gap": 0.5238095238095214,
+          "gap_finite": true,
+          "has_feasible_solution": false,
+          "identity": {
+            "cutoff": -12.0,
+            "cutoff_provenance": {
+              "record_sha256": "7343235c24635ba654ee878f32e6e02a99e7b91316719e177fde0e95c2210880",
+              "source": "miplib2017.solu",
+              "status": "optimal",
+              "verified": true
+            },
+            "instance_sha256": "f0007f47d356d70d1843e371ac75c7dbfdef4a2947785d47059e61821097e15a",
+            "integral_snapshot_protocol": "read-only-stat-v1",
+            "limits": {
+              "node_limit": -1,
+              "time_limit": 120.0
+            },
+            "params": {
+              "checksol": false,
+              "conflict_usesb": false,
+              "cutoff": true,
+              "heuristics": false,
+              "probing_bounds": false,
+              "reevalage": 0
+            },
+            "protocol_version": "stage3-measured-pdi-v1",
+            "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+            "solver_seed": 0,
+            "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+          },
+          "instance_name": "cod105",
+          "integral_snapshot": {
+            "integral": 4968.867806249993,
+            "last_dual_bound": -18.285714285714256,
+            "last_primal_bound": -12.0,
+            "last_update_time": 120.704226,
+            "previous_percent_gap": 34.37499999999989,
+            "solving_time": 120.70423
+          },
+          "job_id": "native-cod105-s0",
+          "load_wall_seconds": 0.03908243915066123,
+          "measurement_callback_seconds": 0.00016209017485380173,
+          "measurement_event_calls": 11,
+          "measurement_version": "native-pdi-snapshot-horizon-v2",
+          "mode": "native",
+          "nnodes": 1,
+          "num_stored_solutions": 0,
+          "objective": null,
+          "optimize_wall_seconds": 120.70433967700228,
+          "original_optimal": false,
+          "pdi_extension_basis": "hold_final_native_bound_gap",
+          "pdi_horizon_exact": false,
+          "pdi_horizon_lower": 4898.4449437499925,
+          "pdi_horizon_midpoint": 4933.656443749993,
+          "pdi_horizon_normalized_midpoint": 0.41113803697916607,
+          "pdi_horizon_seconds": 120.0,
+          "pdi_horizon_uncertainty": 70.42299999999977,
+          "pdi_horizon_upper": 4968.867943749992,
+          "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+          "pdi_native_complete_at_stop": 4968.867943749992,
+          "pdi_native_final_percent_gap": 34.37499999999989,
+          "pdi_native_raw_before_flush": 4968.867806249993,
+          "pdi_semantics": "native_raw_until_actual_stop",
+          "pdi_tail_completed_readonly": 0.00013749999925494194,
+          "peak_rss_kib": 433952,
+          "primalDualIntegral": 4968.867806249993,
+          "primalDualIntegral_finite": true,
+          "primal_bound": -12.0,
+          "primal_bound_finite": true,
+          "proof_completed": false,
+          "reward_version": "upstream_h3_t120",
+          "sampling_seed": 371228118,
+          "scip_infinity": 1e+20,
+          "scip_solve_time": 120.70423,
+          "scip_time_overshoot_seconds": 0.7042299999999955,
+          "solver_seed": 0,
+          "status": "timelimit",
+          "task_terminal": true,
+          "time_limit_seconds": 120.0,
+          "valid": true,
+          "worker_cpu_complete": true,
+          "worker_cpu_seconds": 122.991993,
+          "worker_wall_seconds": 120.81488499906845
+        }
+      },
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/contexts/control-s11/70faed25823d2e9ee703616c/training/B0-s11/latest.pt",
+      "cutoff": -12.0,
+      "cutoff_provenance": {
+        "record_sha256": "7343235c24635ba654ee878f32e6e02a99e7b91316719e177fde0e95c2210880",
+        "source": "miplib2017.solu",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/cod105.mps.gz",
+      "instance_name": "cod105",
+      "job_id": "e00064-cod105-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "collect",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 4261670710,
+      "solver_seed": 0,
+      "training_seed": 11
+    },
+    {
+      "address_space_limit_bytes": 8589934592,
+      "baseline": {
+        "identity": {
+          "cutoff": -434.0,
+          "cutoff_provenance": {
+            "record_sha256": "1162b51cbd430387da8fdefa6a7e559d26b456e84b3a81530d4a077cf8e45987",
+            "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+            "status": "optimal",
+            "verified": true
+          },
+          "instance_sha256": "1018bb7c4c89c2e1482a2dd1b2d6cf3bcdd11c1fa7a5344739d5813f5a4a92e2",
+          "integral_snapshot_protocol": "read-only-stat-v1",
+          "limits": {
+            "node_limit": -1,
+            "time_limit": 120.0
+          },
+          "params": {
+            "checksol": false,
+            "conflict_usesb": false,
+            "cutoff": true,
+            "heuristics": false,
+            "probing_bounds": false,
+            "reevalage": 0
+          },
+          "protocol_version": "stage3-measured-pdi-v1",
+          "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+          "solver_seed": 0,
+          "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+        },
+        "result": {
+          "address_space_limit_bytes": 8589934592,
+          "bounds_trace": [
+            {
+              "dual": -1e+20,
+              "native_last_update_time": 0.0,
+              "native_previous_percent_gap": 100.0,
+              "native_raw": 0.0,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 0.015234
+            },
+            {
+              "dual": -469.0,
+              "native_last_update_time": 0.761234,
+              "native_previous_percent_gap": 7.462686567164179,
+              "native_raw": 26.438718056742108,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 1.842458
+            },
+            {
+              "dual": -468.99999999999994,
+              "native_last_update_time": 2.242715,
+              "native_previous_percent_gap": 7.462686567164169,
+              "native_raw": 37.49454641495106,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 2.387313
+            },
+            {
+              "dual": -468.99999999999983,
+              "native_last_update_time": 5.966667,
+              "native_previous_percent_gap": 7.462686567164145,
+              "native_raw": 65.2852329821152,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 5.9726289999999995
+            },
+            {
+              "dual": -468.923076923077,
+              "native_last_update_time": 8.908229,
+              "native_previous_percent_gap": 7.447506561679809,
+              "native_raw": 87.23717560762448,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 8.908649
+            },
+            {
+              "dual": -466.99999999999994,
+              "native_last_update_time": 9.153888,
+              "native_previous_percent_gap": 7.066381156316906,
+              "native_raw": 89.06672262206018,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 9.158808
+            },
+            {
+              "dual": -465.69115393884147,
+              "native_last_update_time": 9.950813,
+              "native_previous_percent_gap": 6.805187015212966,
+              "native_raw": 94.69809842505803,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 9.959849
+            },
+            {
+              "dual": -461.99999999999983,
+              "native_last_update_time": 10.538181,
+              "native_previous_percent_gap": 6.060606060606025,
+              "native_raw": 98.69524751180964,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 10.541007
+            },
+            {
+              "dual": -461.0,
+              "native_last_update_time": 10.641177,
+              "native_previous_percent_gap": 5.856832971800434,
+              "native_raw": 99.31946569362782,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 10.655357
+            },
+            {
+              "dual": -460.99999999999994,
+              "native_last_update_time": 10.765056,
+              "native_previous_percent_gap": 5.856832971800423,
+              "native_raw": 100.04500430534148,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 10.765143
+            },
+            {
+              "dual": -457.0,
+              "native_last_update_time": 11.048781,
+              "native_previous_percent_gap": 5.032822757111598,
+              "native_raw": 101.70673424026556,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 11.048806
+            },
+            {
+              "dual": -434.0,
+              "native_last_update_time": 11.20567,
+              "native_previous_percent_gap": 0.0,
+              "native_raw": 102.49632876980604,
+              "primal": -434.0,
+              "reason": "event",
+              "time": 11.20569
+            },
+            {
+              "dual": -434.0,
+              "native_last_update_time": 11.205701,
+              "native_previous_percent_gap": 0.0,
+              "native_raw": 102.49632876980604,
+              "primal": -434.0,
+              "reason": "stop",
+              "time": 11.206099
+            }
+          ],
+          "cpu_affinity": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "cuda_initialized": false,
+          "cutoff_applied": true,
+          "cutoff_proof": true,
+          "cutoff_verified": true,
+          "dual_bound": -434.0,
+          "dual_bound_finite": true,
+          "environment_wall_seconds_before_free": 11.223912651883438,
+          "episode_ended": true,
+          "episode_id": "native-neos20-s0",
+          "gap": 0.0,
+          "gap_finite": true,
+          "has_feasible_solution": false,
+          "identity": {
+            "cutoff": -434.0,
+            "cutoff_provenance": {
+              "record_sha256": "1162b51cbd430387da8fdefa6a7e559d26b456e84b3a81530d4a077cf8e45987",
+              "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+              "status": "optimal",
+              "verified": true
+            },
+            "instance_sha256": "1018bb7c4c89c2e1482a2dd1b2d6cf3bcdd11c1fa7a5344739d5813f5a4a92e2",
+            "integral_snapshot_protocol": "read-only-stat-v1",
+            "limits": {
+              "node_limit": -1,
+              "time_limit": 120.0
+            },
+            "params": {
+              "checksol": false,
+              "conflict_usesb": false,
+              "cutoff": true,
+              "heuristics": false,
+              "probing_bounds": false,
+              "reevalage": 0
+            },
+            "protocol_version": "stage3-measured-pdi-v1",
+            "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+            "solver_seed": 0,
+            "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+          },
+          "instance_name": "neos20",
+          "integral_snapshot": {
+            "integral": 102.49632876980604,
+            "last_dual_bound": 1e+20,
+            "last_primal_bound": -434.0,
+            "last_update_time": 11.205701,
+            "previous_percent_gap": 0.0,
+            "solving_time": 11.206099
+          },
+          "job_id": "native-neos20-s0",
+          "load_wall_seconds": 0.017367332009598613,
+          "measurement_callback_seconds": 0.007293231785297394,
+          "measurement_event_calls": 643,
+          "measurement_version": "native-pdi-snapshot-horizon-v2",
+          "mode": "native",
+          "nnodes": 185,
+          "num_stored_solutions": 0,
+          "objective": null,
+          "optimize_wall_seconds": 11.2064441870898,
+          "original_optimal": false,
+          "pdi_extension_basis": "verified_proof_certificate",
+          "pdi_horizon_exact": true,
+          "pdi_horizon_lower": 102.49632876980604,
+          "pdi_horizon_midpoint": 102.49632876980604,
+          "pdi_horizon_normalized_midpoint": 0.00854136073081717,
+          "pdi_horizon_seconds": 120.0,
+          "pdi_horizon_uncertainty": 0.0,
+          "pdi_horizon_upper": 102.49632876980604,
+          "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+          "pdi_native_complete_at_stop": 102.49632876980604,
+          "pdi_native_final_percent_gap": 0.0,
+          "pdi_native_raw_before_flush": 102.49632876980604,
+          "pdi_semantics": "native_raw_until_actual_stop",
+          "pdi_tail_completed_readonly": 0.0,
+          "peak_rss_kib": 315708,
+          "primalDualIntegral": 102.49632876980604,
+          "primalDualIntegral_finite": true,
+          "primal_bound": -434.0,
+          "primal_bound_finite": true,
+          "proof_completed": true,
+          "reward_version": "upstream_h3_t120",
+          "sampling_seed": 2070879280,
+          "scip_infinity": 1e+20,
+          "scip_solve_time": 11.206099,
+          "scip_time_overshoot_seconds": 0.0,
+          "solver_seed": 0,
+          "status": "infeasible",
+          "task_terminal": true,
+          "time_limit_seconds": 120.0,
+          "valid": true,
+          "worker_cpu_complete": true,
+          "worker_cpu_seconds": 15.163319,
+          "worker_wall_seconds": 11.554521969985217
+        }
+      },
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/contexts/control-s11/70faed25823d2e9ee703616c/training/B0-s11/latest.pt",
+      "cutoff": -434.0,
+      "cutoff_provenance": {
+        "record_sha256": "1162b51cbd430387da8fdefa6a7e559d26b456e84b3a81530d4a077cf8e45987",
+        "source": "https://coral.ise.lehigh.edu/wp-content/uploads/mip-instances/Bounds.html",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/neos20.mps.gz",
+      "instance_name": "neos20",
+      "job_id": "e00065-neos20-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "collect",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 568892415,
+      "solver_seed": 0,
+      "training_seed": 11
+    },
+    {
+      "address_space_limit_bytes": 8589934592,
+      "baseline": {
+        "identity": {
+          "cutoff": 1120.0,
+          "cutoff_provenance": {
+            "record_sha256": "bb8a338139ad8b50c40cf3ab17e70ff97a306f5c5b12b86727ebf7e9be80b091",
+            "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+            "status": "optimal",
+            "verified": true
+          },
+          "instance_sha256": "230eab07c9e1c7b6f4e827b0343b8aca3d3d1ad39da445b18562e22737a1e1b8",
+          "integral_snapshot_protocol": "read-only-stat-v1",
+          "limits": {
+            "node_limit": -1,
+            "time_limit": 120.0
+          },
+          "params": {
+            "checksol": false,
+            "conflict_usesb": false,
+            "cutoff": true,
+            "heuristics": false,
+            "probing_bounds": false,
+            "reevalage": 0
+          },
+          "protocol_version": "stage3-measured-pdi-v1",
+          "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+          "solver_seed": 0,
+          "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+        },
+        "result": {
+          "address_space_limit_bytes": 8589934592,
+          "bounds_trace": [
+            {
+              "dual": -1e+20,
+              "native_last_update_time": 0.0,
+              "native_previous_percent_gap": 100.0,
+              "native_raw": 0.0,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.001589
+            },
+            {
+              "dual": 1054.81931523013,
+              "native_last_update_time": 0.127269,
+              "native_previous_percent_gap": 5.819703997309814,
+              "native_raw": 1.510644466437461,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.128878
+            },
+            {
+              "dual": 1065.0899926292109,
+              "native_last_update_time": 0.143974,
+              "native_previous_percent_gap": 4.902679229534742,
+              "native_raw": 1.6078626217125214,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.144928
+            },
+            {
+              "dual": 1075.8189677147245,
+              "native_last_update_time": 0.242224,
+              "native_previous_percent_gap": 3.944735025471025,
+              "native_raw": 2.032063440366443,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.244418
+            },
+            {
+              "dual": 1077.5230419931106,
+              "native_last_update_time": 0.260741,
+              "native_previous_percent_gap": 3.7925855363294096,
+              "native_raw": 2.1051080988330897,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.261652
+            },
+            {
+              "dual": 1078.4810217539016,
+              "native_last_update_time": 0.36786399999999997,
+              "native_previous_percent_gap": 3.70705162911593,
+              "native_raw": 2.5088984219719244,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.37201999999999996
+            },
+            {
+              "dual": 1078.6498068588558,
+              "native_last_update_time": 0.39577799999999996,
+              "native_previous_percent_gap": 3.6919815304593078,
+              "native_raw": 2.6123770611470665,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.401653
+            },
+            {
+              "dual": 1078.90704700975,
+              "native_last_update_time": 0.40973099999999996,
+              "native_previous_percent_gap": 3.669013659843756,
+              "native_raw": 2.663891279441565,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.409796
+            },
+            {
+              "dual": 1079.1652549062103,
+              "native_last_update_time": 0.42136999999999997,
+              "native_previous_percent_gap": 3.645959383374081,
+              "native_raw": 2.7065949294284866,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.421429
+            },
+            {
+              "dual": 1079.3213286366863,
+              "native_last_update_time": 0.459291,
+              "native_previous_percent_gap": 3.6320242288672944,
+              "native_raw": 2.844853355205415,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.459323
+            },
+            {
+              "dual": 1079.9464455627408,
+              "native_last_update_time": 0.486083,
+              "native_previous_percent_gap": 3.5762102176124295,
+              "native_raw": 2.9421625483452276,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.486112
+            },
+            {
+              "dual": 1081.465038506235,
+              "native_last_update_time": 0.526247,
+              "native_previous_percent_gap": 3.4406215619433005,
+              "native_raw": 3.0857974555254133,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.526367
+            },
+            {
+              "dual": 1082.1572671196914,
+              "native_last_update_time": 0.5560889999999999,
+              "native_previous_percent_gap": 3.378815435741842,
+              "native_raw": 3.188472484176925,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.556225
+            },
+            {
+              "dual": 1083.0601155303975,
+              "native_last_update_time": 0.5730729999999999,
+              "native_previous_percent_gap": 3.298203970500221,
+              "native_raw": 3.245858285537565,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.573211
+            },
+            {
+              "dual": 1083.0731191183222,
+              "native_last_update_time": 0.573971,
+              "native_previous_percent_gap": 3.2970429358640883,
+              "native_raw": 3.248820072703074,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.573993
+            },
+            {
+              "dual": 1084.3752079699439,
+              "native_last_update_time": 0.5845429999999999,
+              "native_previous_percent_gap": 3.180785002683584,
+              "native_raw": 3.283676410621029,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.5846979999999999
+            },
+            {
+              "dual": 1085.914297207938,
+              "native_last_update_time": 0.719366,
+              "native_previous_percent_gap": 3.0433663207198185,
+              "native_raw": 3.712519387037838,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.719387
+            },
+            {
+              "dual": 1091.6241662519756,
+              "native_last_update_time": 0.731626,
+              "native_previous_percent_gap": 2.5335565846450385,
+              "native_raw": 3.749831058129863,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.7317699999999999
+            },
+            {
+              "dual": 1092.427865950001,
+              "native_last_update_time": 0.73303,
+              "native_previous_percent_gap": 2.461797683035627,
+              "native_raw": 3.7533881715747044,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.733157
+            },
+            {
+              "dual": 1092.494339845088,
+              "native_last_update_time": 0.733791,
+              "native_previous_percent_gap": 2.455862513831428,
+              "native_raw": 3.7552615996114946,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.7338279999999999
+            },
+            {
+              "dual": 1094.6513355658542,
+              "native_last_update_time": 0.7349049999999999,
+              "native_previous_percent_gap": 2.2632736101915896,
+              "native_raw": 3.7579974304519026,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.735032
+            },
+            {
+              "dual": 1094.8805253922433,
+              "native_last_update_time": 0.735675,
+              "native_previous_percent_gap": 2.242810232835422,
+              "native_raw": 3.75974015113175,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.73571
+            },
+            {
+              "dual": 1099.6908331706925,
+              "native_last_update_time": 0.7400129999999999,
+              "native_previous_percent_gap": 1.8133184669024567,
+              "native_raw": 3.76946946192179,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.745524
+            },
+            {
+              "dual": 1103.441523982367,
+              "native_last_update_time": 0.746644,
+              "native_previous_percent_gap": 1.4784353587172308,
+              "native_raw": 3.78149357667582,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.746661
+            },
+            {
+              "dual": 1104.0422958907407,
+              "native_last_update_time": 0.746806,
+              "native_previous_percent_gap": 1.4247950097552982,
+              "native_raw": 3.781733083203932,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.7468119999999999
+            },
+            {
+              "dual": 1106.7258720903055,
+              "native_last_update_time": 0.7470249999999999,
+              "native_previous_percent_gap": 1.1851899919370064,
+              "native_raw": 3.7820451133110686,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.7470399999999999
+            },
+            {
+              "dual": 1107.7136368534134,
+              "native_last_update_time": 0.747474,
+              "native_previous_percent_gap": 1.0969967095166615,
+              "native_raw": 3.782577263617448,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.747489
+            },
+            {
+              "dual": 1110.6610066707094,
+              "native_last_update_time": 0.749884,
+              "native_previous_percent_gap": 0.833838690115231,
+              "native_raw": 3.7852210256873833,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.749908
+            },
+            {
+              "dual": 1111.1181953480673,
+              "native_last_update_time": 0.749884,
+              "native_previous_percent_gap": 0.833838690115231,
+              "native_raw": 3.7852210256873833,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.750227
+            },
+            {
+              "dual": 1111.5172881355934,
+              "native_last_update_time": 0.749884,
+              "native_previous_percent_gap": 0.833838690115231,
+              "native_raw": 3.7852210256873833,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.750347
+            },
+            {
+              "dual": 1120.0,
+              "native_last_update_time": 0.749884,
+              "native_previous_percent_gap": 0.833838690115231,
+              "native_raw": 3.7852210256873833,
+              "primal": 1120.0,
+              "reason": "event",
+              "time": 0.7506499999999999
+            },
+            {
+              "dual": 1120.0,
+              "native_last_update_time": 0.750655,
+              "native_previous_percent_gap": 0.833838690115231,
+              "native_raw": 3.7858639153174622,
+              "primal": 1120.0,
+              "reason": "stop",
+              "time": 0.7507199999999999
+            }
+          ],
+          "cpu_affinity": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "cuda_initialized": false,
+          "cutoff_applied": true,
+          "cutoff_proof": true,
+          "cutoff_verified": true,
+          "dual_bound": 1120.0,
+          "dual_bound_finite": true,
+          "environment_wall_seconds_before_free": 0.757940765004605,
+          "episode_ended": true,
+          "episode_id": "native-lseu-s0",
+          "gap": 0.0,
+          "gap_finite": true,
+          "has_feasible_solution": false,
+          "identity": {
+            "cutoff": 1120.0,
+            "cutoff_provenance": {
+              "record_sha256": "bb8a338139ad8b50c40cf3ab17e70ff97a306f5c5b12b86727ebf7e9be80b091",
+              "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+              "status": "optimal",
+              "verified": true
+            },
+            "instance_sha256": "230eab07c9e1c7b6f4e827b0343b8aca3d3d1ad39da445b18562e22737a1e1b8",
+            "integral_snapshot_protocol": "read-only-stat-v1",
+            "limits": {
+              "node_limit": -1,
+              "time_limit": 120.0
+            },
+            "params": {
+              "checksol": false,
+              "conflict_usesb": false,
+              "cutoff": true,
+              "heuristics": false,
+              "probing_bounds": false,
+              "reevalage": 0
+            },
+            "protocol_version": "stage3-measured-pdi-v1",
+            "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+            "solver_seed": 0,
+            "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+          },
+          "instance_name": "lseu",
+          "integral_snapshot": {
+            "integral": 3.7858639153174622,
+            "last_dual_bound": 1110.6610066707094,
+            "last_primal_bound": 1120.0,
+            "last_update_time": 0.750655,
+            "previous_percent_gap": 0.833838690115231,
+            "solving_time": 0.7507199999999999
+          },
+          "job_id": "native-lseu-s0",
+          "load_wall_seconds": 0.007082374999299645,
+          "measurement_callback_seconds": 0.004835441941395402,
+          "measurement_event_calls": 919,
+          "measurement_version": "native-pdi-snapshot-horizon-v2",
+          "mode": "native",
+          "nnodes": 282,
+          "num_stored_solutions": 0,
+          "objective": null,
+          "optimize_wall_seconds": 0.7508261299226433,
+          "original_optimal": false,
+          "pdi_extension_basis": "verified_proof_certificate",
+          "pdi_horizon_exact": true,
+          "pdi_horizon_lower": 3.7859181148323198,
+          "pdi_horizon_midpoint": 3.7859181148323198,
+          "pdi_horizon_normalized_midpoint": 0.00031549317623602666,
+          "pdi_horizon_seconds": 120.0,
+          "pdi_horizon_uncertainty": 0.0,
+          "pdi_horizon_upper": 3.7859181148323198,
+          "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+          "pdi_native_complete_at_stop": 3.7859181148323198,
+          "pdi_native_final_percent_gap": 0.833838690115231,
+          "pdi_native_raw_before_flush": 3.7858639153174622,
+          "pdi_semantics": "native_raw_until_actual_stop",
+          "pdi_tail_completed_readonly": 5.41995148575225e-05,
+          "peak_rss_kib": 285044,
+          "primalDualIntegral": 3.7858639153174622,
+          "primalDualIntegral_finite": true,
+          "primal_bound": 1120.0,
+          "primal_bound_finite": true,
+          "proof_completed": true,
+          "reward_version": "upstream_h3_t120",
+          "sampling_seed": 1083438464,
+          "scip_infinity": 1e+20,
+          "scip_solve_time": 0.7507199999999999,
+          "scip_time_overshoot_seconds": 0.0,
+          "solver_seed": 0,
+          "status": "infeasible",
+          "task_terminal": true,
+          "time_limit_seconds": 120.0,
+          "valid": true,
+          "worker_cpu_complete": true,
+          "worker_cpu_seconds": 3.899301,
+          "worker_wall_seconds": 0.93725775484927
+        }
+      },
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/contexts/control-s11/70faed25823d2e9ee703616c/training/B0-s11/latest.pt",
+      "cutoff": 1120.0,
+      "cutoff_provenance": {
+        "record_sha256": "bb8a338139ad8b50c40cf3ab17e70ff97a306f5c5b12b86727ebf7e9be80b091",
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/lseu.mps.gz",
+      "instance_name": "lseu",
+      "job_id": "e00066-lseu-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "collect",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 543440909,
+      "solver_seed": 0,
+      "training_seed": 11
+    },
+    {
+      "address_space_limit_bytes": 8589934592,
+      "baseline": {
+        "identity": {
+          "cutoff": 379.07129575,
+          "cutoff_provenance": {
+            "record_sha256": "80fae11d1f97dbbeebb5f652fa28fba0f01ff058b8c6b306c25a81e7a972dd63",
+            "source": "miplib2017.solu",
+            "status": "optimal",
+            "verified": true
+          },
+          "instance_sha256": "05b713125dfdea88f22c1d028a4a4ab081e1d03c31401b302b41025f8b0f844d",
+          "integral_snapshot_protocol": "read-only-stat-v1",
+          "limits": {
+            "node_limit": -1,
+            "time_limit": 120.0
+          },
+          "params": {
+            "checksol": false,
+            "conflict_usesb": false,
+            "cutoff": true,
+            "heuristics": false,
+            "probing_bounds": false,
+            "reevalage": 0
+          },
+          "protocol_version": "stage3-measured-pdi-v1",
+          "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+          "solver_seed": 0,
+          "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+        },
+        "result": {
+          "address_space_limit_bytes": 8589934592,
+          "bounds_trace": [
+            {
+              "dual": -1e+20,
+              "native_last_update_time": 0.0,
+              "native_previous_percent_gap": 100.0,
+              "native_raw": 0.0,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 0.079173
+            },
+            {
+              "dual": 340.69402526666664,
+              "native_last_update_time": 3.578375,
+              "native_previous_percent_gap": 10.124024402165078,
+              "native_raw": 250.76316701062802,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 3.589329
+            },
+            {
+              "dual": 340.7955487030303,
+              "native_last_update_time": 3.749347,
+              "native_previous_percent_gap": 10.097242253924916,
+              "native_raw": 252.494091710715,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 3.771306
+            },
+            {
+              "dual": 341.8002728315789,
+              "native_last_update_time": 5.05327,
+              "native_previous_percent_gap": 9.832193399049014,
+              "native_raw": 265.57437391176467,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 5.082276
+            },
+            {
+              "dual": 342.23706319999997,
+              "native_last_update_time": 5.250976,
+              "native_previous_percent_gap": 9.716966956604502,
+              "native_raw": 267.51825753991704,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 5.264696
+            },
+            {
+              "dual": 342.6866166308614,
+              "native_last_update_time": 6.611853,
+              "native_previous_percent_gap": 9.598373584882173,
+              "native_raw": 280.6828547770801,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 6.739122
+            },
+            {
+              "dual": 342.84902642178287,
+              "native_last_update_time": 6.914482,
+              "native_previous_percent_gap": 9.555529456945733,
+              "native_raw": 283.5876009766994,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 6.91482
+            },
+            {
+              "dual": 342.8749167914277,
+              "native_last_update_time": 7.750108,
+              "native_previous_percent_gap": 9.54869950966797,
+              "native_raw": 291.5724498346891,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 7.750379
+            },
+            {
+              "dual": 342.9332269966256,
+              "native_last_update_time": 8.644185,
+              "native_previous_percent_gap": 9.53331712491565,
+              "native_raw": 300.1097224461945,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 8.644399
+            },
+            {
+              "dual": 343.0034129724225,
+              "native_last_update_time": 8.979804,
+              "native_previous_percent_gap": 9.514801880795664,
+              "native_raw": 303.30928480634157,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 8.979983
+            },
+            {
+              "dual": 343.11825823084575,
+              "native_last_update_time": 10.449666,
+              "native_previous_percent_gap": 9.484505401027647,
+              "native_raw": 317.2947305284516,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 10.449918
+            },
+            {
+              "dual": 343.20773779999996,
+              "native_last_update_time": 11.123429,
+              "native_previous_percent_gap": 9.460900456480958,
+              "native_raw": 323.6850393409642,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 11.123654
+            },
+            {
+              "dual": 343.7325346,
+              "native_last_update_time": 11.418572,
+              "native_previous_percent_gap": 9.322457687037883,
+              "native_raw": 326.4773578843913,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 11.41876
+            },
+            {
+              "dual": 344.3741844858457,
+              "native_last_update_time": 12.495585,
+              "native_previous_percent_gap": 9.153188767697474,
+              "native_raw": 336.5177660052811,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 12.495762
+            },
+            {
+              "dual": 344.60686714999997,
+              "native_last_update_time": 12.805616,
+              "native_previous_percent_gap": 9.091806471870013,
+              "native_raw": 339.35553827211913,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 12.8058
+            },
+            {
+              "dual": 344.6078242,
+              "native_last_update_time": 13.361956,
+              "native_previous_percent_gap": 9.091553999575028,
+              "native_raw": 344.41367388467927,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 13.362146
+            },
+            {
+              "dual": 344.6226381034936,
+              "native_last_update_time": 13.907444,
+              "native_previous_percent_gap": 9.0876460530595,
+              "native_raw": 349.37300749279945,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 13.907647
+            },
+            {
+              "dual": 344.6697976555183,
+              "native_last_update_time": 14.804168,
+              "native_previous_percent_gap": 9.075205239799978,
+              "native_raw": 357.5221178120832,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 14.804388
+            },
+            {
+              "dual": 345.38376306012486,
+              "native_last_update_time": 15.450022,
+              "native_previous_percent_gap": 8.886859297331833,
+              "native_raw": 363.38337541702896,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 15.450225
+            },
+            {
+              "dual": 345.9330630016795,
+              "native_last_update_time": 17.174253,
+              "native_previous_percent_gap": 8.741952535012139,
+              "native_raw": 378.70637371012674,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.174407
+            },
+            {
+              "dual": 346.90019407692307,
+              "native_last_update_time": 17.421915,
+              "native_previous_percent_gap": 8.486820825994162,
+              "native_raw": 380.8714231588529,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.423879
+            },
+            {
+              "dual": 346.9119416764706,
+              "native_last_update_time": 17.446991,
+              "native_previous_percent_gap": 8.483721778485364,
+              "native_raw": 381.08423867788554,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.447175
+            },
+            {
+              "dual": 348.7309043431499,
+              "native_last_update_time": 17.688097,
+              "native_previous_percent_gap": 8.003874666062757,
+              "native_raw": 383.12971490100904,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.688338
+            },
+            {
+              "dual": 348.98648340054996,
+              "native_last_update_time": 17.702349,
+              "native_previous_percent_gap": 7.936452241768039,
+              "native_raw": 383.2437861227498,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.702529
+            },
+            {
+              "dual": 349.41443815850795,
+              "native_last_update_time": 17.914167,
+              "native_previous_percent_gap": 7.823556656490006,
+              "native_raw": 384.9248695636966,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.916213
+            },
+            {
+              "dual": 349.416261164077,
+              "native_last_update_time": 17.945742,
+              "native_previous_percent_gap": 7.823075742849352,
+              "native_raw": 385.17189836512523,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 17.945928
+            },
+            {
+              "dual": 350.06140196499626,
+              "native_last_update_time": 18.07906,
+              "native_previous_percent_gap": 7.652885910975423,
+              "native_raw": 386.2148551770104,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.082225
+            },
+            {
+              "dual": 350.2084939442595,
+              "native_last_update_time": 18.115792,
+              "native_previous_percent_gap": 7.61408266184726,
+              "native_raw": 386.49596098229233,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.115986
+            },
+            {
+              "dual": 351.93848303333334,
+              "native_last_update_time": 18.386202,
+              "native_previous_percent_gap": 7.157707012076409,
+              "native_raw": 388.55488507488246,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.388572
+            },
+            {
+              "dual": 351.9874944,
+              "native_last_update_time": 18.409447,
+              "native_previous_percent_gap": 7.144777685267399,
+              "native_raw": 388.7212659743782,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.409631
+            },
+            {
+              "dual": 352.49606695,
+              "native_last_update_time": 18.466016,
+              "native_previous_percent_gap": 7.010614915439688,
+              "native_raw": 389.12543890325605,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.466236
+            },
+            {
+              "dual": 352.68189717975076,
+              "native_last_update_time": 18.52258,
+              "native_previous_percent_gap": 6.961592414439422,
+              "native_raw": 389.521987325333,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.522786
+            },
+            {
+              "dual": 352.71117498295155,
+              "native_last_update_time": 18.58501,
+              "native_previous_percent_gap": 6.953868853323338,
+              "native_raw": 389.95659953976644,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.585198
+            },
+            {
+              "dual": 353.1043922,
+              "native_last_update_time": 18.691194,
+              "native_previous_percent_gap": 6.850137122259272,
+              "native_raw": 390.6947054536956,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.695181
+            },
+            {
+              "dual": 353.82991728403033,
+              "native_last_update_time": 18.703815,
+              "native_previous_percent_gap": 6.658741706102831,
+              "native_raw": 390.78116103431563,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.703958
+            },
+            {
+              "dual": 353.90959191120646,
+              "native_last_update_time": 18.775771,
+              "native_previous_percent_gap": 6.637723330913412,
+              "native_raw": 391.26029745252,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.775943
+            },
+            {
+              "dual": 354.04371153333335,
+              "native_last_update_time": 18.845958,
+              "native_previous_percent_gap": 6.60234222355166,
+              "native_raw": 391.7261793399468,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.848173
+            },
+            {
+              "dual": 354.5723897,
+              "native_last_update_time": 18.873866,
+              "native_previous_percent_gap": 6.462875539422854,
+              "native_raw": 391.9104375067217,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 18.876671
+            },
+            {
+              "dual": 354.65306845,
+              "native_last_update_time": 19.018598,
+              "native_previous_percent_gap": 6.441592274004306,
+              "native_raw": 392.8458224092934,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.018766
+            },
+            {
+              "dual": 357.3856378666667,
+              "native_last_update_time": 19.185918,
+              "native_previous_percent_gap": 5.720733309660867,
+              "native_raw": 393.9236296285798,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.188064
+            },
+            {
+              "dual": 357.73096520000007,
+              "native_last_update_time": 19.219358,
+              "native_previous_percent_gap": 5.62963505526781,
+              "native_raw": 394.1149309504549,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.219552
+            },
+            {
+              "dual": 357.7473905333333,
+              "native_last_update_time": 19.326213,
+              "native_previous_percent_gap": 5.625302009342835,
+              "native_raw": 394.71648560428554,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.326388
+            },
+            {
+              "dual": 358.3394902,
+              "native_last_update_time": 19.443581000000002,
+              "native_previous_percent_gap": 5.469104567514591,
+              "native_raw": 395.3767160505181,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.443729
+            },
+            {
+              "dual": 358.7840985333333,
+              "native_last_update_time": 19.494918,
+              "native_previous_percent_gap": 5.351815725463486,
+              "native_raw": 395.6574834717006,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.497179
+            },
+            {
+              "dual": 359.86825586666663,
+              "native_last_update_time": 19.525042,
+              "native_previous_percent_gap": 5.065812183256917,
+              "native_raw": 395.8187015686144,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.525213
+            },
+            {
+              "dual": 360.3725515333333,
+              "native_last_update_time": 19.584315,
+              "native_previous_percent_gap": 4.932777666446849,
+              "native_raw": 396.1189674541526,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.584485
+            },
+            {
+              "dual": 362.7264517780347,
+              "native_last_update_time": 19.776699,
+              "native_previous_percent_gap": 4.311812620796494,
+              "native_raw": 397.0267474213364,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.79029
+            },
+            {
+              "dual": 362.7559289687861,
+              "native_last_update_time": 19.829986,
+              "native_previous_percent_gap": 4.304036460722671,
+              "native_raw": 397.25651098046075,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.830231
+            },
+            {
+              "dual": 362.8150127602606,
+              "native_last_update_time": 19.892792,
+              "native_previous_percent_gap": 4.2884500018858045,
+              "native_raw": 397.5268302944129,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.895634
+            },
+            {
+              "dual": 363.0102555333333,
+              "native_last_update_time": 19.927879,
+              "native_previous_percent_gap": 4.236944447320817,
+              "native_raw": 397.67729913962904,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 19.928072
+            },
+            {
+              "dual": 363.11107219999997,
+              "native_last_update_time": 20.040949,
+              "native_previous_percent_gap": 4.210348746776621,
+              "native_raw": 398.1563704482876,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.041154
+            },
+            {
+              "dual": 363.1370674444444,
+              "native_last_update_time": 20.135597,
+              "native_previous_percent_gap": 4.203491133252224,
+              "native_raw": 398.5548715364725,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.135838
+            },
+            {
+              "dual": 363.4534074396313,
+              "native_last_update_time": 20.142179,
+              "native_previous_percent_gap": 4.120039814533675,
+              "native_raw": 398.58253891511157,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.14476
+            },
+            {
+              "dual": 363.45340743963135,
+              "native_last_update_time": 20.187682,
+              "native_previous_percent_gap": 4.12003981453366,
+              "native_raw": 398.7700130867923,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.187895
+            },
+            {
+              "dual": 363.5761858357616,
+              "native_last_update_time": 20.194408,
+              "native_previous_percent_gap": 4.087650552274351,
+              "native_raw": 398.79772447458487,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.196233
+            },
+            {
+              "dual": 363.8842122731061,
+              "native_last_update_time": 20.221073,
+              "native_previous_percent_gap": 4.006392371874524,
+              "native_raw": 398.9067216765613,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.22129
+            },
+            {
+              "dual": 364.05078617256515,
+              "native_last_update_time": 20.257127,
+              "native_previous_percent_gap": 3.9624497412067203,
+              "native_raw": 399.0511681471369,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.260133
+            },
+            {
+              "dual": 364.2872686846547,
+              "native_last_update_time": 20.378014,
+              "native_previous_percent_gap": 3.9000650355482103,
+              "native_raw": 399.5301768090021,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.379755
+            },
+            {
+              "dual": 364.3270733538461,
+              "native_last_update_time": 20.390156,
+              "native_previous_percent_gap": 3.8895644596307775,
+              "native_raw": 399.5775313986637,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.390398
+            },
+            {
+              "dual": 364.3690499011494,
+              "native_last_update_time": 20.418952,
+              "native_previous_percent_gap": 3.878490936582757,
+              "native_raw": 399.68953529684325,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.42046
+            },
+            {
+              "dual": 364.40103086,
+              "native_last_update_time": 20.444281,
+              "native_previous_percent_gap": 3.8700542759310204,
+              "native_raw": 399.78777359377597,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.444482999999998
+            },
+            {
+              "dual": 364.530584375,
+              "native_last_update_time": 20.625754,
+              "native_previous_percent_gap": 3.835877719580671,
+              "native_raw": 400.490083953392,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.627397
+            },
+            {
+              "dual": 366.11612266153844,
+              "native_last_update_time": 20.68474,
+              "native_previous_percent_gap": 3.417608569604165,
+              "native_raw": 400.71634703655917,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.686528
+            },
+            {
+              "dual": 366.591468775,
+              "native_last_update_time": 20.699004,
+              "native_previous_percent_gap": 3.2922110207021604,
+              "native_raw": 400.765095805196,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.700749
+            },
+            {
+              "dual": 367.6169232574712,
+              "native_last_update_time": 20.721606,
+              "native_previous_percent_gap": 3.0216934442018517,
+              "native_raw": 400.8395063586859,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.723389
+            },
+            {
+              "dual": 367.9746022,
+              "native_last_update_time": 20.735309,
+              "native_previous_percent_gap": 2.9273368029739557,
+              "native_raw": 400.8809126239518,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.738566
+            },
+            {
+              "dual": 368.0686512,
+              "native_last_update_time": 20.75046,
+              "native_previous_percent_gap": 2.902526430610122,
+              "native_raw": 400.92526470385366,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.752126
+            },
+            {
+              "dual": 368.52365886666666,
+              "native_last_update_time": 20.757446,
+              "native_previous_percent_gap": 2.7824942172064544,
+              "native_raw": 400.9455417534979,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.759374
+            },
+            {
+              "dual": 369.6730963999999,
+              "native_last_update_time": 20.775786,
+              "native_previous_percent_gap": 2.479269587375526,
+              "native_raw": 400.9965726974414,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.777592
+            },
+            {
+              "dual": 372.2906427,
+              "native_last_update_time": 20.831573,
+              "native_previous_percent_gap": 1.788754022270232,
+              "native_raw": 401.13488370991234,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.831781
+            },
+            {
+              "dual": 378.0439725666667,
+              "native_last_update_time": 20.918371,
+              "native_previous_percent_gap": 0.2710105446788619,
+              "native_raw": 401.2897771236868,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.921397
+            },
+            {
+              "dual": 378.2014396999999,
+              "native_last_update_time": 20.932248,
+              "native_previous_percent_gap": 0.22947030275110636,
+              "native_raw": 401.2935379370153,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.934164
+            },
+            {
+              "dual": 379.07129575,
+              "native_last_update_time": 20.9376,
+              "native_previous_percent_gap": 0.0,
+              "native_raw": 401.2947660620756,
+              "primal": 379.07129575,
+              "reason": "event",
+              "time": 20.937623
+            },
+            {
+              "dual": 379.07129575,
+              "native_last_update_time": 20.93766,
+              "native_previous_percent_gap": 0.0,
+              "native_raw": 401.2947660620756,
+              "primal": 379.07129575,
+              "reason": "stop",
+              "time": 20.939015
+            }
+          ],
+          "cpu_affinity": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "cuda_initialized": false,
+          "cutoff_applied": true,
+          "cutoff_proof": true,
+          "cutoff_verified": true,
+          "dual_bound": 379.07129575,
+          "dual_bound_finite": true,
+          "environment_wall_seconds_before_free": 21.00970461498946,
+          "episode_ended": true,
+          "episode_id": "native-swath1-s0",
+          "gap": 0.0,
+          "gap_finite": true,
+          "has_feasible_solution": false,
+          "identity": {
+            "cutoff": 379.07129575,
+            "cutoff_provenance": {
+              "record_sha256": "80fae11d1f97dbbeebb5f652fa28fba0f01ff058b8c6b306c25a81e7a972dd63",
+              "source": "miplib2017.solu",
+              "status": "optimal",
+              "verified": true
+            },
+            "instance_sha256": "05b713125dfdea88f22c1d028a4a4ab081e1d03c31401b302b41025f8b0f844d",
+            "integral_snapshot_protocol": "read-only-stat-v1",
+            "limits": {
+              "node_limit": -1,
+              "time_limit": 120.0
+            },
+            "params": {
+              "checksol": false,
+              "conflict_usesb": false,
+              "cutoff": true,
+              "heuristics": false,
+              "probing_bounds": false,
+              "reevalage": 0
+            },
+            "protocol_version": "stage3-measured-pdi-v1",
+            "settings_sha256": "b0a66abef37fb7d199b9845d1879cea48088972ca50efc744bee02875bdf56bb",
+            "solver_seed": 0,
+            "solver_stack": "SCIP6.0.1-SoPlex4.0.1-customPySCIPOpt1.4.9"
+          },
+          "instance_name": "swath1",
+          "integral_snapshot": {
+            "integral": 401.2947660620756,
+            "last_dual_bound": 1e+20,
+            "last_primal_bound": 379.07129575,
+            "last_update_time": 20.93766,
+            "previous_percent_gap": 0.0,
+            "solving_time": 20.939015
+          },
+          "job_id": "native-swath1-s0",
+          "load_wall_seconds": 0.07017788290977478,
+          "measurement_callback_seconds": 0.030662656528875232,
+          "measurement_event_calls": 1266,
+          "measurement_version": "native-pdi-snapshot-horizon-v2",
+          "mode": "native",
+          "nnodes": 235,
+          "num_stored_solutions": 0,
+          "objective": null,
+          "optimize_wall_seconds": 20.939398129936308,
+          "original_optimal": false,
+          "pdi_extension_basis": "verified_proof_certificate",
+          "pdi_horizon_exact": true,
+          "pdi_horizon_lower": 401.2947660620756,
+          "pdi_horizon_midpoint": 401.2947660620756,
+          "pdi_horizon_normalized_midpoint": 0.03344123050517297,
+          "pdi_horizon_seconds": 120.0,
+          "pdi_horizon_uncertainty": 0.0,
+          "pdi_horizon_upper": 401.2947660620756,
+          "pdi_measurement_semantics": "native_percent_seconds; exact_extension_or_rigorous_overshoot_interval",
+          "pdi_native_complete_at_stop": 401.2947660620756,
+          "pdi_native_final_percent_gap": 0.0,
+          "pdi_native_raw_before_flush": 401.2947660620756,
+          "pdi_semantics": "native_raw_until_actual_stop",
+          "pdi_tail_completed_readonly": 0.0,
+          "peak_rss_kib": 404824,
+          "primalDualIntegral": 401.2947660620756,
+          "primalDualIntegral_finite": true,
+          "primal_bound": 379.07129575,
+          "primal_bound_finite": true,
+          "proof_completed": true,
+          "reward_version": "upstream_h3_t120",
+          "sampling_seed": 3188873714,
+          "scip_infinity": 1e+20,
+          "scip_solve_time": 20.939015,
+          "scip_time_overshoot_seconds": 0.0,
+          "solver_seed": 0,
+          "status": "infeasible",
+          "task_terminal": true,
+          "time_limit_seconds": 120.0,
+          "valid": true,
+          "worker_cpu_complete": true,
+          "worker_cpu_seconds": 24.532997,
+          "worker_wall_seconds": 21.436300900997594
+        }
+      },
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/supervised-ppo-20261105/contexts/control-s11/70faed25823d2e9ee703616c/training/B0-s11/latest.pt",
+      "cutoff": 379.07129575,
+      "cutoff_provenance": {
+        "record_sha256": "80fae11d1f97dbbeebb5f652fa28fba0f01ff058b8c6b306c25a81e7a972dd63",
+        "source": "miplib2017.solu",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/swath1.mps.gz",
+      "instance_name": "swath1",
+      "job_id": "e00067-swath1-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 120.0
+      },
+      "mode": "collect",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 2695072120,
+      "solver_seed": 0,
+      "training_seed": 11
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "checks": {
+    "aux_changes_actor_preserves_critic_and_rng": true,
+    "aux_once_per_logical_minibatch": true,
+    "budget_timeout": true,
+    "cuda_uninitialized": true,
+    "dead_attempt_charges_allocation": true,
+    "deployment_actor_only_no_expert_dependency": true,
+    "expert_forward_backward_preserves_global_rng": true,
+    "lambda_zero_exact_original_models_optimizers_rng": true,
+    "masked_normalized_ce_matches_formula": true,
+    "only_legal_train_experts": true,
+    "sampler_stateless_and_cursor_sensitive": true,
+    "supervised_checkpoint_exact_recovery": true,
+    "supervision_reaches_variable_tree_and_head": true,
+    "unchanged_actor_critic_reward_settings": true
+  },
+  "cpu_threads": 1,
+  "cuda_initialized": false,
+  "elapsed_seconds": 113.0880765914917,
+  "expert_training_instances": 12,
+  "expert_training_states": 1468,
+  "fixture_directory": "/tmp/tgppo-supervised-check-yin12e1v",
+  "gradient_probe": {
+    "fixed_lambda": 0.01,
+    "label": "engineering magnitude only; artificial advantages; not on-policy or solver evidence",
+    "ratio": 0.003147388149786156,
+    "synthetic_ppo_gradient_norm": 1.7220089550593143,
+    "weighted_expert_gradient_norm": 0.005419830578979327
+  },
+  "heldout_states_not_used_in_gradients": 288,
+  "new_scip_solves": 0,
+  "passed": true,
+  "real_ppo_episodes": 0,
+  "scope": "synthetic CPU interface/gradient/recovery checks; no solver performance evidence",
+  "selected_lambda": 0.01
+}

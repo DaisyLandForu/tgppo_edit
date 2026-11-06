@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "bimatching_actor_only_online": true,
+    "bimatching_finite_losses": true,
+    "bimatching_two_updates": true,
+    "transformer_actor_only_online": true,
+    "transformer_finite_losses": true,
+    "transformer_two_updates": true
+  },
+  "gpu": "Tesla V100-SXM2-32GB",
+  "passed": true,
+  "protocols": {
+    "bimatching": "7771f4694e3983277acb28c4e869118ccd8fb44dc0c1bca15fb9f5d3e3295750",
+    "transformer": "e100ec7bccda4dc3fa544d8d16292e19b31fb25db45ba45ff1681175f3b483e0"
+  },
+  "scope": "GPU short training; no performance conclusion",
+  "stack": {
+    "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+    "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+    "machine": "x86_64",
+    "python_abi": "3.8",
+    "scip_version": 6.01,
+    "torch_cuda_runtime": "11.7",
+    "torch_version": "1.13.1+cu117"
+  }
+}

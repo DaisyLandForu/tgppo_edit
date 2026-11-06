@@ -1,0 +1,31 @@
+{
+  "actor_lr": 0.00024,
+  "batch_size": 256,
+  "critic_lr": 0.00012,
+  "critic_training_dropout": 0.05,
+  "dropout": 0.05,
+  "effective_actor_dropout": 0.0,
+  "entropy_weight": 0.003,
+  "gae_lambda": 0.92,
+  "gamma": 0.97,
+  "hidden_dim": 256,
+  "initialization": "paired fresh public weights; no offline adapter warm start",
+  "learner_device": "cuda",
+  "n_epochs": 3,
+  "num_heads": 8,
+  "num_layers": 5,
+  "policy_clip": 0.16,
+  "protocol_version": "stage3-measured-pdi-v1",
+  "reward_function": "reward_h3",
+  "server_group": "B0",
+  "server_protocol_sha256": "e100ec7bccda4dc3fa544d8d16292e19b31fb25db45ba45ff1681175f3b483e0",
+  "server_training_seed": 11,
+  "state_dims": {
+    "mip_dim": 53,
+    "node_dim": 8,
+    "var_dim": 25
+  },
+  "task_time_limit": 5.0,
+  "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+  "use_transformer": true
+}

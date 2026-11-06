@@ -1,0 +1,80 @@
+{
+  "identity": {
+    "checkpoint_sha256": "59a36b8164581d8c224264a184dbababfac9952ddb40b499729a6982c4817b92",
+    "protocol": "7771f4694e3983277acb28c4e869118ccd8fb44dc0c1bca15fb9f5d3e3295750",
+    "stack": {
+      "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+      "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+      "machine": "x86_64",
+      "python_abi": "3.8",
+      "scip_version": 6.01,
+      "torch_cuda_runtime": "11.7",
+      "torch_version": "1.13.1+cu117"
+    }
+  },
+  "jobs": [
+    {
+      "address_space_limit_bytes": 8589934592,
+      "baseline": null,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027-smoke/bimatching/training/B0-s11/episode-0004.pt",
+      "cutoff": 13.75,
+      "cutoff_provenance": {
+        "record_sha256": "6a969f82675485a21af655d562b4e9680fd5a57cbe21ce67365ee71ed1000f75",
+        "source": "https://miplib2010.zib.de/miplib3/miplib3_cat.txt",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/vpm2.mps.gz",
+      "instance_name": "vpm2",
+      "job_id": "dev-vpm2-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 5.0
+      },
+      "mode": "eval",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 2945153360,
+      "solver_seed": 0,
+      "training_seed": 11
+    },
+    {
+      "address_space_limit_bytes": 8589934592,
+      "baseline": null,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/transformer-ablation-20261027-smoke/bimatching/training/B0-s11/episode-0004.pt",
+      "cutoff": 188182.0,
+      "cutoff_provenance": {
+        "record_sha256": "2284237d73e91dd8fb7837d977ad1bfaef8136f3d898185c74f8e613275f9336",
+        "source": "miplib2017.solu",
+        "status": "optimal",
+        "verified": true
+      },
+      "instance": "/home/duweiyue25/tgppo-transfer/research/tgppo/datasets/train_instances/dcmulti.mps.gz",
+      "instance_name": "dcmulti",
+      "job_id": "dev-dcmulti-s0",
+      "limits": {
+        "node_limit": -1,
+        "time_limit": 5.0
+      },
+      "mode": "eval",
+      "params": {
+        "checksol": false,
+        "conflict_usesb": false,
+        "cutoff": true,
+        "heuristics": false,
+        "probing_bounds": false,
+        "reevalage": 0
+      },
+      "sampling_seed": 2129070055,
+      "solver_seed": 0,
+      "training_seed": 11
+    }
+  ]
+}

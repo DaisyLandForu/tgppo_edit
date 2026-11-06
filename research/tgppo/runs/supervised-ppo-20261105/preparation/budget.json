@@ -1,0 +1,16 @@
+{
+  "allocated_seconds": 600,
+  "authorization": "User approved implement single expert-supervision increment; bounded CPU synthetic preparation only",
+  "charged_seconds": 374.6840399105662,
+  "finished": true,
+  "real_training_episodes": 0,
+  "scip_solves": 0,
+  "started_epoch": 1793886044.4516966,
+  "additional_checks_wall_seconds": 0.7895944118499756,
+  "stdlib_evaluation_checks_seconds": 1.277864774,
+  "additional_checks_measured_after_import_seconds": 0.7895944118499756,
+  "additional_checks_conservative_charged_seconds": 180.0,
+  "final_cli_check_allocated_seconds": 60.0,
+  "final_stdlib_verification_reserved_seconds": 20.0,
+  "accounting": "first CPU test exact wall incl imports; additional standalone launcher test conservatively charged full180s incl imports; final CLI check reserved60s, final stdlib audit20s; evaluator fixtures actual tool wall charged; no reset"
+}

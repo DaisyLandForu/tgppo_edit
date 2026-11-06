@@ -1,0 +1,37 @@
+{
+  "started_epoch": 1793930720.9037707,
+  "budget_seconds": 3000,
+  "workers": 4,
+  "training_steps": 0,
+  "gpu": false,
+  "automatic_retry": false,
+  "requested_tasks": 110,
+  "authorization": "User approved persistent expert-supervision increment; frozen development evaluation",
+  "queue_time_excluded": true,
+  "scope": "new independent evaluation budget; no old training deadline reused",
+  "status": "complete",
+  "supervisor_pid": 15,
+  "host": "sg-duweiyue25-261106-0f08b-default0-0",
+  "input_verification": {
+    "package_files": 62,
+    "external_inputs": 83,
+    "protected_sources": 41,
+    "requested_tasks": 110,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "engine_pid": 18,
+  "final_input_verification": {
+    "package_files": 62,
+    "external_inputs": 83,
+    "protected_sources": 41,
+    "requested_tasks": 110,
+    "solver_tasks_executed": 0,
+    "torch_imported": false
+  },
+  "engine_complete": true,
+  "persistent_rows": 110,
+  "error": null,
+  "charged_wall_seconds": 1842.3791398620233,
+  "analysis_exit_code": 0
+}

@@ -1,0 +1,40 @@
+[
+  {
+    "actor_loss": -0.009416816276467926,
+    "advantage_std_before_normalization": 1.7178229093551636,
+    "clip_fraction": 0.0,
+    "critic_loss": 2.926087770860144,
+    "entropy": 2.556662446278298,
+    "episodes_seen": 4,
+    "gpu_event_seconds": 9.8864208984375,
+    "initial_ratio_max_error": 2.384185791015625e-07,
+    "learning_cpu_seconds": 5.649087,
+    "learning_wall_seconds": 9.89087850600481,
+    "num_samples": 423,
+    "num_updates": 6,
+    "peak_cuda_allocated_bytes": 225262080,
+    "peak_cuda_reserved_bytes": 253755392,
+    "policy_version": 1,
+    "update_step": 1,
+    "updated": true
+  },
+  {
+    "actor_loss": -0.011249337627889608,
+    "advantage_std_before_normalization": 1.7843196392059326,
+    "clip_fraction": 0.0,
+    "critic_loss": 3.1290213686531168,
+    "entropy": 2.5955775613838923,
+    "episodes_seen": 8,
+    "gpu_event_seconds": 4.3863330078125,
+    "initial_ratio_max_error": 2.384185791015625e-07,
+    "learning_cpu_seconds": 4.333109,
+    "learning_wall_seconds": 4.386594659998082,
+    "num_samples": 423,
+    "num_updates": 6,
+    "peak_cuda_allocated_bytes": 225291264,
+    "peak_cuda_reserved_bytes": 253755392,
+    "policy_version": 2,
+    "update_step": 2,
+    "updated": true
+  }
+]

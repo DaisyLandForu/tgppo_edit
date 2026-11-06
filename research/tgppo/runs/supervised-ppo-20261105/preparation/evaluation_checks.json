@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "fixture_only": true,
+  "fixture_directory": "/tmp/tgppo-expert-eval-check-_dnmk6ak",
+  "elapsed_seconds": 0.7471909029409289,
+  "checks": [
+    "110-task matrix",
+    "equal checkpoint opportunities",
+    "common/no Actor split",
+    "prespecified positive gate",
+    "valid negative result is complete",
+    "missing/duplicate fail closed",
+    "early CPU submission consumes no budget",
+    "completed evaluation never restarts",
+    "persistent JSON does not require node-local raw files"
+  ],
+  "solver_tasks_executed": 0,
+  "torch_imported": false
+}
