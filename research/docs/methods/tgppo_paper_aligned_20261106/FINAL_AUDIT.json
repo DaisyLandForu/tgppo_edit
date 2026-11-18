@@ -1,0 +1,24 @@
+{
+  "status": "ready_for_manual_custom_submission",
+  "cpu_checks_passed": true,
+  "cpu_tests": 10,
+  "package_files_verified": 49,
+  "external_inputs_verified": 97,
+  "protected_historical_sources_verified": 116,
+  "entrypoint_check_passed": true,
+  "state_cli_passed": true,
+  "local_document_links_valid": true,
+  "training_jobs": 6,
+  "all_training_jobs_not_started": true,
+  "new_real_training_episodes": 0,
+  "new_scip_solves": 0,
+  "gpu_started": false,
+  "target_gpu_verification": "performed by actual Custom before collection",
+  "release_sha256": "661f22280ebdc81e951c79cb893c8999d3869fcb05ceb2bd9c48e18aa5207c08",
+  "notes": [
+    "500 episodes /3600 seconds /full25x5 /AdamW /per-episode3epochs",
+    "fixed500; no test-based model selection",
+    "48h cumulative job cap; explicit resume preserves consumed budget",
+    "formal CPU evaluation deferred until all six fixed500 models are complete"
+  ]
+}

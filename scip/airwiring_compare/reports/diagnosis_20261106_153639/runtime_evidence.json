@@ -1,0 +1,80 @@
+{
+  "observed_beijing": "2026-11-06T15:38:46.928381+08:00",
+  "rows": {
+    "sssp": {
+      "latest_progress": {
+        "solver_status": "unknown",
+        "scip_seconds": 70038.947112,
+        "nodes": 1138,
+        "nodes_left": 1097,
+        "solutions": 0,
+        "gap": null,
+        "primal_bound": null,
+        "dual_bound": 30762624.190748826,
+        "primal_bound_real": null,
+        "dual_bound_real": 30.762624190748827,
+        "primal_dual_integral": 255571.72340000002,
+        "reason": "node_progress",
+        "observed_utc": "2026-11-06T06:26:47.850200+00:00"
+      },
+      "latest_log_row": " 1239m|     1 |     0 |  5757k|     - |  4056M |   0 | 257k| 163k| 163k| 806 |  9 | 390 |3501 | 3.076262e+07 |      --      |    Inf | unknown",
+      "symmetry": [
+        "   (219.3s) symmetry computation finished: 158 generators found (max: 248, log10 of symmetry group size: 59.3)"
+      ],
+      "restarts": [
+        "Restart triggered after 50 consecutive estimations that the remaining tree will be large",
+        "(run 1, node 1139) performing user restart"
+      ]
+    },
+    "mamba": {
+      "latest_progress": {
+        "solver_status": "unknown",
+        "scip_seconds": 35474.158579,
+        "nodes": 1047,
+        "nodes_left": 855,
+        "solutions": 0,
+        "gap": null,
+        "primal_bound": null,
+        "dual_bound": 30762624.190748826,
+        "primal_bound_real": null,
+        "dual_bound_real": 30.762624190748827,
+        "primal_dual_integral": 366554.1034,
+        "reason": "node_progress",
+        "observed_utc": "2026-11-06T02:17:14.983113+00:00"
+      },
+      "latest_log_row": "  678m|     1 |     0 |  2549k|     - |  3442M |   0 | 257k| 163k| 163k| 735 |  5 | 722 |  21 | 3.076262e+07 |      --      |    Inf | unknown",
+      "symmetry": [
+        "   (323.8s) symmetry computation finished: 158 generators found (max: 248, log10 of symmetry group size: 59.3)"
+      ],
+      "restarts": [
+        "Restart triggered after 50 consecutive estimations that the remaining tree will be large",
+        "(run 1, node 1060) performing user restart"
+      ]
+    },
+    "tgppo": {
+      "latest_progress": {
+        "solver_status": "unknown",
+        "scip_seconds": 53877.795063,
+        "nodes": 1039,
+        "nodes_left": 1040,
+        "solutions": 0,
+        "gap": null,
+        "primal_bound": null,
+        "dual_bound": 30762624.190748706,
+        "primal_bound_real": null,
+        "dual_bound_real": 30.762624190748706,
+        "primal_dual_integral": 128618.1716,
+        "reason": "node_progress",
+        "observed_utc": "2026-11-06T06:03:55.880357+00:00"
+      },
+      "latest_log_row": "  984m|     1 |     0 |  3138k|     - |  4643M |   0 | 257k| 163k| 163k| 811 | 11 | 228 |   0 | 3.076262e+07 |      --      |    Inf | unknown",
+      "symmetry": [
+        "   (215.5s) symmetry computation finished: 158 generators found (max: 248, log10 of symmetry group size: 59.3)"
+      ],
+      "restarts": [
+        "Restart triggered after 50 consecutive estimations that the remaining tree will be large",
+        "(run 1, node 1049) performing user restart"
+      ]
+    }
+  }
+}

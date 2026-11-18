@@ -1,0 +1,468 @@
+{
+  "observed_at_beijing": "2026-11-09T13:27:26.576824+08:00",
+  "runs": [
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "b0-s11",
+      "state.json": {
+        "status": "stopped_before_next_complete_episode",
+        "next_episode": 137,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794008127.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-44ec8-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 120276.00460624695,
+            "finished_epoch": 1794128403.004616
+          },
+          {
+            "started_epoch": 1794134129.0,
+            "allocated_seconds": 52523.99539375305,
+            "host": "sg-duweiyue25-261108-0e4ff-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 3673.4581224918365,
+            "finished_epoch": 1794137802.4581273
+          },
+          {
+            "started_epoch": 1794141906.0,
+            "allocated_seconds": 48850.537271261215,
+            "host": "sg-duweiyue25-261108-e971e-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 47256.083235025406,
+            "finished_epoch": 1794189162.0832367
+          }
+        ],
+        "charged_seconds": 171205.5459637642
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261108-e971e-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 171205.5459637642,
+      "unfinished_attempts": [],
+      "script_remaining_seconds_after_closed_attempts": 1594.4540362358093
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "b0-s22",
+      "state.json": {
+        "status": "stopped",
+        "next_episode": 57,
+        "instance": "comp21-2idx",
+        "solver_seed": 4,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794134403.4424582
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794030606.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-4a653-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 18897.27384829521,
+            "finished_epoch": 1794049503.2738562
+          },
+          {
+            "started_epoch": 1794087906.0,
+            "allocated_seconds": 153902.7261517048,
+            "host": "sg-duweiyue25-261107-43f8a-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 46497.425599336624,
+            "finished_epoch": 1794134403.4256022
+          }
+        ],
+        "charged_seconds": 65394.699447631836
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261107-43f8a-default0-0",
+        "device": "cuda",
+        "gpu": "NVIDIA A100-SXM4-40GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 65394.699447631836,
+      "unfinished_attempts": [],
+      "script_remaining_seconds_after_closed_attempts": 107405.30055236816
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "mlp-s11",
+      "state.json": {
+        "status": "stopped",
+        "next_episode": 113,
+        "instance": "comp21-2idx",
+        "solver_seed": 4,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794192003.4210458
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794020341.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-b22d2-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 108062.35649442673,
+            "finished_epoch": 1794128403.3565023
+          },
+          {
+            "started_epoch": 1794134682.0,
+            "allocated_seconds": 64737.64350557327,
+            "host": "sg-duweiyue25-261108-3512d-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 7221.638011217117,
+            "finished_epoch": 1794141903.638017
+          },
+          {
+            "started_epoch": 1794153308.0,
+            "allocated_seconds": 57516.005494356155,
+            "host": "sg-duweiyue25-261108-3de67-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 22494.83174443245,
+            "finished_epoch": 1794175802.831751
+          },
+          {
+            "started_epoch": 1794184708.0,
+            "allocated_seconds": 35021.173749923706,
+            "host": "sg-duweiyue25-261109-e766e-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 7295.360130548477,
+            "finished_epoch": 1794192003.360133
+          }
+        ],
+        "charged_seconds": 145074.18638062477
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261109-e766e-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-PCIE-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 145074.18638062477,
+      "unfinished_attempts": [],
+      "script_remaining_seconds_after_closed_attempts": 27725.81361937523
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "mlp-s22",
+      "state.json": {
+        "status": "failed",
+        "next_episode": 70,
+        "instance": "roi5alpha10n8",
+        "solver_seed": 4,
+        "error": "ValueError('Cached task identity changed: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s22/episodes/71')",
+        "stopped_epoch": 1794188371.4180555
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794040224.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-80b1d-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 47679.41622066498,
+            "finished_epoch": 1794087903.4162252
+          },
+          {
+            "started_epoch": 1794119479.0,
+            "allocated_seconds": 125120.58377933502,
+            "host": "sg-duweiyue25-261108-ba80f-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 8024.765020370483,
+            "finished_epoch": 1794127503.7650254
+          },
+          {
+            "started_epoch": 1794139507.0,
+            "allocated_seconds": 117095.81875896454,
+            "host": "sg-duweiyue25-261108-1420b-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 29696.230817079544,
+            "finished_epoch": 1794169203.2308311
+          },
+          {
+            "started_epoch": 1794184739.0,
+            "allocated_seconds": 87399.587941885,
+            "host": "sg-duweiyue25-261109-3b9bc-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 3632.412074327469,
+            "finished_epoch": 1794188371.4120767
+          }
+        ],
+        "charged_seconds": 89032.82413244247
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261109-3b9bc-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-PCIE-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 89032.82413244247,
+      "unfinished_attempts": [],
+      "script_remaining_seconds_after_closed_attempts": 83767.17586755753
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "mlp_bc-s11",
+      "state.json": {
+        "status": "normalization",
+        "next_episode": 137,
+        "instance": "comp21-2idx",
+        "solver_seed": 2
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794030606.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-acdee-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 97797.70064759254,
+            "finished_epoch": 1794128403.7006555
+          },
+          {
+            "started_epoch": 1794137810.0,
+            "allocated_seconds": 75002.29935240746,
+            "host": "sg-duweiyue25-261108-9f172-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 36492.82518577576,
+            "finished_epoch": 1794174302.8251946
+          },
+          {
+            "started_epoch": 1794184736.0,
+            "allocated_seconds": 38509.4741666317,
+            "host": "sg-duweiyue25-261109-aa7af-default0-0",
+            "pid": 16
+          }
+        ],
+        "charged_seconds": 134290.5258333683
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261109-aa7af-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-PCIE-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 134290.5258333683,
+      "unfinished_attempts": [
+        {
+          "started_epoch": 1794184736.0,
+          "allocated_seconds": 38509.4741666317,
+          "host": "sg-duweiyue25-261109-aa7af-default0-0",
+          "pid": 16
+        }
+      ],
+      "script_remaining_seconds_after_closed_attempts": 38509.4741666317
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "mlp_bc-s22",
+      "state.json": {
+        "status": "updating",
+        "next_episode": 78,
+        "epoch": 2,
+        "epochs": 3,
+        "minibatches_completed": 9,
+        "samples": 1945,
+        "expected_minibatches": 24
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794049506.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-5a73f-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 45897.2910118103,
+            "finished_epoch": 1794095403.291016
+          },
+          {
+            "started_epoch": 1794127507.0,
+            "allocated_seconds": 126902.7089881897,
+            "host": "sg-duweiyue25-261108-ef2dc-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 11996.920970201492,
+            "finished_epoch": 1794139503.92098
+          },
+          {
+            "started_epoch": 1794149407.0,
+            "allocated_seconds": 114905.7880179882,
+            "host": "sg-duweiyue25-261108-f69cd-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 18896.393879890442,
+            "finished_epoch": 1794168303.3938868
+          },
+          {
+            "started_epoch": 1794184770.0,
+            "allocated_seconds": 96009.39413809776,
+            "host": "sg-duweiyue25-261109-f2024-default0-0",
+            "pid": 16
+          }
+        ],
+        "charged_seconds": 76790.60586190224
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261109-f2024-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 76790.60586190224,
+      "unfinished_attempts": [
+        {
+          "started_epoch": 1794184770.0,
+          "allocated_seconds": 96009.39413809776,
+          "host": "sg-duweiyue25-261109-f2024-default0-0",
+          "pid": 16
+        }
+      ],
+      "script_remaining_seconds_after_closed_attempts": 96009.39413809776
+    },
+    {
+      "experiment": "paper-trainmode-20261108",
+      "condition": "b0-s11",
+      "state.json": {
+        "status": "stopped",
+        "next_episode": 11,
+        "instance": "roi5alpha10n8",
+        "solver_seed": 3,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794149404.4546194
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794129005.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261108-88c0e-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 20398.422669172287,
+            "finished_epoch": 1794149403.4226828
+          }
+        ],
+        "charged_seconds": 20398.422669172287
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261108-88c0e-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-SXM2-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 20398.422669172287,
+      "unfinished_attempts": [],
+      "script_remaining_seconds_after_closed_attempts": 152401.5773308277
+    },
+    {
+      "experiment": "paper-trainmode-20261108",
+      "condition": "b0-s22",
+      "state.json": {
+        "status": "stopped",
+        "next_episode": 12,
+        "instance": "rmatr200-p5",
+        "solver_seed": 4,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794153303.726379
+      },
+      "budget.json": {
+        "attempts": [
+          {
+            "started_epoch": 1794129107.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261108-01f6b-default0-0",
+            "pid": 16,
+            "elapsed_seconds": 24196.609262228012,
+            "finished_epoch": 1794153303.6092708
+          }
+        ],
+        "charged_seconds": 24196.609262228012
+      },
+      "environment.json": {
+        "host": "sg-duweiyue25-261108-01f6b-default0-0",
+        "device": "cuda",
+        "gpu": "Tesla V100-PCIE-32GB",
+        "stack": {
+          "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz",
+          "machine": "x86_64",
+          "scip_version": 6.01,
+          "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+          "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+          "torch_version": "1.13.1+cu117",
+          "torch_cuda_runtime": "11.7",
+          "python_abi": "3.8"
+        }
+      },
+      "closed_attempt_seconds": 24196.609262228012,
+      "unfinished_attempts": [],
+      "script_remaining_seconds_after_closed_attempts": 148603.390737772
+    }
+  ]
+}

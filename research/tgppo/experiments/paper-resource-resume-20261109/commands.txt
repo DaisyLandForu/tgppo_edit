@@ -1,0 +1,5 @@
+# b0_new_seed_22：4CPU / 48GiB容器RAM / 1GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 22 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+
+# b0_new_seed_11：4CPU / 48GiB容器RAM / 1GPU，实际失败的seed11命令对应此行
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit

@@ -1,0 +1,51 @@
+{
+  "scope": "CPU forward/backward only; no optimizer steps or solves",
+  "trials": [
+    {
+      "actor_kind": "mlp",
+      "bucket": "median",
+      "width": 45,
+      "batch": 8,
+      "actor_seconds": 0.643541757017374,
+      "critic_seconds": 0.43405412090942264,
+      "per_transition_seconds": 0.13469948474084958
+    },
+    {
+      "actor_kind": "mlp",
+      "bucket": "maximum",
+      "width": 66,
+      "batch": 8,
+      "actor_seconds": 0.006520295049995184,
+      "critic_seconds": 0.43968118634074926,
+      "per_transition_seconds": 0.055775185173843056
+    },
+    {
+      "actor_kind": "b0",
+      "bucket": "median",
+      "width": 45,
+      "batch": 8,
+      "actor_seconds": 0.2618618360720575,
+      "critic_seconds": 0.2776898639276624,
+      "per_transition_seconds": 0.06744396249996498
+    },
+    {
+      "actor_kind": "b0",
+      "bucket": "maximum",
+      "width": 66,
+      "batch": 8,
+      "actor_seconds": 0.3751103160902858,
+      "critic_seconds": 0.39593315683305264,
+      "per_transition_seconds": 0.0963804341154173
+    }
+  ],
+  "complete": true,
+  "candidate_count": {
+    "min": 27,
+    "median": 45,
+    "max": 66,
+    "states": 1295
+  },
+  "note": "One retained rmatr200-p5 trajectory only; B0 Actor initialized for architecture timing, shared Critic uses retained weights. Forward/backward loss is a timing proxy, not a PPO update.",
+  "elapsed_seconds": 27.929321816191077,
+  "cuda_initialized": false
+}

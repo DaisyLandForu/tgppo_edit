@@ -1,0 +1,67 @@
+{
+  "status": "proposal_not_executed",
+  "purpose": "Training-instance response monitor; not held-out testing or checkpoint selection",
+  "experiment": "paper-aligned-20261106",
+  "models": [
+    {
+      "variant": "b0",
+      "training_seed": 11,
+      "episode": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/b0-s11/actor-0000.pt",
+      "sha256": "1ee3f8d9a393e1f5dfa6f0251db5934623e529edf51166c76d26870497657f56"
+    },
+    {
+      "variant": "b0",
+      "training_seed": 11,
+      "episode": 100,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/b0-s11/actor-0100.pt",
+      "sha256": "25fcd50cf5c6e7b770d55cb5477a7916db5f263549f56650276c96f7e4cc0db2"
+    },
+    {
+      "variant": "mlp",
+      "training_seed": 11,
+      "episode": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s11/actor-0000.pt",
+      "sha256": "b1cf4d868e77ec2a4ba527a41eac96ea961b0f1b9a22883c559938f755149ec3"
+    },
+    {
+      "variant": "mlp",
+      "training_seed": 11,
+      "episode": 100,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s11/actor-0100.pt",
+      "sha256": "39b2fc7ffe9acd729aaed8939264b7be20b23fc42633754a2f43da2095cfb731"
+    },
+    {
+      "variant": "mlp_bc",
+      "training_seed": 11,
+      "episode": 0,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s11/actor-0000.pt",
+      "sha256": "7eb4870ebd30ebebd97e1545dbc9769391c47c8587b709a2e9ccc9584f8bda9d"
+    },
+    {
+      "variant": "mlp_bc",
+      "training_seed": 11,
+      "episode": 100,
+      "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s11/actor-0100.pt",
+      "sha256": "8ee6f07ec547f1c991f889c7847e5840bae23163a05f373c9cff7c96cfdc1c12"
+    }
+  ],
+  "instances": [
+    "dcmulti",
+    "l152lav",
+    "comp21-2idx"
+  ],
+  "solver_seeds": [
+    0
+  ],
+  "model_jobs": 18,
+  "native_jobs": 3,
+  "total_jobs": 21,
+  "solver_limit_seconds": 3600,
+  "cpu_workers": 4,
+  "gpu": 0,
+  "approximate_pure_search_upper_hours_if_all_jobs_hit_limit": 6,
+  "formal_new_trainmode_b0_not_included": true,
+  "formal_fixed500_evaluation_unchanged": true,
+  "solver_runs_started": 0
+}

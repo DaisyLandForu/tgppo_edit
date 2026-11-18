@@ -1,0 +1,162 @@
+--- previous/project/runtime.py
++++ paper-trainmode/project/runtime.py
+@@ -49,13 +49,20 @@
+     result = dict(DEFAULT_CONFIG, **config)
+     if result['reward_function'] != 'reward_h3':
+         raise ValueError('Stage2 freezes upstream H3')
++    if result.get('actor_update_mode') != 'train':
++        raise ValueError('New experiment requires explicit actor_update_mode=train')
++    if result.get('gae_implementation') != 'standard_episodic_v1':
++        raise ValueError('Standard per-episode GAE must be explicit')
+     result.update(state_dims=state_dims.copy(), protocol_version=PROTOCOL_VERSION,
+-                  effective_actor_dropout=0., critic_training_dropout=result['dropout'],
++                  effective_actor_dropout=(result['dropout'] if result.get('actor_kind','b0')=='b0' else 0.),
++                  rollout_actor_mode='eval', critic_training_dropout=result['dropout'],
+                   upstream_commit='4f90ccddd7999779c93ff2425ca8dd056113a523')
+     return result
+ 
+ 
+ def build_agent(config, training=True, device=None):
++    if config.get('experiment') != 'paper-trainmode-20261108' or config.get('actor_update_mode') != 'train':
++        raise ValueError('Old experiment checkpoints cannot resume this new training protocol')
+     device = device or (config.get("learner_device", "cpu") if training else "cpu")
+     if str(device).startswith("cuda") and not torch.cuda.is_available():
+         raise RuntimeError("CUDA learner requested but no CUDA device is available")
+@@ -136,6 +143,9 @@
+ 
+ def read_checkpoint(path, allow_actor_only=False):
+     payload = torch.load(path, map_location='cpu')  # Trusted, locally produced checkpoints only.
++    if payload.get('config',{}).get('experiment') != 'paper-trainmode-20261108' or \
++            payload.get('config',{}).get('actor_update_mode') != 'train':
++        raise ValueError('Checkpoint belongs to a different experiment or Actor update mode')
+     if allow_actor_only and payload.get('schema_version') == 'actor-only-v1':
+         if fingerprint(payload['config']) != payload['config_sha256']:
+             raise ValueError('Actor configuration hash mismatch')
+--- previous/project/agent/agent.py
++++ paper-trainmode/project/agent/agent.py
+@@ -37,7 +37,7 @@
+     @torch.no_grad()
+     def _act(self, inputs, deterministic):
+         cands, mip, node, mask = inputs
+-        self.actor_network.eval()  # Also used during differentiable PPO recomputation.
++        self.actor_network.eval()  # Rollout and deployment follow the public author code.
+         probs = self.actor_network(cands, node, mip, mask)
+         if not torch.isfinite(probs).all():
+             raise ValueError('Nonfinite action distribution')
+@@ -144,6 +144,49 @@
+     def _value_loss(self, values, targets):
+         return torch.nn.functional.mse_loss(values, targets)
+ 
++    @torch.no_grad()
++    def _eval_ratios(self, cands, node, mip, mask, actions, old_log_probs):
++        """Check rollout provenance without dropout or changing the training RNG."""
++        previous_mode = self.actor_network.training
++        try:
++            self.actor_network.eval()
++            dist = Categorical(self.actor_network(cands, node, mip, mask))
++            return torch.exp(dist.log_prob(actions) - old_log_probs)
++        finally:
++            self.actor_network.train(previous_mode)
++
++    @torch.no_grad()
++    def _make_deployment_probe(self, cands, node, mip, mask):
++        """At most eight first-chunk states; a monitor, not a validation set."""
++        n = min(8, len(cands))
++        inputs = [x[:n].detach().clone() for x in (cands, node, mip, mask)]
++        previous_mode = self.actor_network.training
++        try:
++            self.actor_network.eval()
++            before = self.actor_network(*inputs).detach().clone()
++        finally:
++            self.actor_network.train(previous_mode)
++        return inputs, before
++
++    @torch.no_grad()
++    def _deployment_change(self, probe):
++        inputs, before = probe
++        previous_mode = self.actor_network.training
++        try:
++            self.actor_network.eval()
++            after = self.actor_network(*inputs)
++        finally:
++            self.actor_network.train(previous_mode)
++        mask = inputs[-1]
++        count = (~mask).sum(1)
++        uniform = (~mask).to(after.dtype) / count[:, None]
++        return dict(deployment_probe_states=len(before),
++            deployment_probe_scope='first chunk of first PPO minibatch; at most8 states',
++            deployment_tv_before_after_mean=float(.5*(after-before).abs().sum(1).mean()),
++            deployment_tv_to_uniform_before_mean=float(.5*(before-uniform).abs().sum(1).mean()),
++            deployment_tv_to_uniform_after_mean=float(.5*(after-uniform).abs().sum(1).mean()),
++            deployment_argmax_change_fraction=float((after.argmax(1)!=before.argmax(1)).float().mean()))
++
+     def learn(self, progress_callback=None, microbatch_size=None):
+         if self.memory.active is not None:
+             raise RuntimeError('Unfinished episode')
+@@ -159,12 +202,15 @@
+             raise RuntimeError('This collector has no training optimizers')
+         advantages = (raw_advantages - raw_advantages.mean()) / raw_advantages.std(
+             unbiased=False).clamp_min(1e-8)
+-        self.actor_network.eval()  # eval does NOT disable autograd.
++        self.actor_network.train()  # Public author update mode; B0 dropout=.05.
+         self.critic_network.train()
+         totals = dict(actor_loss=0., critic_loss=0., entropy=0., clip_fraction=0.)
+         updates = 0
+         supervised_totals = dict(normalized_nll=0., weighted_loss=0., samples=0, batches=0)
+         initial_ratio_error = None
++        initial_train_ratio_error = 0.
++        initial_dropout_clip_fraction = 0.
++        probe = None
+         last_progress_cpu = time.process_time()
+         last_progress_wall = time.monotonic()
+         for epoch in range(self.n_epochs):
+@@ -194,15 +240,24 @@
+                     mip = batch['mip_state'][chunk].to(self.device)
+                     ids = batch['indices'][chunk]
+                     weight = len(chunk) / size
++                    if probe is None:
++                        probe = self._make_deployment_probe(cands, node, mip, mask)
+                     probs = self.actor_network(cands, node, mip, mask)
+                     dist = Categorical(probs)
+                     ratios = torch.exp(dist.log_prob(batch['action'][chunk].to(self.device))
+                                        - batch['log_prob'][chunk].to(self.device))
+                     if updates == 0:
+                         error = (ratios.detach()-1).abs().max().item()
+-                        initial_ratio_error = max(initial_ratio_error or 0., error)
+-                        if error > 1e-4:
+-                            raise ValueError('Old/new probabilities disagree before update')
++                        initial_train_ratio_error = max(initial_train_ratio_error, error)
++                        initial_dropout_clip_fraction += weight * float(
++                            ((ratios.detach()-1).abs()>self.policy_clip).float().mean())
++                        reference = self._eval_ratios(cands, node, mip, mask,
++                            batch['action'][chunk].to(self.device),
++                            batch['log_prob'][chunk].to(self.device))
++                        reference_error = (reference-1).abs().max().item()
++                        initial_ratio_error = max(initial_ratio_error or 0., reference_error)
++                        if reference_error > 1e-4:
++                            raise ValueError('Eval rollout/recompute probabilities disagree before update')
+                     loss = -torch.min(ratios*advantages[ids], torch.clamp(
+                         ratios,1-self.policy_clip,1+self.policy_clip)*advantages[ids]).mean()
+                     entropy = dist.entropy().mean()
+@@ -244,6 +299,9 @@
+                     last_progress_cpu = time.process_time()
+                     last_progress_wall = time.monotonic()
+         self.memory.clear()
++        # Measure the deployed distribution, rather than mistaking dropout noise
++        # for parameter learning. Reuse the first logical batch from this update.
++        deployment_metrics = self._deployment_change(probe)
+         self.update_counter += 1
+         self.policy_version += 1
+         result = {k: v / updates for k, v in totals.items()}
+@@ -253,7 +311,11 @@
+                       expert_samples=supervised_totals['samples'],
+                       expert_batches=supervised_totals['batches'],
+                       initial_ratio_max_error=initial_ratio_error,
++                      initial_train_ratio_max_error=initial_train_ratio_error,
++                      initial_dropout_clip_fraction=initial_dropout_clip_fraction,
++                      actor_update_mode='train',
+                       advantage_std_before_normalization=raw_advantages.std(unbiased=False).item(),
+                       update_step=self.update_counter, policy_version=self.policy_version)
++        result.update(deployment_metrics)
+         self.logger.info('PPO update: %s', result)
+         return result

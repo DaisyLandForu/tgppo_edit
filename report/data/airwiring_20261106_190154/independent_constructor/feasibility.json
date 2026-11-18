@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "checked_beijing": "2026-11-06T15:36:45.041334+08:00",
+  "elapsed_seconds": 5.22410195088014,
+  "model_sha256": "e6a7ee530858449fb60ac6b9d57e8c0112d0bf90423f07c798e05d1b3a21a58a",
+  "objective_model": 37586983.9666382,
+  "objective_real": 37.5869839666382,
+  "reference_lower_bound_real": 30.762624190748827,
+  "relative_gap_vs_reference_lower_bound": 0.22183932468094342,
+  "original_constraints_checked": 162800,
+  "original_variables": 258164,
+  "scip_original_solution_check": true,
+  "independent_row_check_passed": true,
+  "max_absolute_row_violation": 0.0,
+  "variable_counts": {
+    "X": 5736,
+    "f": 246648,
+    "cost": 44,
+    "Z": 5736
+  },
+  "row_counts": {
+    "CostDef_": 43,
+    "Total_Cost_Calc": 1,
+    "TotalSrcFlow_": 43,
+    "FlowBalance_": 23994,
+    "f_cap_sum_": 123324,
+    "FlowBal_": 559,
+    "InDegree_": 496,
+    "FlowX_": 11472,
+    "X_Mutex_": 2868
+  },
+  "business_groups": 43,
+  "connectivity_root": "N287_L0",
+  "connectivity_targets": 63,
+  "selected_binary_arcs": 157.0,
+  "business_demand_sum": 246.0,
+  "nonzero_variables": 1590,
+  "optimization_called": false,
+  "original_model_modified": false,
+  "live_jobs_modified": false,
+  "source_sha256": "5c09db8aab952d624fb9d83ca0d779da016eb7cf3b8d57873c14cb9423d25c94",
+  "solution_sha256": "80349a8fbfad08a735277c1be9239f94f1b5f6f83d32ca39af8c9e6522f20b9b"
+}

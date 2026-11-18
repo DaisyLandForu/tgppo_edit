@@ -1,0 +1,378 @@
+{
+  "captured_beijing": "2026-11-13T14:04:42.338701+08:00",
+  "base_report": {
+    "archive": "tgppo_group_report_1106.zip",
+    "archive_sha256": "c4f573d30a20f4ebf7f196a5ed9ce45a7d188ef5eda2449601b8a0e8a871bebc",
+    "entry": "tgppo_group_report_1106/组会汇报材料_精简版.md",
+    "entry_sha256": "cb9104979756679405ac06a21e4e5b6e155e8ee9e30607efc13370c7c9666890"
+  },
+  "training": [
+    {
+      "variant": "b0_new",
+      "seed": 11,
+      "completed_episodes_from_state_and_update_record": 164,
+      "state": {
+        "status": "stopped",
+        "next_episode": 164,
+        "instance": "neos-476283",
+        "solver_seed": 3,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547818.4221463
+      },
+      "source": "research/tgppo/runs/paper-trainmode-20261108/training/b0-s11",
+      "last_update": "research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/updates/episode-0164.json",
+      "latest_checkpoint_mtime": 1794544959.621155,
+      "pending_exists": false,
+      "torch_checkpoint_loaded_for_this_report": false
+    },
+    {
+      "variant": "b0_new",
+      "seed": 22,
+      "completed_episodes_from_state_and_update_record": 218,
+      "state": {
+        "status": "stopped",
+        "next_episode": 218,
+        "instance": "roi5alpha10n8",
+        "solver_seed": 0,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547823.0053937
+      },
+      "source": "research/tgppo/runs/paper-trainmode-20261108/training/b0-s22",
+      "last_update": "research/tgppo/runs/paper-trainmode-20261108/training/b0-s22/updates/episode-0218.json",
+      "latest_checkpoint_mtime": 1794546175.5496888,
+      "pending_exists": false,
+      "torch_checkpoint_loaded_for_this_report": false
+    },
+    {
+      "variant": "mlp",
+      "seed": 11,
+      "completed_episodes_from_state_and_update_record": 284,
+      "state": {
+        "status": "stopped",
+        "next_episode": 284,
+        "epoch": 3,
+        "epochs": 3,
+        "minibatches_completed": 16,
+        "samples": 1557,
+        "expected_minibatches": 21,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547827.3453546
+      },
+      "source": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11",
+      "last_update": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11/updates/episode-0284.json",
+      "latest_checkpoint_mtime": 1794538892.1824083,
+      "pending_exists": true,
+      "torch_checkpoint_loaded_for_this_report": false
+    },
+    {
+      "variant": "mlp",
+      "seed": 22,
+      "completed_episodes_from_state_and_update_record": 172,
+      "state": {
+        "status": "stopped",
+        "next_episode": 172,
+        "instance": "rmatr200-p5",
+        "solver_seed": 3,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547831.9353373
+      },
+      "source": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s22",
+      "last_update": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s22/updates/episode-0172.json",
+      "latest_checkpoint_mtime": 1794546500.778257,
+      "pending_exists": false,
+      "torch_checkpoint_loaded_for_this_report": false
+    },
+    {
+      "variant": "mlp_bc",
+      "seed": 11,
+      "completed_episodes_from_state_and_update_record": 284,
+      "state": {
+        "status": "stopped",
+        "next_episode": 284,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 2,
+        "samples": 849,
+        "expected_minibatches": 12,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547841.6621463
+      },
+      "source": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11",
+      "last_update": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11/updates/episode-0284.json",
+      "latest_checkpoint_mtime": 1794542715.4542089,
+      "pending_exists": true,
+      "torch_checkpoint_loaded_for_this_report": false
+    },
+    {
+      "variant": "mlp_bc",
+      "seed": 22,
+      "completed_episodes_from_state_and_update_record": 271,
+      "state": {
+        "status": "stopped",
+        "next_episode": 271,
+        "instance": "neos-476283",
+        "solver_seed": 0,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547836.7932572
+      },
+      "source": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22",
+      "last_update": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22/updates/episode-0271.json",
+      "latest_checkpoint_mtime": 1794546159.9254897,
+      "pending_exists": false,
+      "torch_checkpoint_loaded_for_this_report": false
+    }
+  ],
+  "evaluation_200": {
+    "requested_tasks": 330,
+    "shards": [
+      {
+        "shard": "shard-0",
+        "status_record": "running",
+        "cohort_id": "0bd737be7b8dff0acb8b6c1c",
+        "raw_count": 10,
+        "valid_raw_count": 10,
+        "raw_records": [
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e004-mlp_bc_s22-s0.json",
+            "valid": true,
+            "instance": "n2seq36q",
+            "job_id": "e004-mlp_bc_s22-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e001-b0_new_s22-s0.json",
+            "valid": true,
+            "instance": "n2seq36q",
+            "job_id": "e001-b0_new_s22-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e006-mlp_s11-s0.json",
+            "valid": true,
+            "instance": "p0201",
+            "job_id": "e006-mlp_s11-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e000-native-s0.json",
+            "valid": true,
+            "instance": "n2seq36q",
+            "job_id": "e000-native-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e005-b0_new_s22-s0.json",
+            "valid": true,
+            "instance": "p0201",
+            "job_id": "e005-b0_new_s22-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e008-mlp_bc_s22-s0.json",
+            "valid": true,
+            "instance": "p0201",
+            "job_id": "e008-mlp_bc_s22-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e009-native-s0.json",
+            "valid": true,
+            "instance": "p0201",
+            "job_id": "e009-native-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e003-mlp_bc_s11-s0.json",
+            "valid": true,
+            "instance": "n2seq36q",
+            "job_id": "e003-mlp_bc_s11-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e002-mlp_s11-s0.json",
+            "valid": true,
+            "instance": "n2seq36q",
+            "job_id": "e002-mlp_s11-s0"
+          },
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607/raw/e007-mlp_bc_s11-s0.json",
+            "valid": true,
+            "instance": "p0201",
+            "job_id": "e007-mlp_bc_s11-s0"
+          }
+        ]
+      },
+      {
+        "shard": "shard-1",
+        "status_record": "running",
+        "cohort_id": "af3cd523aba5cb14d1d6ced9",
+        "raw_count": 1,
+        "valid_raw_count": 1,
+        "raw_records": [
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-1/attempts/20261113T053225Z-55738a28/raw/e000-native-s0.json",
+            "valid": true,
+            "instance": "neos-504674",
+            "job_id": "e000-native-s0"
+          }
+        ]
+      },
+      {
+        "shard": "shard-2",
+        "status_record": "running",
+        "cohort_id": "ed76a7009c28096672218591",
+        "raw_count": 0,
+        "valid_raw_count": 0,
+        "raw_records": []
+      },
+      {
+        "shard": "shard-3",
+        "status_record": "running",
+        "cohort_id": "6e38dec06d694d845890c46b",
+        "raw_count": 1,
+        "valid_raw_count": 1,
+        "raw_records": [
+          {
+            "file": "research/tgppo/runs/paper200-test66-20261113/shard-3/attempts/20261113T053356Z-d9e157cf/raw/e000-native-s0.json",
+            "valid": true,
+            "instance": "mik-250-20-75-4",
+            "job_id": "e000-native-s0"
+          }
+        ]
+      }
+    ],
+    "valid_raw_count": 12,
+    "complete": false,
+    "ranking": null
+  },
+  "source_hashes": {
+    "research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/state.json": "d61d2ff138e622f35175df8b201fcc692f00defba97b6e2a79b6308e92604c04",
+    "research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/updates/episode-0164.json": "3791f33e15dc0f5c76306821eb2dd82eab3a5591072f991e7bf7ee05e7acf36d",
+    "research/tgppo/runs/paper-trainmode-20261108/training/b0-s22/state.json": "5f4098d158d7c3949c48abe541a3d12c9266f872ad7ab592c5a9dbe9751cd471",
+    "research/tgppo/runs/paper-trainmode-20261108/training/b0-s22/updates/episode-0218.json": "25f7714d1d8703b06c8c695d72ac2e856538122f294a46b89a78af0c14dfaf32",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11/state.json": "d23456c8025a4377d3cdb3bc05b1e7ba410f631a3de9d502344572fe9ddcb40c",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11/updates/episode-0284.json": "82abac0fc94363ec25551bbe552a15b6af0dd6f4fd2e1cc50f878f13544cbde1",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s22/state.json": "da20d4aadb54b82d91b1b44c2309388d12ba12254b36b804c8de99cb634dc8c9",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s22/updates/episode-0172.json": "fd753574b1e46911f758c6ff3dbb297b67d957bd492478924791e89353ab6d28",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11/state.json": "748a4b24a47cab4865e67b727724c36c6fa2d34872f548a4029a7d317393f281",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11/updates/episode-0284.json": "4c409f913f32cccdebf6b8b2c2d558545e323b499c2c79b05505ccdff6d0d75f",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22/state.json": "d21a354a456bdc206fcb7fa5f8ac5e72df8adb91003e03c75414a4c919730b5f",
+    "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22/updates/episode-0271.json": "3300b5199b475ba5beb06aeddc1bc19b7b8f8bd0e5dc647790f05f465dee3658",
+    "research/tgppo/runs/paper200-test66-20261113/shard-0/status.json": "bf26ea2ad4c1729571c676e03c133e0832417341a0205ddec6c3a589b4894b75",
+    "research/tgppo/runs/paper200-test66-20261113/shard-1/status.json": "f6668967dce9e12e1236e9a90489f18a8b785eaba072a6c961e32c17070968a4",
+    "research/tgppo/runs/paper200-test66-20261113/shard-2/status.json": "72a7b971b66b51fc469d29e0c3e27c0481d3d96474b15cbe5aba4596657f4a0b",
+    "research/tgppo/runs/paper200-test66-20261113/shard-3/status.json": "f6afe59fff621e536a6711a15d5fee74a201df301bedff8223743cb9b48429ab",
+    "research/docs/methods/tgppo_paper100_test66_20261110/summary.csv": "89a996af858b92c8fdab7029ed5b3b905651c8f388494244646eb2585dedf67b",
+    "research/docs/methods/tgppo_paper_aligned_20261106/training_curves_20261108/SNAPSHOT.json": "773829033752ab25920292de12680ad8c7631897e0b125de6e209c307010578f",
+    "research/tgppo/experiments/paper-aligned-20261106/configs/protocol.json": "e93d6a7675e35c3c3b9b7dc498c605fc5ec466f88f07164e747884fc64a093f9",
+    "research/docs/methods/tgppo_paper200_test66_20261113/PAPER_PROTOCOL_AND_SCOPE.md": "f3ae61aa61892ee96003168160bf220d7ad62529a74aebf5274b2c0050633ca7"
+  },
+  "training_steps_started": 0,
+  "solver_calls_started": 0,
+  "evaluation_100_summary": [
+    {
+      "label": "native",
+      "tasks": "66",
+      "mean_pdi": "10942.994873676904",
+      "mean_pdi_lower": "10942.972727464783",
+      "mean_pdi_upper": "10943.017019889026",
+      "sgm_pdi_shift0": "1179.9184999721842",
+      "sgm_nodes_shift100": "1127.0081568396383",
+      "proof_rate": "0.9090909090909091",
+      "proofs": "60",
+      "mean_optimize_seconds": "630.0475329675307",
+      "par2": "957.319461818182",
+      "branch_calls": "0",
+      "actor_mean_ms": "",
+      "summed_worker_wall_seconds": "41656.83219428192"
+    },
+    {
+      "label": "b0",
+      "tasks": "66",
+      "mean_pdi": "27395.366255047826",
+      "mean_pdi_lower": "27381.237739896304",
+      "mean_pdi_upper": "27409.49477019934",
+      "sgm_pdi_shift0": "4527.600567313642",
+      "sgm_nodes_shift100": "6645.590367817757",
+      "proof_rate": "0.4696969696969697",
+      "proofs": "31",
+      "mean_optimize_seconds": "2169.9456970907236",
+      "par2": "4078.753578",
+      "branch_calls": "1085387",
+      "actor_mean_ms": "56.57716336192434",
+      "summed_worker_wall_seconds": "143298.9626624792"
+    },
+    {
+      "label": "b0_new",
+      "tasks": "66",
+      "mean_pdi": "27399.939077007035",
+      "mean_pdi_lower": "27373.199217916113",
+      "mean_pdi_upper": "27426.678936097942",
+      "sgm_pdi_shift0": "4533.17523997981",
+      "sgm_nodes_shift100": "6643.406525147798",
+      "proof_rate": "0.4696969696969697",
+      "proofs": "31",
+      "mean_optimize_seconds": "2170.564203338925",
+      "par2": "4079.119857742422",
+      "branch_calls": "1085388",
+      "actor_mean_ms": "56.638807259381835",
+      "summed_worker_wall_seconds": "143337.20054900902"
+    },
+    {
+      "label": "mlp",
+      "tasks": "66",
+      "mean_pdi": "22098.595538885453",
+      "mean_pdi_lower": "22097.787469946055",
+      "mean_pdi_upper": "22099.403607824846",
+      "sgm_pdi_shift0": "3428.9585862765316",
+      "sgm_nodes_shift100": "10144.11345042988",
+      "proof_rate": "0.5454545454545454",
+      "proofs": "36",
+      "mean_optimize_seconds": "2105.5645328474843",
+      "par2": "3741.91154110606",
+      "branch_calls": "2028990",
+      "actor_mean_ms": "2.7716826962986487",
+      "summed_worker_wall_seconds": "139048.0506258597"
+    },
+    {
+      "label": "mlp_bc",
+      "tasks": "66",
+      "mean_pdi": "22709.286104980925",
+      "mean_pdi_lower": "22708.444053465777",
+      "mean_pdi_upper": "22710.128156496074",
+      "sgm_pdi_shift0": "3382.3241693589043",
+      "sgm_nodes_shift100": "8284.942730009747",
+      "proof_rate": "0.6515151515151515",
+      "proofs": "43",
+      "mean_optimize_seconds": "1858.7231884019125",
+      "par2": "3113.2513310303034",
+      "branch_calls": "1790637",
+      "actor_mean_ms": "2.7633993693393357",
+      "summed_worker_wall_seconds": "122756.79150132579"
+    }
+  ],
+  "historical_cost_evidence": {
+    "observed_beijing": "2026-11-08 12:07 BJT",
+    "common_episode_prefix": 87,
+    "phases_hours": {
+      "b0": {
+        "precollection": 8.438353752361403,
+        "cpu_rollout": 16.910584379000746,
+        "ppo_update": 2.7566276713934106,
+        "other": 0.22917127936819776
+      },
+      "mlp": {
+        "precollection": 6.578129417763816,
+        "cpu_rollout": 16.12777185652334,
+        "ppo_update": 1.8924849020618584,
+        "other": 0.1936740517735921
+      },
+      "mlp_bc": {
+        "precollection": 4.589513345426983,
+        "cpu_rollout": 15.651892068992925,
+        "ppo_update": 1.4270061075072347,
+        "other": 0.141256134626973
+      }
+    },
+    "precollection_note": "Includes native normalization, cache waiting and some IO; not pure CPU compute."
+  },
+  "report_sha256": "b56a9ac115cd1484bd503b02ed9384abc25f3bb9e9eb2c98465e259c5e965150",
+  "training_diagram_artifacts": {
+    "06_mlp_mlpbc_training_mamba_style.pptx": "4fc1888edc02352eba267f6453695f22ccb14e741e1cd0722fa7af31c89f225c",
+    "06_mlp_mlpbc_training_mamba_style.pdf": "49069a95d3a910e8a1c7ee7ca2a741e9fb7f0a2e087430b0a4e156d6a8180fb2",
+    "06_mlp_mlpbc_training_mamba_style.svg": "d469e80b90b840e4790f9a1ee2baad0aa846497c88594bd20bf38f3e046faebf",
+    "06_mlp_mlpbc_training_mamba_style.png": "6db58710470404d5fdf62cd938bc2f2ab9433324f97f28156ef0c507f51a1fac"
+  }
+}

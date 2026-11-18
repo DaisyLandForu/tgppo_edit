@@ -1,0 +1,180 @@
+{
+  "observed_beijing": "2026-11-08 12:07 BJT",
+  "common_seed11_prefix": 87,
+  "phases_hours": {
+    "b0": {
+      "precollection": 8.438353752361403,
+      "cpu_rollout": 16.910584379000746,
+      "ppo_update": 2.7566276713934106,
+      "other": 0.22917127936819776
+    },
+    "mlp": {
+      "precollection": 6.578129417763816,
+      "cpu_rollout": 16.12777185652334,
+      "ppo_update": 1.8924849020618584,
+      "other": 0.1936740517735921
+    },
+    "mlp_bc": {
+      "precollection": 4.589513345426983,
+      "cpu_rollout": 15.651892068992925,
+      "ppo_update": 1.4270061075072347,
+      "other": 0.141256134626973
+    }
+  },
+  "runs": {
+    "b0-s11": {
+      "variant": "b0",
+      "seed": 11,
+      "state": {
+        "status": "collecting",
+        "next_episode": 87,
+        "instance": "neos-476283",
+        "solver_seed": 2
+      },
+      "attempts": [
+        {
+          "started_epoch": 1794008127.0,
+          "allocated_seconds": 172800,
+          "host": "sg-duweiyue25-261107-44ec8-default0-0",
+          "pid": 16
+        }
+      ],
+      "active_hours": 28.535567429595524,
+      "remaining_hours": 19.464432570404476,
+      "nonfinite_fields": [],
+      "effective_updates": 82
+    },
+    "mlp-s11": {
+      "variant": "mlp",
+      "seed": 11,
+      "state": {
+        "status": "collecting",
+        "next_episode": 87,
+        "instance": "neos-476283",
+        "solver_seed": 2
+      },
+      "attempts": [
+        {
+          "started_epoch": 1794020341.0,
+          "allocated_seconds": 172800,
+          "host": "sg-duweiyue25-261107-b22d2-default0-0",
+          "pid": 16
+        }
+      ],
+      "active_hours": 25.142789651817747,
+      "remaining_hours": 22.857210348182253,
+      "nonfinite_fields": [],
+      "effective_updates": 82
+    },
+    "mlp_bc-s11": {
+      "variant": "mlp_bc",
+      "seed": 11,
+      "state": {
+        "status": "collecting",
+        "next_episode": 87,
+        "instance": "neos-476283",
+        "solver_seed": 2
+      },
+      "attempts": [
+        {
+          "started_epoch": 1794030606.0,
+          "allocated_seconds": 172800,
+          "host": "sg-duweiyue25-261107-acdee-default0-0",
+          "pid": 15
+        }
+      ],
+      "active_hours": 22.291400762928856,
+      "remaining_hours": 25.708599237071144,
+      "nonfinite_fields": [],
+      "effective_updates": 82
+    },
+    "b0-s22": {
+      "variant": "b0",
+      "seed": 22,
+      "state": {
+        "status": "collecting",
+        "next_episode": 42,
+        "instance": "comp21-2idx",
+        "solver_seed": 2
+      },
+      "attempts": [
+        {
+          "started_epoch": 1794030606.0,
+          "allocated_seconds": 172800,
+          "host": "sg-duweiyue25-261107-4a653-default0-0",
+          "pid": 15,
+          "elapsed_seconds": 18897.27384829521,
+          "finished_epoch": 1794049503.2738562
+        },
+        {
+          "started_epoch": 1794087906.0,
+          "allocated_seconds": 153902.7261517048,
+          "host": "sg-duweiyue25-261107-43f8a-default0-0",
+          "pid": 15
+        }
+      ],
+      "active_hours": 11.623976834085253,
+      "remaining_hours": 36.376023165914745,
+      "nonfinite_fields": [],
+      "effective_updates": 40
+    },
+    "mlp-s22": {
+      "variant": "mlp",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 47,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 1,
+        "samples": 1295,
+        "expected_minibatches": 18,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794087903.4277418
+      },
+      "attempts": [
+        {
+          "started_epoch": 1794040224.0,
+          "allocated_seconds": 172800,
+          "host": "sg-duweiyue25-261107-80b1d-default0-0",
+          "pid": 15,
+          "elapsed_seconds": 47679.41622066498,
+          "finished_epoch": 1794087903.4162252
+        }
+      ],
+      "active_hours": 13.24428228477637,
+      "remaining_hours": 34.75571771522363,
+      "nonfinite_fields": [],
+      "effective_updates": 45
+    },
+    "mlp_bc-s22": {
+      "variant": "mlp_bc",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 52,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 1,
+        "samples": 1372,
+        "expected_minibatches": 18,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794095403.294779
+      },
+      "attempts": [
+        {
+          "started_epoch": 1794049506.0,
+          "allocated_seconds": 172800,
+          "host": "sg-duweiyue25-261107-5a73f-default0-0",
+          "pid": 15,
+          "elapsed_seconds": 45897.2910118103,
+          "finished_epoch": 1794095403.291016
+        }
+      ],
+      "active_hours": 12.749247504472732,
+      "remaining_hours": 35.250752495527266,
+      "nonfinite_fields": [],
+      "effective_updates": 49
+    }
+  }
+}

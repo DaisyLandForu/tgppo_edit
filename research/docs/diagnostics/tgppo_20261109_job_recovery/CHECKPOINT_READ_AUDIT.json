@@ -1,0 +1,78 @@
+{
+  "checkpoints": [
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "b0-s11",
+      "progress": {
+        "next_episode": 137,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "learner_device": "cuda",
+      "actor_update_mode": "eval",
+      "complete_fields": true,
+      "actor_optimizer_states": 116,
+      "critic_optimizer_states": 118
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "mlp-s11",
+      "progress": {
+        "next_episode": 113,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "learner_device": "cuda",
+      "actor_update_mode": "eval",
+      "complete_fields": true,
+      "actor_optimizer_states": 18,
+      "critic_optimizer_states": 118
+    },
+    {
+      "experiment": "paper-aligned-20261106",
+      "condition": "mlp-s22",
+      "progress": {
+        "next_episode": 70,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "learner_device": "cuda",
+      "actor_update_mode": "eval",
+      "complete_fields": true,
+      "actor_optimizer_states": 18,
+      "critic_optimizer_states": 118
+    },
+    {
+      "experiment": "paper-trainmode-20261108",
+      "condition": "b0-s11",
+      "progress": {
+        "next_episode": 11,
+        "phase": "ready",
+        "experiment_protocol_sha256": "ed0c84585f3ea200e625c41e2593d205df2acab5140f09c9624129c8e087de4a"
+      },
+      "learner_device": "cuda",
+      "actor_update_mode": "train",
+      "complete_fields": true,
+      "actor_optimizer_states": 116,
+      "critic_optimizer_states": 118
+    },
+    {
+      "experiment": "paper-trainmode-20261108",
+      "condition": "b0-s22",
+      "progress": {
+        "next_episode": 12,
+        "phase": "ready",
+        "experiment_protocol_sha256": "ed0c84585f3ea200e625c41e2593d205df2acab5140f09c9624129c8e087de4a"
+      },
+      "learner_device": "cuda",
+      "actor_update_mode": "train",
+      "complete_fields": true,
+      "actor_optimizer_states": 116,
+      "critic_optimizer_states": 118
+    }
+  ],
+  "cuda_initialized": false,
+  "optimizer_steps": 0,
+  "solver_runs": 0,
+  "elapsed_seconds": 31.282798890955746
+}

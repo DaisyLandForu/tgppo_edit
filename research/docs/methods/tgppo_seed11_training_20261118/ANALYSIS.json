@@ -1,0 +1,558 @@
+{
+  "observed_beijing": "2026-11-18T13:29:04+08:00",
+  "scope": "seed11 committed prefixes across explicit device lineage; no new evaluation",
+  "new_solver_runs": 0,
+  "new_real_training_updates": 0,
+  "models": {
+    "b0": {
+      "episodes": 330,
+      "effective_updates": 318,
+      "zero_decision_episodes": 12,
+      "clip_nonzero_updates": 0,
+      "windows": [
+        {
+          "label": "first50episodes",
+          "start": 1,
+          "end": 50,
+          "nonempty_updates": 47,
+          "complete125": false,
+          "critic_loss_mean": 24.309874995058745,
+          "critic_loss_median": 18.55134265266502,
+          "actor_loss_mean": -0.013053581654195678,
+          "actor_loss_median": -0.009284305335827117,
+          "entropy_mean": 3.76518182693034,
+          "entropy_median": 3.2212328803277135,
+          "clip_fraction_mean": 0.0,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 124.13098348026966,
+          "learner_wall_seconds_median": 40.33665388915688
+        },
+        {
+          "label": "last50episodes",
+          "start": 281,
+          "end": 330,
+          "nonempty_updates": 48,
+          "complete125": false,
+          "critic_loss_mean": 24.189640292876867,
+          "critic_loss_median": 18.878176100916942,
+          "actor_loss_mean": -0.011736129357685107,
+          "actor_loss_median": -0.011332676628302391,
+          "entropy_mean": 3.6568486442222343,
+          "entropy_median": 3.441645612562115,
+          "clip_fraction_mean": 0.0,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 110.66622886809637,
+          "learner_wall_seconds_median": 75.81648142449558
+        },
+        {
+          "label": "last20episodes",
+          "start": 311,
+          "end": 330,
+          "nonempty_updates": 19,
+          "complete125": false,
+          "critic_loss_mean": 23.94258698204226,
+          "critic_loss_median": 19.060041296643174,
+          "actor_loss_mean": -0.00976342345648276,
+          "actor_loss_median": -0.009889512043691017,
+          "entropy_mean": 3.652853965646258,
+          "entropy_median": 3.713466911234406,
+          "clip_fraction_mean": 0.0,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 102.32035581064166,
+          "learner_wall_seconds_median": 35.929547641891986
+        },
+        {
+          "label": "cycle1",
+          "start": 1,
+          "end": 125,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 25.130268466603354,
+          "critic_loss_median": 18.684076186423216,
+          "actor_loss_mean": -0.010776434948359195,
+          "actor_loss_median": -0.009931164694988132,
+          "entropy_mean": 3.7302409252149182,
+          "entropy_median": 3.3519351545445346,
+          "clip_fraction_mean": 0.0,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 119.23958876739974,
+          "learner_wall_seconds_median": 31.871286999084987
+        },
+        {
+          "label": "cycle2",
+          "start": 126,
+          "end": 250,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 23.560803343368026,
+          "critic_loss_median": 16.370047649056346,
+          "actor_loss_mean": -0.011113011267108718,
+          "actor_loss_median": -0.010003012369355468,
+          "entropy_mean": 3.725272594223184,
+          "entropy_median": 3.3357944546825324,
+          "clip_fraction_mean": 0.0,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 101.21276645502027,
+          "learner_wall_seconds_median": 29.786249028984457
+        },
+        {
+          "label": "cycle3",
+          "start": 251,
+          "end": 330,
+          "nonempty_updates": 78,
+          "complete125": false,
+          "critic_loss_mean": 24.052274013479142,
+          "critic_loss_median": 17.454174115397777,
+          "actor_loss_mean": -0.010962512509673753,
+          "actor_loss_median": -0.011000852274488274,
+          "entropy_mean": 3.7302832051696186,
+          "entropy_median": 3.4209649014450045,
+          "clip_fraction_mean": 0.0,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 115.43313374187655,
+          "learner_wall_seconds_median": 55.43206346593797
+        }
+      ],
+      "deployment_tv_to_uniform_after_mean": {
+        "count": 318,
+        "mean": 7.018082771459992e-09,
+        "median": 0.0,
+        "maximum": 2.4400651454925537e-07,
+        "under_1e_6": 318,
+        "scope": "at most8 first-minibatch states per nonempty update; training monitor only"
+      },
+      "deployment_tv_before_after_mean": {
+        "count": 318,
+        "mean": 4.3190358962231086e-09,
+        "median": 4.3655745685100555e-10,
+        "maximum": 1.2200325727462769e-07,
+        "under_1e_6": 318,
+        "scope": "at most8 first-minibatch states per nonempty update; training monitor only"
+      },
+      "checkpoint": {
+        "variant": "b0",
+        "path": "research/tgppo/runs/paper-device-resume-20261116/gpu/training/b0-s11",
+        "checkpoint_sha256": "9dab966369d06f6fd8349fa9d390725b71f6ef5752b341351f2e6263b09ca86f",
+        "progress": {
+          "next_episode": 330,
+          "phase": "ready",
+          "experiment_protocol_sha256": "ed0c84585f3ea200e625c41e2593d205df2acab5140f09c9624129c8e087de4a"
+        },
+        "policy_version": 318,
+        "update_counter": 318,
+        "memory_transitions": 0,
+        "finite": {
+          "actor": true,
+          "critic": true
+        },
+        "device": "cuda",
+        "actor_kind": "b0",
+        "actor_parameters": 4738895,
+        "critic_parameters": 4804687,
+        "state": {
+          "status": "collecting",
+          "next_episode": 330,
+          "instance": "rmatr100-p5",
+          "solver_seed": 3
+        },
+        "milestones": [
+          "actor-0200.pt",
+          "actor-0300.pt"
+        ],
+        "observed_beijing": "2026-11-18T13:24:17+08:00"
+      },
+      "sources": [
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11",
+          "committed_prefix": 164
+        },
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-device-resume-20261116/gpu/training/b0-s11",
+          "committed_prefix": 330
+        }
+      ],
+      "all_records_finite": true,
+      "schedule_verified": true,
+      "record_count_matches_checkpoint": true,
+      "latest_evaluation_episode": 100,
+      "recent50_throughput": {
+        "episodes": 50,
+        "elapsed_hours": 11.874595539636083,
+        "episodes_per_hour": 4.210669730443074,
+        "remaining_to500_estimated_hours": 40.37362483476268,
+        "estimate_only": true,
+        "assumption": "same future task mix and no interruption; not a deadline guarantee"
+      }
+    },
+    "mlp": {
+      "episodes": 458,
+      "effective_updates": 440,
+      "zero_decision_episodes": 18,
+      "clip_nonzero_updates": 202,
+      "windows": [
+        {
+          "label": "first50episodes",
+          "start": 1,
+          "end": 50,
+          "nonempty_updates": 47,
+          "complete125": false,
+          "critic_loss_mean": 23.417706500146622,
+          "critic_loss_median": 15.91600264094783,
+          "actor_loss_mean": -0.011364204076518458,
+          "actor_loss_median": -0.010927237841517327,
+          "entropy_mean": 3.760065135996,
+          "entropy_median": 3.233683607137328,
+          "clip_fraction_mean": 0.005164703202869719,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 100.30883660446356,
+          "learner_wall_seconds_median": 16.976457164157182
+        },
+        {
+          "label": "last50episodes",
+          "start": 409,
+          "end": 458,
+          "nonempty_updates": 47,
+          "complete125": false,
+          "critic_loss_mean": 20.939997984744696,
+          "critic_loss_median": 13.66360346476237,
+          "actor_loss_mean": -0.008119872551996444,
+          "actor_loss_median": -0.009120318981634531,
+          "entropy_mean": 3.322451001217599,
+          "entropy_median": 3.316892230234764,
+          "clip_fraction_mean": 0.012305480909755738,
+          "clip_fraction_median": 0.001990390044671518,
+          "learner_wall_seconds_mean": 53.89281761213305,
+          "learner_wall_seconds_median": 24.341471407096833
+        },
+        {
+          "label": "last20episodes",
+          "start": 439,
+          "end": 458,
+          "nonempty_updates": 20,
+          "complete125": false,
+          "critic_loss_mean": 18.93794668152274,
+          "critic_loss_median": 12.74665370542473,
+          "actor_loss_mean": -0.009723206418326798,
+          "actor_loss_median": -0.010376862125424192,
+          "entropy_mean": 3.349276245491055,
+          "entropy_median": 3.1965453561061623,
+          "clip_fraction_mean": 0.014284745933459582,
+          "clip_fraction_median": 0.006265485198704998,
+          "learner_wall_seconds_mean": 68.52932383494917,
+          "learner_wall_seconds_median": 29.600775805534795
+        },
+        {
+          "label": "cycle1",
+          "start": 1,
+          "end": 125,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 24.626966757656263,
+          "critic_loss_median": 16.199413734244366,
+          "actor_loss_mean": -0.01184092206854632,
+          "actor_loss_median": -0.011273982938833698,
+          "entropy_mean": 3.6419973343440923,
+          "entropy_median": 3.2717073022049474,
+          "clip_fraction_mean": 0.009755665410410832,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 184.3343318693631,
+          "learner_wall_seconds_median": 23.171437441604212
+        },
+        {
+          "label": "cycle2",
+          "start": 126,
+          "end": 250,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 21.513395146049383,
+          "critic_loss_median": 14.51414997958809,
+          "actor_loss_mean": -0.014329410916945262,
+          "actor_loss_median": -0.010851040645894056,
+          "entropy_mean": 3.5880446837784623,
+          "entropy_median": 3.269102737651729,
+          "clip_fraction_mean": 0.011764688443141595,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 678.9360983607902,
+          "learner_wall_seconds_median": 94.56942879036069
+        },
+        {
+          "label": "cycle3",
+          "start": 251,
+          "end": 375,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 20.231781428290084,
+          "critic_loss_median": 14.150389317975005,
+          "actor_loss_mean": -0.010597477871018354,
+          "actor_loss_median": -0.01094145487600814,
+          "entropy_mean": 3.6195397775508873,
+          "entropy_median": 3.363194923265466,
+          "clip_fraction_mean": 0.010823675495109089,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 249.0608094089975,
+          "learner_wall_seconds_median": 23.668326052371413
+        },
+        {
+          "label": "cycle4",
+          "start": 376,
+          "end": 458,
+          "nonempty_updates": 80,
+          "complete125": false,
+          "critic_loss_mean": 19.920124778921345,
+          "critic_loss_median": 13.454447407322744,
+          "actor_loss_mean": -0.00882588617915386,
+          "actor_loss_median": -0.010658273834367522,
+          "entropy_mean": 3.3148350076485773,
+          "entropy_median": 3.205785673405259,
+          "clip_fraction_mean": 0.015431681467861731,
+          "clip_fraction_median": 0.004504682239057239,
+          "learner_wall_seconds_mean": 68.28914932448534,
+          "learner_wall_seconds_median": 22.745870406040922
+        }
+      ],
+      "checkpoint": {
+        "variant": "mlp",
+        "path": "research/tgppo/runs/paper-device-resume-20261116/gpu/training/mlp-s11",
+        "checkpoint_sha256": "9b95a96feb8e824714514d33b513e3c38b39bd10e90382e80a037d62e2a5909c",
+        "progress": {
+          "next_episode": 458,
+          "phase": "ready",
+          "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+        },
+        "policy_version": 440,
+        "update_counter": 440,
+        "memory_transitions": 0,
+        "finite": {
+          "actor": true,
+          "critic": true
+        },
+        "device": "cuda",
+        "actor_kind": "mlp",
+        "actor_parameters": 24493,
+        "critic_parameters": 4804687,
+        "state": {
+          "status": "collecting",
+          "next_episode": 458,
+          "instance": "supportcase7",
+          "solver_seed": 3
+        },
+        "milestones": [
+          "actor-0300.pt",
+          "actor-0400.pt"
+        ],
+        "observed_beijing": "2026-11-18T13:24:18+08:00"
+      },
+      "sources": [
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s11",
+          "committed_prefix": 113
+        },
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11",
+          "committed_prefix": 284
+        },
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-device-resume-20261116/gpu/training/mlp-s11",
+          "committed_prefix": 458
+        }
+      ],
+      "all_records_finite": true,
+      "schedule_verified": true,
+      "record_count_matches_checkpoint": true,
+      "latest_evaluation_episode": 200,
+      "recent50_throughput": {
+        "episodes": 50,
+        "elapsed_hours": 8.186735936469502,
+        "episodes_per_hour": 6.107440179823646,
+        "remaining_to500_estimated_hours": 6.876858186634381,
+        "estimate_only": true,
+        "assumption": "same future task mix and no interruption; not a deadline guarantee"
+      }
+    },
+    "mlp_bc": {
+      "episodes": 462,
+      "effective_updates": 443,
+      "zero_decision_episodes": 19,
+      "clip_nonzero_updates": 207,
+      "windows": [
+        {
+          "label": "first50episodes",
+          "start": 1,
+          "end": 50,
+          "nonempty_updates": 47,
+          "complete125": false,
+          "critic_loss_mean": 19.03897333080851,
+          "critic_loss_median": 13.097846962394536,
+          "actor_loss_mean": -0.016380321422078625,
+          "actor_loss_median": -0.012420862352369243,
+          "entropy_mean": 3.039043284198606,
+          "entropy_median": 2.724183139995344,
+          "clip_fraction_mean": 0.022816949131751262,
+          "clip_fraction_median": 0.0076520319835680735,
+          "learner_wall_seconds_mean": 73.03787937344231,
+          "learner_wall_seconds_median": 12.86322078993544
+        },
+        {
+          "label": "last50episodes",
+          "start": 413,
+          "end": 462,
+          "nonempty_updates": 46,
+          "complete125": false,
+          "critic_loss_mean": 21.16943904079034,
+          "critic_loss_median": 11.952512352274692,
+          "actor_loss_mean": -0.007235537546319379,
+          "actor_loss_median": -0.009012112200023915,
+          "entropy_mean": 2.962310530298491,
+          "entropy_median": 2.9656604206259374,
+          "clip_fraction_mean": 0.011951262238187398,
+          "clip_fraction_median": 0.000391921895750332,
+          "learner_wall_seconds_mean": 39.19647917328605,
+          "learner_wall_seconds_median": 19.836177380057052
+        },
+        {
+          "label": "last20episodes",
+          "start": 443,
+          "end": 462,
+          "nonempty_updates": 19,
+          "complete125": false,
+          "critic_loss_mean": 21.62628595973975,
+          "critic_loss_median": 16.202154895400817,
+          "actor_loss_mean": -0.0032561599874426934,
+          "actor_loss_median": -0.007159574175620238,
+          "entropy_mean": 2.9613041269895968,
+          "entropy_median": 2.9779496422597402,
+          "clip_fraction_mean": 0.013629057754464944,
+          "clip_fraction_median": 0.00433633207070707,
+          "learner_wall_seconds_mean": 47.021999432680836,
+          "learner_wall_seconds_median": 20.000215063802898
+        },
+        {
+          "label": "cycle1",
+          "start": 1,
+          "end": 125,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 21.28411873783665,
+          "critic_loss_median": 14.241276620359336,
+          "actor_loss_mean": -0.012782155453653772,
+          "actor_loss_median": -0.010768449227511013,
+          "entropy_mean": 3.290476519011093,
+          "entropy_median": 3.1834743899077926,
+          "clip_fraction_mean": 0.01446361362247218,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 69.66241195741847,
+          "learner_wall_seconds_median": 15.29482581850607
+        },
+        {
+          "label": "cycle2",
+          "start": 126,
+          "end": 250,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 21.084807210159877,
+          "critic_loss_median": 14.923224344671016,
+          "actor_loss_mean": -0.01185484101976558,
+          "actor_loss_median": -0.011150111909478552,
+          "entropy_mean": 3.417589693841994,
+          "entropy_median": 3.261672379535019,
+          "clip_fraction_mean": 0.01270302070026393,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 656.080148208915,
+          "learner_wall_seconds_median": 73.85374755167868
+        },
+        {
+          "label": "cycle3",
+          "start": 251,
+          "end": 375,
+          "nonempty_updates": 120,
+          "complete125": true,
+          "critic_loss_mean": 19.71484620619137,
+          "critic_loss_median": 14.951788041990437,
+          "actor_loss_mean": -0.009158977840280908,
+          "actor_loss_median": -0.009732770040132538,
+          "entropy_mean": 3.3598338167287833,
+          "entropy_median": 3.1808347396406207,
+          "clip_fraction_mean": 0.010980439346736473,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 303.139419688071,
+          "learner_wall_seconds_median": 22.88593047345057
+        },
+        {
+          "label": "cycle4",
+          "start": 376,
+          "end": 462,
+          "nonempty_updates": 83,
+          "complete125": false,
+          "critic_loss_mean": 20.21091135308865,
+          "critic_loss_median": 13.081726397233352,
+          "actor_loss_mean": -0.008653003370132112,
+          "actor_loss_median": -0.008892147065628138,
+          "entropy_mean": 3.087324485071882,
+          "entropy_median": 2.9779496422597402,
+          "clip_fraction_mean": 0.011304185933093746,
+          "clip_fraction_median": 0.0,
+          "learner_wall_seconds_mean": 53.71671457838895,
+          "learner_wall_seconds_median": 19.747417794074863
+        }
+      ],
+      "checkpoint": {
+        "variant": "mlp_bc",
+        "path": "research/tgppo/runs/paper-device-resume-20261116/gpu/training/mlp_bc-s11",
+        "checkpoint_sha256": "73f9b3f2562caf4a581fc5f8bde75ca1fd76550a63e5f9ad8e14e385c8f870e1",
+        "progress": {
+          "next_episode": 462,
+          "phase": "ready",
+          "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+        },
+        "policy_version": 443,
+        "update_counter": 443,
+        "memory_transitions": 0,
+        "finite": {
+          "actor": true,
+          "critic": true
+        },
+        "device": "cuda",
+        "actor_kind": "mlp",
+        "actor_parameters": 24493,
+        "critic_parameters": 4804687,
+        "state": {
+          "status": "collecting",
+          "next_episode": 462,
+          "instance": "rmatr200-p5",
+          "solver_seed": 1
+        },
+        "milestones": [
+          "actor-0300.pt",
+          "actor-0400.pt"
+        ],
+        "observed_beijing": "2026-11-18T13:24:18+08:00"
+      },
+      "sources": [
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s11",
+          "committed_prefix": 137
+        },
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11",
+          "committed_prefix": 284
+        },
+        {
+          "directory": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-device-resume-20261116/gpu/training/mlp_bc-s11",
+          "committed_prefix": 462
+        }
+      ],
+      "all_records_finite": true,
+      "schedule_verified": true,
+      "record_count_matches_checkpoint": true,
+      "latest_evaluation_episode": 200,
+      "recent50_throughput": {
+        "episodes": 50,
+        "elapsed_hours": 7.508583775427606,
+        "episodes_per_hour": 6.659045366668037,
+        "remaining_to500_estimated_hours": 5.706523669324981,
+        "estimate_only": true,
+        "assumption": "same future task mix and no interruption; not a deadline guarantee"
+      }
+    }
+  }
+}

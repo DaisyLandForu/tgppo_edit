@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "checked_at_beijing": "2026-11-12T22:31:02.596504+08:00",
+  "rows": [
+    {
+      "seed": 11,
+      "committed_episodes": 152,
+      "next_episode_one_based": 153,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/latest.pt",
+      "sha256": "a83a8393b9c5ab3031d480121d216196c6d50ad34c4851571be35cab2912a1a0",
+      "checkpoint_mtime_beijing": "2026-11-11T22:49:19.192197+08:00",
+      "latest_attempt_start_beijing": "2026-11-12T21:06:47+08:00",
+      "latest_attempt_end_beijing": "2026-11-12T21:07:32.869237+08:00",
+      "latest_attempt_elapsed_seconds": 45.86923575401306,
+      "pod": "sg-duweiyue25-261112-ac9dc-default0-0",
+      "pending_exists": false,
+      "parameters_finite": true,
+      "adamw_present_and_finite": true,
+      "rng_keys": [
+        "cuda",
+        "numpy",
+        "python",
+        "torch"
+      ],
+      "committed_actor_digest_matches_update": true,
+      "source_sha_unchanged_during_read": true
+    },
+    {
+      "seed": 22,
+      "committed_episodes": 156,
+      "next_episode_one_based": 157,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s22/latest.pt",
+      "sha256": "e93edecf8d7eec51f7559cf65392fd7867806a22eaa74f78c33a99ac13726a20",
+      "checkpoint_mtime_beijing": "2026-11-11T23:41:10.595405+08:00",
+      "latest_attempt_start_beijing": "2026-11-12T21:07:37+08:00",
+      "latest_attempt_end_beijing": "2026-11-12T21:07:41.520766+08:00",
+      "latest_attempt_elapsed_seconds": 4.520763635635376,
+      "pod": "sg-duweiyue25-261112-35cd0-default0-0",
+      "pending_exists": false,
+      "parameters_finite": true,
+      "adamw_present_and_finite": true,
+      "rng_keys": [
+        "cuda",
+        "numpy",
+        "python",
+        "torch"
+      ],
+      "committed_actor_digest_matches_update": true,
+      "source_sha_unchanged_during_read": true
+    }
+  ],
+  "elapsed_seconds_after_import": 4.806585073471069,
+  "models_constructed": 0,
+  "optimizer_steps": 0,
+  "solver_calls": 0,
+  "cuda_initialized": false
+}

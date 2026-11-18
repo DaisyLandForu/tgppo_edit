@@ -1,0 +1,15 @@
+# Four failed conditions only. One command per Custom, after a stable node is available.
+# Keep active BC-seed11 and terminal evaluation running; do not duplicate them.
+
+# trainmode b0 seed11: 4CPU / 48GiB / 1GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+
+# trainmode b0 seed22: 4CPU / 48GiB / 1GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 22 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+
+# aligned mlp seed22: 4CPU / 64GiB / 0GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment aligned --variant mlp --seed 22 --device cpu --ram-gib 64 --resume --no-total-wall-limit
+
+# aligned mlp_bc seed22: 4CPU / 64GiB / 0GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment aligned --variant mlp_bc --seed 22 --device cpu --ram-gib 64 --resume --no-total-wall-limit
+

@@ -1,0 +1,11 @@
+test_48_minimum_still_rejects32 (test_resources.ResourceTests) ... ok
+test_64_option_preserves_original_minimum (test_resources.ResourceTests) ... ok
+test_cpu_and_software_checks_remain (test_resources.ResourceTests) ... ok
+test_gpu_alias_forwarded_as_cuda_and_resume_retained (test_resources.ResourceTests) ... ok
+test_memory_monitor_keeps_peak_and_event_evidence (test_resources.ResourceTests) ... ok
+test_original_rejects48_new_accepts48_without_changing_training_config (test_resources.ResourceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.043s
+
+OK

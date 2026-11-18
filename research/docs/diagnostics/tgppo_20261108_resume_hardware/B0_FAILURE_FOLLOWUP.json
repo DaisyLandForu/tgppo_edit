@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-08T11:50:13.860628+00:00",
+  "state": {
+    "status": "failed",
+    "next_episode": 91,
+    "instance": "comp21-2idx",
+    "solver_seed": 3,
+    "error": "ValueError('Cached task identity changed: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/b0-s11/episodes/92')",
+    "stopped_epoch": 1794137802.4712589
+  },
+  "last_attempt": {
+    "started_epoch": 1794134129.0,
+    "allocated_seconds": 52523.99539375305,
+    "host": "sg-duweiyue25-261108-0e4ff-default0-0",
+    "pid": 16,
+    "elapsed_seconds": 3673.4581224918365,
+    "finished_epoch": 1794137802.4581273
+  },
+  "remaining_seconds": 48850.537271261215,
+  "stack_differences": {
+    "cpu_model": [
+      "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+      "Intel(R) Xeon(R) Silver 4216 CPU @ 2.10GHz"
+    ]
+  },
+  "latest_sha256_matches_episode92_identity": true,
+  "pending_exists": false,
+  "new_cpu_normalization_cache_exists": true,
+  "new_cpu_normalization_cache_path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/normalization/4eedcf3641aa6fd287f3b2fce764c7e7f1b8570d1dcf37a40f42b4febe5cf034/2c65c4eefca55d1847b8d2b11185e18d8ee0fcadd6bacf30a2cad1fd6e1a3c23/baseline.json",
+  "wrapper_check_passed": true,
+  "training_started_by_this_investigation": false,
+  "solver_runs_started_by_this_investigation": 0
+}

@@ -1,0 +1,5 @@
+# 分别提交两个Custom：每作业4CPU／48GiB／1GPU。
+# 先由平台更换健康GPU节点，或由管理员修复原GPU；仅在原故障卡上重启容器可能仍报ECC。
+# 以下两行分别用于seed11和seed22，不要在同一作业内同时运行。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 22 --device cuda --ram-gib 48 --resume --no-total-wall-limit

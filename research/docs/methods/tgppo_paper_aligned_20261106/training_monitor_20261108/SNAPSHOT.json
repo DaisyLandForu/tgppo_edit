@@ -1,0 +1,224 @@
+{
+  "observed_beijing": "2026-11-08T11:48:18.849392+08:00",
+  "runs": {
+    "b0-s11": {
+      "state": {
+        "status": "collecting",
+        "next_episode": 86,
+        "instance": "rmatr200-p5",
+        "solver_seed": 0
+      },
+      "budget": {
+        "attempts": [
+          {
+            "started_epoch": 1794008127.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-44ec8-default0-0",
+            "pid": 16
+          }
+        ]
+      },
+      "estimated_used_seconds": 101571.8493924141,
+      "remaining_seconds": 71228.1506075859,
+      "episodes": 86,
+      "effective_updates": 81,
+      "ppo_wall_seconds": 9897.373463994823,
+      "first86_phase": {
+        "episodes": 86,
+        "precollection_seconds": 30377.689507722855,
+        "collector_seconds": 57277.44998146687,
+        "ppo_seconds": 9897.373463994823,
+        "collector_cuda_initialized": 0
+      }
+    },
+    "mlp-s11": {
+      "state": {
+        "status": "collecting",
+        "next_episode": 87,
+        "instance": "neos-476283",
+        "solver_seed": 2
+      },
+      "budget": {
+        "attempts": [
+          {
+            "started_epoch": 1794020341.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-b22d2-default0-0",
+            "pid": 16
+          }
+        ]
+      },
+      "estimated_used_seconds": 89357.8493924141,
+      "remaining_seconds": 83442.1506075859,
+      "episodes": 87,
+      "effective_updates": 82,
+      "ppo_wall_seconds": 6812.94564742269,
+      "first86_phase": {
+        "episodes": 86,
+        "precollection_seconds": 23681.025902986526,
+        "collector_seconds": 54459.419903628994,
+        "ppo_seconds": 6789.341899975669,
+        "collector_cuda_initialized": 0
+      }
+    },
+    "mlp_bc-s11": {
+      "state": {
+        "status": "collecting",
+        "next_episode": 87,
+        "instance": "neos-476283",
+        "solver_seed": 2
+      },
+      "budget": {
+        "attempts": [
+          {
+            "started_epoch": 1794030606.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-acdee-default0-0",
+            "pid": 15
+          }
+        ]
+      },
+      "estimated_used_seconds": 79092.8493924141,
+      "remaining_seconds": 93707.1506075859,
+      "episodes": 87,
+      "effective_updates": 82,
+      "ppo_wall_seconds": 5137.221987026045,
+      "first86_phase": {
+        "episodes": 86,
+        "precollection_seconds": 16521.960042476654,
+        "collector_seconds": 52746.324264515424,
+        "ppo_seconds": 5117.7687015179545,
+        "collector_cuda_initialized": 0
+      }
+    },
+    "b0-s22": {
+      "state": {
+        "status": "collecting",
+        "next_episode": 42,
+        "instance": "comp21-2idx",
+        "solver_seed": 2
+      },
+      "budget": {
+        "attempts": [
+          {
+            "started_epoch": 1794030606.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-4a653-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 18897.27384829521,
+            "finished_epoch": 1794049503.2738562
+          },
+          {
+            "started_epoch": 1794087906.0,
+            "allocated_seconds": 153902.7261517048,
+            "host": "sg-duweiyue25-261107-43f8a-default0-0",
+            "pid": 15
+          }
+        ],
+        "charged_seconds": 18897.27384829521
+      },
+      "estimated_used_seconds": 40690.123240709305,
+      "remaining_seconds": 132109.8767592907,
+      "episodes": 42,
+      "effective_updates": 40,
+      "ppo_wall_seconds": 4903.908494360512
+    },
+    "mlp-s22": {
+      "state": {
+        "status": "stopped",
+        "next_episode": 47,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 1,
+        "samples": 1295,
+        "expected_minibatches": 18,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794087903.4277418
+      },
+      "budget": {
+        "attempts": [
+          {
+            "started_epoch": 1794040224.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-80b1d-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 47679.41622066498,
+            "finished_epoch": 1794087903.4162252
+          }
+        ],
+        "charged_seconds": 47679.41622066498
+      },
+      "estimated_used_seconds": 47679.41622066498,
+      "remaining_seconds": 125120.58377933502,
+      "episodes": 47,
+      "effective_updates": 45,
+      "ppo_wall_seconds": 3783.011078340467
+    },
+    "mlp_bc-s22": {
+      "state": {
+        "status": "stopped",
+        "next_episode": 52,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 1,
+        "samples": 1372,
+        "expected_minibatches": 18,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794095403.294779
+      },
+      "budget": {
+        "attempts": [
+          {
+            "started_epoch": 1794049506.0,
+            "allocated_seconds": 172800,
+            "host": "sg-duweiyue25-261107-5a73f-default0-0",
+            "pid": 15,
+            "elapsed_seconds": 45897.2910118103,
+            "finished_epoch": 1794095403.291016
+          }
+        ],
+        "charged_seconds": 45897.2910118103
+      },
+      "estimated_used_seconds": 45897.2910118103,
+      "remaining_seconds": 126902.7089881897,
+      "episodes": 52,
+      "effective_updates": 49,
+      "ppo_wall_seconds": 3169.013359623961
+    }
+  },
+  "interrupt_timelines": {
+    "mlp-s22": {
+      "episode": 48,
+      "previous_commit_beijing": "2026-11-08T03:44:27.286818+08:00",
+      "collection_start_beijing": "2026-11-08T04:44:29.921597+08:00",
+      "pending_saved_beijing": "2026-11-08T05:44:55.148163+08:00",
+      "stopped_beijing": "2026-11-08T05:45:03.427742+08:00",
+      "precollection_seconds": 3602.634779691696,
+      "collection_to_pending_seconds": 3625.2265660762787,
+      "pending_to_stop_seconds": 8.279578447341919,
+      "baseline_host": "sg-duweiyue25-261107-80b1d-default0-0",
+      "baseline_wall_seconds": 3600.3162525137886,
+      "collector_wall_seconds": 3600.6074406350963,
+      "collector_cuda_initialized": false
+    },
+    "mlp_bc-s22": {
+      "episode": 53,
+      "previous_commit_beijing": "2026-11-08T05:49:49.555389+08:00",
+      "collection_start_beijing": "2026-11-08T06:49:52.442075+08:00",
+      "pending_saved_beijing": "2026-11-08T07:49:55.200675+08:00",
+      "stopped_beijing": "2026-11-08T07:50:03.294779+08:00",
+      "precollection_seconds": 3602.886685848236,
+      "collection_to_pending_seconds": 3602.758599758148,
+      "pending_to_stop_seconds": 8.094104528427124,
+      "baseline_host": "sg-duweiyue25-261107-5a73f-default0-0",
+      "baseline_wall_seconds": 3600.3993516350165,
+      "collector_wall_seconds": 3600.582186806947,
+      "collector_cuda_initialized": false
+    }
+  },
+  "normalization": {
+    "cached_pairs": 104,
+    "target_pairs": 125,
+    "sum_worker_wall_seconds": 50729.654069870245
+  }
+}

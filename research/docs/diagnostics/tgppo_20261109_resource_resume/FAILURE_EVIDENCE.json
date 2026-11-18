@@ -1,0 +1,20 @@
+{
+  "actual_failed_command_seed": 11,
+  "state": {
+    "status": "failed",
+    "next_episode": 11,
+    "instance": "roi5alpha10n8",
+    "solver_seed": 3,
+    "error": "ValueError('Cached task identity changed: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/episodes/12')",
+    "stopped_epoch": 1794203232.9876978
+  },
+  "stack_differences": {
+    "cpu_model": [
+      "Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz",
+      "Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz"
+    ]
+  },
+  "latest_sha256": "d6e44d7b43fed30d09ff1b1fd73f06fefc6a766b85b3399834727c91cccf1a2c",
+  "latest_matches_uncommitted_episode_policy": true,
+  "gpu": "Tesla V100-PCIE-32GB"
+}

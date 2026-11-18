@@ -1,0 +1,38 @@
+{
+  "reference": "User-supplied Mamba-Branching figure; visual grammar only; original re-drawing.",
+  "dimensions_inches": [
+    22.0,
+    12.4
+  ],
+  "source_hashes": {
+    "research/tgppo/experiments/paper-aligned-20261106/code/project/policy/light_actor.py": "8ecf42810b5456a77b4bc2a5f2ff85642cecdc22c33b70c686c892aecaed0396",
+    "research/tgppo/experiments/paper-aligned-20261106/code/pretrain.py": "8d1f7d60b9621062a871be6e7e0f1d12e71b84b55add77d2f40262d14865cd7c",
+    "research/tgppo/experiments/paper-aligned-20261106/code/project/agent/agent.py": "34e21cd1ee035b4c3f4a4501baf8be9adb5fce46eeda77bc23d6d91405d1a0a0"
+  },
+  "actor_parameters": 24493,
+  "branches": [
+    "MLP: random initialization -> PPO",
+    "MLP+BC: expert BC -> Actor initialization -> PPO"
+  ],
+  "no_contrastive_learning": true,
+  "no_history_or_mamba": true,
+  "no_bc_loss_during_ppo": true,
+  "separate_actor_critic": true,
+  "gae_targets_from_rollout_values": true,
+  "gae_targets_stop_gradient": true,
+  "native_editable_ppt_shapes": true,
+  "ppt_reopened": true,
+  "ppt_rendered_by_office": false,
+  "rendered_text_within_canvas": true,
+  "training_steps": 0,
+  "solver_calls": 0,
+  "artifacts": {
+    "06_mlp_mlpbc_training_mamba_style.pptx": "4fc1888edc02352eba267f6453695f22ccb14e741e1cd0722fa7af31c89f225c",
+    "06_mlp_mlpbc_training_mamba_style.pdf": "49069a95d3a910e8a1c7ee7ca2a741e9fb7f0a2e087430b0a4e156d6a8180fb2",
+    "06_mlp_mlpbc_training_mamba_style.svg": "d469e80b90b840e4790f9a1ee2baad0aa846497c88594bd20bf38f3e046faebf",
+    "06_mlp_mlpbc_training_mamba_style.png": "6db58710470404d5fdf62cd938bc2f2ab9433324f97f28156ef0c507f51a1fac"
+  },
+  "pdf_rasterized_for_visual_review": true,
+  "all_ppt_shapes_within_slide": true,
+  "native_ppt_shape_count": 135
+}

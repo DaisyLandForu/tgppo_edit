@@ -1,0 +1,9 @@
+# 各行独立提交一个 4CPU / 64GiB / 0GPU Custom，四个已停止条件优先。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/custom_recover.sh run --experiment trainmode --variant b0 --seed 11 --device cpu --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/custom_recover.sh run --experiment trainmode --variant b0 --seed 22 --device cpu --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/custom_recover.sh run --experiment aligned --variant mlp --seed 11 --device cpu --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/custom_recover.sh run --experiment aligned --variant mlp --seed 22 --device cpu --no-total-wall-limit
+
+# 当前两个 MLP+BC 仍在推进，先保留，不同时提交同条件 CPU 分支。
+# 旧 B0 若继续：上述 aligned 参数改 --variant b0 --seed 11；不能替代新 B0。
+# GPU 续训可改 --device cuda 并申请1张GPU；同样保留两小时闲置回收风险。

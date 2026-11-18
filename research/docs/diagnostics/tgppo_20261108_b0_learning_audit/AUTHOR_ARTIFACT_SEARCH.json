@@ -1,0 +1,2578 @@
+{
+  "date": "2026-11-08",
+  "repository": "benmhamed-a/tgppo-aaai-26",
+  "branches": [
+    {
+      "name": "main",
+      "commit": {
+        "sha": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+        "url": "https://api.github.com/repos/benmhamed-a/tgppo-aaai-26/commits/4f90ccddd7999779c93ff2425ca8dd056113a523"
+      },
+      "protected": false
+    }
+  ],
+  "releases": [],
+  "pulls": [],
+  "tags": {
+    "method": "git ls-remote --tags",
+    "exit_code": 0,
+    "output": "",
+    "connector_endpoint_supported": false
+  },
+  "commits_scanned": 16,
+  "history": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+        "message": "updated the README with new proceedings",
+        "tree": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 4527,
+            "sha": "9f4c9c7491f57f2df05ee118e6330a0e4d368317"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          },
+          {
+            "path": "plots_crc/fig_combined_aaai.pdf",
+            "size": 8901,
+            "sha": "5222a6ebf7e2ddf89c429a721ae1631f1b2cb44c"
+          },
+          {
+            "path": "plots_crc/fig_combined_patchwork.pdf",
+            "size": 8897,
+            "sha": "dd02f0059012d3528928922a2dbec2a29399ef3f"
+          },
+          {
+            "path": "plots_crc/fig_combined_tight.pdf",
+            "size": 8859,
+            "sha": "c5f30ff78618a7c35ad80566bc2a0bead271f125"
+          },
+          {
+            "path": "plots_crc/fig_easy_aaai.pdf",
+            "size": 6621,
+            "sha": "c99ae8538c45bf3387d4086cc3806c74c3b2bde6"
+          },
+          {
+            "path": "plots_crc/fig_hard_aaai.pdf",
+            "size": 6705,
+            "sha": "5b8b1dda6030c9ea2324ba609ca1fab18fb62e68"
+          },
+          {
+            "path": "plots_crc/finished_instances.xlsx",
+            "size": 51708,
+            "sha": "9be264f0b7f7d50884b292fb074a674ff6a5f0f3"
+          },
+          {
+            "path": "plots_crc/plots_crc.r",
+            "size": 11140,
+            "sha": "00ba7b7257e45c69812088ffe5441548b376cec4"
+          },
+          {
+            "path": "plots_crc/timelimit_instances.xlsx",
+            "size": 67885,
+            "sha": "6b0445fdd63e1740b5ef3405f3395225bafba144"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "04589cc75d9b5ce119fde58cbe03f1060458fabb",
+        "message": "updated the README with new proceedings",
+        "tree": "04589cc75d9b5ce119fde58cbe03f1060458fabb",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 4357,
+            "sha": "acb9a7233473acb28201f15531dba6a0295456a3"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          },
+          {
+            "path": "plots_crc/fig_combined_aaai.pdf",
+            "size": 8901,
+            "sha": "5222a6ebf7e2ddf89c429a721ae1631f1b2cb44c"
+          },
+          {
+            "path": "plots_crc/fig_combined_patchwork.pdf",
+            "size": 8897,
+            "sha": "dd02f0059012d3528928922a2dbec2a29399ef3f"
+          },
+          {
+            "path": "plots_crc/fig_combined_tight.pdf",
+            "size": 8859,
+            "sha": "c5f30ff78618a7c35ad80566bc2a0bead271f125"
+          },
+          {
+            "path": "plots_crc/fig_easy_aaai.pdf",
+            "size": 6621,
+            "sha": "c99ae8538c45bf3387d4086cc3806c74c3b2bde6"
+          },
+          {
+            "path": "plots_crc/fig_hard_aaai.pdf",
+            "size": 6705,
+            "sha": "5b8b1dda6030c9ea2324ba609ca1fab18fb62e68"
+          },
+          {
+            "path": "plots_crc/finished_instances.xlsx",
+            "size": 51708,
+            "sha": "9be264f0b7f7d50884b292fb074a674ff6a5f0f3"
+          },
+          {
+            "path": "plots_crc/plots_crc.r",
+            "size": 11140,
+            "sha": "00ba7b7257e45c69812088ffe5441548b376cec4"
+          },
+          {
+            "path": "plots_crc/timelimit_instances.xlsx",
+            "size": 67885,
+            "sha": "6b0445fdd63e1740b5ef3405f3395225bafba144"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "0067d7a71880065601cb483b94248f253df7f073",
+        "message": "added arxiv version",
+        "tree": "0067d7a71880065601cb483b94248f253df7f073",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 4357,
+            "sha": "acb9a7233473acb28201f15531dba6a0295456a3"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "5eb4c1b174ef05a3999c7e14dcee0c760540d942",
+        "message": "added arxiv version",
+        "tree": "5eb4c1b174ef05a3999c7e14dcee0c760540d942",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3735,
+            "sha": "aa7525d3de664a0778bf1179e7e6bbd1c6217eff"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "ea32e1b6dbb06adde6770012222cfd38f49c3b98",
+        "message": "added arxiv version",
+        "tree": "ea32e1b6dbb06adde6770012222cfd38f49c3b98",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3735,
+            "sha": "aa7525d3de664a0778bf1179e7e6bbd1c6217eff"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "2a7941fdcd70eda18046a1841961a3e20b5eb84b",
+        "message": "added arxiv version",
+        "tree": "2a7941fdcd70eda18046a1841961a3e20b5eb84b",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3770,
+            "sha": "abade6e146a7f68e55bab6af39301231a725525b"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "6b164758dc67b577098b78dc5132c69ef4cc2b6d",
+        "message": "added arxiv version",
+        "tree": "6b164758dc67b577098b78dc5132c69ef4cc2b6d",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3475,
+            "sha": "31a7c365767f0f75912653c6306f3039db3b5be8"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "96e4bae8d39e43d2f7e289a7205a5d0818f160dc",
+        "message": "added arxiv version",
+        "tree": "96e4bae8d39e43d2f7e289a7205a5d0818f160dc",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3465,
+            "sha": "8f78bc76f1ae08a82c7d1d02e5757553e8352bc1"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "fd93f88cc161c3dbaca32d2d68763ac7f2e05e6f",
+        "message": "added arxiv version",
+        "tree": "fd93f88cc161c3dbaca32d2d68763ac7f2e05e6f",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3514,
+            "sha": "349f149642323f63ee31a5ca446bf1ffd8805c96"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "01a0681f0d5e936c4bb633b8b9473086b5227b08",
+        "message": "added arxiv version",
+        "tree": "01a0681f0d5e936c4bb633b8b9473086b5227b08",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3520,
+            "sha": "2ce469c6f97bdb7dfa3b5491fc14f2d087bf9bba"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+            "size": 682034,
+            "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418"
+          },
+          {
+            "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+            "size": 301839,
+            "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "35561d251fc5f1be3774305ec325e6abbe74bcf6",
+        "message": "edited folder names",
+        "tree": "35561d251fc5f1be3774305ec325e6abbe74bcf6",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3490,
+            "sha": "69ad68a6c6f29c60e9936e5a2febc4382bb14819"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "datasets/test.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "datasets/train.txt",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "d3dc6c5688fa4de865f0566960f7fa4ca4899573",
+        "message": "edited folder names",
+        "tree": "d3dc6c5688fa4de865f0566960f7fa4ca4899573",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3490,
+            "sha": "69ad68a6c6f29c60e9936e5a2febc4382bb14819"
+          },
+          {
+            "path": "code/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "code/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "code/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "code/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "code/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "code/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "code/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "code/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "code/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "code/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "code/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "code/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "code/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "code/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "code/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "code/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "code/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "code/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "code/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "code/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "code/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "code/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "code/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "code/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "code/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "code/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "097c618e4d9944179b2563d2f24c6ebd9c6de849",
+        "message": "add readme",
+        "tree": "097c618e4d9944179b2563d2f24c6ebd9c6de849",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 3490,
+            "sha": "69ad68a6c6f29c60e9936e5a2febc4382bb14819"
+          },
+          {
+            "path": "TGPPO/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "TGPPO/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "TGPPO/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "TGPPO/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "TGPPO/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "TGPPO/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "TGPPO/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "TGPPO/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "TGPPO/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "TGPPO/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "TGPPO/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "TGPPO/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "TGPPO/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "TGPPO/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "TGPPO/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "TGPPO/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "TGPPO/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "TGPPO/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "TGPPO/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "TGPPO/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "TGPPO/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "TGPPO/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "TGPPO/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "TGPPO/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "TGPPO/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "TGPPO/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "full-paper/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "21ae43a535ef2a6f2b717aab97afeeee5a8ad2f8",
+        "message": "add readme",
+        "tree": "21ae43a535ef2a6f2b717aab97afeeee5a8ad2f8",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 5732,
+            "sha": "41b2de4640ec5b435225d064692ac3808130c96a"
+          },
+          {
+            "path": "TGPPO/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "TGPPO/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "TGPPO/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "TGPPO/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "TGPPO/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "TGPPO/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "TGPPO/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "TGPPO/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "TGPPO/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "TGPPO/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "TGPPO/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "TGPPO/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "TGPPO/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "TGPPO/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "TGPPO/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "TGPPO/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "TGPPO/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "TGPPO/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "TGPPO/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "TGPPO/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "TGPPO/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "TGPPO/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "TGPPO/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "TGPPO/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "TGPPO/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "TGPPO/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "full-paper/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "db33777be38a337783722eddc9d298ac486e9083",
+        "message": "add content",
+        "tree": "db33777be38a337783722eddc9d298ac486e9083",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "TGPPO/project/__init__.py",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          },
+          {
+            "path": "TGPPO/project/agent/__init__.py",
+            "size": 24,
+            "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726"
+          },
+          {
+            "path": "TGPPO/project/agent/agent.py",
+            "size": 13798,
+            "sha": "95458715cd72013ae6e249e55140a361e0badc66"
+          },
+          {
+            "path": "TGPPO/project/brancher/__init__.py",
+            "size": 30,
+            "sha": "66edc591530c6ea70375e99a7d37abbeb4108005"
+          },
+          {
+            "path": "TGPPO/project/brancher/brancher.py",
+            "size": 7686,
+            "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5"
+          },
+          {
+            "path": "TGPPO/project/environment/__init__.py",
+            "size": 36,
+            "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b"
+          },
+          {
+            "path": "TGPPO/project/environment/environment.py",
+            "size": 7146,
+            "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0"
+          },
+          {
+            "path": "TGPPO/project/memory/__init__.py",
+            "size": 26,
+            "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8"
+          },
+          {
+            "path": "TGPPO/project/memory/memory.py",
+            "size": 15009,
+            "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273"
+          },
+          {
+            "path": "TGPPO/project/policy/__init__.py",
+            "size": 51,
+            "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be"
+          },
+          {
+            "path": "TGPPO/project/policy/actor.py",
+            "size": 3296,
+            "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f"
+          },
+          {
+            "path": "TGPPO/project/policy/critic.py",
+            "size": 2959,
+            "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed"
+          },
+          {
+            "path": "TGPPO/project/policy/modules.py",
+            "size": 5412,
+            "sha": "1d26fe8739393bcca06160db20c6929cc30107bb"
+          },
+          {
+            "path": "TGPPO/project/reward/__init__.py",
+            "size": 48,
+            "sha": "669efc228b86fea0515861a4437f59e761b84b35"
+          },
+          {
+            "path": "TGPPO/project/reward/reward.py",
+            "size": 11370,
+            "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c"
+          },
+          {
+            "path": "TGPPO/project/utils/__init__.py",
+            "size": 259,
+            "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62"
+          },
+          {
+            "path": "TGPPO/project/utils/functions.py",
+            "size": 2834,
+            "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9"
+          },
+          {
+            "path": "TGPPO/project/utils/loggers.py",
+            "size": 4863,
+            "sha": "9f3d8e7e934b405f538940470d034e4b76be2332"
+          },
+          {
+            "path": "TGPPO/project/utils/settings.py",
+            "size": 5894,
+            "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd"
+          },
+          {
+            "path": "TGPPO/requirements.txt",
+            "size": 2555,
+            "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45"
+          },
+          {
+            "path": "TGPPO/scripts/test.sh",
+            "size": 2551,
+            "sha": "0633e88696d66f22cb77599ccd12437514b415ce"
+          },
+          {
+            "path": "TGPPO/scripts/train.sh",
+            "size": 3072,
+            "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac"
+          },
+          {
+            "path": "TGPPO/scripts/tune.sh",
+            "size": 2767,
+            "sha": "d76575f164b76b126548247e2f069c1df92bc647"
+          },
+          {
+            "path": "TGPPO/test.py",
+            "size": 11991,
+            "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782"
+          },
+          {
+            "path": "TGPPO/train.py",
+            "size": 18233,
+            "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a"
+          },
+          {
+            "path": "TGPPO/tune.py",
+            "size": 29812,
+            "sha": "6e99727c3fdb2f6036b81b966530692873a708ce"
+          },
+          {
+            "path": "full-paper/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+            "size": 731173,
+            "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "commit": "852c70327c02d843e77bce7e96ecc7e7034def3a",
+        "message": "first commit",
+        "tree": "852c70327c02d843e77bce7e96ecc7e7034def3a",
+        "truncated": false,
+        "files": [
+          {
+            "path": "README.md",
+            "size": 0,
+            "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+          }
+        ]
+      }
+    }
+  ],
+  "external_search": {
+    "queries": [
+      "\"TGPPO\" \"weights\"",
+      "\"tgppo-aaai-26\" checkpoint model",
+      "\"TGPPO\" site:huggingface.co",
+      "\"TGPPO\" site:zenodo.org"
+    ],
+    "result": "No identifiable official TGPPO checkpoint or final-run bundle found."
+  },
+  "paper_source_zip": {
+    "git_blob": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87",
+    "entries": [
+      "aaai2026.bib",
+      "aaai2026.bst",
+      "aaai2026.sty",
+      "main.tex",
+      "diagram.pdf",
+      "plot1.pdf",
+      "plot2.pdf"
+    ]
+  },
+  "conclusion": "No formal checkpoint or experiment-linked final training configuration obtained; paper hyperparameters and example scripts are available. No author contacted."
+}

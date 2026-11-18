@@ -1,0 +1,98 @@
+[
+  {
+    "variant": "b0",
+    "path": "research/tgppo/runs/paper-device-resume-20261116/gpu/training/b0-s11",
+    "checkpoint_sha256": "9dab966369d06f6fd8349fa9d390725b71f6ef5752b341351f2e6263b09ca86f",
+    "progress": {
+      "next_episode": 330,
+      "phase": "ready",
+      "experiment_protocol_sha256": "ed0c84585f3ea200e625c41e2593d205df2acab5140f09c9624129c8e087de4a"
+    },
+    "policy_version": 318,
+    "update_counter": 318,
+    "memory_transitions": 0,
+    "finite": {
+      "actor": true,
+      "critic": true
+    },
+    "device": "cuda",
+    "actor_kind": "b0",
+    "actor_parameters": 4738895,
+    "critic_parameters": 4804687,
+    "state": {
+      "status": "collecting",
+      "next_episode": 330,
+      "instance": "rmatr100-p5",
+      "solver_seed": 3
+    },
+    "milestones": [
+      "actor-0200.pt",
+      "actor-0300.pt"
+    ],
+    "observed_beijing": "2026-11-18T13:24:17+08:00"
+  },
+  {
+    "variant": "mlp",
+    "path": "research/tgppo/runs/paper-device-resume-20261116/gpu/training/mlp-s11",
+    "checkpoint_sha256": "9b95a96feb8e824714514d33b513e3c38b39bd10e90382e80a037d62e2a5909c",
+    "progress": {
+      "next_episode": 458,
+      "phase": "ready",
+      "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+    },
+    "policy_version": 440,
+    "update_counter": 440,
+    "memory_transitions": 0,
+    "finite": {
+      "actor": true,
+      "critic": true
+    },
+    "device": "cuda",
+    "actor_kind": "mlp",
+    "actor_parameters": 24493,
+    "critic_parameters": 4804687,
+    "state": {
+      "status": "collecting",
+      "next_episode": 458,
+      "instance": "supportcase7",
+      "solver_seed": 3
+    },
+    "milestones": [
+      "actor-0300.pt",
+      "actor-0400.pt"
+    ],
+    "observed_beijing": "2026-11-18T13:24:18+08:00"
+  },
+  {
+    "variant": "mlp_bc",
+    "path": "research/tgppo/runs/paper-device-resume-20261116/gpu/training/mlp_bc-s11",
+    "checkpoint_sha256": "73f9b3f2562caf4a581fc5f8bde75ca1fd76550a63e5f9ad8e14e385c8f870e1",
+    "progress": {
+      "next_episode": 462,
+      "phase": "ready",
+      "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+    },
+    "policy_version": 443,
+    "update_counter": 443,
+    "memory_transitions": 0,
+    "finite": {
+      "actor": true,
+      "critic": true
+    },
+    "device": "cuda",
+    "actor_kind": "mlp",
+    "actor_parameters": 24493,
+    "critic_parameters": 4804687,
+    "state": {
+      "status": "collecting",
+      "next_episode": 462,
+      "instance": "rmatr200-p5",
+      "solver_seed": 1
+    },
+    "milestones": [
+      "actor-0300.pt",
+      "actor-0400.pt"
+    ],
+    "observed_beijing": "2026-11-18T13:24:18+08:00"
+  }
+]

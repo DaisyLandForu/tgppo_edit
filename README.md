@@ -1,22 +1,14 @@
-# tgppo-transfer 项目快照｜2026-11-06
+# TGPPO 代码与报告
 
-这是当前工作目录的新分支快照，保留原有Git历史，未修改主分支或旧研究分支。与旧分支将research内容平铺在根目录不同，本分支保留当前工作目录层级，使report的相对引用可用。
+代码与文档更新：2026-11-18。本分支在2026-11-06完整项目快照上追加增量提交，保留现有历史和目录结构。
 
-- [组会材料目录](report/README.md)：18页PPT、离线网页幻灯片、完整汇报、讲稿、CSV和图表。
-- [完整组会汇报](report/TGPPO_组会汇报_20261106.md)：从系统诊断到轻量Actor及全66结果、持续监督消融。
-- `research/`：研究源码、实验配置、训练及评测日志、结果、文档和实例数据。接续前先读[研究约定](research/AGENTS.md)。
-- `scip/`：当前独立SCIP／布线相关源码、数据和结果。
+- [最新六作业续训命令](research/tgppo/experiments/paper-device-resume-20261116/commands.txt)：seed11 V100、seed22 CPU，按最新设备分支检查点续接；CPU PPO更新支持多线程。
+- [论文正文主设置对齐实现](research/tgppo/experiments/paper-trainmode-20261108/docs/TRAINING_DIFFERENCES.md)：明确列出与作者公开入口的差异，不能理解成已复现作者正式模型和指标。
+- [固定200轮、完整66实例结果](research/docs/methods/tgppo_paper200_test66_20261113/RESULTS_REVIEW.md)。
+- [seed11训练曲线与进度快照](research/docs/methods/tgppo_seed11_training_20261118/REPORT.md)：2026-11-18 13:24北京时间快照，不是实时状态或500轮完成声明。
+- [B0弱响应原因与复现边界](research/docs/methods/tgppo_seed11_training_20261118/CAUSE_AND_REPRODUCTION.md)。
+- [组会材料](report/README.md)，含方法说明、幻灯片、图表及评测摘要。
 
-## 收录范围
+本次追加更新源码、脚本、配置、诊断/方法报告和report材料；没有上传模型权重、checkpoint、原始PT/PKL轨迹或新的运行目录。旧提交中已有的实验记录和依赖源码保留。工作区原件与正在执行的训练保持原样；断点续训仍需实验机器上的模型、优化器、随机状态和轨迹文件。
 
-report目录全部文件按原样上传，包括PPT、HTML、PDF／SVG／PNG图、底表与来源审计。其余收录当前源码、脚本、配置、文档、MILP实例和CSV／JSON／文本结果；不启动任何训练或求解。
-
-模型权重／checkpoint、原始大轨迹（PT／PKL／H5等）、安装wheel、依赖环境、编译产物和临时缓存暂不上传，原件仍在实验机器。所有省略项与原因见[snapshot/OMITTED_FILES.json](snapshot/OMITTED_FILES.json)。这不是可直接恢复全部训练状态的全量二进制归档。
-
-一份超过Git单文件限制的JSONL日志无损gzip保存，映射和SHA见[snapshot/COMPRESSED_LARGE_LOGS.json](snapshot/COMPRESSED_LARGE_LOGS.json)。需要时运行`python snapshot/restore_large_logs.py`还原原路径，脚本拒绝覆盖既有文件。机器临时目录链接不上传；指向本项目内部的绝对链接在Git中改为相对链接，原始目标记录在清单中。
-
-逐文件Git对象、模式和源文件信息见[snapshot/WORKSPACE_MANIFEST.json](snapshot/WORKSPACE_MANIFEST.json)；report另有逐文件SHA-256。仍在运行的scip实验输出取只读时间点副本，不停止作业、不把快照当作任务完成，记录见[snapshot/LIVE_OUTPUT_SNAPSHOTS.json](snapshot/LIVE_OUTPUT_SNAPSHOTS.json)。历史报告里的模型／原始轨迹链接可能指向本次省略的文件；这不表示它们已重新训练或丢失。环境与SCIP绑定需按research中的说明重建，不承诺clone后无需准备即可运行。
-
-## 当前结论
-
-无BC轻量MLP相对共同120秒预算B0，Actor在线成本降低92.83%，证明率提高3.79个百分点，共同Actor57实例PDI改善3.10%；全66中点改善1.08%但积分测量界跨0。BC初始化与持续专家监督未形成全量／跨种子稳定增量。当前不是论文完整训练协议的性能复现，也未全面超过relpscost。以report和最新阶段核验为准，旧快照中的计划状态仅代表当时进度。
+这不是不需要环境准备即可执行的二进制归档。需要按研究文档准备SCIP定制绑定、Python依赖和数据。详细增量清单见[snapshot/CODE_UPDATE_20261118.json](snapshot/CODE_UPDATE_20261118.json)；旧完整快照清单仍描述2026-11-06时点。

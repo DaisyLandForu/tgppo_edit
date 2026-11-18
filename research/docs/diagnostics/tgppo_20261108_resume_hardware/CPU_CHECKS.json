@@ -1,0 +1,73 @@
+{
+  "synthetic_cache_tests": 8,
+  "passed": true,
+  "elapsed_seconds": 0.17094462271779776,
+  "real_solver_runs": 0,
+  "training_updates": 0,
+  "cuda_started": false,
+  "frozen_sources": {
+    "paper-aligned-20261106": {
+      "file_count": 49,
+      "changed_files": [],
+      "release_sha256": "661f22280ebdc81e951c79cb893c8999d3869fcb05ceb2bd9c48e18aa5207c08"
+    },
+    "paper-trainmode-20261108": {
+      "file_count": 53,
+      "changed_files": [],
+      "release_sha256": "8f00a85ea795687edeeb62740bb14ec2cf3ab85241e66aba142ebdd65e4c0a19"
+    }
+  },
+  "seed11_snapshot": {
+    "b0": {
+      "state": {
+        "status": "normalization",
+        "next_episode": 91,
+        "instance": "comp21-2idx",
+        "solver_seed": 3
+      },
+      "latest_bytes": 114814273,
+      "pending_exists": false,
+      "episode92_identity_sha256": "dc03e2441299df0a3c251fab3869134ec7a7ff7e00efacde0934ca0cbd27adab",
+      "episode92_cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+      "episode92_valid_result_files": [],
+      "remaining_seconds_conservative_after_reserving_unfinished_attempt": 0.0,
+      "spent_seconds_conservative_including_unfinished_attempt": 172800.0,
+      "unfinished_attempt_exists": true,
+      "note": "Unfinished remote A100/Silver4216 resume record; reserve is not actual elapsed usage or proof of exhaustion. Do not submit a duplicate."
+    },
+    "mlp": {
+      "state": {
+        "status": "stopped",
+        "next_episode": 91,
+        "instance": "comp21-2idx",
+        "solver_seed": 3,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794128403.3832629
+      },
+      "latest_bytes": 58122457,
+      "pending_exists": false,
+      "spent_seconds": 108062.35649442673,
+      "remaining_seconds": 64737.64350557327,
+      "episode92_identity_sha256": "661cad68af94efce3a241bd0b718557cc8bbf0f1a87520c9852b5db9de76ef25",
+      "episode92_cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+      "episode92_valid_result_files": []
+    },
+    "mlp_bc": {
+      "state": {
+        "status": "stopped",
+        "next_episode": 91,
+        "instance": "comp21-2idx",
+        "solver_seed": 3,
+        "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+        "stopped_epoch": 1794128403.7271638
+      },
+      "latest_bytes": 58122457,
+      "pending_exists": false,
+      "spent_seconds": 97797.70064759254,
+      "remaining_seconds": 75002.29935240746,
+      "episode92_identity_sha256": "419622957306d92b4c102486aa5d6c8829a79593b55da6caf84359947118e8ea",
+      "episode92_cpu": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz",
+      "episode92_valid_result_files": []
+    }
+  }
+}

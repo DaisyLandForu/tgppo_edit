@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "observed": {
+    "values": [
+      {
+        "probability_action_sha256": "b581086701941d35b11bf39a9b20516c30a8cb6076f9ac8ca9796542e0182369",
+        "parameters": 4738895
+      },
+      {
+        "probability_action_sha256": "dbbb5a8188defb94b980de41cf17219d1f1992d6b9f3fe6a1068efbbd6671de8",
+        "parameters": 4738895
+      },
+      {
+        "probability_action_sha256": "e307ab71ba13a15b05deabae74d36028a58a97d0792b760672f05805b58ea3a8",
+        "parameters": 24493
+      },
+      {
+        "probability_action_sha256": "4bc1614f03f4c4f9569d0ec4204c3a068d324786d4770721c497d806de9f8da7",
+        "parameters": 24493
+      }
+    ],
+    "scip_version": 6.01,
+    "threads": 1,
+    "cuda_initialized": false
+  },
+  "probabilities_actions_bitwise_equal": true,
+  "solver_optimizations": 0,
+  "training_steps": 0
+}

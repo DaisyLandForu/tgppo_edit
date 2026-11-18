@@ -1,0 +1,44 @@
+{
+  "attempts": [
+    {
+      "allocated_seconds": 600.0,
+      "started_epoch": 1794114743.2354872,
+      "elapsed_seconds": 68.1458084131591,
+      "passed": false
+    },
+    {
+      "allocated_seconds": 531.8541915868409,
+      "started_epoch": 1794114889.0530412,
+      "elapsed_seconds": 11.103171464055777,
+      "passed": true
+    },
+    {
+      "allocated_seconds": 520.7510201227851,
+      "started_epoch": 1794115125.8516781,
+      "elapsed_seconds": 12.691064035054296,
+      "passed": true
+    },
+    {
+      "phase": "seal_and_entry_verification",
+      "allocated_seconds": 508.0599560877308,
+      "started_epoch": 1794115276.4535422,
+      "elapsed_seconds": 8.293983919080347,
+      "passed": true
+    },
+    {
+      "phase": "mlp_update_equivalence",
+      "started_epoch": 1794117683.2786171,
+      "allocated_seconds": 499.7659721686505,
+      "elapsed_seconds": 14.06122542405501,
+      "passed": false
+    },
+    {
+      "phase": "mlp_update_equivalence",
+      "started_epoch": 1794117755.9643362,
+      "allocated_seconds": 485.70474674459547,
+      "elapsed_seconds": 18.42567262193188,
+      "passed": true
+    }
+  ],
+  "charged_seconds": 132.7209258773364
+}

@@ -1,0 +1,16 @@
+# 每行一个CPU Custom：4 CPU、64 GiB、0 GPU、48小时；不自动提交。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant b0 --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant mlp --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant mlp_bc --seed 11
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant b0 --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant mlp --seed 22
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant mlp_bc --seed 22
+
+# 查看状态（本地秒级，无训练／求解）
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh status
+
+# 中断后同条件续跑，消费原累计预算
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh run --variant b0 --seed 11 --resume
+
+# 若选择GPU更新，六组统一使用CUDA入口；勿与CPU条件混成同一主对照
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant b0 --seed 11 --device cuda

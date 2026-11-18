@@ -1,0 +1,16 @@
+# 2026-11-16：每行单独用于一个 Custom 作业。seed11=GPU，seed22=CPU。
+# seed11：各 4 CPU / 48 GiB / 1 V100；PPO 更新GPU，采样CPU单线程。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-device-resume-20261116/custom_job.sh run --variant b0 --seed 11 --cpus 4 --ram-gib 48 --learner-threads 1 --resume --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-device-resume-20261116/custom_job.sh run --variant mlp --seed 11 --cpus 4 --ram-gib 48 --learner-threads 1 --resume --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-device-resume-20261116/custom_job.sh run --variant mlp_bc --seed 11 --cpus 4 --ram-gib 48 --learner-threads 1 --resume --no-total-wall-limit
+
+# seed22：各 4 CPU / 64 GiB / 0 GPU；PPO 更新CPU四线程，采样CPU单线程。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-device-resume-20261116/custom_job.sh run --variant b0 --seed 22 --cpus 4 --ram-gib 64 --learner-threads 4 --resume --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-device-resume-20261116/custom_job.sh run --variant mlp --seed 22 --cpus 4 --ram-gib 64 --learner-threads 4 --resume --no-total-wall-limit
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-device-resume-20261116/custom_job.sh run --variant mlp_bc --seed 22 --cpus 4 --ram-gib 64 --learner-threads 4 --resume --no-total-wall-limit
+
+# 同一命令也用于下一次中断后的续训：自动接本目录最新状态，不重新导入旧父分支。
+# 新B0是trainmode协议；MLP/BC是既有aligned协议（MLP无dropout/BN）。不重训、不重做BC。
+# 不要同时启动旧目录的同条件任务；续训期间入口也锁住旧父分支。
+# 如申请8核，--cpus 8仅核验配额；--learner-threads才控制CPU更新线程。
+# 8线程尚未在8核环境实测，勿仅修改workers或启动同权重的多个训练worker。

@@ -1,0 +1,806 @@
+{
+  "authorized": true,
+  "experiment": "paper200-test66-20261113",
+  "episodes": 200,
+  "solver_seeds": [
+    0
+  ],
+  "labels": [
+    "native",
+    "b0_new_s22",
+    "mlp_s11",
+    "mlp_bc_s11",
+    "mlp_bc_s22"
+  ],
+  "total_tasks": 330,
+  "time_limit_seconds": 3600,
+  "watchdog_seconds": 4200,
+  "models": [
+    {
+      "label": "b0_new_s22",
+      "variant": "b0",
+      "training_seed": 22,
+      "episode": 200,
+      "source_actor": "tgppo/runs/paper-trainmode-20261108/training/b0-s22/actor-0200.pt",
+      "checkpoint": "tgppo/runs/paper-trainmode-20261108/training/b0-s22/episode-0200.pt",
+      "checkpoint_sha256": "1dbf218a583e7a32937537ad662d40b858a4be17152c1605bd9c6c50aa3b2bb5",
+      "frozen_actor": "tgppo/runs/paper200-test66-20261113/frozen/b0_new_s22-actor-0200.pt",
+      "actor_sha256": "685704a5e295f446840472d192889e995feb98c6d0f79e47cc7cc5e574ba66a4",
+      "configuration_sha256": "5b1085d53ab31c2200cba1c4d1d24147ab826651825fcd61e2fb43e531b38180",
+      "configuration": {
+        "hidden_dim": 256,
+        "num_layers": 5,
+        "num_heads": 8,
+        "dropout": 0.05,
+        "actor_lr": 0.00024,
+        "critic_lr": 0.00012,
+        "policy_clip": 0.16,
+        "entropy_weight": 0.003,
+        "gamma": 0.97,
+        "gae_lambda": 0.92,
+        "batch_size": 256,
+        "n_epochs": 3,
+        "reward_function": "reward_h3",
+        "optimizer": "AdamW",
+        "optimizer_betas": [
+          0.9,
+          0.999
+        ],
+        "optimizer_eps": 1e-08,
+        "weight_decay": 0.01,
+        "actor_width": 64,
+        "inducing_points": 8,
+        "expert_dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+        "bc_steps": 1000,
+        "bc_batch_size": 16,
+        "bc_lr": 0.001,
+        "bc_selection_milestones": [
+          0,
+          100,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "attention_cell_budget": 1048576,
+        "actor_update_mode": "train",
+        "gae_implementation": "standard_episodic_v1",
+        "update_organization": "one_complete_episode_then_three_epochs",
+        "alignment_choice": "paper_text_standard_gae",
+        "learner_device": "cuda",
+        "actor_kind": "b0",
+        "server_training_seed": 22,
+        "task_time_limit": 3600.0,
+        "variant": "b0",
+        "experiment": "paper-trainmode-20261108",
+        "experiment_protocol_sha256": "ed0c84585f3ea200e625c41e2593d205df2acab5140f09c9624129c8e087de4a",
+        "expert_pretraining": "none",
+        "state_dims": {
+          "var_dim": 25,
+          "node_dim": 8,
+          "mip_dim": 53
+        },
+        "protocol_version": "stage3-measured-pdi-v1",
+        "effective_actor_dropout": 0.05,
+        "rollout_actor_mode": "eval",
+        "critic_training_dropout": 0.05,
+        "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523"
+      },
+      "progress": {
+        "next_episode": 200,
+        "phase": "ready",
+        "experiment_protocol_sha256": "ed0c84585f3ea200e625c41e2593d205df2acab5140f09c9624129c8e087de4a"
+      },
+      "actor_update_mode": "train",
+      "effective_update_dropout": 0.05,
+      "cpu_continuation": null
+    },
+    {
+      "label": "mlp_s11",
+      "variant": "mlp",
+      "training_seed": 11,
+      "episode": 200,
+      "source_actor": "tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11/actor-0200.pt",
+      "checkpoint": "tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11/episode-0200.pt",
+      "checkpoint_sha256": "6342511fa989c4290b6a3b686b9f37195c40b6cb90b6e81ce4e1120fe92dc934",
+      "frozen_actor": "tgppo/runs/paper200-test66-20261113/frozen/mlp_s11-actor-0200.pt",
+      "actor_sha256": "793008d98aaa96a3b1e422de87c20a5f87796b1930c837deabd67d3cbdd20756",
+      "configuration_sha256": "bf92527ac749ab611ec95f522f0a2ea6809e8493d18849415fb6fe7c74e3a419",
+      "configuration": {
+        "hidden_dim": 256,
+        "num_layers": 5,
+        "num_heads": 8,
+        "dropout": 0.05,
+        "actor_lr": 0.00024,
+        "critic_lr": 0.00012,
+        "policy_clip": 0.16,
+        "entropy_weight": 0.003,
+        "gamma": 0.97,
+        "gae_lambda": 0.92,
+        "batch_size": 256,
+        "n_epochs": 3,
+        "reward_function": "reward_h3",
+        "optimizer": "AdamW",
+        "optimizer_betas": [
+          0.9,
+          0.999
+        ],
+        "optimizer_eps": 1e-08,
+        "weight_decay": 0.01,
+        "actor_width": 64,
+        "inducing_points": 8,
+        "expert_dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+        "bc_steps": 1000,
+        "bc_batch_size": 16,
+        "bc_lr": 0.001,
+        "bc_selection_milestones": [
+          0,
+          100,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "attention_cell_budget": 1048576,
+        "learner_device": "cpu",
+        "actor_kind": "mlp",
+        "server_training_seed": 11,
+        "task_time_limit": 3600.0,
+        "variant": "mlp",
+        "experiment": "paper-aligned-20261106",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d",
+        "expert_pretraining": "none",
+        "state_dims": {
+          "var_dim": 25,
+          "node_dim": 8,
+          "mip_dim": 53
+        },
+        "protocol_version": "stage3-measured-pdi-v1",
+        "effective_actor_dropout": 0.0,
+        "critic_training_dropout": 0.05,
+        "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523"
+      },
+      "progress": {
+        "next_episode": 200,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "actor_update_mode": "eval",
+      "effective_update_dropout": 0.0,
+      "cpu_continuation": {
+        "source_run": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s11",
+        "source_latest_sha256": "3861d58c00332e00137c6e8ca8a873d1a7fedba333415bf80c1ddd08ff983612",
+        "source_config_sha256": "94bf8869d45ba5ea5655880bbce61ad356ba3a1068be55a43297000c6ec89499",
+        "destination_initial_sha256": "f095b55b9021f82c8b87387700701fd2236ee0910e33e58cf6aa44064bf2b733",
+        "pending": {
+          "sha256": "e94ad60839a02d9ab4ad650edbd3308a32a72124326be2c41b09e2a3187785cc",
+          "source_collection": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s11/episodes/114/attempt-000",
+          "source_trajectory_preserved": true,
+          "phase": "update_pending"
+        },
+        "source_budget_sha256": "b031092ed558c0e84265e288312a28baf853c9f0cc7ee9a452a7d49db64c8c64",
+        "source_charged_seconds": 145074.18638062477,
+        "source_preserved": true,
+        "learner_device_before": "cuda",
+        "learner_device_after": "cpu",
+        "weights_and_adamw_preserved": true,
+        "algorithm_protocol_unchanged": true,
+        "bitwise_equivalent_to_gpu": false,
+        "no_new_solver_runs_during_import": true,
+        "upstream_release_sha256": "661f22280ebdc81e951c79cb893c8999d3869fcb05ceb2bd9c48e18aa5207c08"
+      }
+    },
+    {
+      "label": "mlp_bc_s11",
+      "variant": "mlp_bc",
+      "training_seed": 11,
+      "episode": 200,
+      "source_actor": "tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11/actor-0200.pt",
+      "checkpoint": "tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11/episode-0200.pt",
+      "checkpoint_sha256": "f5386ecfc2dea0d94ea75542215e68d52391f408969f81e7d1a1a70258b9a30e",
+      "frozen_actor": "tgppo/runs/paper200-test66-20261113/frozen/mlp_bc_s11-actor-0200.pt",
+      "actor_sha256": "841296dc290d064e41f58d1cad02505e6ec8a332dcc17b32dca904fa027c12eb",
+      "configuration_sha256": "c6166d53d7132c398ebf9e8f001a8ff8abea91f0a94f81bdea1fe81f3c8dadb6",
+      "configuration": {
+        "hidden_dim": 256,
+        "num_layers": 5,
+        "num_heads": 8,
+        "dropout": 0.05,
+        "actor_lr": 0.00024,
+        "critic_lr": 0.00012,
+        "policy_clip": 0.16,
+        "entropy_weight": 0.003,
+        "gamma": 0.97,
+        "gae_lambda": 0.92,
+        "batch_size": 256,
+        "n_epochs": 3,
+        "reward_function": "reward_h3",
+        "optimizer": "AdamW",
+        "optimizer_betas": [
+          0.9,
+          0.999
+        ],
+        "optimizer_eps": 1e-08,
+        "weight_decay": 0.01,
+        "actor_width": 64,
+        "inducing_points": 8,
+        "expert_dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+        "bc_steps": 1000,
+        "bc_batch_size": 16,
+        "bc_lr": 0.001,
+        "bc_selection_milestones": [
+          0,
+          100,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "attention_cell_budget": 1048576,
+        "learner_device": "cpu",
+        "actor_kind": "mlp",
+        "server_training_seed": 11,
+        "task_time_limit": 3600.0,
+        "variant": "mlp_bc",
+        "experiment": "paper-aligned-20261106",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d",
+        "expert_pretraining": "bc",
+        "state_dims": {
+          "var_dim": 25,
+          "node_dim": 8,
+          "mip_dim": 53
+        },
+        "protocol_version": "stage3-measured-pdi-v1",
+        "effective_actor_dropout": 0.0,
+        "critic_training_dropout": 0.05,
+        "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523"
+      },
+      "progress": {
+        "next_episode": 200,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "actor_update_mode": "eval",
+      "effective_update_dropout": 0.0,
+      "cpu_continuation": {
+        "source_run": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s11",
+        "source_latest_sha256": "52f6ef95c70101a1388b8e169d86d07f1c0b1e90a2e9ea33c41839476814d9ed",
+        "source_config_sha256": "a110b67caf710d2ddd972cbd90372ef128582d4264e41743df42c3c0e55b7be9",
+        "destination_initial_sha256": "aa11df6ec1c6d54c0e2f7194e12bd750e01c9c1da02a0adc1069517c7e402cf8",
+        "pending": null,
+        "source_budget_sha256": "1774583de747d9c0f5eff70de0acb5d3d61c94d59b76f3082a94550f145fec46",
+        "source_charged_seconds": 156858.1798903942,
+        "source_preserved": true,
+        "learner_device_before": "cuda",
+        "learner_device_after": "cpu",
+        "weights_and_adamw_preserved": true,
+        "algorithm_protocol_unchanged": true,
+        "bitwise_equivalent_to_gpu": false,
+        "no_new_solver_runs_during_import": true,
+        "upstream_release_sha256": "661f22280ebdc81e951c79cb893c8999d3869fcb05ceb2bd9c48e18aa5207c08"
+      }
+    },
+    {
+      "label": "mlp_bc_s22",
+      "variant": "mlp_bc",
+      "training_seed": 22,
+      "episode": 200,
+      "source_actor": "tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22/actor-0200.pt",
+      "checkpoint": "tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22/episode-0200.pt",
+      "checkpoint_sha256": "e6e9880ba9ad8af2df14c97a345591ff1423773a35dc041ffd100f25c5546986",
+      "frozen_actor": "tgppo/runs/paper200-test66-20261113/frozen/mlp_bc_s22-actor-0200.pt",
+      "actor_sha256": "2766527d4d2f89086aa9d957abacc9ff96572e9d85f3e39813f4de6e4a5b2be1",
+      "configuration_sha256": "ae4fce0f14c2509cfa0653726ef9aaf83505d4c3d2f36feb8bd1a4d917a7bb47",
+      "configuration": {
+        "hidden_dim": 256,
+        "num_layers": 5,
+        "num_heads": 8,
+        "dropout": 0.05,
+        "actor_lr": 0.00024,
+        "critic_lr": 0.00012,
+        "policy_clip": 0.16,
+        "entropy_weight": 0.003,
+        "gamma": 0.97,
+        "gae_lambda": 0.92,
+        "batch_size": 256,
+        "n_epochs": 3,
+        "reward_function": "reward_h3",
+        "optimizer": "AdamW",
+        "optimizer_betas": [
+          0.9,
+          0.999
+        ],
+        "optimizer_eps": 1e-08,
+        "weight_decay": 0.01,
+        "actor_width": 64,
+        "inducing_points": 8,
+        "expert_dataset_sha256": "7fb016a5cf7c98b0bbf9693cb3b3263daa9f67048be338599e0bc1ada710e357",
+        "bc_steps": 1000,
+        "bc_batch_size": 16,
+        "bc_lr": 0.001,
+        "bc_selection_milestones": [
+          0,
+          100,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "attention_cell_budget": 1048576,
+        "learner_device": "cpu",
+        "actor_kind": "mlp",
+        "server_training_seed": 22,
+        "task_time_limit": 3600.0,
+        "variant": "mlp_bc",
+        "experiment": "paper-aligned-20261106",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d",
+        "expert_pretraining": "bc",
+        "state_dims": {
+          "var_dim": 25,
+          "node_dim": 8,
+          "mip_dim": 53
+        },
+        "protocol_version": "stage3-measured-pdi-v1",
+        "effective_actor_dropout": 0.0,
+        "critic_training_dropout": 0.05,
+        "upstream_commit": "4f90ccddd7999779c93ff2425ca8dd056113a523"
+      },
+      "progress": {
+        "next_episode": 200,
+        "phase": "ready",
+        "experiment_protocol_sha256": "61fe5a5193963d2d76af501223a3fe564840eafab4d269b7415cf60e284e3a7d"
+      },
+      "actor_update_mode": "eval",
+      "effective_update_dropout": 0.0,
+      "cpu_continuation": {
+        "source_run": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s22",
+        "source_latest_sha256": "0b5f6f550bdd0110ae51129c76c4174e03a39e8062a51b8e4bec9b4f74350d31",
+        "source_config_sha256": "1addbddb7d1ea01e4266531fb7e938f1d167f4d4498c5dff53c7ab1fe4d947ee",
+        "destination_initial_sha256": "cf17378acca29d34188211853599286612bd281d9aa5ca2383635c2cd67040b9",
+        "pending": null,
+        "source_budget_sha256": "5f66a39d060329ea7fb9b2663997e85882f6561c7483d618a71910b32d52459a",
+        "source_charged_seconds": 129024.02709293365,
+        "source_preserved": true,
+        "learner_device_before": "cuda",
+        "learner_device_after": "cpu",
+        "weights_and_adamw_preserved": true,
+        "algorithm_protocol_unchanged": true,
+        "bitwise_equivalent_to_gpu": false,
+        "no_new_solver_runs_during_import": true,
+        "upstream_release_sha256": "661f22280ebdc81e951c79cb893c8999d3869fcb05ceb2bd9c48e18aa5207c08"
+      }
+    }
+  ],
+  "instances": [
+    {
+      "name": "n2seq36q",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/n2seq36q.mps.gz",
+      "sha256": "7c2be13e461ecfbd03ceb20e3745ba4f24ad007fe1b34df8c2a5e02e89ead3d5"
+    },
+    {
+      "name": "p0201",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/p0201.mps.gz",
+      "sha256": "2ecd7f035c546453ffd5e4fe12cf41c111be192411c4cb7e268b3c8ba81e5335"
+    },
+    {
+      "name": "msc98-ip",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/msc98-ip.mps.gz",
+      "sha256": "5ee303ab53c1162f6ffab46ef922f51a32836e6da15b7110287681e81edc9d08"
+    },
+    {
+      "name": "ns1208400",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/ns1208400.mps.gz",
+      "sha256": "993b8f2dce018d3d339334345eb22db979089318e708c45cfbed28b988e4d145"
+    },
+    {
+      "name": "atlanta-ip",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/atlanta-ip.mps.gz",
+      "sha256": "99f599b2ed90a8d3af18f2d08ae0de9813cdb010f03cf03be9558bc27197fa19"
+    },
+    {
+      "name": "bell3a",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/bell3a.mps.gz",
+      "sha256": "46db23e722a94011bc07f39da5471148579f55be4127ee9b0f060375ce9eeb23"
+    },
+    {
+      "name": "neos-603073",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/neos-603073.mps.gz",
+      "sha256": "153f8e2aca208cc42db819d7dba76bc47098073f298f80000d544606e42503b5"
+    },
+    {
+      "name": "rail507",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/rail507.mps.gz",
+      "sha256": "ecd62d6f0a76a9db236758a0d4ab9d4c0fa5b00ba59220c6b6073feff41ff39d"
+    },
+    {
+      "name": "unitcal_7",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/unitcal_7.mps.gz",
+      "sha256": "e9c83822eacf7b929134baf74c75be489304c545d390858666869e5755fec9a0"
+    },
+    {
+      "name": "map20",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/map20.mps.gz",
+      "sha256": "c7c028d1137ff51f312753b6ca3dd35f9c5ef75079ee129159367b1774ff4d80"
+    },
+    {
+      "name": "neos-829552",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/neos-829552.mps.gz",
+      "sha256": "9684ea84dc7d168614609483b5044c625b29247c9daaed4558eafd21a2f4052d"
+    },
+    {
+      "name": "neos-892255",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/neos-892255.mps.gz",
+      "sha256": "92dc4e7e3822ef7fa88e01612a6cd7ecd7b0f73b406a614b173e1ee3902a5d1f"
+    },
+    {
+      "name": "rout",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/rout.mps.gz",
+      "sha256": "85e9cbff3baf54aec897ba0d57679929482c8ab039164aa22639261ee4fac0a9"
+    },
+    {
+      "name": "neos-803219",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/neos-803219.mps.gz",
+      "sha256": "8a177ac335c74047ccf099d490d35c334d0d34f3a65b3cf9eaed58eab66a7baa"
+    },
+    {
+      "name": "satellites1-25",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/satellites1-25.mps.gz",
+      "sha256": "911caefa2a6aad342df8f0498cb721917ee0ce3500d5e5d8068b65f48b95e2fd"
+    },
+    {
+      "name": "sp98ir",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/sp98ir.mps.gz",
+      "sha256": "2d25ae3ab7f1ad269741d94f95f90b3a8f457001d234bae340a9ba9db2e36f4a"
+    },
+    {
+      "name": "neos-1200887",
+      "shard": 0,
+      "path": "tgppo/datasets/test_instances/neos-1200887.mps.gz",
+      "sha256": "94c0a4fd2d661a7fb1b389d6beea44fed47033e15784c78a5c12d70cdc7fc611"
+    },
+    {
+      "name": "neos-504674",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-504674.mps.gz",
+      "sha256": "b99528e87dc5c66ba1c197910771ee1d3411b7c31361d88a38e117bfed5f40c9"
+    },
+    {
+      "name": "neos-1215259",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-1215259.mps.gz",
+      "sha256": "b9c5d72e3f4fa61060e8a1c1ee49a6f9177c7080d64045285ce77300985fef17"
+    },
+    {
+      "name": "neos-4722843-widden",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-4722843-widden.mps.gz",
+      "sha256": "48159f61eef6da6ca53121d2f3e4694f9fd5e8b99bf199c0e179e0d1ebc4d607"
+    },
+    {
+      "name": "neos-504815",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-504815.mps.gz",
+      "sha256": "8e6800ccb1585ee3e8ba5fdb527f82aedd6063fabbe9a3bd95efbec05bd4a930"
+    },
+    {
+      "name": "neos11",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos11.mps.gz",
+      "sha256": "38026d00badc3cc3516ff5d277e8f4fbaf368182f295df76f66b11db79496101"
+    },
+    {
+      "name": "neos-480878",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-480878.mps.gz",
+      "sha256": "f1d4290e5b9fa1981ef11b8b883e1b5b68e716fa05b1fd7dd50306f2af5c90cb"
+    },
+    {
+      "name": "opm2-z7-s2",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/opm2-z7-s2.mps.gz",
+      "sha256": "be309ae39b5ad49b78504a0c64a3cfdb225637d85c83cf6fd05c8d638e440b2e"
+    },
+    {
+      "name": "misc07",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/misc07.mps.gz",
+      "sha256": "7991b258632d4ea293e125bf067647eb3fe5705fd4e74973e812ea201163a12d"
+    },
+    {
+      "name": "seymour1",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/seymour1.mps.gz",
+      "sha256": "fbcef8581c27234abf5816cbd1ddd5b6b6fdc3764b57d36d85c517d9fd3e9bac"
+    },
+    {
+      "name": "biella1",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/biella1.mps.gz",
+      "sha256": "64d58f389e3963b2ecd334c01e91b72637cf8591bf548f069b389e0bb7b6db6c"
+    },
+    {
+      "name": "app1-2",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/app1-2.mps.gz",
+      "sha256": "54f5d2a1a42443d17d52282dc4d361a2c61d0e101d43bc4b0174b63b192ee088"
+    },
+    {
+      "name": "neos-839859",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-839859.mps.gz",
+      "sha256": "2f7230391507fa1e67c9629c8b806ec0ff5102945ca5573a5b8fe2bcfbd92c4f"
+    },
+    {
+      "name": "neos-612125",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-612125.mps.gz",
+      "sha256": "fe48dcb6146464d9626c4439e9d9eea160632772b7861ff75c16f441edb633a7"
+    },
+    {
+      "name": "map18",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/map18.mps.gz",
+      "sha256": "19e4445f65dbd55dea27ca925209d9ee9e5c768893bc5aa2242be9a7b4d62d7f"
+    },
+    {
+      "name": "neos-662469",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-662469.mps.gz",
+      "sha256": "65cf8ea6d45f54cfcd8413dc7949c65f11890a2bad768ec559ca29f2270b4530"
+    },
+    {
+      "name": "neos-512201",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/neos-512201.mps.gz",
+      "sha256": "331558a1cebe42713cb759fe6280bbf66c0b8700494db9c83f2498dcf442b2a1"
+    },
+    {
+      "name": "pp08a",
+      "shard": 1,
+      "path": "tgppo/datasets/test_instances/pp08a.mps.gz",
+      "sha256": "70a14b67b7e52559ee64da8159eac93f9100bdc9218d2cd35a359b87bf33cffb"
+    },
+    {
+      "name": "map16715-04",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/map16715-04.mps.gz",
+      "sha256": "3bb8fa8aa10d5be68f5aa272570a118a4c97a6d75bc1426dd0fec3eafaaec2e8"
+    },
+    {
+      "name": "neos-4738912-atrato",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos-4738912-atrato.mps.gz",
+      "sha256": "bd85cacd7a28e99106d75d411d09e73005c818cf36b9a53e3ed01f00c09ff422"
+    },
+    {
+      "name": "neos-820879",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos-820879.mps.gz",
+      "sha256": "f4af2dd30c150c15aade4992415389fcc4c95d34a7a5c77f2555177590a35225"
+    },
+    {
+      "name": "nw04",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/nw04.mps.gz",
+      "sha256": "c5ffad5996c481756028013399e052793e3ff3ec70e9f5f15c6bc471abe5389a"
+    },
+    {
+      "name": "neos13",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos13.mps.gz",
+      "sha256": "3e5b328fa98f88d41479a21c996945187a97faef2c284ea3b1b32d09a5e4e1ae"
+    },
+    {
+      "name": "ns1830653",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/ns1830653.mps.gz",
+      "sha256": "a4e3c130f7ff6ebab4d6781a7e95fadc6c4c043e3e65d95b90f3e2e5e46f1017"
+    },
+    {
+      "name": "n3seq24",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/n3seq24.mps.gz",
+      "sha256": "a5ad2a7c192efceb11e65cfde9e0a2baffb53f1e1d3f530bd3b43169c56f4b27"
+    },
+    {
+      "name": "bab5",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/bab5.mps.gz",
+      "sha256": "aa7e93f394d03e112fb0d36ff27d8af776d64e5721059131ffef9e7a5bf5f816"
+    },
+    {
+      "name": "bell5",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/bell5.mps.gz",
+      "sha256": "2aab3da01019fdd5acbdeba604e01758a1fcd8fae666464322860cabe322e6a0"
+    },
+    {
+      "name": "dano3_5",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/dano3_5.mps.gz",
+      "sha256": "2fec50200eba94d628bd6ca269d8df81483f10cc01887ee783c7d4d5cea47786"
+    },
+    {
+      "name": "roll3000",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/roll3000.mps.gz",
+      "sha256": "47a0a827ac2d697b717fb55401afa5de9e042f026d6a462fb97d968a869d282d"
+    },
+    {
+      "name": "neos-807639",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos-807639.mps.gz",
+      "sha256": "e5527f1e0e9a30946dae57c7fb1855b133493a17c8de4e830dd969025abca314"
+    },
+    {
+      "name": "neos-584851",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos-584851.mps.gz",
+      "sha256": "6c3bf1ebbc7929b22e36b2254c016f3e62b62191c892b9e671dd902da5888e1b"
+    },
+    {
+      "name": "neos18",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos18.mps.gz",
+      "sha256": "15d4d9421edddf5211906eb040f00892962991a3d01739b95e10bccd7102fac6"
+    },
+    {
+      "name": "neos12",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/neos12.mps.gz",
+      "sha256": "ac4c456de3ddacacbfc73d85960697bbeaac284ef5c3881df0d255f010c1e0f6"
+    },
+    {
+      "name": "mine-166-5",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/mine-166-5.mps.gz",
+      "sha256": "5c02fc60f58acb8b5d5242c7aadd276bd2d5eb42b9b9341c304aaa43b0f78a6e"
+    },
+    {
+      "name": "binkar10_1",
+      "shard": 2,
+      "path": "tgppo/datasets/test_instances/binkar10_1.mps.gz",
+      "sha256": "94282c38edd6c83bb6c2d788d823fd82f218218e8e07c98d1d1ab42c1e91039e"
+    },
+    {
+      "name": "mik-250-20-75-4",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/mik-250-20-75-4.mps.gz",
+      "sha256": "1fa6126895fa59d1c613787ad19bb10e6080a39207224b018a43b95440dca4ef"
+    },
+    {
+      "name": "pg",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/pg.mps.gz",
+      "sha256": "b4344d7361aca3d0ff039e5de05d2ad38cfe7c9b9b8300fab4573b35821457b2"
+    },
+    {
+      "name": "harp2",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/harp2.mps.gz",
+      "sha256": "dbe0a7d0868b6985f25b1f132b8a57af6296bffe0180edd90469874bfbe9c2d7"
+    },
+    {
+      "name": "fast0507",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/fast0507.mps.gz",
+      "sha256": "91c7390d814a24bc0c6b5edbc0b1b748d89f4ea75e655bc37b0406a86b8aee11"
+    },
+    {
+      "name": "pigeon-10",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/pigeon-10.mps.gz",
+      "sha256": "86cd344472e29a8821c204700914f717e6acc618314818a9d6f7b8c404ebf85d"
+    },
+    {
+      "name": "neos-686190",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/neos-686190.mps.gz",
+      "sha256": "aaa1e6c4781e1a683b58190e498cd5d1887b1194d69c8b94d4adf8dc1384f26d"
+    },
+    {
+      "name": "blend2",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/blend2.mps.gz",
+      "sha256": "f184964447dce4b84ee4ebd8a0144df767319801e99923da53d1b548472cf820"
+    },
+    {
+      "name": "nu25-pr12",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/nu25-pr12.mps.gz",
+      "sha256": "161c4c89b351d8671ae4e4d7af0fc222e1910e14564419053f22600460ef3236"
+    },
+    {
+      "name": "neos-801834",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/neos-801834.mps.gz",
+      "sha256": "8dc5e52764f130360ededc32f882209c6d892642f85139ede750142fc8599139"
+    },
+    {
+      "name": "neos-950242",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/neos-950242.mps.gz",
+      "sha256": "9bd6761fb5f4948a1dbfd22daad64108f76441493a4c731c2325c2d813b41368"
+    },
+    {
+      "name": "map10",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/map10.mps.gz",
+      "sha256": "26f236f4f78d7929be611a7e7106199fd52819a1d0389214937967faca989981"
+    },
+    {
+      "name": "aflow40b",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/aflow40b.mps.gz",
+      "sha256": "a02d2c9222b3de7c7c7b3416694b1cfea6646363a61fbd61b39c8ab64dbb48c3"
+    },
+    {
+      "name": "neos-612162",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/neos-612162.mps.gz",
+      "sha256": "fdac0f6e2b9c785a33806c56d469b952344601755f4687cbe5b9e99395a5e4af"
+    },
+    {
+      "name": "bc1",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/bc1.mps.gz",
+      "sha256": "1067575fae3c46c558ffcb0dd54af67b67710cd22ac6413229c4e95f9a218877"
+    },
+    {
+      "name": "mspp16",
+      "shard": 3,
+      "path": "tgppo/datasets/test_instances/mspp16.mps.gz",
+      "sha256": "6b855c3c53a1b0889aab1c60187f54e821fe880d021eeb4a587eb8f810afb3f7"
+    }
+  ],
+  "canonical_test66_sha256": "6bde27223dd0fbb89d8f9d456678abed5fb1d03971da1229157fa42493b176d6",
+  "author_subset_audit_sha256": "1cf5a1f55c58c63e9d7ccc6a326a46505d1df689129f6ff09744fd97c9b0132f",
+  "selection": "All available fixed200 checkpoints at preparation; no performance-based selection",
+  "authorization": "User requested fixed200 parallel CPU evaluation; stop training manually, no automatic solver start",
+  "unavailable200": [
+    "b0_new_s11",
+    "mlp_s22",
+    "old_b0_s11",
+    "old_b0_s22"
+  ],
+  "unbalanced_training_seed_coverage": true,
+  "eligible_increment_comparisons": [
+    [
+      "mlp_bc_s11",
+      "mlp_s11",
+      "BC_seed11"
+    ],
+    [
+      "mlp_bc_s22",
+      "b0_new_s22",
+      "combined_seed22"
+    ]
+  ],
+  "structure_increment_not_identifiable_with_same_training_seed": true,
+  "total_wall_limit_seconds": null,
+  "historical_test_exposure": true,
+  "fixed500_gate_unchanged": true,
+  "reuse_old_evaluation_results": false,
+  "partition": "SHA256(name) order, ordinary counts17/17/17/14; mspp16 serial on shard3",
+  "preparation_uses_no_latest": true
+}

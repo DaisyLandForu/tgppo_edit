@@ -1,0 +1,12 @@
+# 核验后建议优先新B0两种子；下面六条是全部重训的可选完整清单。
+# 现有11/06 MLP／MLP＋BC不必仅为train/eval变化从头重训，详见MLP_RETRAIN_DECISION.md。
+# V100：每行单独一个Custom作业；显式--device cuda，避免默认CPU。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant b0 --seed 11 --device cuda
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant mlp --seed 11 --device cuda
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant mlp_bc --seed 11 --device cuda
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant b0 --seed 22 --device cuda
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant mlp --seed 22 --device cuda
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant mlp_bc --seed 22 --device cuda
+
+# 同一条件中断后恢复，例如B0 seed11：
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_job.sh run --variant b0 --seed 11 --device cuda --resume

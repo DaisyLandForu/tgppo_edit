@@ -1,0 +1,119 @@
+{
+  "checkpoint": "research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11/pending.pt",
+  "type": "CPU Actor+Critic forward/backward only",
+  "optimizer_steps": 0,
+  "solver_runs": 0,
+  "gpu_used": false,
+  "full_episode_benchmark": false,
+  "cpu_quota": 4.01,
+  "torch": "1.13.1+cu117",
+  "elapsed_seconds": 60.75076714204624,
+  "candidate_percentiles": [
+    620.0,
+    731.0,
+    1039.0,
+    1145.0,
+    1276.0
+  ],
+  "measurements": [
+    {
+      "candidates": 731,
+      "batch": 1,
+      "threads": 1,
+      "median_seconds": 1.628507022978738,
+      "trials": [
+        1.634211994940415,
+        1.628507022978738,
+        1.6118667260743678
+      ]
+    },
+    {
+      "candidates": 731,
+      "batch": 1,
+      "threads": 2,
+      "median_seconds": 0.8644833150319755,
+      "trials": [
+        0.8644833150319755,
+        0.8811268019489944,
+        0.858624808024615
+      ]
+    },
+    {
+      "candidates": 731,
+      "batch": 1,
+      "threads": 4,
+      "median_seconds": 0.4805300789885223,
+      "trials": [
+        0.4805300789885223,
+        0.5108921849168837,
+        0.4769752200227231
+      ]
+    },
+    {
+      "candidates": 1039,
+      "batch": 1,
+      "threads": 1,
+      "median_seconds": 2.971838613972068,
+      "trials": [
+        2.971838613972068,
+        2.938928626012057,
+        3.009808826027438
+      ]
+    },
+    {
+      "candidates": 1039,
+      "batch": 1,
+      "threads": 2,
+      "median_seconds": 1.5598220899701118,
+      "trials": [
+        1.5598220899701118,
+        1.544854387990199,
+        1.5639146290486678
+      ]
+    },
+    {
+      "candidates": 1039,
+      "batch": 1,
+      "threads": 4,
+      "median_seconds": 1.1145790460286662,
+      "trials": [
+        1.1566342860460281,
+        1.1145790460286662,
+        1.0983300199732184
+      ]
+    },
+    {
+      "candidates": 1145,
+      "batch": 1,
+      "threads": 1,
+      "median_seconds": 3.4924094680463895,
+      "trials": [
+        3.5856696600094438,
+        3.472581762005575,
+        3.4924094680463895
+      ]
+    },
+    {
+      "candidates": 1145,
+      "batch": 1,
+      "threads": 2,
+      "median_seconds": 1.8365257210098207,
+      "trials": [
+        1.8365257210098207,
+        1.8382857870310545,
+        1.8308996420819312
+      ]
+    },
+    {
+      "candidates": 1145,
+      "batch": 1,
+      "threads": 4,
+      "median_seconds": 1.0078830919228494,
+      "trials": [
+        0.9969335179775953,
+        1.0220374499913305,
+        1.0078830919228494
+      ]
+    }
+  ]
+}

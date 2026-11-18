@@ -1,0 +1,481 @@
+{
+  "passed": true,
+  "reviewed_beijing": "2026-11-16T22:06:45.968253+08:00",
+  "verification": {
+    "models": 4,
+    "instances": 66,
+    "tasks": 330,
+    "training_packages_unchanged": true
+  },
+  "valid_tasks": 330,
+  "invalid_results": [],
+  "complete_instances": 66,
+  "summaries": {
+    "native": {
+      "label": "native",
+      "tasks": 66,
+      "mean_pdi": 14345.31546319778,
+      "mean_pdi_lower": 14345.27625789475,
+      "mean_pdi_upper": 14345.354668500808,
+      "sgm_pdi_shift0": 1362.5391938938706,
+      "sgm_nodes_shift100": 1099.0223272358205,
+      "proof_rate": 0.9090909090909091,
+      "proofs": 60,
+      "mean_optimize_seconds": 718.5100072482265,
+      "par2": 1045.781504515152,
+      "branch_calls": 0,
+      "actor_mean_ms": null,
+      "summed_worker_wall_seconds": 47502.20306341001
+    },
+    "b0_new_s22": {
+      "label": "b0_new_s22",
+      "tasks": 66,
+      "mean_pdi": 33878.75713385153,
+      "mean_pdi_lower": 33866.29453915458,
+      "mean_pdi_upper": 33891.219728548494,
+      "sgm_pdi_shift0": 5042.957209668148,
+      "sgm_nodes_shift100": 6846.433097350048,
+      "proof_rate": 0.3787878787878788,
+      "proofs": 25,
+      "mean_optimize_seconds": 2358.520184625294,
+      "par2": 4594.634075439394,
+      "branch_calls": 1159921,
+      "actor_mean_ms": 55.79414283272013,
+      "summed_worker_wall_seconds": 155749.95905855158
+    },
+    "mlp_s11": {
+      "label": "mlp_s11",
+      "tasks": 66,
+      "mean_pdi": 29459.59237961119,
+      "mean_pdi_lower": 29458.44196521725,
+      "mean_pdi_upper": 29460.742794005142,
+      "sgm_pdi_shift0": 3906.6403181879027,
+      "sgm_nodes_shift100": 8875.859105428228,
+      "proof_rate": 0.5,
+      "proofs": 33,
+      "mean_optimize_seconds": 2166.3709564946644,
+      "par2": 3966.347268742424,
+      "branch_calls": 2002573,
+      "actor_mean_ms": 3.1681152852810293,
+      "summed_worker_wall_seconds": 143066.97627606703
+    },
+    "mlp_bc_s11": {
+      "label": "mlp_bc_s11",
+      "tasks": 66,
+      "mean_pdi": 26222.1032561658,
+      "mean_pdi_lower": 26221.53348419609,
+      "mean_pdi_upper": 26222.673028135487,
+      "sgm_pdi_shift0": 3447.625905856096,
+      "sgm_nodes_shift100": 7041.698769973277,
+      "proof_rate": 0.6212121212121212,
+      "proofs": 41,
+      "mean_optimize_seconds": 1873.9219170121228,
+      "par2": 3237.5462504696966,
+      "branch_calls": 1745258,
+      "actor_mean_ms": 3.0830818747577116,
+      "summed_worker_wall_seconds": 123766.2998788316
+    },
+    "mlp_bc_s22": {
+      "label": "mlp_bc_s22",
+      "tasks": 66,
+      "mean_pdi": 26469.1471383047,
+      "mean_pdi_lower": 26468.446086031967,
+      "mean_pdi_upper": 26469.84819057742,
+      "sgm_pdi_shift0": 3296.2243374429536,
+      "sgm_nodes_shift100": 7596.370046144928,
+      "proof_rate": 0.6060606060606061,
+      "proofs": 40,
+      "mean_optimize_seconds": 1938.2377436184668,
+      "par2": 3356.404560666667,
+      "branch_calls": 1763172,
+      "actor_mean_ms": 3.0583368158684787,
+      "summed_worker_wall_seconds": 128013.85577019711
+    }
+  },
+  "comparisons": [
+    {
+      "effect": "BC_seed11",
+      "method": "mlp_bc_s11",
+      "reference": "mlp_s11",
+      "instances": 66,
+      "relative_pdi_change_percent": -10.989592393973702,
+      "absolute_mean_pdi_change": -3237.489123445405,
+      "midpoint_wins": 44,
+      "midpoint_losses": 22,
+      "separated_wins": 44,
+      "separated_losses": 22,
+      "method_proofs": 41,
+      "reference_proofs": 33,
+      "proof_gains": [
+        "aflow40b",
+        "neos-1200887",
+        "neos-603073",
+        "neos-829552",
+        "neos-839859",
+        "neos11",
+        "neos18",
+        "opm2-z7-s2",
+        "seymour1"
+      ],
+      "proof_losses": [
+        "neos-686190"
+      ],
+      "optimize_wall_change_percent": -13.499490408408354,
+      "all66_node_sgm_change_percent": -20.66459498363634,
+      "observed_actor_decision_time_ratio": 1.0275806527291786,
+      "exploratory_mean_difference_bootstrap95": [
+        -8273.453193713418,
+        832.2729880068074
+      ],
+      "exploratory_relative_change_bootstrap95": [
+        -23.116207319519418,
+        3.4973839165148983
+      ],
+      "largest_improvement_instance": "app1-2",
+      "largest_improvement_fraction_of_net_gain": 0.5211761881654635,
+      "relative_pdi_change_without_largest_improvement_percent": -6.169082938849579,
+      "easy33_node_sgm_change_percent": -15.170253277520086,
+      "hard32_pdi_sgm_change_percent": -13.667772671578648
+    },
+    {
+      "effect": "combined_seed22",
+      "method": "mlp_bc_s22",
+      "reference": "b0_new_s22",
+      "instances": 66,
+      "relative_pdi_change_percent": -21.870961695177392,
+      "absolute_mean_pdi_change": -7409.609995546846,
+      "midpoint_wins": 50,
+      "midpoint_losses": 16,
+      "separated_wins": 48,
+      "separated_losses": 16,
+      "method_proofs": 40,
+      "reference_proofs": 25,
+      "proof_gains": [
+        "aflow40b",
+        "mine-166-5",
+        "neos-1215259",
+        "neos-480878",
+        "neos-504674",
+        "neos-603073",
+        "neos-803219",
+        "neos-839859",
+        "neos-950242",
+        "neos11",
+        "neos18",
+        "ns1830653",
+        "satellites1-25",
+        "seymour1",
+        "sp98ir"
+      ],
+      "proof_losses": [],
+      "optimize_wall_change_percent": -17.819751713237885,
+      "all66_node_sgm_change_percent": 10.95368841163653,
+      "observed_actor_decision_time_ratio": 18.24329568385888,
+      "exploratory_mean_difference_bootstrap95": [
+        -13607.547393655926,
+        -1904.1288105157612
+      ],
+      "exploratory_relative_change_bootstrap95": [
+        -38.350789278985616,
+        -5.877323350944514
+      ],
+      "largest_improvement_instance": "ns1830653",
+      "largest_improvement_fraction_of_net_gain": 0.24370857076014638,
+      "relative_pdi_change_without_largest_improvement_percent": -17.75155827095499,
+      "easy33_node_sgm_change_percent": -5.396381601976175,
+      "hard32_pdi_sgm_change_percent": -34.18888537724387
+    }
+  ],
+  "shards": [
+    {
+      "shard": 0,
+      "valid_tasks": 85,
+      "state": {
+        "status": "complete",
+        "shard": 0,
+        "started_epoch": 1794547906.5036113,
+        "pid": 15,
+        "training_steps": 0,
+        "gpu": false,
+        "total_wall_limit_seconds": null,
+        "attempt": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper200-test66-20261113/shard-0/attempts/20261113T053225Z-f3d76607",
+        "cohort_id": "0bd737be7b8dff0acb8b6c1c",
+        "pending": 85,
+        "already_complete_instances": 0,
+        "environment": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-04485-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        },
+        "phase": "ordinary",
+        "active_workers": 0,
+        "complete_instances": 17,
+        "valid_tasks": 85,
+        "elapsed_seconds": 41728.03488922119,
+        "finished_epoch": 1794589634.5385017
+      },
+      "environments": {
+        "0bd737be7b8dff0acb8b6c1c": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-04485-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        }
+      }
+    },
+    {
+      "shard": 1,
+      "valid_tasks": 85,
+      "state": {
+        "status": "complete",
+        "shard": 1,
+        "started_epoch": 1794547906.50292,
+        "pid": 15,
+        "training_steps": 0,
+        "gpu": false,
+        "total_wall_limit_seconds": null,
+        "attempt": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper200-test66-20261113/shard-1/attempts/20261113T053225Z-55738a28",
+        "cohort_id": "af3cd523aba5cb14d1d6ced9",
+        "pending": 85,
+        "already_complete_instances": 0,
+        "environment": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-292eb-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        },
+        "phase": "ordinary",
+        "active_workers": 0,
+        "complete_instances": 17,
+        "valid_tasks": 85,
+        "elapsed_seconds": 42539.36676931381,
+        "finished_epoch": 1794590445.869691
+      },
+      "environments": {
+        "af3cd523aba5cb14d1d6ced9": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-292eb-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        }
+      }
+    },
+    {
+      "shard": 2,
+      "valid_tasks": 85,
+      "state": {
+        "status": "complete",
+        "shard": 2,
+        "started_epoch": 1794547926.9858232,
+        "pid": 15,
+        "training_steps": 0,
+        "gpu": false,
+        "total_wall_limit_seconds": null,
+        "attempt": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper200-test66-20261113/shard-2/attempts/20261113T053236Z-9ae7c25e",
+        "cohort_id": "ed76a7009c28096672218591",
+        "pending": 85,
+        "already_complete_instances": 0,
+        "environment": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-c7ac9-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        },
+        "phase": "ordinary",
+        "active_workers": 0,
+        "complete_instances": 17,
+        "valid_tasks": 85,
+        "elapsed_seconds": 34858.07304739952,
+        "finished_epoch": 1794582785.058872
+      },
+      "environments": {
+        "ed76a7009c28096672218591": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) Silver 4214 CPU @ 2.20GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-c7ac9-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        }
+      }
+    },
+    {
+      "shard": 3,
+      "valid_tasks": 75,
+      "state": {
+        "status": "complete",
+        "shard": 3,
+        "started_epoch": 1794548006.943538,
+        "pid": 15,
+        "training_steps": 0,
+        "gpu": false,
+        "total_wall_limit_seconds": null,
+        "attempt": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper200-test66-20261113/shard-3/attempts/20261113T053356Z-d9e157cf",
+        "cohort_id": "6e38dec06d694d845890c46b",
+        "pending": 75,
+        "already_complete_instances": 0,
+        "environment": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-0ade5-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        },
+        "phase": "large_serial",
+        "active_workers": 0,
+        "complete_instances": 15,
+        "valid_tasks": 75,
+        "elapsed_seconds": 35130.61592578888,
+        "finished_epoch": 1794583137.5594654
+      },
+      "environments": {
+        "6e38dec06d694d845890c46b": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "sg-duweiyue25-261113-0ade5-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "f8af2dfba8ee10c523cf5e69d8c669877e070f518ac540ef97cccf459ffafe66"
+        }
+      }
+    }
+  ],
+  "all_four_actors_used_on_all66": true,
+  "baseline_mean_pdi_change_vs_old100_percent": 31.091311188540093,
+  "bootstrap": {
+    "scope": "exploratory, unadjusted instance percentile bootstrap; not preregistered",
+    "replicates": 10000,
+    "seed": 20261116,
+    "unit": "instance",
+    "confidence": 0.95,
+    "pdi_measurement_bounds_are_not_confidence_intervals": true
+  },
+  "original_output_hashes_unchanged": {
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/results.json": "531a3d8c7952b421856af5a404c33afb32fab4f300de1c3c98d249e902ec769e",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/summary.csv": "a966ef0a20ed0a0ec8c17e4a685cd01743aea7c607b88245d9babef34ade19d9",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/paired.csv": "263baf5d29c8a735621ab5ec710ebfc122d34d08ddcd9d142e0df8010d525113",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/independent_effects.csv": "3b69f9fbdb2ff53160309501450d84b72ebcb9ca66f9feed1064def7147bd9d7",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/paper_subset_metrics.csv": "e435c75b7a22e374f706c3a48d5ccb30232622bf61e0e6c28545f53694372692",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/raw_rows.csv": "3297a62d7f96c08d2af79f3c079da22ffec8da50e242bf05560d5f87a2c596bb",
+    "/home/duweiyue25/tgppo-transfer/research/docs/methods/tgppo_paper200_test66_20261113/REPORT.md": "22c3e9f9c7f97c148800034dad20de3658dd1e1267bf9e69aa23c7540e32cad6"
+  },
+  "source_checkpoints_unchanged": true,
+  "new_training_steps": 0,
+  "new_solver_calls": 0
+}

@@ -95,3 +95,5 @@ bash /home/duweiyue25/tgppo-transfer/scip/airwiring_compare/custom_job.sh summar
 ## 本地验证范围
 
 初始交付检查见 [validation.json](validation.json)，新增 CPU 检查见 [checks/mamba-cpu/validation.json](checks/mamba-cpu/validation.json)。CPU 适配开发没有在本地启动航空大实例求解；长时间运行仍由用户提交 Custom。旧 GPU 尝试与中断记录均保留。
+
+2026-11-06新增诊断：[问题分析](reports/diagnosis_20261106_153639/ANALYSIS.md) 与 [组会补充](reports/diagnosis_20261106_153639/MEETING_UPDATE.md)。独立树形构造在约5.2秒内产生目标37.586984的候选，通过原CIP全部162,800约束、边界、整数性及SOL读回检查；没有调用优化器搜索或注入现有三组作业。当前模型已证明可行，候选相对已有下界的差为22.18%，尚未证明最优，不能把这份独立构造计为三组在线作业的求解成绩。

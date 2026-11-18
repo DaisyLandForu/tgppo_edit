@@ -1,0 +1,146 @@
+{
+  "captured_beijing": "2026-11-11T09:59:08.300995+08:00",
+  "shards": [
+    {
+      "shard": 0,
+      "requested": 85,
+      "raw_records": 85,
+      "valid_raw": 85,
+      "invalid": [],
+      "complete_instances": [
+        "atlanta-ip",
+        "bell3a",
+        "map20",
+        "msc98-ip",
+        "n2seq36q",
+        "neos-1200887",
+        "neos-603073",
+        "neos-803219",
+        "neos-829552",
+        "neos-892255",
+        "ns1208400",
+        "p0201",
+        "rail507",
+        "rout",
+        "satellites1-25",
+        "sp98ir",
+        "unitcal_7"
+      ],
+      "complete_paired_tasks": 85,
+      "state": {
+        "status": "complete",
+        "shard": 0,
+        "started_epoch": 1794312344.947416,
+        "pid": 3793,
+        "training_steps": 0,
+        "gpu": false,
+        "total_wall_limit_seconds": null,
+        "attempt": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper100-test66-20261110/shard-0/attempts/20261110T120607Z-296232d9",
+        "cohort_id": "0242488a57c146975fa8a1c9",
+        "pending": 85,
+        "already_complete_instances": 0,
+        "environment": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "jpt-duweiyue25-261109-9ec03-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "36e6f067a4d7a8162d9d541ebf5ad0f00cd21f7e8e28079d62241f21ee13eb69"
+        },
+        "phase": "ordinary",
+        "active_workers": 0,
+        "complete_instances": 17,
+        "valid_tasks": 85,
+        "elapsed_seconds": 37971.0719370842,
+        "finished_epoch": 1794350316.019355
+      }
+    },
+    {
+      "shard": 1,
+      "requested": 85,
+      "raw_records": 21,
+      "valid_raw": 21,
+      "invalid": [],
+      "complete_instances": [
+        "neos-1215259",
+        "neos-504674",
+        "neos-504815"
+      ],
+      "complete_paired_tasks": 15,
+      "state": {
+        "status": "running",
+        "shard": 1,
+        "started_epoch": 1794350323.2826812,
+        "pid": 3995,
+        "training_steps": 0,
+        "gpu": false,
+        "total_wall_limit_seconds": null,
+        "attempt": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper100-test66-20261110/shard-1/attempts/20261110T223924Z-79bc25d8",
+        "cohort_id": "0242488a57c146975fa8a1c9",
+        "pending": 85,
+        "already_complete_instances": 0,
+        "environment": {
+          "stack": {
+            "cpu_model": "Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz",
+            "machine": "x86_64",
+            "scip_version": 6.01,
+            "libscip_sha256": "07f3c32fa1fab0a43559bc9968633edef6a346f6a9ee5147cff8808a31a02613",
+            "binding_sha256": "78659cc66d900fa622e0a26f7958f7902bb5f65cea769079c0f6d3a9634c52f3",
+            "torch_version": "1.13.1+cu117",
+            "torch_cuda_runtime": "11.7",
+            "python_abi": "3.8"
+          },
+          "host": "jpt-duweiyue25-261109-9ec03-default0-0",
+          "cores": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "worker_start_method": "fork",
+          "plan_sha256": "36e6f067a4d7a8162d9d541ebf5ad0f00cd21f7e8e28079d62241f21ee13eb69"
+        },
+        "phase": "ordinary",
+        "active_workers": 4
+      }
+    },
+    {
+      "shard": 2,
+      "requested": 85,
+      "raw_records": 0,
+      "valid_raw": 0,
+      "invalid": [],
+      "complete_instances": [],
+      "complete_paired_tasks": 0,
+      "state": null
+    },
+    {
+      "shard": 3,
+      "requested": 75,
+      "raw_records": 0,
+      "valid_raw": 0,
+      "invalid": [],
+      "complete_instances": [],
+      "complete_paired_tasks": 0,
+      "state": null
+    }
+  ],
+  "valid_raw": 106,
+  "complete_paired_tasks": 100,
+  "requested": 330,
+  "ranking": null,
+  "summary": "Partial matrix; no whole-test PDI/effect ranking. Existing evaluation is still running."
+}

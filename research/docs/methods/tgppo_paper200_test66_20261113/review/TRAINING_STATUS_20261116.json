@@ -1,0 +1,101 @@
+{
+  "checked_beijing": "2026-11-16T22:12:05.428509+08:00",
+  "conditions": [
+    {
+      "method": "b0_new",
+      "seed": 11,
+      "state": {
+        "status": "stopped",
+        "next_episode": 164,
+        "instance": "neos-476283",
+        "solver_seed": 3,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547818.4221463
+      },
+      "execution_lock": "free",
+      "fixed200": false,
+      "fixed500": false
+    },
+    {
+      "method": "b0_new",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 218,
+        "instance": "roi5alpha10n8",
+        "solver_seed": 0,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547823.0053937
+      },
+      "execution_lock": "free",
+      "fixed200": true,
+      "fixed500": false
+    },
+    {
+      "method": "mlp",
+      "seed": 11,
+      "state": {
+        "status": "stopped",
+        "next_episode": 284,
+        "epoch": 3,
+        "epochs": 3,
+        "minibatches_completed": 16,
+        "samples": 1557,
+        "expected_minibatches": 21,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547827.3453546
+      },
+      "execution_lock": "free",
+      "fixed200": true,
+      "fixed500": false
+    },
+    {
+      "method": "mlp",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 172,
+        "instance": "rmatr200-p5",
+        "solver_seed": 3,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547831.9353373
+      },
+      "execution_lock": "free",
+      "fixed200": false,
+      "fixed500": false
+    },
+    {
+      "method": "mlp_bc",
+      "seed": 11,
+      "state": {
+        "status": "stopped",
+        "next_episode": 284,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 2,
+        "samples": 849,
+        "expected_minibatches": 12,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547841.6621463
+      },
+      "execution_lock": "free",
+      "fixed200": true,
+      "fixed500": false
+    },
+    {
+      "method": "mlp_bc",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 271,
+        "instance": "neos-476283",
+        "solver_seed": 0,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794547836.7932572
+      },
+      "execution_lock": "free",
+      "fixed200": true,
+      "fixed500": false
+    }
+  ]
+}

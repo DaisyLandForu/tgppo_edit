@@ -1,0 +1,56 @@
+{
+  "paper-trainmode-20261108/b0-s22": {
+    "rows": 12,
+    "worker_peak_rss_max_gib": 2.506134033203125,
+    "worker_peak_rss_median_gib": 1.796234130859375,
+    "max_record": {
+      "file": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s22/episodes/10/attempt-000/collect-e00010-neos-476283-s1.json",
+      "rss_gib": 2.506134033203125,
+      "transitions": 33652
+    }
+  },
+  "paper-trainmode-20261108/b0-s22/checkpoint": {
+    "sha256": "41b0d9ca5791debfe5bca899dc9e3396128a2c524edc35ac65be87afaf5fed5a",
+    "state": {
+      "status": "stopped",
+      "next_episode": 12,
+      "instance": "rmatr200-p5",
+      "solver_seed": 4,
+      "error": "Stopped('Signal/deadline 15; atomic checkpoint retained')",
+      "stopped_epoch": 1794153303.726379
+    },
+    "bytes": 114814529
+  },
+  "paper-trainmode-20261108/b0-s11": {
+    "rows": 11,
+    "worker_peak_rss_max_gib": 2.443592071533203,
+    "worker_peak_rss_median_gib": 1.9830665588378906,
+    "max_record": {
+      "file": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/episodes/10/attempt-000/collect-e00010-neos-476283-s3.json",
+      "rss_gib": 2.443592071533203,
+      "transitions": 27624
+    }
+  },
+  "paper-trainmode-20261108/b0-s11/checkpoint": {
+    "sha256": "d6e44d7b43fed30d09ff1b1fd73f06fefc6a766b85b3399834727c91cccf1a2c",
+    "state": {
+      "status": "failed",
+      "next_episode": 11,
+      "instance": "roi5alpha10n8",
+      "solver_seed": 3,
+      "error": "ValueError('Cached task identity changed: /home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11/episodes/12')",
+      "stopped_epoch": 1794203232.9876978
+    },
+    "bytes": 114814529
+  },
+  "paper-aligned-20261106/b0-s11": {
+    "rows": 136,
+    "worker_peak_rss_max_gib": 3.515850067138672,
+    "worker_peak_rss_median_gib": 3.093313217163086,
+    "max_record": {
+      "file": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/b0-s11/episodes/63/attempt-000/collect-e00063-rmatr200-p5-s4.json",
+      "rss_gib": 3.515850067138672,
+      "transitions": 1548
+    }
+  }
+}

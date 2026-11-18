@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "unittest_tests": 13,
+  "unittest_failures": 0,
+  "unittest_errors": 0,
+  "tests_module": "tests/test_evaluation.py",
+  "tests_sha256": "ef9a4b4f7be09a75dacb58838eee2b16af3c4966dac69e01d748419787ff31ef",
+  "unittest_reported_seconds": 0.132,
+  "real_actor_check": {
+    "passed": true,
+    "observed": {
+      "values": [
+        {
+          "probability_action_sha256": "9358511fa17bf1fe6b03e4c8a2cd629c3dc42affb5df0612192f81db6fadea1a",
+          "parameters": 4738895
+        },
+        {
+          "probability_action_sha256": "b676c5263371dd2ede09250ae32080c5d9420c2b03dce5aceb609a3e18aaed35",
+          "parameters": 24493
+        },
+        {
+          "probability_action_sha256": "6edd4d7410717b28c053d0d309e9acb0a2d2940875ace53f1c787a140d9f46f2",
+          "parameters": 24493
+        },
+        {
+          "probability_action_sha256": "70247518cbca5ea03370fc63896e09e9412796921e028b41d3f1283368c38d4e",
+          "parameters": 24493
+        }
+      ],
+      "scip_version": 6.01,
+      "threads": 1,
+      "cuda_initialized": false
+    },
+    "probabilities_actions_bitwise_equal": true,
+    "solver_optimizations": 0,
+    "training_steps": 0,
+    "elapsed_seconds_after_import": 4.5138585567474365
+  },
+  "training_steps": 0,
+  "solver_optimizations": 0
+}

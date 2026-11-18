@@ -1,0 +1,30 @@
+test_budget_is_not_reset_by_explicit_resume (test_protocol.ProtocolTests) ... ok
+test_coverage_and_paired_schedule (test_protocol.ProtocolTests) ... ok
+test_full_cpu_update_export_bridges (test_protocol.ProtocolTests) ... ok
+test_legal_experts_and_dataset (test_protocol.ProtocolTests) ... ok
+test_old_120_second_normalization_rejected (test_protocol.ProtocolTests) ... ok
+test_optimizer_and_actor_parameters (test_protocol.ProtocolTests) ... ok
+test_pending_replay_commits_once (test_protocol.ProtocolTests)
+Interrupt inside an update, resume pending, never collect/step twice. ... {"episode": 1, "phase": "updating", "epoch": 1, "epochs": 3, "minibatches_completed": 1, "samples": 4, "expected_minibatches": 3}
+{"episode": 1, "phase": "updating", "epoch": 1, "epochs": 3, "minibatches_completed": 1, "samples": 4, "expected_minibatches": 3}
+{"actor_loss": -0.005131362316509088, "critic_loss": 16.291536966959637, "entropy": 1.4715222517649333, "clip_fraction": 0.0, "updated": true, "num_updates": 3, "num_samples": 4, "expert_normalized_nll": 0.0, "expert_weighted_loss": 0.0, "expert_samples": 0, "expert_batches": 0, "initial_ratio_max_error": 1.1920928955078125e-07, "initial_train_ratio_max_error": 1.1920928955078125e-07, "initial_dropout_clip_fraction": 0.0, "actor_update_mode": "train", "advantage_std_before_normalization": 0.851375162601471, "update_step": 1, "policy_version": 1, "deployment_probe_states": 4, "deployment_probe_scope": "first chunk of first PPO minibatch; at most8 states", "deployment_tv_before_after_mean": 0.00045392289757728577, "deployment_tv_to_uniform_before_mean": 0.0010570045560598373, "deployment_tv_to_uniform_after_mean": 0.0012937802821397781, "deployment_argmax_change_fraction": 0.0, "episode": 1, "instance": "misc03", "solver_seed": 1, "learner_wall_seconds": 0.23340410320088267, "phase": "complete_episode_update", "actor_sha256": "aa047e0c13be8617c90cb8cd25564a2f3571046767f6b2243e3bbf7e0a9d7d26"}
+ok
+test_short_full_episode_and_exact_recovery (test_protocol.ProtocolTests) ... ok
+test_summarizer_exact_coverage_cost_and_partial_refusal (test_protocol.ProtocolTests) ... Incomplete matrix: 66 instances missing. No overall ranking.
+/tmp/tmpe1w19iy4/docs/methods/tgppo_paper_trainmode_20261108/results/REPORT.md
+ok
+test_test_shards_and_author_coverage (test_protocol.ProtocolTests) ... ok
+test_corrupt_old_probabilities_still_fail_before_any_step (test_trainmode.TrainModeTests) ... ok
+test_dropout_ratio_noise_is_reported_not_rejected (test_trainmode.TrainModeTests) ... ok
+test_episode_targets_do_not_leak_across_boundaries (test_trainmode.TrainModeTests) ... ok
+test_eval_reference_preserves_mode_and_rng (test_trainmode.TrainModeTests) ... ok
+test_gae_matches_hand_calculation_and_ignores_terminal_bootstrap (test_trainmode.TrainModeTests) ... ok
+test_gae_uses_real_next_state_value_at_truncation (test_trainmode.TrainModeTests) ... ok
+test_normalization_reuse_is_exact_and_readonly (test_trainmode.TrainModeTests) ... ok
+test_old_checkpoint_and_unselected_protocol_are_rejected (test_trainmode.TrainModeTests) ... ok
+test_production_b0_uses_training_dropout_with_gradients (test_trainmode.TrainModeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 8.322s
+
+OK

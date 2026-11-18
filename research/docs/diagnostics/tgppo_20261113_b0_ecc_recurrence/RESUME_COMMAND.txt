@@ -1,0 +1,2 @@
+# 4CPU / 48GiB / 1 GPU；需由平台分配健康GPU。先记录设备并做极小CUDA检查，成功后调用原续训脚本。
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-gpu-health-resume-20261113/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit

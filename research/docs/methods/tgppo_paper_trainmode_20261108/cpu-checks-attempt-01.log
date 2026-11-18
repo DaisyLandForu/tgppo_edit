@@ -1,0 +1,67 @@
+test_budget_is_not_reset_by_explicit_resume (test_protocol.ProtocolTests) ... ok
+test_coverage_and_paired_schedule (test_protocol.ProtocolTests) ... ok
+test_full_cpu_update_export_bridges (test_protocol.ProtocolTests) ... ok
+test_legal_experts_and_dataset (test_protocol.ProtocolTests) ... ok
+test_old_120_second_normalization_rejected (test_protocol.ProtocolTests) ... ok
+test_optimizer_and_actor_parameters (test_protocol.ProtocolTests) ... ok
+test_pending_replay_commits_once (test_protocol.ProtocolTests)
+Interrupt inside an update, resume pending, never collect/step twice. ... {"episode": 1, "phase": "updating", "epoch": 1, "epochs": 3, "minibatches_completed": 1, "samples": 4, "expected_minibatches": 3}
+ERROR
+test_short_full_episode_and_exact_recovery (test_protocol.ProtocolTests) ... ok
+test_summarizer_exact_coverage_cost_and_partial_refusal (test_protocol.ProtocolTests) ... Incomplete matrix: 66 instances missing. No overall ranking.
+/tmp/tmpan8dd_00/docs/methods/tgppo_paper_trainmode_20261108/results/REPORT.md
+ok
+test_test_shards_and_author_coverage (test_protocol.ProtocolTests) ... ok
+test_corrupt_old_probabilities_still_fail_before_any_step (test_trainmode.TrainModeTests) ... ERROR
+test_dropout_ratio_noise_is_reported_not_rejected (test_trainmode.TrainModeTests) ... ERROR
+test_episode_targets_do_not_leak_across_boundaries (test_trainmode.TrainModeTests) ... ok
+test_eval_reference_preserves_mode_and_rng (test_trainmode.TrainModeTests) ... ok
+test_gae_matches_hand_calculation_and_ignores_terminal_bootstrap (test_trainmode.TrainModeTests) ... ok
+test_gae_uses_real_next_state_value_at_truncation (test_trainmode.TrainModeTests) ... ok
+test_normalization_reuse_is_exact_and_readonly (test_trainmode.TrainModeTests) ... ok
+test_old_checkpoint_and_unselected_protocol_are_rejected (test_trainmode.TrainModeTests) ... ok
+test_production_b0_uses_training_dropout_with_gradients (test_trainmode.TrainModeTests) ... ok
+
+======================================================================
+ERROR: test_pending_replay_commits_once (test_protocol.ProtocolTests)
+Interrupt inside an update, resume pending, never collect/step twice.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/tests/test_protocol.py", line 166, in test_pending_replay_commits_once
+    paper.train(c, 'mlp', 11, True)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/paper.py", line 309, in train
+    agent, payload = rt.load_agent(out/'latest.pt', device=device)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py", line 1081, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py", line 1085, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/home/duweiyue25/conda/envs/tgppo/lib/python3.8/unittest/mock.py", line 1146, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/tests/test_protocol.py", line 128, in cpu_load
+    return loader(path, device='cpu', **kwargs)
+TypeError: load_agent() got multiple values for keyword argument 'device'
+
+======================================================================
+ERROR: test_corrupt_old_probabilities_still_fail_before_any_step (test_trainmode.TrainModeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/tests/test_trainmode.py", line 85, in test_corrupt_old_probabilities_still_fail_before_any_step
+    a.learn(microbatch_size=2)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/project/agent/agent.py", line 233, in learn
+    bounded_size = max(1, min(chunk_size, self.attention_cell_budget // (largest*largest)))
+AttributeError: 'Agent' object has no attribute 'attention_cell_budget'
+
+======================================================================
+ERROR: test_dropout_ratio_noise_is_reported_not_rejected (test_trainmode.TrainModeTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/tests/test_trainmode.py", line 68, in test_dropout_ratio_noise_is_reported_not_rejected
+    result = a.learn(microbatch_size=2)
+  File "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/project/agent/agent.py", line 233, in learn
+    bounded_size = max(1, min(chunk_size, self.attention_cell_budget // (largest*largest)))
+AttributeError: 'Agent' object has no attribute 'attention_cell_budget'
+
+----------------------------------------------------------------------
+Ran 19 tests in 10.373s
+
+FAILED (errors=3)

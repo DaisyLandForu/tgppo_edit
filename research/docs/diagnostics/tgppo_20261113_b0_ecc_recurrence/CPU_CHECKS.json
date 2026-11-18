@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "pass_forwards_original_args",
+      "passed": true,
+      "exit_code": 23,
+      "downstream_called": true
+    },
+    {
+      "name": "cuda_ecc_stops_before_resume",
+      "passed": true,
+      "exit_code": 9,
+      "downstream_called": false
+    },
+    {
+      "name": "listing_error_stops_before_resume",
+      "passed": true,
+      "exit_code": 7,
+      "downstream_called": false
+    },
+    {
+      "name": "optional_ecc_query_failure_does_not_block_probe",
+      "passed": true,
+      "exit_code": 23,
+      "downstream_called": true
+    },
+    {
+      "name": "cpu_bypasses_gpu_probe",
+      "passed": true,
+      "exit_code": 23,
+      "downstream_called": true
+    },
+    {
+      "name": "status_bypasses_gpu_probe",
+      "passed": true,
+      "exit_code": 23,
+      "downstream_called": true
+    }
+  ],
+  "real_gpu_calls": 0,
+  "real_training_calls": 0,
+  "real_solver_calls": 0,
+  "mock_subprocesses_only": true,
+  "syntax_check_passed": true
+}

@@ -1,0 +1,106 @@
+{
+  "job_name": "sg-duweiyue25-261111-2574a",
+  "namespace": "crater-workspace",
+  "source_sha256": "bb6e6ffc0bfe996f0cce80a517b08fa31a1f2a3990f9fa816fd78619afb73b1e",
+  "provided_status": false,
+  "command_matches_annotation_and_expected": true,
+  "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit",
+  "resources": {
+    "limits": {
+      "cpu": "4001m",
+      "memory": "49153Mi",
+      "nvidia.com/v100": "1"
+    },
+    "requests": {
+      "cpu": "4",
+      "memory": "48Gi",
+      "nvidia.com/v100": "1"
+    }
+  },
+  "active_deadline_present_in_job": false,
+  "active_deadline_present_in_pod": false,
+  "liveness_probe": false,
+  "startup_probe": false,
+  "restart_policy": "Never",
+  "max_retry": 1,
+  "task_max_retry": 3,
+  "ttl_seconds_after_finished": 604800,
+  "job_policies": [
+    {
+      "action": "RestartJob",
+      "event": "PodEvicted"
+    }
+  ],
+  "task_policies": [
+    {
+      "action": "CompleteJob",
+      "event": "TaskCompleted"
+    }
+  ],
+  "matched_attempt": {
+    "started_epoch": 1794363347.0,
+    "host": "sg-duweiyue25-261111-2574a-default0-0",
+    "pid": 16,
+    "allocated_seconds": 172800,
+    "wall_limit_seconds": null,
+    "allocated_seconds_is_legacy_accounting_fallback": true,
+    "resource_override": "explicit --no-total-wall-limit",
+    "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+    "elapsed_seconds": 5861.24898815155,
+    "finished_epoch": 1794369208.24899
+  },
+  "started_beijing": "2026-11-11T10:15:47+08:00",
+  "stopped_beijing": "2026-11-11T11:53:28.248990+08:00",
+  "collect_started_beijing": "2026-11-11T11:17:21+08:00",
+  "collect_elapsed_before_term_seconds": 2166.55,
+  "checkpoint_committed_episodes": 121,
+  "failed_log": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-resource-resume-20261109/launcher-logs/20261111T021547-bsFOGB.log",
+  "failed_log_sha256": "0926b29061e6009ce86f2c680948bce20288df1962859acd262d07719cb86379",
+  "memory_peak_sampled_gib": 13.089801788330078,
+  "oom_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0
+  },
+  "current_attempt": {
+    "started_epoch": 1794375856.0,
+    "host": "sg-duweiyue25-261111-abd82-default0-0",
+    "pid": 16,
+    "allocated_seconds": 172800,
+    "wall_limit_seconds": null,
+    "allocated_seconds_is_legacy_accounting_fallback": true,
+    "resource_override": "explicit --no-total-wall-limit",
+    "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc"
+  },
+  "current_state": {
+    "status": "normalization",
+    "next_episode": 121,
+    "instance": "rmatr200-p5",
+    "solver_seed": 1
+  },
+  "current_environment_start_script": {
+    "path": "/crater-start.sh",
+    "sha256": "8f8a23cc92827d49654bef2c7b6e636dea373f3b995658eccc4e81e18e5a49d4",
+    "no_timeout_found": true,
+    "historical_job_same_bytes_not_verified": true
+  },
+  "platform_public_code": {
+    "repo": "raids-lab/crater",
+    "commit": "367718b388e0193d8e633f3710622810a9267ab3",
+    "defaults": {
+      "TIME_RANGE_minutes": 90,
+      "WAIT_TIME_minutes": 30,
+      "UTIL": 0
+    },
+    "deletion_window": "timeRange + waitTime",
+    "deletes_vcjob": true,
+    "AlertEnabled_controls_email_only": true,
+    "exact_deployed_version_and_config_unknown": true,
+    "causation_for_this_job_not_confirmed": true
+  },
+  "new_training_steps": 0,
+  "new_scip_optimizations": 0,
+  "no_existing_job_stopped": true
+}

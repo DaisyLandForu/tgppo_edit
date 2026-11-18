@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "real_training_episodes": 0,
+  "real_scip_solves": 0,
+  "steps": [
+    {
+      "command": [
+        "bash",
+        "-c",
+        "source research/tgppo/experiments/paper-trainmode-20261108/env.sh\n\"$TGPPO_PYTHON\" -u \"$paper_package_dir/code/seal.py\""
+      ],
+      "returncode": 0,
+      "output": "{\"package_files\": 53, \"external_inputs\": 97, \"protected_sources\": 166, \"passed\": true}\n"
+    },
+    {
+      "command": [
+        "bash",
+        "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh",
+        "check"
+      ],
+      "returncode": 0,
+      "output": "Frozen source, original baseline, data and paper-aligned protocol verified; no solves/training.\n"
+    },
+    {
+      "command": [
+        "bash",
+        "/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/custom_cpu.sh",
+        "status"
+      ],
+      "returncode": 0,
+      "output": "{\n  \"b0-s11\": {\n    \"status\": \"not_started\",\n    \"next_episode\": 0\n  },\n  \"mlp-s11\": {\n    \"status\": \"not_started\",\n    \"next_episode\": 0\n  },\n  \"mlp_bc-s11\": {\n    \"status\": \"not_started\",\n    \"next_episode\": 0\n  },\n  \"b0-s22\": {\n    \"status\": \"not_started\",\n    \"next_episode\": 0\n  },\n  \"mlp-s22\": {\n    \"status\": \"not_started\",\n    \"next_episode\": 0\n  },\n  \"mlp_bc-s22\": {\n    \"status\": \"not_started\",\n    \"next_episode\": 0\n  }\n}\n"
+    }
+  ],
+  "protected_sources_unchanged": 166,
+  "fresh_conditions_not_started": 6,
+  "shell_syntax_passed": true,
+  "elapsed_seconds": 8.293983919080347,
+  "cumulative_preparation_seconds": 100.23402783134952
+}

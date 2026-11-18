@@ -1,0 +1,24 @@
+# Six separate Custom jobs. CPU model unrestricted. Run ONE line per job.
+# Preserve current six branches, checkpoints, AdamW, RNG, 500-episode target and 3600-second solves.
+
+# b0_new seed11: 4 CPU / 48 GiB RAM / 1 V100 (A100 also accepted)
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+
+# b0_new seed22: 4 CPU / 48 GiB RAM / 1 V100
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 22 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+
+# MLP seed11: 4 CPU / 64 GiB RAM / 0 GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment aligned --variant mlp --seed 11 --device cpu --ram-gib 64 --resume --no-total-wall-limit
+
+# MLP seed22: 4 CPU / 64 GiB RAM / 0 GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment aligned --variant mlp --seed 22 --device cpu --ram-gib 64 --resume --no-total-wall-limit
+
+# MLP+BC seed11: 4 CPU / 64 GiB RAM / 0 GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment aligned --variant mlp_bc --seed 11 --device cpu --ram-gib 64 --resume --no-total-wall-limit
+
+# MLP+BC seed22: 4 CPU / 64 GiB RAM / 0 GPU
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment aligned --variant mlp_bc --seed 22 --device cpu --ram-gib 64 --resume --no-total-wall-limit
+
+# Existing100-episode evaluation is ACTIVE on the terminal server. No restart needed.
+# Read-only status scan (safe while evaluation continues):
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh status

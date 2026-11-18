@@ -1,0 +1,3 @@
+model,actor_change_l2,initial_norm,zero_gradient_decay_prediction_l2,residual_from_decay_prediction_l2,adam_step_min,adam_step_max,optimizer,note
+current_b0_s11_latest,1.7881360336551018,92.26936570342846,0.8740912051604044,1.564600609010811,3966,3966,AdamW,Decay counterfactual assumes explicit zero gradients on every step; no causal fraction inferred.
+current_b0_s22_latest,2.896401592632423,92.19986336517712,0.470123605931748,2.8585012747054095,2130,2130,AdamW,Decay counterfactual assumes explicit zero gradients on every step; no causal fraction inferred.

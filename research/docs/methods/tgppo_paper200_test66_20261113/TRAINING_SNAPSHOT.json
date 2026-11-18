@@ -1,0 +1,86 @@
+{
+  "captured_beijing": "2026-11-13T12:24:23.806879+08:00",
+  "conditions": [
+    {
+      "method": "b0_new",
+      "seed": 11,
+      "state": {
+        "status": "collecting",
+        "next_episode": 163,
+        "instance": "comp21-2idx",
+        "solver_seed": 3
+      },
+      "execution_lock": "active",
+      "fixed200_exists": false,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11"
+    },
+    {
+      "method": "b0_new",
+      "seed": 22,
+      "state": {
+        "status": "collecting",
+        "next_episode": 206,
+        "instance": "roi5alpha10n8",
+        "solver_seed": 4
+      },
+      "execution_lock": "active",
+      "fixed200_exists": true,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s22"
+    },
+    {
+      "method": "mlp",
+      "seed": 11,
+      "state": {
+        "status": "updating",
+        "next_episode": 284,
+        "epoch": 1,
+        "epochs": 3,
+        "minibatches_completed": 3,
+        "samples": 1557,
+        "expected_minibatches": 21
+      },
+      "execution_lock": "active",
+      "fixed200_exists": true,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s11"
+    },
+    {
+      "method": "mlp",
+      "seed": 22,
+      "state": {
+        "status": "collecting",
+        "next_episode": 171,
+        "instance": "roi5alpha10n8",
+        "solver_seed": 1
+      },
+      "execution_lock": "active",
+      "fixed200_exists": false,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s22"
+    },
+    {
+      "method": "mlp_bc",
+      "seed": 11,
+      "state": {
+        "status": "collecting",
+        "next_episode": 284,
+        "instance": "comp21-2idx",
+        "solver_seed": 4
+      },
+      "execution_lock": "active",
+      "fixed200_exists": true,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11"
+    },
+    {
+      "method": "mlp_bc",
+      "seed": 22,
+      "state": {
+        "status": "collecting",
+        "next_episode": 266,
+        "instance": "air04",
+        "solver_seed": 0
+      },
+      "execution_lock": "active",
+      "fixed200_exists": true,
+      "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22"
+    }
+  ]
+}

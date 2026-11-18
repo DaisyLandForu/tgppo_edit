@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "checked_at_beijing": "2026-11-13T10:30:37.029019+08:00",
+  "seed": 11,
+  "committed_episodes": 162,
+  "next_episode_one_based": 163,
+  "pending_exists": false,
+  "checkpoint_sha256": "ec6cab2d0dd0e559e37b772c31790c14985202260d1476bb98c3e117832e880c",
+  "parameters_finite": true,
+  "adamw_states_finite": true,
+  "rng_keys": [
+    "cuda",
+    "numpy",
+    "python",
+    "torch"
+  ],
+  "actor_digest_matches_update": true,
+  "source_sha_unchanged": true,
+  "checkpoint_mtime_epoch": 1794523818.0687094,
+  "latest_attempt": {
+    "started_epoch": 1794531128.0,
+    "host": "sg-duweiyue25-261113-08f04-default0-0",
+    "pid": 15,
+    "allocated_seconds": 172800,
+    "wall_limit_seconds": null,
+    "allocated_seconds_is_legacy_accounting_fallback": true,
+    "resource_override": "explicit --no-total-wall-limit",
+    "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+    "elapsed_seconds": 73.7896294593811,
+    "finished_epoch": 1794531201.7896311
+  },
+  "prior_attempt": {
+    "started_epoch": 1794496538.0,
+    "host": "sg-duweiyue25-261112-771d5-default0-0",
+    "pid": 15,
+    "allocated_seconds": 172800,
+    "wall_limit_seconds": null,
+    "allocated_seconds_is_legacy_accounting_fallback": true,
+    "resource_override": "explicit --no-total-wall-limit",
+    "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+    "elapsed_seconds": 34465.51064300537,
+    "finished_epoch": 1794531003.510647
+  },
+  "training_steps": 0,
+  "solver_calls": 0,
+  "cuda_initialized": false
+}

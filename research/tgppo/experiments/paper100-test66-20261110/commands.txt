@@ -1,0 +1,13 @@
+# 4 CPU / 32 GiB / 0 GPU per Custom; CPU model unrestricted.
+# Submit four jobs, one command per job. No training or new checkpoint selection.
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh run --shard 0
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh run --shard 1
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh run --shard 2
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh run --shard 3
+
+# Resume an interrupted shard; replace 2 as needed.
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh run --shard 2 --resume
+
+# Read-only result scan; automatically run on exit as well.
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh status
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper100-test66-20261110/custom_job.sh summarize

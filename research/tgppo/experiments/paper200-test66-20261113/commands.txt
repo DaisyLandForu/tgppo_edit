@@ -1,0 +1,11 @@
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh run --shard 0
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh run --shard 1
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh run --shard 2
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh run --shard 3
+
+# 中断后只补缺项：
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh run --shard 0 --resume
+
+# 查看／汇总（不新增求解）：
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh status
+bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper200-test66-20261113/custom_job.sh summarize

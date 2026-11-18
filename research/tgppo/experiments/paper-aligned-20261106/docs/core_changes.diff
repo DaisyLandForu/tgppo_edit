@@ -1,0 +1,108 @@
+--- accepted/project/runtime.py
++++ paper-aligned/project/runtime.py
+@@ -82,10 +82,15 @@
+                 mean=config['target_mean'], std=config['target_std'])
+         agent_type = OnlineAgent
+     actor, critic = actor.to(device), critic.to(device)
+-    actor_opt = torch.optim.Adam(actor.parameters(), lr=config['actor_lr']) if training else None
+-    critic_opt = torch.optim.Adam(critic.parameters(), lr=config['critic_lr']) if training else None
++    if config.get('optimizer') != 'AdamW':
++        raise ValueError('Paper-aligned runs require explicit AdamW configuration')
++    opt = dict(betas=tuple(config['optimizer_betas']), eps=config['optimizer_eps'],
++               weight_decay=config['weight_decay'])
++    actor_opt = torch.optim.AdamW(actor.parameters(), lr=config['actor_lr'], **opt) if training else None
++    critic_opt = torch.optim.AdamW(critic.parameters(), lr=config['critic_lr'], **opt) if training else None
+     result = agent_type(actor, actor_opt, critic, critic_opt, device=device,
+                  state_dims=config['state_dims'], **{k: config[k] for k in PPO_KEYS})
++    result.attention_cell_budget = config.get('attention_cell_budget', 1048576)
+     if training and config.get('expert_supervision_weight', 0.) > 0:
+         from project.agent.expert_supervision import ExpertSupervision
+         result.expert_supervision = ExpertSupervision(config)
+--- accepted/project/agent/agent.py
++++ paper-aligned/project/agent/agent.py
+@@ -126,15 +126,17 @@
+             if episode['policy_version'] != self.policy_version:
+                 raise ValueError('Stale policy trajectory')
+             rows = episode['transitions']
+-            args = [torch.tensor([r[k] for r in rows], dtype=torch.float32, device=self.device)
++            # Avoid launching one CUDA kernel per scalar GAE recurrence step.
++            # Full trajectories and GAE stay on CPU; only targets are transferred.
++            args = [torch.tensor([r[k] for r in rows], dtype=torch.float32)
+                     for k in ['reward', 'value', 'done']]
+             a, ret = self._compute_gae(*args, torch.tensor(
+-                episode['bootstrap_value'], dtype=torch.float32, device=self.device))
++                episode['bootstrap_value'], dtype=torch.float32))
+             advantages.append(a)
+             returns.append(ret)
+         if not advantages:
+             return torch.empty(0, device=self.device), torch.empty(0, device=self.device)
+-        return torch.cat(advantages), torch.cat(returns)
++        return torch.cat(advantages).to(self.device), torch.cat(returns).to(self.device)
+ 
+     def _learning_values(self, cands, node, mip, mask, batch, chunk):
+         return self.critic_network(cands, node, mip, mask).reshape(-1)
+@@ -148,8 +150,11 @@
+         # Check stale data even when the buffer is too small for an update.
+         raw_advantages, returns = self.compute_targets()
+         n = len(raw_advantages)
+-        if n < self.batch_size:
+-            return dict(updated=False, num_samples=n, policy_version=self.policy_version)
++        if n == 0:
++            # Complete zero-decision episodes count toward500, with no fake update.
++            self.memory.clear()
++            return dict(updated=False, num_samples=0, num_updates=0,
++                        reason='complete_episode_without_decisions', policy_version=self.policy_version)
+         if self.actor_optimizer is None or self.critic_optimizer is None:
+             raise RuntimeError('This collector has no training optimizers')
+         advantages = (raw_advantages - raw_advantages.mean()) / raw_advantages.std(
+@@ -176,17 +181,23 @@
+                 # The outer minibatch and its optimizer step stay unchanged.
+                 # Sort only inside this batch, trim padding per chunk, weight
+                 # each mean by chunk_size / actual_outer_batch_size.
+-                for begin in range(0, size, chunk_size):
+-                    chunk = order[begin:begin+chunk_size]
++                begin = 0
++                while begin < size:
++                    largest = int(lengths[order[begin:min(size, begin+chunk_size)]].max())
++                    bounded_size = max(1, min(chunk_size, self.attention_cell_budget // (largest*largest)))
++                    chunk = order[begin:begin+bounded_size]
++                    begin += len(chunk)
+                     width = int(lengths[chunk].max())
+-                    cands = batch['cands'][chunk, :width]
+-                    mask = batch['mask'][chunk, :width]
+-                    node, mip = batch['node_state'][chunk], batch['mip_state'][chunk]
++                    cands = batch['cands'][chunk, :width].to(self.device)
++                    mask = batch['mask'][chunk, :width].to(self.device)
++                    node = batch['node_state'][chunk].to(self.device)
++                    mip = batch['mip_state'][chunk].to(self.device)
+                     ids = batch['indices'][chunk]
+                     weight = len(chunk) / size
+                     probs = self.actor_network(cands, node, mip, mask)
+                     dist = Categorical(probs)
+-                    ratios = torch.exp(dist.log_prob(batch['action'][chunk]) - batch['log_prob'][chunk])
++                    ratios = torch.exp(dist.log_prob(batch['action'][chunk].to(self.device))
++                                       - batch['log_prob'][chunk].to(self.device))
+                     if updates == 0:
+                         error = (ratios.detach()-1).abs().max().item()
+                         initial_ratio_error = max(initial_ratio_error or 0., error)
+--- accepted/project/memory/memory.py
++++ paper-aligned/project/memory/memory.py
+@@ -139,13 +139,14 @@
+         for start in range(0, len(rows), batch_size or self.batch_size):
+             ids = indices[start:start + (batch_size or self.batch_size)]
+             selected = [rows[i] for i in ids]
+-            states = [torch.as_tensor(r['cands_state'], device=self.device) for r in selected]
++            # Pad logical minibatches on CPU, then transfer bounded microbatches.
++            states = [torch.as_tensor(r['cands_state']) for r in selected]
+             cands = torch.nn.utils.rnn.pad_sequence(states, batch_first=True)
+-            lengths = torch.tensor([len(s) for s in states], device=self.device)
+-            mask = torch.arange(cands.shape[1], device=self.device)[None, :] >= lengths[:, None]
++            lengths = torch.tensor([len(s) for s in states])
++            mask = torch.arange(cands.shape[1])[None, :] >= lengths[:, None]
+             batch = dict(indices=ids, cands=cands, mask=mask)
+             for name in ['mip_state', 'node_state', 'action', 'value', 'log_prob']:
+                 array = np.asarray([r[name] for r in selected])
+                 dtype = torch.long if name == 'action' else torch.float32
+-                batch[name] = torch.as_tensor(array, dtype=dtype, device=self.device)
++                batch[name] = torch.as_tensor(array, dtype=dtype)
+             yield batch

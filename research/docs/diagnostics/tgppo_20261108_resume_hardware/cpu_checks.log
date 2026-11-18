@@ -1,0 +1,13 @@
+test_completed_old_attempt_preserved_on_cpu_change (test_resume.ResumeTests) ... ok
+test_cpu_move_preserves_old_records_and_routes_new_attempt (test_resume.ResumeTests) ... ok
+test_migration_requires_resume (test_resume.ResumeTests) ... ok
+test_native_cache_identity_guard_remains (test_resume.ResumeTests) ... ok
+test_repeated_resume_reuses_valid_new_cohort (test_resume.ResumeTests) ... ok
+test_same_cpu_uses_original_cache (test_resume.ResumeTests) ... ok
+test_software_architecture_or_missing_cpu_rejected (test_resume.ResumeTests) ... ok
+test_task_checkpoint_and_rng_changes_rejected (test_resume.ResumeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.020s
+
+OK

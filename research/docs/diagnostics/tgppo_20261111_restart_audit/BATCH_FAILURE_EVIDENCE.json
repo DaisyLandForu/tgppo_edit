@@ -1,0 +1,501 @@
+{
+  "captured_beijing": "2026-11-11T13:07:56.265275+08:00",
+  "tasks": [
+    {
+      "experiment": "trainmode",
+      "variant": "b0",
+      "seed": 11,
+      "state": {
+        "status": "stopped",
+        "next_episode": 121,
+        "instance": "rmatr200-p5",
+        "solver_seed": 1,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794369208.2465377
+      },
+      "last_attempt": {
+        "started_epoch": 1794363347.0,
+        "host": "sg-duweiyue25-261111-2574a-default0-0",
+        "pid": 16,
+        "allocated_seconds": 172800,
+        "wall_limit_seconds": null,
+        "allocated_seconds_is_legacy_accounting_fallback": true,
+        "resource_override": "explicit --no-total-wall-limit",
+        "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+        "elapsed_seconds": 5861.24898815155,
+        "finished_epoch": 1794369208.24899
+      },
+      "active_lock": false,
+      "host": "sg-duweiyue25-261111-2574a-default0-0",
+      "checkpoint_sha256": "2c3198ffbcbeb591f5699fc103fff1d8a33b58ff2c5c9432990f18065ee3e239",
+      "pending": false,
+      "started_beijing": "2026-11-11T10:15:47+08:00",
+      "stopped_beijing": "2026-11-11T11:53:28.246538+08:00",
+      "log": {
+        "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-resource-resume-20261109/launcher-logs/20261111T021547-bsFOGB.log",
+        "sha256": "0926b29061e6009ce86f2c680948bce20288df1962859acd262d07719cb86379",
+        "header": {
+          "entry": "paper-recovery-20261109",
+          "experiment": "trainmode",
+          "variant": "b0",
+          "seed": 11,
+          "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11",
+          "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s11",
+          "device": "cuda",
+          "resume": true,
+          "total_wall_limit_disabled": true,
+          "solver_limit_seconds": 3600.0,
+          "frozen_source_unchanged": true,
+          "cpu_gpu_bitwise_equivalence": false
+        },
+        "last_lines": [
+          "    task_result, collection_directory = cached_job(job, out/'episodes'/str(i+1), identity, c, resume)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 70, in cached",
+          "    return original(job, destination, identity, c, resume)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/paper.py\", line 178, in cached_job",
+          "    rows = run_jobs([job], attempt, 1, c['watchdog'])",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/project/runtime.py\", line 340, in run_jobs",
+          "    return _run_jobs(jobs, output_dir, max_workers, watchdog_seconds, active)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/project/runtime.py\", line 331, in _run_jobs",
+          "    time.sleep(.02)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 97, in stop",
+          "    raise paper.Stopped('Signal {}; checkpoint retained'.format(signum))",
+          "paper.Stopped: Signal 15; checkpoint retained"
+        ]
+      },
+      "same_checkpoint_as_morning_audit": true
+    },
+    {
+      "experiment": "trainmode",
+      "variant": "b0",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 126,
+        "instance": "neos-476283",
+        "solver_seed": 2,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794368909.4879584
+      },
+      "last_attempt": {
+        "started_epoch": 1794363365.0,
+        "host": "sg-duweiyue25-261111-b9548-default0-0",
+        "pid": 16,
+        "allocated_seconds": 172800,
+        "wall_limit_seconds": null,
+        "allocated_seconds_is_legacy_accounting_fallback": true,
+        "resource_override": "explicit --no-total-wall-limit",
+        "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+        "elapsed_seconds": 5544.489878892899,
+        "finished_epoch": 1794368909.4898832
+      },
+      "active_lock": false,
+      "host": "sg-duweiyue25-261111-b9548-default0-0",
+      "checkpoint_sha256": "72a82d38cb3710a097f19dcd848f3f08f7bcab320c61f09e898b1abba0533b66",
+      "pending": false,
+      "started_beijing": "2026-11-11T10:16:05+08:00",
+      "stopped_beijing": "2026-11-11T11:48:29.487958+08:00",
+      "log": {
+        "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-resource-resume-20261109/launcher-logs/20261111T021605-t5STUV.log",
+        "sha256": "46ac0385e4f916fb30dcbb7c5fabc9e7d1768592bef86456d60d57f1da0973c4",
+        "header": {
+          "entry": "paper-recovery-20261109",
+          "experiment": "trainmode",
+          "variant": "b0",
+          "seed": 22,
+          "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s22",
+          "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-trainmode-20261108/training/b0-s22",
+          "device": "cuda",
+          "resume": true,
+          "total_wall_limit_disabled": true,
+          "solver_limit_seconds": 3600.0,
+          "frozen_source_unchanged": true,
+          "cpu_gpu_bitwise_equivalence": false
+        },
+        "last_lines": [
+          "    task_result, collection_directory = cached_job(job, out/'episodes'/str(i+1), identity, c, resume)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 52, in cached",
+          "    return original(job, folder, identity, c, resume)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/paper.py\", line 178, in cached_job",
+          "    rows = run_jobs([job], attempt, 1, c['watchdog'])",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/project/runtime.py\", line 340, in run_jobs",
+          "    return _run_jobs(jobs, output_dir, max_workers, watchdog_seconds, active)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-trainmode-20261108/code/project/runtime.py\", line 331, in _run_jobs",
+          "    time.sleep(.02)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 97, in stop",
+          "    raise paper.Stopped('Signal {}; checkpoint retained'.format(signum))",
+          "paper.Stopped: Signal 15; checkpoint retained"
+        ]
+      },
+      "same_checkpoint_as_morning_audit": false
+    },
+    {
+      "experiment": "aligned",
+      "variant": "mlp",
+      "seed": 11,
+      "state": {
+        "status": "stopped",
+        "next_episode": 163,
+        "instance": "comp21-2idx",
+        "solver_seed": 3,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794329217.510057
+      },
+      "last_attempt": {
+        "started_epoch": 1794202898.0,
+        "host": "sg-duweiyue25-261109-62009-default0-0",
+        "pid": 16,
+        "allocated_seconds": 172800,
+        "wall_limit_seconds": null,
+        "allocated_seconds_is_legacy_accounting_fallback": true,
+        "resource_override": "explicit --no-total-wall-limit",
+        "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+        "elapsed_seconds": 126319.51313829422,
+        "finished_epoch": 1794329217.513146
+      },
+      "active_lock": false,
+      "host": "sg-duweiyue25-261109-62009-default0-0",
+      "checkpoint_sha256": "7a36afe7e7288798ac4d53efdf3db9820afa001d9bf41fc45d072f1d0766f846",
+      "pending": false,
+      "started_beijing": "2026-11-09T13:41:38+08:00",
+      "stopped_beijing": "2026-11-11T00:46:57.510057+08:00",
+      "log": null,
+      "same_checkpoint_as_morning_audit": true
+    },
+    {
+      "experiment": "aligned",
+      "variant": "mlp",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 138,
+        "epoch": 3,
+        "epochs": 3,
+        "minibatches_completed": 79,
+        "samples": 6795,
+        "expected_minibatches": 81,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794367231.872816
+      },
+      "last_attempt": {
+        "started_epoch": 1794363410.0,
+        "host": "sg-duweiyue25-261111-27b67-default0-0",
+        "pid": 15,
+        "allocated_seconds": 172800,
+        "wall_limit_seconds": null,
+        "allocated_seconds_is_legacy_accounting_fallback": true,
+        "resource_override": "explicit --no-total-wall-limit",
+        "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+        "elapsed_seconds": 3821.875645160675,
+        "finished_epoch": 1794367231.875647
+      },
+      "active_lock": false,
+      "host": "sg-duweiyue25-261111-27b67-default0-0",
+      "checkpoint_sha256": "286312567eb97cdb2d0f0d3c6fe4b7cfd15f411e31232908870137234ef6240a",
+      "pending": true,
+      "started_beijing": "2026-11-11T10:16:50+08:00",
+      "stopped_beijing": "2026-11-11T11:20:31.872816+08:00",
+      "log": {
+        "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-resource-resume-20261109/launcher-logs/20261111T021650-YsGcos.log",
+        "sha256": "bb2d852533bde24810957dc6205b865cda4784ca256c756234186d527aa31cfc",
+        "header": {
+          "entry": "paper-recovery-20261109",
+          "experiment": "aligned",
+          "variant": "mlp",
+          "seed": 22,
+          "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s22",
+          "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp-s22",
+          "device": "cpu",
+          "resume": true,
+          "total_wall_limit_disabled": true,
+          "solver_limit_seconds": 3600.0,
+          "frozen_source_unchanged": true,
+          "cpu_gpu_bitwise_equivalence": false
+        },
+        "last_lines": [
+          "    paper.train(c,args.variant,args.seed,True)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-aligned-20261106/code/paper.py\", line 339, in train",
+          "    update = agent.learn(microbatch_size=c['microbatch_size'], progress_callback=heartbeat)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-aligned-20261106/code/project/agent/agent.py\", line 212, in learn",
+          "    (weight*actor_loss).backward()",
+          "  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/site-packages/torch/_tensor.py\", line 488, in backward",
+          "    torch.autograd.backward(",
+          "  File \"/home/duweiyue25/conda/envs/tgppo/lib/python3.8/site-packages/torch/autograd/__init__.py\", line 197, in backward",
+          "    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 97, in stop",
+          "    raise paper.Stopped('Signal {}; checkpoint retained'.format(signum))",
+          "paper.Stopped: Signal 15; checkpoint retained"
+        ]
+      },
+      "same_checkpoint_as_morning_audit": true
+    },
+    {
+      "experiment": "aligned",
+      "variant": "mlp_bc",
+      "seed": 11,
+      "state": {
+        "status": "updating",
+        "next_episode": 181,
+        "epoch": 3,
+        "epochs": 3,
+        "minibatches_completed": 14,
+        "samples": 1402,
+        "expected_minibatches": 18
+      },
+      "last_attempt": {
+        "started_epoch": 1794363482.0,
+        "host": "sg-duweiyue25-261111-1a33b-default0-0",
+        "pid": 15,
+        "allocated_seconds": 172800,
+        "wall_limit_seconds": null,
+        "allocated_seconds_is_legacy_accounting_fallback": true,
+        "resource_override": "explicit --no-total-wall-limit",
+        "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc"
+      },
+      "active_lock": true,
+      "host": "sg-duweiyue25-261111-1a33b-default0-0",
+      "checkpoint_sha256": "not hashed while active",
+      "pending": true,
+      "started_beijing": "2026-11-11T10:18:02+08:00",
+      "stopped_beijing": null,
+      "log": {
+        "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-resource-resume-20261109/launcher-logs/20261111T021802-pCRUVa.log",
+        "sha256": "2a3a20ee20f7501216a6022a5f3d1339fd4f07c2cd095358c217ed53f92027fe",
+        "header": {
+          "entry": "paper-recovery-20261109",
+          "experiment": "aligned",
+          "variant": "mlp_bc",
+          "seed": 11,
+          "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s11",
+          "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s11",
+          "device": "cpu",
+          "resume": true,
+          "total_wall_limit_disabled": true,
+          "solver_limit_seconds": 3600.0,
+          "frozen_source_unchanged": true,
+          "cpu_gpu_bitwise_equivalence": false
+        },
+        "last_lines": [
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 1, \"epochs\": 3, \"minibatches_completed\": 3, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 1, \"epochs\": 3, \"minibatches_completed\": 4, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 1, \"epochs\": 3, \"minibatches_completed\": 5, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 1, \"epochs\": 3, \"minibatches_completed\": 6, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 2, \"epochs\": 3, \"minibatches_completed\": 7, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 2, \"epochs\": 3, \"minibatches_completed\": 8, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 2, \"epochs\": 3, \"minibatches_completed\": 9, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 2, \"epochs\": 3, \"minibatches_completed\": 10, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 2, \"epochs\": 3, \"minibatches_completed\": 11, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 2, \"epochs\": 3, \"minibatches_completed\": 12, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 3, \"epochs\": 3, \"minibatches_completed\": 13, \"samples\": 1402, \"expected_minibatches\": 18}",
+          "{\"episode\": 182, \"phase\": \"updating\", \"epoch\": 3, \"epochs\": 3, \"minibatches_completed\": 14, \"samples\": 1402, \"expected_minibatches\": 18}"
+        ]
+      },
+      "same_checkpoint_as_morning_audit": null
+    },
+    {
+      "experiment": "aligned",
+      "variant": "mlp_bc",
+      "seed": 22,
+      "state": {
+        "status": "stopped",
+        "next_episode": 142,
+        "instance": "rmatr200-p5",
+        "solver_seed": 4,
+        "error": "Stopped('Signal 15; checkpoint retained')",
+        "stopped_epoch": 1794367178.5183399
+      },
+      "last_attempt": {
+        "started_epoch": 1794363450.0,
+        "host": "sg-duweiyue25-261111-3d991-default0-0",
+        "pid": 16,
+        "allocated_seconds": 172800,
+        "wall_limit_seconds": null,
+        "allocated_seconds_is_legacy_accounting_fallback": true,
+        "resource_override": "explicit --no-total-wall-limit",
+        "recovery_sha256": "f49dcdd184ec1b4a43eee3ece13760f86d93e335d59a497059e0f7c89086cbfc",
+        "elapsed_seconds": 3728.5206677913666,
+        "finished_epoch": 1794367178.5206718
+      },
+      "active_lock": false,
+      "host": "sg-duweiyue25-261111-3d991-default0-0",
+      "checkpoint_sha256": "14c55818b8c42e54f647c673f3927deb618406c2d9fbb4a06acb3b1733ed9001",
+      "pending": false,
+      "started_beijing": "2026-11-11T10:17:30+08:00",
+      "stopped_beijing": "2026-11-11T11:19:38.518340+08:00",
+      "log": {
+        "path": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-resource-resume-20261109/launcher-logs/20261111T021730-wb6TcK.log",
+        "sha256": "fc2c9294f297c856d0f2b9fc9edbdbbab78934256f72b7403ffa1bdbf3af4a9e",
+        "header": {
+          "entry": "paper-recovery-20261109",
+          "experiment": "aligned",
+          "variant": "mlp_bc",
+          "seed": 22,
+          "source": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s22",
+          "output": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-recovery-20261109/cpu-aligned/training/mlp_bc-s22",
+          "device": "cpu",
+          "resume": true,
+          "total_wall_limit_disabled": true,
+          "solver_limit_seconds": 3600.0,
+          "frozen_source_unchanged": true,
+          "cpu_gpu_bitwise_equivalence": false
+        },
+        "last_lines": [
+          "    task_result, collection_directory = cached_job(job, out/'episodes'/str(i+1), identity, c, resume)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 70, in cached",
+          "    return original(job, destination, identity, c, resume)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-aligned-20261106/code/paper.py\", line 170, in cached_job",
+          "    rows = run_jobs([job], attempt, 1, c['watchdog'])",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-aligned-20261106/code/project/runtime.py\", line 330, in run_jobs",
+          "    return _run_jobs(jobs, output_dir, max_workers, watchdog_seconds, active)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-aligned-20261106/code/project/runtime.py\", line 321, in _run_jobs",
+          "    time.sleep(.02)",
+          "  File \"/home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-recovery-20261109/code/recover.py\", line 97, in stop",
+          "    raise paper.Stopped('Signal {}; checkpoint retained'.format(signum))",
+          "paper.Stopped: Signal 15; checkpoint retained"
+        ]
+      },
+      "same_checkpoint_as_morning_audit": true
+    }
+  ],
+  "memory_reports": {
+    "aligned-mlp_bc-s11-1794363495-15.json": {
+      "samples": 339,
+      "observed_peak_bytes": 5733523456,
+      "note": "Container RAM, distinct from CUDA VRAM. Sampled peaks may miss transients if cgroup peak is unavailable.",
+      "initial_events": {},
+      "latest": {
+        "epoch": 1794373649.0441055,
+        "cgroup_current_bytes": 4849848320,
+        "cgroup_peak_bytes": 5733523456,
+        "cgroup_limit_bytes": 68720525312,
+        "cgroup_events": {},
+        "parent_peak_rss_kib": 4424980,
+        "terminated_children_peak_rss_kib": 8732
+      }
+    },
+    "trainmode-b0-s22-1794363401-16.json": {
+      "samples": 185,
+      "observed_peak_bytes": 15148470272,
+      "note": "Container RAM, distinct from CUDA VRAM. Sampled peaks may miss transients if cgroup peak is unavailable.",
+      "initial_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0
+      },
+      "latest": {
+        "epoch": 1794368909.4971855,
+        "cgroup_current_bytes": 12542009344,
+        "cgroup_peak_bytes": null,
+        "cgroup_limit_bytes": 51540656128,
+        "cgroup_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0
+        },
+        "parent_peak_rss_kib": 2690460,
+        "terminated_children_peak_rss_kib": 2640856
+      }
+    },
+    "aligned-mlp_bc-s22-1794363469-16.json": {
+      "samples": 125,
+      "observed_peak_bytes": 11679662080,
+      "note": "Container RAM, distinct from CUDA VRAM. Sampled peaks may miss transients if cgroup peak is unavailable.",
+      "initial_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0
+      },
+      "latest": {
+        "epoch": 1794367178.53218,
+        "cgroup_current_bytes": 10361143296,
+        "cgroup_peak_bytes": null,
+        "cgroup_limit_bytes": 68720525312,
+        "cgroup_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0
+        },
+        "parent_peak_rss_kib": 920428,
+        "terminated_children_peak_rss_kib": 805976
+      }
+    },
+    "trainmode-b0-s11-1794363401-16.json": {
+      "samples": 195,
+      "observed_peak_bytes": 14055067648,
+      "note": "Container RAM, distinct from CUDA VRAM. Sampled peaks may miss transients if cgroup peak is unavailable.",
+      "initial_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0
+      },
+      "latest": {
+        "epoch": 1794369208.2557755,
+        "cgroup_current_bytes": 12558188544,
+        "cgroup_peak_bytes": null,
+        "cgroup_limit_bytes": 51540656128,
+        "cgroup_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0
+        },
+        "parent_peak_rss_kib": 2183900,
+        "terminated_children_peak_rss_kib": 1846236
+      }
+    },
+    "aligned-mlp-s22-1794363434-15.json": {
+      "samples": 128,
+      "observed_peak_bytes": 12596916224,
+      "note": "Container RAM, distinct from CUDA VRAM. Sampled peaks may miss transients if cgroup peak is unavailable.",
+      "initial_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0
+      },
+      "latest": {
+        "epoch": 1794367231.8859806,
+        "cgroup_current_bytes": 12261494784,
+        "cgroup_peak_bytes": null,
+        "cgroup_limit_bytes": 68720525312,
+        "cgroup_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0
+        },
+        "parent_peak_rss_kib": 3261124,
+        "terminated_children_peak_rss_kib": 7472
+      }
+    }
+  },
+  "code_trace": {
+    "total_wall_limit_disabled": true,
+    "unlimited_handler_source": "paper-recovery-20261109/code/recover.py:73-107",
+    "unlimited_handler_does_not_schedule_timer": true,
+    "watchdog_kills_child_only": true,
+    "failed_sampling_elapsed_seconds": {
+      "b0_new_s11": 2166.55,
+      "b0_new_s22": 3597.08,
+      "mlp_bc_s22": 96.65
+    },
+    "watchdog_seconds": 4200,
+    "mlp_s22_was_replaying_pending_update_without_new_SCIP": true
+  },
+  "cluster_event_access": "No cluster connector/kubectl configured; current account cannot read mounted service-account token (permission denied). No API request made.",
+  "no_new_training_or_solver": true,
+  "no_existing_job_stopped": true
+}

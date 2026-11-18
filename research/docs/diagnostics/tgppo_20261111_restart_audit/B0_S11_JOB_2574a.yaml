@@ -1,0 +1,182 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  annotations:
+    crater.raids.io/alert-enabled: "true"
+    crater.raids.io/task-name: b0new_11_gpu_resume
+    crater.raids.io/task-template: |-
+      {
+        "version": "20261030",
+        "type": "custom",
+        "data": {
+          "jobName": "b0new_11_gpu_resume",
+          "task": {
+            "taskName": "training",
+            "replicas": 1,
+            "resource": {
+              "cpu": 4,
+              "memory": 48,
+              "gpu": {
+                "count": 1,
+                "model": "nvidia.com/v100"
+              },
+              "network": {
+                "enabled": false
+              },
+              "vgpu": {
+                "enabled": false
+              }
+            },
+            "image": {
+              "imageLink": "gpu-harbor.act.buaa.edu.cn/user-duweiyue25/envd:11260740-c4da",
+              "archs": [
+                "linux/amd64"
+              ]
+            },
+            "shell": "/crater-start.sh",
+            "command": "bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit",
+            "workingDir": "/home/duweiyue25",
+            "ports": []
+          },
+          "tensorboardLogDir": "",
+          "envs": [],
+          "volumeMounts": [
+            {
+              "type": 1,
+              "subPath": "user",
+              "mountPath": "/home/duweiyue25"
+            }
+          ],
+          "nodeSelector": {
+            "enable": false,
+            "mode": "include",
+            "nodes": []
+          },
+          "alertEnabled": true,
+          "cpuPinningEnabled": false,
+          "forwards": []
+        }
+      }
+    crater.raids.io/user-id: "346"
+    crater.raids.io/waiting-tolerance-seconds: "100000000"
+  creationTimestamp: "2026-11-11T02:15:44Z"
+  generation: 1
+  labels:
+    crater.raids.io/base-url: duweiyue25-261111-2574a
+    crater.raids.io/task-account: default
+    crater.raids.io/task-type: custom
+    crater.raids.io/task-user: duweiyue25
+  name: sg-duweiyue25-261111-2574a
+  namespace: crater-workspace
+  resourceVersion: "783649930"
+  uid: aea1804e-d4cc-4918-a21c-91517467f93f
+spec:
+  maxRetry: 1
+  minAvailable: 1
+  plugins:
+    svc:
+      - --publish-not-ready-addresses=false
+      - --disable-network-policy=false
+  policies:
+    - action: RestartJob
+      event: PodEvicted
+  queue: default
+  schedulerName: volcano
+  tasks:
+    - maxRetry: 3
+      minAvailable: 1
+      name: default0
+      policies:
+        - action: CompleteJob
+          event: TaskCompleted
+      replicas: 1
+      template:
+        metadata:
+          annotations:
+            crater.raids.io/task-name: b0new_11_gpu_resume
+            crater.raids.io/user: duweiyue25
+          creationTimestamp: null
+          labels:
+            crater.raids.io/base-url: duweiyue25-261111-2574a
+            crater.raids.io/task-account: default
+            crater.raids.io/task-type: custom
+            crater.raids.io/task-user: duweiyue25
+        spec:
+          affinity:
+            nodeAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - preference:
+                    matchExpressions:
+                      - key: feature.node.kubernetes.io/pci-15b3.present
+                        operator: DoesNotExist
+                  weight: 50
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/arch
+                        operator: In
+                        values:
+                          - amd64
+          containers:
+            - command:
+                - /crater-start.sh
+                - -c
+                - bash /home/duweiyue25/tgppo-transfer/research/tgppo/experiments/paper-resource-resume-20261109/custom_job.sh run --experiment trainmode --variant b0 --seed 11 --device cuda --ram-gib 48 --resume --no-total-wall-limit
+              env:
+                - name: TENSORBOARD_LOGDIR
+                  value: /home/duweiyue25/tensorboard-runs/sg-duweiyue25-261111-2574a
+                - name: NB_USER
+                  value: duweiyue25
+                - name: NB_GID
+                  value: "10513"
+                - name: NB_UID
+                  value: "38884"
+              image: gpu-harbor.act.buaa.edu.cn/user-duweiyue25/envd:11260740-c4da
+              name: custom
+              resizePolicy:
+                - resourceName: cpu
+                  restartPolicy: NotRequired
+                - resourceName: memory
+                  restartPolicy: NotRequired
+              resources:
+                limits:
+                  cpu: 4001m
+                  memory: 49153Mi
+                  nvidia.com/v100: "1"
+                requests:
+                  cpu: "4"
+                  memory: 48Gi
+                  nvidia.com/v100: "1"
+              securityContext:
+                capabilities:
+                  add:
+                    - IPC_LOCK
+                runAsGroup: 0
+                runAsUser: 0
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+              volumeMounts:
+                - mountPath: /dev/shm
+                  name: crater-cache
+                - mountPath: /home/duweiyue25
+                  name: crater-rw-storage
+                  subPath: sugon-gpu-home-lab/duweiyue25
+                - mountPath: /crater-start.sh
+                  name: start-bash-script-volume
+                  readOnly: true
+                  subPath: start.sh
+              workingDir: /home/duweiyue25
+          enableServiceLinks: false
+          restartPolicy: Never
+          volumes:
+            - emptyDir:
+                medium: Memory
+              name: crater-cache
+            - name: crater-rw-storage
+              persistentVolumeClaim:
+                claimName: crater-rw-storage
+            - configMap:
+                defaultMode: 493
+                name: custom-start-configmap
+              name: start-bash-script-volume
+  ttlSecondsAfterFinished: 604800

@@ -1,0 +1,287 @@
+{
+  "retrieved_utc": "2026-11-08",
+  "repository": "benmhamed-a/tgppo-aaai-26",
+  "tree_sha": "4f90ccddd7999779c93ff2425ca8dd056113a523",
+  "truncated": false,
+  "files": [
+    {
+      "path": "README.md",
+      "sha": "9f4c9c7491f57f2df05ee118e6330a0e4d368317",
+      "size": 4527
+    },
+    {
+      "path": "code/project/__init__.py",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "code/project/agent/__init__.py",
+      "sha": "fb32449d6be2c8ca3f8a1cfc4866e3954709f726",
+      "size": 24
+    },
+    {
+      "path": "code/project/agent/agent.py",
+      "sha": "95458715cd72013ae6e249e55140a361e0badc66",
+      "size": 13798
+    },
+    {
+      "path": "code/project/brancher/__init__.py",
+      "sha": "66edc591530c6ea70375e99a7d37abbeb4108005",
+      "size": 30
+    },
+    {
+      "path": "code/project/brancher/brancher.py",
+      "sha": "c326292155ce254ab5d2e2e7c677fce95e6826d5",
+      "size": 7686
+    },
+    {
+      "path": "code/project/environment/__init__.py",
+      "sha": "e12a9768601e9aaabe945a2e53d8dca1d3c70c7b",
+      "size": 36
+    },
+    {
+      "path": "code/project/environment/environment.py",
+      "sha": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0",
+      "size": 7146
+    },
+    {
+      "path": "code/project/memory/__init__.py",
+      "sha": "c587e7e1f98280c29535ec09bdc398ae393653e8",
+      "size": 26
+    },
+    {
+      "path": "code/project/memory/memory.py",
+      "sha": "9ff4f549a28dd5646a2db86a35e5857d91911273",
+      "size": 15009
+    },
+    {
+      "path": "code/project/policy/__init__.py",
+      "sha": "efbd5c6af4fc43f6d0812a00add254b6a02315be",
+      "size": 51
+    },
+    {
+      "path": "code/project/policy/actor.py",
+      "sha": "11f69657c620a73ed6ee004f33f53e639ba9105f",
+      "size": 3296
+    },
+    {
+      "path": "code/project/policy/critic.py",
+      "sha": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed",
+      "size": 2959
+    },
+    {
+      "path": "code/project/policy/modules.py",
+      "sha": "1d26fe8739393bcca06160db20c6929cc30107bb",
+      "size": 5412
+    },
+    {
+      "path": "code/project/reward/__init__.py",
+      "sha": "669efc228b86fea0515861a4437f59e761b84b35",
+      "size": 48
+    },
+    {
+      "path": "code/project/reward/reward.py",
+      "sha": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c",
+      "size": 11370
+    },
+    {
+      "path": "code/project/utils/__init__.py",
+      "sha": "3cd5ead395fd4e9c71ac9c09f4085a600a6cba62",
+      "size": 259
+    },
+    {
+      "path": "code/project/utils/functions.py",
+      "sha": "f892d8fa360cd2479412b5ffda4c217c7cb58fc9",
+      "size": 2834
+    },
+    {
+      "path": "code/project/utils/loggers.py",
+      "sha": "9f3d8e7e934b405f538940470d034e4b76be2332",
+      "size": 4863
+    },
+    {
+      "path": "code/project/utils/settings.py",
+      "sha": "e3d43becc0a8440bde85cf2a65f01ea940cc3cbd",
+      "size": 5894
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha": "b5c7b0d30787bd0fa90648f4745255121f02cd45",
+      "size": 2555
+    },
+    {
+      "path": "code/scripts/test.sh",
+      "sha": "0633e88696d66f22cb77599ccd12437514b415ce",
+      "size": 2551
+    },
+    {
+      "path": "code/scripts/train.sh",
+      "sha": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac",
+      "size": 3072
+    },
+    {
+      "path": "code/scripts/tune.sh",
+      "sha": "d76575f164b76b126548247e2f069c1df92bc647",
+      "size": 2767
+    },
+    {
+      "path": "code/test.py",
+      "sha": "1e3e1f429b67b03cc10a00e87809b14d34f54782",
+      "size": 11991
+    },
+    {
+      "path": "code/train.py",
+      "sha": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a",
+      "size": 18233
+    },
+    {
+      "path": "code/tune.py",
+      "sha": "6e99727c3fdb2f6036b81b966530692873a708ce",
+      "size": 29812
+    },
+    {
+      "path": "crc/AAAI_26_Camera_Ready_8_Pages.pdf",
+      "sha": "a4657b6a4b1b3eb24ea5fc0b3e7f4d7456819418",
+      "size": 682034
+    },
+    {
+      "path": "crc/AAAI_26_Camera_Ready_8_Pages.zip",
+      "sha": "f7ebfaa2a4df631fc24bd1313c14af87d7720e87",
+      "size": 301839
+    },
+    {
+      "path": "extended-version/Learning Branching Policies for MILPs with Proximal Policy Optimization.pdf",
+      "sha": "5e7ba5aabb4c19a13c8d7f1285d376b74a4b4b99",
+      "size": 731173
+    },
+    {
+      "path": "plots_crc/fig_combined_aaai.pdf",
+      "sha": "5222a6ebf7e2ddf89c429a721ae1631f1b2cb44c",
+      "size": 8901
+    },
+    {
+      "path": "plots_crc/fig_combined_patchwork.pdf",
+      "sha": "dd02f0059012d3528928922a2dbec2a29399ef3f",
+      "size": 8897
+    },
+    {
+      "path": "plots_crc/fig_combined_tight.pdf",
+      "sha": "c5f30ff78618a7c35ad80566bc2a0bead271f125",
+      "size": 8859
+    },
+    {
+      "path": "plots_crc/fig_easy_aaai.pdf",
+      "sha": "c99ae8538c45bf3387d4086cc3806c74c3b2bde6",
+      "size": 6621
+    },
+    {
+      "path": "plots_crc/fig_hard_aaai.pdf",
+      "sha": "5b8b1dda6030c9ea2324ba609ca1fab18fb62e68",
+      "size": 6705
+    },
+    {
+      "path": "plots_crc/finished_instances.xlsx",
+      "sha": "9be264f0b7f7d50884b292fb074a674ff6a5f0f3",
+      "size": 51708
+    },
+    {
+      "path": "plots_crc/plots_crc.r",
+      "sha": "00ba7b7257e45c69812088ffe5441548b376cec4",
+      "size": 11140
+    },
+    {
+      "path": "plots_crc/timelimit_instances.xlsx",
+      "sha": "6b0445fdd63e1740b5ef3405f3395225bafba144",
+      "size": 67885
+    }
+  ],
+  "releases": [],
+  "issue_search": {
+    "query": "repo:benmhamed-a/tgppo-aaai-26",
+    "returned_issues": 0
+  },
+  "openreview": {
+    "result": "No publicly accessible target review located; not evidence no review exists or no reviewer raised the issue.",
+    "api_check": {
+      "http_status": 429,
+      "content_type": "text/html"
+    },
+    "queries": [
+      "\"Learning Branching Policies for MILPs with Proximal Policy Optimization\" OpenReview",
+      "\"TGPPO\" \"openreview\"",
+      "site:openreview.net \"Ben Mhamed\"",
+      "site:openreview.net \"2511.12986\""
+    ]
+  },
+  "file_identity_checks": [
+    {
+      "path": "code/project/policy/actor.py",
+      "public_git_blob": "11f69657c620a73ed6ee004f33f53e639ba9105f",
+      "local_original_git_blob": "11f69657c620a73ed6ee004f33f53e639ba9105f",
+      "original_matches_public": true,
+      "current_matches_public": true
+    },
+    {
+      "path": "code/project/policy/critic.py",
+      "public_git_blob": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed",
+      "local_original_git_blob": "fa682cbee8914ba8f16f82f1795ae7476b0b5bed",
+      "original_matches_public": true,
+      "current_matches_public": true
+    },
+    {
+      "path": "code/project/policy/modules.py",
+      "public_git_blob": "1d26fe8739393bcca06160db20c6929cc30107bb",
+      "local_original_git_blob": "1d26fe8739393bcca06160db20c6929cc30107bb",
+      "original_matches_public": true,
+      "current_matches_public": true
+    },
+    {
+      "path": "code/project/agent/agent.py",
+      "public_git_blob": "95458715cd72013ae6e249e55140a361e0badc66",
+      "local_original_git_blob": "95458715cd72013ae6e249e55140a361e0badc66",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/project/brancher/brancher.py",
+      "public_git_blob": "c326292155ce254ab5d2e2e7c677fce95e6826d5",
+      "local_original_git_blob": "c326292155ce254ab5d2e2e7c677fce95e6826d5",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/project/memory/memory.py",
+      "public_git_blob": "9ff4f549a28dd5646a2db86a35e5857d91911273",
+      "local_original_git_blob": "9ff4f549a28dd5646a2db86a35e5857d91911273",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/project/environment/environment.py",
+      "public_git_blob": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0",
+      "local_original_git_blob": "d3dfcc68c2a2b2629f43e4c1de811977d3d70cc0",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/project/reward/reward.py",
+      "public_git_blob": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c",
+      "local_original_git_blob": "cc54f9b561c00f44d5f5b6aa8b034e401de1bd0c",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/train.py",
+      "public_git_blob": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a",
+      "local_original_git_blob": "ba392589fe0e08592e2122f2585fbb4ea77dcb3a",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/scripts/train.sh",
+      "public_git_blob": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac",
+      "local_original_git_blob": "00d542b1162d375e2f3aa5b4a7ad07e55ec464ac",
+      "original_matches_public": true
+    },
+    {
+      "path": "code/requirements.txt",
+      "public_git_blob": "b5c7b0d30787bd0fa90648f4745255121f02cd45",
+      "local_original_git_blob": "b5c7b0d30787bd0fa90648f4745255121f02cd45",
+      "original_matches_public": true
+    }
+  ]
+}

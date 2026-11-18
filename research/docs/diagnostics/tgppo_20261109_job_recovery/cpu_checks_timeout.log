@@ -1,0 +1,10 @@
+test_cpu_cache_routes_and_rejects_policy_or_software_changes (test_recovery.RecoveryTests) ... ok
+test_cpu_import_keeps_weights_adamw_counters_rng_budget (test_recovery.RecoveryTests) ... ok
+test_cpu_pending_interruption_replays_exactly_once (test_recovery.RecoveryTests) ... {"episode": 42, "phase": "updating", "epoch": 1, "epochs": 3, "minibatches_completed": 1, "samples": 4, "expected_minibatches": 3}
+{"episode": 42, "phase": "updating", "epoch": 1, "epochs": 3, "minibatches_completed": 1, "samples": 4, "expected_minibatches": 3}
+{"actor_loss": -0.004570971087863048, "critic_loss": 16.17642656962077, "entropy": 1.471522847811381, "clip_fraction": 0.0, "updated": true, "num_updates": 3, "num_samples": 4, "expert_normalized_nll": 0.0, "expert_weighted_loss": 0.0, "expert_samples": 0, "expert_batches": 0, "initial_ratio_max_error": 0.0, "advantage_std_before_normalization": 0.849948525428772, "update_step": 2, "policy_version": 2, "episode": 42, "instance": "neos20", "solver_seed": 1, "learner_wall_seconds": 0.2746312948875129, "phase": "complete_episode_update", "actor_sha256": "c04d575571d0c6471126ba135f8f40b628505a7963beff4fe4c24a790c38b85e"}
+ok
+test_duplicate_cannot_overwrite_owner_state_even_if_container_pid_matches (test_recovery.RecoveryTests) ... ok
+test_explicit_unlimited_budget_preserves_prior_cost_and_lock (test_recovery.RecoveryTests) ... ok
+test_live_parent_refused (test_recovery.RecoveryTests) ... ok
+test_original_full_model_cpu_device_gate (test_recovery.RecoveryTests) ... 

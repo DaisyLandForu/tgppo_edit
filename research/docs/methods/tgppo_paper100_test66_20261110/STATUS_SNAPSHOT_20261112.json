@@ -1,0 +1,68 @@
+{
+  "checked_at_beijing": "2026-11-12T22:24:35.224192+08:00",
+  "verification": {
+    "models": 4,
+    "instances": 66,
+    "tasks": 330,
+    "training_packages_unchanged": true
+  },
+  "shards": [
+    {
+      "shard": 0,
+      "status": "complete",
+      "lock": "free",
+      "complete_instances": 17,
+      "valid_tasks": 85,
+      "elapsed_seconds": 37971.0719370842,
+      "finished_at_beijing": "2026-11-11T06:38:36.019355+08:00"
+    },
+    {
+      "shard": 1,
+      "status": "complete",
+      "lock": "free",
+      "complete_instances": 17,
+      "valid_tasks": 85,
+      "elapsed_seconds": 41879.505727767944,
+      "finished_at_beijing": "2026-11-11T18:16:42.788411+08:00"
+    },
+    {
+      "shard": 2,
+      "status": "complete",
+      "lock": "free",
+      "complete_instances": 17,
+      "valid_tasks": 85,
+      "elapsed_seconds": 40410.15958452225,
+      "finished_at_beijing": "2026-11-12T05:30:20.829812+08:00"
+    },
+    {
+      "shard": 3,
+      "status": "complete",
+      "lock": "free",
+      "complete_instances": 15,
+      "valid_tasks": 75,
+      "elapsed_seconds": 34165.87993359566,
+      "finished_at_beijing": "2026-11-12T14:59:57.382864+08:00"
+    }
+  ],
+  "complete": true,
+  "valid_tasks": 330,
+  "failed_tasks": 0,
+  "failed_results": [],
+  "total_tasks": 330,
+  "complete_instances": 66,
+  "total_instances": 66,
+  "method_completed": {
+    "native": 66,
+    "b0": 66,
+    "b0_new": 66,
+    "mlp": 66,
+    "mlp_bc": 66
+  },
+  "cohorts": [
+    "0242488a57c146975fa8a1c9"
+  ],
+  "start_at_beijing": "2026-11-10T20:05:44.947416+08:00",
+  "finished_at_beijing": "2026-11-12T14:59:57.382864+08:00",
+  "total_elapsed_hours": 42.90345429095957,
+  "summary_recomputed": true
+}

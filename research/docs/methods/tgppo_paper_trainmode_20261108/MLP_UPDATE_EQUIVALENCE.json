@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "real_scip_solves": 0,
+  "committed_training_episodes": 0,
+  "production_model_writes": 0,
+  "scope": "two trained MLP conditions, four retained transitions each; CPU only",
+  "cuda_initialized": false,
+  "frozen_sources": {
+    "paper-aligned-20261106": {
+      "files": 49,
+      "changed": []
+    },
+    "paper-trainmode-20261108": {
+      "files": 53,
+      "changed": []
+    }
+  },
+  "standard_gae_methods_identical": true,
+  "comparisons": [
+    {
+      "variant": "mlp",
+      "training_seed": 22,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp-s22/pending.pt",
+      "checkpoint_sha256": "3442ac5206b6630bbf8ec61a095c324d28204f8de6c78d7bfad25c2ebb7ff5f1",
+      "source_episode_cursor": 47,
+      "slice_length": 4,
+      "candidate_counts": [
+        66,
+        65,
+        64,
+        64
+      ],
+      "logical_updates_per_side": 3,
+      "equality": {
+        "actor": true,
+        "critic": true,
+        "actor_optimizer": true,
+        "critic_optimizer": true,
+        "rng": true,
+        "targets": true,
+        "policy_version": true,
+        "update_counter": true,
+        "common_metrics": true
+      },
+      "max_actor_tensor_difference": 0.0,
+      "metrics_old": {
+        "actor_loss": -0.012511267326772213,
+        "critic_loss": 1.4947548707326253,
+        "clip_fraction": 0.0
+      },
+      "metrics_new": {
+        "actor_loss": -0.012511267326772213,
+        "critic_loss": 1.4947548707326253,
+        "clip_fraction": 0.0
+      }
+    },
+    {
+      "variant": "mlp_bc",
+      "training_seed": 22,
+      "checkpoint": "/home/duweiyue25/tgppo-transfer/research/tgppo/runs/paper-aligned-20261106/training/mlp_bc-s22/pending.pt",
+      "checkpoint_sha256": "90f204cc89f347e03b8bbc5be5e0e5979f26ddc7f7a189589e107e6d949dccc1",
+      "source_episode_cursor": 52,
+      "slice_length": 4,
+      "candidate_counts": [
+        64,
+        65,
+        67,
+        44
+      ],
+      "logical_updates_per_side": 3,
+      "equality": {
+        "actor": true,
+        "critic": true,
+        "actor_optimizer": true,
+        "critic_optimizer": true,
+        "rng": true,
+        "targets": true,
+        "policy_version": true,
+        "update_counter": true,
+        "common_metrics": true
+      },
+      "max_actor_tensor_difference": 0.0,
+      "metrics_old": {
+        "actor_loss": -0.012249907168249289,
+        "critic_loss": 1.4894249439239502,
+        "clip_fraction": 0.0
+      },
+      "metrics_new": {
+        "actor_loss": -0.012249907168249289,
+        "critic_loss": 1.4894249439239502,
+        "clip_fraction": 0.0
+      }
+    }
+  ],
+  "limits": "CPU, two checkpoints and small slices; not proof of cross-GPU or full-trajectory bitwise identity",
+  "elapsed_seconds": 18.42567262193188,
+  "cumulative_local_check_seconds": 132.7209258773364
+}
